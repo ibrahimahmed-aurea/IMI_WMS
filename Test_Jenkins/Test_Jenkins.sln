@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_Jenkins", "Test_Jenkin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloWorld", "Test_WindowsForms\HelloWorld.csproj", "{FF0FF606-9B0A-41F8-A171-FB7335DAB98D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloWorldTest", "HelloWorldTest\HelloWorldTest.csproj", "{F8C62981-AFBC-4340-9878-D1BA4495216A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloWorldTest", "UnitTestProject\HelloWorldTest.csproj", "{F384B697-10E2-4C50-914A-D12450A4E8D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{FF0FF606-9B0A-41F8-A171-FB7335DAB98D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF0FF606-9B0A-41F8-A171-FB7335DAB98D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF0FF606-9B0A-41F8-A171-FB7335DAB98D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F8C62981-AFBC-4340-9878-D1BA4495216A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F8C62981-AFBC-4340-9878-D1BA4495216A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F8C62981-AFBC-4340-9878-D1BA4495216A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F8C62981-AFBC-4340-9878-D1BA4495216A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F384B697-10E2-4C50-914A-D12450A4E8D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F384B697-10E2-4C50-914A-D12450A4E8D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F384B697-10E2-4C50-914A-D12450A4E8D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F384B697-10E2-4C50-914A-D12450A4E8D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

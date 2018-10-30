@@ -1,4 +1,7 @@
 pipeline {
+  agent { 
+    
+  }
   stages {
 	stage('Checkout the project') {
 		steps {

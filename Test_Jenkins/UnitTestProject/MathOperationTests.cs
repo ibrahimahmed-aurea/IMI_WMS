@@ -11,7 +11,7 @@ namespace UnitTestProject
         {
             int reuslt = MathOperations.Add(5, 6);
             Assert.AreEqual(reuslt, 11);
-        }
+        
 
         [TestMethod]
         public void Add_Negative_ReturnSum()

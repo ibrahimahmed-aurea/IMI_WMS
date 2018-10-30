@@ -1,7 +1,4 @@
 pipeline {
-  agent { 
-    label 'win-slave-node'
-  }
   stages {
 	stage('Checkout the project') {
 		steps {

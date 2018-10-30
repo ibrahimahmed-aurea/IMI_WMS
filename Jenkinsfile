@@ -14,7 +14,7 @@ node {
     //   bat "npm run prod"
     //  bat 'D:/JenkinsServer/scripts/Demo/Demo.bat'
     //   echo 'Build deployed!'
-    bat returnStatus: true, script: 'call %cd%/buil.cmd'
+    bat returnStatus: true, script: 'call buil.bat'
    }
    
    stage('Deployment') {

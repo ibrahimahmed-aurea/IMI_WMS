@@ -4,7 +4,11 @@ pipeline {
   }
   stages {
 	stage('Checkout the project') {
-		git 'https://github.com/ibrahimahmed-aurea/IMI_WMS.git'
+		steps {
+			Checkout{
+				git 'https://github.com/ibrahimahmed-aurea/IMI_WMS.git'
+			}
+		}
 	}
     stage('Build') {
       steps {

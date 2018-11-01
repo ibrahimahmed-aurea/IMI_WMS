@@ -15,9 +15,13 @@ node {
                 echo Running the application...
    }
    
-   stage('Automation Testing'){
+   stage('Unit Tests'){
         echo 'Testing...'
 		bat returnStatus: true, script: 'call dotnet/test.bat'
         echo 'Tests passed!'
    }
+   
+   stage("Publish Unit Tests Report"){
+     nunit testResultsPattern: 'TestResult.xml'
+     }
 }

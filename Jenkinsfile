@@ -1,7 +1,7 @@
 node {
    stage('Preparation') {
       echo 'Pulling code from repo...'
-      echo git 'https://github.com/ibrahimahmed-aurea/IMI_WMS.git'
+      git 'https://github.com/ibrahimahmed-aurea/IMI_WMS.git'
       echo 'Code fetched.'
    }
    
@@ -12,10 +12,7 @@ node {
    }
    
    stage('Deployment') {
-       bat '''@echo off
                 echo Running the application...
-                CALL start echo HELLO WORLD....
-                echo Success...'''
    }
    
    stage('Automation Testing'){

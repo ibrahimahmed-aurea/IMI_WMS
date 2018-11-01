@@ -12,7 +12,7 @@ node {
    }
    
    stage('Deployment') {
-                echo Running the application...
+                echo 'Running the application...'
    }
    
    stage('Unit Tests'){
@@ -22,7 +22,7 @@ node {
    }
    
    stage('Publish Unit Tests Report'){
-	 echo 'Displaying the unit tests result'
-    // nunit testResultsPattern: 'TestResult.xml'
-     }
+		echo 'Displaying the unit tests result'
+		nunit testResultsPattern: 'TestResult.xml'
+   }
 }

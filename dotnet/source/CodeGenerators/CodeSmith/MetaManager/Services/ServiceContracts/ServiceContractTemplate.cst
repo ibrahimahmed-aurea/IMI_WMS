@@ -1,0 +1,65 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="ServiceTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Register Name="ServiceContractClassTemplate" Template="ServiceContractClassTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="ServiceContractInterfaceTemplate" Template="ServiceContractInterfaceTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Property Name="service" Type="Cdc.MetaManager.DataAccess.Domain.Service" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="serviceContractDirectory" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="frontendApplication" Type="Cdc.MetaManager.DataAccess.Domain.Application" Default="" Optional="true" Category="" Description="" %>
+<%
+  ServiceContractClassTemplate classTemplate = this.Create<ServiceContractClassTemplate>();
+
+  string dataContractNamespace, nameSpace;
+  bool isFrontend = false;
+
+  if (frontendApplication != null)
+  {
+	  dataContractNamespace = GetFrontendDataContractNamespace(frontendApplication, service);
+	  nameSpace = GetFrontendServiceContractNamespace(frontendApplication, service);
+	  isFrontend = true;
+  }
+  else
+  {
+	  dataContractNamespace = GetDataContractNamespace(service);
+	  nameSpace = GetServiceContractNamespace(service);
+  }
+
+  foreach(ServiceMethod serviceMethod in service.ServiceMethods) 
+  {
+	string fileNameReq = string.Format(@"{0}\{1}.cs", serviceContractDirectory, GetServiceContractClassName(serviceMethod, true));
+
+	classTemplate.SetProperty("service", service);
+	classTemplate.SetProperty("serviceMethod", serviceMethod);
+	classTemplate.SetProperty("propertyMap", serviceMethod.RequestMap);
+	classTemplate.SetProperty("isRequest", true);
+	classTemplate.SetProperty("dataContractNamespace", dataContractNamespace);
+	classTemplate.SetProperty("nameSpace", nameSpace);
+	classTemplate.RenderToFile(fileNameReq, true);
+
+	string fileNameResp = string.Format(@"{0}\{1}.cs", serviceContractDirectory, GetServiceContractClassName(serviceMethod, false));
+
+	classTemplate.SetProperty("service", service);
+	classTemplate.SetProperty("serviceMethod", serviceMethod);
+	classTemplate.SetProperty("propertyMap", serviceMethod.ResponseMap);
+	classTemplate.SetProperty("isRequest", false);
+	classTemplate.SetProperty("dataContractNamespace", dataContractNamespace);
+	classTemplate.SetProperty("nameSpace", nameSpace);
+	classTemplate.RenderToFile(fileNameResp, true);
+  }
+
+  string interfaceFileName = string.Format(@"{0}\{1}.cs", serviceContractDirectory, GetServiceImplementationInterfaceName(service));
+  ServiceContractInterfaceTemplate serviceContractInterfaceTemplate = this.Create<ServiceContractInterfaceTemplate>();
+  serviceContractInterfaceTemplate.SetProperty("service", service);
+  serviceContractInterfaceTemplate.SetProperty("serviceContractDirectory", serviceContractDirectory);
+  serviceContractInterfaceTemplate.SetProperty("nameSpace", nameSpace);
+  serviceContractInterfaceTemplate.SetProperty("isFrontend", isFrontend);
+  serviceContractInterfaceTemplate.RenderToFile(interfaceFileName, true);
+
+%>

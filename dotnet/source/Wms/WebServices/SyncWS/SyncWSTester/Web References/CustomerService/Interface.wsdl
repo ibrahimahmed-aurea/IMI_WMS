@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://im.se/webservices/c3pl" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://im.se/webservices/c3pl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://im.se/webservices/c3pl">
+      <s:element name="getAddresses">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="customerSearchParameters" type="tns:customerSearchParameters" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="customerSearchParameters">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:baseParameters">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="customerId" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="baseParameters">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="clientId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="returnDetails" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="firstResult" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="maxResult" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="stockNo" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="partySearchParameters">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:baseParameters">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="partyId" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="partyType" type="tns:partyType" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:simpleType name="partyType">
+        <s:restriction base="s:string">
+          <s:enumeration value="CA" />
+          <s:enumeration value="CL" />
+          <s:enumeration value="CU" />
+          <s:enumeration value="GO" />
+          <s:enumeration value="OT" />
+          <s:enumeration value="SU" />
+          <s:enumeration value="WH" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="getAddressesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="unbounded" form="unqualified" name="return" type="tns:address" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="address">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="name1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="name2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="street1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="street2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="street3" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="zipCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="city" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="stateCd" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="countryCd" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="findCustomerById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="customerSearchParameters" type="tns:customerSearchParameters" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="findCustomerByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="return" type="tns:customer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="customer">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="city" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="organizationNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="phone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="fax" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="customerRef" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="shippingAddress" type="tns:shippingAddress" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="shippingAddress">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="shipCustNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="shiptoNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="address" type="tns:address" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="findClientById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="customerSearchParameters" type="tns:customerSearchParameters" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="findClientByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="return" type="tns:customer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="findPartyById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="PartySearchParameters" type="tns:partySearchParameters" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="findPartyByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="return" type="tns:customer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="getAddressesSoapIn">
+    <wsdl:part name="parameters" element="tns:getAddresses" />
+  </wsdl:message>
+  <wsdl:message name="getAddressesSoapOut">
+    <wsdl:part name="parameters" element="tns:getAddressesResponse" />
+  </wsdl:message>
+  <wsdl:message name="findCustomerByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:findCustomerById" />
+  </wsdl:message>
+  <wsdl:message name="findCustomerByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:findCustomerByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="findClientByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:findClientById" />
+  </wsdl:message>
+  <wsdl:message name="findClientByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:findClientByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="findPartyByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:findPartyById" />
+  </wsdl:message>
+  <wsdl:message name="findPartyByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:findPartyByIdResponse" />
+  </wsdl:message>
+  <wsdl:portType name="CustomerServiceBinding">
+    <wsdl:operation name="getAddresses">
+      <wsdl:input message="tns:getAddressesSoapIn" />
+      <wsdl:output message="tns:getAddressesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="findCustomerById">
+      <wsdl:input message="tns:findCustomerByIdSoapIn" />
+      <wsdl:output message="tns:findCustomerByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="findClientById">
+      <wsdl:input message="tns:findClientByIdSoapIn" />
+      <wsdl:output message="tns:findClientByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="findPartyById">
+      <wsdl:input message="tns:findPartyByIdSoapIn" />
+      <wsdl:output message="tns:findPartyByIdSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CustomerServiceBinding" type="tns:CustomerServiceBinding">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getAddresses">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findCustomerById">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findClientById">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findPartyById">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CustomerServiceBinding1" type="tns:CustomerServiceBinding">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getAddresses">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findCustomerById">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findClientById">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findPartyById">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CustomerWebService">
+    <wsdl:port name="CustomerServiceBinding" binding="tns:CustomerServiceBinding">
+      <soap:address location="http://localhost:1095/Wms.WebServices.SyncWS.WebSite/Interface.c3PL.Customer.asmx" />
+    </wsdl:port>
+    <wsdl:port name="CustomerServiceBinding1" binding="tns:CustomerServiceBinding1">
+      <soap12:address location="http://localhost:1095/Wms.WebServices.SyncWS.WebSite/Interface.c3PL.Customer.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

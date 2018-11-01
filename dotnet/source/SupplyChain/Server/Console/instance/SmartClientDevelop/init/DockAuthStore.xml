@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AzAdminManager MajorVersion="1" MinorVersion="0" Guid="95a61e1b-c1e9-42c6-90c6-02a35debbb3c">
+	<AzApplication Guid="861d5042-2560-409e-809f-5bf99016bd2a" Name="Dock" Description="Azman store for Dock" ApplicationVersion="7.1.6">
+		<AzOperation Guid="3d389af1-aee8-41b3-8cf1-677342659b67" Name="3d389af1-aee8-41b3-8cf1-677342659b67" Description="DockDoor.DockDoor - Show Vehicle Load Unit">
+			<OperationID>1</OperationID>
+		</AzOperation>
+		<AzOperation Guid="790938a5-86be-4c9d-9748-194e5d97e0fe" Name="790938a5-86be-4c9d-9748-194e5d97e0fe" Description="ExpectedArrival.ExpectedArrival - Show Vehicle Load Unit">
+			<OperationID>2</OperationID>
+		</AzOperation>
+		<AzOperation Guid="42286193-cab2-458e-800b-4fcf8109fe97" Name="42286193-cab2-458e-800b-4fcf8109fe97" Description="ExpectedArrival.ExpectedArrival - Connect Vehicle Load Unit">
+			<OperationID>3</OperationID>
+		</AzOperation>
+		<AzOperation Guid="af58f871-a4cd-4a95-9d45-8ff382d7cf89" Name="af58f871-a4cd-4a95-9d45-8ff382d7cf89" Description="ExpectedArrival.InboundOrderConnectToVLU - OK">
+			<OperationID>4</OperationID>
+		</AzOperation>
+		<AzOperation Guid="5938e90d-2ce2-40c4-8cbf-be1406fb8b11" Name="5938e90d-2ce2-40c4-8cbf-be1406fb8b11" Description="ExpectedArrival.InboundOrderConnectToVLU - Cancel">
+			<OperationID>5</OperationID>
+		</AzOperation>
+		<AzOperation Guid="ab299a4b-16e0-4722-a331-fb12070b6ba0" Name="ab299a4b-16e0-4722-a331-fb12070b6ba0" Description="VehicleLoadUnit.ConnectToOrder - Connect">
+			<OperationID>6</OperationID>
+		</AzOperation>
+		<AzOperation Guid="e5d38422-677e-4c2f-bbfe-a92f2dc3302a" Name="e5d38422-677e-4c2f-bbfe-a92f2dc3302a" Description="VehicleLoadUnit.ConnectToOrder - Close">
+			<OperationID>7</OperationID>
+		</AzOperation>
+		<AzOperation Guid="bd7371fa-3bca-493b-864b-95b1b2095979" Name="bd7371fa-3bca-493b-864b-95b1b2095979" Description="VehicleLoadUnit.CreateVehicle - OK">
+			<OperationID>8</OperationID>
+		</AzOperation>
+		<AzOperation Guid="eb3889eb-3166-4286-ae83-0db8c3635875" Name="eb3889eb-3166-4286-ae83-0db8c3635875" Description="VehicleLoadUnit.CreateVehicleLoadUnit - OK">
+			<OperationID>9</OperationID>
+		</AzOperation>
+		<AzOperation Guid="822bd211-b395-44d2-8684-3a7f7196119e" Name="822bd211-b395-44d2-8684-3a7f7196119e" Description="VehicleLoadUnit.ModifyVehicle - OK">
+			<OperationID>10</OperationID>
+		</AzOperation>
+		<AzOperation Guid="c41152eb-d234-4a21-8494-03f8f4db008c" Name="c41152eb-d234-4a21-8494-03f8f4db008c" Description="VehicleLoadUnit.ModifyVehicleLoadUnit - OK">
+			<OperationID>11</OperationID>
+		</AzOperation>
+		<AzOperation Guid="6b7262d2-bd77-41e3-b1c3-f7aa24a219f6" Name="6b7262d2-bd77-41e3-b1c3-f7aa24a219f6" Description="VehicleLoadUnit.PerformCheckForVLU - Reject Vehicle Load Unit">
+			<OperationID>12</OperationID>
+		</AzOperation>
+		<AzOperation Guid="b7aedec6-e462-4651-adb8-ec2d99413e72" Name="b7aedec6-e462-4651-adb8-ec2d99413e72" Description="VehicleLoadUnit.PerformCheckForVLU - Print Vehicle Load Content List">
+			<OperationID>13</OperationID>
+		</AzOperation>
+		<AzOperation Guid="97191c60-3a17-45ef-968e-9826de81a77b" Name="97191c60-3a17-45ef-968e-9826de81a77b" Description="VehicleLoadUnit.PerformCheckForVLU - OK">
+			<OperationID>14</OperationID>
+		</AzOperation>
+		<AzOperation Guid="481f5641-c5e1-44f0-a0e4-df82f98038e6" Name="481f5641-c5e1-44f0-a0e4-df82f98038e6" Description="VehicleLoadUnit.Vehicle - Change Vehicle">
+			<OperationID>15</OperationID>
+		</AzOperation>
+		<AzOperation Guid="e519d4d9-ebd4-45a8-a936-93aad584a147" Name="e519d4d9-ebd4-45a8-a936-93aad584a147" Description="VehicleLoadUnit.Vehicle - Delete Vehicle">
+			<OperationID>16</OperationID>
+		</AzOperation>
+		<AzOperation Guid="d5dcfa96-a057-4b16-98d4-20b670c99a0a" Name="d5dcfa96-a057-4b16-98d4-20b670c99a0a" Description="VehicleLoadUnit.Vehicle - Set to Arrived">
+			<OperationID>17</OperationID>
+		</AzOperation>
+		<AzOperation Guid="7845e49f-71fa-425c-9a7d-abe0f8c628c0" Name="7845e49f-71fa-425c-9a7d-abe0f8c628c0" Description="VehicleLoadUnit.Vehicle - Add Vehicle Load Unit">
+			<OperationID>18</OperationID>
+		</AzOperation>
+		<AzOperation Guid="aca4a0d9-9614-4c88-8126-0e48c92c0d85" Name="aca4a0d9-9614-4c88-8126-0e48c92c0d85" Description="VehicleLoadUnit.Vehicle - New Vehicle">
+			<OperationID>19</OperationID>
+		</AzOperation>
+		<AzOperation Guid="f9f124c2-c517-4dd4-b3e0-00e6b644b6b0" Name="f9f124c2-c517-4dd4-b3e0-00e6b644b6b0" Description="VehicleLoadUnit.VehicleLoadUnit - New Vehicle Load Unit">
+			<OperationID>20</OperationID>
+		</AzOperation>
+		<AzOperation Guid="327bec4c-6147-4c3d-899f-bf41b8df981a" Name="327bec4c-6147-4c3d-899f-bf41b8df981a" Description="VehicleLoadUnit.VehicleLoadUnit - Select for Docking">
+			<OperationID>21</OperationID>
+		</AzOperation>
+		<AzOperation Guid="938701de-2d19-45dd-b283-cb1729af0ff0" Name="938701de-2d19-45dd-b283-cb1729af0ff0" Description="VehicleLoadUnit.VehicleLoadUnit - Undock">
+			<OperationID>22</OperationID>
+		</AzOperation>
+		<AzOperation Guid="0add2e9e-7d89-4124-b03d-1eaf04f9d57d" Name="0add2e9e-7d89-4124-b03d-1eaf04f9d57d" Description="VehicleLoadUnit.VehicleLoadUnit - Set to Departed">
+			<OperationID>23</OperationID>
+		</AzOperation>
+		<AzOperation Guid="90d2f474-b0a4-4308-a936-7046c90440f4" Name="90d2f474-b0a4-4308-a936-7046c90440f4" Description="VehicleLoadUnit.VehicleLoadUnit - Undo Select for Docking">
+			<OperationID>24</OperationID>
+		</AzOperation>
+		<AzOperation Guid="6bd1bd08-e98e-4a3f-9f43-3dc3bf83aeb8" Name="6bd1bd08-e98e-4a3f-9f43-3dc3bf83aeb8" Description="VehicleLoadUnit.VehicleLoadUnit - Undo Cancellation">
+			<OperationID>25</OperationID>
+		</AzOperation>
+		<AzOperation Guid="4697ee63-85f9-4955-9875-7d19191a5ac6" Name="4697ee63-85f9-4955-9875-7d19191a5ac6" Description="VehicleLoadUnit.VehicleLoadUnit - Delete Vehicle Load Unit">
+			<OperationID>26</OperationID>
+		</AzOperation>
+		<AzOperation Guid="c0555ede-8926-447e-af54-e4a41aa5318b" Name="c0555ede-8926-447e-af54-e4a41aa5318b" Description="VehicleLoadUnit.VehicleLoadUnit - Change Vehicle Load Unit">
+			<OperationID>27</OperationID>
+		</AzOperation>
+		<AzOperation Guid="8f77cfff-e3ec-493e-afa9-e406079644f7" Name="8f77cfff-e3ec-493e-afa9-e406079644f7" Description="VehicleLoadUnit.VehicleLoadUnit - Dock">
+			<OperationID>28</OperationID>
+		</AzOperation>
+		<AzOperation Guid="f9f6210e-8e17-4c0f-b9e2-733c46188150" Name="f9f6210e-8e17-4c0f-b9e2-733c46188150" Description="VehicleLoadUnit.VehicleLoadUnit - Show Inbound Order / ASN">
+			<OperationID>29</OperationID>
+		</AzOperation>
+		<AzOperation Guid="f347a2c4-adac-4aea-9e53-5dd9915e59ca" Name="f347a2c4-adac-4aea-9e53-5dd9915e59ca" Description="VehicleLoadUnit.VehicleLoadUnit - Connect Inbound Order / ASN">
+			<OperationID>30</OperationID>
+		</AzOperation>
+		<AzOperation Guid="29f7c75b-42bf-4959-8264-cbc450d90327" Name="29f7c75b-42bf-4959-8264-cbc450d90327" Description="VehicleLoadUnit.VehicleLoadUnit - Disconnect Inbound Order / ASN">
+			<OperationID>31</OperationID>
+		</AzOperation>
+		<AzOperation Guid="be354397-c326-4a83-b498-d1d1dc144713" Name="be354397-c326-4a83-b498-d1d1dc144713" Description="VehicleLoadUnit.VehicleLoadUnit - Show Check">
+			<OperationID>32</OperationID>
+		</AzOperation>
+		<AzOperation Guid="82ef5435-08d2-455e-8ed2-d3942649fc04" Name="82ef5435-08d2-455e-8ed2-d3942649fc04" Description="VehicleLoadUnit.VehicleLoadUnitCheck - Change Vehicle Load Unit Checks">
+			<OperationID>33</OperationID>
+		</AzOperation>
+		<AzOperation Guid="56d75ebf-3eba-484d-9896-b6cb412e6c4a" Name="56d75ebf-3eba-484d-9896-b6cb412e6c4a" Description="VehicleLoadUnit.VehicleLoadUnitOrderASN - Connect Order / ASN">
+			<OperationID>34</OperationID>
+		</AzOperation>
+		<AzOperation Guid="a3e43c72-76d0-4dea-99b2-233ea021f630" Name="a3e43c72-76d0-4dea-99b2-233ea021f630" Description="VehicleLoadUnit.VehicleLoadUnitOrderASN - Disconnect Order / ASN">
+			<OperationID>35</OperationID>
+		</AzOperation>
+		<AzOperation Guid="308f27b9-6a51-4a28-8cbd-1182d688b944" Name="308f27b9-6a51-4a28-8cbd-1182d688b944" Description="Start Change User Settings">
+			<OperationID>36</OperationID>
+		</AzOperation>
+		<AzOperation Guid="510c7e95-9731-4c9c-bfaf-550d7caa5871" Name="510c7e95-9731-4c9c-bfaf-550d7caa5871" Description="Start Expected Arrival">
+			<OperationID>37</OperationID>
+		</AzOperation>
+		<AzOperation Guid="aba9b369-6fd6-4732-87c6-908ca6c195f8" Name="aba9b369-6fd6-4732-87c6-908ca6c195f8" Description="Start Vehicle">
+			<OperationID>38</OperationID>
+		</AzOperation>
+		<AzOperation Guid="401dd4d3-10c8-44f4-a511-790c98d8fcca" Name="401dd4d3-10c8-44f4-a511-790c98d8fcca" Description="Start Vehicle Load Unit">
+			<OperationID>39</OperationID>
+		</AzOperation>
+		<AzOperation Guid="f58ef14e-cb8a-4e51-b74e-9d2d0a4569b2" Name="f58ef14e-cb8a-4e51-b74e-9d2d0a4569b2" Description="Start Dock Door">
+			<OperationID>40</OperationID>
+		</AzOperation>
+		<AzTask Guid="5dc82d7d-4f5a-4ea3-aa37-1ee873aba9b4" Name="DockDoor.DockDoor" Description="Dock Door" BizRuleImportedPath="">
+			<OperationLink>f58ef14e-cb8a-4e51-b74e-9d2d0a4569b2</OperationLink>
+		</AzTask>
+		<AzTask Guid="875e6702-2c0c-42fa-b8b5-486be0522b25" Name="DockDoor.FindVacantReceivingDockDoor" Description="Select Vacant Dock Door (Reciving)" BizRuleImportedPath="">
+		</AzTask>
+		<AzTask Guid="1ed4147f-e880-4617-903a-6768f6f1030a" Name="DockDoor" Description="DockDoor Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>5dc82d7d-4f5a-4ea3-aa37-1ee873aba9b4</TaskLink>
+			<TaskLink>875e6702-2c0c-42fa-b8b5-486be0522b25</TaskLink>
+		</AzTask>
+		<AzTask Guid="fcb3d93e-8350-43e3-8ee7-03d63302adaa" Name="ExpectedArrival.ExpectedArrival" Description="Expected Arrival" BizRuleImportedPath="">
+			<OperationLink>510c7e95-9731-4c9c-bfaf-550d7caa5871</OperationLink>
+		</AzTask>
+		<AzTask Guid="82c2a1a6-6d84-4707-8321-29e733023c6a" Name="ExpectedArrival.ExpectedArrivalVehicleLoadUnit" Description="Vehicle Load Unit" BizRuleImportedPath="">
+			<OperationLink>790938a5-86be-4c9d-9748-194e5d97e0fe</OperationLink>
+		</AzTask>
+		<AzTask Guid="801111f4-7f40-41a7-8388-d38ca92347f5" Name="ExpectedArrival.InboundOrderConnectToVLU" Description="Connect Vehicle Load Unit" BizRuleImportedPath="">
+			<OperationLink>42286193-cab2-458e-800b-4fcf8109fe97</OperationLink>
+			<OperationLink>af58f871-a4cd-4a95-9d45-8ff382d7cf89</OperationLink>
+			<OperationLink>5938e90d-2ce2-40c4-8cbf-be1406fb8b11</OperationLink>
+		</AzTask>
+		<AzTask Guid="f803220c-f77d-4bf0-a804-7828dc12479e" Name="ExpectedArrival" Description="ExpectedArrival Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>fcb3d93e-8350-43e3-8ee7-03d63302adaa</TaskLink>
+			<TaskLink>82c2a1a6-6d84-4707-8321-29e733023c6a</TaskLink>
+			<TaskLink>801111f4-7f40-41a7-8388-d38ca92347f5</TaskLink>
+		</AzTask>
+		<AzTask Guid="4483097e-adf8-489b-a540-510ef6464ede" Name="FindParty.FindParty" Description="Find Party" BizRuleImportedPath="">
+		</AzTask>
+		<AzTask Guid="20b320f7-f6c4-4ef2-a47b-26b30b6ff7a5" Name="FindParty" Description="FindParty Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>4483097e-adf8-489b-a540-510ef6464ede</TaskLink>
+		</AzTask>
+		<AzTask Guid="a2e53db7-e722-4b24-9b61-ea9658e59297" Name="InboundPlanning" Description="InboundPlanning Role" BizRuleImportedPath="" RoleDefinition="True">
+		</AzTask>
+		<AzTask Guid="a27c9844-0721-46b6-9fc3-70b84cfb8830" Name="Vehicle.FindVehicle" Description="Find Vehicle" BizRuleImportedPath="">
+		</AzTask>
+		<AzTask Guid="fb9388b8-cb11-4879-84af-42863c7d6cf8" Name="Vehicle" Description="Vehicle Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>a27c9844-0721-46b6-9fc3-70b84cfb8830</TaskLink>
+		</AzTask>
+		<AzTask Guid="167de3fc-60cc-4066-b328-666fd591ec53" Name="VehicleLoadUnit.ConnectToOrder" Description="Connect Inbound Order / ASN" BizRuleImportedPath="">
+			<OperationLink>ab299a4b-16e0-4722-a331-fb12070b6ba0</OperationLink>
+			<OperationLink>e5d38422-677e-4c2f-bbfe-a92f2dc3302a</OperationLink>
+			<OperationLink>f347a2c4-adac-4aea-9e53-5dd9915e59ca</OperationLink>
+			<OperationLink>56d75ebf-3eba-484d-9896-b6cb412e6c4a</OperationLink>
+		</AzTask>
+		<AzTask Guid="e39cebc7-2dc1-4fa6-a374-47ee2a06a12e" Name="VehicleLoadUnit.CreateVehicle" Description="New Vehicle" BizRuleImportedPath="">
+			<OperationLink>bd7371fa-3bca-493b-864b-95b1b2095979</OperationLink>
+			<OperationLink>5938e90d-2ce2-40c4-8cbf-be1406fb8b11</OperationLink>
+			<OperationLink>aca4a0d9-9614-4c88-8126-0e48c92c0d85</OperationLink>
+		</AzTask>
+		<AzTask Guid="e74696a8-f19b-4cd4-b0be-20efca740cd2" Name="VehicleLoadUnit.CreateVehicleLoadUnit" Description="New Vehicle Load Unit" BizRuleImportedPath="">
+			<OperationLink>eb3889eb-3166-4286-ae83-0db8c3635875</OperationLink>
+			<OperationLink>5938e90d-2ce2-40c4-8cbf-be1406fb8b11</OperationLink>
+			<OperationLink>f9f124c2-c517-4dd4-b3e0-00e6b644b6b0</OperationLink>
+		</AzTask>
+		<AzTask Guid="0da1b892-864b-4c52-83ba-7a209b9ac469" Name="VehicleLoadUnit.FindOrderAndAsn" Description="Find Order / ASN" BizRuleImportedPath="">
+		</AzTask>
+		<AzTask Guid="e36d85b0-8045-438e-a254-d1d5dbaa98bf" Name="VehicleLoadUnit.ModifyVehicle" Description="Change Vehicle" BizRuleImportedPath="">
+			<OperationLink>822bd211-b395-44d2-8684-3a7f7196119e</OperationLink>
+			<OperationLink>5938e90d-2ce2-40c4-8cbf-be1406fb8b11</OperationLink>
+			<OperationLink>481f5641-c5e1-44f0-a0e4-df82f98038e6</OperationLink>
+		</AzTask>
+		<AzTask Guid="09daf356-5149-40f8-9eaa-c55a4c5af336" Name="VehicleLoadUnit.ModifyVehicleLoadingUnitChecks" Description="Change Vehicle Load Unit Checks" BizRuleImportedPath="">
+			<OperationLink>e5d38422-677e-4c2f-bbfe-a92f2dc3302a</OperationLink>
+			<OperationLink>82ef5435-08d2-455e-8ed2-d3942649fc04</OperationLink>
+		</AzTask>
+		<AzTask Guid="a59d762d-fd62-400c-a954-05d0f3309e51" Name="VehicleLoadUnit.ModifyVehicleLoadUnit" Description="Change Vehicle Load Unit" BizRuleImportedPath="">
+			<OperationLink>c41152eb-d234-4a21-8494-03f8f4db008c</OperationLink>
+			<OperationLink>5938e90d-2ce2-40c4-8cbf-be1406fb8b11</OperationLink>
+			<OperationLink>c0555ede-8926-447e-af54-e4a41aa5318b</OperationLink>
+		</AzTask>
+		<AzTask Guid="50ba437c-2048-45a3-a717-fd8d9e40f75c" Name="VehicleLoadUnit.PerformCheckForVLU" Description="Perform Check For Vehicle Load Unit" BizRuleImportedPath="">
+			<OperationLink>6b7262d2-bd77-41e3-b1c3-f7aa24a219f6</OperationLink>
+			<OperationLink>e5d38422-677e-4c2f-bbfe-a92f2dc3302a</OperationLink>
+			<OperationLink>5938e90d-2ce2-40c4-8cbf-be1406fb8b11</OperationLink>
+			<OperationLink>b7aedec6-e462-4651-adb8-ec2d99413e72</OperationLink>
+			<OperationLink>97191c60-3a17-45ef-968e-9826de81a77b</OperationLink>
+		</AzTask>
+		<AzTask Guid="1b8a7cbf-cbab-4d43-8a36-b7b41aa76f16" Name="VehicleLoadUnit.Vehicle" Description="Vehicle" BizRuleImportedPath="">
+			<OperationLink>e519d4d9-ebd4-45a8-a936-93aad584a147</OperationLink>
+			<OperationLink>d5dcfa96-a057-4b16-98d4-20b670c99a0a</OperationLink>
+			<OperationLink>7845e49f-71fa-425c-9a7d-abe0f8c628c0</OperationLink>
+			<OperationLink>aba9b369-6fd6-4732-87c6-908ca6c195f8</OperationLink>
+		</AzTask>
+		<AzTask Guid="f1565d98-dbf7-4ad6-8091-aff3abc30acc" Name="VehicleLoadUnit.VehicleLoadUnit" Description="Vehicle Load Unit" BizRuleImportedPath="">
+			<OperationLink>3d389af1-aee8-41b3-8cf1-677342659b67</OperationLink>
+			<OperationLink>3d389af1-aee8-41b3-8cf1-677342659b67</OperationLink>
+			<OperationLink>327bec4c-6147-4c3d-899f-bf41b8df981a</OperationLink>
+			<OperationLink>938701de-2d19-45dd-b283-cb1729af0ff0</OperationLink>
+			<OperationLink>0add2e9e-7d89-4124-b03d-1eaf04f9d57d</OperationLink>
+			<OperationLink>90d2f474-b0a4-4308-a936-7046c90440f4</OperationLink>
+			<OperationLink>6bd1bd08-e98e-4a3f-9f43-3dc3bf83aeb8</OperationLink>
+			<OperationLink>4697ee63-85f9-4955-9875-7d19191a5ac6</OperationLink>
+			<OperationLink>8f77cfff-e3ec-493e-afa9-e406079644f7</OperationLink>
+			<OperationLink>b7aedec6-e462-4651-adb8-ec2d99413e72</OperationLink>
+			<OperationLink>29f7c75b-42bf-4959-8264-cbc450d90327</OperationLink>
+			<OperationLink>401dd4d3-10c8-44f4-a511-790c98d8fcca</OperationLink>
+		</AzTask>
+		<AzTask Guid="ba73511c-151a-4ef1-83cb-b0c63e851b16" Name="VehicleLoadUnit.VehicleLoadUnitCheck" Description="Check" BizRuleImportedPath="">
+			<OperationLink>be354397-c326-4a83-b498-d1d1dc144713</OperationLink>
+		</AzTask>
+		<AzTask Guid="9ad68419-a0ef-4d29-94ff-8ac6f245bcc8" Name="VehicleLoadUnit.VehicleLoadUnitOrderASN" Description="Order / ASN" BizRuleImportedPath="">
+			<OperationLink>f9f6210e-8e17-4c0f-b9e2-733c46188150</OperationLink>
+			<OperationLink>a3e43c72-76d0-4dea-99b2-233ea021f630</OperationLink>
+		</AzTask>
+		<AzTask Guid="9f5e1a1c-8da9-4f0b-a55b-946f71d9a115" Name="VehicleLoadUnit" Description="VehicleLoadUnit Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>167de3fc-60cc-4066-b328-666fd591ec53</TaskLink>
+			<TaskLink>e39cebc7-2dc1-4fa6-a374-47ee2a06a12e</TaskLink>
+			<TaskLink>e74696a8-f19b-4cd4-b0be-20efca740cd2</TaskLink>
+			<TaskLink>0da1b892-864b-4c52-83ba-7a209b9ac469</TaskLink>
+			<TaskLink>e36d85b0-8045-438e-a254-d1d5dbaa98bf</TaskLink>
+			<TaskLink>09daf356-5149-40f8-9eaa-c55a4c5af336</TaskLink>
+			<TaskLink>a59d762d-fd62-400c-a954-05d0f3309e51</TaskLink>
+			<TaskLink>50ba437c-2048-45a3-a717-fd8d9e40f75c</TaskLink>
+			<TaskLink>1b8a7cbf-cbab-4d43-8a36-b7b41aa76f16</TaskLink>
+			<TaskLink>f1565d98-dbf7-4ad6-8091-aff3abc30acc</TaskLink>
+			<TaskLink>ba73511c-151a-4ef1-83cb-b0c63e851b16</TaskLink>
+			<TaskLink>9ad68419-a0ef-4d29-94ff-8ac6f245bcc8</TaskLink>
+		</AzTask>
+		<AzTask Guid="f7c36e2a-39dd-4dd5-8206-377ee37c779f" Name="Administrator" Description="Administrator Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>1ed4147f-e880-4617-903a-6768f6f1030a</TaskLink>
+			<TaskLink>f803220c-f77d-4bf0-a804-7828dc12479e</TaskLink>
+			<TaskLink>20b320f7-f6c4-4ef2-a47b-26b30b6ff7a5</TaskLink>
+			<TaskLink>a2e53db7-e722-4b24-9b61-ea9658e59297</TaskLink>
+			<TaskLink>fb9388b8-cb11-4879-84af-42863c7d6cf8</TaskLink>
+			<TaskLink>9f5e1a1c-8da9-4f0b-a55b-946f71d9a115</TaskLink>
+		</AzTask>
+		<AzTask Guid="249abc9f-81b2-4d47-8a5c-6bceb6ba41f5" Name="Guest" Description="Guest Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>f7c36e2a-39dd-4dd5-8206-377ee37c779f</TaskLink>
+		</AzTask>
+	</AzApplication>
+</AzAdminManager>

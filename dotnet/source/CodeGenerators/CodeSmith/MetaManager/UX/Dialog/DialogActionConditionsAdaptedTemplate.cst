@@ -1,0 +1,48 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="dialog" Type="Cdc.MetaManager.DataAccess.Domain.Dialog" Default="" Optional="false" Category="" Description="" %>
+<%
+	string dialogNamespace = GetDialogNamespace(dialog);
+	string actionsNamespace = GetActionsNamespace(dialog.Module);
+	string translatorsNamespace = GetActionTranslatorNamespace(dialog);
+%>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Microsoft.Practices.CompositeUI;
+using Imi.Framework.UX;
+using Imi.Framework.UX.Services;
+using Imi.SupplyChain.UX;
+using <%=actionsNamespace%>;
+<%
+if (NeedsActionTranslators(dialog))
+{
+%>
+using <%=translatorsNamespace%>;
+<%
+}
+
+foreach (View view in GetUniqueViews(dialog))
+{
+%>
+using <%=GetViewsNamespace(view)%>;
+<%
+}
+%>
+
+namespace <%= dialogNamespace %>
+{
+	public class DialogActionConditionsAdapted : DialogActionConditionsBase
+    {
+	}
+}

@@ -1,0 +1,9 @@
+<folder caption="Transportation Gateway">
+  <item caption="TAPI Message Queue" id="bc764422-45da-4227-96c6-6ac0dbc571ca" assemblyFile="Cdc.SupplyChain.GatewayTMS.UX.Modules.TapiMessageQueue.dll" topicIdentity="event://Cdc.SupplyChain.UX.Modules.GatewayTMS/ShowDialog" parameters="event://Cdc.SupplyChain.GatewayTMS.UX.Modules.TapiMessageQueue.TAPIMessageQueue/ShowDialog"/>
+  <item caption="Incoming Message Queue" id="6c3456be-07ed-4141-9f0a-e86c23c2f055" assemblyFile="Cdc.SupplyChain.GatewayTMS.UX.Modules.IncomingMessageQueue.dll" topicIdentity="event://Cdc.SupplyChain.UX.Modules.GatewayTMS/ShowDialog" parameters="event://Cdc.SupplyChain.GatewayTMS.UX.Modules.IncomingMessageQueue.IncomingMessageQueue/ShowDialog"/>
+  <item caption="Outgoing Message Queue" id="78e5fd7f-8e27-48e8-9d29-570c271b4410" assemblyFile="Cdc.SupplyChain.GatewayTMS.UX.Modules.OutgoingMessageQueue.dll" topicIdentity="event://Cdc.SupplyChain.UX.Modules.GatewayTMS/ShowDialog" parameters="event://Cdc.SupplyChain.GatewayTMS.UX.Modules.OutgoingMessageQueue.OutgoingMessageQueue/ShowDialog"/>
+  <folder id="334f40a0-4f5a-466a-89ed-18573fd86e2b" caption="Configure">
+    <item caption="Communication Partner" id="87ad1cd2-a1d3-427f-91e9-a02929b9b606" assemblyFile="Cdc.SupplyChain.GatewayTMS.UX.Modules.CommunicationPartner.dll" topicIdentity="event://Cdc.SupplyChain.UX.Modules.GatewayTMS/ShowDialog" parameters="event://Cdc.SupplyChain.GatewayTMS.UX.Modules.CommunicationPartner.CommunicationPartner/ShowDialog"/>
+  </folder>
+  <item caption="Change User Settings" id="0f860a21-d578-4069-aeb3-d6a7904da1cb" assemblyFile="Cdc.SupplyChain.UX.Modules.GatewayTMS.dll" topicIdentity="event://Cdc.SupplyChain.UX.Modules.GatewayTMS/ShowDialog" parameters="event://Cdc.SupplyChain.UX.Modules.GatewayTMS.Views.ChooseDefaultNode/ShowDialog"/>
+</folder>

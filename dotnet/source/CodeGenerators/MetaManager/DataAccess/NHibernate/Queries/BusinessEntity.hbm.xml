@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<query name="BusinessEntity.FindAll">
+		<![CDATA[
+     select  be
+       from  BusinessEntity be
+       where be.Application.Id = :applicationId
+    ]]>
+	</query>
+</hibernate-mapping>
+

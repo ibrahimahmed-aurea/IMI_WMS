@@ -1,0 +1,112 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="" Inherits="" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Assembly Name="Cdc.Framework.Parsing.CSharpParsing" %>
+<%@ Assembly Name="Cdc.CodeGeneration.Caching" %>
+<%@ Import Namespace="Cdc.CodeGeneration.Caching" %>
+<%@ Import Namespace="System.IO" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.Framework.Parsing.CSharpParsing" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="projects" Type="List<ProjectInfo>" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="solutionDirectory" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+<%
+  string buildGuid = "FAE04EC0-301F-11D3-BF4B-00C04F79EFBC";
+  Guid servicesGuid = FileCacheManager.GetGuidForFile("__services");
+  Guid businessGuid = FileCacheManager.GetGuidForFile("__business");
+%>
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{<%= servicesGuid.ToString().ToUpper() %>}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessLogic", "BusinessLogic", "{<%= businessGuid.ToString().ToUpper() %>}"
+EndProject
+<%
+  Dictionary<string,Guid> directoryDict = new Dictionary<string,Guid>();
+  Dictionary<Guid,Guid> projectGuidDict = new Dictionary<Guid,Guid>();
+  
+  foreach(ProjectInfo projectInfo in projects)
+  {
+	string key = GetDirectoryKey(solutionDirectory, projectInfo.ProjectDirectory.FullName); 
+
+	if(! directoryDict.ContainsKey(key))
+	{
+	  directoryDict[key] = FileCacheManager.GetGuidForFile(string.Format("__directory__{0}",key));
+	  string directoryName = key.Split(new char[] { '\\' })[1];
+	
+  	  if(key.StartsWith("Services")) 
+	  {
+	  	// child parent
+		projectGuidDict.Add(directoryDict[key],servicesGuid);
+	  }
+	  else
+	  {
+	  	// child parent
+		projectGuidDict.Add(directoryDict[key],businessGuid);
+	  }	
+%>
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "<%= directoryName %>", "<%= directoryName %>", "{<%= directoryDict[key].ToString().ToUpper() %>}"
+EndProject
+<%
+	}
+	
+	projectGuidDict.Add(projectInfo.ProjectGuid, directoryDict[key]);
+  }
+
+  foreach(ProjectInfo projectInfo in projects)
+  {
+	string relativeProjectPath = PathHelper.RelativePathTo(solutionDirectory,projectInfo.ProjectDirectory.FullName);
+	string projectFilename = Path.Combine(relativeProjectPath, new FileInfo(projectInfo.ProjectFile).Name);
+%>
+Project("{<%= buildGuid %>}") = "<%= projectInfo.Namespace %>", "<%= projectFilename %>", "{<%= projectInfo.ProjectGuid.ToString().ToUpper() %>}"
+EndProject
+<%
+  }
+%>
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+<%
+  foreach(ProjectInfo projectInfo in projects)
+  {
+%>
+		{<%= projectInfo.ProjectGuid.ToString().ToUpper() %>}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{<%= projectInfo.ProjectGuid.ToString().ToUpper() %>}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{<%= projectInfo.ProjectGuid.ToString().ToUpper() %>}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{<%= projectInfo.ProjectGuid.ToString().ToUpper() %>}.Release|Any CPU.Build.0 = Release|Any CPU
+<%
+  }
+%>
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+<%
+  foreach(Guid childGuid in projectGuidDict.Keys)
+  {
+	Guid parentGuid = projectGuidDict[childGuid];
+%>
+		{<%= childGuid.ToString().ToUpper() %>} = {<%= parentGuid.ToString().ToUpper() %>}
+<%
+  }
+%>
+	EndGlobalSection
+EndGlobal
+<script runat="template">
+  protected string GetDirectoryKey(string solutionDirectory, string directoryName) 
+  {
+	string shortPath = directoryName.Substring(solutionDirectory.Length + 1);
+	string[] levels = shortPath.Split(new char[] { '\\' });
+	return string.Format(@"{0}\{1}",levels[0], levels[1]) ;
+  }
+</script>

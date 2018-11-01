@@ -1,0 +1,233 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="ReportCoreTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Assembly Name="Cdc.MetaManager.BusinessLogic" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.BusinessLogic" %>
+<%@ Import Namespace="Cdc.MetaManager.BusinessLogic.Helpers" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Register Name="PackageBodyCursorImplementationTemplate" Template=".\PackageBodyCursorImplementationTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="PackageBodyCursorEmptyRowTemplate" Template=".\PackageBodyCursorEmptyRowTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Property Name="reportQuery" Type="Cdc.MetaManager.DataAccess.Domain.ReportQuery" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="indent" Type="System.Int32" Default="" Optional="false" Category="" Description="" %>
+<%
+// Indent string
+string inS = string.Empty.PadRight(indent);
+
+IList<string> cursorInParameters = GetQueryCursorInParameters(reportQuery);
+
+string xmlVar    = string.Format("{0}_XML", reportQuery.Query.Name);
+string xmlBranch = string.Format("{0}_BX", reportQuery.Query.Name);
+
+IList<string> xmlAttributeList = GetQueryXMLAttributes(reportQuery);
+
+string xmlAttributes = xmlAttributeList.Aggregate((current, next) => current + "," + Environment.NewLine + string.Empty.PadRight(17 + indent) + next);
+
+%>
+<%=inS%>begin
+<%=inS%>  <%=reportQuery.Query.Name%>_XML := null;
+
+<%
+string cursorOpenText = string.Format("{0}  open {1}_Cur( ", inS, reportQuery.Query.Name);
+int curIndent = cursorOpenText.Length;
+string cursorParams = cursorInParameters.Aggregate((current, next) => current + "," + Environment.NewLine + string.Empty.PadRight(curIndent) + next);
+
+cursorOpenText = string.Format("{0}{1} );", cursorOpenText, cursorParams);
+%>
+<%=cursorOpenText%>
+<%=inS%>  loop
+<%
+if (reportQuery.Children.Count > 0)
+{
+%>
+<%=inS%>    <%=reportQuery.Query.Name%>_BX := null;
+
+<%
+}
+%>
+<%=inS%>    fetch <%=reportQuery.Query.Name%>_Cur into <%=reportQuery.Query.Name%>_Cur_Rec;
+
+<%=inS%>    if <%=reportQuery.Query.Name%>_Cur%rowcount = 0 then
+
+<%
+PackageBodyCursorEmptyRowTemplate packageBodyCursorEmptyRowTemplate = this.Create<PackageBodyCursorEmptyRowTemplate>();
+packageBodyCursorEmptyRowTemplate.SetProperty("reportQuery", reportQuery);
+packageBodyCursorEmptyRowTemplate.SetProperty("indent", indent + 6);
+packageBodyCursorEmptyRowTemplate.Render(this.Response);
+%>
+<%=inS%>    end if;
+
+<%=inS%>    exit when <%=reportQuery.Query.Name%>_Cur%notfound;
+
+<%
+// Does the report query have any children
+if (reportQuery.Children.Count > 0)
+{
+	foreach(ReportQuery childReportQuery in reportQuery.Children.OrderBy(r => r.Sequence))
+	{
+		string childXmlVar = string.Format("{0}_XML", childReportQuery.Query.Name);
+		
+		PackageBodyCursorImplementationTemplate packageBodyCursorImplementationTemplate = this.Create<PackageBodyCursorImplementationTemplate>();
+		packageBodyCursorImplementationTemplate.SetProperty("reportQuery", childReportQuery);
+		packageBodyCursorImplementationTemplate.SetProperty("indent", indent + 4);
+		packageBodyCursorImplementationTemplate.Render(this.Response);
+%>
+<%=inS%>    select XMLConcat
+<%=inS%>           (
+<%=inS%>             <%=xmlBranch%>,
+<%=inS%>             <%=childXmlVar%>
+<%=inS%>           )
+<%=inS%>      into <%=xmlBranch%>
+<%=inS%>      from dual;
+
+<%
+	}
+%>
+<%=inS%>    select XMLConcat
+<%=inS%>           (
+<%=inS%>             <%=xmlVar%>,
+<%=inS%>             XMLElement
+<%=inS%>             (
+<%=inS%>               "<%=reportQuery.Query.Name%>",
+<%=inS%>               XMLAttributes
+<%=inS%>               (
+<%=inS%>                 <%=xmlAttributes%>
+<%=inS%>               ),
+<%=inS%>               <%=xmlBranch%>
+<%=inS%>             )
+<%=inS%>           )
+<%=inS%>      into <%=xmlVar%>
+<%=inS%>      from dual;
+<%
+}
+else
+{
+%>
+<%=inS%>    select XMLConcat
+<%=inS%>           (
+<%=inS%>             <%=xmlVar%>,
+<%=inS%>             XMLElement
+<%=inS%>             (
+<%=inS%>               "<%=reportQuery.Query.Name%>",
+<%=inS%>               XMLAttributes
+<%=inS%>               (
+<%=inS%>                 <%=xmlAttributes%>
+<%=inS%>               )
+<%=inS%>             )
+<%=inS%>           )
+<%=inS%>      into <%=xmlVar%>
+<%=inS%>      from dual;
+<%
+}
+%>
+
+<%=inS%>  end loop;
+<%=inS%>  close <%=reportQuery.Query.Name%>_Cur;
+<%=inS%>exception
+<%=inS%>  when others then
+<%=inS%>    if <%=reportQuery.Query.Name%>_Cur%isopen then 
+<%=inS%>      close <%=reportQuery.Query.Name%>_Cur;
+<%=inS%>    end if;
+<%=inS%>end;
+
+<script runat="template">
+
+	public IList<string> GetQueryCursorInParameters(ReportQuery reportQuery)
+	{
+        IModelService modelService = MetaManagerServices.GetModelService(); 
+		IApplicationService applicationService = MetaManagerServices.GetApplicationService();
+		
+		List<string> cursorNames = new List<string>();
+		
+		foreach(QueryProperty queryProperty in reportQuery.Query.Properties.Where(p => p.PropertyType == DbPropertyType.In).OrderBy(p => p.Sequence))
+		{
+			if (queryProperty.Name.IndexOf(".") >= 0)
+			{
+				string queryName = queryProperty.Name.Substring(0, queryProperty.Name.IndexOf("."));
+				string queryFieldName = queryProperty.Name.Substring(queryProperty.Name.IndexOf(".") + 1);
+				
+				ReportQuery parentQry = modelService.GetInitializedDomainObject<ReportQuery>(reportQuery.Parent.Id);
+
+                foreach (QueryProperty parentProperty in parentQry.Query.Properties)
+				{
+					if (parentProperty.Name == queryFieldName)
+					{
+						break;
+					}
+					else if (!string.IsNullOrEmpty(parentProperty.OriginalColumn) &&
+					!string.IsNullOrEmpty(parentProperty.OriginalTable) && 
+					(parentProperty.OriginalColumn == parentProperty.Name))
+					{
+						Property property = applicationService.GetPropertyByTableAndColumn(parentProperty.OriginalTable, parentProperty.OriginalColumn, parentQry.Report.Application.Id);
+					
+						if ((property != null) && (property.Name == queryFieldName))
+						{
+							queryFieldName = parentProperty.Name;
+							break;
+						}
+					}
+					
+				}
+												
+				string paramText = string.Format("{0}_Cur_Rec.{1}", 
+				                                 queryName,
+												 queryFieldName);
+												
+				cursorNames.Add(paramText);
+			}
+			else
+			{
+				cursorNames.Add(queryProperty.Name);
+			}
+		}
+		
+		return cursorNames;
+	}
+
+	private IList<string> GetQueryXMLAttributes(ReportQuery reportQuery)
+	{
+		IApplicationService applicationService = MetaManagerServices.GetApplicationService();
+		
+		List<string> attributeList = new List<string>();
+
+		int maxPropLength = reportQuery.Query.Properties.Max(p => p.Name.Length);
+
+		foreach(QueryProperty prop in reportQuery.Query.Properties.Where(p => p.PropertyType == DbPropertyType.Out).OrderBy(p => p.Sequence))
+		{
+			string propName = prop.Name;
+			
+			Property foundProperty = null;
+			
+			if (!string.IsNullOrEmpty(prop.OriginalColumn) &&
+				!string.IsNullOrEmpty(prop.OriginalTable))
+			{
+				foundProperty = applicationService.GetPropertyByTableAndColumn(prop.OriginalTable, prop.OriginalColumn, ReportQueryHelper.GetReport(reportQuery).Application.Id);
+				
+				if (foundProperty != null && prop.OriginalColumn == prop.Name)
+					propName = foundProperty.Name;
+			}
+			
+			// Set nvl on all values so that we for sure get all attributes since Crystal Reports
+			// must have all attributes even if they are null.
+			string valueStr = GetNvlValue(string.Format("{0}_Cur_Rec.{1}",
+														reportQuery.Query.Name,
+														prop.Name),
+										  prop, 
+										  foundProperty);
+
+			// Add to list
+			attributeList.Add(string.Format("{0} as \"{1}\"",
+			                                valueStr,
+			                                propName));
+		}
+		
+		return attributeList;
+	}
+</script>

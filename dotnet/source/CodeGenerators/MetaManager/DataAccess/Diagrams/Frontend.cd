@@ -1,0 +1,534 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.Dialog">
+    <Position X="8.5" Y="10" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="InterfaceView" Type="Cdc.MetaManager.DataAccess.Domain.View" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10.25" Y="12.125" />
+        <Point X="12" Y="12.125" />
+        <Point X="12" Y="14" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.442" Y="0.237" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>CAACAAiAAAEAAEAAAAAAAAQAAAAAEAABAQAACAAQAAA=</HashCode>
+      <FileName>Domain\Dialog.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="RootViewNode" />
+      <Property Name="InterfaceView" />
+      <Property Name="Type" />
+    </ShowAsAssociation>
+    <Lollipop Orientation="Left" Position="0.194" />
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.Menu">
+    <Position X="4" Y="4.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="TopMenuItem" Type="Cdc.MetaManager.DataAccess.Domain.MenuItem" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4" Y="5.375" />
+        <Point X="2.938" Y="5.375" />
+        <Point X="2.938" Y="8.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.348" Y="0.164" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Application" Type="Cdc.MetaManager.DataAccess.Domain.Application" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.5" Y="5.375" />
+        <Point X="7" Y="5.375" />
+        <Point X="7" Y="5.375" />
+        <Point X="8.5" Y="5.375" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.102" Y="0.079" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAgAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Menu.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="TopMenuItem" />
+      <Property Name="Application" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.MenuItem">
+    <Position X="2.25" Y="8.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="Children" Type="Cdc.MetaManager.DataAccess.Domain.MenuItem" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="3.75" Y="10.125" />
+        <Point X="4" Y="10.125" />
+        <Point X="4" Y="9.625" />
+        <Point X="3.75" Y="9.625" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.287" Y="-0.357" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Action" Type="Cdc.MetaManager.DataAccess.Domain.UXAction">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.244" Y="0.154" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAQAAAAAAAAQAAAAEQAQAAAAIAAAACAAAAAEAAAQ=</HashCode>
+      <FileName>Domain\MenuItem.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Action" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Children" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.View">
+    <Position X="11.75" Y="14" Width="2" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="RootComponent" Type="Cdc.MetaManager.DataAccess.Domain.ViewComponent">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.494" Y="0.164" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="ServiceMethod" Type="Cdc.MetaManager.DataAccess.Domain.ServiceMethod" FixedToPoint="true">
+      <Path>
+        <Point X="13.75" Y="14.312" />
+        <Point X="16" Y="14.312" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.204" Y="0.082" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Application" Type="Cdc.MetaManager.DataAccess.Domain.Application" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12.812" Y="14" />
+        <Point X="12.812" Y="6.062" />
+        <Point X="10.25" Y="6.062" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="AlternateView" Type="Cdc.MetaManager.DataAccess.Domain.View" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13.75" Y="14.688" />
+        <Point X="14" Y="14.688" />
+        <Point X="14" Y="15.062" />
+        <Point X="13.75" Y="15.062" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.185" Y="0.172" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="BusinessEntity" Type="Cdc.MetaManager.DataAccess.Domain.BusinessEntity" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13.125" Y="14" />
+        <Point X="13.125" Y="11.875" />
+        <Point X="16" Y="11.875" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="RequestMap" Type="Cdc.MetaManager.DataAccess.Domain.PropertyMap">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.31" Y="-0.275" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="ResponseMap" Type="Cdc.MetaManager.DataAccess.Domain.PropertyMap">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.215" Y="0.102" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAUAAAIFwEQEBAIAEAUAgAAAAAAQBQACAAAABIA=</HashCode>
+      <FileName>Domain\View.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="RootComponent" />
+      <Property Name="ServiceMethod" />
+      <Property Name="Application" />
+      <Property Name="AlternateView" />
+      <Property Name="BusinessEntity" />
+      <Property Name="RequestMap" />
+      <Property Name="ResponseMap" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="DataSources" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.ViewNode">
+    <Position X="8.75" Y="13.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="Children" Type="Cdc.MetaManager.DataAccess.Domain.ViewNode" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10.25" Y="15.188" />
+        <Point X="10.5" Y="15.188" />
+        <Point X="10.5" Y="14.75" />
+        <Point X="10.25" Y="14.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.181" Y="-0.349" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="View" Type="Cdc.MetaManager.DataAccess.Domain.View" FixedToPoint="true">
+      <Path>
+        <Point X="10.25" Y="14.25" />
+        <Point X="11.75" Y="14.25" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.195" Y="-0.182" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="ViewMap" Type="Cdc.MetaManager.DataAccess.Domain.PropertyMap" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="9.438" Y="15.323" />
+        <Point X="9.438" Y="15.698" />
+        <Point X="9.438" Y="15.698" />
+        <Point X="9.438" Y="16.25" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-0.336" Y="0.38" Height="0.16" Width="0.785" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Parent" Type="Cdc.MetaManager.DataAccess.Domain.ViewNode" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.75" Y="14.125" />
+        <Point X="8.5" Y="14.125" />
+        <Point X="8.5" Y="14.562" />
+        <Point X="8.75" Y="14.562" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAIgAEQAAAAGQAAAAgABAAAAEAAAAAEAAAA=</HashCode>
+      <FileName>Domain\ViewNode.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="View" />
+      <Property Name="ViewMap" />
+      <Property Name="Parent" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Children" />
+      <Property Name="ViewActions" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.ViewComponent">
+    <Position X="11.75" Y="17.75" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="Children" Type="Cdc.MetaManager.DataAccess.Domain.ViewComponent" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="11.75" Y="19.004" />
+        <Point X="11.5" Y="19.004" />
+        <Point X="11.5" Y="18.404" />
+        <Point X="11.75" Y="18.404" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.133" Y="-0.401" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Properties" Type="Cdc.MetaManager.DataAccess.Domain.ComponentProperty">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.027" Y="0.144" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>EAICAAAIAAAAAAQEAAAEQAQAIAATAAAAAAgAAAACAAA=</HashCode>
+      <FileName>Domain\ViewComponent.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Children" />
+      <Property Name="Properties" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.ComponentProperty">
+    <Position X="11.75" Y="20.75" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAACAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Domain\ComponentProperty.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.UXAction">
+    <Position X="2.25" Y="15" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="Application" Type="Cdc.MetaManager.DataAccess.Domain.Application" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.25" Y="16.567" />
+        <Point X="1.696" Y="16.567" />
+        <Point X="1.696" Y="4.125" />
+        <Point X="8.5" Y="4.125" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.154" Y="0.079" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="RequestMap" Type="Cdc.MetaManager.DataAccess.Domain.PropertyMap">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.308" Y="0.07" Height="0.16" Width="1.076" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>EEICAQAAAAAAwAAAAAAAAAYAAAAQAAIgGAgCAAAKAgA=</HashCode>
+      <FileName>Domain\UXAction.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Application" />
+      <Property Name="RequestMap" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.ViewAction">
+    <Position X="5.5" Y="15.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="ViewToActionMap" Type="Cdc.MetaManager.DataAccess.Domain.PropertyMap" FixedFromPoint="true">
+      <Path>
+        <Point X="7" Y="16.562" />
+        <Point X="8.75" Y="16.562" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAQCAAgAAAAAAEAAAAAAAAAAAAAAAAAAAQAAAAEAAAQ=</HashCode>
+      <FileName>Domain\ViewAction.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Action" />
+      <Property Name="ViewToActionMap" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.ServiceMethod">
+    <Position X="16" Y="13.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAQAAEAAAAAAQAgBAAUAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\ServiceMethod.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.1" />
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.PropertyMap">
+    <Position X="8.75" Y="16.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAACBAAAAAQAAAAEAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\PropertyMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.Application">
+    <Position X="8.5" Y="3.75" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAACEAAAABAAAAAAAAAAAAQEAAAAgAAEAAAgBAAAQCA=</HashCode>
+      <FileName>Domain\Application.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.Module">
+    <Position X="8.75" Y="7.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="Dialogs" Type="Cdc.MetaManager.DataAccess.Domain.Dialog">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.348" Y="0.195" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAgAAEAAAAAAQAAAAAAAgAAAAIAAAAAAA=</HashCode>
+      <FileName>Domain\Module.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Application" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Dialogs" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.UXApplication">
+    <Position X="8.5" Y="1" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="ApplicationVersionDependencies" Type="Cdc.MetaManager.DataAccess.Domain.ApplicationVersion">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.798" Y="0.233" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\UXApplication.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="ApplicationVersionDependencies" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.UXSession">
+    <Position X="11.75" Y="4.75" Width="1.5" />
+    <AssociationLine Name="Properties" Type="Cdc.MetaManager.DataAccess.Domain.UXSessionProperty" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13.25" Y="5.25" />
+        <Point X="15.125" Y="5.25" />
+        <Point X="15.125" Y="6.5" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.409" Y="0.277" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Domain\UXSession.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Application" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Properties" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.UXSessionProperty">
+    <Position X="14.25" Y="6.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAYAAAABABAAAQAAAAAAAAA=</HashCode>
+      <FileName>Domain\UXSessionProperty.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Left" Position="0.1" />
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.BusinessEntity">
+    <Position X="16" Y="10.25" Width="1.5" />
+    <AssociationLine Name="Application" Type="Cdc.MetaManager.DataAccess.Domain.Application" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="16.781" Y="10.25" />
+        <Point X="16.781" Y="4.625" />
+        <Point X="10.25" Y="4.625" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAICAAAAIAAggCAEAAAAAAQAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Domain\BusinessEntity.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Application" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.MappedProperty" Collapsed="true">
+    <Position X="15.5" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAKACgQUgIgABoEAAMAECQAAAJEBAgkQRIEQAEQCBA=</HashCode>
+      <FileName>Domain\MappedProperty.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.CustomDialog">
+    <Position X="5.25" Y="7.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="Application" Type="Cdc.MetaManager.DataAccess.Domain.Application" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.031" Y="7.5" />
+        <Point X="6.031" Y="5.875" />
+        <Point X="8.5" Y="5.875" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAgAQAAAAAAAQAAAAAEAAAAAAAACAAAAA=</HashCode>
+      <FileName>Domain\CustomDialog.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Application" />
+    </ShowAsAssociation>
+    <Lollipop Orientation="Left" Position="0.1" />
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.DataSource">
+    <Position X="16" Y="16.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAQAAEAAAAAAQAgAABAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Domain\DataSource.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.DeploymentGroup">
+    <Position X="11.25" Y="1.5" Width="1.5" />
+    <AssociationLine Name="BackendApplication" Type="Cdc.MetaManager.DataAccess.Domain.Application" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12.312" Y="3.027" />
+        <Point X="12.312" Y="4.188" />
+        <Point X="10.25" Y="4.188" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.091" Y="0.048" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="FrontendApplication" Type="Cdc.MetaManager.DataAccess.Domain.Application" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12.125" Y="3.027" />
+        <Point X="12.125" Y="3.812" />
+        <Point X="10.25" Y="3.812" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.112" Y="0.058" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQIAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\DeploymentGroup.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="BackendApplication" />
+      <Property Name="FrontendApplication" />
+    </ShowAsAssociation>
+  </Class>
+  <Interface Name="Cdc.MetaManager.DataAccess.IMappableUXObject">
+    <Position X="8.75" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IMappableUXObject.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Cdc.MetaManager.DataAccess.Domain.UXActionType">
+    <Position X="8.75" Y="20.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAACAAACAAA=</HashCode>
+      <FileName>Domain\UXActionType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Cdc.MetaManager.DataAccess.Domain.DialogType" Collapsed="true">
+    <Position X="6" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAACAAAAAABAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\DialogType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

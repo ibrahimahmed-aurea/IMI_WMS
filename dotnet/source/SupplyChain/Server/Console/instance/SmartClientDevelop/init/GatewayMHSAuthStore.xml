@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AzAdminManager MajorVersion="1" MinorVersion="0" Guid="95a61e1b-c1e9-42c6-90c6-02a35debbb3c">
+	<AzApplication Guid="861d5042-2560-409e-809f-5bf99016bd2a" Name="GatewayMHS" Description="Azman store for GatewayMHS" ApplicationVersion="7.1.6">
+		<AzOperation Guid="41c4702d-0481-47ae-b50a-469e6c9bb101" Name="41c4702d-0481-47ae-b50a-469e6c9bb101" Description="MapiInboundMessageQueue.MAPIInboundMessageQueue - Repeat Message">
+			<OperationID>1</OperationID>
+		</AzOperation>
+		<AzOperation Guid="4990709b-c47d-48f2-be52-c73e65a3b5bf" Name="4990709b-c47d-48f2-be52-c73e65a3b5bf" Description="MapiInboundMessageQueue.MAPIInboundMessageQueue - Delete Message">
+			<OperationID>2</OperationID>
+		</AzOperation>
+		<AzOperation Guid="5bf1f711-93d4-4903-924a-de7b0b87af4c" Name="5bf1f711-93d4-4903-924a-de7b0b87af4c" Description="MapiInboundMessageQueue.MAPIInboundMessageQueue - Show MapiInboundMessageQueueSegment">
+			<OperationID>3</OperationID>
+		</AzOperation>
+		<AzOperation Guid="d6930b77-4211-482b-860d-20f6a8f0f31c" Name="d6930b77-4211-482b-860d-20f6a8f0f31c" Description="MapiOutboundMessageQueue.MAPIOutboundMessageQueue - Show MAPIOutboundMessageQueueSegment">
+			<OperationID>4</OperationID>
+		</AzOperation>
+		<AzOperation Guid="61bb694c-57ba-4645-b877-62b8778f7a79" Name="61bb694c-57ba-4645-b877-62b8778f7a79" Description="MapiOutboundMessageQueue.MAPIOutboundMessageQueue - Repeat Message">
+			<OperationID>5</OperationID>
+		</AzOperation>
+		<AzOperation Guid="95adfcd9-b7ef-42e6-a3a4-1c9ae08e3658" Name="95adfcd9-b7ef-42e6-a3a4-1c9ae08e3658" Description="MapiOutboundMessageQueue.MAPIOutboundMessageQueue - Delete Message">
+			<OperationID>6</OperationID>
+		</AzOperation>
+		<AzOperation Guid="4c456c96-228b-454e-952f-e629cefdb0b1" Name="4c456c96-228b-454e-952f-e629cefdb0b1" Description="MaterialHandlingSystem.CreateMaterialHandlingSystem - OK">
+			<OperationID>7</OperationID>
+		</AzOperation>
+		<AzOperation Guid="fd94f304-d1c6-4c19-8f7b-4d9c20a79100" Name="fd94f304-d1c6-4c19-8f7b-4d9c20a79100" Description="MaterialHandlingSystem.CreateMaterialHandlingSystem - Cancel">
+			<OperationID>8</OperationID>
+		</AzOperation>
+		<AzOperation Guid="88dabfb4-5207-4a89-b423-e60c649ef71e" Name="88dabfb4-5207-4a89-b423-e60c649ef71e" Description="MaterialHandlingSystem.MaterialHandlingSystem - Delete Material Handling System">
+			<OperationID>9</OperationID>
+		</AzOperation>
+		<AzOperation Guid="f36ffdc0-4b16-4ee3-aca2-9faf61920f0a" Name="f36ffdc0-4b16-4ee3-aca2-9faf61920f0a" Description="MaterialHandlingSystem.MaterialHandlingSystem - New Material Handling System">
+			<OperationID>10</OperationID>
+		</AzOperation>
+		<AzOperation Guid="30134912-f568-4451-a34a-793025e1a7da" Name="30134912-f568-4451-a34a-793025e1a7da" Description="MaterialHandlingSystem.MaterialHandlingSystem - Change Material Handling System">
+			<OperationID>11</OperationID>
+		</AzOperation>
+		<AzOperation Guid="1f89c279-95da-4aa3-a18b-fb5f5e7645b5" Name="1f89c279-95da-4aa3-a18b-fb5f5e7645b5" Description="MaterialHandlingSystem.MaterialHandlingSystem - Change Message URL">
+			<OperationID>12</OperationID>
+		</AzOperation>
+		<AzOperation Guid="2a43e95d-c398-4a54-84da-e693fa94a8cb" Name="2a43e95d-c398-4a54-84da-e693fa94a8cb" Description="MaterialHandlingSystem.MaterialHandlingSystem - Change Message">
+			<OperationID>13</OperationID>
+		</AzOperation>
+		<AzOperation Guid="06be03a1-1755-43db-b7e8-5b3ac5c70600" Name="06be03a1-1755-43db-b7e8-5b3ac5c70600" Description="MaterialHandlingSystem.ModifyMaterialHandlingSystem - OK">
+			<OperationID>14</OperationID>
+		</AzOperation>
+		<AzOperation Guid="21d7b1d4-a095-47f9-a836-bd0305b59ff2" Name="21d7b1d4-a095-47f9-a836-bd0305b59ff2" Description="MaterialHandlingSystem.ModifyMaterialHandlingSystemMessages - Close">
+			<OperationID>15</OperationID>
+		</AzOperation>
+		<AzOperation Guid="73c9b13a-fb46-4528-96d0-a8346a0a23dd" Name="73c9b13a-fb46-4528-96d0-a8346a0a23dd" Description="MaterialHandlingSystem.ModifyMaterialHandlingSystemsMessageURL - OK">
+			<OperationID>16</OperationID>
+		</AzOperation>
+		<AzOperation Guid="5cf7dcd0-7288-4ca5-a82b-06098b33d7b2" Name="5cf7dcd0-7288-4ca5-a82b-06098b33d7b2" Description="Start Change User Settings">
+			<OperationID>17</OperationID>
+		</AzOperation>
+		<AzOperation Guid="09141df9-c2c3-47f2-a65d-e41d65b5ae44" Name="09141df9-c2c3-47f2-a65d-e41d65b5ae44" Description="Start MAPI Outbound Message Queue">
+			<OperationID>18</OperationID>
+		</AzOperation>
+		<AzOperation Guid="55ea98ae-fcd8-4d48-8f2e-8c2a1167ee35" Name="55ea98ae-fcd8-4d48-8f2e-8c2a1167ee35" Description="Start MAPI Inbound Message Queue">
+			<OperationID>19</OperationID>
+		</AzOperation>
+		<AzOperation Guid="764809ad-e84c-410a-9ed9-2133aa3977ad" Name="764809ad-e84c-410a-9ed9-2133aa3977ad" Description="Start Material Handling System">
+			<OperationID>20</OperationID>
+		</AzOperation>
+		<AzTask Guid="8c05b1d6-fdfb-4c5a-8370-c0296120e139" Name="MapiInboundMessageQueue.MAPIInboundMessageQueue" Description="MAPI Inbound Message Queue" BizRuleImportedPath="">
+			<OperationLink>41c4702d-0481-47ae-b50a-469e6c9bb101</OperationLink>
+			<OperationLink>4990709b-c47d-48f2-be52-c73e65a3b5bf</OperationLink>
+			<OperationLink>55ea98ae-fcd8-4d48-8f2e-8c2a1167ee35</OperationLink>
+		</AzTask>
+		<AzTask Guid="dd8f66b7-d0a9-408b-901b-e2332422f847" Name="MapiInboundMessageQueue.MapiInboundMessageQueueSegment" Description="Segment" BizRuleImportedPath="">
+			<OperationLink>5bf1f711-93d4-4903-924a-de7b0b87af4c</OperationLink>
+		</AzTask>
+		<AzTask Guid="02979fb2-85f6-4652-bcd1-709b715e0024" Name="MapiInboundMessageQueue" Description="MapiInboundMessageQueue Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>8c05b1d6-fdfb-4c5a-8370-c0296120e139</TaskLink>
+			<TaskLink>dd8f66b7-d0a9-408b-901b-e2332422f847</TaskLink>
+		</AzTask>
+		<AzTask Guid="4e9f31a0-6893-44ee-bc59-c7cce85b8690" Name="MapiOutboundMessageQueue.MAPIOutboundMessageQueue" Description="MAPI Outbound Message Queue" BizRuleImportedPath="">
+			<OperationLink>61bb694c-57ba-4645-b877-62b8778f7a79</OperationLink>
+			<OperationLink>95adfcd9-b7ef-42e6-a3a4-1c9ae08e3658</OperationLink>
+			<OperationLink>09141df9-c2c3-47f2-a65d-e41d65b5ae44</OperationLink>
+		</AzTask>
+		<AzTask Guid="c75229d0-da65-42ae-aa84-e1e702385871" Name="MapiOutboundMessageQueue.MAPIOutboundMessageQueueSegment" Description="Segment" BizRuleImportedPath="">
+			<OperationLink>d6930b77-4211-482b-860d-20f6a8f0f31c</OperationLink>
+		</AzTask>
+		<AzTask Guid="d3d46a61-9ea5-4356-b1ec-2e2929730c58" Name="MapiOutboundMessageQueue" Description="MapiOutboundMessageQueue Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>4e9f31a0-6893-44ee-bc59-c7cce85b8690</TaskLink>
+			<TaskLink>c75229d0-da65-42ae-aa84-e1e702385871</TaskLink>
+		</AzTask>
+		<AzTask Guid="c1785aae-cfa5-4317-b25e-1c844b9e67f7" Name="MaterialHandlingSystem.CreateMaterialHandlingSystem" Description="New Material Handling System" BizRuleImportedPath="">
+			<OperationLink>4c456c96-228b-454e-952f-e629cefdb0b1</OperationLink>
+			<OperationLink>fd94f304-d1c6-4c19-8f7b-4d9c20a79100</OperationLink>
+			<OperationLink>f36ffdc0-4b16-4ee3-aca2-9faf61920f0a</OperationLink>
+		</AzTask>
+		<AzTask Guid="34c448df-0bb1-4858-914a-069b025dc8fc" Name="MaterialHandlingSystem.MaterialHandlingSystem" Description="Material Handling System" BizRuleImportedPath="">
+			<OperationLink>88dabfb4-5207-4a89-b423-e60c649ef71e</OperationLink>
+			<OperationLink>764809ad-e84c-410a-9ed9-2133aa3977ad</OperationLink>
+		</AzTask>
+		<AzTask Guid="e280cc78-c536-4354-9295-fbe994f9758e" Name="MaterialHandlingSystem.ModifyMaterialHandlingSystem" Description="Change Material Handling System" BizRuleImportedPath="">
+			<OperationLink>30134912-f568-4451-a34a-793025e1a7da</OperationLink>
+			<OperationLink>fd94f304-d1c6-4c19-8f7b-4d9c20a79100</OperationLink>
+			<OperationLink>06be03a1-1755-43db-b7e8-5b3ac5c70600</OperationLink>
+		</AzTask>
+		<AzTask Guid="f14f4446-74c6-475d-b2d2-6e4919ec70d0" Name="MaterialHandlingSystem.ModifyMaterialHandlingSystemMessages" Description="Material Handling System Messagees" BizRuleImportedPath="">
+			<OperationLink>2a43e95d-c398-4a54-84da-e693fa94a8cb</OperationLink>
+			<OperationLink>21d7b1d4-a095-47f9-a836-bd0305b59ff2</OperationLink>
+		</AzTask>
+		<AzTask Guid="b76d4d57-1bfc-4582-aa17-4f8323793e22" Name="MaterialHandlingSystem.ModifyMaterialHandlingSystemsMessageURL" Description="Change Message URL" BizRuleImportedPath="">
+			<OperationLink>1f89c279-95da-4aa3-a18b-fb5f5e7645b5</OperationLink>
+			<OperationLink>fd94f304-d1c6-4c19-8f7b-4d9c20a79100</OperationLink>
+			<OperationLink>73c9b13a-fb46-4528-96d0-a8346a0a23dd</OperationLink>
+		</AzTask>
+		<AzTask Guid="b76487c3-a75d-48c2-8b40-ab8c10f11a66" Name="MaterialHandlingSystem" Description="MaterialHandlingSystem Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>c1785aae-cfa5-4317-b25e-1c844b9e67f7</TaskLink>
+			<TaskLink>34c448df-0bb1-4858-914a-069b025dc8fc</TaskLink>
+			<TaskLink>e280cc78-c536-4354-9295-fbe994f9758e</TaskLink>
+			<TaskLink>f14f4446-74c6-475d-b2d2-6e4919ec70d0</TaskLink>
+			<TaskLink>b76d4d57-1bfc-4582-aa17-4f8323793e22</TaskLink>
+		</AzTask>
+		<AzTask Guid="8d8154b4-f2ed-48de-b8d0-6e243d0680c5" Name="Administrator" Description="Administrator Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>02979fb2-85f6-4652-bcd1-709b715e0024</TaskLink>
+			<TaskLink>d3d46a61-9ea5-4356-b1ec-2e2929730c58</TaskLink>
+			<TaskLink>b76487c3-a75d-48c2-8b40-ab8c10f11a66</TaskLink>
+		</AzTask>
+		<AzTask Guid="f5e00458-21d3-4478-a879-31bd38acbd66" Name="Guest" Description="Guest Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>8d8154b4-f2ed-48de-b8d0-6e243d0680c5</TaskLink>
+		</AzTask>
+	</AzApplication>
+</AzAdminManager>

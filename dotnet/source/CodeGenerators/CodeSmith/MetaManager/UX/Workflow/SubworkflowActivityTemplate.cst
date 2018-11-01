@@ -1,0 +1,213 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text"  Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="false" Description="Template description here." %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="workflowSubworkflow" Type="Cdc.MetaManager.DataAccess.Domain.WorkflowSubworkflow" Default="" Optional="false" Category="" Description="" OnChanged="" Editor="" EditorBase="" Serializer="" %>
+<%@ Property Name="isDesignTime" Type="System.Boolean" Default="false" Optional="false" Category="" Description="" OnChanged="" Editor="" EditorBase="" Serializer="" %>
+<%
+	Workflow subworkflow = workflowSubworkflow.SubWorkflow;
+	string subworkflowName = subworkflow.Name;
+	string activityClassName = GetWorkflowActivityClassName(subworkflow);
+	string applicationName = workflowSubworkflow.SubWorkflow.Module.Application.Name;
+	
+%>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.ComponentModel;
+using System.Reflection;
+using System.Threading;
+using System.Workflow.ComponentModel;
+using System.Workflow.ComponentModel.Compiler;
+using System.Workflow.Activities;
+<%
+if (!isDesignTime)
+{
+%>	
+using Microsoft.Practices.CompositeUI;
+using Microsoft.Practices.CompositeUI.Configuration;
+using Microsoft.Practices.CompositeUI.Services;
+using Imi.Framework.UX;
+using Imi.SupplyChain.UX;
+using <%=GetWorkflowNamespace(workflowSubworkflow.SubWorkflow)%>;
+<%
+}
+else
+{
+%>
+using System.Workflow.ComponentModel.Design;
+using <%=GetWorkflowNamespace(workflowSubworkflow.Workflow)%>;
+<%
+}
+%>
+
+namespace <%=GetWorkflowNamespace(workflowSubworkflow.Workflow)%>.Activities
+{
+<%	
+if (isDesignTime)
+{
+%>	
+	[Designer(typeof(SubworkflowActivityDesigner))]
+<%
+}
+%>
+	public class <%=activityClassName%> : Activity 
+    {
+		public Guid WorkflowId
+        {
+            get { return (Guid)GetValue(SubworkflowIdProperty); }
+            set { SetValue(SubworkflowIdProperty, value); }
+        }
+                
+        public static readonly DependencyProperty SubworkflowIdProperty =
+            DependencyProperty.Register("SubworkflowId", typeof(Guid), typeof(<%=activityClassName%>), new PropertyMetadata(new Guid("<%=subworkflow.Id%>")));
+
+		public bool IgnoreException
+        {
+            get { return (bool)GetValue(IgnoreExceptionProperty); }
+            set { SetValue(IgnoreExceptionProperty, value); }
+        }
+                
+        public static readonly DependencyProperty IgnoreExceptionProperty =
+            DependencyProperty.Register("IgnoreException", typeof(bool), typeof(<%=activityClassName%>), new PropertyMetadata(false));	
+			
+		public Exception WorkflowException
+        {
+            get { return (Exception)GetValue(WorkflowExceptionProperty); }
+            set { SetValue(WorkflowExceptionProperty, value); }
+        }
+                
+        public static readonly DependencyProperty WorkflowExceptionProperty =
+            DependencyProperty.Register("WorkflowException", typeof(Exception), typeof(<%=activityClassName%>), new PropertyMetadata(null));	
+
+<%
+	foreach (MappedProperty property in subworkflow.RequestMap.MappedProperties)
+	{
+		string typeName = GetShortTypeName(property.Type, true);
+		
+%>			
+		[Category("Request")]
+		public <%=typeName%> Request_<%=property.Name%>
+        {
+            get { return (<%=typeName%>)GetValue(Request_<%=property.Name%>Property); }
+            set { SetValue(Request_<%=property.Name%>Property, value); }
+        }
+                
+        public static readonly DependencyProperty Request_<%=property.Name%>Property =
+            DependencyProperty.Register("Request_<%=property.Name%>", typeof(<%=typeName%>), typeof(<%=activityClassName%>), new PropertyMetadata(null));
+			
+<%			
+	}
+
+	string workflowParametersClassName = GetWorkflowParametersClassName(subworkflow);
+	string controllerClassName = GetWorkflowControllerClassName(subworkflow);
+	
+	if (!isDesignTime)
+	{
+%>
+		protected override ActivityExecutionStatus Execute(ActivityExecutionContext executionContext)
+        {
+            using (EventWaitHandle waitHandle = new EventWaitHandle(false, EventResetMode.AutoReset))
+			{
+				ControlledWorkItem<<%=controllerClassName%>> workItem = null;
+				
+				SynchronizationContext.Send(delegate(object data)
+				{
+					ModuleInfo info = new ModuleInfo(typeof(<%=controllerClassName%>).Assembly);
+					IModuleLoaderService loader = WorkItem.Services.Get<IModuleLoaderService>();
+					loader.Load(WorkItem.RootWorkItem.WorkItems["<%=applicationName%>"], info);
+					
+					<%=workflowParametersClassName%> workflowParameters = new <%=workflowParametersClassName%>();
+
+<%						
+				foreach (MappedProperty property in subworkflow.RequestMap.MappedProperties)
+				{
+%>
+					workflowParameters.<%=property.Name%> = Request_<%=property.Name%>;
+<%
+				}
+%>			
+
+					workItem = WorkItem.WorkItems.AddNew<ControlledWorkItem<<%=controllerClassName%>>>();
+								
+					workItem.Terminated += (s, e) =>
+						{
+							waitHandle.Set();
+						};
+						
+					workItem.Controller.Run(workflowParameters, MainWorkflowTitle);
+					
+				}, null);
+			
+				waitHandle.WaitOne();
+
+				if (workItem != null && workItem.Controller.WorkflowException != null && !IgnoreException)
+				{
+                    throw workItem.Controller.WorkflowException;
+				}
+				else
+				{
+					WorkflowException = workItem.Controller.WorkflowException;
+				}
+			}
+			
+			return base.Execute(executionContext);
+        }
+		
+		private WorkItem WorkItem
+        {
+            get
+            {
+                Activity activity = this;
+
+                while (activity.Parent != null)
+                {
+                    activity = activity.Parent;    
+                }
+
+                PropertyInfo propertyInfo = activity.GetType().GetProperty("WorkItem");
+                return propertyInfo.GetValue(activity, null) as WorkItem;
+            }
+        }
+		
+        private string MainWorkflowTitle
+        {
+            get
+            {
+                Activity activity = this;
+
+                while (activity.Parent != null)
+                {
+                    activity = activity.Parent;
+                }
+
+                PropertyInfo propertyInfo = activity.GetType().GetProperty("Title");
+                return propertyInfo.GetValue(activity, null) as string;
+            }
+        }
+		
+		private SynchronizationContext SynchronizationContext
+        {
+            get
+            {
+                Activity activity = this;
+
+                while (activity.Parent != null)
+                {
+                    activity = activity.Parent;
+                }
+
+                PropertyInfo propertyInfo = activity.GetType().GetProperty("SynchronizationContext");
+                return propertyInfo.GetValue(activity, null) as SynchronizationContext;
+            }
+        }
+<%
+	}
+%>
+	}
+}

@@ -1,0 +1,38 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="ReportCoreTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Assembly Name="Cdc.CodeGeneration.Caching" %>
+<%@ Assembly Name="System.Collections.Generic" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Import Namespace="Cdc.CodeGeneration.Caching" %>
+<%@ Property Name="report" Type="Cdc.MetaManager.DataAccess.Domain.Report" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="packageName" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%
+bool isApplicationWarehouseReport = IsApplicationWarehouseReport(report);
+
+string procedureText = string.Format("{0}.Print_{1}( ", packageName, report.Name);
+
+int indent = procedureText.Length - 1;
+
+IList<string> parameterList = report.GetUserDefinedInterfaceParameterList().GetNames();
+
+string parameterText = parameterList.Aggregate((current, next) => current + Environment.NewLine + string.Empty.PadRight(indent) + "," + next);
+
+IList<string> staticParameterList = report.GetStaticInterfaceParameterList().GetParameterStubsOracleProcedure();
+
+parameterText = parameterText + Environment.NewLine + string.Empty.PadRight(indent) + "," +
+				staticParameterList.Aggregate((current, next) => current + Environment.NewLine + string.Empty.PadRight(indent) + "," + next) +
+				" );";
+
+procedureText = procedureText + parameterText;
+%>
+<%=procedureText%>

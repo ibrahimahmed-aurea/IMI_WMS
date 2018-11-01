@@ -1,0 +1,142 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+	<title>IMI Supply Chain</title>
+	<meta content="0" http-equiv="Expires">
+	<style type="text/css">
+		#logo {
+			width: 700px;
+			margin-right: auto;
+			margin-left: auto;
+			margin-top: 38px;
+			margin-bottom: 10px;
+		}
+		#productcontainer {
+			width: 700px;
+			margin-right: auto;
+			margin-left: auto;
+		}
+		#extrainformation {
+			width: 700px;
+			margin-right: auto;
+			margin-left: auto;
+		}
+		#topborder{
+		    width: 380px;
+		    padding-top: 5px;
+			border-top: 1px solid #D9D9D9;
+		}
+		.subtext {
+			font-family: Arial;
+			font-size: 14px;
+			font-weight: normal;
+			color: #383838;
+		}
+		.subtextbold {
+			font-family: Arial;
+			font-size: 14px;
+			font-weight: bold;
+			color: #383838;
+		}
+		.subtextlarge {
+			font-family: Arial;
+			font-size: 14px;
+			font-weight: normal;
+			color: #383838;
+		}
+		.subtextlinktext:hover {
+			font-family: Arial;
+			font-weight: normal;
+			color: #D0103A;
+		}
+		.subtextsmall {
+			font-family: Arial;
+			font-size: 12px;
+			font-weight: normal;
+			color: #383838;
+		}
+		.product {
+			font-family: Arial;
+			font-size: 18px;
+			color: #383838;
+			font-weight: bold;
+			letter-spacing: 1px;
+			padding-bottom: 10px;
+			margin-right: 10px;
+		}
+    	.tableinstance {
+			border-left: 1px solid #D9D9D9;
+		}
+		body {
+			background-color: #FFFFFF;
+			color: black;
+	    }
+	    a:link {
+	    	color: #383838;
+	    }
+	    a:visited {
+	    	color: #383838;
+	    }
+}
+		</style>
+</head>
+
+<body >
+	<div id="logo">
+		<table>
+			<tr align="center">
+				<td><img alt="IMI Supply Chain" src="images/header.png"></td>
+			</tr>
+		</table>
+	</div>
+
+	<div id="productcontainer">
+		<table align="center">
+			{NothingPublished}
+			<tr align="center">
+				<td class="subtext">No products are published.</td>
+			</tr>
+			{/NothingPublished} 
+			{ProductRow}
+			<tr>
+				<td valign="top">
+				<div class="product">
+					{P:ProductName}</div>
+				</td>
+				<td valign="top">
+				<table class="tableinstance">
+					{InstanceRow}
+					<tr class="subtext">
+						<td>
+						<a class="subtextlinktext" href="http://{C:WebserverName}:{C:WebserverPort}/{P:VirtualDirectoryName}/{I:Name}.application?instance={I:Name}{I:Parameters}">
+						{I:Caption}</a> </td>
+					</tr>
+					<tr class="subtextsmall">
+						<td>Description: {I:Description}<br>
+						Version: {I:ProductVersion} </td>
+					</tr>
+					{/InstanceRow}
+				</table>
+				</td>
+			</tr>
+			{/ProductRow}
+		</table>
+	</div>
+	<div id="extrainformation">
+		<table width="600px">
+			<tr class="subtextsmall" align="center" height="50">
+				<td colspan="2"><div id="topborder">Download .NET Framework 4 on
+				<a class="subtextlinktext" href="http://www.microsoft.com/download/en/details.aspx?id=17851">
+				this page</a>, and<br>follow the instructions on how to install it.
+				</div></td>
+			</tr>
+			<tr tr align="center" height="50">
+			<td class="subtextsmall" colspan="2"><div id="Div2">Copyright &copy; Aptean. All rights reserved.
+				</div></td>
+			</tr>
+		</table>
+	</div>
+
+</body>
+
+</html>

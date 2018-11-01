@@ -1,0 +1,333 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{519F484A-16C4-4589-AEB9-0D38D25CE2DD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cdc.MetaManager.DataAccess</RootNamespace>
+    <AssemblyName>Cdc.MetaManager.DataAccess</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\Cdc.MetaManager.DataAccess.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\Cdc.MetaManager.DataAccess.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NHibernate, Version=2.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\NHibernate\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.DataAccess, Version=4.112.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\Oracle\Oracle.DataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Core, Version=1.1.2.20226, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\Spring.Net\Spring.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Data, Version=1.1.2.20226, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\Spring.Net\Spring.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Data.NHibernate21">
+      <HintPath>..\..\..\..\references\Spring.Net\Spring.Data.NHibernate21.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Workflow.Activities">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Workflow.ComponentModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CallbackService.cs" />
+    <Compile Include="CodeSmithTemplateCallback.cs" />
+    <Compile Include="Dao\IDynamicDao.cs" />
+    <Compile Include="Dao\IHintCollectionDao.cs" />
+    <Compile Include="Dao\IPropertyCaptionDao.cs" />
+    <Compile Include="Dao\IPropertyCodeDao.cs" />
+    <Compile Include="Dao\IUXSessionPropertyDao.cs" />
+    <Compile Include="Dao\IWorkflowServiceMethodDao.cs" />
+    <Compile Include="Dao\IWorkflowSubworkflowDao.cs" />
+    <Compile Include="Dao\IWorkflowDialogDao.cs" />
+    <Compile Include="Dao\IHintDao.cs" />
+    <Compile Include="DetectedChange.cs" />
+    <Compile Include="DomainInterceptor.cs" />
+    <Compile Include="DomainXmlAttributes.cs" />
+    <Compile Include="DomainXmlSerializationHelper.cs" />
+    <Compile Include="Domain\ModelDesignerAttribute.cs" />
+    <Compile Include="Domain\UpdatePropagation.cs" />
+    <Compile Include="Domain\HintCollection.cs" />
+    <Compile Include="Domain\VisualModel\UXFileSelector.cs" />
+    <Compile Include="Domain\VisualModel\UXHyperDialog.cs" />
+    <Compile Include="IDomainObject.cs" />
+    <Compile Include="IMappedObject.cs" />
+    <Compile Include="IRuledObject.cs" />
+    <Compile Include="IVersionControlled.cs" />
+    <Compile Include="Domain\WorkflowSubworkflow.cs" />
+    <Compile Include="Domain\ReportProgressStatus.cs" />
+    <Compile Include="PropertyMapAttribute.cs" />
+    <Compile Include="ReportInterfaceParameter.cs" />
+    <Compile Include="Dao\IReportQueryDao.cs" />
+    <Compile Include="Dao\IReportDao.cs" />
+    <Compile Include="Dao\IWorkflowDao.cs" />
+    <Compile Include="Dao\IStoredProcedurePropertyDao.cs" />
+    <Compile Include="Dao\IDeploymentGroupDao.cs" />
+    <Compile Include="Dao\ICustomDialogDao.cs" />
+    <Compile Include="Dao\IDataSourceDao.cs" />
+    <Compile Include="Dao\IIssueDao.cs" />
+    <Compile Include="Dao\IMappedPropertyDao.cs" />
+    <Compile Include="Dao\IQueryPropertyDao.cs" />
+    <Compile Include="Dao\IUXSessionDao.cs" />
+    <Compile Include="Dao\IViewActionDao.cs" />
+    <Compile Include="Dao\IViewNodeDao.cs" />
+    <Compile Include="Dao\IPropertyMapDao.cs" />
+    <Compile Include="Dao\IModuleDao.cs" />
+    <Compile Include="Dao\IUXActionDao.cs" />
+    <Compile Include="Dao\IMenuItemDao.cs" />
+    <Compile Include="Dao\IDialogDao.cs" />
+    <Compile Include="Dao\IMenuDao.cs" />
+    <Compile Include="Dao\IViewDao.cs" />
+    <Compile Include="ReportInterfaceParameterList.cs" />
+    <Compile Include="Domain\WarehouseReportType.cs" />
+    <Compile Include="Domain\ReportQuery.cs" />
+    <Compile Include="Domain\WorkflowServiceMethod.cs" />
+    <Compile Include="Domain\Workflow.cs" />
+    <Compile Include="DataModelChange.cs" />
+    <Compile Include="DataModelChanges.cs" />
+    <Compile Include="DataModelImporter.cs" />
+    <Compile Include="Domain\QueryType.cs" />
+    <Compile Include="Domain\Report.cs" />
+    <Compile Include="Domain\DeploymentGroup.cs" />
+    <Compile Include="DomainReferenceAttribute.cs" />
+    <Compile Include="Domain\CustomDialog.cs" />
+    <Compile Include="Domain\DataSource.cs" />
+    <Compile Include="Domain\RenderMode.cs" />
+    <Compile Include="Domain\ViewActionType.cs" />
+    <Compile Include="Domain\IssueSeverityType.cs" />
+    <Compile Include="Domain\Issue.cs" />
+    <Compile Include="Domain\IssueObjectType.cs" />
+    <Compile Include="Domain\UXDialogResult.cs" />
+    <Compile Include="Domain\DialogType.cs" />
+    <Compile Include="Dao\IServiceMethodDao.cs" />
+    <Compile Include="Dao\IServiceDao.cs" />
+    <Compile Include="Dao\IActionDao.cs" />
+    <Compile Include="Dao\IPropertyDao.cs" />
+    <Compile Include="Dao\IPackageDao.cs" />
+    <Compile Include="Dao\IPropertyStorageInfoDao.cs" />
+    <Compile Include="Dao\IBusinessEntityDao.cs" />
+    <Compile Include="Domain\Dialog.cs" />
+    <Compile Include="Domain\ActionMapTarget.cs" />
+    <Compile Include="Dao\IQueryDao.cs" />
+    <Compile Include="Dao\IStoredProcedureDao.cs" />
+    <Compile Include="Dao\ISchemaDao.cs" />
+    <Compile Include="Dao\IApplicationDao.cs" />
+    <Compile Include="Domain\Action.cs" />
+    <Compile Include="Domain\Application.cs" />
+    <Compile Include="Domain\BusinessEntity.cs" />
+    <Compile Include="Domain\DbProperty.cs" />
+    <Compile Include="Domain\DbPropertyType.cs" />
+    <Compile Include="Domain\VisualModel\UXDatePicker.cs" />
+    <Compile Include="Domain\VisualModel\UXComboDialog.cs" />
+    <Compile Include="Domain\VisualModel\UXExpander.cs" />
+    <Compile Include="Domain\VisualModel\UXMonthCalendar.cs" />
+    <Compile Include="Domain\VisualModel\UXSearchPanel.cs" />
+    <Compile Include="Domain\VisualModel\UXSearchPanelItem.cs" />
+    <Compile Include="Domain\VisualModel\UXTwoWayListBox.cs" />
+    <Compile Include="Domain\VisualModel\UXUpDown.cs" />
+    <Compile Include="Domain\VisualModel\UXViewBox.cs" />
+    <Compile Include="Domain\ViewType.cs" />
+    <Compile Include="Domain\VisualModel\IBindable.cs" />
+    <Compile Include="Domain\VisualModel\UXCheckBox.cs" />
+    <Compile Include="Domain\VisualModel\UXComboBox.cs" />
+    <Compile Include="Domain\VisualModel\UXComponent.cs" />
+    <Compile Include="Domain\VisualModel\UXContainer.cs" />
+    <Compile Include="Domain\VisualModel\UXDataGrid.cs" />
+    <Compile Include="Domain\VisualModel\UXDataGridColumn.cs" />
+    <Compile Include="Domain\VisualModel\UXDockPanel.cs" />
+    <Compile Include="Domain\VisualModel\UXGroupBox.cs" />
+    <Compile Include="Domain\VisualModel\UXLabel.cs" />
+    <Compile Include="Domain\VisualModel\UXLayoutGrid.cs" />
+    <Compile Include="Domain\VisualModel\UXLayoutGridCell.cs" />
+    <Compile Include="Domain\VisualModel\UXListBox.cs" />
+    <Compile Include="Domain\VisualModel\UXRadioGroup.cs" />
+    <Compile Include="Domain\VisualModel\UXServiceComponent.cs" />
+    <Compile Include="Domain\VisualModel\UXStackPanel.cs" />
+    <Compile Include="Domain\VisualModel\UXPanelOrientation.cs" />
+    <Compile Include="Domain\VisualModel\UXTextBox.cs" />
+    <Compile Include="Domain\VisualModel\UXVisibility.cs" />
+    <Compile Include="Domain\VisualModel\UXWrapPanel.cs" />
+    <Compile Include="Domain\VisualModel\VisualDesignerAttribute.cs" />
+    <Compile Include="Domain\WorkflowDialog.cs" />
+    <Compile Include="ILocalizable.cs" />
+    <Compile Include="IMappableUXObject.cs" />
+    <Compile Include="IMappableObject.cs" />
+    <Compile Include="IMappableProperty.cs" />
+    <Compile Include="IValueCalculator.cs" />
+    <Compile Include="IValueConverter.cs" />
+    <Compile Include="Domain\MappedProperty.cs" />
+    <Compile Include="Domain\ProcedureProperty.cs" />
+    <Compile Include="Domain\Menu.cs" />
+    <Compile Include="Domain\MenuItem.cs" />
+    <Compile Include="Domain\Module.cs" />
+    <Compile Include="GlobalizationHelper.cs" />
+    <Compile Include="LocalizableAttribute.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Domain\Property.cs" />
+    <Compile Include="Domain\PropertyCaption.cs" />
+    <Compile Include="Domain\PropertyCode.cs" />
+    <Compile Include="Domain\Hint.cs" />
+    <Compile Include="Domain\PropertyMap.cs" />
+    <Compile Include="Domain\Query.cs" />
+    <Compile Include="Domain\Schema.cs" />
+    <Compile Include="Domain\Service.cs" />
+    <Compile Include="Domain\ServiceMethod.cs" />
+    <Compile Include="Domain\StoredProcedure.cs" />
+    <Compile Include="Domain\PropertyStorageInfo.cs" />
+    <Compile Include="Domain\QueryProperty.cs" />
+    <Compile Include="Domain\Package.cs" />
+    <Compile Include="Domain\View.cs" />
+    <Compile Include="Domain\UXAction.cs" />
+    <Compile Include="Domain\ViewAction.cs" />
+    <Compile Include="Domain\ViewNode.cs" />
+    <Compile Include="Domain\UXActionType.cs" />
+    <Compile Include="Domain\UXSession.cs" />
+    <Compile Include="Domain\UXSessionProperty.cs" />
+    <Compile Include="RuleSetWrapper.cs" />
+    <Compile Include="SearchAttribute.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Framework\ExtensionMethods\Framework.ExtensionMethods.csproj">
+      <Project>{A6414C47-5CD7-4891-A78E-CF626FECADA9}</Project>
+      <Name>Framework.ExtensionMethods</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HbmGenerator\Attributes\HbmGenerator.Attributes.csproj">
+      <Project>{D0F506FB-426B-43F4-8CDF-F723977B065D}</Project>
+      <Name>HbmGenerator.Attributes</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Diagrams\BaseDataDiagram.cd" />
+    <None Include="Diagrams\Frontend.cd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Diagrams\MappingDiagram.cd" />
+    <None Include="Diagrams\MetadataModel.cd" />
+    <None Include="Diagrams\ReportManagerDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

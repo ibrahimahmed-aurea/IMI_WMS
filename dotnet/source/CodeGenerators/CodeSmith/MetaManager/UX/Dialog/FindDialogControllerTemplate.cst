@@ -1,0 +1,237 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Assembly Name="Cdc.MetaManager.BusinessLogic" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain.VisualModel" %>
+<%@ Import Namespace="Cdc.MetaManager.BusinessLogic.Helpers" %>
+<%@ Property Name="dialog" Type="Cdc.MetaManager.DataAccess.Domain.Dialog" Default="" Optional="false" Category="" Description="" %>
+<%
+	string dialogNamespace = GetDialogNamespace(dialog);
+    string controllerClassName = GetControllerClassName(dialog);
+	string eventAggregatorClassName = GetEventAggregatorClassName(dialog);
+	string actionsNamespace = GetActionsNamespace(dialog.Module);
+	string dialogActionsClassName = GetDialogActionsClassName(dialog);
+	string userSessionName = GetUserSessionName(dialog.Module.Application);
+	string userSessionNamespace = GetUserSessionNamespace(dialog.Module.Application);
+	string parametersClassName = GetViewParametersClassName(dialog.InterfaceView);
+	bool autoSearch = false;
+	
+	ViewNode mainNode = null;
+
+    if(dialog.InterfaceView != null)
+    {
+        foreach (ViewNode viewNode in dialog.ViewNodes)
+        {
+            if (viewNode.View == dialog.InterfaceView)
+            {
+                mainNode = viewNode;
+                break;
+            }
+        }
+    }
+    
+	if (dialog.SearchPanelView == null)
+	{
+		autoSearch = true;	
+	}
+	else
+	{
+		if (ViewHelper.GetAllComponents<UXSearchPanelItem>(dialog.SearchPanelView.VisualTree).Count == 0)
+			autoSearch = true;
+	}
+	
+	if (autoSearch)
+		dialog.SearchPanelView = null;
+		
+	
+%>
+using System;
+using System.Linq;
+using System.ServiceModel;
+using System.Reflection;
+using System.Collections.Generic;
+using Microsoft.Practices.CompositeUI;
+using Microsoft.Practices.CompositeUI.SmartParts;
+using Microsoft.Practices.CompositeUI.EventBroker;
+using Imi.Framework.UX;
+using Imi.Framework.UX.Services;
+using Imi.Framework.UX.Wpf.Workspaces;
+using Imi.SupplyChain.UX;
+using Imi.SupplyChain.UX.Services;
+using Imi.SupplyChain.UX.Views;
+using <%= userSessionNamespace %>;
+
+<%
+foreach (View view in FindViewDependencies(dialog, mainNode))
+{
+%>
+using <%= GetViewsNamespace(view) %>;
+using <%= GetViewsConstantsNamespace(view) %>;
+<%
+}
+%>
+
+namespace <%= dialogNamespace %>
+{
+
+	public class <%= controllerClassName %> : WorkItemController
+    {
+        private IFindDialogView findDialogView;
+		private <%=GetViewInterfaceName(mainNode.View)%> searchView;
+		private <%=parametersClassName%> viewParameters;
+<%
+if ((dialog.SearchPanelView != null) && (dialog.SearchPanelView.VisualTree != null))
+{
+%>
+		private <%=GetViewInterfaceName(dialog.SearchPanelView)%> searchPanelView;
+<%
+}
+%>
+                
+		public void Run(IWorkspace workspace, <%=parametersClassName%> viewParameters)
+        {
+			this.viewParameters = viewParameters;
+			
+			BuildViews();
+			CreateEventAggregator();
+			
+			findDialogView = WorkItem.SmartParts.AddNew<FindDialogView>();
+            
+<%
+    	if ((dialog.SearchPanelView != null) && (dialog.SearchPanelView.VisualTree != null))
+    	{
+%>	
+			InitializeSearchPanel();
+			findDialogView.ShowInSearchWorkspace(searchPanelView);
+<%
+    	}
+%>
+			
+			searchView.RefreshDataOnShow = false;
+			searchView.PresentData(new List<<%=GetViewResultClassName(mainNode.View)%>>());
+			findDialogView.ShowInMasterWorkspace(searchView);
+			
+			workspace.Show(findDialogView);
+			
+			base.Run();
+<%
+			if (autoSearch)
+			{
+%>
+			
+			searchView.Update(viewParameters);			
+<%
+			}
+%>
+        }
+				
+<%
+	if ((dialog.SearchPanelView != null) && (dialog.SearchPanelView.VisualTree != null))
+	{
+		string resultClassName = GetViewResultClassName(dialog.SearchPanelView);
+		string viewNamespace = GetViewsConstantsNamespace(dialog.SearchPanelView);
+		string searchPanelClassName = GetViewClassName(dialog.SearchPanelView);
+		
+%>
+		private void InitializeSearchPanel()
+		{
+			<%=resultClassName%> result = new <%=resultClassName%>();
+			
+			if (viewParameters != null)
+            {
+<%			foreach (MappedProperty property in mainNode.View.RequestMap.MappedProperties)
+			{
+%>
+				result.<%=property.Name%> = viewParameters.<%=property.Name%>;	
+<%
+					
+			}
+%>
+			}
+			
+			searchPanelView.PresentData(result);
+			searchPanelView.SetFocus();
+		}
+		
+		[EventSubscription(<%=viewNamespace%>.EventTopicNames.<%=searchPanelClassName%>SearchExecutedTopic)]
+        public void <%=searchPanelClassName%>SearchExecutedEventHandler(object sender, DataEventArgs<<%=resultClassName%>> eventArgs)
+        {
+			if (eventArgs.Data == null)
+				InitializeSearchPanel();	
+		}
+<%
+	}
+%>
+
+		private void BuildViews()
+		{
+			searchView = WorkItem.SmartParts.AddNew<<%=GetViewClassName(mainNode.View)%>>();
+<%
+		if ((dialog.SearchPanelView != null) && (dialog.SearchPanelView.VisualTree != null))
+		{
+%>		
+			
+			searchPanelView = WorkItem.SmartParts.AddNew<<%=GetViewClassName(dialog.SearchPanelView)%>>();
+			searchPanelView.RefreshDataOnShow = false;
+<%
+		}
+%>
+        }
+
+		//WORKAROUND TO AVOID GUI FROM HANGING WHEN GRID ARE WIDER THEN WORKSPACE
+		[EventSubscription(<%=GetViewsConstantsNamespace(mainNode.View)%>.EventTopicNames.<%=GetViewClassName(mainNode.View)%>UpdatedTopic)]
+        public virtual void <%=GetViewClassName(mainNode.View)%>UpdatedEventHandler(object sender, DataEventArgs<<%=GetViewResultClassName(mainNode.View)%>> eventArgs)
+        {
+            findDialogView.UpdateWorkspaceLayout();
+        }
+        				
+		private void CreateEventAggregator()
+        {
+            WorkItem.Items.AddNew<<%= eventAggregatorClassName %>>();
+        }
+    }
+}
+<script runat="template">
+   
+	public IList<View> FindViewDependencies(Dialog dialog, ViewNode node)
+	{
+		IList<View> viewList = new List<View>(GetUniqueViews(dialog));
+		
+		foreach (ViewAction viewAction in node.ViewActions)
+		{
+			if ((viewAction.Action.Dialog != null) && ((viewAction.Action.Dialog.Type == DialogType.Modify) || (viewAction.Action.Dialog.Type == DialogType.Create)))
+			{
+				View view = viewAction.Action.Dialog.InterfaceView;
+								
+				if (view != null)
+				{
+					bool found = false;
+					
+					foreach (View v in viewList)
+					{
+						if (v.BusinessEntity == view.BusinessEntity)
+						{
+							found = true;
+							break;
+						}
+					}
+					
+					if (!found)
+						viewList.Add(view);
+				}
+			}
+		}
+		
+		return viewList;
+	}
+	
+</script>

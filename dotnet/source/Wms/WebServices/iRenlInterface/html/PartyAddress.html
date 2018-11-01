@@ -1,0 +1,80 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Segment PartyAddress</title>
+<link href="StructureDescription.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>Segment PartyAddress</h1>
+<h3>Description:</h3>
+Party<br/>Updates data for a Party.<h3>Attributes:</h3>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000"><tbody>
+<tr class="tableHeader"><th class="tableHeaderColumn">Tag</th><th class="tableHeaderColumn">Method</th><th class="tableHeaderColumn">Type</th><th class="tableHeaderColumn">Oracle Type</th><th class="tableHeaderColumn">Mandatory</th><th class="tableHeaderColumn">Note</th></tr>
+<tr class="tableRow"><td class="tableRowColumn">OPCODE</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Operation Code<br/>0 - No Operation<br/>1 - New<br/>2 - Change<br/>3 - Remove<br/>Note! An operation code is only useful if at least one tag supports the method</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PartyQualifier</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">Party Type<br/>CA = Forwarder (NOT Client dependent)<br/>CL = Client (NOT Client dependent)<br/>CU = Customer (Client dependent)<br/>GO = Owner (Client dependent)<br/>OT = Other (NOT Client dependent)<br/>PV = Provider (NOT Client dependent)<br/>SU = Vendor (Client dependent)<br/>WH = Warehouse (NOT Client dependent)</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PartyIdentity</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">Party Identity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PartyProfile</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Party Profile<br/>If the Party Type is client dependent then this is a foreign key to the table Partyqualifer = Table.Column accordingly:<br/>Owner = OWN.OWNID<br/>Customer = CUS.CUSID<br/>Vendor = SUP.SUPID</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PartyStatus</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Party Status<br/>N = Normal<br/>T = Temporary</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PartyName1</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Name 1</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PartyName2</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Name 2</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PartyName3</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Name 3</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PartyName4</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Name 4</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PartyName5</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Name 5</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PartyAddress1</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Address 1</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PartyAddress2</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Address 2</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PartyAddress3</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Address 3</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PartyAddress4</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Address 4</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ZipCode</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(12)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Post/Zip Code</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">City</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">City</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Region</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">State<br/>The State for the Ship-to Customer.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CountryCode</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Country Code</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Country</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Country</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">GeographicalCode</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Geographical Reference<br/>Is used to find the correct Identity in a dispatch route, which is used to transport Item Loads to/from, the Party</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Phone</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Phone</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Fax</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Fax</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Telex</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Telex</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Email</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(50)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Email</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PostalGiroAccount</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Postal Giro</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">BankGiroAccount</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Bank Giro</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">VATNumber</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">VAT Registration Number</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OrganizationNumber</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Company Registration Number<br/>Is used in some countries for fiscal purposes (VAT accounting, etc).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Language</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Language Code<br/>The language to use when communicating with the Party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Division</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Division</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">SendASN</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Outbound ASN<br/>Indicates (true/false) if an Outbound ASN has to be created when goods is shipped to the Party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">RcvCheckType</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Receive Check Type<br/>Indicates if ASN or Order are selected for Party Check. Allowed values ASN = ASN, PO = Order.</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

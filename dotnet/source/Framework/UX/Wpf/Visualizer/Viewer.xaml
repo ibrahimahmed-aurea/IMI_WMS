@@ -1,0 +1,30 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	x:Class="Imi.Framework.UX.Wpf.Visualizer.Viewer">
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="Resources\VisualizerStyles.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</UserControl.Resources>
+	<Grid>
+		<ScrollViewer Style="{DynamicResource ScrollViewerStyle}" x:Name="ScrollViewer" ScrollChanged="ScrollViewer_ScrollChanged">
+			<Grid Name="Grid" SizeChanged="Grid_SizeChanged">
+				<TreeView Name="TreeView"
+				ItemContainerStyle="{DynamicResource DefaultTreeViewItemStyle}"
+				Style="{DynamicResource TreeViewStyle}" Grid.Column="0"/>
+			</Grid>
+		</ScrollViewer>
+		<!-- zoom -->
+		<StackPanel Style="{DynamicResource ZoomAreaStyle}">
+			<Border Style="{DynamicResource SliderBorderStyle}">
+				<StackPanel>
+					<Slider Style="{DynamicResource ZoomSliderStyle}" x:Name="ZoomSlider" ValueChanged="ZoomSlider_ValueChanged" />
+					<Label Style="{DynamicResource ZoomLabelStyle}">Zoom</Label>
+				</StackPanel>
+			</Border>
+		</StackPanel>
+	</Grid>
+</UserControl>

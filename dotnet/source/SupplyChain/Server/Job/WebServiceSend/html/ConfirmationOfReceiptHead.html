@@ -1,0 +1,48 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Segment ConfirmationOfReceiptHead</title>
+<link href="StructureDescription.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>Segment ConfirmationOfReceiptHead</h1>
+<h3>Description:</h3>
+Confirmation of Receipt<h3>Attributes:</h3>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000"><tbody>
+<tr class="tableHeader"><th class="tableHeaderColumn">Tag</th><th class="tableHeaderColumn">Method</th><th class="tableHeaderColumn">Type</th><th class="tableHeaderColumn">Oracle Type</th><th class="tableHeaderColumn">Mandatory</th><th class="tableHeaderColumn">Note</th></tr>
+<tr class="tableRow"><td class="tableRowColumn">OPCODE</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Operation Code<br/>1 - New</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">AcknowledgeInboundAsnIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Acknowledge Inbound ASN Identity<br/>Acknowledge Inbound ASN Identity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ArrivalDateTime</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Arrival Time<br/>Date and time when the goods arrived at / was delivered to the Warehouse.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipToPartyNodeIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-to Party Node Identity<br/>The identity of the Node for the Party that will receive the goods when they are shipped from the Ship-from Party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipToPartyIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-to Party Identity<br/>The identity of the Party that will receive the goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipToPartyQualifier</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-to Party Type<br/>The type of Party that is the Ship-to Party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipFromPartyNodeIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-from Party Node Identity<br/>The identity of the Node for the Party that has shipped the goods to the Warehouse.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipFromPartyIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-from Party Identity<br/>The identity of the Party that has shipped the goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipFromPartyQualifier</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-from Party Type<br/>The type of Party that is the Ship-from Party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">InboundAsnIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Inbound ASN Identity<br/>The identity / number of the inbound ASN.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">InboundAsnSequenceNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">ASN Sequence Number<br/>A Sequence Number to make the ASN identity unique.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ForwarderIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Forwarder Identity<br/>The identity of the Forwarder that transports the goods to or from the Warehouse / Node.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ReceiptType</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Receive Type Identity<br/>The identity of the Receive Type:<br/>N   = Normal Station. The normal receive type in the Stationary client.<br/>H   = Normal RF. The normal receive type in the RF terminal.<br/>RG = Receive Goods. Replenishment from Receiving based on a Purchase Order Line.<br/>PR = Prepare Goods. The goods that has arrived is sorted on Preparation Load Carriers.<br/>PC = Prepared Load Carrier. Receiving a Preparation Load carrier that is finished.<br/>CR = Return Order. Normally used for Customer Return Order Lines.<br/>RE = Return Goods. Receiving not notified returned goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PackingSlipNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Packing Slip<br/>The identity / number of the Packing Slip.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">BillOfLadingNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Bill of Lading<br/>The identity / number of the Bill of Lading.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">VehicleIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Vehicle<br/>The identity of the vehicle that transports the goods to / from the Warehouse / Node.<br/>The identity can be the registration number, license plate or similar.</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

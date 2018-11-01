@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://www.centiro.com/CentiroServices.Adapted.CDC.Contracts/1/0" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.centiro.com/CentiroServices.Adapted.CDC.Contracts/1/0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.centiro.com/CentiroServices.Adapted.CDC.Contracts/1/0/Imports">
+      <xsd:import schemaLocation="http://test.centiro.com/Universe.Services/Adapted/CDC/1/1/CDCInterface.svc?xsd=xsd0" namespace="http://www.centiro.com/CentiroServices.Adapted.CDC.Contracts/1/0" />
+      <xsd:import schemaLocation="http://test.centiro.com/Universe.Services/Adapted/CDC/1/1/CDCInterface.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://test.centiro.com/Universe.Services/Adapted/CDC/1/1/CDCInterface.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IWMSInterface_Authenticate_InputMessage">
+    <wsdl:part name="parameters" element="tns:Authenticate" />
+  </wsdl:message>
+  <wsdl:message name="IWMSInterface_Authenticate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AuthenticateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWMSInterface_UpdateShipment_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateShipment" />
+  </wsdl:message>
+  <wsdl:message name="IWMSInterface_UpdateShipment_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateShipmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWMSInterface_PrintShipment_InputMessage">
+    <wsdl:part name="parameters" element="tns:PrintShipment" />
+  </wsdl:message>
+  <wsdl:message name="IWMSInterface_PrintShipment_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PrintShipmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWMSInterface_UpdateParcels_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateParcels" />
+  </wsdl:message>
+  <wsdl:message name="IWMSInterface_UpdateParcels_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateParcelsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWMSInterface_RemoveParcels_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveParcels" />
+  </wsdl:message>
+  <wsdl:message name="IWMSInterface_RemoveParcels_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveParcelsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWMSInterface_PrintParcels_InputMessage">
+    <wsdl:part name="parameters" element="tns:PrintParcels" />
+  </wsdl:message>
+  <wsdl:message name="IWMSInterface_PrintParcels_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PrintParcelsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWMSInterface_PrintDeparture_InputMessage">
+    <wsdl:part name="parameters" element="tns:PrintDeparture" />
+  </wsdl:message>
+  <wsdl:message name="IWMSInterface_PrintDeparture_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PrintDepartureResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWMSInterface_CloseDeparture_InputMessage">
+    <wsdl:part name="parameters" element="tns:CloseDeparture" />
+  </wsdl:message>
+  <wsdl:message name="IWMSInterface_CloseDeparture_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CloseDepartureResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IWMSInterface">
+    <wsdl:operation name="Authenticate">
+      <wsdl:input wsaw:Action="http://www.centiro.com/CentiroServices.Adapted.CDC.Contracts/1/0/IWMSInterface/Authenticate" message="tns:IWMSInterface_Authenticate_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.centiro.com/CentiroServices.Adapted.CDC.Contracts/1/0/IWMSInterface/AuthenticateResponse" message="tns:IWMSInterface_Authenticate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateShipment">
+      <wsdl:input wsaw:Action="http://www.centiro.com/CentiroServices.Adapted.CDC.Contracts/1/0/IWMSInterface/UpdateShipment" message="tns:IWMSInterface_UpdateShipment_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.centiro.com/CentiroServices.Adapted.CDC.Contracts/1/0/IWMSInterface/UpdateShipmentResponse" message="tns:IWMSInterface_UpdateShipment_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PrintShipment">
+      <wsdl:input wsaw:Action="http://www.centiro.com/CentiroServices.Adapted.CDC.Contracts/1/0/IWMSInterface/PrintShipment" message="tns:IWMSInterface_PrintShipment_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.centiro.com/CentiroServices.Adapted.CDC.Contracts/1/0/IWMSInterface/PrintShipmentResponse" message="tns:IWMSInterface_PrintShipment_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateParcels">
+      <wsdl:input wsaw:Action="http://www.centiro.com/CentiroServices.Adapted.CDC.Contracts/1/0/IWMSInterface/UpdateParcels" message="tns:IWMSInterface_UpdateParcels_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.centiro.com/CentiroServices.Adapted.CDC.Contracts/1/0/IWMSInterface/UpdateParcelsResponse" message="tns:IWMSInterface_UpdateParcels_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveParcels">
+      <wsdl:input wsaw:Action="http://www.centiro.com/CentiroServices.Adapted.CDC.Contracts/1/0/IWMSInterface/RemoveParcels" message="tns:IWMSInterface_RemoveParcels_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.centiro.com/CentiroServices.Adapted.CDC.Contracts/1/0/IWMSInterface/RemoveParcelsResponse" message="tns:IWMSInterface_RemoveParcels_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PrintParcels">
+      <wsdl:input wsaw:Action="http://www.centiro.com/CentiroServices.Adapted.CDC.Contracts/1/0/IWMSInterface/PrintParcels" message="tns:IWMSInterface_PrintParcels_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.centiro.com/CentiroServices.Adapted.CDC.Contracts/1/0/IWMSInterface/PrintParcelsResponse" message="tns:IWMSInterface_PrintParcels_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PrintDeparture">
+      <wsdl:input wsaw:Action="http://www.centiro.com/CentiroServices.Adapted.CDC.Contracts/1/0/IWMSInterface/PrintDeparture" message="tns:IWMSInterface_PrintDeparture_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.centiro.com/CentiroServices.Adapted.CDC.Contracts/1/0/IWMSInterface/PrintDepartureResponse" message="tns:IWMSInterface_PrintDeparture_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CloseDeparture">
+      <wsdl:input wsaw:Action="http://www.centiro.com/CentiroServices.Adapted.CDC.Contracts/1/0/IWMSInterface/CloseDeparture" message="tns:IWMSInterface_CloseDeparture_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.centiro.com/CentiroServices.Adapted.CDC.Contracts/1/0/IWMSInterface/CloseDepartureResponse" message="tns:IWMSInterface_CloseDeparture_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

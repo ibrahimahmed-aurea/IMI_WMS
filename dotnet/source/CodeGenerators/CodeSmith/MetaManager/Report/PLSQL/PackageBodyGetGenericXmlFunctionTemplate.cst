@@ -1,0 +1,113 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="ReportCoreTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Assembly Name="System.Collections.Generic" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Register Name="PackageBodyGetGenericXmlFunctionHeaderTemplate" Template=".\PackageBodyGetGenericXmlFunctionHeaderTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Property Name="report" Type="Cdc.MetaManager.DataAccess.Domain.Report" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="doPreCompile" Type="System.Boolean" Default="" Optional="false" Category="" Description="" %>
+<%
+PackageBodyGetGenericXmlFunctionHeaderTemplate packageBodyGetGenericXmlFunctionHeaderTemplate = this.Create<PackageBodyGetGenericXmlFunctionHeaderTemplate>();
+packageBodyGetGenericXmlFunctionHeaderTemplate.SetProperty("report", report);
+packageBodyGetGenericXmlFunctionHeaderTemplate.SetProperty("isSpec", false);
+packageBodyGetGenericXmlFunctionHeaderTemplate.Render(this.Response);
+
+// If we are precompiling directly
+string documentType = doPreCompile ? string.Format("'{0}'", report.DocumentType) : "Def." + report.DocumentTypeDefinition;
+string applicationIdentity = doPreCompile ? string.Format("'{0}'", report.Application.Name) : "Def.Application_Identity";
+
+ReportInterfaceParameterList parameterList = report.GetUserDefinedInterfaceParameterList();
+string xmlString = "test2";
+foreach (string parName in  parameterList.GetNames() )
+{
+		xmlString =  parName ;
+		;
+}
+
+int maxLength = Math.Max(documentType.Length, applicationIdentity.Length);
+maxLength = Math.Max(maxLength, 27);
+%>
+is
+
+  XML_W        XMLType;
+  XMLDATA_W    XMLType;
+  XMLPARAM_W   XMLType;
+begin
+
+  if Debug_W then
+    logg_output.put_line('>>> <%=report.PackageName%>.GetGenericXml');
+  end if;
+
+
+  select XMLType
+        (
+           '<?xml version="1.0" encoding="UTF-8"?>' ||
+           XMLElement
+           (
+				"GenericReport",
+				XMLElement
+				(
+					"MetaData",
+					XMLAttributes
+					(
+						 <%=documentType.PadRight(maxLength)%> as "documentType",
+						 <%="nvl(META_DOCSUBTYPE_I, ' ')".PadRight(maxLength)%> as "documentSubType",
+						 <%=applicationIdentity.PadRight(maxLength)%> as "applicationIdentity",
+						 <%="nvl(META_TERID_I, ' ')".PadRight(maxLength)%> as "terminalIdentity",
+						 <%="nvl(META_PRTID_I, ' ')".PadRight(maxLength)%> as "printerIdentity",
+						 <%="nvl(META_EMPID_I, ' ')".PadRight(maxLength)%> as "userIdentity",
+						 <%="nvl(META_NO_COPIES_I, 1)".PadRight(maxLength)%> as "numberOfCopies",
+						 <%="'false'".PadRight(maxLength)%> as "isCopy"
+					)
+				),
+				XMLElement
+				(
+					"Data",
+					XMLDATA_W
+				),
+				XMLElement
+				(
+					"Parameters",
+					<%
+					string sign = ",";
+					int i = parameterList.GetNames().Count();
+					foreach (string parName in  parameterList.GetNames() )
+					{
+					i--;
+					if(i == 0) sign = "";
+					%> 
+					XMLElement
+					(
+						"Parameter", 
+						XMLAttributes
+						(
+						   '<%=parName%>' as "name",
+						   <%=parName%> as "value"				
+						)
+					)<%=sign%>
+					<%
+					}
+					%>
+
+				)
+			).getClobVal()
+        )
+    into XML_W
+    from dual;
+
+  if Debug_W then
+    logg_output.put_line('<<< <%=report.PackageName%>.GetGenericXml');
+  end if;
+
+  return XML_W;
+
+end GetGenericXml;

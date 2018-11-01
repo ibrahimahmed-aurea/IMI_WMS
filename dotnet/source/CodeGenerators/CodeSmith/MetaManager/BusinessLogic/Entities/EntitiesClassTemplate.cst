@@ -1,0 +1,114 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DomainTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Register Name="EntitiesPropertiesTemplate" Template="EntitiesPropertiesTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Property Name="action" Type="Cdc.MetaManager.DataAccess.Domain.Action" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="propertyMap" Type="Cdc.MetaManager.DataAccess.Domain.PropertyMap" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isRequest" Type="System.Boolean" Default="" Optional="false" Category="" Description="" %>
+<%
+	string className = GetEntityClassName(action, isRequest);
+	bool isQuery = (action.MappedToObject is Query);
+	bool rowIdAction = (! string.IsNullOrEmpty(action.RowTrackingId));
+	bool isMulti = (action.IsMultiEnabled == true);
+
+	bool isSortable = false;
+	if (action.MappedToObject is Query)
+	{
+		isSortable = true;
+	}
+%>
+using System;
+using System.Collections.Generic;
+using System.Text;
+<%
+if ((action.IsMessageHandlingEnabled == true) && !isQuery && !isRequest)
+{
+%>
+using Imi.Framework.DataAccess;
+<%
+}
+%>
+
+namespace <%= GetEntitiesNamespace(action.BusinessEntity) %>
+{
+    public class <%= className %>
+    {
+<%
+  EntitiesPropertiesTemplate mapTemplate = this.Create<EntitiesPropertiesTemplate>();
+  mapTemplate.SetProperty("propertyMap", propertyMap);
+  mapTemplate.SetProperty("isRequest", isRequest);
+  mapTemplate.SetProperty("isQuery", isQuery);
+  mapTemplate.SetProperty("rowIdAction", rowIdAction);
+  mapTemplate.SetProperty("isSortable", isSortable);
+  mapTemplate.Render(this.Response);
+
+		if ((action.IsMessageHandlingEnabled == true) && !isQuery && isRequest && !isMulti)
+		{
+%>
+        public string MessageXML { get; set; }
+<%
+		}
+
+		if ((action.IsMessageHandlingEnabled == true) && !isQuery && !isRequest)
+		{
+%>
+		public string InformationXML { get; set; }
+<%
+		}
+%>
+	
+		public override string ToString()
+		{
+			string result = base.ToString();
+			
+<%
+
+		foreach(MappedProperty mapProp in propertyMap.MappedProperties)
+		{
+			string publicName = mapProp.Name;
+			if(string.IsNullOrEmpty(publicName ))
+			publicName = mapProp.Target.Name;
+	
+%>
+        	result += string.Format("\r\n{0}={1}", "<%= publicName %>", <%= publicName %>);
+<%
+		}
+
+		// Stored procedure resultSet or
+		// Query parameters & results
+		if (rowIdAction)
+		{
+			if (!isRequest && isQuery)
+			{
+%>
+
+        	result += string.Format("\r\nRowIdentity={0}", RowIdentity);
+<%
+			}
+			else
+			{
+%>
+			
+			result += string.Format("\r\nRowIdentities={0}", RowIdentities == null ? "Null" : string.Join(", ", RowIdentities));
+<%
+			}
+  		}
+
+		if (isSortable)
+		{
+%>
+			result += string.Format("\r\nSortIndex_GUI={0}", SortIndex_GUI);
+<%
+		}
+%>
+			return result;
+		}	
+    }
+}

@@ -1,0 +1,107 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="ServiceTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="service" Type="Cdc.MetaManager.DataAccess.Domain.Service" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="serviceMethod" Type="Cdc.MetaManager.DataAccess.Domain.ServiceMethod" Default="" Optional="false" Category="" Description="" %>
+<%
+  // Never map collections
+  	Cdc.MetaManager.DataAccess.Domain.Action action = serviceMethod.MappedToAction;
+  	BusinessEntity entity = action.BusinessEntity;
+  	string businessReqTypename = string.Format("Business.{0}",GetBusinessEntitiyClassname(action, true));
+  	string businessRespTypename = string.Format("Business.{0}",GetBusinessEntitiyClassname(action, false));
+  	string serviceReqTypename = string.Format("Service.{0}",GetServiceContractParamType(serviceMethod, true, false));
+  	string serviceRespTypename = string.Format("Service.{0}",GetServiceContractParamType(serviceMethod, false, false));
+ 	bool isStoredProcedure = action.MappedToObject is StoredProcedure;
+	bool isRowTrackingEnabled = !string.IsNullOrEmpty(action.RowTrackingId);
+	bool isMessageHandlingEnabled = action.IsMessageHandlingEnabled == true && isStoredProcedure;
+	bool isMulti = (action.IsMultiEnabled == true);
+%>
+using System;
+using System.Collections.Generic;
+using System.Text;
+using Imi.Framework.Services;
+using Service = <%= GetDataContractNamespace(service) %>;
+using Business = <%= GetBusinessEntitiesNamespace(entity) %>;
+
+namespace <%= GetServiceImplementationNamespace(service) %>.Translators
+{
+    static class <%= serviceMethod.Name %>Translator
+    {
+        public static <%= businessReqTypename %> TranslateFromServiceToBusiness(<%= serviceReqTypename %> serviceEntity)
+        {
+			<%= businessReqTypename %> businessEntity = new <%= businessReqTypename %>();
+			
+<%		
+        foreach (MappedProperty property in serviceMethod.RequestMap.MappedProperties)
+		{
+%>				
+			businessEntity.<%=property.Source.Name%> = serviceEntity.<%=property.Name%>;
+<%				
+		}
+		
+		if (isMessageHandlingEnabled && !isMulti)
+		{
+%>
+			businessEntity.MessageXML = serviceEntity.MessageXML;
+<%
+		}
+		
+		if (isRowTrackingEnabled && !isStoredProcedure)
+		{
+%>
+			businessEntity.RowIdentities = serviceEntity.RowIdentities;
+<%
+		}
+%>			
+			
+			return businessEntity;
+        }
+
+        public static <%= serviceRespTypename %> TranslateFromBusinessToService(<%= businessRespTypename %> businessEntity)
+        {
+			<%= serviceRespTypename %> serviceEntity = new <%= serviceRespTypename %>();
+			
+<%		
+        foreach (MappedProperty property in serviceMethod.ResponseMap.MappedProperties)
+		{
+%>				
+			serviceEntity.<%=property.Name%> = businessEntity.<%=property.Source.Name%>;
+<%				
+		}
+		
+		if (isMessageHandlingEnabled )
+		{
+%>
+			serviceEntity.InformationXML = businessEntity.InformationXML;
+<%
+		}
+		
+		if (isRowTrackingEnabled)
+		{
+			if (isStoredProcedure)
+			{
+%>
+			serviceEntity.RowIdentities = businessEntity.RowIdentities;
+<%
+			}
+			else
+			{
+%>
+			serviceEntity.RowIdentity = businessEntity.RowIdentity;
+<%
+			}
+		}
+%>			
+			
+			return serviceEntity;
+        }
+    }
+}
+	

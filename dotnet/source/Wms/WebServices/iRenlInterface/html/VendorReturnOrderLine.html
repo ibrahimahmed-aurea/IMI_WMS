@@ -1,0 +1,60 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Segment VendorReturnOrderLine</title>
+<link href="StructureDescription.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>Segment VendorReturnOrderLine</h1>
+<h3>Description:</h3>
+Vendor Return Order Line<br/>Specifies product, quantity and hold code that should be returned.<h3>Attributes:</h3>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000"><tbody>
+<tr class="tableHeader"><th class="tableHeaderColumn">Tag</th><th class="tableHeaderColumn">Method</th><th class="tableHeaderColumn">Type</th><th class="tableHeaderColumn">Oracle Type</th><th class="tableHeaderColumn">Mandatory</th><th class="tableHeaderColumn">Note</th></tr>
+<tr class="tableRow"><td class="tableRowColumn">OPCODE</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Operation Code<br/>0 - No Operation<br/>1 - New<br/>2 - Change<br/>3 - Remove<br/>Note! An operation code is only useful if at least one tag supports the method</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">VendorReturnOrderNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Vendor Return Order Number</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">VendorReturnOrderSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Vendor Return Order Sequence Number</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">VendorReturnOrderLine</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(5)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Vendor Return Order Line</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">VendorReturnOrderLineSeq</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(5)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Vendor Return Order Sequence Number</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Product Number</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PackageIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Package Identity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductionLotIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(40)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Manufacturing Lot</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductionSubLotIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(40)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Manufacturing Sublot</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">MarketingLotIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(20)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Marketing Lot</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OwnerIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Owner Identity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ReturnQuantity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Ordered Quantity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ClaimCause</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Claim cause</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ClaimCauseText</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(30)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Claim cause text</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ClaimCauseCode</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Claim cause code</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Instructions</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(400)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Instructions<br/>Free text.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerReturnOrderNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Return Order Number</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerReturnOrderSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Return Order Sequence</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerReturnOrderLinePos</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(5)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Return Order Line Number</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerReturnOrderLineKitPos</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Return Order Line Kit Number</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerReturnOrderLineSeq</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Return Order Line Sequence Number</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">InventoryStatusCode</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(8)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Hold Code</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

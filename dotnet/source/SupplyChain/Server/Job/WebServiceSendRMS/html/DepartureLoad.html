@@ -1,0 +1,40 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Segment DepartureLoad</title>
+<link href="StructureDescription.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>Segment DepartureLoad</h1>
+<h3>Description:</h3>
+Departure Load<h3>Attributes:</h3>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000"><tbody>
+<tr class="tableHeader"><th class="tableHeaderColumn">Tag</th><th class="tableHeaderColumn">Method</th><th class="tableHeaderColumn">Type</th><th class="tableHeaderColumn">Oracle Type</th><th class="tableHeaderColumn">Mandatory</th><th class="tableHeaderColumn">Note</th></tr>
+<tr class="tableRow"><td class="tableRowColumn">OPCODE</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Operation Code<br/>1 - New</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DepartureLoadIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Transport Load Identity<br/>The identity of the Transport Load, that can be a Customer Order (whole or part of)<br/>or a Transit Consignment in a Departure.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(10)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Order Sequence Number<br/>A Sequence Number used by the Host system to make it possible to send<br/>a Customer Order more than once (e.g. backorder).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DepartureIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Departure Identity<br/>The identity of the Departure.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">RouteIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Route Identity<br/>The identity of the dispatch Route.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">RouteDescription</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Route Description<br/>The description / name of the Route.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderReleaseDateTime</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Order Release Time<br/>The recommended date and time to release Customer Orders from the Order system.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderStopDateTime</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Order Stop Time<br/>The date and time when no more Customer Orders may be registered on the Departure.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PlannedDepartureDateTime</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Planned Departure Time<br/>The date and time when the Departure is planned to occur.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">EstimatedArrivalDateTime</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Estimated Arrival Time<br/>The date and time when the goods is estimated to arrive at the Node.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">LastChainDepartureIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Last Chain Departure Identity<br/>The last Departure in a chain of Departures.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">WhyNoDepartureMessage</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(2000)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Why no Departure Message<br/>A message that explains why the system has failed to connect the Load Carrier<br/>to any Departure to the Ship-to Party.</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="false" Description="Template description here." %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Property Name="view" Type="Cdc.MetaManager.DataAccess.Domain.View" Default="" Optional="false" Category="" Description="" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain.VisualModel" %>
+<%@ Property Name="listBox" Type="Cdc.MetaManager.DataAccess.Domain.VisualModel.UXTwoWayListBox" Default="" Optional="false" Category="" Description="" %>
+<%
+	string localNamespace = GetViewsNamespace(view);
+	string viewClassName = string.Format("{0}.{1}", localNamespace, GetViewClassName(view));
+%>
+<UserControl x:Class="<%=viewClassName%>"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="clr-namespace:<%= localNamespace %>"  
+    Height="420" Width="660">
+      <Grid>	
+		<Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="65"/>
+          <ColumnDefinition Width="*"/>
+      	</Grid.ColumnDefinitions>
+		<GroupBox Header="<%=GetResourceReference(listBox, "LeftCaption")%>" Grid.Column="0">
+          <ListBox Margin="0,4,0,0" x:Name="LeftListBox" ItemsSource="{Binding}" SelectionMode="Extended">
+<%
+		if (listBox.LeftDisplayPropertyNames.Count > 0)
+		{
+			string borderThickness = "0,0,0,0";
+%>			
+			<ListBox.ItemTemplate>
+              	<DataTemplate>
+                	<Grid>
+                		<Grid.ColumnDefinitions>
+<%
+						if (listBox.LeftDisplayPropertyNames.Count > 1)
+						{
+							borderThickness = "0,0,1,0";
+%>							
+							<ColumnDefinition Width="Auto" MinWidth="125" MaxWidth="225"/>
+<%
+						}
+%>
+                			<ColumnDefinition Width="*"/>
+                		</Grid.ColumnDefinitions>
+                  		<Border BorderThickness="<%=borderThickness%>" BorderBrush="Silver">
+                			<TextBlock Grid.Column="0" Text="{Binding Path=<%=listBox.LeftDisplayPropertyNames[0]%>, Mode=Default}" VerticalAlignment="Center" Margin="4,0,4,0"  TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/>
+                		</Border>
+<%
+					if (listBox.LeftDisplayPropertyNames.Count > 1)				
+					{
+%>
+                  		<TextBlock Grid.Column="1" Text="{Binding Path=<%=listBox.LeftDisplayPropertyNames[1]%>, Mode=Default}" VerticalAlignment="Center" Margin="4,0,4,0"  TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/>
+<%
+					}
+%>					
+                	</Grid>
+              	</DataTemplate>
+            </ListBox.ItemTemplate>
+<%
+	}
+%>	
+	      </ListBox>	
+		</GroupBox>
+        <StackPanel Margin="4,0,4,0" VerticalAlignment="Center" Grid.Column="1" Orientation="Vertical">
+          <Button IsEnabled="{Binding Path=HasItems, ElementName=LeftListBox}" Margin="0,4,0,0" MinWidth="0" x:Name="MoveRightButton" Content="&gt;" Click="MoveRightButtonClickEventHandler"/>
+          <Button IsEnabled="{Binding Path=HasItems, ElementName=LeftListBox}" Margin="0,4,0,0" MinWidth="0" x:Name="MoveAllRightButton" Content="&gt;&gt;" Click="MoveAllRightButtonClickEventHandler"/>
+          <Button IsEnabled="{Binding Path=HasItems, ElementName=RightListBox}" Margin="0,4,0,0" MinWidth="0" x:Name="MoveLeftButton" Content="&lt;" Click="MoveLeftButtonClickEventHandler"/>
+          <Button IsEnabled="{Binding Path=HasItems, ElementName=RightListBox}" Margin="0,4,0,0" MinWidth="0" x:Name="MoveAllLeftButton" Content="&lt;&lt;" Click="MoveAllLeftButtonClickEventHandler"/>
+        </StackPanel>
+		<GroupBox Header="<%=GetResourceReference(listBox, "RightCaption")%>" Grid.Column="2">
+          <ListBox Margin="0,4,0,0" x:Name="RightListBox" ItemsSource="{Binding}" SelectionMode="Extended">
+<%
+		if (listBox.RightDisplayPropertyNames.Count > 0)
+		{
+			string borderThickness = "0,0,0,0";
+%>			
+			<ListBox.ItemTemplate>
+              	<DataTemplate>
+                	<Grid>
+                		<Grid.ColumnDefinitions>
+<%
+						if (listBox.RightDisplayPropertyNames.Count > 1)
+						{
+							borderThickness = "0,0,1,0";
+%>							
+							<ColumnDefinition Width="Auto" MinWidth="125" MaxWidth="225"/>
+<%
+						}
+%>
+                			<ColumnDefinition Width="*"/>
+                		</Grid.ColumnDefinitions>
+                  		<Border BorderThickness="<%=borderThickness%>" BorderBrush="Silver">
+                			<TextBlock Grid.Column="0" Text="{Binding Path=<%=listBox.RightDisplayPropertyNames[0]%>, Mode=Default}" VerticalAlignment="Center" Margin="4,0,4,0"  TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/>
+                		</Border>
+<%
+					if (listBox.RightDisplayPropertyNames.Count > 1)				
+					{
+%>
+                  		<TextBlock Grid.Column="1" Text="{Binding Path=<%=listBox.RightDisplayPropertyNames[1]%>, Mode=Default}" VerticalAlignment="Center" Margin="4,0,4,0"  TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/>
+<%
+					}
+%>					
+                	</Grid>
+              	</DataTemplate>
+            </ListBox.ItemTemplate>
+<%
+	}
+%>		
+          </ListBox>
+		</GroupBox>
+	  </Grid>	
+</UserControl>
+<script runat="template">
+
+	private string GetResourceReference(ILocalizable target, string propertyName)
+	{
+		return string.Format("{{x:Static local:ResourceManager.{0}}}", GlobalizationHelper.GetResourceId(target, propertyName));
+	}
+	
+</script>

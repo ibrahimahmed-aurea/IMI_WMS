@@ -1,0 +1,123 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Register Name="PropertyMapTemplate" Template="..\PropertyMapTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Property Name="fromView" Type="Cdc.MetaManager.DataAccess.Domain.View" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="toView" Type="Cdc.MetaManager.DataAccess.Domain.View" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="propertyMap" Type="Cdc.MetaManager.DataAccess.Domain.PropertyMap" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="translatorNamespace" Type="String" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="generateResultTranslator" Type="System.Boolean" Default="false" Optional="false" Category="" Description="" %>
+<%@ Property Name="isAdapted" Type="System.Boolean" Default="false" Optional="false" Category="" Description="" %>
+<%
+    string parametersClassName = GetViewParametersClassName(toView);
+	string userSessionName = GetUserSessionName(toView.Application);
+	string userSessionNamespace = GetUserSessionNamespace(toView.Application);
+    string fromResultClassName = GetViewResultClassName(fromView);
+	string toResultClassName = GetViewResultClassName(toView);
+    string translatorBaseClassName = GetViewTranslatorBaseClassName(fromView, toView);
+	string translatorClassName = GetViewTranslatorClassName(fromView, toView);
+	string fromViewNamespace = GetViewsNamespace(fromView);
+	string toViewNamespace = GetViewsNamespace(toView);
+%>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Microsoft.Practices.CompositeUI;
+using Imi.SupplyChain.UX;
+using <%= userSessionNamespace %>;
+using <%=fromViewNamespace%>;
+<%
+if (toViewNamespace != fromViewNamespace)
+{
+%>
+using <%=toViewNamespace%>;
+<%
+}
+%>
+
+namespace <%= translatorNamespace %>
+{
+<%
+if (!isAdapted)
+{
+%>
+	//Extract the following class to <%= translatorClassName %>Adapted.cs in order to customize its behavior      
+	public class <%= translatorClassName %> : <%= translatorBaseClassName %>
+    {
+		
+    }
+<%
+}
+%>
+
+	public class <%= translatorBaseClassName %>
+    {
+		[ServiceDependency]
+        public <%= userSessionName %> UserSessionService { get; set; }
+				
+		public <%= translatorBaseClassName %>()
+		{
+		}
+		
+<%
+	if (!generateResultTranslator)
+	{
+%>
+		public virtual <%=parametersClassName%> TranslateFromResultToParameters(<%=fromResultClassName%> viewResult)
+        {
+            <%=parametersClassName %> viewParameters = null;
+			
+			if (viewResult != null)
+			{
+				viewParameters = new <%=parametersClassName%>();
+				
+<%
+				CodeTemplate propertyMapTemplate = this.Create<PropertyMapTemplate>();
+				propertyMapTemplate.SetProperty("fromName", "viewResult");
+				propertyMapTemplate.SetProperty("toName", "viewParameters");
+				propertyMapTemplate.SetProperty("propertyMap", propertyMap);
+				propertyMapTemplate.Render(this.Response);
+%>
+			}
+			
+			return viewParameters;
+        }
+<%
+	}
+	else
+	{
+%>
+		
+		public virtual <%=toResultClassName%> TranslateFromResultToResult(<%=fromResultClassName%> fromViewResult)
+		{
+			<%=toResultClassName%> toViewResult = null;
+				
+			if (fromViewResult != null)
+			{
+				toViewResult = new <%=toResultClassName%>();
+				
+<%
+				CodeTemplate propertyMapTemplate = this.Create<PropertyMapTemplate>();
+	
+				propertyMapTemplate.SetProperty("fromName", "fromViewResult");
+				propertyMapTemplate.SetProperty("toName", "toViewResult");
+				propertyMapTemplate.SetProperty("propertyMap", propertyMap);
+				propertyMapTemplate.Render(this.Response);
+%>			
+			}
+			
+			return toViewResult;
+		}
+<%
+	}
+%>
+    }
+}	

@@ -1,0 +1,170 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\Library\Core.cst" Inherits="DialogTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="propertyMap" Type="Cdc.MetaManager.DataAccess.Domain.PropertyMap" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="fromName" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="toName" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="fromNameFieldPrefix" Type="System.String" Default="" Optional="true" Category="" Description="" %>
+<%@ Property Name="ignoreFromNameFieldPrefix" Type="System.String" Default="" Optional="true" Category="" Description="" %>
+<%
+	foreach (MappedProperty property in propertyMap.MappedProperties)
+	{
+		if ((!property.IsEnabled) || (property.IsCustom))
+			continue;
+		
+		if (!string.IsNullOrEmpty(ignoreFromNameFieldPrefix) &&
+		    !string.IsNullOrEmpty(property.Name) &&
+		    property.Name.StartsWith(ignoreFromNameFieldPrefix))
+			continue;
+		
+		string targetValue = null;
+				
+		string defaultValue = null;
+		Type defaultType = null;
+		
+		if (property.DefaultSessionProperty != null)
+		{
+			defaultValue = string.Format("{0}.{1}", "UserSessionService", property.DefaultSessionProperty.Name);	
+			defaultType = property.DefaultSessionProperty.Type;
+		}
+		else if (!string.IsNullOrEmpty(property.DefaultValue))
+		{
+			defaultValue = string.Format("\"{0}\"", property.DefaultValue);
+			defaultType = typeof(string);
+		}
+				
+		if (property.Target == null)
+		{
+			if (defaultValue == null)
+				continue;
+				
+			if (property.Source.Type == defaultType)	
+			{
+%>
+			<%=toName%>.<%=property.Source.Name%> = <%=defaultValue%>;
+<%							
+			}
+			else
+			{
+%>
+			<%=toName%>.<%=property.Source.Name%> = new Nullable<<%=GetShortTypeName(property.Source.Type)%>>((<%=GetShortTypeName(property.Source.Type)%>)Convert.ChangeType(<%=defaultValue%>, typeof(<%=GetShortTypeName(property.Source.Type)%>)));
+<%			
+			}
+			
+			continue;
+		}
+	
+		if (fromName.EndsWith("[0]"))
+		{
+			targetValue = string.Format("({0} != null ? {0}[0].{1} : null)", fromName.Substring(0, fromName.Length - 3), string.Format("{0}{1}", fromNameFieldPrefix, property.Name));
+		}
+		else
+		{
+			targetValue = string.Format("({0} != null ? {0}.{1} : null)", fromName, string.Format("{0}{1}", fromNameFieldPrefix, property.Name));
+		}
+				
+		// Property has a default value specified
+		if (defaultValue != null)
+		{	
+			if (property.Type == typeof(string))
+			{
+			
+%>				
+			
+			if (string.IsNullOrEmpty(<%=targetValue%>))
+<%			
+			}
+			else
+			{
+%>
+			
+			if (<%=targetValue%> == null)
+<%
+			}
+			
+			if (property.Source.Type == defaultType)
+			{
+%>
+				<%=toName%>.<%=property.Source.Name%> = <%=defaultValue%>;
+<%			}
+			else
+			{
+				if (property.Source.Type == typeof(string))
+				{
+%>
+				<%=toName%>.<%=property.Source.Name%> = (string)Convert.ChangeType(<%=defaultValue%>, typeof(string));
+<%							
+				}
+				else
+				{
+%>
+				<%=toName%>.<%=property.Source.Name%> = new Nullable<<%=GetShortTypeName(property.Source.Type)%>>((<%=GetShortTypeName(property.Source.Type)%>)Convert.ChangeType(<%=defaultValue%>, typeof(<%=GetShortTypeName(property.Source.Type)%>)));
+<%
+				}
+			}
+%>
+			else
+<%	
+			if (property.Source.Type != property.Type)
+			{
+				if (property.Source.Type == typeof(string))
+				{
+%>
+				<%=toName%>.<%=property.Source.Name%> = (string)Convert.ChangeType(<%=targetValue%>, typeof(string));
+<%
+				}
+				else
+				{
+%>
+				<%=toName%>.<%=property.Source.Name%> = new Nullable<<%=GetShortTypeName(property.Source.Type)%>>((<%=GetShortTypeName(property.Source.Type)%>)Convert.ChangeType(<%=targetValue%>, typeof(<%=GetShortTypeName(property.Source.Type)%>)));
+<%
+				}
+			}
+			else
+			{
+%>
+				<%=toName%>.<%=property.Source.Name%> = <%=targetValue%>;
+<%
+			}
+		}
+		// No default value
+		else
+		{
+			if (property.Source.Type != property.Type)
+			{
+%>
+			
+			if (<%=targetValue%> == null)
+				<%=toName%>.<%=property.Source.Name%> = null;
+			else
+<%	
+				if (property.Source.Type == typeof(string))
+				{
+%>
+				<%=toName%>.<%=property.Source.Name%> = (string)Convert.ChangeType(<%=targetValue%>, typeof(string));
+				
+<%
+				}
+				else
+				{
+%>
+				<%=toName%>.<%=property.Source.Name%> = new Nullable<<%=GetShortTypeName(property.Source.Type)%>>((<%=GetShortTypeName(property.Source.Type)%>)Convert.ChangeType(<%=targetValue%>, typeof(<%=GetShortTypeName(property.Source.Type)%>)));
+<%
+				}
+			}
+			else
+			{
+%>
+			<%=toName%>.<%=property.Source.Name%> = <%=targetValue%>;
+<%
+			}
+		}
+	}
+%>

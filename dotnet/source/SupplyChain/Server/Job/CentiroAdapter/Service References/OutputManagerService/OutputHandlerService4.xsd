@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://Imi.SupplyChain.OM.Services.OutputHandler.ServiceContracts/2016/11" elementFormDefault="qualified" targetNamespace="http://Imi.SupplyChain.OM.Services.OutputHandler.ServiceContracts/2016/11" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://se0133d:18801/OutputManager/OutputHandlerService?xsd=xsd2" namespace="http://Imi.SupplyChain.OM.Services.OutputHandler.DataContracts/2016/11" />
+  <xs:element name="CreateOutputRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://Imi.SupplyChain.OM.Services.OutputHandler.DataContracts/2016/11" minOccurs="0" name="CreateOutputParametersCollection" nillable="true" type="q1:CreateOutputParametersCollection" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateOutputResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://Imi.SupplyChain.OM.Services.OutputHandler.DataContracts/2016/11" minOccurs="0" name="CreateOutputResult" nillable="true" type="q2:CreateOutputResultCollection" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FindPrinterInfoRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://Imi.SupplyChain.OM.Services.OutputHandler.DataContracts/2016/11" minOccurs="0" name="FindPrinterInfoParameters" nillable="true" type="q3:FindPrinterInfoParameters" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FindPrinterInfoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://Imi.SupplyChain.OM.Services.OutputHandler.DataContracts/2016/11" minOccurs="0" name="FindPrinterInfoResult" nillable="true" type="q4:FindPrinterInfoResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>TAPIOS Gateway Specification</title>
+		<link href="./css/emx_nav_left.css" rel="stylesheet" type="text/css" />
+		<link href="./css/emx_nav_left_print.css" rel="stylesheet" type="text/css" media="print"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"></head>
+	<body>
+		<div id="pagecell1">
+			<!--pagecell1-->
+			<div id="breadCrumb">
+				<a href="index.html">Index</a>
+			</div>
+			<div id="pageName">
+				<h2 class="none">TAPIOS Gateway Specification </h2>
+			</div>
+			<div id="pageNav">
+			    <div class="relatedLinks"> 
+			      <h3>In</h3>
+				  &bull;&nbsp;<a href="Order.html">Order</a><br/>
+				  &bull;&nbsp;<a href="Node_Party.html">Node Party</a><br/>
+				</div> 
+			</div>
+            <div id="content">
+		      <div class="story">
+			  	<h3>Host Application Programming Interface (TAPIOS)</h3>
+			  	<h4>Message Direction </h4>
+			  	<p> Each message is either inbound (to IMI Warehouse) or outbound (from IMI Warehouse). The direction of a specific message is shown in the header of each message description as (In) or (Out). </p>
+			  	<h4>Method</h4>
+			  	<p>
+                    The codes in the Method column can assume the following values: <br />
+                      <br />
+                <table width="160" border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td width="26"><div align="center">N</div></td>
+                    <td width="124">- new object</td>
+                  </tr>
+                  <tr>
+                    <td width="26"><div align="center">C</div></td>
+                    <td>- change object</td>
+                  </tr>
+                  <tr>
+                    <td width="26"><div align="center">R</div></td>
+                    <td> - remove object.</td>
+                  </tr>
+                </table>
+                <br />
+                <p>Example: The signature for the Remove operation can be determined by looking at all the attributes that have a 'R' in the method column. </p>
+                <h4>Type</h4>
+				<p>
+                    Shows the data type and length as declared in IMI Warehouse.
+                </p>
+                <h4>Mandatory</h4>
+				<p>
+				    The codes in the Mand column in the table should be interpreted as:
+                      <br />
+                      <br />
+                <table width="579" border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td width="36"><div align="center">*</div></td>
+                    <td>- always mandatory</td>
+                  </tr>
+                  <tr>
+                    <td width="36"><div align="center">-</div></td>
+                    <td>- never mandatory</td>
+                  </tr>
+                  <tr>
+                    <td width="36"><div align="center">code</div></td>
+                    <td>- mandatory for this/these methods. Example N,C means mandatory for New and Change.</td>
+                  </tr>
+                </table>
+                <p><br />
+                For outbound messages Mandatory is not displayed since it implementation dependant. </p>
+                <p><br />
+                </p>
+                <h4><br/>
+                </h4>
+                </p>
+		    </div>
+			</div>
+			<!--end content-->
+			<div id="siteInfo"><br/>
+			 </div>
+		</div>
+		<!--end pagecell1-->
+	</body>
+</html>

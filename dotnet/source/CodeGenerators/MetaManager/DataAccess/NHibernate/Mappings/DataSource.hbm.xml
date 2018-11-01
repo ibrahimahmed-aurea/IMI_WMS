@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Cdc.MetaManager.DataAccess.Domain.DataSource, Cdc.MetaManager.DataAccess" table="DataSource">
+    <id name="Id" type="System.Guid">
+      <column name="Id" not-null="true"/>
+      <generator class="assigned"/>
+    </id>
+    <property name="Name" type="String" unique-key="UNQ_DataSource_View_Name">
+      <column name="Name" length="100" not-null="true"/>
+    </property>
+    <many-to-one name="View" unique-key="UNQ_DataSource_View_Name" class="Cdc.MetaManager.DataAccess.Domain.View, Cdc.MetaManager.DataAccess" foreign-key="FK_DataSource_View">
+      <column name="ViewId" not-null="true"/>
+    </many-to-one>
+    <many-to-one name="ServiceMethod" class="Cdc.MetaManager.DataAccess.Domain.ServiceMethod, Cdc.MetaManager.DataAccess" foreign-key="FK_DataSource_ServiceMethod">
+      <column name="ServiceMethodId" not-null="true"/>
+    </many-to-one>
+    <many-to-one name="RequestMap" class="Cdc.MetaManager.DataAccess.Domain.PropertyMap, Cdc.MetaManager.DataAccess" foreign-key="FK_DataSource_ReqPropMap" cascade="all">
+      <column name="RequestMapId" not-null="true"/>
+    </many-to-one>
+    <many-to-one name="ResponseMap" class="Cdc.MetaManager.DataAccess.Domain.PropertyMap, Cdc.MetaManager.DataAccess" foreign-key="FK_DataSource_RespPropMap" cascade="all">
+      <column name="ResponseMapId" not-null="true"/>
+    </many-to-one>
+    <property name="OnlyRunIfValuesAreNull" type="Boolean">
+      <column name="OnlyRunIfValuesAreNull" not-null="true"/>
+    </property>
+  </class>
+</hibernate-mapping>

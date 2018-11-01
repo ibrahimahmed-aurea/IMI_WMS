@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:complexType name="CentiroPrintShipmentType">
+        <xs:attribute name="senderCode" type="xs:string" />
+        <xs:attribute name="shipmentIdentifier" type="xs:string" />
+        <xs:attribute name="returnSequenceNumbers" type="xs:string" />
+        <xs:attribute name="createLabels" type="xs:string" />
+        <xs:attribute name="createCustomerSpec" type="xs:string" />
+        <xs:attribute name="createShipmentDoc" type="xs:string" />
+        <xs:attribute name="returnTrackingUrls" type="xs:string" />
+        <xs:attribute name="user" type="xs:string" />
+        <xs:attribute name="terminal" type="xs:string" />
+        <xs:attribute name="numberOfCopies" type="xs:int" />
+        <xs:attribute name="numberOfTags" type="xs:int" />
+        <xs:attribute name="url" type="xs:string" />
+    </xs:complexType>
+    <xs:element name="CentiroPrintShipment" type="CentiroPrintShipmentType"/>
+</xs:schema>

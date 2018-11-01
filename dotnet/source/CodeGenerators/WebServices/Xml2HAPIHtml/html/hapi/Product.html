@@ -1,0 +1,850 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Product</title>
+		<link href="./css/emx_nav_left.css" rel="stylesheet" type="text/css" media="screen" />
+		<link href="./css/emx_nav_left_print.css" rel="stylesheet" type="text/css" media="print" />
+	</head>
+	<body>
+		<div id="pagecell1">
+			<!--pagecell1-->
+			<div id="breadCrumb">
+				<a href="index.html">Index</a>
+			</div>
+			<div id="pageName">
+				<h2 class="in">Product (In)</h2>
+			</div>
+			<div id="pageNav">
+				<div id="sectionLinks">
+					<a href="#ProductGlobal">Product Global</a>
+					<a href="#ProductStockGroup">Product Stock Group</a>
+					<a href="#ProductNumber">Product Number</a>
+					<a href="#ProductDescription">Product Description</a>
+					<a href="#ProductInWarehouse">Product In Warehouse</a>
+					<a href="#ProductPackage">Product Package</a>
+					<a href="#ProductBarcode">Product Barcode</a>
+					<a href="#ProductVendor">Product Vendor</a>
+				</div>
+			</div>
+			<div id="content">
+				<div class="description">
+					<!--description ProductGlobal-->
+					<a name="ProductGlobal" />
+					<h3>Product Global</h3>
+					<p>Product Global<br/>Register basic data about a product.</p>
+					<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000">
+						<tr>
+							<th class="colColumn">Column</th>
+							<th class="colMethod">Method</th>
+							<th class="colType">Type</th>
+							<th class="colMandatory">Mand.</th>
+							<th class="colNote">Note</th>
+						</tr>
+						<tr>
+							<td class="colColumn">ClientIdentity</td>
+							<td class="colMethod">N, C, R</td>
+							<td class="colType">c17</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Client.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ProductNumber</td>
+							<td class="colMethod">N, C, R</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Product.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ProductDescription1</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The description/name of the Product.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ProductDescription2</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The extra description/name of the Product.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ProductStockGroupIdentity</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c12</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Product Stock Group</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ProductType</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c2</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Product Type Identity.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ProductDateType</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The type of Product Date that is used:<br/>+ = Expiry Date<br/>- = Manufacturing Date<br/>= = Arrival Date<br/>0 = No Date</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ProductShipDateLeadTime</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">n4</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The number of days between the Last Ship Date and the Expiry Date for the Product.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ProductDeliveryDateLeadTime</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">n4</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The number of days between the Arrival Date and the Expiry Date for the Product.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ProductManufacturDateLeadTime</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">n4</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The number of days between the Manufacturing Date and the Expiry Date for the Product.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">MarketingLotHandling</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c255</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">n/a</td>
+						</tr>
+						<tr>
+							<td class="colColumn">QualityLotHandling</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Controls (1=Yes,0=No) if Storage Lot is used when generating Pick Order Lines.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">SerialNumberHandling</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Controls (1=Yes,0=No) if the Serial Number is required at Case Pick.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">FIFOAllowedDiscrepancy</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">n4</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">States the maximum number of days that the FIFO date may differ among the picked item loads. Shipping from the warehouse normally strictly occurs according to FIFO (First In First Out), but this can lead to extra long movements to drive around and pick-up the oldest item loads. To avoid this, the FIFO date for picked item loads may differ from the oldest FIFO date. Examples:<br/>If FIFOPLUS = 0 then picking occurs strictly according to FIFO.<br/>If FIFOPLUS = 20 then FIFO can differ with 20 days from oldest day on Item Load.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ProductSaleable</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">If the Packing Material Types also can exist as a saleable product it has a Product Number as stocked product. Otherwise this is &lt;null&gt;.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ProductionLotHandlingIn</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Controls (1=Yes,0=No) if Manufacturing Lot has to be registered at Reception.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">MarketingLotHandlingIn</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Controls (1=Yes,0=No) if Marketing Lot has to be registered at Reception.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">QualityLotHandlingIn</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Controls (1=Yes,0=No) if Storage Lot has to be registered at Reception.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ProductionLotVerify</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Controls (1=Yes,0=No) if Manufacturing Lot has to be registered at Pick.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ProductionLotHandling</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Controls (1=Yes,0=No) if Manufacturing Lot is used when generating Pick Order Lines.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ProductTransportIdentity</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c5</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Gives the requirements (chilled, non-chilled, freeze, dry, etc) on the truck/vehicle that transports the goods/product.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">CatchMeasure</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Controls (1=Yes,0=No) if the Products shall go through Catch Measure (Quantity check).</td>
+						</tr>
+						<tr>
+							<td class="colColumn">CatchMeasureQualifier</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c4</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">States in which unit to measure the goods if Catch Measure is set.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">CatchMeasureRcv</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Controls (1=Yes,0=No) if the Products shall go through Catch Measure (Quantity check) at reception.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">CatchMeasureQualifierRcv</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c4</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">States in which unit to measure the goods if Catch Measure is set.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">Instructions</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c800</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Free text.</td>
+						</tr>
+					</table>
+				</div>
+				<!--end description ProductGlobal-->
+				<div class="description">
+					<!--description ProductStockGroup-->
+					<a name="ProductStockGroup" />
+					<h3>Product Stock Group</h3>
+					<p>Product Stock Group<br/>A way of linking several Products with common properties. The data you state here will be used<br/>as default values when you create a new Product in the Warehouse system.</p>
+					<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000">
+						<tr>
+							<th class="colColumn">Column</th>
+							<th class="colMethod">Method</th>
+							<th class="colType">Type</th>
+							<th class="colMandatory">Mand.</th>
+							<th class="colNote">Note</th>
+						</tr>
+						<tr>
+							<td class="colColumn">ClientIdentity</td>
+							<td class="colMethod">N, C, R</td>
+							<td class="colType">c17</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Client.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ProductStockGroupIdentity</td>
+							<td class="colMethod">N, C, R</td>
+							<td class="colType">c12</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">Product Stock Group</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ProductStockGroupName</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">N, C</td>
+							<td class="colNote">The Description/Name of the  Product Stock Group.</td>
+						</tr>
+					</table>
+				</div>
+				<!--end description ProductStockGroup-->
+				<div class="description">
+					<!--description ProductNumber-->
+					<a name="ProductNumber" />
+					<h3>Product Number</h3>
+					<p>Additional Product Number<br/>Register an additional product number.</p>
+					<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000">
+						<tr>
+							<th class="colColumn">Column</th>
+							<th class="colMethod">Method</th>
+							<th class="colType">Type</th>
+							<th class="colMandatory">Mand.</th>
+							<th class="colNote">Note</th>
+						</tr>
+						<tr>
+							<td class="colColumn">ClientIdentity</td>
+							<td class="colMethod">N, C, R</td>
+							<td class="colType">c17</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Client.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">AdditionalNumberType</td>
+							<td class="colMethod">N, C, R</td>
+							<td class="colType">c3</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">BP = Customer Product Number<br/>EN = GTIN Code<br/>PA = Packed Product Number<br/>PV = Promotion Product Number<br/>SA = Vendor Product Number<br/>SO = Sorted Product Number<br/>Q8 = IMI Order standard<br/>WH = Warehouse Product Number</td>
+						</tr>
+						<tr>
+							<td class="colColumn">AdditionalProductNumber</td>
+							<td class="colMethod">N, C, R</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Product.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ProductNumber</td>
+							<td class="colMethod">N, C, R</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Product.</td>
+						</tr>
+					</table>
+				</div>
+				<!--end description ProductNumber-->
+				<div class="description">
+					<!--description ProductDescription-->
+					<a name="ProductDescription" />
+					<h3>Product Description</h3>
+					<p>Product Description<br/>Register a language dependent description.</p>
+					<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000">
+						<tr>
+							<th class="colColumn">Column</th>
+							<th class="colMethod">Method</th>
+							<th class="colType">Type</th>
+							<th class="colMandatory">Mand.</th>
+							<th class="colNote">Note</th>
+						</tr>
+						<tr>
+							<td class="colColumn">ClientIdentity</td>
+							<td class="colMethod">N, C, R</td>
+							<td class="colType">c17</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Client.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ProductNumber</td>
+							<td class="colMethod">N, C, R</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Product.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">Language</td>
+							<td class="colMethod">N, C, R</td>
+							<td class="colType">c3</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The language codes (2 characters) follow the ISO 639 and are used in the system to control which language should be used to print packing slips, transport lists, etc. to customers / addresses. This presupposes that the description of the products is registered in these languages in the host system.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">Description1</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">N</td>
+							<td class="colNote">The description/name of the Product.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">Description2</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The extra description/name of the Product.</td>
+						</tr>
+					</table>
+				</div>
+				<!--end description ProductDescription-->
+				<div class="description">
+					<!--description ProductInWarehouse-->
+					<a name="ProductInWarehouse" />
+					<h3>Product In Warehouse</h3>
+					<p>Product in Warehouse<br/>Handling rules for a product in a specific warehouse.</p>
+					<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000">
+						<tr>
+							<th class="colColumn">Column</th>
+							<th class="colMethod">Method</th>
+							<th class="colType">Type</th>
+							<th class="colMandatory">Mand.</th>
+							<th class="colNote">Note</th>
+						</tr>
+						<tr>
+							<td class="colColumn">ClientIdentity</td>
+							<td class="colMethod">N, C, R</td>
+							<td class="colType">c17</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Client.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ProductNumber</td>
+							<td class="colMethod">N, C, R</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Product.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">WarehouseIdentity</td>
+							<td class="colMethod">N, C, R</td>
+							<td class="colType">c4</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Warehouse.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">InventoryAuditFrequency</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">n4</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The number of days that has to pass from a previous inventory audit before the system is allowed to generate an new inventory audit order for the product's Item Loads.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">Stocked</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">No mean that it is a transit goods.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">QualityCheck</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Not used.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">OwnerIdentity</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The identity of the Owner.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">StorageTemperatureMin</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">n4</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Min Storage Temperature.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">StorageTemperatureMax</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">n4</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Max Storage Temperature.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">StorageTemperatureQualifier</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Only info, no logic implemented.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">Frequency</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">n8</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The rate of turnover in the warehouse, controls where the Products will be stored.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ABCclass</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Not used.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">Instructions</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c800</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Free text.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">HygieneCheck</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Hygiene check (1=Yes,0=No, default: No)</td>
+						</tr>
+						<tr>
+							<td class="colColumn">TemperatureCheck</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Temperature Check (1=Yes,0=No, default: No)</td>
+						</tr>
+						<tr>
+							<td class="colColumn">RefuseTempHigh</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">n7,2</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Upper Refuse Temperature Limit</td>
+						</tr>
+						<tr>
+							<td class="colColumn">RefuseTempLow</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">n7,2</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Lower Refuse Temperature Limit</td>
+						</tr>
+						<tr>
+							<td class="colColumn">WarnTempHigh</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">n7,2</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Upper Warning Temperature Limit</td>
+						</tr>
+						<tr>
+							<td class="colColumn">WarnTempLow</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">n7,2</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Lower Warning Temperature Limit</td>
+						</tr>
+						<tr>
+							<td class="colColumn">PackageChange</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">When the user has to register the Lowest Unit of Measure at reception of the Product:<br/>- Always<br/>- During Package Change (the Lowest Unit of Measure must be registered until the first time the new Package is received)<br/>- Never</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ProductionLotHandling</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Controls (1=Yes,0=No) if Manufacturing Lot is used when generating Pick Order Lines.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">QualityLotHandling</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Controls (1=Yes,0=No) if Storage Lot is used when generating Pick Order Lines.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ProductionLotHandlingIn</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Controls (1=Yes,0=No) if Manufacturing Lot has to be registered at Reception.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">MarketingLotHandlingIn</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Controls (1=Yes,0=No) if Marketing Lot has to be registered at Reception.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">QualityLotHandlingIn</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Controls (1=Yes,0=No) if Storage Lot has to be registered at Reception.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ProductionLotVerify</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Controls (1=Yes,0=No) if Manufacturing Lot has to be registered at Pick.</td>
+						</tr>
+					</table>
+				</div>
+				<!--end description ProductInWarehouse-->
+				<div class="description">
+					<!--description ProductPackage-->
+					<a name="ProductPackage" />
+					<h3>Product Package</h3>
+					<p>Product Package</p>
+					<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000">
+						<tr>
+							<th class="colColumn">Column</th>
+							<th class="colMethod">Method</th>
+							<th class="colType">Type</th>
+							<th class="colMandatory">Mand.</th>
+							<th class="colNote">Note</th>
+						</tr>
+						<tr>
+							<td class="colColumn">ClientIdentity</td>
+							<td class="colMethod">N, C, R</td>
+							<td class="colType">c17</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Client.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ProductNumber</td>
+							<td class="colMethod">N, C, R</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Product.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">PackageIdentity</td>
+							<td class="colMethod">N, C, R</td>
+							<td class="colType">c17</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Package / Unit of Measure.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">PackageName</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The description of the Package / Unit of Measure.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">BasePackageIdentity</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c17</td>
+							<td class="colMandatory">N</td>
+							<td class="colNote">The identity of the Lowest Unit of Measure / Base Package of the Product that can be handled.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">NumberofBasePackages</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">n20,6</td>
+							<td class="colMandatory">N</td>
+							<td class="colNote">The number of Lowest Unit of Measurement that makes up the Unit of Measure/Package.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">NumberofConsumerPackages</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">n20,6</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">n/a</td>
+						</tr>
+						<tr>
+							<td class="colColumn">Weight</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">n16,6</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The total Weight of the Package/Unit of Measure.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">Height</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">n9,4</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Height.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">Length</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">n9,4</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">n/a</td>
+						</tr>
+						<tr>
+							<td class="colColumn">Width</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">n9,4</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">n/a</td>
+						</tr>
+						<tr>
+							<td class="colColumn">Volume</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">n16,6</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The total Volume of the Package/Unit of Measure.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">PackingMaterialTypeIn</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Packing Material Type that is always connected to the Product Package when receiving. Can be &lt;null&gt;.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">PackingMaterialTypeOut</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Packing Material Type that is always connected to the Product Package when picking/shipping. Can be &lt;null&gt;.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">LayerPackage</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">If the Package is a layer package in a pallet (1=Yes,0=No). Used for calculating the number of and height of Item Load, e.g. when receiving goods.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">VolumeFillPercent</td>
+							<td class="colMethod">N</td>
+							<td class="colType">n3</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The fill factor of the Package/Unit of Measure on a Pick Load Carrier. The default value &lt;null&gt; has the same effect as 100%.<br/>For example, balls will take up more volume in the pick load carrier (Case Pick Volume % is greater than 100) while flower pots that can be piled one onto the other take up less volume (Case Pick Volume % is less than 100).</td>
+						</tr>
+						<tr>
+							<td class="colColumn">BarCode</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c20</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Bar Code used in outgoing ASN. </td>
+						</tr>
+						<tr>
+							<td class="colColumn">BarCodeType</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c7</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The types of Bar Codes that may be used:<br/>DUN = Dispatch Unit Number<br/>GTIN = Global Trade Item Number<br/>SCC = Shipping Container Code<br/>UPC = Universal Product Code</td>
+						</tr>
+						<tr>
+							<td class="colColumn">FullPalletPackage</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Used for calculating the number of Item Load, e.g. when receiving goods (1=Yes,0=No).<br/>If the Package is a Pallet Package (1=Yes,0=No). Used for calculating the number of and height of Item Load, e.g. when receiving goods.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">PalletPickAllowed</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">If the Package or unit can be picked as a pallet (1=Yes,0=No).</td>
+						</tr>
+						<tr>
+							<td class="colColumn">LoadCarrierType</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c3</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The identity of the Type of Load Carrier. The Item Load's Load Carrier Type is the type of Load Carrier the Package normally exists on.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">MovementLoadCarrierType</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c3</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The type of Movement Load Carrier the Load Carrier normally exists on.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">NumberOfLoadCarriers</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">n3</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">States how many of the Item Load's Load Carriers will fit on the movement.</td>
+						</tr>
+					</table>
+				</div>
+				<!--end description ProductPackage-->
+				<div class="description">
+					<!--description ProductBarcode-->
+					<a name="ProductBarcode" />
+					<h3>Product Barcode</h3>
+					<p>Product Barcode<br/>Set up a barcode for a product package.</p>
+					<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000">
+						<tr>
+							<th class="colColumn">Column</th>
+							<th class="colMethod">Method</th>
+							<th class="colType">Type</th>
+							<th class="colMandatory">Mand.</th>
+							<th class="colNote">Note</th>
+						</tr>
+						<tr>
+							<td class="colColumn">ClientIdentity</td>
+							<td class="colMethod">N, C, R</td>
+							<td class="colType">c17</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Client.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">BarCode</td>
+							<td class="colMethod">N, C, R</td>
+							<td class="colType">c20</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">Bar Code Number.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ProductNumber</td>
+							<td class="colMethod">N, C, R</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Product.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">BarcodeType</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c7</td>
+							<td class="colMandatory">N</td>
+							<td class="colNote">The types of Bar Codes that may be used:<br/>DUN = Dispatch Unit Number<br/>GTIN = Global Trade Item Number<br/>SCC = Shipping Container Code<br/>UPC = Universal Product Code</td>
+						</tr>
+						<tr>
+							<td class="colColumn">PackageIdentity</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c17</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The identity of the Package / Unit of Measure that the GTIN, DUN, SCC or UPC Codes can be transferred to.</td>
+						</tr>
+					</table>
+				</div>
+				<!--end description ProductBarcode-->
+				<div class="description">
+					<!--description ProductVendor-->
+					<a name="ProductVendor" />
+					<h3>Product Vendor</h3>
+					<p>Product Vendor<br/>Register a vendor's product id for an IMI Warehouse product.</p>
+					<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000">
+						<tr>
+							<th class="colColumn">Column</th>
+							<th class="colMethod">Method</th>
+							<th class="colType">Type</th>
+							<th class="colMandatory">Mand.</th>
+							<th class="colNote">Note</th>
+						</tr>
+						<tr>
+							<td class="colColumn">ClientIdentity</td>
+							<td class="colMethod">N, C, R</td>
+							<td class="colType">c17</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Client.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">VendorIdentity</td>
+							<td class="colMethod">N, C, R</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Vendor.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ProductNumber</td>
+							<td class="colMethod">N, C, R</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Product.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">VendorProductNumber</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">N</td>
+							<td class="colNote">The Vendors identity of the Product.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">PackageIdentity</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c17</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The identity of the Package / Unit of Measure that is used by the Vendor.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">CountryOfOrigin</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c6</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Country of origin.</td>
+						</tr>
+					</table>
+				</div>
+				<!--end description ProductVendor-->
+			</div>
+			<!--end content-->
+			<div id="siteInfo">Version 5.0i.28 generated on 2005-12-20 10:16:20<br />&copy;2005 Industri-Matematik AB</div>
+		</div>
+		<!--end pagecell1-->
+	</body>
+</html>

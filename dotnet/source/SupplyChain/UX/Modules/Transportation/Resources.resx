@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="str_c8d33353_6fde_4887_af1c_d6dd30ee22c6_Caption" xml:space="preserve">
+    <value>Transportation</value>
+    <comment></comment>
+  </data>
+  <data name="str_90d62495_ff89_4593_ae25_1e50fd6736e5_Caption" xml:space="preserve">
+    <value>Party</value>
+    <comment></comment>
+  </data>
+  <data name="str_5bc62b00_19a5_45d3_89f8_23839d79c586_Caption" xml:space="preserve">
+    <value>Configuration</value>
+    <comment></comment>
+  </data>
+  <data name="str_4efd3ef3_fd7e_4e49_b149_26075a73af09_Caption" xml:space="preserve">
+    <value>Customer Order Type</value>
+    <comment></comment>
+  </data>
+  <data name="str_159070e1_a5ca_473f_bf47_425b8151423c_Caption" xml:space="preserve">
+    <value>Vehicle Type</value>
+    <comment></comment>
+  </data>
+  <data name="str_1ba97192_e2d1_4216_a0f9_4f773a877869_Caption" xml:space="preserve">
+    <value>Week Template</value>
+    <comment></comment>
+  </data>
+  <data name="str_f48d592e_798e_45c1_a6b7_65ac6d88239b_Caption" xml:space="preserve">
+    <value>Node Conversion</value>
+    <comment></comment>
+  </data>
+  <data name="str_ec46dd3d_a51a_424d_926a_7b3304450f8d_Caption" xml:space="preserve">
+    <value>Route Shipping Location/Dock Door</value>
+    <comment></comment>
+  </data>
+  <data name="str_7e37deaf_5227_4352_9a30_7ea9aba5aeb0_Caption" xml:space="preserve">
+    <value>Forwarder</value>
+    <comment></comment>
+  </data>
+  <data name="str_242114fb_0715_4ae6_9ff6_843b3bcd4e04_Caption" xml:space="preserve">
+    <value>Route</value>
+    <comment></comment>
+  </data>
+  <data name="str_51cabbfb_040f_4d2c_b034_b083b6f9d75c_Caption" xml:space="preserve">
+    <value>Transport Condition</value>
+    <comment></comment>
+  </data>
+  <data name="str_d82b3341_1065_488b_a641_c2ed85d7bac0_Caption" xml:space="preserve">
+    <value>Method of Shipment</value>
+    <comment></comment>
+  </data>
+  <data name="str_7b42557e_3351_4946_8e44_618ff139176f_Caption" xml:space="preserve">
+    <value>Departure Shipping Location/Dock Door</value>
+    <comment></comment>
+  </data>
+  <data name="str_f833c22d_f4cc_4207_82dc_89f30d2edb70_Caption" xml:space="preserve">
+    <value>Change User Settings</value>
+    <comment></comment>
+  </data>
+  <data name="str_59649b65_2a28_4337_b316_8c885d47959e_Caption" xml:space="preserve">
+    <value>Node</value>
+    <comment></comment>
+  </data>
+  <data name="str_ab354cdc_f42f_4a43_9047_938d55794f5c_Caption" xml:space="preserve">
+    <value>History</value>
+    <comment></comment>
+  </data>
+  <data name="str_012115c2_1ce9_401b_8c1f_0f3d58a857f6_Caption" xml:space="preserve">
+    <value>User Change History</value>
+    <comment></comment>
+  </data>
+  <data name="str_a692491c_1ace_4b19_bbe6_cc29987f97e7_Caption" xml:space="preserve">
+    <value>User Logon History</value>
+    <comment></comment>
+  </data>
+  <data name="str_532e568c_aa92_44af_8682_fd319dc44648_Caption" xml:space="preserve">
+    <value>Departure History</value>
+    <comment></comment>
+  </data>
+  <data name="str_4c8f666a_d350_417a_8630_a009fee82de0_Caption" xml:space="preserve">
+    <value>System</value>
+    <comment></comment>
+  </data>
+  <data name="str_f591041d_9fca_4f78_8103_2c84ed35a642_Caption" xml:space="preserve">
+    <value>Alarm</value>
+    <comment></comment>
+  </data>
+  <data name="str_1fb5a248_6777_43d2_9a86_3a6f51553d97_Caption" xml:space="preserve">
+    <value>Set of Conversion Units</value>
+    <comment></comment>
+  </data>
+  <data name="str_50e1537c_4c1c_4ac4_8e3b_58567c89d7fc_Caption" xml:space="preserve">
+    <value>Configure System</value>
+    <comment></comment>
+  </data>
+  <data name="str_1d15db1c_770b_4b06_9f12_7e61cecfd297_Caption" xml:space="preserve">
+    <value>Alarm Group</value>
+    <comment></comment>
+  </data>
+  <data name="str_63ea64ef_766a_4442_9516_938eb22c29bb_Caption" xml:space="preserve">
+    <value>Attribute</value>
+    <comment></comment>
+  </data>
+  <data name="str_e44eba69_9562_4256_bfda_d402f9b9a643_Caption" xml:space="preserve">
+    <value>User</value>
+    <comment></comment>
+  </data>
+  <data name="str_709452e8_6b32_4cc5_b04f_e32e976b322a_Caption" xml:space="preserve">
+    <value>Conversion Units</value>
+    <comment></comment>
+  </data>
+  <data name="str_0467903b_e406_443f_aae4_c4dcbd2f45d8_Caption" xml:space="preserve">
+    <value>Transport Load</value>
+    <comment></comment>
+  </data>
+  <data name="str_91673c16_5527_49bf_ba15_da33b8300af1_Caption" xml:space="preserve">
+    <value>Departure</value>
+    <comment></comment>
+  </data>
+</root>

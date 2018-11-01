@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Cdc.MetaManager.DataAccess.Domain.UXSessionProperty, Cdc.MetaManager.DataAccess" table="UXSessionProperty">
+    <id name="Id" type="System.Guid">
+      <column name="Id" not-null="true"/>
+      <generator class="assigned"/>
+    </id>
+    <property name="Name" type="String">
+      <column name="Name" length="50" not-null="false"/>
+    </property>
+    <many-to-one name="UXSession" class="Cdc.MetaManager.DataAccess.Domain.UXSession, Cdc.MetaManager.DataAccess" foreign-key="FK_UXSessProp_UXSession">
+      <column name="UXSessionId" not-null="true"/>
+    </many-to-one>
+    <property name="TypeName" type="String">
+      <column name="TypeName" length="255" not-null="false"/>
+    </property>
+  </class>
+</hibernate-mapping>

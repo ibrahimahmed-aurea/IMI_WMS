@@ -1,0 +1,108 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Segment InventoryChangeLine</title>
+<link href="StructureDescription.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>Segment InventoryChangeLine</h1>
+<h3>Description:</h3>
+Inventory Change<br/>Changes of Item Loads that effect the Balance or Status Code in the Host System.<h3>Attributes:</h3>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000"><tbody>
+<tr class="tableHeader"><th class="tableHeaderColumn">Tag</th><th class="tableHeaderColumn">Method</th><th class="tableHeaderColumn">Type</th><th class="tableHeaderColumn">Oracle Type</th><th class="tableHeaderColumn">Mandatory</th><th class="tableHeaderColumn">Note</th></tr>
+<tr class="tableRow"><td class="tableRowColumn">OPCODE</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Operation Code<br/>1 - New</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">EmployeeId</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">User Identity<br/>The identity of the User. This is the user that registered the change.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">TimeStamp</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Queue Processing Time<br/>Date and Time when the change has been processed in the Item Load Change Queue.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ItemLoadIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Item Load Identity<br/>The identity of the Item Load that has been changed.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OperationCode</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Operation Code<br/>0 = No processing<br/>1 = New<br/>2 = Change<br/>3 = Delete<br/>9 = Mass processing</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">InventoryChangeCode</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Item Load Change Code<br/>Code for the change that has been done for the Item Load.<br/>These codes could be registered per installation and there also exist a couple of standards Codes.<br/>The following Codes are reserved for the system (the Type that is connected by default is shown in parenthesis) :<br/>AS = After Split (Q = Quantity / Balance)<br/>BL = Hold/Release (B = Hold / Release Hold)<br/>CR* = Correction (Q = Quantity / Balance)<br/>NP = New Item Load from Pick Location (O = Other)<br/>PC = Package Change (P = Package Exchange)<br/>RA* = Correction of Receipt (Q = Quantity / Balance)<br/>RF = RF Inventory Audit (Q = Quantity / Balance)<br/>SC* = Scrapping (Q = Quantity / Balance)<br/>ST = Inventory Audit (Q = Quantity / Balance)<br/>TA = Transfer / Refine - Qty increased (Q = Quantity / Balance)<br/>TC = Transfer / Refine - Qty decreased (Q = Quantity / Balance)<br/>TR = Transfer Movement (O = Other)<br/>(* = Only used when the Host System = IMI Order)</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">InventoryChangeText</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Item Load Change Text<br/>Text for the inventory change that has been registered by the user.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DespatchadviceIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Inbound ASN Identity<br/>The identity / number of the inbound ASN.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PurchaseOrderNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Purchase Order Number<br/>The identity of the Purchase Order.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PurchaseOrderSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Purchase Order Sequence Number<br/>When there are multiple occurrences of the Purchase Order in the Warehouse system<br/>this tells in which order they have been received from the host system.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PurchaseOrderLinePosition</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Purchase Order Line Number<br/>The identity of the Purchase Order Line.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PurchaseOrderLineSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Purchase Order Line Sub Number<br/>Used as an extra identity of the Purchase Order Line.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">VendorIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Vendor Identity<br/>The identity of the Vendor.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">VendorIdentity2</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">New Vendor Identity<br/>Only used when Operation Code = Change.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OwnerIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Owner Identity<br/>The identity of the Owner.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OwnerIdentity2</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">New Owner Identity<br/>The identity of the new Owner. Only used when Operation Code = Change.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Product Number<br/>The identity of the Product.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductNumber2</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">New Product Number<br/>Only used when Operation Code = Change.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductDate</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Product Date<br/>The Product Date as stated by the Product Date Type (Arrival Date, Manufacturing Date or Expiry Date).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductDate2</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">New Product Date<br/>Only used when Operation Code = Change.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PackageIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Package Identity<br/>The identity of the Package / Unit of Measure.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PackageIdentity2</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">New Package Identity<br/>Only used when Operation Code = Change.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Quantity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Quantity<br/>The number of Lowest Units of Measure (Base Packages).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Quantity2</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">New Quantity<br/>Only used when Operation Code = Change.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">MeasuredQty</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Measured Quantity<br/>The quantity that was measured for the received goods.<br/>Used when Catch Measure at inbound is activated for the Product.<br/>If the received goods results in several Item Loads,<br/>then the registered measured quantity is divided by the number<br/>of Item Loads and each one of them gets an equal part.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">MeasuredQty2</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">New Measured Quantity<br/>Only used when Operation Code = Change.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">InventoryStatusCode</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(8)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Item Load Status<br/>The current status of the Item Load:<br/>D = Deleted<br/>F = Free<br/>O = Inventory Audit<br/>P = Pick<br/>R = Reserved</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">InventoryStatusCode2</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(8)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">New Item Load Status<br/>The new status of the Item Load.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductionLotIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(40)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Manufacturing Lot<br/>The Manufacturing Lot for the goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductionLotIdentity2</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(40)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">New Manufacturing Lot<br/>Only used when Operation Code = Change.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductionSubLotIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(40)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Manufacturing Sublot<br/>The Manufacturing Sublot for the goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductionSublotIdentity2</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(40)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">New Manufacturing Sublot<br/>Only used when Operation Code = Change.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">MarketingLotIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(20)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Marketing Lot<br/>The Marketing Lot for the goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">MarketingLotIdentity2</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(20)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">New Marketing Lot<br/>Only used when Operation Code = Change.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">QualityLotIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(20)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Quality Lot<br/>Can be used for optional classification of the stored goods in the Warehouse (quality, color, etc).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">QualityLotIdentity2</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(20)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">New Quality Lot<br/>Only used when Operation Code = Change.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">WarehouseIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(4)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Warehouse Identity<br/>The identity of the Warehouse.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Order Number<br/>The identity of the Customer Order.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Order Sequence Number<br/>A Sequence Number used by the Host system to make it possible<br/>to send a Customer Order more than once (e.g. backorder).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderLinePosition</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Order Line Number<br/>The identity of the Customer Order Line.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderLineKitPosition</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Order Line Kit Position<br/>The Customer Order Line contains an Assembly Product.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderLineSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Order Line Sub Number<br/>Used as an extra identity of the Customer Order Line.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ReasonCode</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Reason Code<br/>Is used for Customer Return Orders and states the Code for the Reason why the goods are returned.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">FreeText</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(45)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Instructions<br/>Free text.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">SerialNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(21)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Serial Number<br/>A unique identity for a single Item Load. Only used for Case Pick and Serial Number handling!</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">SerialNumber2</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(21)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">New Serial Number<br/>Only used when Operation Code = Change.</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

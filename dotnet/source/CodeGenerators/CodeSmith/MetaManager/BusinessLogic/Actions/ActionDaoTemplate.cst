@@ -1,0 +1,910 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DomainTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="action" Type="Cdc.MetaManager.DataAccess.Domain.Action" Default="" Optional="false" Category="" Description="" %>
+<%
+	string className = string.Format("{0}Action", action.Name);
+	
+	string resultParamsName  = GetEntityClassName(action, false);
+	string paramsName = GetEntityClassName(action, true);
+	string statement = GetIbatisStatementName(action);
+	bool mapCollection = action.ResponseMap.IsCollection;
+	bool isTracking = (!string.IsNullOrEmpty(action.RowTrackingId));
+	bool hasAlarm = false;
+	string businessLayerPolicyName = action.BusinessEntity.Application.Name + "BusinessLayerPolicy";
+	bool isRefCursor = ((action.MappedToObject.ObjectType == ActionMapTarget.StoredProcedure) && 
+		                    (((StoredProcedure)action.MappedToObject).IsReturningRefCursor == true));
+
+	
+	foreach (MappedProperty property in action.ResponseMap.MappedProperties)
+	{
+		if (property.Name == "AlarmId")
+		{
+			hasAlarm = true;
+		}
+	}
+		
+	bool isMessageHandlingEnabled = (action.IsMessageHandlingEnabled == true) && (action.MappedToObject is StoredProcedure);
+	
+	bool isMulti = ((action.IsMultiEnabled == true) && (action.MappedToObject is StoredProcedure));
+	bool isImport = action.IsImportEnabled == true;
+	
+	if (isMulti)  // No tracking support for multi operations 
+		isTracking = false;
+	
+	string schemaName = "";
+	
+	if (action.MappedToObject is StoredProcedure)
+		schemaName = (action.MappedToObject as StoredProcedure).Package.Schema.Name;
+	else	
+		schemaName = (action.MappedToObject as Query).Schema.Name;
+
+%>
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Linq;
+using System.Configuration;
+using System.Xml;
+using System.Xml.XPath;
+using Microsoft.Practices.EnterpriseLibrary.PolicyInjection;
+using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
+using Imi.Framework.Services;
+using Imi.Framework.DataAccess;
+using System.Threading;
+<%
+if (isMulti || isImport || ((isTracking) && (action.StoredProcedure != null)))
+{
+	string trackerNamespace = action.BusinessEntity.Application.Namespace;
+%>                
+using <%= trackerNamespace %>.RowTracker.BusinessEntities;
+using <%= trackerNamespace %>.RowTracker.DataAccess;
+<%
+}
+if (hasAlarm)
+{
+	string applicationName = action.BusinessEntity.Application.Name;
+	
+%>
+using Imi.SupplyChain.<%=applicationName%>.Alarm.BusinessLogic;
+<%
+}
+%>                
+using <%= GetEntitiesNamespace(action.BusinessEntity) %>;
+using <%=GetIbatisNamespace(action.BusinessEntity)%>;
+<%
+if (isMessageHandlingEnabled)
+{
+%>
+using <%=GetMessageHandlerDataAccessNamespace(action.BusinessEntity)%>;
+using <%=GetMessageHandlerEntitiesNamespace(action.BusinessEntity)%>;
+<%
+}
+%>
+
+namespace <%= GetActionsNamespace(action.BusinessEntity) %>
+{
+    public class <%= className %> : MarshalByRefObject
+    {
+        private const string schemaName = "<%= schemaName %>";
+		private string connectionString;
+		I<%=action.BusinessEntity.Name%>Dao dao;
+<%
+	if (mapCollection)
+	{
+%>
+		Dictionary<string, DataPartitioningContainer> _clientRequestSessions;
+<%
+	}
+  	if ((isTracking) && (action.StoredProcedure != null))
+  	{
+%>                
+        private const string trackingId = "<%= action.RowTrackingId %>";
+<%
+	}
+%>                
+		
+		public <%= className %>()
+		{
+			ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[schemaName];
+			connectionString = settings.ConnectionString;
+			dao = PolicyInjection.Create<<%=action.BusinessEntity.Name%>Dao, I<%=action.BusinessEntity.Name%>Dao>(connectionString);
+<%
+	if (mapCollection)
+	{
+%>
+			_clientRequestSessions = new Dictionary<string, DataPartitioningContainer>();
+			ThreadPool.QueueUserWorkItem(SessionCleanupWorkerThread);
+<%
+	}
+%>
+		}
+		
+<%
+if (!mapCollection)
+{
+	string inParamatersClass = paramsName;
+	
+	if (isMulti || isImport) 
+	{
+		inParamatersClass = string.Format("{0}Collection", paramsName);
+	}
+		
+%>
+        public <%= resultParamsName %> Execute(<%= inParamatersClass %> parameters, CustomServiceComParameters ComParameters)
+        {
+            <%= resultParamsName %> result = null;
+			
+			try
+			{
+				
+<%
+				if (isMessageHandlingEnabled)
+				{
+%>
+				string informationXML = string.Empty;
+<%
+				}
+%>
+								
+				using (TransactionScope scope = new TransactionScope())
+				{
+<%
+				if (isMessageHandlingEnabled)
+				{
+%>
+					IMessageHandlerDao MessageHandler = new MessageHandlerDao(connectionString);
+	
+					// Create the parameters which is the WarningsXML only
+					InitializeParameters initParams = new InitializeParameters();
+					initParams.MessageXML = parameters.MessageXML;
+	
+					// Set the ignores in the database from the MessageXML
+					MessageHandler.Initialize(initParams);
+<%
+				}
+				
+				if (isMulti || isImport) // no tracking support if multi
+				{
+%>                
+					int currentBatchPosition = 0;
+					
+					IRowTrackerDao rowTrackerDao = new RowTrackerDao(connectionString);
+					rowTrackerDao.SetIsLastMultiSelectRow(false);
+<%
+					if (isTracking)
+					{
+%>
+					
+					// Enable RowIdentity tracking
+					rowTrackerDao.EnableTracking();
+					List<string> rowIds = new List<string>();
+<%
+					}
+
+					if (isMessageHandlingEnabled)
+					{
+%>
+					bool gotMessages = false;
+<%
+					}
+%>              
+				
+					try
+					{
+						foreach (<%= paramsName %> parameter in parameters)
+						{
+							if (currentBatchPosition == parameters.Count - 1)
+								rowTrackerDao.SetIsLastMultiSelectRow(true);
+								
+<%
+						if (isMessageHandlingEnabled)
+						{
+%>              
+							try
+							{
+								result = dao.<%=action.Name%>(parameter);
+<%							
+							if (hasAlarm)
+							{
+%>
+
+								if (!string.IsNullOrEmpty(result.AlarmId))
+									RaiseAlarmAction.Execute(result.AlarmId);
+<%
+							}
+%>
+							}
+							catch (MessageException)
+							{
+								// Just catch that we got errors / warnings here and continue.
+								// Handling of the error and warnings will be done after all rows has
+								// been processed.
+								gotMessages = true;
+							}
+
+<%
+						}
+						else
+						{
+%>
+							result = dao.<%=action.Name%>(parameter);
+
+<%
+							if (hasAlarm)
+							{
+%>
+							if (!string.IsNullOrEmpty(result.AlarmId))
+								RaiseAlarmAction.Execute(result.AlarmId);
+<%
+							}
+						}
+
+						if (isTracking)
+						{
+%>
+							// Find RowIdentity
+                            FindRowIdentityResult rowIdentityResult = rowTrackerDao.FindRowIdentity(new FindRowIdentityParameters() { Id = trackingId });
+                            rowIds.Add(rowIdentityResult.RowIdentity);
+<%
+						}
+%>
+							currentBatchPosition++;
+						}
+					}
+					catch (Exception ex)
+					{
+					
+<%
+						// If warning is enabled we must call Reset.
+						if (isMessageHandlingEnabled)
+						{
+%>
+						MessageHandler.Reset();
+<%
+						}
+%>
+				
+						Exception exceptionToThrow;
+				
+						if (ExceptionPolicy.HandleException(ex, "BusinessLayerPolicy", out exceptionToThrow))
+						{
+							if(exceptionToThrow == null)
+								throw new BatchException(ex.Message, currentBatchPosition, ex);
+							else
+								throw new BatchException(ex.Message, currentBatchPosition, exceptionToThrow);
+						}
+					}
+				
+<%
+					if (isMessageHandlingEnabled)
+					{
+%>
+					if (gotMessages)
+					{
+						// Call MessageHandler.GetErrorWarningXML to get all warnings and errors and then
+						// throw a MessageException with it to the frontend.
+						// Create the parameters which is the Languagecode only
+						GetMessageXMLParameters messageParams = new GetMessageXMLParameters();
+	
+						if (ApplicationContext.Current != null)
+							messageParams.LanguageCode = ApplicationContext.Current.LanguageCode;
+						else
+							messageParams.LanguageCode = ApplicationContext.DefaultLanguageCode;
+	
+						// Set the ignores in the database from the XML
+						GetMessageXMLResult messageResult = MessageHandler.GetErrorWarningXML(messageParams);
+	
+						throw new MessageException(messageResult == null ? string.Empty : messageResult.MessageXML);
+					}
+					else
+					{
+						// No warnings, fetch information messages.
+						GetInformationXMLParameters informationParams = new GetInformationXMLParameters();
+						
+						if (ApplicationContext.Current != null)
+							informationParams.LanguageCode = ApplicationContext.Current.LanguageCode;
+						else
+							informationParams.LanguageCode = ApplicationContext.DefaultLanguageCode;
+						
+						GetInformationXMLResult informationResult = MessageHandler.GetInformationXML(informationParams);
+						
+						// Check if any informationmessage exists and fetch it
+						if (!string.IsNullOrEmpty(informationResult.InformationXML))
+						{
+							informationXML = informationResult.InformationXML;
+						}
+	
+						// Reset the MessageHandler
+						MessageHandler.Reset();
+					}
+<%
+					}
+				}
+				else if (!isTracking)
+				{
+					if (isMessageHandlingEnabled)
+					{
+%>              
+					try
+					{
+						result = dao.<%=action.Name%>(parameters);
+					}
+					catch (MessageException)
+					{
+						// Call MessageHandler.GetErrorWarningXML to get all warnings and errors and then
+						// throw a MessageException with it to the frontend.
+						// Create the parameters which is the Languagecode only
+						GetMessageXMLParameters messageParams = new GetMessageXMLParameters();
+	
+						if (ApplicationContext.Current != null)
+							messageParams.LanguageCode = ApplicationContext.Current.LanguageCode;
+						else
+							messageParams.LanguageCode = ApplicationContext.DefaultLanguageCode;
+	
+						// Set the ignores in the database from the XML
+						GetMessageXMLResult messageResult = MessageHandler.GetErrorWarningXML(messageParams);
+	
+						throw new MessageException(messageResult == null ? string.Empty : messageResult.MessageXML);
+					}
+					
+					// No warnings, fetch information messages.
+					GetInformationXMLParameters informationParams = new GetInformationXMLParameters();
+					
+					if (ApplicationContext.Current != null)
+						informationParams.LanguageCode = ApplicationContext.Current.LanguageCode;
+					else
+						informationParams.LanguageCode = ApplicationContext.DefaultLanguageCode;
+					
+					GetInformationXMLResult informationResult = MessageHandler.GetInformationXML(informationParams);
+					
+					// Check if any informationmessage exists and fetch it
+					if (!string.IsNullOrEmpty(informationResult.InformationXML))
+					{
+						informationXML = informationResult.InformationXML;
+					}
+					
+					MessageHandler.Reset();
+<%
+					}
+					else
+					{
+%>                
+                	result = dao.<%=action.Name%>(parameters);
+<%
+					}
+					
+					if (hasAlarm)
+					{
+%>
+					
+					if (!string.IsNullOrEmpty(result.AlarmId))
+						RaiseAlarmAction.Execute(result.AlarmId);
+<%
+					}
+				}
+				else
+				{	// With ROWID tracking
+%>
+					IRowTrackerDao rowTrackerDao = new RowTrackerDao(connectionString);
+					
+					// Enable RowIdentity tracking
+					rowTrackerDao.EnableTracking();
+
+<%
+					if (isMessageHandlingEnabled)
+					{
+%>
+					try
+					{
+						// Execute stored procedure
+						result = dao.<%=action.Name%>(parameters);
+					}
+					catch (MessageException)
+					{
+						// Call MessageHandler.GetErrorWarningXML to get all warnings and errors and then
+						// throw a MessageException with it to the frontend.
+						// Create the parameters which is the Languagecode only
+						GetMessageXMLParameters messageParams = new GetMessageXMLParameters();
+	
+						if (ApplicationContext.Current != null)
+							messageParams.LanguageCode = ApplicationContext.Current.LanguageCode;
+						else
+							messageParams.LanguageCode = ApplicationContext.DefaultLanguageCode;
+	
+						// Set the ignores in the database from the XML
+						GetMessageXMLResult messageResult = MessageHandler.GetErrorWarningXML(messageParams);
+	
+						throw new MessageException(messageResult == null ? string.Empty : messageResult.MessageXML);
+					}
+					
+					// No warnings, fetch information messages.
+					GetInformationXMLParameters informationParams = new GetInformationXMLParameters();
+					
+					if (ApplicationContext.Current != null)
+						informationParams.LanguageCode = ApplicationContext.Current.LanguageCode;
+					else
+						informationParams.LanguageCode = ApplicationContext.DefaultLanguageCode;
+					
+					GetInformationXMLResult informationResult = MessageHandler.GetInformationXML(informationParams);
+					
+					// Check if any informationmessage exists and fetch it
+					if (!string.IsNullOrEmpty(informationResult.InformationXML))
+					{
+						informationXML = informationResult.InformationXML;
+					}
+					
+					MessageHandler.Reset();
+<%
+					}
+					else
+					{
+%>
+					// Execute stored procedure
+					result = dao.<%=action.Name%>(parameters);
+<%
+					}
+				
+					if (hasAlarm)
+					{
+%>
+				
+					if (!string.IsNullOrEmpty(result.AlarmId))
+						RaiseAlarmAction.Execute(result.AlarmId);
+<%
+					}
+%>				
+					// Find RowIdentity
+					FindRowIdentityResult rowIdentityResult = rowTrackerDao.FindRowIdentity(new FindRowIdentityParameters() { Id = trackingId });
+										
+					List<string> rowIds = new List<string>() {rowIdentityResult.RowIdentity};
+<%
+  				}
+%>
+
+					scope.Complete();
+<%
+					if (isTracking)
+					{
+%>
+					result.RowIdentities = rowIds;
+<%
+					}
+
+					if (isMessageHandlingEnabled)
+					{
+%>
+					result.InformationXML = informationXML;
+<%
+					}
+%>
+				}
+			}
+			catch (Exception ex)
+			{
+				Exception exceptionToThrow;
+				
+				if (ExceptionPolicy.HandleException(ex, "<%=businessLayerPolicyName%>", out exceptionToThrow))
+				{
+					if(exceptionToThrow == null)
+						throw;
+					else
+						throw exceptionToThrow;
+				}
+			}
+			
+			return result;
+        }
+		
+<%
+}
+else
+{
+%>
+        public KeyValuePair<CustomServiceComMetaResult, IList<<%= resultParamsName %>>> Execute(<%= paramsName %> parameters, CustomServiceComParameters ComParameters)
+        {
+            KeyValuePair<CustomServiceComMetaResult, IList<<%= resultParamsName %>>> result = new KeyValuePair<CustomServiceComMetaResult,IList<<%= resultParamsName %>>>();
+			
+			try
+			{
+
+				bool usePartitioning = (ComParameters != null && !string.IsNullOrEmpty(ComParameters.Id));
+                bool ongoingSession = false;
+				bool requestingDeletedSession = false;
+
+                if (usePartitioning)
+                {
+                     ongoingSession = _clientRequestSessions.ContainsKey(ComParameters.Id);
+                }
+
+				//Stop request to deleted session
+                if (usePartitioning && !ongoingSession)
+                {
+                    if (ComParameters.SequentialRequest)
+                    {
+                        requestingDeletedSession = true;
+                    }
+                    
+                }
+
+				if (!requestingDeletedSession)
+                {
+					DataPartitioningContainer currentSession;
+
+					if (!ongoingSession)
+					{
+						//New or non partitioned request
+						if (usePartitioning)
+						{
+							currentSession = new DataPartitioningContainer(ComParameters.Id);
+						}
+						else
+						{
+							currentSession = new DataPartitioningContainer(string.Empty);
+						}
+					}
+					else
+					{
+						//Ongoing session
+						currentSession = _clientRequestSessions[ComParameters.Id];
+					}
+
+					IList<<%= resultParamsName %>> partition = null;
+					CustomServiceComMetaResult comMetaResult = new CustomServiceComMetaResult();
+
+
+					if (!ongoingSession)
+					{
+						currentSession.SearchParameters = parameters;
+
+						if (ComParameters != null)
+						{
+							currentSession.SortParameters = Framework.DataAccess.SortParameter.GetListOfSortParameter(ComParameters.SortParameters);
+						}
+
+						ThreadPool.QueueUserWorkItem(DataFetchWorkerThread, currentSession);
+
+						if (usePartitioning)
+						{
+							while (partition == null && !currentSession.DataFetchFinished)
+							{
+								Thread.Sleep(20);
+								partition = (IList<<%= resultParamsName %>>)currentSession.PullFirstPartition();
+							}
+
+							if (currentSession.ExceptionToThrow != null)
+                            {
+                                throw currentSession.ExceptionToThrow;
+                            }
+
+							if (partition != null)
+							{
+<%
+	if (hasAlarm)
+	{
+%>
+								//Handels potential alarm from stored procedure with ref cursor
+								if (partition.Count > 0 && !string.IsNullOrEmpty(partition[0].AlarmId))
+								{
+									RaiseAlarmAction.Execute(partition[0].AlarmId);
+								}
+
+<%
+	}
+%>
+								
+								if (partition.Count < DataPartitioningContainer.PARTITION_SIZE)
+								{
+									currentSession.TotalDataRowsCount = partition.Count;
+								}
+								else 
+								{
+									currentSession.TotalDataRowsCount = -1; //Count not set
+<%
+	if (!isRefCursor)
+	{	
+%>
+									//COUNT ROWS IN QUERY RESULT
+									currentSession.CountsRows = true;
+									ThreadPool.QueueUserWorkItem(DataFetchWorkerThread, currentSession);
+<%
+	}
+%>
+								}
+							}
+							else
+							{
+								comMetaResult.IsLastPartition = true;
+								currentSession.TotalDataRowsCount = 0;
+							}
+						}
+						else
+						{
+							while (!currentSession.DataFetchFinished)
+							{
+								Thread.Sleep(20);
+							}
+
+							if (currentSession.ExceptionToThrow != null)
+                            {
+                                throw currentSession.ExceptionToThrow;
+                            }
+
+							IList<<%= resultParamsName %>> tempData = null;
+							partition = new List<<%= resultParamsName %>>();
+
+							do
+							{
+								tempData = (IList<<%= resultParamsName %>>)currentSession.PullFirstPartition();
+
+								if (tempData != null)
+								{
+									foreach (<%= resultParamsName %> row in tempData)
+									{
+										partition.Add(row);
+									}
+								}
+
+							} while (tempData != null);
+						}
+					}
+					else
+					{
+						if (ComParameters.Abort)
+						{
+							currentSession.Abort = true;
+							comMetaResult.IsLastPartition = true;
+							partition = null;
+						}
+						else
+						{
+							partition = (IList<<%= resultParamsName %>>)currentSession.PullFirstPartition();
+							
+							//Wait for row count if demanded by client
+                            if (ComParameters.WaitForCount && currentSession.ExceptionToThrow == null)
+                            {
+                                if (currentSession.CountsRows)
+                                {
+                                    while (currentSession.TotalDataRowsCount == -1)
+                                    {
+                                        Thread.Sleep(20);
+                                    }
+                                }
+                            } 
+						}
+					}
+
+					comMetaResult.TotalCount = currentSession.TotalDataRowsCount;
+
+					//Handel aborted session
+                    if (currentSession.Abort && currentSession.DataFetchFinished)
+                    {
+                        lock (_clientRequestSessions)
+                        {
+                            if (_clientRequestSessions.ContainsKey(currentSession.Id))
+                            {
+                                _clientRequestSessions.Remove(currentSession.Id);
+                            }
+                        }
+                    }
+					//Find out if last partition is pulled
+					else if (currentSession.DataFetchFinished && (currentSession.NumberOfPartitons == 0 || currentSession.ExceptionToThrow != null))
+					{
+						comMetaResult.IsLastPartition = true;
+
+						if (ongoingSession)
+						{
+
+							//If no row count has been sent wait for it.
+							if (currentSession.CountsRows)
+							{
+								if (currentSession.TotalDataRowsCount == -1)
+								{
+									while (currentSession.TotalDataRowsCount == -1)
+									{
+										Thread.Sleep(20);
+									}
+								}
+
+								comMetaResult.TotalCount = currentSession.TotalDataRowsCount;
+							}
+
+
+							lock (_clientRequestSessions)
+							{
+								_clientRequestSessions.Remove(ComParameters.Id);
+							}
+
+							if (currentSession.ExceptionToThrow != null)
+                            {
+                                throw currentSession.ExceptionToThrow;
+                            }
+						}
+					}
+					else if (!ongoingSession && usePartitioning && partition != null)
+					{
+						lock (_clientRequestSessions)
+						{
+							_clientRequestSessions.Add(ComParameters.Id, currentSession);
+						}
+					}
+
+					if (partition == null)
+					{
+						partition = new List<<%= resultParamsName %>>();
+					}
+
+					result = new KeyValuePair<CustomServiceComMetaResult, IList<<%= resultParamsName %>>>(comMetaResult, partition);
+				}
+                else
+                {
+                    //Responce to request for deleted session
+                    result = new KeyValuePair<CustomServiceComMetaResult, IList<<%= resultParamsName %>>>(new CustomServiceComMetaResult() {IsLastPartition = true, InvalidSession = true}, new List<<%= resultParamsName %>>());
+                }		
+				                      	
+			}
+			catch (Exception ex)
+			{
+				Exception exceptionToThrow;
+				
+				if (ExceptionPolicy.HandleException(ex, "<%=businessLayerPolicyName%>", out exceptionToThrow))
+				{
+					if(exceptionToThrow == null)
+						throw;
+					else
+						throw exceptionToThrow;
+				}
+			}
+			
+			return result;
+    	}
+
+		private void DataFetchWorkerThread(object state)
+        {
+            try
+            {
+<%
+			if (!isTracking)
+			{
+				if (!isRefCursor)
+				{
+%>              
+				if (((DataPartitioningContainer)state).TotalDataRowsCount == -1)
+				{
+					dao.<%=action.Name%>((DataPartitioningContainer)state, true);
+				}
+				else
+				{  
+            		dao.<%=action.Name%>((DataPartitioningContainer)state);
+				}
+<%				
+				}
+				else
+				{
+%>
+					dao.<%=action.Name%>((DataPartitioningContainer)state);	
+<%
+				}
+			}
+			else
+			{
+%>                
+				if (((<%= paramsName %>)((DataPartitioningContainer)state).SearchParameters).RowIdentities == null || ((<%= paramsName %>)((DataPartitioningContainer)state).SearchParameters).RowIdentities.Count == 0)
+				{
+					if (((DataPartitioningContainer)state).TotalDataRowsCount == -1)
+					{
+						dao.<%=action.Name%>((DataPartitioningContainer)state, true);
+					}
+					else
+					{  
+            			dao.<%=action.Name%>((DataPartitioningContainer)state);
+					}
+				}
+				else
+				{
+					if (((DataPartitioningContainer)state).TotalDataRowsCount == -1)
+					{
+						((DataPartitioningContainer)state).TotalDataRowsCount = 1;
+					}
+					else
+					{
+						dao.<%=action.Name%>ByRowIdentity((DataPartitioningContainer)state);
+					}
+				}
+<%
+			}
+%>	
+            }
+            catch (Exception ex)
+            {
+                DataPartitioningContainer currentSession = (DataPartitioningContainer)state;
+
+                Exception exceptionToThrow;
+
+                if (ExceptionPolicy.HandleException(ex, "WarehouseBusinessLayerPolicy", out exceptionToThrow))
+                {
+                    if (exceptionToThrow == null)
+                    {
+                        currentSession.ExceptionToThrow = ex;
+                    }
+                    else
+                    {
+                        currentSession.ExceptionToThrow = exceptionToThrow;
+                    }
+                }
+
+				currentSession.DataFetchFinished = true;
+            }
+			finally
+            {
+                if (((DataPartitioningContainer)state).Abort)
+                {
+                    lock (_clientRequestSessions)
+                    {
+                        if (_clientRequestSessions.ContainsKey(((DataPartitioningContainer)state).Id))
+                        {
+                            _clientRequestSessions.Remove(((DataPartitioningContainer)state).Id);
+                        }
+                    }
+                }
+            }
+        }
+
+		private void SessionCleanupWorkerThread(object state)
+        {
+            while (_clientRequestSessions != null)
+            {
+                if (_clientRequestSessions.Count > 0)
+                {
+                    for (int i = 0; i < _clientRequestSessions.Count; i++)
+                    {
+                        string key = string.Empty;
+                        DataPartitioningContainer value = null;
+
+                        lock (_clientRequestSessions)
+                        {
+                            if (_clientRequestSessions.Count > i)
+                            {
+                                key = _clientRequestSessions.Keys.ElementAt(i);
+                                value = _clientRequestSessions[key];
+                            }
+                        }
+
+                        if (value != null)
+                        {
+							if (value.DataFetchFinished)
+                            {
+								DateTime sessionStarted = Convert.ToDateTime(key.Split('_')[4]);
+
+								if ((DateTime.Now.ToUniversalTime() - sessionStarted).TotalHours > 2)
+								{
+									lock (_clientRequestSessions)
+									{
+										if (_clientRequestSessions.ContainsKey(key))
+										{
+											_clientRequestSessions.Remove(key);
+											i--;
+										}
+									}
+								}
+                            }
+                        }
+                    }
+
+                }
+                Thread.Sleep(1800000);
+            }
+        }
+<%
+ }
+%>
+
+    }
+}

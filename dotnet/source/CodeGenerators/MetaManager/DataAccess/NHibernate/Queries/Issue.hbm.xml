@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <query name="Issue.FindAllIssues">
+    <![CDATA[
+     select  i
+       from  Issue i
+       where i.Application.Id = :applicationId
+    ]]>
+  </query>
+  <query name="Issue.FindAllIssuesByType">
+    <![CDATA[
+     select  i
+       from  Issue i
+       where i.Application.Id = :applicationId
+       and   i.ObjectType = :objectType
+    ]]>
+  </query>
+  <query name="Issue.FindAllIssuesByTypeAndObjectId">
+    <![CDATA[
+     select  i
+       from  Issue i
+       where i.Application.Id = :applicationId
+       and   i.ObjectType = :objectType
+       and   i.ObjectId = :objectId
+    ]]>
+  </query>
+  <query name="Issue.FindIssue">
+    <![CDATA[
+     select  i
+       from  Issue i
+       where i.Application.Id = :applicationId
+       and   i.ObjectType = :objectType
+       and   i.ObjectId = :objectId
+       and   i.Title = :title
+       and   i.Text = :text
+    ]]>
+  </query>
+  <query name="Issue.SelectToDeleteIssuesForObjectType">
+    <![CDATA[
+     select  i
+       from  Issue i
+       where i.Application.Id = :applicationId
+       and   i.ObjectType = :objectType
+       and   i.Id not in (:exceptionIdList)
+    ]]>
+  </query>
+  <query name="Issue.SelectToDeleteIssuesForObjectId">
+    <![CDATA[
+     select  i
+       from  Issue i
+       where i.Application.Id = :applicationId
+       and   i.ObjectType = :objectType
+       and   i.ObjectId = :objectId
+       and   i.Id not in (:exceptionIdList)
+    ]]>
+  </query>
+</hibernate-mapping>

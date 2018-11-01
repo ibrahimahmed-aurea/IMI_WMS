@@ -1,0 +1,146 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Segment CustomerOrderLine</title>
+<link href="StructureDescription.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>Segment CustomerOrderLine</h1>
+<h3>Description:</h3>
+Customer Order Line<br/>Specification of ordered product and quantity<h3>Attributes:</h3>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000"><tbody>
+<tr class="tableHeader"><th class="tableHeaderColumn">Tag</th><th class="tableHeaderColumn">Method</th><th class="tableHeaderColumn">Type</th><th class="tableHeaderColumn">Oracle Type</th><th class="tableHeaderColumn">Mandatory</th><th class="tableHeaderColumn">Note</th></tr>
+<tr class="tableRow"><td class="tableRowColumn">OPCODE</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Operation Code<br/>0 - No Operation<br/>1 - New<br/>2 - Change<br/>3 - Remove<br/>Note! An operation code is only useful if at least one tag supports the method</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Customer Order Number<br/>The identity of the Customer Order.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Customer Order Sequence Number<br/>A Sequence Number used by the Host system to make it possible to send<br/>a Customer Order more than once (e.g. backorder).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderLinePosition</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(5)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Customer Order Line Number<br/>The identity of the Customer Order Line.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderLineKitPosition</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(2)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Customer Order Line Kit Position<br/>The Customer Order Line contains an Assembly Product.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderLineSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Customer Order Line Sub Number<br/>Used as an extra identity of the Customer Order Line.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderLineType</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Customer Order Line Type<br/>The type of Customer Order Line:<br/>N = Normal<br/>I = Information<br/>S = Service<br/>T = Transit</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Kitproduct</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Kit Product<br/>Indicates (1=Yes,0=No) if the Customer Order Line contains a Kit Product<br/>that has to be assembled (only sent from the Host system).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipToPartyQualifier</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Ship-to Party Type<br/>The type of Party that is the Ship-to Party.<br/>CU - Customer<br/>WH - Warehouse</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipToPartyIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Ship-to Party<br/>The Party (Consignee) that will receive the goods when they are shipped from the Ship-from Party (Warehouse).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipToCustomerSubAddress</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-to Sub Address Identity<br/>Is received from the host system and might be a specification of the Ship-to Address<br/>for the shipping of the Customer Order Line, like Floor 3 or Gate 7.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">RequestedShipDate</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Requested Ship Date<br/>The date that the customer has requested that the goods shall be shipped from the Warehouse.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">AcknowledgedShipdate</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Acknowledged Ship Date<br/>The Ship Date that the Warehouse System has acknowledged to the customer.<br/>This date is mandatory if there is no Selection Type defined for the Customer Order Line.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">RequestedDeliveryDate</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Requested Arrival Date<br/>The date that the customer has requested that the goods shall arrive at the customer site.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">AcknowledgedDeliveryDate</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Acknowledged Arrival Date.<br/>The Arrival Date at the Ship-to Customer that the Warehouse System has acknowledged to the customer.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">WarehouseIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(4)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Warehouse Identity<br/>The identity of the Warehouse.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Product Number<br/>The identity of the Product.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OwnerIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Owner Identity<br/>The identity of the Owner.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductionLotRequireMent</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Manufacturing Lot Requirement<br/>Controls if there is check of the Manufacturing Lot when selecting the goods / Item Load:<br/>NULL = No control<br/>1 = Any Lot (must belong to a Lot)<br/>2 = Only one Lot (must belong to the same Manufacturing Lot)<br/>3 = Specified Lot (must belong to the stated Manufacturing Lot)</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">MarketingLotIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(20)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Marketing Lot<br/>The Marketing Lot that the picked goods have to belong to.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">StorageLotIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(20)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Quality Lot<br/>Can be used for optional classification of the stored goods in the Warehouse (quality, color, etc).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PackageIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Unit of Measure<br/>The identity of the Unit of Measure / Package.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OrderedQuantity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Ordered Quantity<br/>The ordered quantity of the product.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OrderedQuantityTolerancePlus</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Surplus<br/>The number of Lowest UMs that the ordered quantity in a Pick Order Line can differ by upwards,<br/>so that this package / unit may still be picked without having to register a discrepancy code.<br/>This value is normally defined for each Package of the Product but that value is always overridden<br/>if there is a value transferred from the host system in the Customer Order Line.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OrderedQuantityToleranceMinus</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Deficiency<br/>The number of Lowest UMs that the ordered quantity in a Pick Order Line can differ by downwards,<br/>so that this package / unit may still be picked without having to register a discrepancy code.<br/>This value is normally defined for each Package of the Product but that value is always overridden<br/>if there is a value transferred from the host system in the Customer Order Line.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">KitDetailQuantity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Quantity per Kit Product<br/>The Quantity of the Component Product that is needed for each copy of the Kit Product.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">RequestedShelfLife</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(4)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Requested Shelf Life<br/>The Requested Shelf Life is the number of days that the goods can be stored at the customer site<br/>before the Expiry Date occurs.<br/>When there is a Requested Shelf Life registered in a Customer Order Line it has to be taken into account<br/>when selecting Item Loads in the Pick Generation process when creating Pick Orders for Pick Locations<br/>of the Type = Floating. Only goods with an Expiry Date that is later than<br/>the Departure Date + Transport Time + Requested Shelf Life can be selected.<br/>This also means that Item Loads who's Last Ship Date has been passed, can be picked for the Customer Order Line.<br/>[The Last Ship Date is only used when there is NO Requested Shelf Life (=0 or NULL) registered for the Customer Order Line.]</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ForcePackage</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Forced Package<br/>Indicates (1=Yes,0=No) if forced to pick a specified Package / Unit of Measure of the Product.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">SerialNumberHandling</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Serial Number<br/>Controls (1=Yes,0=No) if the Serial Number is required at Case Pick.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">SerialNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(21)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Serial Number<br/>A unique identity for a single Item Load. Only used for Case Pick and Serial Number handling!</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">VATPercent</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(6,4)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">VAT(%)<br/>The financial conditions for the Customer Order Line, which VAT applies.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DeliveryMethod</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Method of Shipment<br/>The identity of the method that will be used when shipping the goods from the Warehouse.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Measure</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Catch Measure<br/>Controls (1=Yes,0=No) if the Products shall go through Catch Measure (Quantity check) at Case Pick.<br/>If the value of the checkbox is undefined (null), then the Product configuration will decide if<br/>the Products shall go through Catch Measure.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">MeasureQualifier</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(4)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Catch Measure Unit<br/>States in which unit to measure the goods if Catch Measure is set.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">SalesPrice</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(17,7)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Price 1<br/>Price for the Product per Package (info).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">LineTotal</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(17,7)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Price 2<br/>Price for the Product per Package (info).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipToCustomerProductNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Product Number<br/>The Product Number at the Customer site.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PurchaseOrderNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Purchase Order Number<br/>The identity of the Purchase Order.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PurchaseOrderSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Purchase Order Sequence Number<br/>When there are multiple occurrences of the Purchase Order in the Warehouse system<br/>this tells in which order they have been received from the host system.<br/>This is the Purchase Order that the Customer Order Line is connected to.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PurchaseOrderLinePosition</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(4)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Purchase Order Line Number<br/>The identity of the Purchase Order Line.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PurchaseOrderLineSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Purchase Order Line Sub Number<br/>Used as an extra identity of the Purchase Order Line.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OriginalOrderIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Original Customer Purchase Order Number<br/>The final recipients Purchase Order Number reference. Used for transit goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OriginalOrderLinePosition</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(16)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Original Customer Purchase Order Line Number<br/>The final recipients Purchase Order Line Number reference. Used for transit goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DepartureLoadIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Transport Load Identity<br/>The identity of the Transport Load, that can be a Customer Order (whole or part of)<br/>or a Transit Consignment in a Departure.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PlanLoad</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Plan Transport Load<br/>Indicates (1=Yes,0=No) if the Transport Load shall be connected to a Departure.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DateSelectionType</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Date Selection Type<br/>Indicates how the date / time fields are evaluated.<br/>S = Ship Date decided from Earliest and Latest Ship Date and Time.<br/>D = Delivery Date decided from Earliest and Latest Delivery Date and Time.<br/>Default value is Ship Date.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">FirstPlannedDeliveryDtm</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Earliest Delivery Date and Time<br/>The earliest delivery date and time at Customer site. Valid if Selection Type = Delivery.<br/>This date is mandatory if the Selection Type = Delivery<br/>and if the Transport Loads shall be connected to a departure.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">LastPlannedDeliveryDtm</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Latest Delivery Date and Time<br/>The latest delivery date and time at Customer site.<br/>Valid if Selection Type = Delivery.This date is mandatory if the Selection Type = Delivery<br/>and if the Transport Loads shall not be connected to a departure.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">FirstPlannedShipDtm</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Earliest Ship Date and Time<br/>The earliest date and time for shipping the goods from the Warehouse. Only used when the Selection Type = Ship.<br/>This date is mandatory if the Selection Type = Ship<br/>and if the Transport Loads shall be connected to a departure.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">LastPlannedShipDtm</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Latest Ship Date and Time<br/>The latest date and time for shipping the goods from the Warehouse. Only used when the Selection Type = Ship.<br/>This date is mandatory if the Selection Type = Ship and if the Transport Loads shall not be connected to a departure.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OwnerIdentityAtShipToCustomer</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Owner Identity at Final Node<br/>The identity of the Owner that will be registered for the goods at the Final Node (the Ship-to Customer). </td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">InventoryStatusCode</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(8)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Hold Code<br/>A Hold Code may be applied on an Item Load or a Pick Location to temporarily restrict its processing.<br/>If a Hold Code is specified in the Customer Order Line only Pick Locations<br/>and Item Loads with the same Hold Code shall be selected.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OrderedQuantityLowerTolerance</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Lower Limit for Picked Quantity<br/>The minimum quantity (number of Lowest Units of Measure) that has to be picked<br/>for this Order Line. This quantity is transferred from the Host System.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OrderedQuantityUpperTolerance</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Upper Limit for Picked Quantity<br/>The maximum quantity (number of Lowest Units of Measure) that can be picked<br/>for this Order Line. This quantity is transferred from the Host System.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CatchMeasureLowerTolerance</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Lower Limit for Measured Quantity<br/>The minimum accepted Measured Quantity per ordered unit. It is used to check that the registered Measured Quantity<br/>is within the limits of reason. This tolerance quantity is transferred from the Host System.<br/>Example: The Ordered Quantity is 20 cheeses of 700 gram each. The Lower Limit<br/>for Measured Quantity = 550 gram. When the user measures all 20 cheeses,<br/>the system will accept any registered weight that is above 11,0 kg (=20x550g).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CatchMeasureUpperTolerance</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Upper Limit for Measured Quantity<br/>The maximum accepted Measured Quantity per ordered unit. It is used to check that the registered Measured Quantity<br/>is within the limits of reason. This tolerance quantity is transferred from the Host System.<br/>Example: The Ordered Quantity is 20 cheeses of 700 gram each. The Upper Limit<br/>for Measured Quantity = 770 gram. When the user measures all 20 cheeses,<br/>the system will accept any registered weight that is below 15,4 kg (=20x770g).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductionLotIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(40)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Manufacturing Lot<br/>The Manufacturing Lot that the picked goods have to belong to (if required by Manufacturing Lot Requirement).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductionSubLotIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(40)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Manufacturing Sublot<br/>The Manufacturing Sublot that the picked goods have to belong to (if required by Manufacturing Lot Requirement).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">AssembleToStock</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Assemble-to-Stock<br/>Indicates (1=Yes,0=No) if the Order Line is an Assemble-to-Stock Order Line.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ReserveForAssembly</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Reserve for Assembly<br/>Controls (1=Yes,0=No) if the goods should be used for an Assembly Order.<br/>The goods will first be shipped to the Ship-to Customer and then be reserved for an Assembly Order.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">AllowTransit</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Allow transit departure<br/>Controls (1=Yes,0=No) if the goods may be transited via one or more Transit Nodes<br/>on the way to the Ship-to Customer or if the goods shall be shipped directly to the Ship-to Customer.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">AllowPartDelivery</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Allow Part Delivery<br/>Controls (1=Yes,0=No, default: Yes) if the Customer Order Line can be partly delivered or not.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">AdditionalInfo</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(200)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Additional information<br/>Additional information for the Customer Order row - returned in CORRES.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomsRequirement</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customs Requirement<br/>The Customs Requirement can be of different types:<br/>0 = No requirement (default)<br/>1 = Prefer Bonded goods<br/>2 = Require Bonded goods</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ItemLoadIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Item Load Identity<br/>The identity of the Item Load.</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

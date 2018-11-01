@@ -1,0 +1,1337 @@
+using System;
+using System.IO;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Collections.Generic;
+using CodeSmith.Engine;
+using Cdc.MetaManager.DataAccess;
+using Cdc.MetaManager.DataAccess.Domain;
+using Cdc.MetaManager.DataAccess.Domain.VisualModel;
+using Cdc.MetaManager.BusinessLogic.Helpers;
+using Cdc.CodeGeneration.Caching;
+
+public class DialogTemplate : ServiceTemplate
+{
+	public Dictionary<View, string> ViewList;
+	
+	public Dictionary<MappedProperty, string> BuildViewValidationRules(View view)
+	{
+		Dictionary<MappedProperty, string> rules = new Dictionary<MappedProperty, string>();
+						
+		foreach (UXComboBox combo in ViewHelper.GetAllComponents<UXComboBox>(view.VisualTree))
+		{
+			if (combo.DataSource == null && combo.MappedProperty != null && !combo.IsNullable)
+				rules[combo.MappedProperty] = "[NotNullValidator]";
+		}
+		
+		return rules;
+	}
+	
+	public string GetResourceManagerClassName(Module module)
+	{
+		return string.Format("{0}.{1}", GetModuleNamespace(module), GetResourceManagerClassName());
+	}
+	
+	public string GetDialogActivityClassName(Dialog dialog)
+	{
+		return string.Format("{0}Activity", dialog.Name);	
+	}
+	
+	public string GetServiceMethodActivityClassName(ServiceMethod serviceMethod)
+	{
+		return string.Format("{0}_{1}Activity", serviceMethod.Service.Name, serviceMethod.Name);	
+	}
+	
+	public string GetWorkflowActivityClassName(Workflow workflow)
+	{
+		return string.Format("{0}Activity", workflow.Name);	
+	}
+	
+	public string GetResourceManagerClassName(View view)
+	{
+		return string.Format("{0}.{1}", GetViewsNamespace(view), GetResourceManagerClassName());
+	}
+
+	public string GetResourceManagerClassName()
+	{
+		return "ResourceManager";
+	}
+
+	public string GetResourceManagerBaseClassName(Module module)
+	{
+		return string.Format("{0}.{1}", GetModuleNamespace(module), GetResourceManagerBaseClassName());
+	}
+
+	public string GetResourceManagerBaseClassName(View view)
+	{
+		return string.Format("{0}.{1}", GetViewsNamespace(view), GetResourceManagerBaseClassName());
+	}
+
+	public string GetResourceManagerBaseClassName()
+	{
+		return "ResourceManagerBase";
+	}
+	
+    public string GetUserSessionNamespace(Application application)
+	{
+		return string.Format("Imi.SupplyChain.UX.Modules.{0}.Infrastructure.Services", application.Name);	
+	}
+	
+    public string GetUserSessionName(Application application)
+	{
+		return string.Format("I{0}UserSessionService", application.Name);
+	}
+	
+    public bool IsMultiEnabled(UXAction action)
+	{
+	    if((action.ServiceMethod != null) && (action.ServiceMethod.MappedToAction != null))
+		{
+		    return(action.ServiceMethod.MappedToAction.IsMultiEnabled == true);
+		}
+		else
+		{
+			if(action.Dialog != null) 
+			{
+				return IsMultiEnabled(action.Dialog);
+			}
+		    	
+		}
+		
+		return(false);
+	}
+	
+	public bool IsMultiEnabled(Dialog dialog)
+	{
+		if (dialog.Type == DialogType.Modify ||
+		   dialog.Type == DialogType.Create)
+		{
+			foreach (ViewNode viewNode in dialog.ViewNodes)
+			{
+				foreach (ViewAction viewAction in viewNode.ViewActions)
+				{
+					if(IsMultiEnabled(viewAction.Action))
+					  	return true;
+				}
+			}	
+		}
+		
+		return false;
+	}
+
+	public bool IsImportEnabled(UXAction action)
+	{
+		if((action.ServiceMethod != null) && (action.ServiceMethod.MappedToAction != null))
+		{
+		    return action.ServiceMethod.MappedToAction.IsImportEnabled.GetValueOrDefault();
+		}
+
+		return false;
+	}
+
+    public bool IsMessageHandlingEnabled(UXAction action)
+	{
+	    if(action.ServiceMethod != null)
+		{
+		    return IsMessageHandlingEnabled(action.ServiceMethod);
+		}
+		
+		return false;
+	}
+	
+	public bool IsMessageHandlingEnabled(ServiceMethod serviceMethod)
+	{
+	    if((serviceMethod.MappedToAction != null) && (serviceMethod.MappedToAction.MappedToObject is StoredProcedure))
+		{
+		    return (serviceMethod.MappedToAction.IsMessageHandlingEnabled == true);
+		}
+		
+		return false;
+	}
+	
+	public bool IsCreateDialog(UXAction action)
+	{
+	    if((action.Dialog != null))
+		    return(action.Dialog.Type == DialogType.Create);
+		else
+		    return(false);
+	}
+	
+    public bool ViewIsRowTracker(View view)
+	{
+		return(
+		         (view.ServiceMethod != null) &&
+		         (view.ServiceMethod.MappedToAction != null) &&
+				 (! string.IsNullOrEmpty(view.ServiceMethod.MappedToAction.RowTrackingId))
+		      );
+	}
+    private int CompareViewActionBySequence(ViewAction a, ViewAction b)
+    {
+        if(a.Sequence < b.Sequence)
+          return -1;
+        else if(a.Sequence > b.Sequence)
+          return 1;
+        else
+          return 0;
+    }
+    
+    public List<ViewAction> SortViewActionsBySequence(IList<ViewAction> viewActions)
+    {
+        List<ViewAction> va = new List<ViewAction>(viewActions);
+        va.Sort(CompareViewActionBySequence);
+        return va;
+    }
+
+    private int CompareViewNodeBySequence(ViewNode a, ViewNode b)
+    {
+		if (a.Id == b.Id)
+			return 0;
+		else if (a.Parent == null)
+			return -1;
+		else if (b.Parent == null)
+			return 1;
+		else if (b.Parent.Id == a.Id)
+			return -1;
+		else if (a.Parent.Id == b.Id)
+			return 1;
+		else if(a.Sequence < b.Sequence)
+			return -1;
+		else if(a.Sequence > b.Sequence)
+			return 1;
+		else
+			return 0;
+    }
+    
+    public List<ViewNode> SortViewNodesBySequence(IList<ViewNode> viewNodes)
+    {
+        List<ViewNode> vn = new List<ViewNode>(viewNodes);
+        vn.Sort(CompareViewNodeBySequence);
+        return vn;
+    }
+
+    private int CompareMenuItemBySequence(MenuItem a, MenuItem b)
+    {
+		if(a.Sequence < b.Sequence)
+			return -1;
+		else if(a.Sequence > b.Sequence)
+			return 1;
+		else
+			return 0;
+    }
+
+    public List<MenuItem> SortMenuItemBySequence(IList<MenuItem> menuItems)
+    {
+        List<MenuItem> mi = new List<MenuItem>(menuItems);
+        mi.Sort(CompareMenuItemBySequence);
+        return mi;
+    }
+	
+    protected static bool IsMainView(Dialog dialog, View view)
+    {
+    	if(dialog.RootViewNode != null) 
+		{
+        	if((dialog.RootViewNode.Children != null) && (dialog.RootViewNode.Children.Count > 0))
+        	{
+            	return(dialog.RootViewNode.Children[0].View == view);        
+			}
+      	}
+    
+     	return false;
+    }
+    
+	protected string GetXName(UXComponent component)
+	{
+		if (component.Name == UXComponent.DefaultName)
+			return "";
+		else
+			return string.Format("x:Name=\"{0}\" ", component.Name);
+	}
+    
+    protected static bool NeedsViewTranslators(Dialog dialog)
+    {
+	    // Special case
+	    if((dialog.SearchPanelView != null) && (dialog.SearchPanelView.RequestMap != null))
+		  return true;
+		
+        return NeedsViewTranslators(dialog.RootViewNode);
+    }
+	
+	protected static bool NeedsViewTranslators(ViewNode node)
+    {
+		foreach (ViewNode viewNode in node.Children)
+        {
+            if ((viewNode.ViewMap != null) || ((node.View.ServiceMethod != null) && (node.View.ServiceMethod == viewNode.View.ServiceMethod)))
+				return true;
+				
+			if (NeedsViewTranslators(viewNode))
+				return true;
+        }
+        
+        return false;
+    }
+    
+    protected static bool NeedsActionTranslators(Dialog dialog)
+    {
+        foreach (ViewNode viewNode in dialog.ViewNodes)
+        {
+            if((viewNode.ViewActions != null) && (viewNode.ViewActions.Count > 0))
+                return true;
+        }
+        
+        return false;
+    }
+
+    protected static UXComponent GetFirstGridComponent(UXComponent component)
+    {
+        if (component is UXDataGrid)
+			return component;
+        
+		UXContainer container = null;
+
+        if (component is UXGroupBox)
+            container = (component as UXGroupBox).Container;
+        else
+            container = component as UXContainer;
+
+        if (container != null)
+        {
+            foreach (UXComponent child in container.Children)
+			{
+                UXComponent grid = GetFirstGridComponent(child);
+				
+				if (grid != null)
+					return grid;
+			}
+        }
+		
+        return null;
+    }
+    
+    protected string XmlString(string value)
+    {
+    	if(value != null)
+        	return value.Replace("&","&amp;").Replace(">","&gt;").Replace("<","&lt;").Replace("\"","&quot;");
+      	else
+        	return value;
+    }
+
+	protected ICollection<View> GetUniqueViews(Module module)
+	{
+		List<View> uniqueViews = new List<View>();
+
+  		foreach (Dialog dialog in module.Dialogs)
+		{
+			foreach (ViewNode viewNode in dialog.ViewNodes)
+			{
+				bool unique = true;
+				
+				foreach (View view in uniqueViews)
+				{
+					if (view.BusinessEntity == viewNode.View.BusinessEntity)
+					{
+						unique = false;
+						break;
+					}	
+				}
+			
+				if (unique)
+					uniqueViews.Add(viewNode.View);
+			}					
+		}
+		
+		return uniqueViews;
+	}
+		
+	protected ICollection<View> GetUniqueViews(Dialog dialog)
+	{
+		List<View> uniqueViews = new List<View>();
+		
+		foreach (ViewNode viewNode in dialog.ViewNodes)
+		{
+			bool unique = true;
+				
+			foreach (View view in uniqueViews)
+			{
+				if (view.BusinessEntity == viewNode.View.BusinessEntity)
+				{
+					unique = false;
+					break;
+				}
+			}
+			
+			if (unique)
+				uniqueViews.Add(viewNode.View);
+		}
+		
+		return uniqueViews;
+	}
+	
+	protected string GetViewRulesEngineClassName(View view)
+    {
+        return string.Format("{0}RulesEngine", view.Name);
+    }	
+		
+    protected string GetControllerClassName(Dialog dialog)
+    {
+        return string.Format("{0}Controller", dialog.Name);
+    }
+
+	protected string GetControllerBaseClassName(Dialog dialog)
+    {
+        return string.Format("{0}ControllerBase", dialog.Name);
+    }
+    
+    protected string GetPresenterClassName(View view)
+    {
+        return string.Format("{0}Presenter", view.Name);
+    }
+
+	protected string GetPresenterBaseClassName(View view)
+    {
+        return string.Format("{0}PresenterBase", view.Name);
+    }
+    
+    protected string GetViewParametersClassName(View view)
+    {
+		return string.Format("{0}Parameters", GetViewClassName(view));
+    }
+
+    protected string GetViewParametersClassName(View view, bool isMulti, bool isInterface)
+    {
+        string name = GetViewParametersClassName(view);
+		if(isMulti)
+		{
+			if(isInterface)
+			{
+        		return string.Format("IList<{0}>", name);
+			}
+			else
+			{
+        		return string.Format("List<{0}>", name);
+			}
+			
+		}
+		else
+			return name;
+    }
+	
+    public string GetViewResultClassName(View view, bool isMulti, bool isInterface)
+    {
+		string name = GetViewResultClassName(view);
+		if(isMulti)
+		{
+			if(isInterface)
+			{
+        		return string.Format("IList<{0}>", name);
+			}
+			else
+			{
+        		return string.Format("List<{0}>", name);
+			}
+			
+		}
+		else
+			return name;
+    }
+
+
+	public string GetViewResultClassName(View view)
+    {
+		return string.Format("{0}Result", GetViewClassName(view));
+    }
+
+    protected string GetViewTranslatorClassName(View fromView, View toView)
+    {
+		return string.Format("{0}To{1}Translator", GetViewClassName(fromView), GetViewClassName(toView));
+    }
+
+	protected string GetViewTranslatorBaseClassName(View fromView, View toView)
+    {
+		return string.Format("{0}To{1}TranslatorBase", GetViewClassName(fromView), GetViewClassName(toView));
+    }
+	
+	protected string GetViewServiceTranslatorClassName(View view)
+    {
+        string serviceClassName = GetServiceImplementationClassName(view.ServiceMethod.Service);	
+
+		return string.Format("{0}To{1}Translator", GetViewClassName(view), serviceClassName);
+    }
+
+	protected string GetViewServiceToServiceMethodTranslatorClassName(View view, ServiceMethod serviceMethod)
+    {
+        string serviceMethodClassName = GetServiceMethodImplementationClassName(serviceMethod);	
+
+		return string.Format("{0}To{1}Translator", GetViewClassName(view), serviceMethodClassName);
+    }
+	
+	protected string GetActionTranslatorClassName(ViewAction viewAction)
+    {
+       return string.Format("{0}To{1}Translator", GetViewClassName(viewAction.ViewNode.View), GetActionClassName(viewAction.Action));
+    }
+
+	protected string GetActionTranslatorBaseClassName(ViewAction viewAction)
+    {
+       return string.Format("{0}To{1}TranslatorBase", GetViewClassName(viewAction.ViewNode.View), GetActionClassName(viewAction.Action));
+    }
+	
+	protected string GetDialogActivatorClassName(Dialog dialog)
+    {
+       return string.Format("{0}Activator", dialog.Name);
+    }
+
+	protected string GetDialogActionsClassName(Dialog dialog)
+    {
+       return string.Format("{0}Actions", dialog.Name);
+    }
+
+	protected string GetDialogActionsBaseClassName(Dialog dialog)
+    {
+       return string.Format("{0}ActionsBase", dialog.Name);
+    }
+    
+    protected string GetEventAggregatorClassName(Dialog dialog)
+    {
+        return string.Format("{0}EventAggregator", dialog.Name);
+    }
+
+	protected string GetEventAggregatorBaseClassName(Dialog dialog)
+    {
+        return string.Format("{0}EventAggregatorBase", dialog.Name);
+    }
+	
+	protected string GetComponentEventAggregatorClassName(View view)
+    {
+        return string.Format("{0}ComponentEventAggregator", view.Name);
+    }
+    
+    protected string GetViewClassName(View view)
+    {
+   		return string.Format("{0}View", view.Name);
+    }
+
+	protected string GetViewBaseClassName(View view)
+    {
+   		return string.Format("{0}ViewBase", view.Name);
+    }
+    
+    protected string GetViewInterfaceName(View view)
+    {
+        return string.Format("I{0}View", view.Name);
+    }
+
+	protected string GetViewBaseInterfaceName(View view)
+    {
+        return string.Format("I{0}ViewBase", view.Name);
+    }
+
+    protected string GetModuleDirectory(Module module, string modulesBaseDirectory) 
+	{
+		return string.Format(@"{0}\{1}", modulesBaseDirectory, module.Name);
+	}
+
+	protected string GetJumpDirectory(Module module, string jumpsBaseDirectory) 
+	{
+		return string.Format(@"{0}\{1}", jumpsBaseDirectory, module.Name);
+	}
+    
+    protected string GetViewsDirectory(View view, string viewsBaseDirectory) 
+	{
+		return string.Format(@"{0}\{1}", viewsBaseDirectory, view.BusinessEntity.Name);
+	}
+
+    public string GetModuleNamespace(Module module)
+	{
+  		string rootNamespace = GetRootNamespace(module.Application);
+		return string.Format("{0}.Modules.{1}", rootNamespace, module.Name);
+	}
+	
+	public string GetWorkflowNamespace(Module module)
+	{
+		return string.Format("{0}.Workflow", GetModuleNamespace(module));
+	}
+	
+	public string GetWorkflowNamespace(Workflow workflow)
+	{
+		return GetWorkflowNamespace(workflow.Module);
+	}
+	
+	public string GetWorkflowClassName(Workflow workflow)
+	{
+		return string.Format("{0}Workflow", workflow.Name);
+	}
+	
+	public string GetWorkflowParametersClassName(Workflow workflow)
+	{
+		return string.Format("{0}Parameters", GetWorkflowClassName(workflow));
+	}
+	
+	public string GetWorkflowControllerClassName(Workflow workflow)
+	{
+		return string.Format("{0}WorkflowController", workflow.Name);
+	}
+
+	protected string GetDialogNamespace(Dialog dialog)
+	{
+  		string rootNamespace = GetModuleNamespace(dialog.Module);
+		return string.Format("{0}.{1}", rootNamespace, dialog.Name);
+	}
+
+    protected string GetViewTranslatorNamespace(Dialog dialog)
+	{
+  		string dialogNamespace = GetDialogNamespace(dialog);
+		return string.Format("{0}.Translators", dialogNamespace);
+	}
+	
+	protected string GetActionTranslatorNamespace(Dialog dialog)
+	{
+  		string dialogNamespace = GetDialogNamespace(dialog);
+		return string.Format("{0}.Translators", dialogNamespace);
+	}
+	
+	protected string GetModuleConstantsNamespace(Module module)
+    {
+		return string.Format("{0}.Constants", GetModuleNamespace(module));
+    }
+	
+	protected string GetActionClassName(UXAction action)
+    {
+        return string.Format("{0}Action", action.Name);
+    }
+	
+	protected string GetActionBaseClassName(UXAction action)
+    {
+        return string.Format("{0}ActionBase", action.Name);
+    }
+
+	protected string GetActionConditionClassName(UXAction action)
+    {
+        return string.Format("{0}ActionCondition", action.Name);
+    }
+	
+	public string GetActionParametersClassName(UXAction action, bool isMulti, bool isInterface)
+    {
+		string name = GetActionParametersClassName(action);
+		if(isMulti)
+		{
+			if(isInterface)
+			{
+        		return string.Format("IList<{0}>", name);
+			}
+			else
+			{
+        		return string.Format("List<{0}>", name);
+			}
+			
+		}
+		else
+			return name;
+    }
+	
+	protected string GetActionParametersClassName(UXAction action)
+    {
+        return string.Format("{0}Parameters", GetActionClassName(action));
+    }
+	
+	protected string GetActionsNamespace(Module module)
+    {
+		return string.Format("{0}.Actions", GetModuleNamespace(module));
+    }
+	
+	protected string GetViewsConstantsNamespace(View view)
+    {
+		return string.Format("{0}.Constants", GetViewsNamespace(view));
+    }
+	
+	public string GetViewsNamespace(View view) 
+	{
+  		string rootNamespace = GetRootNamespace(view.Application);
+		return string.Format("{0}.Views.{1}", rootNamespace, view.BusinessEntity.Name);
+	}
+            	
+	protected string GetViewTitle(ViewNode viewNode)
+	{
+		if(string.IsNullOrEmpty(viewNode.Title))
+			return viewNode.View.Title;
+		
+		return viewNode.Title;	
+	}
+	
+	public string GetWorkItemConstantIgnoreClose()
+	{
+		return "IgnoreClose";
+	}
+	
+	public string GetDataSourceParameterPrefix()
+	{
+		return "DataSourceParameter";
+	}
+}
+
+public class CoreTemplate : CodeTemplate
+{
+    protected static StreamWriter DebugWriter;
+    
+    private static string debugFile;
+    	
+    public static string DebugFile 
+    {
+		get
+		{
+			return debugFile;
+		}
+		set
+		{
+			if(DebugWriter != null) 
+			{
+				DebugWriter.Close();
+				DebugWriter = null;
+			}
+            
+			debugFile = value;
+            
+    		if(debugFile != null)
+    		{
+				FileStream f = new FileStream(debugFile, FileMode.Append);
+				DebugWriter = new StreamWriter(f);
+    		}
+            
+        }
+    }
+	
+	public bool CacheAdaptedFile(string fileName)
+	{
+		fileName = string.Format(@"{0}\{1}Adapted{2}", Path.GetDirectoryName(fileName), Path.GetFileNameWithoutExtension(fileName), Path.GetExtension(fileName));
+		
+		if (File.Exists(fileName))
+		{
+			FileCacheManager.AddExistingFileToCache(fileName);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+    public CoreTemplate() : base()
+    {
+    }
+		
+    protected string ToCamelCase(string name)
+    {
+        return string.Format("{0}{1}", name.Substring(0, 1).ToLower(), name.Substring(1, name.Length - 1));
+    }
+	
+	protected bool IsBool(MappedProperty mapProp) 
+    {
+		string dataType = GetShortTypeName(mapProp);
+		return(dataType.ToLower().Contains("boolean"));
+    }
+
+	protected string GetProjectFilename(string projectDirectory, string projectNamespace)
+	{
+		return string.Format(@"{0}\{1}.csproj", projectDirectory ,projectNamespace);
+	}
+
+	protected string GetVersionString(Application application)
+	{
+		return application.Version;
+	}
+
+	protected int CurrentPercentage(int currentStep, int stepMax)
+	{
+		return (int)(currentStep * (100 / stepMax));
+	}
+
+	protected int CurrentPercentage(int currentStep, int stepMax, int currentSubStep, int subStepMax)
+	{
+		double stepIncrease = 100 / stepMax;
+		return (int)(currentStep * stepIncrease + ((stepIncrease / subStepMax) * currentSubStep));
+	}
+
+    protected static bool IsString(IMappableProperty property)
+    {
+        string dataType = GetShortTypeName(property.Type, false);
+        return(dataType.ToLower().Contains("string"));
+    }
+
+    protected static bool IsDateTime(IMappableProperty property)
+    {
+        string dataType = GetShortTypeName(property.Type, false);
+        return(dataType.ToLower().Contains("datetime"));
+    }
+    
+	protected static string GetShortTypeName(Type type, bool isNullable)	
+	{
+        string typeName = type.AssemblyQualifiedName;
+        return(GetShortTypeName(typeName, isNullable));
+	}
+    
+	protected static string GetShortTypeName(string typeName, bool isNullable)	
+	{
+		string[] splitStrings = typeName.Split(new char[] { ',' });
+
+		if((splitStrings == null) || (splitStrings.Length == 0))
+			return typeName;
+		
+		if(typeName.StartsWith("System.")) 
+		{
+			string prefixName = splitStrings[0];
+			
+			switch(prefixName) {
+				case "System.String":
+					return "string";
+				case "System.Byte[]":
+					return "System.Byte[]";
+				default:
+					if (isNullable)
+						return string.Format("{0}?", prefixName.Substring(7));
+					else
+						return prefixName.Substring(7);
+			}
+		}
+		
+		
+		
+		return splitStrings[0];
+	}
+	
+	protected static string GetShortTypeName(string typeName)	
+	{
+		return GetShortTypeName(typeName, false);
+	}
+	
+	protected static string GetShortTypeName(Type type)	
+	{
+		return GetShortTypeName(type, false);
+	}
+
+	protected static string GetShortTypeName(MappedProperty property) 
+	{
+	    string typeName = property.Target.Type.AssemblyQualifiedName;
+		string dataType = GetShortTypeName(typeName);
+		
+		if((!property.IsMandatory) && (typeName.StartsWith("System."))) 
+		{
+			if(!typeName.StartsWith("System.String") && !typeName.StartsWith("System.Byte[]")) 
+			{
+				dataType = string.Format("Nullable<{0}>", dataType);
+			}
+		}
+		
+		return dataType;
+		
+	}
+
+	protected static string BoolToString(bool b)
+	{
+		return b.ToString().ToLower();
+	}
+	
+	protected static string GetMenuCaption(Cdc.MetaManager.DataAccess.Domain.Menu menu)
+	{
+		return menu.TopMenuItem.Caption;
+	}
+	
+	protected string ConvertToHex(string value)
+	{
+		if (value == null)
+			return null;
+			
+		string hex = "";
+				
+		char[] chars = value.ToCharArray();
+		
+		foreach (char c in chars)
+		{
+    		int i = Convert.ToInt32(c);
+		    hex += String.Format("{0:x}", i);
+		}
+		
+		return hex;
+	}
+}
+
+public class ReportCoreTemplate : CoreTemplate
+{
+	public bool IsApplicationWarehouseReport(Report report)
+	{
+		return report.Application.Name == "Warehouse" &&
+			   report.WarehouseReportType != WarehouseReportType.NotApplicable;
+	}
+	
+	public string GetExecuteImmediateABCParameters(int count)
+	{
+		string parameters = string.Empty;
+		
+		for (int i = 0; i < count; i++)
+		{
+			parameters += ":" + (char)((int)'a' + i) + ", ";
+		}
+		
+		// Remove last , and space.
+		parameters = parameters.TrimEnd(new char[] { ',', ' ' });
+		
+		return parameters;
+	}
+	
+	public string GetEmptyValue(QueryProperty queryProperty, Property property)
+	{
+		string propValue =  string.Empty;
+		
+		if (property != null)
+		{
+			if (property.Type == typeof(string))
+				propValue = "' '";
+			else if (property.Type == typeof(decimal) ||
+					 property.Type == typeof(double) ||
+					 property.Type == typeof(int) ||
+					 property.Type == typeof(long))
+				propValue = "0";
+			else if (property.Type == typeof(bool))
+				propValue = "'false'";
+			else if (property.Type == typeof(DateTime))
+				propValue = "'1900-01-01T00:00:00'";
+		}
+		else if (queryProperty != null)
+		{
+			if (queryProperty.DbDatatype == "CHAR" || 
+				queryProperty.DbDatatype == "VARCHAR2")
+				propValue = "' '";
+			else if (queryProperty.DbDatatype == "DATE")
+				propValue = "'1900-01-01T00:00:00'";
+			else if (queryProperty.DbDatatype == "NUMBER")
+				propValue = "0";
+		}
+		
+		return propValue;
+	}
+
+	public string GetNvlValue(string variable, QueryProperty queryProperty, Property property)
+	{
+		string nvlString = string.Empty;
+		string emptyValue = GetEmptyValue(queryProperty, property);
+		
+		if (property != null)
+		{
+			if (property.Type == typeof(string))
+				nvlString = string.Format("nvl({0}, {1})", variable, emptyValue);
+			else if (property.Type == typeof(decimal) ||
+					 property.Type == typeof(double) ||
+					 property.Type == typeof(int) ||
+					 property.Type == typeof(long)) 
+				nvlString = string.Format("to_char(nvl({0}, {1}), 'TM', 'NLS_NUMERIC_CHARACTERS = ''. ''')", variable, emptyValue);
+			else if (property.Type == typeof(bool))
+				nvlString = string.Format("decode({0}, '1', 'true', {1})", variable, emptyValue);
+			else if (property.Type == typeof(DateTime))
+				nvlString = string.Format("to_char(nvl({0}, to_date({1}, 'YYYY-MM-DD\"T\"HH24:MI:SS')), 'YYYY-MM-DD\"T\"HH24:MI:SS')", variable, emptyValue);
+		}
+		else if (queryProperty != null)
+		{
+			if (queryProperty.DbDatatype == "CHAR" || 
+				queryProperty.DbDatatype == "VARCHAR2")
+				nvlString = string.Format("nvl({0}, {1})", variable, emptyValue);
+			else if (queryProperty.DbDatatype == "DATE")
+				nvlString = string.Format("to_char(nvl({0}, to_date({1}, 'YYYY-MM-DD\"T\"HH24:MI:SS')), 'YYYY-MM-DD\"T\"HH24:MI:SS')", variable, emptyValue);
+			else if (queryProperty.DbDatatype == "NUMBER")
+				nvlString = string.Format("to_char(nvl({0}, {1}), 'TM', 'NLS_NUMERIC_CHARACTERS = ''. ''')", variable, emptyValue);
+		}
+		
+		return nvlString;
+	}
+	
+	
+	public string IndentRows(string input, int numberOfSpaces)
+	{
+		string tmp = input.Replace("\n", Environment.NewLine);
+		return Regex.Replace(tmp, @"(?m:^)", string.Empty.PadRight(numberOfSpaces));
+	}
+	
+	public IDictionary<string, string> GetQueryParametersAndTypes(ReportQuery reportQuery)
+	{
+		Dictionary<string, string> nameList = new Dictionary<string, string>();
+
+		Query query = reportQuery.Query;
+		
+		foreach(QueryProperty property in query.Properties.Where(p => p.PropertyType == DbPropertyType.In).OrderBy(p => p.Sequence))
+		{
+			string propType = string.Empty;
+			
+			// Check if this is a Interface parameter
+			if (property.Name.IndexOf(".") == -1)
+			{
+				MappedProperty prop = ReportQueryHelper.GetReport(reportQuery).RequestMap.MappedProperties.Where(mp => mp.Name == property.Name).FirstOrDefault();
+				
+				propType = string.Format("{0}.{1}%type", prop.TargetProperty.StorageInfo.TableName, prop.TargetProperty.StorageInfo.ColumnName);
+			}
+			else
+			{
+				// This is not an Interface parameter
+				
+				if (!string.IsNullOrEmpty(property.OriginalColumn) &&
+					!string.IsNullOrEmpty(property.OriginalTable))
+				{
+					propType = string.Format("{0}.{1}%type", property.OriginalTable, property.OriginalColumn);
+				}
+				else
+				{
+					if (property.DbDatatype == "CHAR" || 
+						property.DbDatatype == "VARCHAR2")
+					{
+						propType = "varchar2";
+					}
+					else if (property.DbDatatype == "DATE")
+					{
+						propType = "datetime";
+					}
+					else if (property.DbDatatype == "NUMBER")
+					{
+						propType = "number";
+					}
+				}
+			}
+			
+			// Add to dictionary
+			nameList.Add(property.Name, propType);
+		}
+		
+		return nameList;
+	}
+	
+	public IList<string> GetQueryParameterList(ReportQuery reportQuery)
+	{
+		List<string> parameterList = new List<string>();
+		
+		IDictionary<string, string> nameList = GetQueryParametersAndTypes(reportQuery);
+
+		// Find the longest name in nameList dictionary
+		int maxNameLength = nameList.Keys.Max(k => k.IndexOf(".") > -1 ? k.Substring(k.IndexOf(".") + 1).Length : k.Length);
+
+		// Create the parameterlist with padded names
+		foreach(string key in nameList.Keys)
+		{
+			string propName = key;
+			
+			// If the property is on format XXXX.YYYY then just fetch the name YYYY
+			if (propName.IndexOf(".") >= 0)
+			{
+				propName = propName.Substring(propName.IndexOf(".") + 1);
+			}
+		
+			parameterList.Add(string.Format("{0} {1}", propName.PadRight(maxNameLength), nameList[key]));
+		}
+		
+		return parameterList;
+	}
+	
+	public string ReplaceParametersInSQL(string sql)
+	{
+		return Regex.Replace(sql, @":(\w+\.)?(?<Name>\w+)", "${Name}");
+	}
+	
+	public IList<string> GetQueryParameterNames(ReportQuery reportQuery)
+	{
+		IDictionary<string, string> nameList = GetQueryParametersAndTypes(reportQuery);
+		
+		return nameList.Keys.Select(k => k.IndexOf(".") >= 0 ? k.Substring(k.IndexOf(".") + 1) : k).ToList();
+	}
+}
+
+public class DomainTemplate : CoreTemplate
+{
+	public static string GetEntitiesDirectory(BusinessEntity entity, string root)
+	{
+		return string.Format(@"{0}\BusinessEntities", GetEntityBaseDirectory(entity,root));
+	}
+
+	public static string GetActionsDirectory(BusinessEntity entity, string root)
+	{
+		return string.Format(@"{0}\BusinessLogic", GetEntityBaseDirectory(entity,root));
+	}
+
+	public static string GetDataAccessDirectory(BusinessEntity entity, string root)
+	{
+		return string.Format(@"{0}\DataAccess", GetEntityBaseDirectory(entity,root));
+	}
+
+	private static string GetEntityBaseDirectory(BusinessEntity entity, string root)
+	{
+		return string.Format(@"{0}\{1}", root, entity.Name);
+	}
+
+	protected static string GetIbatisStatementName(Cdc.MetaManager.DataAccess.Domain.Action action)
+	{
+		return string.Format("{0}.{1}", GetIbatisNamespace(action.BusinessEntity), action.Name);
+	}
+
+	protected static string GetIbatisMapName(Cdc.MetaManager.DataAccess.Domain.Action action, bool isRequest)
+	{
+		return string.Format("{0}.{1}", GetIbatisNamespace(action.BusinessEntity), GetIbatisMapTypeName(action, isRequest));
+	}
+
+	protected static string GetIbatisRowIdentityMapName(Cdc.MetaManager.DataAccess.Domain.Action action, bool isRequest)
+	{
+		return string.Format("{0}.{1}", GetIbatisNamespace(action.BusinessEntity), GetIbatisMapTypeName(action, isRequest, true));
+	}
+
+	private static string GetIbatisMapTypeName(Cdc.MetaManager.DataAccess.Domain.Action action, bool isRequest, bool isRowIdMap)
+	{
+		string methodNameSuffix;
+	    string rowIdSuffix;
+		
+		if(isRequest)
+			methodNameSuffix = "ParameterMap";
+		else
+			methodNameSuffix = "ResultMap";
+			
+        if(isRowIdMap)			
+			rowIdSuffix = "ByRowIdentity";
+		else
+			rowIdSuffix = "";
+		
+		return string.Format("{0}{1}{2}", action.Name, rowIdSuffix, methodNameSuffix);	
+	}
+
+	private static string GetIbatisMapTypeName(Cdc.MetaManager.DataAccess.Domain.Action action, bool isRequest)
+	{
+		return GetIbatisMapTypeName(action, isRequest, false);	
+	}
+
+	protected static string GetIbatisMapToClassFullName(Cdc.MetaManager.DataAccess.Domain.Action action, bool isRequest)
+	{
+		string entityNamespace = GetEntitiesNamespace(action.BusinessEntity);
+		string entityClassName = GetEntityClassName(action, isRequest);
+	
+		return string.Format("{0}.{1}, {2}", entityNamespace, entityClassName, entityNamespace);
+	}
+
+	public static string GetIbatisNamespace(BusinessEntity entity)
+	{
+		return string.Format("{0}.{1}.DataAccess", GetBusinessLogicNamespace(entity), entity.Name);
+	}
+
+	public static string GetActionClassname(Cdc.MetaManager.DataAccess.Domain.Action action)
+	{
+		return string.Format("{0}Action", action.Name);
+	}
+
+	public static string GetActionsNamespace(BusinessEntity entity)
+	{
+		return string.Format("{0}.{1}.BusinessLogic", GetBusinessLogicNamespace(entity), entity.Name);
+	}
+
+	public static string GetEntitiesNamespace(BusinessEntity entity)
+	{
+		return string.Format("{0}.{1}.BusinessEntities", GetBusinessLogicNamespace(entity), entity.Name);
+	}
+
+	public static string GetEntityClassName(Cdc.MetaManager.DataAccess.Domain.Action action, bool isRequest)
+	{
+		string methodNameSuffix;
+	
+		if(isRequest)
+			methodNameSuffix = "Parameters";
+		else
+			methodNameSuffix = "Result";
+		
+		return string.Format("{0}{1}", action.Name, methodNameSuffix);	
+	}
+
+	private static string GetBusinessLogicNamespace(BusinessEntity entity)
+	{
+		Application application = entity.Application;
+		return application.Namespace;	
+	}
+	
+	public static string GetMessageHandlerDataAccessNamespace(BusinessEntity entity)
+	{
+		return string.Format("{0}.MessageHandler.DataAccess", GetBusinessLogicNamespace(entity));	
+	}
+
+	public static string GetMessageHandlerEntitiesNamespace(BusinessEntity entity)
+	{
+		return string.Format("{0}.MessageHandler.BusinessEntities", GetBusinessLogicNamespace(entity));	
+	}
+}
+
+
+public class ServiceTemplate : CoreTemplate
+{
+	protected string GetBusinessEntitiesNamespace(BusinessEntity entity)
+	{
+		return DomainTemplate.GetEntitiesNamespace(entity);
+	}
+
+	protected string GetBusinessEntitiyClassname(Cdc.MetaManager.DataAccess.Domain.Action action, bool isRequest)
+	{
+		return DomainTemplate.GetEntityClassName(action, isRequest);
+	}
+
+	protected string GetBusinessLogicNamespace(BusinessEntity entity)
+	{
+		return DomainTemplate.GetActionsNamespace(entity);
+	}
+	
+	protected string GetActionClassname(Cdc.MetaManager.DataAccess.Domain.Action action)
+	{
+		return DomainTemplate.GetActionClassname(action);
+	}
+	
+	protected string GetDataContractDirectory(Service service, string root)
+	{
+		return string.Format(@"{0}\{1}\DataContracts", root, service.Name);
+	}
+	
+	protected string GetServiceContractDirectory(Service service, string root)
+	{
+		return string.Format(@"{0}\{1}\ServiceContracts", root, service.Name);
+	}
+	
+	protected string GetServiceImplementationDirectory(Service service, string root)
+	{
+		return string.Format(@"{0}\{1}\ServiceImplementation", root, service.Name);
+	}
+
+	protected string GetServiceImplementationClassName(Service service)
+	{
+		return string.Format("{0}Service", service.Name);	
+	}
+
+	protected string GetServiceMethodImplementationClassName(ServiceMethod serviceMethod)
+	{
+		return string.Format("{0}ServiceMethod", serviceMethod.Name);
+	}
+	
+	protected string GetServiceImplementationInterfaceName(Service service)
+	{
+		return string.Format("I{0}Service", service.Name);	
+	}
+	
+	protected string GetFullServiceContractClassName(Application application, ServiceMethod serviceMethod, bool isRequest)
+	{
+		return string.Format("{0}.{1}", GetFrontendServiceContractNamespace(application, serviceMethod.Service), GetServiceContractClassName(serviceMethod, isRequest));
+	}
+
+	protected string GetServiceContractClassName(ServiceMethod serviceMethod, bool isRequest)
+	{
+		string methodNameSuffix;
+	
+		if(isRequest)
+			methodNameSuffix = "Request";
+		else
+			methodNameSuffix = "Response";
+		
+		return string.Format("{0}{1}", serviceMethod.Name, methodNameSuffix);	
+	}
+
+	protected string GetServiceContractBaseClassName(ServiceMethod serviceMethod, bool isRequest)
+	{
+		if(isRequest)
+			return "RequestMessageBase";
+		else
+			return null;
+	}
+
+	private static string GetServicesNamespace(Service service)
+	{
+		Application application = service.Application;
+		return string.Format("{0}.Services", application.Namespace);	
+	}
+
+	private static string GetServicesUrl(Service service)
+	{
+		return string.Format("http://{0}", GetServicesNamespace(service));	
+	}
+
+	protected static string GetServiceImplementationNamespace(Service service) 
+	{
+		return string.Format("{0}.{1}.ServiceImplementation", GetServicesNamespace(service), service.Name);
+	}
+	
+	protected static string GetServiceContractNamespace(Service service) 
+	{
+		return string.Format("{0}.{1}.ServiceContracts", GetServicesNamespace(service), service.Name);
+	}
+	
+	protected static string GetServiceContractUrl(Service service) 
+	{
+		return GetServicesUrl(service);
+	}
+
+	protected static string GetDataContractUrl(Service service) 
+	{
+		return GetServicesUrl(service);
+	}
+
+	protected string GetServiceContractParamType(ServiceMethod serviceMethod, bool isRequest, bool isCollection)
+	{
+		if(isCollection)
+			return GetDataContractCollectionClassName(serviceMethod, isRequest);
+		else
+			return GetDataContractClassName(serviceMethod, isRequest);
+	}
+	
+	protected string GetFullDataContractClassName(Application application, ServiceMethod serviceMethod, bool isRequest)
+	{
+		return string.Format("{0}.{1}", GetFrontendDataContractNamespace(application, serviceMethod.Service), GetDataContractClassName(serviceMethod, isRequest));	
+	}
+
+	protected string GetDataContractClassName(ServiceMethod serviceMethod, bool isRequest)
+	{
+		string methodNameSuffix;
+	
+		if(isRequest)
+			methodNameSuffix = "Parameters";
+		else
+			methodNameSuffix = "Result";
+		
+		return string.Format("{0}{1}", serviceMethod.Name, methodNameSuffix);	
+	}
+
+	protected string GetDataContractCollectionClassName(ServiceMethod serviceMethod, bool isRequest)
+	{
+		string dataCarrier = GetDataContractClassName(serviceMethod, isRequest);
+		string className = string.Format("{0}Collection",dataCarrier);
+		return className;
+	}
+
+	protected static string GetDataContractNamespace(Service service) 
+	{
+		return string.Format("{0}.{1}.DataContracts", GetServicesNamespace(service), service.Name);
+	}
+	
+	protected static string GetAlarmDataContractNamespace(Application application)
+	{
+		return string.Format("Imi.SupplyChain.{0}.Services.Alarm.DataContracts", application.Name);	
+	}
+	
+	protected static string GetAlarmServiceContractNamespace(Application application)
+	{
+		return string.Format("Imi.SupplyChain.{0}.Services.Alarm.ServiceContracts", application.Name);	
+	}
+
+    protected string GetRootNamespace(Application application)
+	{
+  		string rootNamespace = string.Format("{0}", application.Namespace);
+		return rootNamespace;
+	}
+	
+	protected string GetFrontendDataContractNamespace(Application application, Service service) 
+	{
+  		string rootNamespace = GetRootNamespace(application);
+		return string.Format("{0}.Contracts.{1}.DataContracts", rootNamespace, service.Name);
+	}
+	
+	protected string GetFrontendContractNamespace(Application application, Service service) 
+	{
+  		string rootNamespace = GetRootNamespace(application);
+		return string.Format("{0}.Contracts.{1}", rootNamespace, service.Name);
+	}
+
+	protected string GetFrontendServiceContractNamespace(Application application, Service service)
+	{
+  		string rootNamespace = GetRootNamespace(application);
+		return string.Format("{0}.Contracts.{1}.ServiceContracts", rootNamespace, service.Name);
+	}
+}

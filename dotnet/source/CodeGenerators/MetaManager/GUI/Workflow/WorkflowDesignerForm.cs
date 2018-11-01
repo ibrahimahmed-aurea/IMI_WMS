@@ -1,0 +1,443 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using System.Workflow.ComponentModel.Design;
+using System.Workflow.Activities;
+using System.ComponentModel.Design;
+using System.Workflow.ComponentModel.Compiler;
+using System.Workflow.ComponentModel;
+using Cdc.MetaManager.BusinessLogic;
+using System.IO;
+using Cdc.MetaManager.DataAccess.Domain;
+using System.Reflection;
+using Cdc.MetaManager.GUI.Workflow;
+using System.Xml;
+using System.Workflow.ComponentModel.Serialization;
+using System.CodeDom;
+using Cdc.MetaManager.DataAccess;
+
+using System.Xml.Linq;
+
+namespace Cdc.MetaManager.GUI
+{
+    public partial class WorkflowDesignerForm : MdiChildForm
+    {
+        private IDialogService dialogService;
+        private IModelService modelService = null;
+        private Type sessionType;
+        private Type requestType;
+
+        private List<MappedProperty> deletedMappedPropertiesInRequestMap = new List<MappedProperty>();
+        private List<MappedProperty> addedMappedPropertiesInRequestMap = new List<MappedProperty>();
+                
+        public WorkflowDesignerForm()
+        {
+            InitializeComponent();
+                        
+            dialogService = MetaManagerServices.GetDialogService();
+            modelService = MetaManagerServices.GetModelService();
+                        
+            workflowControl.UpdateCodeBeside += (s, e) =>
+            {
+                GenerateMembers();
+            };
+        }
+
+        private void GenerateMembers()
+        {
+            IMemberCreationService memeberCreationService = workflowControl.GetService(typeof(IMemberCreationService)) as IMemberCreationService;
+
+            memeberCreationService.CreateProperty(WorkflowTypeFactory.GetWorkflowClassFullName(Workflow), "Session", sessionType, null, false, false, false, null, true);
+            memeberCreationService.CreateProperty(WorkflowTypeFactory.GetWorkflowClassFullName(Workflow), "Request", requestType, null, false, false, false, null, true);
+        }
+        
+        public Cdc.MetaManager.DataAccess.Domain.Workflow Workflow { get; set; }
+
+
+        public void CreateNewWorkflow()
+        {
+            SequentialWorkflowActivity rootActivity = new SequentialWorkflowActivity("root");
+            rootActivity.SetValue(WorkflowMarkupSerializer.XClassProperty, WorkflowTypeFactory.GetWorkflowClassFullName(Workflow));
+                                    
+            StringBuilder sb = new StringBuilder();
+
+            XmlWriter xmlWriter = XmlWriter.Create(sb);
+            WorkflowMarkupSerializer serializer = new WorkflowMarkupSerializer();
+            serializer.Serialize(xmlWriter, rootActivity);
+            xmlWriter.Close();
+            Workflow.WorkflowXoml = sb.ToString();
+            //Check out the created workflow
+            CheckOutInObject(Workflow, true);
+        }
+
+        private void WorkflowDesignerForm_Load(object sender, EventArgs e)
+        {
+            if (Workflow.Id == Guid.Empty)
+                CreateNewWorkflow();
+            else
+                Workflow = dialogService.GetWorkflowById(Workflow.Id);
+
+            if (Workflow.IsLocked && Workflow.LockedBy == Environment.UserName)
+            {
+                this.IsEditable = true;
+            }
+
+            EnableDisableComponents();
+
+            LoadWorkflow();
+            Cursor.Current = Cursors.Default;
+        }
+
+        private void EnableDisableComponents()
+        {
+            okBtn.Enabled = this.IsEditable;
+            addServiceMethodBtn.Enabled = this.IsEditable;
+            addDialogBtn.Enabled = this.IsEditable;
+            addWorkflowBtn.Enabled = this.IsEditable;
+            tbxName.ReadOnly = !this.IsEditable;
+            workflowControl.ToolBox.Enabled = this.IsEditable;
+
+        }
+
+        private void LoadWorkflow()
+        {
+            var dialogs = new List<Dialog>();
+            var serviceMethods = new List<ServiceMethod>();
+            var subworkflows = new List<DataAccess.Domain.Workflow>();
+
+            foreach (WorkflowDialog workflowDialog in Workflow.Dialogs)
+            {
+                Dialog dialog = MetaManagerServices.GetDialogService().GetDialogWithViewTree(workflowDialog.Dialog.Id);
+                dialogs.Add(dialog);
+            }
+
+            foreach (WorkflowServiceMethod workflowServiceMethod in Workflow.ServiceMethods)
+            {
+                ServiceMethod serviceMethod = MetaManagerServices.GetApplicationService().GetServiceMethodMapsById(workflowServiceMethod.ServiceMethod.Id);
+                serviceMethods.Add(serviceMethod);
+            }
+
+            foreach (WorkflowSubworkflow workflowSubworkflow in Workflow.Subworkflows)
+            {
+                DataAccess.Domain.Workflow subworkflow = MetaManagerServices.GetDialogService().GetWorkflowById(workflowSubworkflow.SubWorkflow.Id);
+                subworkflows.Add(subworkflow);
+            }
+
+            IList<Type> activityTypes = new List<Type>();
+        
+            activityTypes = WorkflowTypeFactory.CreateActivities(Workflow, this.BackendApplication, dialogs, serviceMethods, subworkflows);
+
+            if ((activityTypes.Count > 0) && (!string.IsNullOrEmpty(Workflow.WorkflowXoml)))
+            {
+                Workflow.WorkflowXoml = ReplaceAssemblyReferences(Workflow.WorkflowXoml, activityTypes[0].Assembly.GetName().Name);
+            }
+                                            
+            workflowControl.LoadWorkflow(Workflow.WorkflowXoml, Workflow.RuleSetXml);
+            workflowControl.RootActivity.Description = Workflow.Description;
+
+            TypeProvider typeProvider = workflowControl.GetService(typeof(ITypeProvider)) as TypeProvider;
+            
+            if (activityTypes.Count > 0)
+            {
+                foreach (Type activityType in activityTypes)
+                {
+                    workflowControl.ToolBox.AddToolBoxItem(new SelfHostToolboxItem(activityType));
+                }
+
+                typeProvider.AddAssembly(activityTypes[0].Assembly);
+            }         
+
+            sessionType = RuleContextFactory.LoadUserSessionType(Workflow.Module.Application);
+            typeProvider.AddAssembly(sessionType.Assembly);
+            requestType = WorkflowTypeFactory.CreateRequestType(Workflow);
+            typeProvider.AddAssembly(requestType.Assembly);
+            
+            GenerateMembers();
+
+            tbxName.Text = Workflow.Name;
+        }
+
+        private string ReplaceAssemblyReferences(string xoml, string assemblyFileName)
+        {
+            int start = 0;
+            int end = 0;
+
+            while (start >= 0)
+            {
+                start = xoml.IndexOf(";Assembly=Workflow_", start + 1);
+                
+                if (start < 0)
+                    break;
+
+                end = xoml.IndexOf('"', start + 1);
+                string assembly = string.Format(";Assembly={0}", assemblyFileName);
+
+                xoml = xoml.Replace(xoml.Substring(start, end - start), assembly);
+            }
+
+            return xoml;
+        }
+                
+        private void addDialogBtn_Click(object sender, EventArgs e)
+        {
+            SelectDialog form = new SelectDialog();
+            form.FrontendApplication = FrontendApplication;
+            form.BackendApplication = BackendApplication;
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                //if (Workflow.Module.Id != form.SelectedDialog.Module.Id)
+                //{
+                //        MessageBox.Show("You can only add Dialogs from the same Module as the Workflow.", "MetaManager");
+                //        return;
+                //}
+
+                foreach (WorkflowDialog wfDialog in Workflow.Dialogs)
+                {
+                    if (wfDialog.Dialog.Id == form.SelectedDialog.Id)
+                    {
+                        MessageBox.Show("The selected Dialog is already present in the Workflow.", "MetaManager");
+                        return;
+                    }
+                }
+
+                Cdc.MetaManager.DataAccess.Domain.Dialog dialog = MetaManagerServices.GetDialogService().GetDialogWithViewTree(form.SelectedDialog.Id);
+
+                WorkflowDialog workflowDialog = new WorkflowDialog();
+                workflowDialog.Dialog = dialog;
+                workflowDialog.Workflow = Workflow;
+                Workflow.Dialogs.Add(workflowDialog);
+                                                                
+                Type activityType = WorkflowTypeFactory.CreateActivities(Workflow, this.BackendApplication, new Dialog[] {dialog}, new ServiceMethod[0], new DataAccess.Domain.Workflow[0]).Last();
+
+                TypeProvider typeProvider = workflowControl.GetService(typeof(ITypeProvider)) as TypeProvider;
+                typeProvider.AddAssembly(activityType.Assembly);
+                workflowControl.ToolBox.AddToolBoxItem(new SelfHostToolboxItem(activityType));
+            }
+        }
+
+        private void okBtn_Click(object sender, EventArgs e)
+        {
+            Cursor = Cursors.WaitCursor;
+
+            UpdateWorkflow();
+
+            try
+            {
+                if (addedMappedPropertiesInRequestMap.Count > 0 || deletedMappedPropertiesInRequestMap.Count > 0)
+                {
+                    modelService.StartSynchronizePropertyMapsInObjects(Workflow, new List<IDomainObject>(), deletedMappedPropertiesInRequestMap.Cast<IDomainObject>().ToList());
+                }
+
+                modelService.SaveDomainObject(Workflow);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+
+            Cursor = Cursors.Default;
+
+            Close();
+        }
+
+        private void UpdateWorkflow()
+        {
+            Workflow.Name = tbxName.Text;
+            workflowControl.RootActivity.SetValue(WorkflowMarkupSerializer.XClassProperty, WorkflowTypeFactory.GetWorkflowClassFullName(Workflow));
+            Workflow.WorkflowXoml = workflowControl.Xoml;
+            Workflow.RuleSetXml = workflowControl.RuleSetXml;
+            Workflow.Description = workflowControl.RootActivity.Description;
+
+            XDocument x = XDocument.Load(XmlReader.Create(new StringReader(Workflow.WorkflowXoml)));
+            
+            var dialogs = from d in x.Descendants()
+                                 where d.Attribute("DialogId") != null
+                                 select d.Attribute("DialogId").Value;
+
+            foreach (WorkflowDialog workflowDialog in Workflow.Dialogs.ToArray())
+            {
+                var c = from y in dialogs
+                        where y == workflowDialog.Dialog.Id.ToString()
+                        select y;
+
+                if (c.Count() == 0)
+                    Workflow.Dialogs.Remove(workflowDialog);
+            }
+
+            var serviceMethods = from s in x.Descendants()
+                                 where s.Attribute("ServiceMethodId") != null
+                                 select s.Attribute("ServiceMethodId").Value;
+            
+            foreach (WorkflowServiceMethod serviceMethod in Workflow.ServiceMethods.ToArray())
+            {
+                var c = from y in serviceMethods
+                        where y == serviceMethod.ServiceMethod.Id.ToString()
+                        select y;
+
+                if (c.Count() == 0)
+                    Workflow.ServiceMethods.Remove(serviceMethod);
+            }
+        }
+
+        private void cancelBtn_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void tbxName_KeyDown(object sender, KeyEventArgs e)
+        {
+        }
+
+        private void addServiceMethodBtn_Click(object sender, EventArgs e)
+        {
+            FindServiceMethodForm form = new FindServiceMethodForm();
+            form.FrontendApplication = FrontendApplication;
+            form.BackendApplication = BackendApplication;
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                ServiceMethod serviceMethod = MetaManagerServices.GetApplicationService().GetServiceMethodMapsById(form.ServiceMethod.Id);
+                                
+                foreach (WorkflowServiceMethod wfServiceMethod in Workflow.ServiceMethods)
+                {
+                    if (wfServiceMethod.ServiceMethod.Id == serviceMethod.Id)
+                    {
+                        MessageBox.Show("The selected Service Method is already present in the Workflow.", "MetaManager");
+                        return;
+                    }
+                }
+                                
+                WorkflowServiceMethod workflowServiceMethod = new WorkflowServiceMethod();
+                workflowServiceMethod.ServiceMethod = serviceMethod;
+                workflowServiceMethod.Workflow = Workflow;
+                Workflow.ServiceMethods.Add(workflowServiceMethod);
+
+                Type activityType = WorkflowTypeFactory.CreateActivities(Workflow, this.BackendApplication, new Dialog[0], new ServiceMethod[] { serviceMethod }, new DataAccess.Domain.Workflow[0]).Last();
+
+                TypeProvider typeProvider = workflowControl.GetService(typeof(ITypeProvider)) as TypeProvider;
+                typeProvider.AddAssembly(activityType.Assembly);
+                workflowControl.ToolBox.AddToolBoxItem(new SelfHostToolboxItem(activityType));
+            }
+        }
+
+        private void modifyMapBtn_Click(object sender, EventArgs e)
+        {
+            PropertyMapForm2 form = new PropertyMapForm2();
+            form.FrontendApplication = this.FrontendApplication;
+            form.BackendApplication = this.BackendApplication;
+            form.AllowAddProperty = true;
+            form.IsEditable = this.IsEditable;
+            form.HideSyncronizeButton = true;
+            form.UseProvidedMapObject = true;
+
+            form.Owner = this;
+                        
+            IList<IMappableProperty> sourceProperties = new List<IMappableProperty>();
+            IList<IMappableProperty> targetProperties = new List<IMappableProperty>();
+                        
+            form.PropertyMap = Workflow.RequestMap;
+            form.SourceProperties = sourceProperties;
+            form.TargetProperties = targetProperties;
+
+            form.DeletedMappedProperties = deletedMappedPropertiesInRequestMap;
+            form.AddedMappedProperties = addedMappedPropertiesInRequestMap;
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    Workflow.RequestMap = form.PropertyMap;
+                    
+                    TypeProvider typeProvider = workflowControl.GetService(typeof(ITypeProvider)) as TypeProvider;
+                    typeProvider.RemoveAssembly(requestType.Assembly);
+
+                    requestType = WorkflowTypeFactory.CreateRequestType(Workflow);
+                    typeProvider.AddAssembly(requestType.Assembly);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+            }
+        }
+
+        private void addWorkflowBtn_Click(object sender, EventArgs e)
+        {
+            FindWorkflowForm form = new FindWorkflowForm();
+            form.BackendApplication = BackendApplication;
+            form.FrontendApplication = FrontendApplication;
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DataAccess.Domain.Workflow workflow = dialogService.GetWorkflowById(form.SelectedWorkflow.Id);
+
+                foreach (WorkflowSubworkflow subworkflow in Workflow.Subworkflows)
+                {
+                    if (subworkflow.SubWorkflow.Id == workflow.Id)
+                    {
+                        MessageBox.Show("The selected Workflow is already present in the current Workflow.", "MetaManager");
+                        return;
+                    }
+                }
+
+                WorkflowSubworkflow workflowSubworkflow = new WorkflowSubworkflow();
+                workflowSubworkflow.SubWorkflow = workflow;
+                workflowSubworkflow.Workflow = Workflow;
+                Workflow.Subworkflows.Add(workflowSubworkflow);
+
+                Type activityType = WorkflowTypeFactory.CreateActivities(Workflow, this.BackendApplication, new Dialog[0], new ServiceMethod[0], new DataAccess.Domain.Workflow[] { workflow }).Last();
+
+                TypeProvider typeProvider = workflowControl.GetService(typeof(ITypeProvider)) as TypeProvider;
+                typeProvider.AddAssembly(activityType.Assembly);
+                workflowControl.ToolBox.AddToolBoxItem(new SelfHostToolboxItem(activityType));
+            }
+        }
+
+        private void CheckOutInObject(DataAccess.IVersionControlled checkOutObject, bool trueCheckOut_falseCheckIn)
+        {
+            DataAccess.IVersionControlled domainObject = null;
+            domainObject = checkOutObject;
+
+            if (typeof(DataAccess.IVersionControlled).IsAssignableFrom(domainObject.GetType()))
+            {
+                if (trueCheckOut_falseCheckIn)
+                {
+                    try
+                    {
+                        MetaManagerServices.GetConfigurationManagementService().CheckOutDomainObject(domainObject.Id, domainObject.GetType());
+                    }
+                    catch (ConfigurationManagementException ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        Cursor.Current = Cursors.WaitCursor;
+                        MetaManagerServices.GetConfigurationManagementService().CheckInDomainObject(domainObject.Id, domainObject.GetType(), FrontendApplication);
+                        Cursor.Current = Cursors.Default;
+                    }
+                    catch (ConfigurationManagementException ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+
+            }
+        }
+
+
+        
+                      
+    }
+        
+ 
+}

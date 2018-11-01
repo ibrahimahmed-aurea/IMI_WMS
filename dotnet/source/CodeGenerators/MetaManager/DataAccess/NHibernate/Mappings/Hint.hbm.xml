@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Cdc.MetaManager.DataAccess.Domain.Hint, Cdc.MetaManager.DataAccess" table="Hint">
+    <id name="Id" type="System.Guid">
+      <column name="Id" not-null="true"/>
+      <generator class="assigned"/>
+    </id>
+    <property name="Text" type="String">
+      <column name="Text" length="4000" not-null="false"/>
+    </property>
+    <property name="ODRId" type="Int32">
+      <column name="ODRId" not-null="false"/>
+    </property>
+    <property name="BaseODRId" type="Int32">
+      <column name="BaseODRId" not-null="false"/>
+    </property>
+    <property name="ODRObjectId" type="String">
+      <column name="ODRObjectId" length="255" not-null="false"/>
+    </property>
+    <many-to-one name="HintCollection" class="Cdc.MetaManager.DataAccess.Domain.HintCollection, Cdc.MetaManager.DataAccess" foreign-key="FK_Hint_HintCollection">
+      <column name="HintCollectionId" not-null="false"/>
+    </many-to-one>
+  </class>
+</hibernate-mapping>

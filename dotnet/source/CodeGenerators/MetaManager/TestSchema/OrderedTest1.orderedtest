@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<OrderedTest name="orderedtest1" storage="c:\project\views\togr_phoenix_view_ss\dotnet\source\codegenerators\metamanager\testschema\orderedtest1.orderedtest" id="38c142dc-81b9-4f49-b268-a07290c55ef7" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2006">
+  <Css projectStructure="" iteration="" />
+  <Execution timeOut="2147483647" id="e6c9d9a1-87d8-4758-8ac2-3a173b12e193" />
+  <Owners>
+    <Owner name="" />
+  </Owners>
+  <TestLinks>
+    <TestLink id="4b310cc8-b72c-a725-4738-0f1e04fa2404" name="CreateApplication" storage="bin\debug\cdc.metamanager.testschema.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="070504ca-b118-fc8b-c4a7-33e6d5481b02" name="ModifyApplication" storage="bin\debug\cdc.metamanager.testschema.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="be056ac3-1c92-3d62-1651-17a2f217c700" name="CreateApplicationWithService" storage="bin\debug\cdc.metamanager.testschema.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="6f4d3b82-cd62-c2c2-44e4-e29c474014d5" name="ListApplicationsWithService" storage="bin\debug\cdc.metamanager.testschema.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="1906ad5d-6b80-d31a-dd26-fd5e3d2dc097" name="AddOneMoreStoredProcedureWithService" storage="bin\debug\cdc.metamanager.testschema.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="7f425b23-fa87-220a-d14a-9edc6328a717" name="TestMappedProperty" storage="bin\debug\cdc.metamanager.testschema.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+  </TestLinks>
+</OrderedTest>

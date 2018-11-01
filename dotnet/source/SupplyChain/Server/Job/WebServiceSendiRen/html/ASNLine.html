@@ -1,0 +1,198 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Segment ASNLine</title>
+<link href="StructureDescription.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>Segment ASNLine</h1>
+<h3>Description:</h3>
+Shipmet Report ASN - Product Line<h3>Attributes:</h3>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000"><tbody>
+<tr class="tableHeader"><th class="tableHeaderColumn">Tag</th><th class="tableHeaderColumn">Method</th><th class="tableHeaderColumn">Type</th><th class="tableHeaderColumn">Oracle Type</th><th class="tableHeaderColumn">Mandatory</th><th class="tableHeaderColumn">Note</th></tr>
+<tr class="tableRow"><td class="tableRowColumn">OPCODE</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Operation Code<br/>1 - New</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderLineSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderLineKitPosition</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OriginalPurchaseOrderNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OriginalPurchaseOrderSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OriginalPurchaseOrderLinePos</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(16)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OriginalPurchaseOrderLineSeq</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OriginalCustomerReference</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">InventoryStatusCode</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(8)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">InventoryStatusDays</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(5)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">InventorystatusKey</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(12)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">InventorystatusText</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(200)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">InventorystatusAlarmDate</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">dateTime</td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Instructions</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(400)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PredefinedItemLoadIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductNumberShipFromPartner</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductNumberShipToPartner</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">GlobalProductNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">AdditionalPackingMaterial</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderType</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PurchaseOrderNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PurchaseOrderSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PurchaseOrderLinePos</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(4)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PurchaseOrderLineSeq</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">StockedProductNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">GlobalStockedProductNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(20)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">FromPartyIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">FromPartyQualifier</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerReturnOrderNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerReturnOrderSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerReturnOrderLinePos</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(5)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerReturnOrderLineKitPos</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerReturnOrderLineSeq</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ActionCode</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ActionCodeRequirement</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ReasonCode</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ReasonText</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(400)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShiptoVendorIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShiptoVendorQualifier</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DiscrepancyQuantity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DiscrepancyCode</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DiscrepancyText</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">QuantityUpperTolerance</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Tolerance on ordered quantity<br/>The maximum number of Lowest Units of Measure that can be received.<br/>(I.e. the ordered quantity is included.)</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CatchMeasureLowerTolerance</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Lower tolerance on measured quantity<br/>Minimum measured quantity per Lowest Unit of Measure</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CatchMeasureUpperTolerance</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Upper tolerance on measured quantity<br/>Maximum measured quantity per Lowest Unit of Measure</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ASNIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ASNSequenceNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipFromPartyNodeIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ASNLineNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(5)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ASNLineSequenceNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">LoadCarrierIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipFromPartyIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipToPartyNodeIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShiptoPartyIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShiptoPartyQualifier</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipToCustomerNodeIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShiptoCustomerIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShiptoCustomerQualifier</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">SelltoCustomerIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">SelltoCustomerQualifier</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OwnerIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OwnerIdentityAtShipToCustomer</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">VendorIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">VendorPartyNodeIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductDescription</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductNumberType</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">AlternativeProductNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">AlternativeProductDescription</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductDate</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">dateTime</td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ExpiryDate</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">dateTime</td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ManufacturingDate</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">dateTime</td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">VendorProductNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PurchasePrice</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(22,7)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PackageIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductionLotIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(40)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductionSubLotIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(40)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ManufacturingUnit</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(20)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">MarketingLotIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(20)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">SerialNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(21)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">StorageLot</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(20)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShippedQuantity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">MeasuredQuantity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">MeasureQualifier</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(4)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Volume</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(16,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">VolumeUOMIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Weight</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(16,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">WeightUOMIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderLinePosition</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(5)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

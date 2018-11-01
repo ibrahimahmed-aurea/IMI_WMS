@@ -1,0 +1,265 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C5E0E970-CFB2-42F9-BC3C-A70FD47A5064}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Imi.Wms.Mobile.UI</RootNamespace>
+    <AssemblyName>ThinClient</AssemblyName>
+    <ProjectTypeGuids>{4D628B5B-2FBC-4AA6-8C16-197242AEB884};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <PlatformFamilyName>PocketPC</PlatformFamilyName>
+    <PlatformID>b2c48bd2-963d-4549-9169-1fa021dce484</PlatformID>
+    <OSVersion>5.02</OSVersion>
+    <DeployDirSuffix>Aptean\ThinClient</DeployDirSuffix>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <NativePlatformName>Windows Mobile 6 Professional SDK</NativePlatformName>
+    <FormFactorID>
+    </FormFactorID>
+    <ApplicationIcon>App.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;$(PlatformFamilyName)</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <FileAlignment>512</FileAlignment>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;$(PlatformFamilyName)</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <FileAlignment>512</FileAlignment>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="HandHeldProducts.Embedded.Decoding.DecodeAssembly, Version=2.701.30001.0, Culture=neutral, PublicKeyToken=61006b9cbe4bb3df, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\references\Honeywell\HandHeldProducts.Embedded.Decoding.DecodeAssembly.dll</HintPath>
+    </Reference>
+    <Reference Include="HSM.Embedded.Decoding.DecodeAssembly, Version=3.810.1996.0, Culture=neutral, PublicKeyToken=61006b9cbe4bb3df, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\references\Honeywell\HSM.Embedded.Decoding.DecodeAssembly.dll</HintPath>
+    </Reference>
+    <Reference Include="intermec, Version=1.0.3554.19087, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\references\Intermec\intermec.dll</HintPath>
+    </Reference>
+    <Reference Include="Intermec.DataCollection.CF3.5, Version=4.2.0.1560, Culture=neutral, PublicKeyToken=acd169b56b6148ba, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\references\Intermec\Intermec.DataCollection.CF3.5.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsCE.Forms" />
+    <Reference Include="mscorlib" />
+    <Reference Include="Symbol, Version=1.6.1.4, Culture=neutral, PublicKeyToken=68ec8db391f150ca">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\references\Motorola\Symbol.dll</HintPath>
+    </Reference>
+    <Reference Include="Symbol.Barcode, Version=1.6.1.18, Culture=neutral, PublicKeyToken=68ec8db391f150ca">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\references\Motorola\Symbol.Barcode.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\Server\Interface\Messages\ConfigurationRequest.cs">
+      <Link>Messages\ConfigurationRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Server\Interface\Messages\ConfigurationResponse.cs">
+      <Link>Messages\ConfigurationResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Server\Interface\Messages\CreateSessionRequest.cs">
+      <Link>Messages\CreateSessionRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Server\Interface\Messages\CreateSessionResponse.cs">
+      <Link>Messages\CreateSessionResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Server\Interface\Messages\EventRequest.cs">
+      <Link>Messages\EventRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Server\Interface\Messages\EventResponse.cs">
+      <Link>Messages\EventResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Server\Interface\Messages\ServerFault.cs">
+      <Link>Messages\ServerFault.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Server\Interface\Messages\StateRequest.cs">
+      <Link>Messages\StateRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Server\Interface\Messages\StateResponse.cs">
+      <Link>Messages\StateResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\ApplicationPresenter.cs">
+      <Link>ApplicationPresenter.cs</Link>
+    </Compile>
+    <Compile Include="..\DebugPresenter.cs">
+      <Link>DebugPresenter.cs</Link>
+    </Compile>
+    <Compile Include="..\MainPresenter.cs">
+      <Link>MainPresenter.cs</Link>
+    </Compile>
+    <Compile Include="..\ModifyServerPresenter.cs">
+      <Link>ModifyServerPresenter.cs</Link>
+    </Compile>
+    <Compile Include="..\OptionsPresenter.cs">
+      <Link>OptionsPresenter.cs</Link>
+    </Compile>
+    <Compile Include="..\RenderPresenter.cs">
+      <Link>RenderPresenter.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\Configuration\ConfigurationManager.cs">
+      <Link>Configuration\ConfigurationManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\Configuration\UISection.cs">
+      <Link>Configuration\UISection.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\INativeDriver.cs">
+      <Link>INativeDriver.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\Logger.cs">
+      <Link>Logger.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\RenderPanel.cs">
+      <Link>RenderPanel.cs</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\Shared\ServerFaultException.cs">
+      <Link>ServerFaultException.cs</Link>
+    </Compile>
+    <Compile Include="..\ThinClient.cs">
+      <Link>ThinClient.cs</Link>
+    </Compile>
+    <Compile Include="ApplicationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ApplicationForm.Designer.cs">
+      <DependentUpon>ApplicationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Native\Honeywell\Dolphin6XDriver.cs" />
+    <Compile Include="Native\Honeywell\HoneywellDriver.cs" />
+    <Compile Include="OptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OptionsForm.Designer.cs">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DebugForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DebugForm.Designer.cs">
+      <DependentUpon>DebugForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceInfo.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModifyServerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModifyServerForm.Designer.cs">
+      <DependentUpon>ModifyServerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Native\Intermec\IntermecDriver.cs" />
+    <Compile Include="Native\Motorola\MotorolaDriver.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ApplicationForm.resx">
+      <DependentUpon>ApplicationForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OptionsForm.resx">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DebugForm.resx">
+      <DependentUpon>DebugForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModifyServerForm.resx">
+      <DependentUpon>ModifyServerForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RenderForm.resx">
+      <DependentUpon>RenderForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="RenderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RenderForm.Designer.cs">
+      <DependentUpon>RenderForm.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="client.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fonts\micross.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}">
+        <HostingProcess disable="1" />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

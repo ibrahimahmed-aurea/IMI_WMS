@@ -1,0 +1,39 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="ReportCoreTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Register Name="PackageBodyGetXmlFunctionHeaderTemplate" Template=".\PackageBodyGetXmlFunctionHeaderTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="PackageBodyGetGenericXmlFunctionHeaderTemplate" Template=".\PackageBodyGetGenericXmlFunctionHeaderTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Property Name="report" Type="Cdc.MetaManager.DataAccess.Domain.Report" Default="" Optional="false" Category="" Description="" %>
+/*
+** THIS FILE IS GENERATED AUTOMATICALLY BY THE REPORT MANAGER!
+** PLEASE REFRAIN FROM EDITING SINCE IT WILL BE OVERWRITTEN!
+*/
+
+create or replace package <%=report.PackageName%> as 
+
+<%
+PackageBodyGetXmlFunctionHeaderTemplate packageBodyGetXmlFunctionHeaderTemplate = this.Create<PackageBodyGetXmlFunctionHeaderTemplate>();
+packageBodyGetXmlFunctionHeaderTemplate.SetProperty("report", report);
+packageBodyGetXmlFunctionHeaderTemplate.SetProperty("isSpec", true);
+packageBodyGetXmlFunctionHeaderTemplate.Render(this.Response);
+%>
+ 
+<%
+PackageBodyGetGenericXmlFunctionHeaderTemplate packageBodyGetGenericXmlFunctionHeaderTemplate = this.Create<PackageBodyGetGenericXmlFunctionHeaderTemplate>();
+packageBodyGetGenericXmlFunctionHeaderTemplate.SetProperty("report", report);
+packageBodyGetGenericXmlFunctionHeaderTemplate.SetProperty("isSpec", true);
+packageBodyGetGenericXmlFunctionHeaderTemplate.Render(this.Response);
+%>
+
+function GetXmlHashSHA1 return varchar2;
+
+
+end <%=report.PackageName%>;
+/

@@ -1,0 +1,76 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Segment PickReceiptLine</title>
+<link href="StructureDescription.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>Segment PickReceiptLine</h1>
+<h3>Description:</h3>
+Pick Receipt Line<h3>Attributes:</h3>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000"><tbody>
+<tr class="tableHeader"><th class="tableHeaderColumn">Tag</th><th class="tableHeaderColumn">Method</th><th class="tableHeaderColumn">Type</th><th class="tableHeaderColumn">Oracle Type</th><th class="tableHeaderColumn">Mandatory</th><th class="tableHeaderColumn">Note</th></tr>
+<tr class="tableRow"><td class="tableRowColumn">OPCODE</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Operation Code<br/>1 - New</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Order Number<br/>The identity of the Customer Order, from which the Pick Order Line originates.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Order Sequence Number<br/>A Sequence Number used by the Host system to make it possible to send a Customer Order more than once (e.g. backorder).<br/>The Sequence Number of the Customer Order, from which the Pick Order Line originates.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderSubSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(4)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Order Sub Sequence Number<br/>Used as an extra identity for the Customer Order in the Warehouse system.<br/>This is the Customer Order, from which the Pick Order Line originates.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderLinePosition</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(5)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Order Line Number<br/>The identity of the Customer Order Line, from which the Pick Order Line originates.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderLineKitPosition</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Order Line Kit Position<br/>The Customer Order Line contains an Assembly Product.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderLineSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Order Line Sub Number<br/>Used as an extra identity of the Customer Order Line, from which the Pick Order Line originates.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OwnerIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Owner Identity<br/>The identity of the Owner. This is the Owner of the Item Load that shall be picked.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Product Number<br/>The identity of the Product.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PackageIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Package Identity<br/>The identity of the Package / Unit of Measure.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PickQuantity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Picked Quantity<br/>The number of Pick Packages (Case Pick) or Lowest Units of Measure (Pallet Pick)<br/>that have been picked for the Pick Order Line.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">MeasuredQty</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Measured Quantity<br/>The quantity that was measured for the picked goods.<br/>Used at Case Pick when Catch Measure at outbound is activated for the Product.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">RestCode</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Discrepancy Code<br/>When required, you register a Discrepancy Code for the pick order line<br/>to explain why the pick result differs from the customer order line.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DepartureIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Departure Identity<br/>The identity of the Departure.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DepartureWeekday</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Day<br/>Departure week day.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">MarketingLotIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(20)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Marketing Lot<br/>The Marketing Lot for the received goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">QualityLotIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(20)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Quality Lot<br/>Can be used for optional classification of the stored goods in the Warehouse (quality, color, etc).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">FreighterIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Forwarder Identity<br/>The identity of the Forwarder that transports the goods to or from the Warehouse / Node.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipDate</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship Date<br/>The date when the goods are shipped from the Warehouse.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ConsignmentNote</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Consignment Number<br/>The Forwarder's Consignment Number.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PackingSlipIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(20)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Packing Slip<br/>The identity / number of the Packing Slip.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OrderedQuantity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ordered Quantity<br/>The ordered quantity of the product.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">UnderQuantity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Discrepancy Quantity<br/>The number of Pick Packages (Case Pick) or Lowest Units of Measure (Pallet Pick) that were NOT picked (Ordered Quantity - Picked Quantity).<br/>This is only used when the Discrepancy Quantity is a negative number (Picked Quantity &lt; Ordered Quantity).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OverQuantity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Discrepancy Quantity<br/>The number of Pick Packages (Case Pick) or Lowest Units of Measure (Pallet Pick) that were NOT picked (Ordered Quantity - Picked Quantity).<br/>This is only used when the Discrepancy Quantity is a positive number (Picked Quantity &gt; Ordered Quantity).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductionLotIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(40)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Manufacturing Lot<br/>The Manufacturing Lot for the received goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductionSubLotIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(40)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Manufacturing Sublot<br/>The Manufacturing Sublot for the received goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">InventoryStatusCode</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(8)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Item Load Status<br/>The current status of the Item Load.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">SerialNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(21)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Serial Number<br/>A unique identity for a single Item Load. Only used for Case Pick and Serial Number handling!</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">AssembleToStock</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Assemble-to-Stock<br/>Indicates (1=Yes,0=No) if the Pick Order Line is connected to an Assemble-to-Stock Order Line.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ItemLoadIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Item Load Identity<br/>The identity of the Item Load. This is the Item Load that was picked.</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

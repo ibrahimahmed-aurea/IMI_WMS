@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Cdc.MetaManager.DataAccess.Domain.PropertyCaption, Cdc.MetaManager.DataAccess" table="PropertyCaption">
+    <id name="Id" type="System.Guid">
+      <column name="Id" not-null="true"/>
+      <generator class="assigned"/>
+    </id>
+    <property name="IsTransient" type="Boolean">
+      <column name="IsTransient" not-null="true"/>
+    </property>
+    <property name="Text" type="String">
+      <column name="Text" length="255" not-null="true"/>
+    </property>
+    <property name="IsDefault" type="Boolean">
+      <column name="IsDefault" not-null="true"/>
+    </property>
+    <property name="Priority" type="Int32">
+      <column name="Priority" not-null="true"/>
+    </property>
+  </class>
+</hibernate-mapping>

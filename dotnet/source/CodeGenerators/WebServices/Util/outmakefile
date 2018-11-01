@@ -1,0 +1,115 @@
+#
+# makefile 17/12/2004
+# 
+# Copyright (c) 2004 - 2005 Industri-Matematik AB. All rights reserved.
+#
+XMLDIR=.\xml
+RD=rd /s /q
+OUTHTMLDIR=.\genout\html
+OUTCSDIR=.\genout\src
+OUTXMLDIR=.\genout\xml
+OUTTESTDIR=.\genout\testsrc
+OUTBZTDIR=.\genout\bzt
+# CONN="user id = owuser; password = owuser; data source = WHTRUNK"
+CONN="user id = websuser; password = websuser; data source = WHTRUNK"
+
+OUTXMLFILE=$(OUTXMLDIR)\out.xml
+OUTMASTER=$(XMLDIR)\WSOutboundMaster.xml
+
+# this refers to the in-side using its parameter names as dictionary for creating the out-side
+DICTIONARY=.\genin\xml\in2.xml
+
+ALLDIR= \
+    "$(OUTCSDIR)" \
+    "$(OUTXMLDIR)" \
+    "$(OUTHTMLDIR)" \
+    "$(OUTTESTDIR)" \
+    "$(OUTBZTDIR)"
+
+ALLCS= \
+    "$(OUTCSDIR)\ExternalClass.cs" \
+    "$(OUTCSDIR)\SelectHandler.cs" \
+    "$(OUTCSDIR)\WebServiceSender.cs"
+
+ALLTEST= \
+    "$(OUTTESTDIR)\ExternalClass.cs" \
+    "$(OUTTESTDIR)\InsertHandler.cs" \
+    "$(OUTTESTDIR)\ExternalInterface.asmx.cs" \
+    "$(OUTTESTDIR)\create_test_tables.sql"
+
+ALLBZT= \
+    "$(OUTBZTDIR)\BZTDataTypes.cs" \
+    "$(OUTBZTDIR)\BZTProxy.cs"
+
+ALLHTML= \
+    "$(OUTHTMLDIR)\index.html"
+
+
+# --------------------------------------------
+# Description Blocks
+# --------------------------------------------
+
+ALL: $(ALLDIR) $(OUTXMLFILE) $(OUTMASTER) $(ALLCS) $(ALLHTML) $(ALLTEST) $(ALLBZT)
+
+$(OUTXMLFILE): $(OUTMASTER) $(OUTXMLDIR)
+    Imi.DevTools.CodeGenerators.WebServices.XML2WSOutTest.exe $(OUTMASTER) $@ $(DICTIONARY) /CONN $(CONN)
+
+$(OUTCSDIR)\ExternalClass.cs: $(OUTXMLFILE) $(OUTMASTER) $(OUTCSDIR)
+    Imi.DevTools.CodeGenerators.WebServices.XML2Struct.exe $(OUTXMLFILE) $(OUTMASTER) $@
+
+$(OUTCSDIR)\SelectHandler.cs: $(OUTXMLFILE) $(OUTMASTER) $(OUTCSDIR)
+    Imi.DevTools.CodeGenerators.WebServices.XML2Select.exe $(OUTXMLFILE) $(OUTMASTER) $@
+
+$(OUTCSDIR)\WebServiceSender.cs: $(OUTXMLFILE) $(OUTMASTER) $(OUTCSDIR)
+    Imi.DevTools.CodeGenerators.WebServices.XML2Sender.exe $(OUTXMLFILE) $(OUTMASTER) $@
+
+$(OUTHTMLDIR)\index.html: $(OUTXMLFILE) $(OUTMASTER) $(OUTHTMLDIR)
+    Imi.DevTools.CodeGenerators.WebServices.XML2Html.exe $(OUTXMLFILE) $(OUTMASTER) $(OUTHTMLDIR)
+
+# --- Test code for testing outgoing web service calls by building a "fake" webservice
+
+$(OUTTESTDIR)\create_test_tables.sql: $(OUTXMLFILE) $(OUTMASTER) $(OUTTESTDIR)
+    Imi.DevTools.CodeGenerators.WebServices.XML2CreateTable.exe $(OUTXMLFILE) $(OUTMASTER) $@ COLUMN_NOTBSP
+
+$(OUTTESTDIR)\ExternalClass.cs: $(OUTXMLFILE) $(OUTMASTER) $(OUTTESTDIR)
+    Imi.DevTools.CodeGenerators.WebServices.XML2Struct.exe $(OUTXMLFILE) $(OUTMASTER) $@
+
+$(OUTTESTDIR)\InsertHandler.cs: $(OUTXMLFILE) $(OUTMASTER) $(OUTTESTDIR)
+    Imi.DevTools.CodeGenerators.WebServices.XML2Insert.exe $(OUTXMLFILE) $(OUTMASTER) $@
+
+$(OUTTESTDIR)\ExternalInterface.asmx.cs: $(OUTXMLFILE) $(OUTMASTER) $(OUTTESTDIR)
+    Imi.DevTools.CodeGenerators.WebServices.XML2WSInbound.exe $(OUTXMLFILE) $(OUTMASTER) $@ SENDER
+
+# --- BizTalk starter kit
+
+$(OUTBZTDIR)\BZTDataTypes.cs: $(OUTXMLFILE) $(OUTMASTER) $(OUTBZTDIR)
+    Imi.DevTools.CodeGenerators.WebServices.XML2BizTalkDataTypes.exe $(OUTXMLFILE) $(OUTMASTER) $@
+
+$(OUTBZTDIR)\BZTProxy.cs: $(OUTXMLFILE) $(OUTMASTER) $(OUTBZTDIR)
+    Imi.DevTools.CodeGenerators.WebServices.XML2BizTalkProxy.exe $(OUTXMLFILE) $(OUTMASTER) $@
+
+# ---
+
+CLEAN :
+    -@$(RD) $(OUTCSDIR)
+    -@$(RD) $(OUTXMLDIR)
+    -@$(RD) $(OUTHTMLDIR)
+    -@$(RD) $(OUTTESTDIR)
+    @nmake /nologo ALL
+
+"$(OUTCSDIR)" :
+    @if not exist "$(OUTCSDIR)/$(NULL)" mkdir "$(OUTCSDIR)"
+
+"$(OUTXMLDIR)" :
+    @if not exist "$(OUTXMLDIR)/$(NULL)" mkdir "$(OUTXMLDIR)"
+
+"$(OUTHTMLDIR)" :
+    @if not exist "$(OUTHTMLDIR)/$(NULL)" mkdir "$(OUTHTMLDIR)"
+
+"$(OUTTESTDIR)" :
+    @if not exist "$(OUTTESTDIR)/$(NULL)" mkdir "$(OUTTESTDIR)"
+
+"$(OUTBZTDIR)" :
+    @if not exist "$(OUTBZTDIR)/$(NULL)" mkdir "$(OUTBZTDIR)"
+
+# end makefile

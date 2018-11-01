@@ -1,0 +1,443 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D16ECCE4-1BD7-4E69-81C1-29D646FFF564}</ProjectGuid>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Imi.SupplyChain.UX</RootNamespace>
+    <AssemblyName>Imi.SupplyChain.UX</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ExpressionBlendVersion>3.0.1927.0</ExpressionBlendVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\Cdc.SupplyChain.UX.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\Cdc.SupplyChain.UX.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ActiproSoftware.Docking.Wpf, Version=12.1.562.0, Culture=neutral, PublicKeyToken=36ff2196ab5654b9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\references\Actipro\ActiproSoftware.Docking.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="ActiproSoftware.Editors.Wpf, Version=12.1.562.0, Culture=neutral, PublicKeyToken=36ff2196ab5654b9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\references\Actipro\ActiproSoftware.Editors.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="ActiproSoftware.Ribbon.Wpf, Version=12.1.562.0, Culture=neutral, PublicKeyToken=36ff2196ab5654b9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\references\Actipro\ActiproSoftware.Ribbon.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="ActiproSoftware.Shared.Wpf, Version=12.1.562.0, Culture=neutral, PublicKeyToken=36ff2196ab5654b9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\references\Actipro\ActiproSoftware.Shared.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.0.5022.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\references\Office11\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.CompositeUI, Version=1.0.51205.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\references\CompositeUI\Microsoft.Practices.CompositeUI.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Validation, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\references\EntLib4\Microsoft.Practices.EnterpriseLibrary.Validation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ObjectBuilder, Version=1.0.51206.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\references\CompositeUI\Microsoft.Practices.ObjectBuilder.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework.Aero">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Workflow.Runtime" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsFormsIntegration">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Controls.v6.0, Version=6.0.16356.15490, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\references\Xceed\Xceed.Wpf.Controls.v6.0.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid.v6.0, Version=6.0.16356.15490, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\references\Xceed\Xceed.Wpf.DataGrid.v6.0.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActionConditions.cs" />
+    <Compile Include="DialogType.cs" />
+    <Compile Include="DynamicViewLoader.cs" />
+    <Compile Include="IImportEnabledView.cs" />
+    <Compile Include="Resources\SearchPanel\MenuItemExtensions.cs" />
+    <Compile Include="UXEventTopicNames.cs" />
+    <Compile Include="HyperlinkHelper.cs" />
+    <Compile Include="IAbortable.cs" />
+    <Compile Include="ModuleControllerBase.cs" />
+    <Compile Include="UserSettingsChangedEventArgs.cs" />
+    <Compile Include="UXCommands.cs" />
+    <Compile Include="ValidationHelper.cs" />
+    <Compile Include="Services\ActionProviderService.cs" />
+    <Compile Include="Services\AuthorizationService.cs" />
+    <Compile Include="Services\ChannelFactoryService.cs" />
+    <Compile Include="Services\IActionProviderService.cs" />
+    <Compile Include="Services\WcfServiceProxy.cs" />
+    <Compile Include="Settings\MasterDetailViewSettingsProvider.cs" />
+    <Compile Include="DialogResult.cs" />
+    <Compile Include="NullValidationException.cs" />
+    <Compile Include="Resources\StringResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StringResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\UXSettingsService.cs" />
+    <Compile Include="Settings\DataGridSettingsProvider.cs" />
+    <Compile Include="Settings\SearchPanelSettingsProvider.cs" />
+    <Compile Include="SupplyChainIcon.cs" />
+    <Compile Include="UIAttentionLevel.cs" />
+    <Compile Include="DrillDownHelper.cs" />
+    <Compile Include="IDrillDownView.cs" />
+    <Compile Include="RowTracker.cs" />
+    <Compile Include="AsyncDataPresenter.cs" />
+    <Compile Include="IDataView.cs" />
+    <Compile Include="IErrorHandler.cs" />
+    <Compile Include="DataPresenter.cs" />
+    <Compile Include="ValidationException.cs" />
+    <Compile Include="Views\EntityView\EntityPresenter.cs" />
+    <Compile Include="Views\EntityView\EntityView.xaml.cs">
+      <DependentUpon>EntityView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EntityView\IEntityView.cs" />
+    <Compile Include="Views\ImportView\IImportView.cs" />
+    <Compile Include="Views\ImportView\ImportPresenter.cs" />
+    <Compile Include="Views\ImportView\ImportView.xaml.cs">
+      <DependentUpon>ImportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MasterDetailView\MasterDetailViewSettingsRepository.cs" />
+    <Compile Include="Views\MapView\IMapController.cs" />
+    <Compile Include="Views\MapView\LatLong.cs" />
+    <Compile Include="Views\MapView\MapBrowserController.cs" />
+    <Compile Include="Views\MapView\MapLocation.cs" />
+    <Compile Include="Views\MapView\PushPin.cs" />
+    <Compile Include="Views\MapView\StringToLatLongConverter.cs" />
+    <Compile Include="Views\MessageHandlerBoxView\IMessageHandlerBoxView.cs" />
+    <Compile Include="Views\MessageHandlerBoxView\MessageHandlerBoxView.xaml.cs">
+      <DependentUpon>MessageHandlerBoxView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FindDialogView\IFindDialogView.cs" />
+    <Compile Include="Views\FindDialogView\FindDialogView.xaml.cs">
+      <DependentUpon>FindDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DialogView\DialogView.xaml.cs">
+      <DependentUpon>DialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DialogView\IDialogView.cs" />
+    <Compile Include="Views\DialogView\DialogPresenter.cs" />
+    <Page Include="Resources\BreadCrumb\BreadCrumb.Resources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Common\Graphics.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\DataGrid\DataGrid.Resources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\SearchPanel\SearchPanel.Resources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EntityView\EntityView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ImportView\ImportView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MessageHandlerBoxView\MessageHandlerBoxView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MessageHandlerBoxView\Resources\MessageHandlerBoxView.Graphics.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FindDialogView\FindDialogView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DialogView\DialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="Views\InlineDetailView\IInlineDetailView.cs" />
+    <Compile Include="Views\InlineDetailView\InlineDetailView.xaml.cs">
+      <DependentUpon>InlineDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InlineDetailView\InlineDetailPresenter.cs" />
+    <Compile Include="IDetailViewToggled.cs" />
+    <Compile Include="Views\MasterDetailView\IMasterDetailView.cs" />
+    <Compile Include="Views\MasterDetailView\MasterDetailPresenter.cs" />
+    <Page Include="Views\InlineDetailView\InlineDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MasterDetailView\MasterDetailView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SearchProgressView\SearchProgressView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="Views\MasterDetailView\MasterDetailView.xaml.cs">
+      <DependentUpon>MasterDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\MessageHandlerBoxView\MessageHandlerDataItem.cs" />
+    <Compile Include="Views\SearchProgressView\ISearchProgressView.cs" />
+    <Compile Include="Views\SearchProgressView\SearchProgressPresenter.cs" />
+    <Compile Include="Views\SearchProgressView\SearchProgressView.xaml.cs">
+      <DependentUpon>SearchProgressView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExplorerView\ExplorerPresenter.cs" />
+    <Compile Include="Views\ExplorerView\ExplorerView.xaml.cs">
+      <DependentUpon>ExplorerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExplorerView\IExplorerView.cs" />
+    <Compile Include="UXVisibility.cs" />
+    <Compile Include="XmlMenuTranslator.cs" />
+    <Page Include="Views\ExplorerView\ExplorerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Framework\Services\Framework.Services.csproj">
+      <Project>{095B36E1-AF0A-4ADB-AEFD-DDD0C677896F}</Project>
+      <Name>Framework.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\UX\Framework.UX.csproj">
+      <Project>{82823387-6AB6-45E4-9DB1-61F2A6A2F37F}</Project>
+      <Name>Framework.UX</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\UX\Wpf\Framework.UX.Wpf.csproj">
+      <Project>{8961EFC8-65F3-498F-9D92-25E88DD88ECA}</Project>
+      <Name>Framework.UX.Wpf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Versioning\Framework.Versioning.csproj">
+      <Project>{3536BFF6-DA06-4D96-A7D6-5146A235430B}</Project>
+      <Name>Framework.Versioning</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Wpf\Controls\Framework.Wpf.Controls.csproj">
+      <Project>{AE77D15C-5637-4882-A684-35377D5C5A1D}</Project>
+      <Name>Framework.Wpf.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Wpf\Data\Framework.Wpf.Data.csproj">
+      <Project>{B8707F82-261D-4517-A19D-80589385F02E}</Project>
+      <Name>Framework.Wpf.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services\System\Authorization\DataContracts\SupplyChain.Services.Authorization.DataContracts.csproj">
+      <Project>{BD03C2DD-517B-486B-89F8-D9C2C6151A42}</Project>
+      <Name>SupplyChain.Services.Authorization.DataContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services\System\Authorization\ServiceContracts\SupplyChain.Services.Authorization.ServiceContracts.csproj">
+      <Project>{EEF8F604-2472-4B6C-99B4-CA3138A95346}</Project>
+      <Name>SupplyChain.Services.Authorization.ServiceContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services\System\Settings\DataContracts\SupplyChain.Services.Settings.DataContracts.csproj">
+      <Project>{69D27652-ACE7-4E25-AF60-A59A4F1BB93E}</Project>
+      <Name>SupplyChain.Services.Settings.DataContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services\System\Settings\ServiceContracts\SupplyChain.Services.Settings.ServiceContracts.csproj">
+      <Project>{6FDFA90F-4729-40DD-8D01-9B86B1885273}</Project>
+      <Name>SupplyChain.Services.Settings.ServiceContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="Infrastructure\SupplyChain.UX.Infrastructure.csproj">
+      <Project>{1A56BDBC-5051-4001-811E-A4DD9CBB6B5B}</Project>
+      <Name>SupplyChain.UX.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\StringResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>StringResources.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Imi.SupplyChain.UX</CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\MapView\BaseMap.htm" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Warning32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Info32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Error32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\RepeatHS.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if $(ConfigurationName) == Release (
+$(ProjectDir)..\..\Utils\Localizer\Localizer\$(OutDir)Localizer.exe PROJECTEXTRACT $(ProjectPath)
+)</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DiscoveryClientResultsFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Results>
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="http://localhost:1095/Wms.WebServices.SyncWS.WebSite/Interface.c3PL.Warehouse.asmx?wsdl" filename="Interface.wsdl" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.DiscoveryDocumentReference" url="http://localhost:1095/Wms.WebServices.SyncWS.WebSite/Interface.c3PL.Warehouse.asmx?disco" filename="Interface.disco" />
+  </Results>
+</DiscoveryClientResultsFile>

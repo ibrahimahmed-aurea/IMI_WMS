@@ -1,0 +1,234 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="parameterClassName" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="parameterClassNamespace" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="propertyMap" Type="Cdc.MetaManager.DataAccess.Domain.PropertyMap" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="validationRules" Type="Dictionary<MappedProperty, string>" Default="" Optional="true" Category="" Description="" %>
+<%@ Property Name="addRowIdentity" Type="System.Boolean" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="addSortIndex" Type="System.Boolean" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="useRowIdentityList" Type="System.Boolean" Default="" Optional="false" Category="" Description="" %>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.ComponentModel;
+<%
+if (validationRules != null)
+{
+%>
+using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
+<%
+}
+%>
+
+namespace <%=parameterClassNamespace%>
+{
+    #region Compiler Settings
+	  // Disable unused event warning
+	  #pragma warning disable 067 
+	#endregion
+	
+    public class <%=parameterClassName%> : INotifyPropertyChanged
+    {
+		public bool IsModified
+		{
+			get;
+			set;
+		}
+
+		//Only used in result set
+		public bool isPreviouslySelected
+        {
+            get;
+            set;
+        }
+		
+<%
+if (propertyMap != null)
+{
+    foreach (MappedProperty property in propertyMap.MappedProperties)
+    {
+%>
+		private <%=GetShortTypeName(property.Type, true)%> <%=ToCamelCase(property.Name)%>;
+		
+<%		
+		if (validationRules != null && validationRules.ContainsKey(property))
+		{
+%>
+		<%=validationRules[property]%>
+<%
+		}
+
+		if (property.TargetProperty != null)
+		{
+			if (property.TargetProperty.StorageInfo != null)
+			{
+%>		
+		[DisplayNameAttribute("<%=property.TargetProperty.StorageInfo.ColumnName%>")]
+<%
+			}
+		}
+%>
+		public <%=GetShortTypeName(property.Type, true)%> <%=property.Name%>
+		{
+			get
+			{
+				return <%=ToCamelCase(property.Name)%>;
+			}
+			set
+			{
+				if (<%=property.Name%> != value)
+				{
+					<%=ToCamelCase(property.Name)%> = value;
+				
+					PropertyChangedEventHandler temp = PropertyChanged;
+				
+					if (temp != null)
+						temp(this, new PropertyChangedEventArgs("<%=property.Name%>"));
+				}
+			}
+		}
+		
+<%	
+	 }
+}
+	
+	if(addRowIdentity)
+	{
+		if (useRowIdentityList)
+		{
+%>
+
+		public List<string> RowIdentities { get; set; }
+<%	
+		}
+		else
+		{
+%>
+
+		public string RowIdentity { get; set; }
+<%
+		}
+    }
+
+	if (addSortIndex)
+	{
+%>
+		public long SortIndex_GUI { get; set; }
+<%
+	}
+%>
+	
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		#region Equals
+
+		public bool EqualsByValues(object obj)
+        {
+            if (GetHashCode() == obj.GetHashCode())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+	    //public override bool Equals(object obj)
+        //{
+<%
+    if ((propertyMap != null) && (propertyMap.MappedProperties.Count > 0))
+    {
+%>		
+            //if (this == obj)
+			//{
+            //    return true;
+			//}
+
+            //<%=parameterClassName%> other = obj as <%=parameterClassName%>;
+
+			//if (other == null)
+			//{
+            //    return false;
+			//}
+
+			//if (GetHashCode() == other.GetHashCode())
+            //{
+            //    return true;
+            //}
+			
+            /* Compare fields */
+
+			//return (
+<%			
+		string andIt = "  ";
+	    foreach (MappedProperty property in propertyMap.MappedProperties)
+	    {
+%>
+                     //<%= andIt %> (this.<%=property.Name%> == other.<%=property.Name%>)  
+<%	
+           andIt = "&&";
+	    }
+%>		
+                   //);
+<%				
+    }
+	else
+	{
+%>		
+            //return base.Equals(obj);
+<%				
+}
+%>
+        //}	
+
+		private int _hashCode = 0;
+        public override int GetHashCode()
+        {
+<%
+    if ((propertyMap != null) && (propertyMap.MappedProperties.Count > 0))
+    {
+%>
+			if (_hashCode == 0)
+            {
+				int result;
+<%
+	    string firstAdd = "";
+		
+		
+		foreach (MappedProperty property in propertyMap.MappedProperties)
+	    {
+%>
+				result = <%= firstAdd %>((<%=property.Name%> != null) ? <%=property.Name%>.GetHashCode() : 0);
+<%	
+          firstAdd = "29 * result + ";
+	    }
+%>		
+				_hashCode = result;
+            }
+            
+			return _hashCode;
+<%				
+    }
+	else
+	{
+%>		
+            return base.GetHashCode();
+<%				
+}
+%>			
+        }
+
+		#endregion
+    }
+}	

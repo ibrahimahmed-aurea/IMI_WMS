@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:tns="http://Cdc.SupplyChain.Services.System.Session.ServiceContracts/2007/05" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" targetNamespace="http://Cdc.SupplyChain.Services.System.Session.ServiceContracts/2007/05" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://Cdc.SupplyChain.Services.System.Session.ServiceContracts/2007/05/Imports">
+      <xsd:import schemaLocation="http://fabrikamenterprises:18802/System/SessionService/get?xsd=xsd0" namespace="http://Cdc.SupplyChain.Services.System.Session.ServiceContracts/2007/05" />
+      <xsd:import schemaLocation="http://fabrikamenterprises:18802/System/SessionService/get?xsd=xsd3" namespace="http://www.im.se/framework/services/systemfault/2007/05" />
+      <xsd:import schemaLocation="http://fabrikamenterprises:18802/System/SessionService/get?xsd=xsd4" namespace="http://www.im.se/framework/services/applicationfault/2007/05" />
+      <xsd:import schemaLocation="http://fabrikamenterprises:18802/System/SessionService/get?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://fabrikamenterprises:18802/System/SessionService/get?xsd=xsd2" namespace="http://Cdc.SupplyChain.Services.System.Session.DataContracts/2007/05" />
+      <xsd:import schemaLocation="http://fabrikamenterprises:18802/System/SessionService/get?xsd=xsd5" namespace="http://www.im.se/framework/services" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="CreateSessionRequest">
+    <wsdl:part name="parameters" element="tns:CreateSessionRequest" />
+  </wsdl:message>
+  <wsdl:message name="CreateSessionResponse">
+    <wsdl:part name="parameters" element="tns:CreateSessionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISessionService_CreateSession_SystemFaultFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://www.im.se/framework/services/systemfault/2007/05" name="detail" element="q1:SystemFault" />
+  </wsdl:message>
+  <wsdl:message name="ISessionService_CreateSession_ApplicationFaultFault_FaultMessage">
+    <wsdl:part xmlns:q2="http://www.im.se/framework/services/applicationfault/2007/05" name="detail" element="q2:ApplicationFault" />
+  </wsdl:message>
+  <wsdl:message name="AbortTransactionRequest">
+    <wsdl:part name="parameters" element="tns:AbortTransactionRequest" />
+  </wsdl:message>
+  <wsdl:message name="AbortTransactionRequest_Headers">
+    <wsdl:part xmlns:q3="http://www.im.se/framework/services" name="SessionId" element="q3:SessionId" />
+    <wsdl:part xmlns:q4="http://www.im.se/framework/services" name="TransactionId" element="q4:TransactionId" />
+  </wsdl:message>
+  <wsdl:message name="ISessionService_AbortTransaction_OutputMessage" />
+  <wsdl:message name="ISessionService_AbortTransaction_SystemFaultFault_FaultMessage">
+    <wsdl:part xmlns:q5="http://www.im.se/framework/services/systemfault/2007/05" name="detail" element="q5:SystemFault" />
+  </wsdl:message>
+  <wsdl:message name="ISessionService_AbortTransaction_ApplicationFaultFault_FaultMessage">
+    <wsdl:part xmlns:q6="http://www.im.se/framework/services/applicationfault/2007/05" name="detail" element="q6:ApplicationFault" />
+  </wsdl:message>
+  <wsdl:portType name="ISessionService">
+    <wsdl:operation name="CreateSession">
+      <wsdl:input wsaw:Action="CreateSession" name="CreateSessionRequest" message="tns:CreateSessionRequest" />
+      <wsdl:output wsaw:Action="http://Cdc.SupplyChain.Services.System.Session.ServiceContracts/2007/05/ISessionService/CreateSessionResponse" name="CreateSessionResponse" message="tns:CreateSessionResponse" />
+      <wsdl:fault wsaw:Action="http://Cdc.SupplyChain.Services.System.Session.ServiceContracts/2007/05/ISessionService/CreateSessionSystemFaultFault" name="SystemFaultFault" message="tns:ISessionService_CreateSession_SystemFaultFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://Cdc.SupplyChain.Services.System.Session.ServiceContracts/2007/05/ISessionService/CreateSessionApplicationFaultFault" name="ApplicationFaultFault" message="tns:ISessionService_CreateSession_ApplicationFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AbortTransaction">
+      <wsdl:input wsaw:Action="AbortTransaction" name="AbortTransactionRequest" message="tns:AbortTransactionRequest" />
+      <wsdl:output wsaw:Action="http://Cdc.SupplyChain.Services.System.Session.ServiceContracts/2007/05/ISessionService/AbortTransactionResponse" message="tns:ISessionService_AbortTransaction_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://Cdc.SupplyChain.Services.System.Session.ServiceContracts/2007/05/ISessionService/AbortTransactionSystemFaultFault" name="SystemFaultFault" message="tns:ISessionService_AbortTransaction_SystemFaultFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://Cdc.SupplyChain.Services.System.Session.ServiceContracts/2007/05/ISessionService/AbortTransactionApplicationFaultFault" name="ApplicationFaultFault" message="tns:ISessionService_AbortTransaction_ApplicationFaultFault_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

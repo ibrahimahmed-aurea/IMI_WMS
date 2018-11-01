@@ -1,0 +1,96 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Segment DeliveryReceiptLine</title>
+<link href="StructureDescription.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>Segment DeliveryReceiptLine</h1>
+<h3>Description:</h3>
+Receipt Report Line<h3>Attributes:</h3>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000"><tbody>
+<tr class="tableHeader"><th class="tableHeaderColumn">Tag</th><th class="tableHeaderColumn">Method</th><th class="tableHeaderColumn">Type</th><th class="tableHeaderColumn">Oracle Type</th><th class="tableHeaderColumn">Mandatory</th><th class="tableHeaderColumn">Note</th></tr>
+<tr class="tableRow"><td class="tableRowColumn">OPCODE</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Operation Code<br/>1 - New</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DeliveryIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(8)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Receipt Identity<br/>The identity of the Receipt.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DeliveryidentityLine</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(5)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Receipt History Line Number<br/>The number of the Receipt Line in the history file.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ArrivalDateTime</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Arrival Date and Time<br/>Date and Time when the receiving was done.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Product Number<br/>The identity of the Product.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PackageIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Package Identity<br/>The identity of the Package / Unit of Measure.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DeliveredQuantity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Received Quantity<br/>The number of Lowest Unit of Measure that have beed received.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">MeasuredQuantity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Measured Quantity<br/>The quantity that was measured for the received goods. Used when Catch Measure at inbound is activated for the Product.<br/>If the received goods results in several Item Loads, then the registered measured quantity is divided by the number<br/>of Item Loads and each one of them gets an equal part.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductionLotIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(40)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Manufacturing Lot<br/>The Manufacturing Lot for the received goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductionSubLotIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(40)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Manufacturing Sublot<br/>The Manufacturing Sublot for the received goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">MarketingLotIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(20)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Marketing Lot<br/>The Marketing Lot for the received goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">QualityLotIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(20)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Quality Lot<br/>Can be used for optional classification of the stored goods in the Warehouse (quality, color, etc).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PurchaseOrderNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Purchase Order Number<br/>The identity of the Purchase Order.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PurchaseOrderSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Purchase Order Sequence Number<br/>When there are multiple occurrences of the Purchase Order in the Warehouse system<br/>this tells in which order they have been received from the host system.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PurchaseOrderLinePosition</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(4)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Purchase Order Line Number<br/>The identity of the Purchase Order Line.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PurchaseOrderLineSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Purchase Order Line Sub Number<br/>Used as an extra identity of the Purchase Order Line.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PurchaseOrderType</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Purchase Order Type<br/>If the receipt corresponds to an ASN, then value 99 else the Purchase Order Type.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Order Number<br/>The identity of the Customer Order. This is the identity of the Customer Order that is referenced on the Inbound Order Line.<br/>If stock Replenishment and Receipt not in use with feedback to IMI Order.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Order Sequence Number<br/>A Sequence Number used by the Host system to make it possible to send a Customer Order more than once (e.g. backorder).<br/>This is the identity of the Customer Order Sequence Number that is referenced on the Inbound Order Line.<br/>If stock Replenishment and Receipt not in use with feedback to IMI Order.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderLinePosition</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(5)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Order Line Number<br/>The identity of the Customer Order Line.<br/>This is the identity of the Customer Order Line that is referenced on the Inbound Order Line.<br/>If stock Replenishment and Receipt not in use with feedback to IMI Order.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderLineKitPosition</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Order Line Kit Position<br/>The Customer Order Line contains an Assembly Product.<br/>This is the identity of the Customer Order Line Kit Position that is referenced on the Inbound Order Line.<br/>If stock Replenishment and Receipt not in use with feedback to IMI Order.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderLineSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Order Line Sub Number<br/>Used as an extra identity of the Customer Order Line.<br/>If Stock Replenishment and Receipt not in use with feedback to IMI Order.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DespatchadvicenoticeIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">ASN Identity<br/>The identity of the Advance Shipping Notice (ASN).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ItemLoadIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Item Load Identity<br/>The identity of the Item Load.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ExpiryDate</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Expiry Date<br/>The date when the goods can no longer be used.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ReturnsFinished</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Returned Goods Finished in Receiving<br/>Indicates (1=Yes,0=No) if the handling of the returned goods is finished in the receiving process.<br/>Values:<br/>0 = Inspection will be done and an Inspection Receipt will be sent to host system.<br/>1 = The handling of the returned goods is finished. No inspection receipt will be sent. This is the final receipt.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DecidedActionCode</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Performed Action Code Identity<br/>The identity of the code for the Action that has been performed for the goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">FromPartyId</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">From Party Identity<br/>Party where the goods originated from. Used for returns.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">FromPartyQualifier</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">From Party Type<br/>The type of Party that is the From Party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerReturnOrderNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Return Order Number<br/>The identity of the Customer Return Order.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerReturnOrderSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Return Order Sequence Number<br/>A Sequence Number to make the Customer Return Order identity unique.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerReturnOrderLinePos</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(5)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Return Order Line Number<br/>The number of the Customer Return Order Line.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerReturnOrderLineKitPos</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Kit<br/>Indicates (1=Yes,0=No) if the Customer Return Order Line contains a Kit Product.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerReturnOrderLineSeq</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Return Order Line Sub Number<br/>A Sub Number to make the Customer Return Order Line Number unique.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DiscrepancyCode</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Discrepancy Code<br/>The reason for the Discrepancy.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DiscrepancyActionCode</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Action at Discrepancy<br/>The action that has been taken with the discrepancy goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ManufacturingDate</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Manufacturing Date<br/>The date when the goods were manufactured.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">MeasureQualifier</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(4)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Catch Measure Unit<br/>States in which unit to measure the goods if Catch Measure is set.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">InventoryStatusCode</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(8)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Item Load Status<br/>The current status of the Item Load.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">SerialNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(21)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Serial Number<br/>A unique identity for a single Item Load. Only used for Case Pick and Serial Number handling!</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

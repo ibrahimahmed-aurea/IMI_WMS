@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Mats Nordgren (IMI) -->
+<MessageDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="C:\project\views\togr_trunk_ss\users\togr\xml\xsd\StructureDescription.xsd" name="OutBound">
+	<globalParameters>
+		<parameter name="OPCODE" originTable="" originColumn="" dataType="varchar" direction="In" fieldType="OpCode">
+			<column caption="Operation Code" declaration="VARCHAR2(1)" dataType="VARCHAR2" length="1" precision="" scale="" primaryKey="false" mandatory="true">
+				<comment>
+					<line>Operation Code</line>
+					<line>1 - New</line>
+				</comment>
+			</column>
+			<use insert="true" update="true" delete="true"/>
+		</parameter>
+		<parameter name="MAPI_OUT_ID" originTable="MAPI_OUT" originColumn="MAPI_OUT_ID" dataType="" direction="In" fieldType="SystemId">
+			<column caption="Sent Outgoing Message Identity" declaration="VARCHAR2(35)" dataType="VARCHAR2" length="35" precision="" scale="" primaryKey="false" mandatory="true">
+				<comment>
+					<line>Local system generated message identity</line>
+				</comment>
+			</column>
+			<use insert="true" update="true" delete="true"/>
+		</parameter>
+		<parameter name="UPDDTM" originTable="MAPI_OUT" originColumn="UPDDTM" dataType="" direction="In" fieldType="SystemAdmin">
+			<column caption="Update Date" declaration="DATE" dataType="DATE" length="" precision="" scale="" primaryKey="false" mandatory="true">
+				<comment>
+					<line>Update Date  (insert by trigger)</line>
+				</comment>
+			</column>
+			<use insert="true" update="true" delete="true"/>
+		</parameter>
+		<parameter name="PROID" originTable="MAPI_OUT" originColumn="PROID" dataType="" direction="In" fieldType="SystemAdmin">
+			<column caption="Process Identity" declaration="VARCHAR2(35)" dataType="VARCHAR2" length="35" precision="" scale="" primaryKey="false" mandatory="true">
+				<comment>
+					<line>Process Identity (insert by trigger)</line>
+				</comment>
+			</column>
+			<use insert="true" update="true" delete="true"/>
+		</parameter>
+	</globalParameters>
+	<interfaces>
+		<interface name="MovementIn_01" structure="MovementIn_01" HAPIObjectName="MAPI_OUT_MOVEMENT_IN_01" direction="Out"/>
+		<interface name="MovementOut_01" structure="MovementOut_01" HAPIObjectName="MAPI_OUT_MOVEMENT_OUT_01" direction="Out"/>
+		<interface name="Product_01" structure="Product_01" HAPIObjectName="MAPI_OUT_PRODUCT_01" direction="Out"/>
+		<interface name="StatusUpdate_01" structure="StatusUpdate_01" HAPIObjectName="MAPI_OUT_STATUS_UPDAT_01" direction="Out"/>
+	</interfaces>
+	<structures>
+		<structure name="MovementIn_01" queueTable="EXT_MAPI_OUT_MOVEMENT_IN_01" insertSP="" updateSP="" deleteSP="" baseTable="MAPI_OUT_MOVM_IN_01" />
+		<structure name="MovementOut_01" queueTable="EXT_MAPI_OUT_MOVEMENT_OUT_01" insertSP="" updateSP="" deleteSP="" baseTable="MAPI_OUT_MOVM_OUT_01" />
+		<structure name="Product_01" queueTable="EXT_MAPI_OUT_PRODUCT_01" insertSP="" updateSP="" deleteSP="" baseTable="MAPI_OUT_PRODUCT_01" />
+		<structure name="StatusUpdate_01" queueTable="EXT_MAPI_OUT_STATUS_UPDAT_01" insertSP="" updateSP="" deleteSP="" baseTable="MAPI_OUT_STAT_UPD_01">
+			<comment>
+				<line>StatusUpdate_01</line>
+			</comment>
+		</structure>
+</structures>
+</MessageDefinition>

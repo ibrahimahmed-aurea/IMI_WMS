@@ -1,0 +1,211 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="" Inherits="" Debug="true" Description="Template description here." %>
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <configSections>
+    <section name="policyInjection" type="Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.PolicyInjectionSettings, Microsoft.Practices.EnterpriseLibrary.PolicyInjection" />
+    <section name="loggingConfiguration" type="Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.LoggingSettings, Microsoft.Practices.EnterpriseLibrary.Logging" />
+    <section name="exceptionHandling" type="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionHandlingSettings, Microsoft.Practices.EnterpriseLibrary.ExceptionHandling" />
+    <section name="dataConfiguration" type="Microsoft.Practices.EnterpriseLibrary.Data.Configuration.DatabaseSettings, Microsoft.Practices.EnterpriseLibrary.Data" />
+    <section name="securityConfiguration" type="Microsoft.Practices.EnterpriseLibrary.Security.Configuration.SecuritySettings, Microsoft.Practices.EnterpriseLibrary.Security" />
+    <section name="cachingConfiguration" type="Microsoft.Practices.EnterpriseLibrary.Caching.Configuration.CacheManagerSettings, Microsoft.Practices.EnterpriseLibrary.Caching" />
+    <sectionGroup name="iBATIS">
+      <section name="logging" type="IBatisNet.Common.Logging.ConfigurationSectionHandler, IBatisNet.Common" />
+    </sectionGroup>
+  </configSections>
+  <iBATIS>
+    <logging>
+      <logFactoryAdapter type="IBatisNet.Common.Logging.Impl.ConsoleOutLoggerFA, IBatisNet.Common">
+        <arg key="showLogName" value="true" />
+        <arg key="showDataTime" value="true" />
+        <arg key="level" value="OFF" />
+        <arg key="dateTimeFormat" value="yyyy/MM/dd HH:mm:ss:SSS" />
+      </logFactoryAdapter>
+    </logging>
+  </iBATIS>
+  <connectionStrings>
+    <add name="instance" connectionString="data source=WHTRUNK;user id=rmuser;password=rmuser;pooling=true;enlist=false"/>
+  </connectionStrings>
+
+  <securityConfiguration defaultAuthorizationInstance="AzMan Provider"
+    defaultSecurityCacheInstance="Caching Store Provider">
+    <authorizationProviders>
+      <add storeLocation="msxml://{currentPath}\AuthStore.xml"
+        application="Transportation" scope="" auditIdentifierPrefix="AzMan Authorization Provider"
+        type="Microsoft.Practices.EnterpriseLibrary.Security.AzMan.AzManAuthorizationProvider, Microsoft.Practices.EnterpriseLibrary.Security.AzMan"
+        name="AzMan Provider" />
+    </authorizationProviders>
+    <securityCacheProviders>
+      <add cacheManagerInstanceName="Cache Manager" defaultSlidingSessionExpirationInMinutes="60"
+        defaultAbsoluteSessionExpirationInMinutes="60" type="Microsoft.Practices.EnterpriseLibrary.Security.Cache.CachingStore.CachingStoreProvider, Microsoft.Practices.EnterpriseLibrary.Security.Cache.CachingStore"
+        name="Caching Store Provider" />
+    </securityCacheProviders>
+  </securityConfiguration>
+  <cachingConfiguration defaultCacheManager="Cache Manager">
+    <cacheManagers>
+      <add expirationPollFrequencyInSeconds="60" maximumElementsInCacheBeforeScavenging="1000"
+        numberToRemoveWhenScavenging="10" backingStoreName="Null Storage"
+        name="Cache Manager" />
+    </cacheManagers>
+    <backingStores>
+      <add encryptionProviderName="" type="Microsoft.Practices.EnterpriseLibrary.Caching.BackingStoreImplementations.NullBackingStore, Microsoft.Practices.EnterpriseLibrary.Caching"
+        name="Null Storage" />
+    </backingStores>
+  </cachingConfiguration>
+
+  <system.serviceModel>
+    <bindings>
+      <netTcpBinding>
+        <binding name="netSecureMessageUserName">
+          <security mode="Message">
+            <message clientCredentialType="UserName"/>
+          </security>
+        </binding>
+      </netTcpBinding>
+      <wsHttpBinding>
+        <binding name="wsSecureMessageUserName">
+          <security mode="Message">
+            <message clientCredentialType="UserName"/>
+          </security>
+        </binding>
+      </wsHttpBinding>
+    </bindings>
+    <behaviors>
+      <serviceBehaviors>
+        <behavior name="UsernamePasswordSupport">
+          <serviceCredentials>
+            <userNameAuthentication userNamePasswordValidationMode="Windows"/>
+            <serviceCertificate findValue="CN=FabrikamEnterprises" storeLocation="CurrentUser" storeName="TrustedPeople"/>
+          </serviceCredentials>
+          <serviceMetadata httpGetEnabled="true" httpGetUrl=""/>
+          <serviceDebug includeExceptionDetailInFaults="true"/>
+        </behavior>
+        <behavior name="ServiceTypeBehaviors" >
+          <serviceMetadata httpGetEnabled="true" httpGetUrl=""/>
+        </behavior>
+      </serviceBehaviors>
+    </behaviors>
+    <services>
+
+<!--  EDIT THIS FOR YOUR SERVICE
+
+      <service name="Cdc.SupplyChain.Transportation.Services.VehicleType.ServiceImplementation.VehicleTypeService"
+               behaviorConfiguration="ServiceTypeBehaviors">
+        <host>
+          <baseAddresses>
+            <add baseAddress="http://localhost:8001/VehicleTypeService"/>
+          </baseAddresses>
+        </host>
+        <endpoint binding="basicHttpBinding"
+                  contract="Cdc.SupplyChain.Transportation.Services.VehicleType.ServiceContracts.IVehicleTypeService"/>
+      </service>
+-->	
+	
+    </services>
+  </system.serviceModel>
+  <!--
+  <policyInjection>
+    <policies>
+      <add name="Service Logging Policy">
+        <matchingRules>
+          <add match="Imi.Wms.Services.Transportation.Node.ServiceImplementation"
+            type="Microsoft.Practices.EnterpriseLibrary.PolicyInjection.MatchingRules.AssemblyMatchingRule, Microsoft.Practices.EnterpriseLibrary.PolicyInjection, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+            name="Assembly Matching Rule" />
+        </matchingRules>
+        <handlers>
+          <add logBehavior="BeforeAndAfter" beforeMessage="" afterMessage=""
+            eventId="0" includeParameterValues="true" includeCallStack="false"
+            includeCallTime="true" priority="-1" severity="Information"
+            type="Microsoft.Practices.EnterpriseLibrary.PolicyInjection.CallHandlers.LogCallHandler, Microsoft.Practices.EnterpriseLibrary.PolicyInjection.CallHandlers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+            name="Logging Handler" />
+        </handlers>
+      </add>
+      <add name="Policy">
+        <handlers>
+          <add exceptionPolicyName="DefaultShieldingPolicy" type="Microsoft.Practices.EnterpriseLibrary.PolicyInjection.CallHandlers.ExceptionCallHandler, Microsoft.Practices.EnterpriseLibrary.PolicyInjection.CallHandlers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+            name="Exception Handling Handler" />
+        </handlers>
+      </add>
+    </policies>
+  </policyInjection>
+  -->
+  <loggingConfiguration name="Logging Application Block" tracingEnabled="true"
+    defaultCategory="General" logWarningsWhenNoCategoriesMatch="true">
+    <listeners>
+      <add source="Enterprise Library Logging" formatter="Text Formatter"
+        log="Application" machineName="" listenerDataType="Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.FormattedEventLogTraceListenerData, Microsoft.Practices.EnterpriseLibrary.Logging"
+        traceOutputOptions="None" type="Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.FormattedEventLogTraceListener, Microsoft.Practices.EnterpriseLibrary.Logging"
+        name="Formatted EventLog TraceListener" />
+      <add fileName="rolling.log" rollSizeKB="0" timeStampPattern="yyyy-MM-dd"
+        rollFileExistsBehavior="Overwrite" rollInterval="None" formatter=""
+        header="----------------------------------------" footer="----------------------------------------"
+        listenerDataType="Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.RollingFlatFileTraceListenerData, Microsoft.Practices.EnterpriseLibrary.Logging"
+        traceOutputOptions="None" type="Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollingFlatFileTraceListener, Microsoft.Practices.EnterpriseLibrary.Logging"
+        name="Rolling Flat File Trace Listener" />
+    </listeners>
+    <formatters>
+      <add template="Timestamp: {timestamp}&#xD;&#xA;Message: {message}&#xD;&#xA;Category: {category}&#xD;&#xA;Priority: {priority}&#xD;&#xA;EventId: {eventid}&#xD;&#xA;Severity: {severity}&#xD;&#xA;Title:{title}&#xD;&#xA;Machine: {machine}&#xD;&#xA;Application Domain: {appDomain}&#xD;&#xA;Process Id: {processId}&#xD;&#xA;Process Name: {processName}&#xD;&#xA;Win32 Thread Id: {win32ThreadId}&#xD;&#xA;Thread Name: {threadName}&#xD;&#xA;Extended Properties: {dictionary({key} - {value}&#xD;&#xA;)}"
+        type="Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.TextFormatter, Microsoft.Practices.EnterpriseLibrary.Logging"
+        name="Text Formatter" />
+    </formatters>
+    <logFilters>
+      <add enabled="true" type="Microsoft.Practices.EnterpriseLibrary.Logging.Filters.LogEnabledFilter, Microsoft.Practices.EnterpriseLibrary.Logging"
+        name="LogEnabled Filter" />
+    </logFilters>
+    <categorySources>
+      <add switchValue="All" name="General">
+        <listeners>
+          <add name="Rolling Flat File Trace Listener" />
+        </listeners>
+      </add>
+    </categorySources>
+    <specialSources>
+      <allEvents switchValue="All" name="All Events" />
+      <notProcessed switchValue="All" name="Unprocessed Category" />
+      <errors switchValue="All" name="Logging Errors &amp; Warnings">
+        <listeners>
+          <add name="Formatted EventLog TraceListener" />
+        </listeners>
+      </errors>
+    </specialSources>
+  </loggingConfiguration>
+  <exceptionHandling>
+    <exceptionPolicies>
+      <add name="DefaultShieldingPolicy">
+        <exceptionTypes>
+          <add type="Imi.Framework.Services.AlarmException, Imi.Framework.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+            postHandlingAction="ThrowNewException" name="AlarmException">
+            <exceptionHandlers>
+              <add faultContractType="Imi.Framework.Services.ApplicationFault, Imi.Framework.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+                exceptionMessage="" type="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.WCF.FaultContractExceptionHandler, Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.WCF"
+                name="ApplicationFault Contract Wrapper">
+                <mappings>
+                  <add source="{Guid}" name="Id" />
+                  <add source="AlarmId" name="ErrorCode" />
+                </mappings>
+              </add>
+            </exceptionHandlers>
+          </add>
+          <add type="System.Exception, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+            postHandlingAction="ThrowNewException" name="Exception">
+            <exceptionHandlers>
+              <add faultContractType="Imi.Framework.Services.SystemFault, Imi.Framework.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+                exceptionMessage="" type="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.WCF.FaultContractExceptionHandler, Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.WCF"
+                name="SystemFault Contract Wrapper">
+                <mappings>
+                  <add source="{Guid}" name="Id" />
+                </mappings>
+              </add>
+            </exceptionHandlers>
+          </add>
+          <add type="System.ServiceModel.FaultException, System.ServiceModel"
+            postHandlingAction="ThrowNewException" name="FaultException" />
+        </exceptionTypes>
+      </add>
+    </exceptionPolicies>
+  </exceptionHandling>
+</configuration>

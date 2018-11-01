@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Mats Nordgren (IMI) -->
+<MessageDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="C:\project\views\togr_trunk_ss\users\togr\xml\xsd\StructureDescription.xsd" name="OutBound">
+	<globalParameters>
+		<parameter name="OPCODE" originTable="" originColumn="" dataType="varchar" direction="In" fieldType="OpCode">
+			<column caption="Operation Code" declaration="VARCHAR2(1)" dataType="VARCHAR2" length="1" precision="" scale="" primaryKey="false">
+				<comment>
+					<line>Operation Code</line>
+					<line>0 - No Operation</line>
+					<line>1 - New</line>
+					<line>2 - Change</line>
+					<line>3 - Remove</line>
+				</comment>
+			</column>
+			<use insert="true" update="true" delete="true"/>
+		</parameter>
+		<parameter name="HAPIRCV_ID" originTable="HAPIRCV" originColumn="HAPIRCV_ID" dataType="" direction="In" fieldType="SystemId">
+			<column caption="Received HAPI Transaction Identity" declaration="VARCHAR2(35)" dataType="VARCHAR2" length="35" precision="" scale="" primaryKey="false">
+				<comment>
+					<line>Received HAPI Transaction Identity</line>
+					<line>Local system generated transaction identity</line>
+				</comment>
+			</column>
+			<use insert="true" update="true" delete="true"/>
+		</parameter>
+		<parameter name="SEQNUM" originTable="HAPIRCV" originColumn="SEQNUM" dataType="" direction="In" fieldType="SystemId">
+			<column caption="Sequence number" declaration="NUMBER(9)" dataType="NUMBER" length="22" precision="9" scale="0" primaryKey="false">
+				<comment>
+					<line>Sequence Number</line>
+					<line>Segment sequnce number within message.</line>
+				</comment>
+			</column>
+			<use insert="true" update="true" delete="true"/>
+		</parameter>
+		<parameter name="UPDDTM" originTable="HAPIRCV" originColumn="UPDDTM" dataType="" direction="In" fieldType="SystemAdmin">
+			<column caption="Update Date" declaration="DATE" dataType="DATE" length="" precision="" scale="" primaryKey="false">
+				<comment>
+					<line>Update Date  (insert by trigger)</line>
+				</comment>
+			</column>
+			<use insert="true" update="true" delete="true"/>
+		</parameter>
+		<parameter name="PROID" originTable="HAPIRCV" originColumn="PROID" dataType="" direction="In" fieldType="SystemAdmin">
+			<column caption="Process Identity" declaration="VARCHAR2(35)" dataType="VARCHAR2" length="35" precision="" scale="" primaryKey="false">
+				<comment>
+					<line>Process Identity (insert by trigger)</line>
+				</comment>
+			</column>
+			<use insert="true" update="true" delete="true"/>
+		</parameter>
+	</globalParameters>
+	<interfaces>
+		<interface name="DeliveryReceipt" structure="DeliveryReceiptHead" HAPIObjectName="DR" direction="Out"/>
+		<interface name="BalanceAnswer" structure="BalanceAnswerLine" HAPIObjectName="BA" direction="Out"/>
+		<interface name="InspectionReceipt" structure="InspectionReceiptHead" HAPIObjectName="IR" direction="Out"/>
+		<interface name="InventoryChange" structure="InventoryChangeLine" HAPIObjectName="IC" direction="Out"/>
+		<interface name="PickReceipt" structure="PickReceiptHead" HAPIObjectName="PR" direction="Out"/>
+		<interface name="ReturnedPackingMaterial" structure="ReturnedPackingMaterialHead" HAPIObjectName="PM" direction="Out"/>
+		<interface name="ReturnReceipt" structure="ReturnReceiptHead" HAPIObjectName="RR" direction="Out"/>
+		<interface name="ShipmentReport" structure="ShipmentReportHead" HAPIObjectName="SR" direction="Out"/>
+		<interface name="ConfirmationOfReceipt" structure="ConfirmationOfReceiptHead" HAPIObjectName="COR" direction="Out"/>
+	</interfaces>
+	<structures>
+		<structure name="BalanceAnswerLine" queueTable="EXT_BALANCE_ANSWER" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_BALANCE_ANSWER">
+			<comment>
+				<line>HAPI Receipt Report - Packing Material</line>
+			</comment>
+		</structure>
+		<structure name="DeliveryReceiptHead" queueTable="EXT_DLVRY_RECEIPT_HEAD" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_DLVRY_RECEIPT_HEAD">
+			<comment>
+				<line>HAPI Receipt Report</line>
+				<line>Is sent when a Receipt has been finished.</line>
+			</comment>
+			<children>
+				<child name="DeliveryReceiptLine" minOccurrs="0" maxOccurrs="*"/>
+			</children>
+		</structure>
+		<structure name="DeliveryReceiptLine" queueTable="EXT_DLVRY_RECEIPT_LINE" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_DLVRY_RECEIPT_LINE">
+			<comment>
+				<line>HAPI Receipt Report Line</line>
+			</comment>
+			<children>
+				<child name="DeliveryReceiptLineInventoryStatus" minOccurrs="0" maxOccurrs="*"/>
+				<child name="DeliveryReceiptPackingMaterial" minOccurrs="0" maxOccurrs="*"/>
+			</children>
+		</structure>
+		<structure name="DeliveryReceiptLineInventoryStatus" queueTable="EXT_DLVRY_RECEIPT_LINE_INV_ST" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_DLVRY_RECEIPT_LINE_INV_ST">
+			<comment>
+				<line>HAPI Receipt Report Line - Inventory Status</line>
+			</comment>
+		</structure>
+		<structure name="DeliveryReceiptPackingMaterial" queueTable="EXT_DLVRY_RECEIPT_PM" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_DLVRY_RECEIPT_PM">
+			<comment>
+				<line>HAPI Receipt Report - Packing Material</line>
+			</comment>
+		</structure>
+		<structure name="InspectionReceiptHead" queueTable="EXT_INSPECTION_RECEIPT_HEAD" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_INSPECTION_RECEIPT_HEAD">
+			<comment>
+				<line>HAPI Receipt Report - Packing Material</line>
+			</comment>
+			<children>
+				<child name="InspectionReceiptLine" minOccurrs="0" maxOccurrs="*"/>
+			</children>
+		</structure>
+		<structure name="InspectionReceiptLine" queueTable="EXT_INSPECTION_RECEIPT_LINE" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_INSPECTION_RECEIPT_LINE">
+			<comment>
+				<line>HAPI Receipt Report - Packing Material</line>
+			</comment>
+			<children>
+				<child name="InspectionReceiptLinePackingMaterial" minOccurrs="0" maxOccurrs="*"/>
+			</children>
+		</structure>
+		<structure name="InspectionReceiptLinePackingMaterial" queueTable="EXT_INSPECTION_RECEIPT_LINEPM" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_INSPECTION_RECEIPT_LINEPM">
+			<comment>
+				<line>HAPI Receipt Report - Packing Material</line>
+			</comment>
+		</structure>
+		<structure name="InventoryChangeLine" queueTable="EXT_INVENTORY_CHANGE" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_INVENTORY_CHANGE">
+			<comment>
+				<line>HAPI Receipt Report - Packing Material</line>
+			</comment>
+		</structure>
+		<structure name="PickReceiptHead" queueTable="EXT_PICK_RECEIPT_HEAD" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_PICK_RECEIPT_HEAD">
+			<comment>
+				<line>HAPI Receipt Report - Packing Material</line>
+			</comment>
+			<children>
+				<child name="PickReceiptHeadPackingMaterial" minOccurrs="0" maxOccurrs="*"/>
+				<child name="PickReceiptLine" minOccurrs="0" maxOccurrs="*"/>
+				<child name="PickReceiptService" minOccurrs="0" maxOccurrs="*"/>
+				<child name="PickReceiptText" minOccurrs="0" maxOccurrs="*"/>
+			</children>
+		</structure>
+		<structure name="PickReceiptHeadPackingMaterial" queueTable="EXT_PICK_RECEIPT_HEAD_PM" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_PICK_RECEIPT_HEAD_PM">
+			<comment>
+				<line>HAPI Receipt Report - Packing Material</line>
+			</comment>
+			<children>
+				<child name="PickReceiptLinePackingMaterial" minOccurrs="0" maxOccurrs="*"/>
+				<child name="PickReceiptLineLot" minOccurrs="0" maxOccurrs="*"/>
+				<child name="PickReceiptLineSerialNumber" minOccurrs="0" maxOccurrs="*"/>
+			</children>
+		</structure>
+		<structure name="PickReceiptLine" queueTable="EXT_PICK_RECEIPT_LINE" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_PICK_RECEIPT_LINE">
+			<comment>
+				<line>HAPI Receipt Report - Packing Material</line>
+			</comment>
+		</structure>
+		<structure name="PickReceiptLinePackingMaterial" queueTable="EXT_PICK_RECEIPT_LINE_PM" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_PICK_RECEIPT_LINE_PM">
+			<comment>
+				<line>HAPI Receipt Report - Packing Material</line>
+			</comment>
+		</structure>
+		<structure name="PickReceiptLineLot" queueTable="EXT_PICK_RECEIPT_LINE_PRODLOT" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_PICK_RECEIPT_LINE_PRODLOT">
+			<comment>
+				<line>HAPI Receipt Report - Packing Material</line>
+			</comment>
+		</structure>
+		<structure name="PickReceiptLineSerialNumber" queueTable="EXT_PICK_RECEIPT_LINE_SERNUMB" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_PICK_RECEIPT_LINE_SERNUMB">
+			<comment>
+				<line>HAPI Receipt Report - Packing Material</line>
+			</comment>
+		</structure>
+		<structure name="PickReceiptService" queueTable="EXT_PICK_RECEIPT_SERVICE" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_PICK_RECEIPT_SERVICE">
+			<comment>
+				<line>HAPI Receipt Report - Packing Material</line>
+			</comment>
+		</structure>
+		<structure name="PickReceiptText" queueTable="EXT_PICK_RECEIPT_TEXT" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_PICK_RECEIPT_TEXT">
+			<comment>
+				<line>HAPI Receipt Report - Packing Material</line>
+			</comment>
+		</structure>
+		<structure name="ReturnedPackingMaterialHead" queueTable="EXT_RETURNED_PM_HEAD" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_RETURNED_PM_HEAD">
+			<comment>
+				<line>HAPI Receipt Report - Packing Material</line>
+			</comment>
+			<children>
+				<child name="ReturnedPackingMaterialLine" minOccurrs="0" maxOccurrs="*"/>
+			</children>
+		</structure>
+		<structure name="ReturnedPackingMaterialLine" queueTable="EXT_RETURNED_PM_LINE" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_RETURNED_PM_LINE">
+			<comment>
+				<line>HAPI Receipt Report - Packing Material</line>
+			</comment>
+		</structure>
+		<structure name="ReturnReceiptHead" queueTable="EXT_RETURN_RECEIPT_HEAD" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_RETURN_RECEIPT_HEAD">
+			<comment>
+				<line>HAPI Receipt Report - Packing Material</line>
+			</comment>
+			<children>
+				<child name="ReturnReceiptHeadPackingMaterial" minOccurrs="0" maxOccurrs="*"/>
+				<child name="ReturnReceiptLine" minOccurrs="0" maxOccurrs="*"/>
+			</children>
+		</structure>
+		<structure name="ReturnReceiptHeadPackingMaterial" queueTable="EXT_RETURN_RECEIPT_HEAD_PM" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_RETURN_RECEIPT_HEAD_PM">
+			<comment>
+				<line>HAPI Receipt Report - Packing Material</line>
+			</comment>
+		</structure>
+		<structure name="ReturnReceiptLine" queueTable="EXT_RETURN_RECEIPT_LINE" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_RETURN_RECEIPT_LINE">
+			<comment>
+				<line>HAPI Receipt Report - Packing Material</line>
+			</comment>
+		</structure>
+		<structure name="ShipmentReportHead" queueTable="EXT_ASNOUT" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.ASNOUT">
+			<comment>
+				<line>HAPI Receipt Report - Packing Material</line>
+			</comment>
+			<children>
+				<child name="ShipmentReportLoadCarrier" minOccurrs="0" maxOccurrs="*"/>
+				<child name="ShipmentReportLine" minOccurrs="0" maxOccurrs="*"/>
+			</children>
+		</structure>
+		<structure name="ShipmentReportLoadCarrier" queueTable="EXT_ASNOUTCAR" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.ASNOUTCAR">
+			<comment>
+				<line>HAPI Receipt Report - Packing Material</line>
+			</comment>
+		</structure>
+		<structure name="ShipmentReportLine" queueTable="EXT_ASNOUTROW" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.ASNOUTROW">
+			<comment>
+				<line>HAPI Receipt Report - Packing Material</line>
+			</comment>
+		</structure>
+		<structure name="ConfirmationOfReceiptHead" queueTable="EXT_ASNDEL" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.ASNDEL">
+			<comment>
+				<line>HAPI Receipt Report - Packing Material</line>
+			</comment>
+			<children>
+				<child name="ConfirmationOfReceiptLoadCarrier" minOccurrs="0" maxOccurrs="*"/>
+				<child name="ConfirmationOfReceiptLine" minOccurrs="0" maxOccurrs="*"/>
+			</children>
+		</structure>
+		<structure name="ConfirmationOfReceiptLoadCarrier" queueTable="EXT_ASNDELCAR" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.ASNDELCAR">
+			<comment>
+				<line>HAPI Receipt Report - Packing Material</line>
+			</comment>
+		</structure>
+		<structure name="ConfirmationOfReceiptLine" queueTable="EXT_ASNDELROW" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.ASNDELROW">
+			<comment>
+				<line>HAPI Receipt Report - Packing Material</line>
+			</comment>
+		</structure>
+	</structures>
+</MessageDefinition>

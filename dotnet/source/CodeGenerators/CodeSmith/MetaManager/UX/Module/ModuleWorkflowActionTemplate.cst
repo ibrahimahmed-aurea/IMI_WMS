@@ -1,0 +1,190 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="module" Type="Cdc.MetaManager.DataAccess.Domain.Module" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="action" Type="Cdc.MetaManager.DataAccess.Domain.UXAction" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="backendApplication" Type="Cdc.MetaManager.DataAccess.Domain.Application" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isAdapted" Type="System.Boolean" Default="false" Optional="false" Category="" Description="" %>
+<%
+	string actionsNamespace = GetActionsNamespace(module);
+    string actionBaseClassName = GetActionBaseClassName(action);
+	string actionParametersClassName = GetActionParametersClassName(action, false ,true);
+	string controllerClassName = GetWorkflowControllerClassName(action.Workflow);;
+	string workflowParametersClassName = GetWorkflowParametersClassName(action.Workflow);
+	string userSessionName = GetUserSessionName(module.Application);
+	string userSessionNamespace = GetUserSessionNamespace(module.Application);
+	string alarmDataContractNamespace = GetAlarmDataContractNamespace(backendApplication);
+	string alarmServiceContractNamespace = GetAlarmServiceContractNamespace(backendApplication);
+	string applicationName = module.Application.Name;
+	
+%>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.ServiceModel;
+using Microsoft.Practices.CompositeUI;
+using Microsoft.Practices.CompositeUI.EventBroker;
+using Microsoft.Practices.CompositeUI.Configuration;
+using Microsoft.Practices.CompositeUI.Services;
+using Microsoft.Practices.ObjectBuilder;
+using Imi.Framework.UX;
+using Imi.Framework.UX.Services;
+using Imi.SupplyChain.UX;
+using Imi.SupplyChain.UX.Infrastructure;
+using Imi.SupplyChain.UX.Infrastructure.Services;
+using Imi.SupplyChain.UX.Views;
+<%
+if (!string.IsNullOrEmpty(action.AlarmId))
+{
+%>
+using <%=alarmDataContractNamespace%>;
+using <%=alarmServiceContractNamespace%>;
+<%
+}
+%>
+using <%= userSessionNamespace %>;
+using <%=GetWorkflowNamespace(action.Workflow)%>;
+
+namespace <%= actionsNamespace %>
+{
+<%
+if (!isAdapted)
+{
+%>
+	//Extract the following class to <%=GetActionClassName(action)%>Adapted.cs in order to customize its behavior    
+	public class <%=GetActionClassName(action)%> : <%=GetActionBaseClassName(action)%>
+    {
+			
+	}
+<%
+}
+%>
+
+	public class <%= actionBaseClassName %> : IBuilderAware
+    {
+		[ServiceDependency]
+		public IActionCatalogService ActionCatalog
+		{
+			get;
+			set;
+		}
+		
+<%
+	if (!string.IsNullOrEmpty(action.AlarmId))
+	{
+%>		
+		[WcfServiceDependency]
+        public IAlarmService AlarmService
+        {
+            get;
+			set;
+        }
+		
+<%
+	}
+%>		
+		[ServiceDependency]
+        public <%= userSessionName %> UserSessionService { get; set; }
+		
+		[ServiceDependency]
+        public IModuleLoaderService ModuleLoaderService { get; set; }
+		
+		[ServiceDependency]
+        public IShellInteractionService ShellInteractionService { get; set; }
+		        
+        public virtual void On<%= action.Name %>(WorkItem context, object caller, object target)
+        {
+			if (context.Items.Contains("<%=GetWorkItemConstantIgnoreClose()%>"))
+                context.Items.Remove(context.Items["<%=GetWorkItemConstantIgnoreClose()%>"]);
+				
+<%
+		if (!string.IsNullOrEmpty(action.AlarmId))
+		{
+%>			
+			FindAlarmTextRequest findAlarmTextRequest = new FindAlarmTextRequest();
+			findAlarmTextRequest.FindAlarmTextParams = new FindAlarmTextParams();
+			findAlarmTextRequest.FindAlarmTextParams.AlarmId = "<%=action.AlarmId%>";
+			findAlarmTextRequest.FindAlarmTextParams.LanguageCode = UserSessionService.LanguageCode;
+			
+			FindAlarmTextResponse findAlarmTextResponse = AlarmService.FindAlarmText(findAlarmTextRequest);
+			
+            if (ShellInteractionService.ShowMessageBox(string.Empty, findAlarmTextResponse.FindAlarmTextResult.AlarmText, null, MessageBoxButton.YesNo, MessageBoxImage.Warning) 
+				== MessageBoxResult.No)
+			{
+				context.Items.Add((object)true, "<%=GetWorkItemConstantIgnoreClose()%>");
+				return;
+			}
+			
+<%			
+		}
+		else if (!string.IsNullOrEmpty(action.AskQuestionToRun))
+		{
+%>			
+			IMessageBoxView questionMessageBoxView = context.SmartParts.AddNew<MessageBoxView>();
+			
+            if (questionMessageBoxView.Show(string.Empty, <%=GetResourceReference(action, "AskQuestionToRun")%>, null, MessageBoxButton.YesNo, MessageBoxImage.Warning) 
+				== MessageBoxResult.No)
+			{
+				context.Items.Add((object)true, "<%=GetWorkItemConstantIgnoreClose()%>");
+				return;
+			}
+<%
+		}
+%>
+			<%=actionParametersClassName%> actionParameters = target as <%=actionParametersClassName%>;
+			
+			ModuleInfo info = new ModuleInfo(typeof(<%=controllerClassName%>).Assembly);
+            ModuleLoaderService.Load(context.RootWorkItem.WorkItems["<%=applicationName%>"], info);
+			
+			<%=workflowParametersClassName%> workflowParameters = new <%=workflowParametersClassName%>();
+			
+<%			
+		foreach (MappedProperty property in action.RequestMap.MappedProperties)
+		{
+			if (property.Source != null)
+			{
+%>
+			workflowParameters.<%=property.Name%> = actionParameters.<%=property.Name%>;
+<%
+			}
+		}			
+%>			
+			
+			ControlledWorkItem<<%=controllerClassName%>> workItem = context.WorkItems.AddNew<ControlledWorkItem<<%=controllerClassName%>>>();
+			workItem.Controller.Run(workflowParameters, <%=GetResourceReference(action, "Caption")%>);
+			
+			workItem.Terminated += (s, e) =>
+			{
+				
+			};
+		}
+	
+		public virtual void OnBuiltUp(string id)
+        {
+			ActionCatalog.RegisterActionImplementation(ActionNames.<%= action.Name %>, On<%= action.Name %>); 
+        }
+
+        public virtual void OnTearingDown()
+        {
+            ActionCatalog.RemoveActionImplementation(ActionNames.<%= action.Name %>);
+        }
+	}
+}
+<script runat="template">
+
+	private string GetResourceReference(ILocalizable target, string propertyName)
+	{
+		return string.Format("{0}.{1}", GetResourceManagerClassName(module), GlobalizationHelper.GetResourceId(target, propertyName));	
+	}
+
+</script>

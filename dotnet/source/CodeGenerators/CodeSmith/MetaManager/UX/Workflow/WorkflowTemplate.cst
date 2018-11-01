@@ -1,0 +1,74 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text"  Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="false" Description="Template description here." %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="System.Xml.Linq" %>
+<%@ Import Namespace="System.Xml" %>
+<%@ Import Namespace="System.IO" %>
+<%@ Property Name="workflow" Type="Cdc.MetaManager.DataAccess.Domain.Workflow" Default="" Optional="false" Category="" Description="" OnChanged="" Editor="" EditorBase="" Serializer="" %>
+<%
+	string userSessionName = GetUserSessionName(workflow.Module.Application);
+	string userSessionNamespace = GetUserSessionNamespace(workflow.Module.Application);
+%>
+using System;
+using System.ComponentModel;
+using System.ComponentModel.Design;
+using System.Collections;
+using System.Threading;
+using System.Workflow.ComponentModel.Design;
+using System.Workflow.ComponentModel;
+using System.Workflow.ComponentModel.Serialization;
+using System.Workflow.ComponentModel.Compiler;
+using System.Workflow.Activities;
+using System.Workflow.Runtime;
+using Microsoft.Practices.CompositeUI;
+using Microsoft.Practices.CompositeUI.EventBroker;
+using Imi.SupplyChain.UX.Workflow;
+using <%=userSessionNamespace%>;
+using <%=GetWorkflowNamespace(workflow)%>.Activities;
+
+namespace <%=GetWorkflowNamespace(workflow)%>
+{
+    public partial class <%=GetWorkflowClassName(workflow)%> : SequentialWorkflowActivity
+    {
+		public WorkItem WorkItem { get; set; }
+		public <%=userSessionName%> Session { get; set; }
+		public SynchronizationContext SynchronizationContext { get; set; }
+		public <%=GetWorkflowParametersClassName(workflow)%> Request { get; set; }
+		public string Title { get; set; }
+		public WorkflowResult Result { get; set; }
+								
+<%			
+		XDocument x = XDocument.Load(XmlReader.Create(new StringReader(workflow.WorkflowXoml)));
+
+        var activities = from a in x.Descendants()
+                             where a.Attribute(XName.Get("Name", "http://schemas.microsoft.com/winfx/2006/xaml")) != null
+                             select new 
+                             {
+                                Name = a.Attribute(XName.Get("Name", "http://schemas.microsoft.com/winfx/2006/xaml")).Value,
+                                Type = a.Name.LocalName
+                             };
+					
+		foreach (var activity in activities)
+		{
+			string propertyName = activity.Name.Substring(0, 1).ToUpper() + activity.Name.Substring(1);
+			
+%>
+		public <%=activity.Type%> <%=propertyName%>
+		{
+			get
+			{
+				return this.GetActivityByName("<%=activity.Name%>") as <%=activity.Type%>;
+			}
+		}
+		
+<%
+		}
+%>
+    }
+}

@@ -1,0 +1,15 @@
+<UserControl x:Class="Imi.SupplyChain.UX.Modules.OrderManagement.Views.WebView"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
+    <Grid>
+        <!--<ToolBarTray Background="White">
+            <ToolBar Band="1" BandIndex="1">
+                <Button Content="&lt;&lt;" Height="23" HorizontalAlignment="Left" Margin="10,5,0,0" Name="Back" VerticalAlignment="Top" 
+                Width="25" ToolTip="Backword" Click="Back_Click" />
+                <Button Content="&gt;&gt;" Height="23" HorizontalAlignment="Left" Margin="40,5,0,0" Name="Forward" VerticalAlignment="Top" 
+                Width="25" ToolTip="Backword" Click="Forward_Click" />
+            </ToolBar>
+        </ToolBarTray>-->
+        <WebBrowser HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Name="MainBrowser"  Loaded="WebBrowserLoaded" Navigated="WebBrowserNavigated"/>
+    </Grid>
+</UserControl>

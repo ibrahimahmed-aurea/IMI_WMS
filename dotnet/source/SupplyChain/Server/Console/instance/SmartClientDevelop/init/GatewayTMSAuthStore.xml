@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AzAdminManager MajorVersion="1" MinorVersion="0" Guid="95a61e1b-c1e9-42c6-90c6-02a35debbb3c">
+	<AzApplication Guid="861d5042-2560-409e-809f-5bf99016bd2a" Name="GatewayTMS" Description="Azman store for GatewayTMS" ApplicationVersion="7.1.6">
+		<AzOperation Guid="4d68e442-e57c-4642-bc31-3e4709c3076f" Name="4d68e442-e57c-4642-bc31-3e4709c3076f" Description="CommunicationPartner.CommunicationPartner - Show Channel">
+			<OperationID>1</OperationID>
+		</AzOperation>
+		<AzOperation Guid="ba199b97-c0be-4eb9-8a18-bddfc0b89ca9" Name="ba199b97-c0be-4eb9-8a18-bddfc0b89ca9" Description="CommunicationPartner.CommunicationPartner - New Communication Partner">
+			<OperationID>2</OperationID>
+		</AzOperation>
+		<AzOperation Guid="3425736a-b053-4db5-a0ea-9bc031f7a85c" Name="3425736a-b053-4db5-a0ea-9bc031f7a85c" Description="CommunicationPartner.CommunicationPartner - Change Communication Partner">
+			<OperationID>3</OperationID>
+		</AzOperation>
+		<AzOperation Guid="a3896f6a-5924-408c-b767-e85c4bd68973" Name="a3896f6a-5924-408c-b767-e85c4bd68973" Description="CommunicationPartner.CommunicationPartner - Delete Communication Partner">
+			<OperationID>4</OperationID>
+		</AzOperation>
+		<AzOperation Guid="1bee3d1d-dd1e-4942-a1d1-12bd891e93b7" Name="1bee3d1d-dd1e-4942-a1d1-12bd891e93b7" Description="CommunicationPartner.CommunicationPartnerChannel - Change Message">
+			<OperationID>5</OperationID>
+		</AzOperation>
+		<AzOperation Guid="45576a46-5d76-4f24-acfa-3ce3619c2601" Name="45576a46-5d76-4f24-acfa-3ce3619c2601" Description="CommunicationPartner.CommunicationPartnerChannel - New Channel">
+			<OperationID>6</OperationID>
+		</AzOperation>
+		<AzOperation Guid="ee1930bc-0fc8-46f1-a15b-2b9f49ba7070" Name="ee1930bc-0fc8-46f1-a15b-2b9f49ba7070" Description="CommunicationPartner.CommunicationPartnerChannel - Change Channel">
+			<OperationID>7</OperationID>
+		</AzOperation>
+		<AzOperation Guid="679d5fab-debf-498f-87d8-cb2c6f8b70ed" Name="679d5fab-debf-498f-87d8-cb2c6f8b70ed" Description="CommunicationPartner.CommunicationPartnerChannel - Delete Channel">
+			<OperationID>8</OperationID>
+		</AzOperation>
+		<AzOperation Guid="abd9d3cd-a4d6-472c-b5f6-b93a9376fa73" Name="abd9d3cd-a4d6-472c-b5f6-b93a9376fa73" Description="CommunicationPartner.CommunicationPartnerChannel - Test Database Link">
+			<OperationID>9</OperationID>
+		</AzOperation>
+		<AzOperation Guid="219e5858-6d51-430b-8ec8-18f339205e0e" Name="219e5858-6d51-430b-8ec8-18f339205e0e" Description="CommunicationPartner.CreateChannel - Cancel">
+			<OperationID>10</OperationID>
+		</AzOperation>
+		<AzOperation Guid="fc504134-fb04-4a92-a848-3fa12f840fc4" Name="fc504134-fb04-4a92-a848-3fa12f840fc4" Description="CommunicationPartner.CreateChannel - OK">
+			<OperationID>11</OperationID>
+		</AzOperation>
+		<AzOperation Guid="a1daff99-5aea-499d-8934-8f2fc71f397f" Name="a1daff99-5aea-499d-8934-8f2fc71f397f" Description="CommunicationPartner.CreateCommunicationPartner - OK">
+			<OperationID>12</OperationID>
+		</AzOperation>
+		<AzOperation Guid="4947772f-0df5-4b9c-b0c8-4039c0c39146" Name="4947772f-0df5-4b9c-b0c8-4039c0c39146" Description="CommunicationPartner.ModifyChannel - OK">
+			<OperationID>13</OperationID>
+		</AzOperation>
+		<AzOperation Guid="827ec624-a8a5-44be-8632-45cd8616239c" Name="827ec624-a8a5-44be-8632-45cd8616239c" Description="CommunicationPartner.ModifyChannelMessages - Close">
+			<OperationID>14</OperationID>
+		</AzOperation>
+		<AzOperation Guid="b4412443-6669-4ab5-8643-16da9a91478b" Name="b4412443-6669-4ab5-8643-16da9a91478b" Description="CommunicationPartner.ModifyCommunicationPartner - OK">
+			<OperationID>15</OperationID>
+		</AzOperation>
+		<AzOperation Guid="29b081f4-1f9a-420b-9b85-4cd6c482e4f1" Name="29b081f4-1f9a-420b-9b85-4cd6c482e4f1" Description="IncomingMessageQueue.IncomingMessageQueue - Show Segment">
+			<OperationID>16</OperationID>
+		</AzOperation>
+		<AzOperation Guid="6a6ea7d2-35a3-4247-ba9c-79349dfe6256" Name="6a6ea7d2-35a3-4247-ba9c-79349dfe6256" Description="IncomingMessageQueue.IncomingMessageQueue - Repeat Message">
+			<OperationID>17</OperationID>
+		</AzOperation>
+		<AzOperation Guid="64cd4474-1429-4e43-82c3-8b8b28b581c0" Name="64cd4474-1429-4e43-82c3-8b8b28b581c0" Description="IncomingMessageQueue.IncomingMessageQueue - Delete Message">
+			<OperationID>18</OperationID>
+		</AzOperation>
+		<AzOperation Guid="394ceb3a-7b94-45d6-8b70-1fcd8fdc50f8" Name="394ceb3a-7b94-45d6-8b70-1fcd8fdc50f8" Description="OutgoingMessageQueue.ModifyOutgoingMessage - Test Database Link">
+			<OperationID>19</OperationID>
+		</AzOperation>
+		<AzOperation Guid="e3720942-ecf5-4f3f-9516-b41c068238d7" Name="e3720942-ecf5-4f3f-9516-b41c068238d7" Description="OutgoingMessageQueue.ModifyOutgoingMessage - OK">
+			<OperationID>20</OperationID>
+		</AzOperation>
+		<AzOperation Guid="bf31a0c5-5f33-4c60-9119-726268acf606" Name="bf31a0c5-5f33-4c60-9119-726268acf606" Description="OutgoingMessageQueue.OutgoingMessageQueue - Repeat Message">
+			<OperationID>21</OperationID>
+		</AzOperation>
+		<AzOperation Guid="1824b045-6a42-4482-9705-7689e50a0aa0" Name="1824b045-6a42-4482-9705-7689e50a0aa0" Description="OutgoingMessageQueue.OutgoingMessageQueue - Change Message">
+			<OperationID>22</OperationID>
+		</AzOperation>
+		<AzOperation Guid="6b8cc8d8-a021-46d3-8e84-19d603ad8648" Name="6b8cc8d8-a021-46d3-8e84-19d603ad8648" Description="OutgoingMessageQueue.OutgoingMessageQueue - Delete Message">
+			<OperationID>23</OperationID>
+		</AzOperation>
+		<AzOperation Guid="e37709cc-e4bb-4ea8-be71-d299b0cd856c" Name="e37709cc-e4bb-4ea8-be71-d299b0cd856c" Description="OutgoingMessageQueue.OutgoingMessageQueue - Show Segment">
+			<OperationID>24</OperationID>
+		</AzOperation>
+		<AzOperation Guid="aaf35f67-f7b8-4f0f-a411-defedf4ad4a7" Name="aaf35f67-f7b8-4f0f-a411-defedf4ad4a7" Description="TapiMessageQueue.TAPIMessageQueue - Repeat Message">
+			<OperationID>25</OperationID>
+		</AzOperation>
+		<AzOperation Guid="774d90f6-5c28-4723-abe4-dee8cb03f89c" Name="774d90f6-5c28-4723-abe4-dee8cb03f89c" Description="TapiMessageQueue.TAPIMessageQueue - Delete Message">
+			<OperationID>26</OperationID>
+		</AzOperation>
+		<AzOperation Guid="ec94027f-ccf4-4f04-8521-088d2a2fc3cd" Name="ec94027f-ccf4-4f04-8521-088d2a2fc3cd" Description="TapiMessageQueue.TAPIMessageQueue - Show Segment">
+			<OperationID>27</OperationID>
+		</AzOperation>
+		<AzOperation Guid="38cb5e5a-9b86-48a9-bef4-9395e5b5a257" Name="38cb5e5a-9b86-48a9-bef4-9395e5b5a257" Description="Start Communication Partner">
+			<OperationID>28</OperationID>
+		</AzOperation>
+		<AzOperation Guid="6c640167-183b-4e65-acb1-3ae1bd7d7045" Name="6c640167-183b-4e65-acb1-3ae1bd7d7045" Description="Start Outgoing Message Queue">
+			<OperationID>29</OperationID>
+		</AzOperation>
+		<AzOperation Guid="b96d5ec6-653c-4376-9d08-6ffe0bfe1a95" Name="b96d5ec6-653c-4376-9d08-6ffe0bfe1a95" Description="Start TAPI Message Queue">
+			<OperationID>30</OperationID>
+		</AzOperation>
+		<AzOperation Guid="0f860a21-d578-4069-aeb3-d6a7904da1cb" Name="0f860a21-d578-4069-aeb3-d6a7904da1cb" Description="Start Change User Settings">
+			<OperationID>31</OperationID>
+		</AzOperation>
+		<AzOperation Guid="dc51ae23-227f-4196-b53c-e60e44a832a1" Name="dc51ae23-227f-4196-b53c-e60e44a832a1" Description="Start Incoming Message Queue">
+			<OperationID>32</OperationID>
+		</AzOperation>
+		<AzTask Guid="2dcb7985-080c-44ea-839a-655e428f963b" Name="CommunicationPartner.CommunicationPartner" Description="Communication Partner" BizRuleImportedPath="">
+			<OperationLink>a3896f6a-5924-408c-b767-e85c4bd68973</OperationLink>
+			<OperationLink>38cb5e5a-9b86-48a9-bef4-9395e5b5a257</OperationLink>
+		</AzTask>
+		<AzTask Guid="4f1cc70a-6d24-4f87-b6b8-a895887f4437" Name="CommunicationPartner.CommunicationPartnerChannel" Description="Channel" BizRuleImportedPath="">
+			<OperationLink>4d68e442-e57c-4642-bc31-3e4709c3076f</OperationLink>
+			<OperationLink>679d5fab-debf-498f-87d8-cb2c6f8b70ed</OperationLink>
+			<OperationLink>abd9d3cd-a4d6-472c-b5f6-b93a9376fa73</OperationLink>
+		</AzTask>
+		<AzTask Guid="6c751d5c-979d-4e88-9ddd-51adf766ba7e" Name="CommunicationPartner.CreateChannel" Description="New Channel" BizRuleImportedPath="">
+			<OperationLink>45576a46-5d76-4f24-acfa-3ce3619c2601</OperationLink>
+			<OperationLink>219e5858-6d51-430b-8ec8-18f339205e0e</OperationLink>
+			<OperationLink>fc504134-fb04-4a92-a848-3fa12f840fc4</OperationLink>
+		</AzTask>
+		<AzTask Guid="d6698978-6ab9-472d-b74b-c608cc6719ab" Name="CommunicationPartner.CreateCommunicationPartner" Description="New Communication Partner" BizRuleImportedPath="">
+			<OperationLink>ba199b97-c0be-4eb9-8a18-bddfc0b89ca9</OperationLink>
+			<OperationLink>219e5858-6d51-430b-8ec8-18f339205e0e</OperationLink>
+			<OperationLink>a1daff99-5aea-499d-8934-8f2fc71f397f</OperationLink>
+		</AzTask>
+		<AzTask Guid="131ffc1b-ef49-45c7-8f3a-dfb4b0fd7254" Name="CommunicationPartner.ModifyChannel" Description="Change Channel" BizRuleImportedPath="">
+			<OperationLink>ee1930bc-0fc8-46f1-a15b-2b9f49ba7070</OperationLink>
+			<OperationLink>4947772f-0df5-4b9c-b0c8-4039c0c39146</OperationLink>
+			<OperationLink>219e5858-6d51-430b-8ec8-18f339205e0e</OperationLink>
+		</AzTask>
+		<AzTask Guid="39ea8101-940a-4bc0-865c-a85dd4f13722" Name="CommunicationPartner.ModifyChannelMessages" Description="Messages to the Channel" BizRuleImportedPath="">
+			<OperationLink>1bee3d1d-dd1e-4942-a1d1-12bd891e93b7</OperationLink>
+			<OperationLink>827ec624-a8a5-44be-8632-45cd8616239c</OperationLink>
+		</AzTask>
+		<AzTask Guid="c7725b3e-8d08-4a3f-915b-08f48db40773" Name="CommunicationPartner.ModifyCommunicationPartner" Description="Change Communication Partner" BizRuleImportedPath="">
+			<OperationLink>3425736a-b053-4db5-a0ea-9bc031f7a85c</OperationLink>
+			<OperationLink>b4412443-6669-4ab5-8643-16da9a91478b</OperationLink>
+			<OperationLink>219e5858-6d51-430b-8ec8-18f339205e0e</OperationLink>
+		</AzTask>
+		<AzTask Guid="d05ff1d6-4a10-487d-9103-fa53717da814" Name="CommunicationPartner" Description="CommunicationPartner Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>2dcb7985-080c-44ea-839a-655e428f963b</TaskLink>
+			<TaskLink>4f1cc70a-6d24-4f87-b6b8-a895887f4437</TaskLink>
+			<TaskLink>6c751d5c-979d-4e88-9ddd-51adf766ba7e</TaskLink>
+			<TaskLink>d6698978-6ab9-472d-b74b-c608cc6719ab</TaskLink>
+			<TaskLink>131ffc1b-ef49-45c7-8f3a-dfb4b0fd7254</TaskLink>
+			<TaskLink>39ea8101-940a-4bc0-865c-a85dd4f13722</TaskLink>
+			<TaskLink>c7725b3e-8d08-4a3f-915b-08f48db40773</TaskLink>
+		</AzTask>
+		<AzTask Guid="5852ca58-7eaf-4feb-b23a-8caa2db88858" Name="IncomingMessageQueue.IncomingMessageQueue" Description="Incoming Message Queue" BizRuleImportedPath="">
+			<OperationLink>6a6ea7d2-35a3-4247-ba9c-79349dfe6256</OperationLink>
+			<OperationLink>64cd4474-1429-4e43-82c3-8b8b28b581c0</OperationLink>
+			<OperationLink>dc51ae23-227f-4196-b53c-e60e44a832a1</OperationLink>
+		</AzTask>
+		<AzTask Guid="21dc4065-e490-4f57-a2f4-8a0126efefeb" Name="IncomingMessageQueue.IncomingMessageQueueSegment" Description="Segment" BizRuleImportedPath="">
+			<OperationLink>29b081f4-1f9a-420b-9b85-4cd6c482e4f1</OperationLink>
+		</AzTask>
+		<AzTask Guid="5525ea2c-97a4-44d9-98ff-fa0c10271877" Name="IncomingMessageQueue" Description="IncomingMessageQueue Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>5852ca58-7eaf-4feb-b23a-8caa2db88858</TaskLink>
+			<TaskLink>21dc4065-e490-4f57-a2f4-8a0126efefeb</TaskLink>
+		</AzTask>
+		<AzTask Guid="e12679d8-5542-41b3-8ade-c61bcd47a33b" Name="OutgoingMessageQueue.ModifyOutgoingMessage" Description="Change Message" BizRuleImportedPath="">
+			<OperationLink>219e5858-6d51-430b-8ec8-18f339205e0e</OperationLink>
+			<OperationLink>394ceb3a-7b94-45d6-8b70-1fcd8fdc50f8</OperationLink>
+			<OperationLink>e3720942-ecf5-4f3f-9516-b41c068238d7</OperationLink>
+			<OperationLink>1824b045-6a42-4482-9705-7689e50a0aa0</OperationLink>
+		</AzTask>
+		<AzTask Guid="013fddff-f3fc-47de-a6e2-595a5d3922a7" Name="OutgoingMessageQueue.OutgoingMessageQueue" Description="Outgoing Message Queue" BizRuleImportedPath="">
+			<OperationLink>bf31a0c5-5f33-4c60-9119-726268acf606</OperationLink>
+			<OperationLink>6b8cc8d8-a021-46d3-8e84-19d603ad8648</OperationLink>
+			<OperationLink>6c640167-183b-4e65-acb1-3ae1bd7d7045</OperationLink>
+		</AzTask>
+		<AzTask Guid="069777b5-2170-443a-bc97-fef53fafe57b" Name="OutgoingMessageQueue.OutgoingMessageQueueSegment" Description="Segment" BizRuleImportedPath="">
+			<OperationLink>e37709cc-e4bb-4ea8-be71-d299b0cd856c</OperationLink>
+		</AzTask>
+		<AzTask Guid="2ec520bd-6531-4b1a-962e-df1768cbb443" Name="OutgoingMessageQueue" Description="OutgoingMessageQueue Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>e12679d8-5542-41b3-8ade-c61bcd47a33b</TaskLink>
+			<TaskLink>013fddff-f3fc-47de-a6e2-595a5d3922a7</TaskLink>
+			<TaskLink>069777b5-2170-443a-bc97-fef53fafe57b</TaskLink>
+		</AzTask>
+		<AzTask Guid="87283d3e-d001-4df2-866c-ec7c6fea4db1" Name="TapiMessageQueue.TAPIMessageQueue" Description="TAPI Message Queue" BizRuleImportedPath="">
+			<OperationLink>aaf35f67-f7b8-4f0f-a411-defedf4ad4a7</OperationLink>
+			<OperationLink>774d90f6-5c28-4723-abe4-dee8cb03f89c</OperationLink>
+			<OperationLink>b96d5ec6-653c-4376-9d08-6ffe0bfe1a95</OperationLink>
+		</AzTask>
+		<AzTask Guid="6c16ad64-1864-42b3-899d-5a09e46a2933" Name="TapiMessageQueue.TAPIMessageQueueSegment" Description="Segment" BizRuleImportedPath="">
+			<OperationLink>ec94027f-ccf4-4f04-8521-088d2a2fc3cd</OperationLink>
+		</AzTask>
+		<AzTask Guid="6b8c3892-6f8b-4bb6-a190-4be357fedbc0" Name="TapiMessageQueue" Description="TapiMessageQueue Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>87283d3e-d001-4df2-866c-ec7c6fea4db1</TaskLink>
+			<TaskLink>6c16ad64-1864-42b3-899d-5a09e46a2933</TaskLink>
+		</AzTask>
+		<AzTask Guid="dac1cba8-f904-465b-9c9f-deefa45a921c" Name="Administrator" Description="Administrator Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>d05ff1d6-4a10-487d-9103-fa53717da814</TaskLink>
+			<TaskLink>5525ea2c-97a4-44d9-98ff-fa0c10271877</TaskLink>
+			<TaskLink>2ec520bd-6531-4b1a-962e-df1768cbb443</TaskLink>
+			<TaskLink>6b8c3892-6f8b-4bb6-a190-4be357fedbc0</TaskLink>
+		</AzTask>
+		<AzTask Guid="d77a3664-1e9e-4cad-92c4-d3c1696d33fa" Name="Guest" Description="Guest Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>dac1cba8-f904-465b-9c9f-deefa45a921c</TaskLink>
+		</AzTask>
+	</AzApplication>
+</AzAdminManager>

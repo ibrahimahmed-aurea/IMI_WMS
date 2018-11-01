@@ -1,0 +1,1258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4DAC67C4-1F3F-4D51-8A11-A9AD7FEF7C4E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cdc.MetaManager.GUI</RootNamespace>
+    <AssemblyName>Cdc.MetaManager.GUI.MetaManagerGUI</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\MetaManager.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\MetaManager.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>META_file.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ActiproSoftware.Editors.Wpf, Version=12.1.562.0, Culture=neutral, PublicKeyToken=36ff2196ab5654b9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\Actipro\ActiproSoftware.Editors.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="ActiproSoftware.Shared.Wpf, Version=12.1.562.0, Culture=neutral, PublicKeyToken=36ff2196ab5654b9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\Actipro\ActiproSoftware.Shared.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core">
+      <HintPath>..\..\..\..\references\NHibernate\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.DynamicProxy2">
+      <HintPath>..\..\..\..\references\NHibernate\Castle.DynamicProxy2.dll</HintPath>
+    </Reference>
+    <Reference Include="Cdc.MetaManager.CodeGeneration.CodeSmithTemplates, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\CodeSmith\Cdc.MetaManager.CodeGeneration.CodeSmithTemplates.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging, Version=1.2.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\Log4Net\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Log4Net, Version=1.2.0.2, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\Log4Net\Common.Logging.Log4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="GraphSharp">
+      <HintPath>..\..\..\..\references\GraphSharp\GraphSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="GraphSharp.Contracts">
+      <HintPath>..\..\..\..\references\GraphSharp\GraphSharp.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="GraphSharp.Controls">
+      <HintPath>..\..\..\..\references\GraphSharp\GraphSharp.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.TextEditor, Version=3.0.0.2970, Culture=neutral, PublicKeyToken=4d61825e8dd49f1a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\ICSharpCode\ICSharpCode.TextEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="Imi.SupplyChain.UX.Infrastructure, Version=7.1.0.28181, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\Imi\Imi.SupplyChain.UX.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Imi.SupplyChain.UX.Modules.Abc.Infrastructure, Version=7.1.0.28186, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\Imi\Imi.SupplyChain.UX.Modules.Abc.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Imi.SupplyChain.UX.Modules.ActivityMonitor.Infrastructure, Version=7.1.0.28541, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\Imi\Imi.SupplyChain.UX.Modules.ActivityMonitor.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Imi.SupplyChain.UX.Modules.Dock.Infrastructure, Version=7.1.0.28186, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\Imi\Imi.SupplyChain.UX.Modules.Dock.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Imi.SupplyChain.UX.Modules.Gateway.Infrastructure, Version=7.1.0.28186, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\Imi\Imi.SupplyChain.UX.Modules.Gateway.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Imi.SupplyChain.UX.Modules.GatewayMHS.Infrastructure, Version=7.1.0.17258, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\Imi\Imi.SupplyChain.UX.Modules.GatewayMHS.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Imi.SupplyChain.UX.Modules.GatewayTMS.Infrastructure, Version=7.1.0.28187, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\Imi\Imi.SupplyChain.UX.Modules.GatewayTMS.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Imi.SupplyChain.UX.Modules.OutputManager.Infrastructure">
+      <HintPath>..\..\..\..\references\Imi\Imi.SupplyChain.UX.Modules.OutputManager.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Imi.SupplyChain.UX.Modules.Transportation.Infrastructure, Version=7.1.0.28186, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\Imi\Imi.SupplyChain.UX.Modules.Transportation.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Imi.SupplyChain.UX.Modules.Warehouse.Infrastructure, Version=7.1.0.28184, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\Imi\Imi.SupplyChain.UX.Modules.Warehouse.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Contracts">
+      <HintPath>..\..\..\..\references\GraphSharp\Microsoft.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.CompositeUI, Version=1.0.51205.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\CompositeUI\Microsoft.Practices.CompositeUI.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ObjectBuilder, Version=1.0.51206.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\CompositeUI\Microsoft.Practices.ObjectBuilder.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=2.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\NHibernate\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.ByteCode.Castle">
+      <HintPath>..\..\..\..\references\NHibernate\NHibernate.ByteCode.Castle.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.DataAccess, Version=2.102.2.20, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\Oracle\Oracle.DataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="QuickGraph">
+      <HintPath>..\..\..\..\references\GraphSharp\QuickGraph.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Aop">
+      <HintPath>..\..\..\..\references\Spring.Net\Spring.Aop.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Core, Version=1.1.2.20226, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\Spring.Net\Spring.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Data, Version=1.1.2.20226, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\Spring.Net\Spring.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Data.NHibernate21, Version=1.3.2.40943, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\Spring.Net\Spring.Data.NHibernate21.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Workflow.Activities">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Workflow.ComponentModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsFormsIntegration">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WPFExtensions">
+      <HintPath>..\..\..\..\references\GraphSharp\WPFExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Controls.v6.0, Version=6.0.16356.15490, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\Xceed\Xceed.Wpf.Controls.v6.0.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid.v6.0, Version=6.0.16356.15490, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\Xceed\Xceed.Wpf.DataGrid.v6.0.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActionMapForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ActionMapForm.Designer.cs">
+      <DependentUpon>ActionMapForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateDeploymentgroups.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateDeploymentgroups.Designer.cs">
+      <DependentUpon>CreateDeploymentgroups.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateEditReportSQL.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateEditReportSQL.designer.cs">
+      <DependentUpon>CreateEditReportSQL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateEditReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateEditReport.designer.cs">
+      <DependentUpon>CreateEditReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigureHyperDialogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigureHyperDialogForm.Designer.cs">
+      <DependentUpon>ConfigureHyperDialogForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateEditActionWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateEditActionWizard.Designer.cs">
+      <DependentUpon>CreateEditActionWizard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddComponentToGroupbox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddComponentToGroupbox.Designer.cs">
+      <DependentUpon>AddComponentToGroupbox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddCustomDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddCustomDialog.Designer.cs">
+      <DependentUpon>AddCustomDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddDataSource.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddDataSource.Designer.cs">
+      <DependentUpon>AddDataSource.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddLabelToGroupbox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddLabelToGroupbox.Designer.cs">
+      <DependentUpon>AddLabelToGroupbox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddMenu.Designer.cs">
+      <DependentUpon>AddMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddMenuItem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddMenuItem.Designer.cs">
+      <DependentUpon>AddMenuItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddPackageSpecificationSchemaWrapper.cs" />
+    <Compile Include="AddPackageSpecificationUpdateProc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddPackageSpecificationUpdateProc.Designer.cs">
+      <DependentUpon>AddPackageSpecificationUpdateProc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateHintForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateHintForm.Designer.cs">
+      <DependentUpon>CreateHintForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreatePropertyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreatePropertyForm.Designer.cs">
+      <DependentUpon>CreatePropertyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreatePropertyMap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreatePropertyMap.Designer.cs">
+      <DependentUpon>CreatePropertyMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DependencyGraph\DependencyGraph.xaml.cs">
+      <DependentUpon>DependencyGraph.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DependencyGraph\EdgeRouteToPathConverter.cs" />
+    <Compile Include="DependencyGraph\GraphConverterHelper.cs" />
+    <Compile Include="FindCheckOuts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FindCheckOuts.Designer.cs">
+      <DependentUpon>FindCheckOuts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditApplicationInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditApplicationInfo.Designer.cs">
+      <DependentUpon>EditApplicationInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FindHintForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FindHintForm.Designer.cs">
+      <DependentUpon>FindHintForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FindPropertyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FindPropertyForm.Designer.cs">
+      <DependentUpon>FindPropertyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GenerateCode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenerateCode.Designer.cs">
+      <DependentUpon>GenerateCode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GenerateReports.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenerateReports.Designer.cs">
+      <DependentUpon>GenerateReports.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GetAllMetadataFromCM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GetAllMetadataFromCM.Designer.cs">
+      <DependentUpon>GetAllMetadataFromCM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImportChange.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportChange.Designer.cs">
+      <DependentUpon>ImportChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImportSelectedObjects.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportSelectedObjects.Designer.cs">
+      <DependentUpon>ImportSelectedObjects.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListViewSort.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MdiChildForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MdiChildForm.Designer.cs">
+      <DependentUpon>MdiChildForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MetaManagerInstance.cs" />
+    <Compile Include="NamingGuidance.cs" />
+    <Compile Include="ReleaseNotes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReleaseNotes.Designer.cs">
+      <DependentUpon>ReleaseNotes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RenamePropertyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RenamePropertyForm.Designer.cs">
+      <DependentUpon>RenamePropertyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectCreateUXAction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectCreateUXAction.Designer.cs">
+      <DependentUpon>SelectCreateUXAction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectDisplayFormats.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectDisplayFormats.Designer.cs">
+      <DependentUpon>SelectDisplayFormats.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ShowGenerationResult.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShowGenerationResult.Designer.cs">
+      <DependentUpon>ShowGenerationResult.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SplashForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StatusAddToSourceControl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StatusAddToSourceControl.Designer.cs">
+      <DependentUpon>StatusAddToSourceControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StoredProcedureControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StoredProcedureControl.Designer.cs">
+      <DependentUpon>StoredProcedureControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateEditBusinessEntity.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateEditBusinessEntity.Designer.cs">
+      <DependentUpon>CreateEditBusinessEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateEditModule.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateEditModule.Designer.cs">
+      <DependentUpon>CreateEditModule.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateEditServiceMethod.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateEditServiceMethod.Designer.cs">
+      <DependentUpon>CreateEditServiceMethod.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddViewToViewNode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddViewToViewNode.Designer.cs">
+      <DependentUpon>AddViewToViewNode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ApplicationWrapper.cs" />
+    <Compile Include="Analyze.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Analyze.Designer.cs">
+      <DependentUpon>Analyze.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateDialog.Designer.cs">
+      <DependentUpon>CreateDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateView.Designer.cs">
+      <DependentUpon>CreateView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditInterfaceMap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditInterfaceMap.Designer.cs">
+      <DependentUpon>EditInterfaceMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditInterfaceProperty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditInterfaceProperty.Designer.cs">
+      <DependentUpon>EditInterfaceProperty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QueryControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="QueryControl.Designer.cs">
+      <DependentUpon>QueryControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ShowDependencies.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShowDependencies.Designer.cs">
+      <DependentUpon>ShowDependencies.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateIssueForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateIssueForm.Designer.cs">
+      <DependentUpon>CreateIssueForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditDefaultValue.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditDefaultValue.Designer.cs">
+      <DependentUpon>EditDefaultValue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ChooseCustomOrNormalDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChooseCustomOrNormalDialog.Designer.cs">
+      <DependentUpon>ChooseCustomOrNormalDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Compiler.cs" />
+    <Compile Include="ConfigurationSettings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ConfigureComboDialogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigureComboDialogForm.Designer.cs">
+      <DependentUpon>ConfigureComboDialogForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigureComponentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigureComponentForm.Designer.cs">
+      <DependentUpon>ConfigureComponentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigureServiceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigureServiceForm.Designer.cs">
+      <DependentUpon>ConfigureServiceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigureTwoWayListBoxForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigureTwoWayListBoxForm.Designer.cs">
+      <DependentUpon>ConfigureTwoWayListBoxForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditView.Designer.cs">
+      <DependentUpon>EditView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditXML.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditXML.Designer.cs">
+      <DependentUpon>EditXML.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectCustomDialogUXAction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectCustomDialogUXAction.Designer.cs">
+      <DependentUpon>SelectCustomDialogUXAction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectCustomDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectCustomDialog.Designer.cs">
+      <DependentUpon>SelectCustomDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KeyValueEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KeyValueEditor.Designer.cs">
+      <DependentUpon>KeyValueEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectDialogUXAction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectDialogUXAction.Designer.cs">
+      <DependentUpon>SelectDialogUXAction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateCustomView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateCustomView.Designer.cs">
+      <DependentUpon>CreateCustomView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditDialog.Designer.cs">
+      <DependentUpon>EditDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditGroupboxLayout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditGroupboxLayout.Designer.cs">
+      <DependentUpon>EditGroupboxLayout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditViewNodeTitle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditViewNodeTitle.Designer.cs">
+      <DependentUpon>EditViewNodeTitle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FindServiceMethodForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FindServiceMethodForm.Designer.cs">
+      <DependentUpon>FindServiceMethodForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FindViewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FindViewForm.Designer.cs">
+      <DependentUpon>FindViewForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditUXAction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditUXAction.Designer.cs">
+      <DependentUpon>EditUXAction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewEditService.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewEditService.Designer.cs">
+      <DependentUpon>NewEditService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyMapControl2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PropertyMapControl2.Designer.cs">
+      <DependentUpon>PropertyMapControl2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyMapForm2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PropertyMapForm2.Designer.cs">
+      <DependentUpon>PropertyMapForm2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectDialog.Designer.cs">
+      <DependentUpon>SelectDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DialogObjectViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DialogObjectViewer.Designer.cs">
+      <DependentUpon>DialogObjectViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataModelImportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataModelImportForm.Designer.cs">
+      <DependentUpon>DataModelImportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main.Designer.cs">
+      <DependentUpon>Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyMapControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PropertyMapControl.Designer.cs">
+      <DependentUpon>PropertyMapControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectImportDialogs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectImportDialogs.Designer.cs">
+      <DependentUpon>SelectImportDialogs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectMappedPropertyFromPropertyMap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectMappedPropertyFromPropertyMap.Designer.cs">
+      <DependentUpon>SelectMappedPropertyFromPropertyMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectModuleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectModuleForm.Designer.cs">
+      <DependentUpon>SelectModuleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectPLSQLSpecDir.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectPLSQLSpecDir.Designer.cs">
+      <DependentUpon>SelectPLSQLSpecDir.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectServiceMethod.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectServiceMethod.Designer.cs">
+      <DependentUpon>SelectServiceMethod.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectUXActionType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectUXActionType.Designer.cs">
+      <DependentUpon>SelectUXActionType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ShowDataModelChanges.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShowDataModelChanges.Designer.cs">
+      <DependentUpon>ShowDataModelChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ShowIssueList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShowIssueList.Designer.cs">
+      <DependentUpon>ShowIssueList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Workflow\CreateWorkflow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Workflow\CreateWorkflow.Designer.cs">
+      <DependentUpon>CreateWorkflow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Workflow\EventBindingService.cs" />
+    <Compile Include="Workflow\FindWorkflowForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Workflow\FindWorkflowForm.Designer.cs">
+      <DependentUpon>FindWorkflowForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Workflow\Helpers.cs" />
+    <Compile Include="Workflow\Loader.cs" />
+    <Compile Include="Workflow\MemberCreationService.cs" />
+    <Compile Include="Workflow\PropertyValueUIService.cs" />
+    <Compile Include="Workflow\Resources\ToolboxCustomIcons.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ToolboxCustomIcons.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Workflow\ToolboxService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Workflow\WorkflowDesignerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Workflow\WorkflowDesignerControl.Designer.cs">
+      <DependentUpon>WorkflowDesignerControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Workflow\WorkflowDesignerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Workflow\WorkflowDesignerForm.Designer.cs">
+      <DependentUpon>WorkflowDesignerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Workflow\WorkflowMenuCommandService.cs" />
+    <Compile Include="XamlViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="XamlViewer.designer.cs">
+      <DependentUpon>XamlViewer.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Framework\Printing\Framework.Printing.csproj">
+      <Project>{E0488FDC-8E77-408E-85EA-2022C316AA10}</Project>
+      <Name>Framework.Printing</Name>
+    </ProjectReference>
+	<ProjectReference Include="..\..\..\Framework\Printing\LabelParsing\Framework.Printing.LabelParsing.csproj">
+      <Project>{AFC69DBC-5C4F-4AFD-876E-E41DBB9DB455}</Project>
+      <Name>Framework.Printing.LabelParsing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Framework\Shared\Framework.Shared.csproj">
+      <Project>{D50F8E00-4006-436A-8533-88209763DA3E}</Project>
+      <Name>Framework.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BusinessLogic\MetaManager.BusinessLogic.csproj">
+      <Project>{30578BB0-7E86-4BC0-98B8-2320229D05B4}</Project>
+      <Name>MetaManager.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeGeneration\Caching\CodeGeneration.Caching.csproj">
+      <Project>{0245BB15-7CA5-418F-9BD6-E4E1B8D8776B}</Project>
+      <Name>CodeGeneration.Caching</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CreateMetaDb\MetaManager.CreateMetaDb.csproj">
+      <Project>{285E9B60-E130-48FF-ACC2-0A4669858A05}</Project>
+      <Name>MetaManager.CreateMetaDb</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataAccess\Config\MetaManager.DataAccess.Config.csproj">
+      <Project>{68771E80-9703-4D01-922D-32C85AAE55C2}</Project>
+      <Name>MetaManager.DataAccess.Config</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataAccess\MetaManager.DataAccess.csproj">
+      <Project>{519F484A-16C4-4589-AEB9-0D38D25CE2DD}</Project>
+      <Name>MetaManager.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataAccess\NHibernate\MetaManager.DataAccess.NHibernate.csproj">
+      <Project>{CCB37F75-4598-4E94-9675-4A3958D34F9C}</Project>
+      <Name>MetaManager.DataAccess.NHibernate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\ExtensionMethods\Framework.ExtensionMethods.csproj">
+      <Project>{A6414C47-5CD7-4891-A78E-CF626FECADA9}</Project>
+      <Name>Framework.ExtensionMethods</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\Parsing\CSharpParsing\Framework.Parsing.CSharpParsing.csproj">
+      <Project>{2DBFE3F4-A7C1-46BC-A802-C07951ECDA62}</Project>
+      <Name>Framework.Parsing.CSharpParsing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\Parsing\OracleSQLParsing\Framework.Parsing.OracleSQLParsing.csproj">
+      <Project>{0E869DA3-709C-4593-BA7A-DF7FB6BE5990}</Project>
+      <Name>Framework.Parsing.OracleSQLParsing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\Parsing\PLSQLPackageSpecification\Framework.Parsing.PLSQLPackageSpecification.csproj">
+      <Project>{B00CA713-5089-49B7-BF05-03DE647B3F9B}</Project>
+      <Name>Framework.Parsing.PLSQLPackageSpecification</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\Reporting\PLSQL\Framework.Reporting.PLSQL.csproj">
+      <Project>{F0A7B927-15B3-43FB-B5B7-3A5CC67CEC78}</Project>
+      <Name>Framework.Reporting.PLSQL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HbmGenerator\Attributes\HbmGenerator.Attributes.csproj">
+      <Project>{D0F506FB-426B-43F4-8CDF-F723977B065D}</Project>
+      <Name>HbmGenerator.Attributes</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ActionMapForm.resx">
+      <DependentUpon>ActionMapForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateDeploymentgroups.resx">
+      <DependentUpon>CreateDeploymentgroups.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateEditReportSQL.resx">
+      <DependentUpon>CreateEditReportSQL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateEditReport.resx">
+      <DependentUpon>CreateEditReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigureHyperDialogForm.resx">
+      <DependentUpon>ConfigureHyperDialogForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateEditActionWizard.resx">
+      <DependentUpon>CreateEditActionWizard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddComponentToGroupbox.resx">
+      <DependentUpon>AddComponentToGroupbox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddCustomDialog.resx">
+      <DependentUpon>AddCustomDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddDataSource.resx">
+      <DependentUpon>AddDataSource.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddLabelToGroupbox.resx">
+      <DependentUpon>AddLabelToGroupbox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddMenu.resx">
+      <DependentUpon>AddMenu.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddMenuItem.resx">
+      <DependentUpon>AddMenuItem.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddPackageSpecificationUpdateProc.resx">
+      <DependentUpon>AddPackageSpecificationUpdateProc.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateHintForm.resx">
+      <DependentUpon>CreateHintForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreatePropertyForm.resx">
+      <DependentUpon>CreatePropertyForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreatePropertyMap.resx">
+      <DependentUpon>CreatePropertyMap.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditApplicationInfo.resx">
+      <DependentUpon>EditApplicationInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindCheckOuts.resx">
+      <DependentUpon>FindCheckOuts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindHintForm.resx">
+      <DependentUpon>FindHintForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindPropertyForm.resx">
+      <DependentUpon>FindPropertyForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenerateCode.resx">
+      <DependentUpon>GenerateCode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenerateReports.resx">
+      <DependentUpon>GenerateReports.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GetAllMetadataFromCM.resx">
+      <DependentUpon>GetAllMetadataFromCM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportChange.resx">
+      <DependentUpon>ImportChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportSelectedObjects.resx">
+      <DependentUpon>ImportSelectedObjects.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MdiChildForm.resx">
+      <DependentUpon>MdiChildForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReleaseNotes.resx">
+      <DependentUpon>ReleaseNotes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RenamePropertyForm.resx">
+      <DependentUpon>RenamePropertyForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectCreateUXAction.resx">
+      <DependentUpon>SelectCreateUXAction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectDisplayFormats.resx">
+      <DependentUpon>SelectDisplayFormats.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShowGenerationResult.resx">
+      <DependentUpon>ShowGenerationResult.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SplashForm.resx">
+      <DependentUpon>SplashForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StatusAddToSourceControl.resx">
+      <DependentUpon>StatusAddToSourceControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StoredProcedureControl.resx">
+      <DependentUpon>StoredProcedureControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateEditBusinessEntity.resx">
+      <DependentUpon>CreateEditBusinessEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateEditModule.resx">
+      <DependentUpon>CreateEditModule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateEditServiceMethod.resx">
+      <DependentUpon>CreateEditServiceMethod.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddViewToViewNode.resx">
+      <DependentUpon>AddViewToViewNode.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Analyze.resx">
+      <DependentUpon>Analyze.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditDefaultValue.resx">
+      <DependentUpon>EditDefaultValue.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChooseCustomOrNormalDialog.resx">
+      <DependentUpon>ChooseCustomOrNormalDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigureComboDialogForm.resx">
+      <DependentUpon>ConfigureComboDialogForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigureComponentForm.resx">
+      <DependentUpon>ConfigureComponentForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigureServiceForm.resx">
+      <DependentUpon>ConfigureServiceForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigureTwoWayListBoxForm.resx">
+      <DependentUpon>ConfigureTwoWayListBoxForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditView.resx">
+      <DependentUpon>EditView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditXML.resx">
+      <DependentUpon>EditXML.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QueryControl.resx">
+      <DependentUpon>QueryControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectCustomDialogUXAction.resx">
+      <DependentUpon>SelectCustomDialogUXAction.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectCustomDialog.resx">
+      <DependentUpon>SelectCustomDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KeyValueEditor.resx">
+      <DependentUpon>KeyValueEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectDialogUXAction.resx">
+      <DependentUpon>SelectDialogUXAction.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateCustomView.resx">
+      <DependentUpon>CreateCustomView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditDialog.resx">
+      <DependentUpon>EditDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditGroupboxLayout.resx">
+      <DependentUpon>EditGroupboxLayout.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditViewNodeTitle.resx">
+      <DependentUpon>EditViewNodeTitle.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindServiceMethodForm.resx">
+      <DependentUpon>FindServiceMethodForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindViewForm.resx">
+      <DependentUpon>FindViewForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditUXAction.resx">
+      <DependentUpon>EditUXAction.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewEditService.resx">
+      <DependentUpon>NewEditService.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PropertyMapControl2.resx">
+      <DependentUpon>PropertyMapControl2.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PropertyMapForm2.resx">
+      <DependentUpon>PropertyMapForm2.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectDialog.resx">
+      <DependentUpon>SelectDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DialogObjectViewer.resx">
+      <DependentUpon>DialogObjectViewer.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataModelImportForm.resx">
+      <DependentUpon>DataModelImportForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PropertyMapControl.resx">
+      <DependentUpon>PropertyMapControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectImportDialogs.resx">
+      <DependentUpon>SelectImportDialogs.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectMappedPropertyFromPropertyMap.resx">
+      <DependentUpon>SelectMappedPropertyFromPropertyMap.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectPLSQLSpecDir.resx">
+      <DependentUpon>SelectPLSQLSpecDir.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectServiceMethod.resx">
+      <DependentUpon>SelectServiceMethod.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectUXActionType.resx">
+      <DependentUpon>SelectUXActionType.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShowDataModelChanges.resx">
+      <DependentUpon>ShowDataModelChanges.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShowIssueList.resx">
+      <DependentUpon>ShowIssueList.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Workflow\CreateWorkflow.resx">
+      <DependentUpon>CreateWorkflow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Workflow\WorkflowDesignerForm.resx">
+      <DependentUpon>WorkflowDesignerForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Workflow\WorkflowDesignerControl.resx">
+      <DependentUpon>WorkflowDesignerControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XamlViewer.resx">
+      <DependentUpon>XamlViewer.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="META_file.ico" />
+    <Content Include="Properties\Images\MoveDown.png" />
+    <Content Include="Properties\Images\MoveUp.png" />
+    <None Include="Workflow\Resources\WorkflowIcon.bmp" />
+    <None Include="Workflow\Resources\ServiceMethodIcon.bmp" />
+    <None Include="Workflow\Resources\DialogIcon.bmp" />
+    <EmbeddedResource Include="CreateDialog.resx">
+      <DependentUpon>CreateDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateView.resx">
+      <DependentUpon>CreateView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditInterfaceMap.resx">
+      <DependentUpon>EditInterfaceMap.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditInterfaceProperty.resx">
+      <DependentUpon>EditInterfaceProperty.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShowDependencies.resx">
+      <DependentUpon>ShowDependencies.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateIssueForm.resx">
+      <DependentUpon>CreateIssueForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectModuleForm.resx">
+      <DependentUpon>SelectModuleForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Workflow\FindWorkflowForm.resx">
+      <DependentUpon>FindWorkflowForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Workflow\Resources\ToolboxCustomIcons.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ToolboxCustomIcons.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Workflow\ToolboxItems.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="DependencyGraph\DataTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DependencyGraph\DependencyGraph.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /c /y /r "$(ProjectDir)..\..\..\..\references\Imi\*.dll" "$(ProjectDir)$(OutDir)"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

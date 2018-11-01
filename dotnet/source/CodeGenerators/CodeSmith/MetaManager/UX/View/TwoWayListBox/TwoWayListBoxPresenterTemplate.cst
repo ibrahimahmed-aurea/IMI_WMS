@@ -1,0 +1,283 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain.VisualModel" %>
+<%@ Register Name="PropertyMapTemplate" Template="..\..\PropertyMapTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Property Name="view" Type="Cdc.MetaManager.DataAccess.Domain.View" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="mainView" Type="Cdc.MetaManager.DataAccess.Domain.View" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="listBox" Type="Cdc.MetaManager.DataAccess.Domain.VisualModel.UXTwoWayListBox" Default="" Optional="false" Category="" Description="" %>
+<%
+                
+	string userSessionName = GetUserSessionName(view.Application);
+	string userSessionNamespace = GetUserSessionNamespace(view.Application);
+    
+	string presenterClassName = GetPresenterClassName(view);
+	string interfaceClassName = GetViewInterfaceName(view);
+	string viewsNamespace = GetViewsNamespace(view);
+		
+	List<Service> serviceList = new List<Service>();
+	List<string> serviceNamespaceList = new List<string>();
+	
+	string dataContractNamespace = GetFrontendDataContractNamespace(view.Application, listBox.LeftFindServiceMethod.Service);
+	string serviceInterfaceNamespace = GetFrontendServiceContractNamespace(view.Application, listBox.LeftFindServiceMethod.Service);
+	serviceList.Add(listBox.LeftFindServiceMethod.Service);
+	serviceNamespaceList.Add(dataContractNamespace);
+	serviceNamespaceList.Add(serviceInterfaceNamespace);
+	
+	if (!serviceList.Contains(listBox.RightFindServiceMethod.Service))
+	{
+		serviceList.Add(listBox.RightFindServiceMethod.Service);
+		
+		dataContractNamespace = GetFrontendDataContractNamespace(view.Application, listBox.RightFindServiceMethod.Service);
+		serviceInterfaceNamespace = GetFrontendServiceContractNamespace(view.Application, listBox.RightFindServiceMethod.Service);
+				
+		if (!serviceNamespaceList.Contains(dataContractNamespace))
+			serviceNamespaceList.Add(dataContractNamespace);
+			
+		if (!serviceNamespaceList.Contains(serviceInterfaceNamespace))
+			serviceNamespaceList.Add(serviceInterfaceNamespace);	
+	}
+		
+	if (!serviceList.Contains(listBox.RightFindServiceMethod.Service))
+	{
+		serviceList.Add(listBox.RightFindServiceMethod.Service);	
+		
+		dataContractNamespace = GetFrontendDataContractNamespace(view.Application, listBox.RightFindServiceMethod.Service);
+		serviceInterfaceNamespace = GetFrontendServiceContractNamespace(view.Application, listBox.RightFindServiceMethod.Service);
+				
+		if (!serviceNamespaceList.Contains(dataContractNamespace))
+			serviceNamespaceList.Add(dataContractNamespace);
+			
+		if (!serviceNamespaceList.Contains(serviceInterfaceNamespace))
+			serviceNamespaceList.Add(serviceInterfaceNamespace);	
+	}
+
+	if (!serviceList.Contains(listBox.RemoveServiceMethod.Service))
+	{
+		serviceList.Add(listBox.RemoveServiceMethod.Service);
+		
+		dataContractNamespace = GetFrontendDataContractNamespace(view.Application, listBox.RemoveServiceMethod.Service);
+		serviceInterfaceNamespace = GetFrontendServiceContractNamespace(view.Application, listBox.RemoveServiceMethod.Service);
+				
+		if (!serviceNamespaceList.Contains(dataContractNamespace))
+			serviceNamespaceList.Add(dataContractNamespace);
+			
+		if (!serviceNamespaceList.Contains(serviceInterfaceNamespace))
+			serviceNamespaceList.Add(serviceInterfaceNamespace);	
+	}
+	
+	if (!serviceList.Contains(listBox.AddServiceMethod.Service))
+	{
+		serviceList.Add(listBox.AddServiceMethod.Service);
+		
+		dataContractNamespace = GetFrontendDataContractNamespace(view.Application, listBox.AddServiceMethod.Service);
+		serviceInterfaceNamespace = GetFrontendServiceContractNamespace(view.Application, listBox.AddServiceMethod.Service);
+				
+		if (!serviceNamespaceList.Contains(dataContractNamespace))
+			serviceNamespaceList.Add(dataContractNamespace);
+			
+		if (!serviceNamespaceList.Contains(serviceInterfaceNamespace))
+			serviceNamespaceList.Add(serviceInterfaceNamespace);	
+	}	
+%>
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Text;
+using System.Linq;
+using Microsoft.Practices.CompositeUI;
+using Microsoft.Practices.CompositeUI.EventBroker;
+using Microsoft.Practices.ObjectBuilder;
+using Imi.Framework.Services;
+using Imi.Framework.UX;
+using Imi.Framework.UX.Services;
+using Imi.SupplyChain.UX;
+using Imi.SupplyChain.UX.Services;
+using Imi.SupplyChain.UX.Views;
+using <%=GetViewsConstantsNamespace(mainView)%>;
+using <%=userSessionNamespace%>;
+<%
+foreach (string serviceNamespace in serviceNamespaceList)
+{
+%>
+using <%=serviceNamespace%>;
+<%
+}
+%>
+
+namespace <%=viewsNamespace%>
+{
+	public class <%=presenterClassName%> : Presenter<<%=interfaceClassName%>>
+    {
+<%
+	foreach (Service service in serviceList)
+	{
+%>
+		[WcfServiceDependency]
+        public <%=GetServiceImplementationInterfaceName(service)%> <%=GetServiceImplementationClassName(service)%>
+        {
+            get;
+            set;
+        }
+		
+<%
+	}
+%>
+		[ServiceDependency]
+        public <%= userSessionName %> UserSessionService { get; set; }
+		
+		public <%=presenterClassName%>()
+		{
+		}
+		
+        public override void OnViewReady()
+        {
+		}
+		
+		[EventSubscription(EventTopicNames.<%=GetViewClassName(mainView)%>UpdatedTopic)]
+        public void <%=GetViewClassName(mainView)%>UpdatedEventHandler(object sender, DataEventArgs<<%=GetViewResultClassName(mainView)%>> eventArgs)
+        {
+			if (eventArgs.Data != null)
+			{		
+				Refresh();
+			}
+		}
+		
+		private void Refresh()
+		{
+<%
+			string viewResultClassName = GetViewResultClassName(mainView);
+			
+			string leftServiceParametersClassName = GetDataContractClassName(listBox.LeftFindServiceMethod, true);
+			string leftFullServiceParametersClassName = GetFullDataContractClassName(view.Application, listBox.LeftFindServiceMethod, true);
+			string leftServiceImplementationClassName = GetServiceImplementationClassName(listBox.LeftFindServiceMethod.Service);
+			string leftServiceMethodName = listBox.LeftFindServiceMethod.Name;
+			string leftResponseClassName = GetServiceContractClassName(listBox.LeftFindServiceMethod, false);
+			string leftFullResponseClassName = GetFullServiceContractClassName(view.Application, listBox.LeftFindServiceMethod, false);
+			string leftResultCollectionClassName = GetDataContractCollectionClassName(listBox.LeftFindServiceMethod, false);
+			
+			string rightServiceParametersClassName = GetDataContractClassName(listBox.RightFindServiceMethod, true);
+			string rightFullServiceParametersClassName = GetFullDataContractClassName(view.Application, listBox.RightFindServiceMethod, true);
+			string rightServiceImplementationClassName = GetServiceImplementationClassName(listBox.RightFindServiceMethod.Service);
+			string rightServiceMethodName = listBox.RightFindServiceMethod.Name;
+			string rightResponseClassName = GetServiceContractClassName(listBox.RightFindServiceMethod, false);
+			string rightFullResponseClassName = GetFullServiceContractClassName(view.Application, listBox.RightFindServiceMethod, false);
+			string rightResultCollectionClassName = GetDataContractCollectionClassName(listBox.RightFindServiceMethod, false);
+%>
+			<%=viewResultClassName%> viewResult = WorkItem.Items.FindByType<<%=viewResultClassName%>>().Last();
+			
+			<%=leftFullServiceParametersClassName%> leftParameters = new <%=leftFullServiceParametersClassName%>();
+
+<%			
+			CodeTemplate propertyMapTemplate = this.Create<PropertyMapTemplate>();
+
+			propertyMapTemplate.SetProperty("fromName", "viewResult");
+			propertyMapTemplate.SetProperty("toName", "leftParameters");
+			propertyMapTemplate.SetProperty("propertyMap", listBox.LeftFindServiceMethodMap);
+			propertyMapTemplate.Render(this.Response);
+%>
+
+            <%=GetFullServiceContractClassName(view.Application, listBox.LeftFindServiceMethod, true)%> leftServiceRequest = new <%=GetFullServiceContractClassName(view.Application, listBox.LeftFindServiceMethod, true)%>();
+
+            leftServiceRequest.<%=leftServiceParametersClassName%> = leftParameters;
+
+            <%=leftFullResponseClassName%> leftResponse = <%=leftServiceImplementationClassName%>.<%=leftServiceMethodName%>(leftServiceRequest);
+			
+			
+			<%=rightFullServiceParametersClassName%> rightParameters = new <%=rightFullServiceParametersClassName%>();
+
+<%			
+			propertyMapTemplate.SetProperty("fromName", "viewResult");
+			propertyMapTemplate.SetProperty("toName", "rightParameters");
+			propertyMapTemplate.SetProperty("propertyMap", listBox.RightFindServiceMethodMap);
+			propertyMapTemplate.Render(this.Response);
+%>
+
+            <%=GetFullServiceContractClassName(view.Application, listBox.RightFindServiceMethod, true)%> rightServiceRequest = new <%=GetFullServiceContractClassName(view.Application, listBox.RightFindServiceMethod, true)%>();
+
+            rightServiceRequest.<%=rightServiceParametersClassName%> = rightParameters;
+
+            <%=rightFullResponseClassName%> rightResponse = <%=rightServiceImplementationClassName%>.<%=rightServiceMethodName%>(rightServiceRequest);
+			
+			View.PresentData(leftResponse.<%=leftResultCollectionClassName%>, rightResponse.<%=rightResultCollectionClassName%>);
+		}
+												
+        private void MoveRight(object item)
+        {
+<%
+			string leftServiceResultClassName = GetDataContractClassName(listBox.LeftFindServiceMethod, false);
+			string addServiceParametersClassName = GetDataContractClassName(listBox.AddServiceMethod, true);
+			string addFullServiceParametersClassName = GetFullDataContractClassName(view.Application, listBox.AddServiceMethod, true);
+			string rightServiceClassName = GetServiceImplementationClassName(listBox.AddServiceMethod.Service);
+			string addServiceMethodName = listBox.AddServiceMethod.Name;
+%>
+			<%=leftServiceResultClassName%> leftResult = item as <%=leftServiceResultClassName%>;
+			<%=addFullServiceParametersClassName%> addParameters = new <%=addFullServiceParametersClassName%>();
+
+<%			
+			propertyMapTemplate.SetProperty("fromName", "leftResult");
+			propertyMapTemplate.SetProperty("toName", "addParameters");
+			propertyMapTemplate.SetProperty("propertyMap", listBox.AddServiceMethodMap);
+			propertyMapTemplate.Render(this.Response);
+%>						
+
+            <%=GetFullServiceContractClassName(view.Application, listBox.AddServiceMethod, true)%> serviceRequest = new <%=GetFullServiceContractClassName(view.Application, listBox.AddServiceMethod, true)%>();
+
+            serviceRequest.<%=addServiceParametersClassName%> = addParameters;
+
+            <%=rightServiceClassName%>.<%=addServiceMethodName%>(serviceRequest);
+        }
+		
+		public void MoveRight(IList items)
+		{
+			foreach (object item in items)
+			  MoveRight(item);
+			
+			Refresh();
+		}
+						
+        private void MoveLeft(object item)
+        {
+<%
+			string rightServiceResultClassName = GetDataContractClassName(listBox.RightFindServiceMethod, false);
+			string rightFullServiceResultClassName = GetFullDataContractClassName(view.Application, listBox.RightFindServiceMethod, false);
+			string removeServiceParametersClassName = GetDataContractClassName(listBox.RemoveServiceMethod, true);
+			string removeFullServiceParametersClassName = GetFullDataContractClassName(view.Application, listBox.RemoveServiceMethod, true);
+			string serviceImplementationClassName = GetServiceImplementationClassName(listBox.RemoveServiceMethod.Service);
+			string removeServiceMethodName = listBox.RemoveServiceMethod.Name;
+%>
+			<%=rightFullServiceResultClassName%> rightResult = item as <%=rightFullServiceResultClassName%>;
+			<%=removeFullServiceParametersClassName%> removeParameters = new <%=removeFullServiceParametersClassName%>();
+
+<%			
+			propertyMapTemplate.SetProperty("fromName", "rightResult");
+			propertyMapTemplate.SetProperty("toName", "removeParameters");
+			propertyMapTemplate.SetProperty("propertyMap", listBox.RemoveServiceMethodMap);
+			propertyMapTemplate.Render(this.Response);
+%>
+
+            <%=GetFullServiceContractClassName(view.Application, listBox.RemoveServiceMethod, true)%> serviceRequest = new <%=GetFullServiceContractClassName(view.Application, listBox.RemoveServiceMethod, true)%>();
+
+            serviceRequest.<%=removeServiceParametersClassName%> = removeParameters;
+
+            <%=serviceImplementationClassName%>.<%=removeServiceMethodName%>(serviceRequest);
+        }
+		
+		public void MoveLeft(IList items)
+		{
+			foreach (object item in items)
+			  MoveLeft(item);
+			
+			Refresh();
+		}
+		
+    }
+}

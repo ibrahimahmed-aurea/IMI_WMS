@@ -1,0 +1,244 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	x:Class="Imi.Framework.Wpf.Controls.LayoutSelector">
+    <Grid x:Name="LayoutRoot">
+        <ComboBox SelectedIndex="0" x:Name="comboBox" Margin="0,2,0,2">
+            
+            <ComboBoxItem Margin="1">
+                <Viewbox Height="32" Width="8">
+                    <Canvas Width="117.6" Height="501.6">
+                        <Path Width="99.9999" Height="100" Canvas.Left="0.240051" Canvas.Top="0.240051" Stretch="Fill" StrokeThickness="4" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Stroke="#FF000000" Data="F1 M 10.2401,2.24005L 90.24,2.24005C 94.6583,2.24005 98.24,5.82178 98.24,10.2401L 98.24,90.2401C 98.24,94.6584 94.6583,98.2401 90.24,98.2401L 10.2401,98.2401C 5.82178,98.2401 2.24005,94.6584 2.24005,90.2401L 2.24005,10.2401C 2.24005,5.82178 5.82178,2.24005 10.2401,2.24005 Z ">
+                            <Path.Fill>
+                                <LinearGradientBrush StartPoint="0.00662359,-0.00714429" EndPoint="2.33463,2.33649">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStop Color="#FFF1F1F1" Offset="0"/>
+                                        <GradientStop Color="#FF8E8E8E" Offset="1"/>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </Path.Fill>
+                            <Path.Effect>
+                                <DropShadowEffect BlurRadius="8" ShadowDepth="18.8976" Opacity="0.6" Color="#FF000000" Direction="315"/>
+                            </Path.Effect>
+                        </Path>
+                        <Path Width="100" Height="100" Canvas.Left="0.240051" Canvas.Top="256.24" Stretch="Fill" StrokeThickness="4" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Stroke="#FF000000" Data="F1 M 10.2401,258.24L 90.2401,258.24C 94.6583,258.24 98.2401,261.822 98.2401,266.24L 98.2401,346.24C 98.2401,350.658 94.6583,354.24 90.2401,354.24L 10.2401,354.24C 5.82172,354.24 2.24005,350.658 2.24005,346.24L 2.24005,266.24C 2.24005,261.822 5.82172,258.24 10.2401,258.24 Z ">
+                            <Path.Fill>
+                                <LinearGradientBrush StartPoint="-1.32671,-0.00714493" EndPoint="1.0013,2.33649">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStop Color="#FFF1F1F1" Offset="0"/>
+                                        <GradientStop Color="#FF8E8E8E" Offset="1"/>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </Path.Fill>
+                            <Path.Effect>
+                                <DropShadowEffect BlurRadius="8" ShadowDepth="18.8976" Opacity="0.6" Color="#FF000000" Direction="315"/>
+                            </Path.Effect>
+                        </Path>
+                        <Path Width="99.9999" Height="99.9999" Canvas.Left="0.240051" Canvas.Top="128.24" Stretch="Fill" StrokeThickness="4" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Stroke="#FF000000" Data="F1 M 10.2401,130.24L 90.24,130.24C 94.6583,130.24 98.24,133.822 98.24,138.24L 98.24,218.24C 98.24,222.658 94.6583,226.24 90.24,226.24L 10.2401,226.24C 5.82178,226.24 2.24005,222.658 2.24005,218.24L 2.24005,138.24C 2.24005,133.822 5.82178,130.24 10.2401,130.24 Z ">
+                            <Path.Fill>
+                                <LinearGradientBrush StartPoint="0.00662359,-1.34048" EndPoint="2.33463,1.00316">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStop Color="#FFF1F1F1" Offset="0"/>
+                                        <GradientStop Color="#FF8E8E8E" Offset="1"/>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </Path.Fill>
+                            <Path.Effect>
+                                <DropShadowEffect BlurRadius="8" ShadowDepth="18.8976" Opacity="0.6" Color="#FF000000" Direction="315"/>
+                            </Path.Effect>
+                        </Path>
+                        <Path Width="100" Height="99.9999" Canvas.Left="0.240051" Canvas.Top="384.24" Stretch="Fill" StrokeThickness="4" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Stroke="#FF000000" Data="F1 M 10.2401,386.24L 90.2401,386.24C 94.6583,386.24 98.2401,389.822 98.2401,394.24L 98.2401,474.24C 98.2401,478.658 94.6583,482.24 90.2401,482.24L 10.2401,482.24C 5.82172,482.24 2.24005,478.658 2.24005,474.24L 2.24005,394.24C 2.24005,389.822 5.82172,386.24 10.2401,386.24 Z ">
+                            <Path.Fill>
+                                <LinearGradientBrush StartPoint="-1.32671,-1.34048" EndPoint="1.0013,1.00316">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStop Color="#FFF1F1F1" Offset="0"/>
+                                        <GradientStop Color="#FF8E8E8E" Offset="1"/>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </Path.Fill>
+                            <Path.Effect>
+                                <DropShadowEffect BlurRadius="8" ShadowDepth="18.8976" Opacity="0.6" Color="#FF000000" Direction="315"/>
+                            </Path.Effect>
+                        </Path>
+                    </Canvas>
+                </Viewbox>
+            </ComboBoxItem>
+            <ComboBoxItem Margin="1">
+
+                <Viewbox Height="16" Width="16">
+                    <Canvas Width="245.76" Height="245.76">
+                        <Path Width="100" Height="100" Canvas.Left="0.400009" Canvas.Top="0.240051" Stretch="Fill" StrokeThickness="4" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Stroke="#FF000000" Data="F1 M 10.4,2.24005L 90.4,2.24005C 94.8183,2.24005 98.4,5.82172 98.4,10.2401L 98.4,90.24C 98.4,94.6583 94.8183,98.24 90.4,98.24L 10.4,98.24C 5.98174,98.24 2.40001,94.6583 2.40001,90.24L 2.40001,10.2401C 2.40001,5.82172 5.98174,2.24005 10.4,2.24005 Z ">
+                            <Path.Fill>
+                                <LinearGradientBrush StartPoint="0.00662343,-0.00714429" EndPoint="2.33463,2.33649">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStop Color="#FFF1F1F1" Offset="0"/>
+                                        <GradientStop Color="#FF8E8E8E" Offset="1"/>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </Path.Fill>
+                            <Path.Effect>
+                                <DropShadowEffect BlurRadius="8" ShadowDepth="18.8976" Opacity="0.6" Color="#FF000000" Direction="315"/>
+                            </Path.Effect>
+                        </Path>
+                        <Path Width="100" Height="100" Canvas.Left="128.4" Canvas.Top="0.240051" Stretch="Fill" StrokeThickness="4" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Stroke="#FF000000" Data="F1 M 138.4,2.24005L 218.4,2.24005C 222.818,2.24005 226.4,5.82172 226.4,10.2401L 226.4,90.24C 226.4,94.6583 222.818,98.24 218.4,98.24L 138.4,98.24C 133.982,98.24 130.4,94.6583 130.4,90.24L 130.4,10.2401C 130.4,5.82172 133.982,2.24005 138.4,2.24005 Z ">
+                            <Path.Fill>
+                                <LinearGradientBrush StartPoint="-1.32671,-0.00714429" EndPoint="1.0013,2.33649">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStop Color="#FFF1F1F1" Offset="0"/>
+                                        <GradientStop Color="#FF8E8E8E" Offset="1"/>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </Path.Fill>
+                            <Path.Effect>
+                                <DropShadowEffect BlurRadius="8" ShadowDepth="18.8976" Opacity="0.6" Color="#FF000000" Direction="315"/>
+                            </Path.Effect>
+                        </Path>
+                        <Path Width="100" Height="100" Canvas.Left="0.400009" Canvas.Top="128.24" Stretch="Fill" StrokeThickness="4" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Stroke="#FF000000" Data="F1 M 10.4,130.24L 90.4,130.24C 94.8183,130.24 98.4,133.822 98.4,138.24L 98.4,218.24C 98.4,222.658 94.8183,226.24 90.4,226.24L 10.4,226.24C 5.98174,226.24 2.40001,222.658 2.40001,218.24L 2.40001,138.24C 2.40001,133.822 5.98174,130.24 10.4,130.24 Z ">
+                            <Path.Fill>
+                                <LinearGradientBrush StartPoint="0.00662343,-1.34048" EndPoint="2.33463,1.00316">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStop Color="#FFF1F1F1" Offset="0"/>
+                                        <GradientStop Color="#FF8E8E8E" Offset="1"/>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </Path.Fill>
+                            <Path.Effect>
+                                <DropShadowEffect BlurRadius="8" ShadowDepth="18.8976" Opacity="0.6" Color="#FF000000" Direction="315"/>
+                            </Path.Effect>
+                        </Path>
+                        <Path Width="100" Height="100" Canvas.Left="128.4" Canvas.Top="128.24" Stretch="Fill" StrokeThickness="4" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Stroke="#FF000000" Data="F1 M 138.4,130.24L 218.4,130.24C 222.818,130.24 226.4,133.822 226.4,138.24L 226.4,218.24C 226.4,222.658 222.818,226.24 218.4,226.24L 138.4,226.24C 133.982,226.24 130.4,222.658 130.4,218.24L 130.4,138.24C 130.4,133.822 133.982,130.24 138.4,130.24 Z ">
+                            <Path.Fill>
+                                <LinearGradientBrush StartPoint="-1.32671,-1.34048" EndPoint="1.0013,1.00316">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStop Color="#FFF1F1F1" Offset="0"/>
+                                        <GradientStop Color="#FF8E8E8E" Offset="1"/>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </Path.Fill>
+                            <Path.Effect>
+                                <DropShadowEffect BlurRadius="8" ShadowDepth="18.8976" Opacity="0.6" Color="#FF000000" Direction="315"/>
+                            </Path.Effect>
+                        </Path>
+                    </Canvas>
+                </Viewbox>
+
+            </ComboBoxItem>
+            <ComboBoxItem Margin="1">
+                <Viewbox Height="16" Width="24">
+                    <Canvas Width="373.92" Height="245.76">
+                        <Path Width="100" Height="100" Canvas.Left="0.400032" Canvas.Top="0.240021" Stretch="Fill" StrokeThickness="4" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Stroke="#FF000000" Data="F1 M 10.4,2.24002L 90.4,2.24002C 94.8183,2.24002 98.4,5.82175 98.4,10.24L 98.4,90.2401C 98.4,94.6583 94.8183,98.2401 90.4,98.2401L 10.4,98.2401C 5.98176,98.2401 2.40003,94.6583 2.40003,90.2401L 2.40003,10.24C 2.40003,5.82175 5.98176,2.24002 10.4,2.24002 Z ">
+                            <Path.Fill>
+                                <LinearGradientBrush StartPoint="0.00662351,-0.00714429" EndPoint="2.33463,2.33649">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStop Color="#FFF1F1F1" Offset="0"/>
+                                        <GradientStop Color="#FF8E8E8E" Offset="1"/>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </Path.Fill>
+                            <Path.Effect>
+                                <DropShadowEffect BlurRadius="8" ShadowDepth="18.8976" Opacity="0.6" Color="#FF000000" Direction="315"/>
+                            </Path.Effect>
+                        </Path>
+                        <Path Width="100" Height="100" Canvas.Left="0.399963" Canvas.Top="128.24" Stretch="Fill" StrokeThickness="4" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Stroke="#FF000000" Data="F1 M 10.4,130.24L 90.4,130.24C 94.8182,130.24 98.4,133.822 98.4,138.24L 98.4,218.24C 98.4,222.658 94.8182,226.24 90.4,226.24L 10.4,226.24C 5.98169,226.24 2.39996,222.658 2.39996,218.24L 2.39996,138.24C 2.39996,133.822 5.98169,130.24 10.4,130.24 Z ">
+                            <Path.Fill>
+                                <LinearGradientBrush StartPoint="-1.32671,-0.00714525" EndPoint="1.0013,2.33649">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStop Color="#FFF1F1F1" Offset="0"/>
+                                        <GradientStop Color="#FF8E8E8E" Offset="1"/>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </Path.Fill>
+                            <Path.Effect>
+                                <DropShadowEffect BlurRadius="8" ShadowDepth="18.8976" Opacity="0.6" Color="#FF000000" Direction="315"/>
+                            </Path.Effect>
+                        </Path>
+                        <Path Width="99.9999" Height="99.9999" Canvas.Left="128.4" Canvas.Top="0.240082" Stretch="Fill" StrokeThickness="4" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Stroke="#FF000000" Data="F1 M 138.4,2.24008L 218.4,2.24008C 222.818,2.24008 226.4,5.82181 226.4,10.2401L 226.4,90.24C 226.4,94.6583 222.818,98.24 218.4,98.24L 138.4,98.24C 133.982,98.24 130.4,94.6583 130.4,90.24L 130.4,10.2401C 130.4,5.82181 133.982,2.24008 138.4,2.24008 Z ">
+                            <Path.Fill>
+                                <LinearGradientBrush StartPoint="0.00662351,-1.34048" EndPoint="2.33463,1.00316">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStop Color="#FFF1F1F1" Offset="0"/>
+                                        <GradientStop Color="#FF8E8E8E" Offset="1"/>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </Path.Fill>
+                            <Path.Effect>
+                                <DropShadowEffect BlurRadius="8" ShadowDepth="18.8976" Opacity="0.6" Color="#FF000000" Direction="315"/>
+                            </Path.Effect>
+                        </Path>
+                        <Path Width="100" Height="99.9999" Canvas.Left="256.4" Canvas.Top="0.240021" Stretch="Fill" StrokeThickness="4" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Stroke="#FF000000" Data="F1 M 266.4,2.24002L 346.4,2.24002C 350.818,2.24002 354.4,5.82172 354.4,10.24L 354.4,90.2399C 354.4,94.6582 350.818,98.2399 346.4,98.2399L 266.4,98.2399C 261.982,98.2399 258.4,94.6582 258.4,90.2399L 258.4,10.24C 258.4,5.82172 261.982,2.24002 266.4,2.24002 Z ">
+                            <Path.Fill>
+                                <LinearGradientBrush StartPoint="-1.32671,-1.34048" EndPoint="1.0013,1.00316">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStop Color="#FFF1F1F1" Offset="0"/>
+                                        <GradientStop Color="#FF8E8E8E" Offset="1"/>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </Path.Fill>
+                            <Path.Effect>
+                                <DropShadowEffect BlurRadius="8" ShadowDepth="18.8976" Opacity="0.6" Color="#FF000000" Direction="315"/>
+                            </Path.Effect>
+                        </Path>
+                    </Canvas>
+                </Viewbox>
+            </ComboBoxItem>
+            <ComboBoxItem Margin="1">
+                <Viewbox HorizontalAlignment="Left" Width="32" Height="16">
+                    <Canvas Width="501.6" Height="200">
+                        <Path Width="100" Height="100" Canvas.Left="0.08" Canvas.Top="47.9" Stretch="Fill" StrokeThickness="4" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Stroke="#FF000000" Data="F1 M 10.08,2.40009L 90.0799,2.40009C 94.4982,2.40009 98.0799,5.98175 98.0799,10.4001L 98.0799,90.4001C 98.0799,94.8184 94.4982,98.4001 90.0799,98.4001L 10.08,98.4001C 5.6617,98.4001 2.08,94.8184 2.08,90.4001L 2.08,10.4001C 2.08,5.98175 5.6617,2.40009 10.08,2.40009 Z ">
+                            <Path.Fill>
+                                <LinearGradientBrush StartPoint="0.00662359,-0.00714493" EndPoint="2.33463,2.33649">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStop Color="#FFF1F1F1" Offset="0"/>
+                                        <GradientStop Color="#FF8E8E8E" Offset="1"/>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </Path.Fill>
+                            <Path.Effect>
+                                <DropShadowEffect BlurRadius="8" ShadowDepth="18.8976" Opacity="0.6" Color="#FF000000" Direction="315"/>
+                            </Path.Effect>
+                        </Path>
+                        <Path Width="100" Height="100" Canvas.Left="128.08" Canvas.Top="47.9" Stretch="Fill" StrokeThickness="4" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Stroke="#FF000000" Data="F1 M 138.08,2.40009L 218.08,2.40009C 222.498,2.40009 226.08,5.98175 226.08,10.4001L 226.08,90.4001C 226.08,94.8184 222.498,98.4001 218.08,98.4001L 138.08,98.4001C 133.662,98.4001 130.08,94.8184 130.08,90.4001L 130.08,10.4001C 130.08,5.98175 133.662,2.40009 138.08,2.40009 Z ">
+                            <Path.Fill>
+                                <LinearGradientBrush StartPoint="-1.32671,-0.00714493" EndPoint="1.0013,2.33649">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStop Color="#FFF1F1F1" Offset="0"/>
+                                        <GradientStop Color="#FF8E8E8E" Offset="1"/>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </Path.Fill>
+                            <Path.Effect>
+                                <DropShadowEffect BlurRadius="8" ShadowDepth="18.8976" Opacity="0.6" Color="#FF000000" Direction="315"/>
+                            </Path.Effect>
+                        </Path>
+                        <Path Width="100" Height="100" Canvas.Left="256.08" Canvas.Top="47.9" Stretch="Fill" StrokeThickness="4" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Stroke="#FF000000" Data="F1 M 266.08,2.40009L 346.08,2.40009C 350.498,2.40009 354.08,5.98181 354.08,10.4001L 354.08,90.4C 354.08,94.8183 350.498,98.4 346.08,98.4L 266.08,98.4C 261.662,98.4 258.08,94.8183 258.08,90.4L 258.08,10.4001C 258.08,5.98181 261.662,2.40009 266.08,2.40009 Z ">
+                            <Path.Fill>
+                                <LinearGradientBrush StartPoint="0.0066228,-1.34048" EndPoint="2.33463,1.00316">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStop Color="#FFF1F1F1" Offset="0"/>
+                                        <GradientStop Color="#FF8E8E8E" Offset="1"/>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </Path.Fill>
+                            <Path.Effect>
+                                <DropShadowEffect BlurRadius="8" ShadowDepth="18.8976" Opacity="0.6" Color="#FF000000" Direction="315"/>
+                            </Path.Effect>
+                        </Path>
+                        <Path Width="100" Height="100" Canvas.Left="384.08" Canvas.Top="47.9" Stretch="Fill" StrokeThickness="4" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Stroke="#FF000000" Data="F1 M 394.08,2.40009L 474.08,2.40009C 478.498,2.40009 482.08,5.98181 482.08,10.4001L 482.08,90.4C 482.08,94.8183 478.498,98.4 474.08,98.4L 394.08,98.4C 389.662,98.4 386.08,94.8183 386.08,90.4L 386.08,10.4001C 386.08,5.98181 389.662,2.40009 394.08,2.40009 Z ">
+                            <Path.Fill>
+                                <LinearGradientBrush StartPoint="-1.32671,-1.34048" EndPoint="1.0013,1.00316">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStop Color="#FFF1F1F1" Offset="0"/>
+                                        <GradientStop Color="#FF8E8E8E" Offset="1"/>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </Path.Fill>
+                            <Path.Effect>
+                                <DropShadowEffect BlurRadius="8" ShadowDepth="18.8976" Opacity="0.6" Color="#FF000000" Direction="315"/>
+                            </Path.Effect>
+                        </Path>
+                    </Canvas>
+                </Viewbox>
+            </ComboBoxItem>
+        </ComboBox>
+    </Grid>
+</UserControl>

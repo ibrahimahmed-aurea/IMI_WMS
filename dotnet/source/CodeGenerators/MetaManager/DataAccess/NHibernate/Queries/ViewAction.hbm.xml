@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<query name="ViewAction.FindAll">
+		<![CDATA[
+     from  ViewAction va
+     where va.ViewNode.Dialog.Module.Application.Id = :applicationId
+    ]]>
+	</query>
+	<query name="ViewAction.FindAllByActionId">
+		<![CDATA[
+     from  ViewAction va
+     where va.Action.Id = :actionId
+    ]]>
+	</query>
+	<query name="ViewAction.FindAllByViewNodeId">
+		<![CDATA[
+     from  ViewAction va
+     where va.ViewNode.Id = :viewNodeId
+    ]]>
+	</query>
+	<query name="ViewAction.FindAllByDialogId">
+		<![CDATA[
+     select va
+     from  ViewAction va
+     inner join va.ViewNode vn
+     where vn.Dialog.Id = :dialogId
+    ]]>
+	</query>
+	<query name="ViewAction.FindByMappedPropertyId">
+		<![CDATA[
+     select va
+     from  ViewAction va
+     where va.DrilldownFieldMappedProperty.Id = :mappedPropertyId
+    ]]>
+	</query>
+	<query name="ViewAction.FindAllByActionIdAndViewNodeId">
+		<![CDATA[
+     from  ViewAction va
+     where va.ViewNode.Id = :viewNodeId
+     and   va.Action.Id = :actionId
+    ]]>
+	</query>
+	<query name="ViewAction.FindByPropertyMapId">
+		<![CDATA[
+     from  ViewAction va
+     where va.ViewToActionMap.Id = :propertyMapId
+    ]]>
+	</query>
+</hibernate-mapping>
+

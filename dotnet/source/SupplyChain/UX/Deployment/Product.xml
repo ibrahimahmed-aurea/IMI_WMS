@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Product xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProductType>Standard</ProductType>
+  <ProductId>{63B7FD79-A4E9-4336-99FB-C4C88862911F}</ProductId>
+  <ProductName>Smart Client</ProductName>
+  <Company>Aptean</Company>
+  <Parameters>
+    <Parameter>
+      <Name>HostServerName</Name>
+      <Description>The hostname of the application server. Example: MYSERVER004</Description>
+      <IsMandatory>true</IsMandatory>
+      <Default></Default>
+      <ValidationRegEx></ValidationRegEx>
+      <ValidationErrorText></ValidationErrorText>
+      <ProductVersionIntroduced>1.0.0.0</ProductVersionIntroduced>
+      <ProductVersionLastUsed></ProductVersionLastUsed>
+    </Parameter>
+    <Parameter>
+      <Name>HostPort</Name>
+      <Description>The port number of the application server instance. Example: 18801</Description>
+      <IsMandatory>true</IsMandatory>
+      <Default></Default>
+      <ValidationRegEx>^\d{1,5}$</ValidationRegEx>
+      <ValidationErrorText>The field may only contain numerical characters (max 5 chars).</ValidationErrorText>
+      <ProductVersionIntroduced>1.0.0.0</ProductVersionIntroduced>
+      <ProductVersionLastUsed></ProductVersionLastUsed>
+    </Parameter>
+  </Parameters>
+</Product>

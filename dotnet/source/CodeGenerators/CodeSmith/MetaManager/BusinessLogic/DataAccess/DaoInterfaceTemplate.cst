@@ -1,0 +1,62 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DomainTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Text.RegularExpressions" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="entity" Type="Cdc.MetaManager.DataAccess.Domain.BusinessEntity" Default="" Optional="false" Category="" Description="" %>
+using System;
+using System.Collections.Generic;
+using System.Text;
+using Imi.Framework.DataAccess;
+using <%=GetEntitiesNamespace(entity)%>;
+
+namespace <%=GetIbatisNamespace(entity)%>
+{
+    public interface I<%=entity.Name%>Dao
+    {
+<%        
+	foreach (Cdc.MetaManager.DataAccess.Domain.Action action in entity.Actions)
+  	{
+		bool isCollection = action.ResponseMap.IsCollection;
+				
+		string resultClassName  = GetEntityClassName(action, false);
+		string parametersClassName  = GetEntityClassName(action, true);
+		string actionName = action.Name;
+		string inParameterName = "parameters";
+		string doCountParameter = "";
+		
+		bool isQuery = action.MappedToObject is Query;
+
+		if (isCollection)
+		{
+			resultClassName = "void";
+			parametersClassName = "DataPartitioningContainer";
+			inParameterName	= "partitioningContainer";
+			
+			if (isQuery)
+			{
+				doCountParameter = ", bool doCount = false";
+			}
+		}
+						
+		
+						
+%>
+		<%=resultClassName%> <%=actionName%>(<%=parametersClassName%> <%=inParameterName%><%=doCountParameter%>);
+<%
+		if (!string.IsNullOrEmpty(action.RowTrackingId) && isQuery)
+		{
+%>
+		<%=resultClassName%> <%=actionName%>ByRowIdentity(<%=parametersClassName%> <%=inParameterName%>);
+<%
+		}
+	}
+%>
+	}
+}

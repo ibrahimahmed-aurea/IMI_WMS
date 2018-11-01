@@ -1,0 +1,365 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Assembly Name="Cdc.MetaManager.BusinessLogic" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain.VisualModel" %>
+<%@ Import Namespace="Cdc.MetaManager.BusinessLogic.Helpers" %>
+<%@ Property Name="dialog" Type="Cdc.MetaManager.DataAccess.Domain.Dialog" Default="" Optional="false" Category="" Description="" %>
+<%
+	string dialogNamespace = GetDialogNamespace(dialog);
+    string controllerClassName = GetControllerClassName(dialog);
+	string eventAggregatorClassName = GetEventAggregatorClassName(dialog);
+	string actionsNamespace = GetActionsNamespace(dialog.Module);
+	string dialogActionsClassName = GetDialogActionsClassName(dialog);
+	string applicationName = dialog.Module.Application.Name;
+		
+	ViewNode mainNode = null;
+			
+	foreach (ViewNode viewNode in dialog.ViewNodes)
+	{
+		if (viewNode.View == dialog.InterfaceView)
+		{
+			mainNode = viewNode;
+			break;
+		}
+	}
+    
+    // Abort
+    if(mainNode == null)
+    {
+%>
+    /* No dialoginterface was defined - no code can be generated */
+<%
+        return;
+    }
+	
+	List<ViewNode> sortedDialogViewNodes = SortViewNodesBySequence(dialog.ViewNodes);
+	string viewParametersClassName = GetViewParametersClassName(mainNode.View);
+	string viewResultClassName = GetViewResultClassName(mainNode.View);
+
+%>
+using System;
+using System.ServiceModel;
+using System.Linq;
+using System.Reflection;
+using System.Collections.Generic;
+using Microsoft.Practices.CompositeUI;
+using Microsoft.Practices.CompositeUI.SmartParts;
+using Microsoft.Practices.CompositeUI.EventBroker;
+using Imi.Framework.Services;
+using Imi.Framework.UX;
+using Imi.Framework.UX.Services;
+using Imi.Framework.UX.Wpf.Workspaces;
+using Imi.SupplyChain.UX;
+using Imi.SupplyChain.UX.Infrastructure;
+using Imi.SupplyChain.UX.Infrastructure.Services;
+using Imi.SupplyChain.UX.Services;
+using Imi.SupplyChain.UX.Views;
+using <%=GetModuleConstantsNamespace(dialog.Module)%>;
+<%
+foreach (View view in GetUniqueViews(dialog))
+{
+%>
+using <%= GetViewsNamespace(view) %>;
+<%
+}
+%>
+using <%= actionsNamespace %>;
+
+namespace <%= dialogNamespace %>
+{
+	public class <%= controllerClassName %> : WorkItemController
+    {
+        private IWorkspace dialogWorkspace;
+		private IActionProviderService actionProviderService;
+		private UXSettingsService settingsService;
+		        				
+<%
+    View mainView = null;
+    
+	foreach (ViewNode viewNode in sortedDialogViewNodes)
+	{
+		if ((viewNode.View.VisualTree == null) && (viewNode.View.Type == ViewType.Standard))
+			continue;
+		
+        if(mainView == null)
+        {
+            mainView = viewNode.View;
+        }
+%>
+		private <%= GetViewInterfaceName(viewNode.View) %> <%= ToCamelCase(GetViewClassName(viewNode.View)) %>;
+<%
+	}
+   
+    string mainViewName = ToCamelCase(GetViewClassName(mainView));
+	
+%>	
+		
+        [EventPublication(EventTopicNames.<%=dialog.Name%>DialogClosed, PublicationScope.WorkItem)]
+        public event EventHandler<DataEventArgs<DialogResult>> DialogClosed;
+		
+		[ServiceDependency]
+        public IShellInteractionService ShellInteractionService
+        {
+            get;
+            set;
+        }
+
+		public override void Run()
+        {
+            IList<<%=viewParametersClassName%>> temp = new List<<%=viewParametersClassName%>>();
+			Run(temp);
+        }
+		
+		public void Run(<%=viewParametersClassName%> viewParameters)
+        {
+			IList<<%=viewParametersClassName%>> temp = new List<<%=viewParametersClassName%>>();
+			temp.Add(viewParameters);
+			Run(temp);
+		}
+		
+		public void Run(IList<<%=viewParametersClassName%>> viewParameters)
+        {
+			IList<<%=viewResultClassName%>> viewResult = TransferParametersToResult(viewParameters);
+			
+			WorkItem.Items.Add(DialogType.<%=dialog.Type.ToString()%>, "DialogType");
+			
+			AddServices();
+			RegisterActions();
+			BuildViews();
+			CreateEventAggregator();
+
+            dialogWorkspace = WorkItem.Workspaces["dialogWorkspace"];
+
+            if (dialogWorkspace != null)
+            {
+				<%=mainViewName%>.Title = <%=GetResourceReference(dialog, "Title")%>;
+				<%=mainViewName%>.RefreshDataOnShow = false;
+				
+				if (viewResult.Count > 0) //Multiselect or Create
+					<%=mainViewName%>.PresentData(viewResult);
+				else if (viewParameters.Count == 1) //Modify
+					<%=mainViewName%>.Update(viewParameters.Last());
+
+				dialogWorkspace.SmartPartClosing += SmartPartClosingEventHandler;
+				dialogWorkspace.Show(<%= mainViewName %>);
+				<%= mainViewName %>.SetFocus();
+				
+				WorkItem.Terminated += (s, e) =>
+                {
+                    dialogWorkspace.SmartPartClosing -= SmartPartClosingEventHandler;
+                    dialogWorkspace.Close(<%= mainViewName %>);
+					
+					DialogResult result = DialogResult.None;
+				
+					if (WorkItem.Items.Get("DialogResult") != null) 
+			    		result = (DialogResult)WorkItem.Items.Get("DialogResult");
+				
+					EventTopic eventTopic = WorkItem.EventTopics.Get(EventTopicNames.<%=dialog.Name%>DialogClosed);
+					eventTopic.Fire(this, new DataEventArgs<DialogResult>(result), WorkItem.Parent, PublicationScope.WorkItem);
+                };
+								
+				WorkItem.Terminating += (s, e) =>
+				{
+					try
+					{
+						settingsService.SaveSettings();
+					}
+					catch
+					{
+					}
+				};
+				
+				try
+				{
+					settingsService.LoadSettings();
+				}
+				catch
+				{
+				}
+			
+				base.Run();
+            }
+        }
+		
+		private IList<<%=viewResultClassName%>> TransferParametersToResult(IList<<%=viewParametersClassName%>> viewParameters)
+        {
+            IList<<%=viewResultClassName%>> viewResult = new List<<%=viewResultClassName%>>();
+						
+			if (viewParameters.Count == 1)
+			{
+<%
+			if (dialog.Type == DialogType.Create)
+			{
+%>				
+				<%=viewResultClassName%> result = new <%=viewResultClassName%>();
+				Map(viewParameters.Last(), result);
+				viewResult.Add(result);
+<%
+			}
+%>
+			}
+			else if (viewParameters.Count > 1) //Multiselect
+			{
+				foreach (<%=viewParametersClassName%> parameter in viewParameters)
+				{
+					<%=viewResultClassName%> result = GenericMapper.MapNew<<%=viewResultClassName%>>(parameter);
+					Map(parameter, result);
+					viewResult.Add(result);
+				}
+				
+				<%=viewResultClassName%> emptyResult = GenericMapper.MapNewCommonParameters<<%=viewResultClassName%>>(viewResult);
+				viewResult.Add(emptyResult);
+			}
+									
+			return viewResult;
+        }
+		
+		private void Map(<%=viewParametersClassName%> parameter, <%=viewResultClassName%> result)
+		{
+<%
+		foreach (MappedProperty mappedProperty in mainView.ResponseMap.MappedProperties)
+		{
+			if (mappedProperty.RequestMappedProperty != null)
+			{
+%>
+			result.<%=mappedProperty.Name%> = parameter.<%=mappedProperty.RequestMappedProperty.Name%>;
+<%
+			}
+		}
+%>			
+		}
+				
+        public void Activate()
+        {
+            dialogWorkspace.Show(<%=mainViewName%>);
+        }
+		
+		private void RegisterActions()
+		{
+			WorkItem.Items.AddNew<<%=GetDialogActionsClassName(dialog)%>>();
+		}
+		
+		private void AddServices()
+		{
+     		actionProviderService = new ActionProviderService("<%=applicationName%>"); 
+			WorkItem.Services.Add<IActionProviderService>(actionProviderService);
+									
+			settingsService = new UXSettingsService("<%=dialogNamespace%>", true);
+			WorkItem.Services.Add<IUXSettingsService>(settingsService);
+		}
+		
+		private void BuildViews()
+		{
+<%
+		foreach (ViewNode viewNode in sortedDialogViewNodes)
+		{
+			if ((viewNode.View.VisualTree == null) && (viewNode.View.Type == ViewType.Standard))
+				continue;
+				
+            if(viewNode.View.Type == ViewType.Custom)
+            {
+                string viewAssemblyFullname = viewNode.View.CustomDLLName;
+				
+				if (viewAssemblyFullname.ToUpper().EndsWith(".DLL"))
+					viewAssemblyFullname = viewAssemblyFullname.Remove(viewAssemblyFullname.Length - 4);
+					
+                string viewExternalName = viewNode.View.CustomClassName;
+                string[] names = viewExternalName.Split( new char[] { '.' } );
+                string viewVariableName = ToCamelCase(GetViewClassName(viewNode.View));
+                string viewTypeName = viewVariableName + "Type";
+                string assemblyName = viewVariableName + "Assembly";
+%>
+            Assembly <%= assemblyName %> = Assembly.Load("<%= viewAssemblyFullname %>");
+            Type <%= viewTypeName %> =  <%= assemblyName %>.GetType("<%= viewExternalName %>");
+            <%= viewVariableName %> = WorkItem.SmartParts.AddNew(<%= viewTypeName %>) as <%=GetViewInterfaceName(viewNode.View)%>;
+<%
+            }
+            else
+            {
+
+%>
+			<%=ToCamelCase(GetViewClassName(viewNode.View))%> = WorkItem.SmartParts.AddNew<<%=GetViewClassName(viewNode.View)%>>();
+<%
+				if (dialog.EnableImport)
+				{
+%>
+			<%=ToCamelCase(GetViewClassName(viewNode.View))%>.IsImportEnabled = true;
+<%
+				}
+
+            }
+			            
+            List<ViewAction> sortedActions = SortViewActionsBySequence(viewNode.ViewActions);
+            
+			foreach (ViewAction viewAction in sortedActions)
+			{
+				string proxyActionName = string.Format("{0}{1}", viewNode.View.Name, viewAction.Action.Name);
+				string proxyActionOperation = string.Format("{0}Operation", proxyActionName);
+%>
+			actionProviderService.RegisterAction(<%=ToCamelCase(GetViewClassName(viewNode.View))%>, WorkItem.Items.FindByType<<%=dialogActionsClassName%>>().First().<%=proxyActionName%>, <%=GetResourceReference(viewAction.Action, "Caption")%>, <%=dialogActionsClassName%>.<%=proxyActionOperation%>);
+<%	
+			}
+		}
+		
+%>
+		}
+		
+        private void SmartPartClosingEventHandler(object sender, WorkspaceCancelEventArgs e)
+        {
+            if (e.SmartPart == <%=mainViewName%>)
+            {
+                bool terminate = true;
+				
+				DialogResult result = DialogResult.None;
+			
+				if (WorkItem.Items.Get("DialogResult") != null) 
+			    	result = (DialogResult)WorkItem.Items.Get("DialogResult");
+
+                if (result == DialogResult.None)
+                {
+                    terminate = ShellInteractionService.ShowMessageBox(StringResources.Close_Current_Window, StringResources.Close_Current_Window_Warning, null, MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes;
+					
+					if (terminate)
+					{
+						if (WorkItem.Items.Contains("DialogResult"))
+            				WorkItem.Items.Remove(WorkItem.Items["DialogResult"]);
+				
+						WorkItem.Items.Add(DialogResult.Cancel, "DialogResult");
+					}
+                }
+                                            
+                if (terminate)
+                {
+					if (WorkItem.Status != WorkItemStatus.Terminated)
+						WorkItem.Terminate();
+                }
+				else
+                	e.Cancel = true;
+            }
+        }
+        				
+		private void CreateEventAggregator()
+        {
+            WorkItem.Items.AddNew<<%=eventAggregatorClassName%>>();
+        }
+    }
+}
+<script runat="template">
+   
+	private string GetResourceReference(ILocalizable target, string propertyName)
+	{
+		return string.Format("{0}.{1}", GetResourceManagerClassName(dialog.Module), GlobalizationHelper.GetResourceId(target, propertyName));	
+	}
+	
+	
+</script>

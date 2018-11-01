@@ -1,0 +1,131 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text"  Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="false" Description="Template description here." %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain.VisualModel" %>
+<%@ Property Name="view" Type="Cdc.MetaManager.DataAccess.Domain.View" Default="" Optional="false" Category="" Description="" OnChanged="" Editor="" EditorBase="" Serializer="" %>
+<%@ Property Name="isAdapted" Type="System.Boolean" Default="false" Optional="false" Category="" Description="" %>
+<%
+	string viewsNamespace = GetViewsNamespace(view);
+	string viewInterfaceName = GetViewInterfaceName(view);
+ 	string viewBaseInterfaceName = GetViewBaseInterfaceName(view);
+	string viewParametersClassName = GetViewParametersClassName(view);
+	string viewResultClassName = GetViewResultClassName(view);
+	
+	bool isSearchPanel = view.VisualTree is UXSearchPanel;
+	
+	UXComponent grid = GetFirstGridComponent(view.VisualTree);
+
+	bool usePartitioning = false;
+	
+	if (grid != null  && !isSearchPanel && view.Type != ViewType.Component && view.ServiceMethod != null)
+	{
+		usePartitioning = true;
+	}
+
+	bool useServerSorting = false;
+	if (usePartitioning)
+	{
+		if ((view.ServiceMethod.MappedToAction != null) && 
+									(view.ServiceMethod.MappedToAction.MappedToObject != null) && 
+									(view.ServiceMethod.MappedToAction.MappedToObject is Query))
+		{
+			useServerSorting = true;
+		}
+	}
+%>
+using System;
+using System.Collections.Generic;
+using System.Text;
+using Microsoft.Practices.EnterpriseLibrary.Validation;
+using Imi.SupplyChain.UX;
+using Imi.SupplyChain.UX.Views;
+
+namespace <%=viewsNamespace%>
+{
+<%
+if (!isAdapted)
+{
+%>
+	//Extract the following class to <%=viewInterfaceName%>Adapted.cs in order to customize its behavior    
+    public interface <%=viewInterfaceName%> : <%=viewBaseInterfaceName%>
+    {
+	}
+<%
+}
+	if (view.Type != ViewType.Component)
+	{
+%>
+
+	public interface <%=viewBaseInterfaceName%> : IDataView, IDetailViewToggled, IDrillDownView, IErrorHandler, IImportEnabledView 
+<%
+	}
+	else
+	{
+%>
+	public interface <%=viewBaseInterfaceName%> : IDataView
+<%
+	}
+%>
+
+	{
+
+		void OnViewUpdated();
+		void Refresh();
+<%
+	if(ViewIsRowTracker(view))
+	{
+%>
+        void Refresh(string rowIdentity);
+<%
+	}
+		
+	if (view.Type != ViewType.Component)
+	{
+%>
+		bool Validate();
+		void HandleValidationResult(ValidationResult result);
+		void ApplyUIAttentionLevel(string componentName, UIAttentionLevel level, <%=viewResultClassName%> viewResult);
+		bool IsInlineView { get; set; }
+<%
+	}
+%>
+		void EnableComponent(string name, bool isEnabled);
+		void ShowComponent(string name, UXVisibility visibility);
+		void SetComponentDataContext(string componentName, object data);
+        <%= viewResultClassName %> CurrentItem { get; set;}
+<%
+	if (isSearchPanel)
+	{
+%>		void ClearItems();
+<%
+	}
+	
+	if(grid != null)
+	{
+%>
+        void SetMultiSelect(bool isEnabled);
+		object InlineDetailView { get; set; }
+<%
+		if (usePartitioning)
+		{
+%>
+		void PresentNextPartition(object data);
+		void UpdateRowCount(long? rowsInGrid, long? totalRows, bool isExport = false);
+		void SetServerFeedStatus(string status);
+<%
+			if (useServerSorting)
+			{
+%>
+		List<Framework.Services.SortParameter> GetSortingParameters();
+<%
+			}
+		}
+	}
+%>
+    }
+}

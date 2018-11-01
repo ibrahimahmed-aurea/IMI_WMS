@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://im.se/webservices/transportationportal" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://im.se/webservices/transportationportal" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://im.se/webservices/transportationportal">
+      <s:element name="FindDepartureRoute">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ChannelId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Language" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DepartureIdentity" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindDepartureRouteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FindDepartureRouteResult" type="tns:FindDepartureRouteResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FindDepartureRouteResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="DepartureRoute" nillable="true" type="tns:Route" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Route">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="VehicleIdentity" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="EstimatedTimeOfDeparture" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="RouteIdentity" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Name" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalDrivingTimeInSeconds" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalUnloadingTimeInSeconds" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalTimeInSeconds" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalDistance" nillable="true" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RouteStops" nillable="true" type="tns:RouteStop" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RouteStop">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="NodeIdentity" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="StopSequence" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DistanceFromPreviousStop" nillable="true" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="EstimatedArrivalTime" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalDrivingTimeInSeconds" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalUnloadingTimeInSeconds" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalTimeInSeconds" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CustomerIdentity" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Name1" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Name2" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Name3" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Name4" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Name5" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Address1" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Address2" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Address3" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Address4" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="City" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ZipCode" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Region" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CountryCode" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Country" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Latitude" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Longitude" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ContactPerson" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ContactPhone" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ContactEmail" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Instructions" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="FindDepartureRouteSoapIn">
+    <wsdl:part name="parameters" element="tns:FindDepartureRoute" />
+  </wsdl:message>
+  <wsdl:message name="FindDepartureRouteSoapOut">
+    <wsdl:part name="parameters" element="tns:FindDepartureRouteResponse" />
+  </wsdl:message>
+  <wsdl:portType name="TransportationPortalWebServiceSoap">
+    <wsdl:operation name="FindDepartureRoute">
+      <wsdl:input message="tns:FindDepartureRouteSoapIn" />
+      <wsdl:output message="tns:FindDepartureRouteSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TransportationPortalWebServiceSoap" type="tns:TransportationPortalWebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="FindDepartureRoute">
+      <soap:operation soapAction="http://im.se/webservices/transportationportal/FindDepartureRoute" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="TransportationPortalWebServiceSoap12" type="tns:TransportationPortalWebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="FindDepartureRoute">
+      <soap12:operation soapAction="http://im.se/webservices/transportationportal/FindDepartureRoute" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TransportationPortalWebService">
+    <wsdl:port name="TransportationPortalWebServiceSoap" binding="tns:TransportationPortalWebServiceSoap">
+      <soap:address location="http://localhost:4879/Cdc.Wms.WebServices.TransportationPortal.WebSite/Cdc.Wms.WebServices.TransportationPortal.asmx" />
+    </wsdl:port>
+    <wsdl:port name="TransportationPortalWebServiceSoap12" binding="tns:TransportationPortalWebServiceSoap12">
+      <soap12:address location="http://localhost:4879/Cdc.Wms.WebServices.TransportationPortal.WebSite/Cdc.Wms.WebServices.TransportationPortal.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

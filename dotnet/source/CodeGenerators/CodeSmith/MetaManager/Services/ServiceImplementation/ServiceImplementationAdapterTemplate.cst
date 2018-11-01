@@ -1,0 +1,190 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="ServiceTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="service" Type="Cdc.MetaManager.DataAccess.Domain.Service" Default="" Optional="false" Category="" Description="" %>
+<%
+  string className = string.Format("{0}Adapter",GetServiceImplementationClassName(service));
+  string interfaceName = GetServiceImplementationInterfaceName(service);
+%>
+using System;
+using System.Collections.Generic;
+using System.Text;
+using Microsoft.Practices.EnterpriseLibrary.PolicyInjection;
+using Imi.Framework.Services;
+using <%= GetServiceContractNamespace(service) %>;
+using DataContracts = <%= GetDataContractNamespace(service) %>;
+<%
+  List<BusinessEntity> uniqueEntities = GetUniqueEntities(service);
+  foreach(BusinessEntity entity in uniqueEntities)
+  {
+%>
+using <%= GetEntityNamespaceShortName(entity) %> = <%= GetBusinessEntitiesNamespace(entity) %>;
+using <%= GetActionNamespaceShortName(entity) %> = <%= GetBusinessLogicNamespace(entity) %>;
+<%
+  }
+%>
+
+namespace <%= GetServiceImplementationNamespace(service) %>
+{
+    public class <%= className %> : <%= interfaceName %>
+    {
+<%
+  foreach(ServiceMethod serviceMethod in service.ServiceMethods)
+  {
+	string adapterName = string.Format("{0}Adapter", className);
+	string requestTypeName = GetServiceContractClassName(serviceMethod,true);
+	string responseTypeName = GetServiceContractClassName(serviceMethod,false);
+	string translatorName = string.Format("Translators.{0}Translator", serviceMethod.Name);
+	
+	bool mapCollection = serviceMethod.ResponseMap.IsCollection;
+
+    string serviceParamTypeName = GetDataContractClassName(serviceMethod, true);
+	string serviceResultParamTypeName = GetDataContractClassName(serviceMethod, false);
+
+	// Base these on the action
+	Cdc.MetaManager.DataAccess.Domain.Action action = serviceMethod.MappedToAction;
+	BusinessEntity entity = serviceMethod.MappedToAction.BusinessEntity;
+	string entityResultClassName = GetBusinessEntitiyClassname(action , false);
+	string businessResultTypeName = string.Format("{0}.{1}", GetEntityNamespaceShortName(entity),entityResultClassName);
+	string entityParamsClassName = GetBusinessEntitiyClassname(action , true);
+    string businessParamsTypeName = string.Format("{0}.{1}", GetEntityNamespaceShortName(entity),entityParamsClassName);
+	string actionName = string.Format("{0}.{1}", GetActionNamespaceShortName(entity), GetActionClassname(action ));
+	
+%>
+		
+		private <%= actionName %> <%= serviceMethod.Name %>Action;
+		private object <%= serviceMethod.Name %>ActionLock = new object();
+		
+<%
+	if(!mapCollection)
+	{
+%>
+        public <%= responseTypeName %> <%= serviceMethod.Name %>(<%= requestTypeName %> request)
+        {
+            lock (<%= serviceMethod.Name %>ActionLock)
+			{
+				if (<%= serviceMethod.Name %>Action == null)
+				{
+					<%= serviceMethod.Name %>Action = PolicyInjection.Create<<%= actionName %>>();
+				}
+			}
+
+<%
+        bool isMulti = (serviceMethod.MappedToAction.IsMultiEnabled == true);
+		bool isImport = (serviceMethod.MappedToAction.IsImportEnabled == true);
+		bool isMessageHandlingEnabled = (serviceMethod.MappedToAction.IsMessageHandlingEnabled == true);
+	
+		if(!isMulti && !isImport)
+		{
+%>
+            <%= businessResultTypeName %> resultParams = <%= serviceMethod.Name %>Action.Execute(<%= translatorName %>.TranslateFromServiceToBusiness(request.<%= serviceParamTypeName %>), request.ComParameters);
+<%
+		}
+		else
+		{
+%>
+            <%= businessParamsTypeName %>Collection parameterCollection = new <%= businessParamsTypeName %>Collection();
+			
+			foreach (DataContracts.<%= serviceParamTypeName %> item in request.<%= entityParamsClassName %>Collection)
+			{
+				parameterCollection.Add(<%= translatorName %>.TranslateFromServiceToBusiness(item));
+			}
+						
+<%
+			if (isMessageHandlingEnabled)
+			{
+%>
+			parameterCollection.MessageXML = request.MessageXML;
+<%
+			}
+%>
+
+            <%= businessResultTypeName %> resultParams = <%= serviceMethod.Name %>Action.Execute(parameterCollection, request.ComParameters);
+<%
+		}
+%>		
+            <%= responseTypeName %> response = new <%= responseTypeName %>();
+
+            response.<%= serviceResultParamTypeName %> = <%= translatorName %>.TranslateFromBusinessToService(resultParams);
+
+<%
+			if (isMessageHandlingEnabled)
+			{
+%>
+			response.InformationXML = resultParams.InformationXML;
+<%
+			}
+%>
+
+            return response;
+        }
+		
+<%
+    }
+	else
+	{
+        string serviceCollection = GetDataContractCollectionClassName(serviceMethod, false);
+%>
+
+        public <%= responseTypeName %> <%= serviceMethod.Name %>(<%= requestTypeName %> request)
+        {
+		    lock (<%= serviceMethod.Name %>ActionLock)
+			{
+				if (<%= serviceMethod.Name %>Action == null)
+				{
+					<%= serviceMethod.Name %>Action = PolicyInjection.Create<<%= actionName %>>();
+				}
+			}
+
+            KeyValuePair<CustomServiceComMetaResult, IList<<%= businessResultTypeName %>>> result = <%= serviceMethod.Name %>Action.Execute(
+                <%= translatorName %>.TranslateFromServiceToBusiness(request.<%= serviceParamTypeName %>), request.ComParameters);
+
+            <%= responseTypeName %> response = new <%= responseTypeName %>();
+	    	response.<%= serviceCollection %> = new DataContracts.<%= serviceCollection %>();
+
+            foreach (<%= businessResultTypeName %> item in result.Value)
+            {
+                response.<%= serviceCollection %>.Add(<%= translatorName %>.TranslateFromBusinessToService(item));
+            }
+			
+			response.ComMetaResult = result.Key;
+			            
+            return response;
+        }
+<%
+    }
+  }
+%>
+    }
+}
+<script runat="template">
+  private List<BusinessEntity> GetUniqueEntities(Service service) 
+  {
+	List<BusinessEntity> entities = new List<BusinessEntity>();
+	
+    foreach(ServiceMethod serviceMethod in service.ServiceMethods)
+    {
+	  if(!entities.Contains(serviceMethod.MappedToAction.BusinessEntity))
+	     entities.Add(serviceMethod.MappedToAction.BusinessEntity);	
+	}	
+	
+	return entities;
+  }
+
+  private string GetEntityNamespaceShortName(BusinessEntity entity)
+  {
+	return string.Format("{0}Entities",entity.Name);
+  }
+  private string GetActionNamespaceShortName(BusinessEntity entity)
+  {
+	return string.Format("{0}Actions",entity.Name);
+  }
+</script>

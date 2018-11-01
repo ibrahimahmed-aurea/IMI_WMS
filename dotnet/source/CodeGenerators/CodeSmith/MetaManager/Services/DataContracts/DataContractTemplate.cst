@@ -1,0 +1,71 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="ServiceTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Register Name="DataContractClassTemplate" Template="DataContractClassTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="DataContractCollectionTemplate" Template="DataContractCollectionTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Property Name="service" Type="Cdc.MetaManager.DataAccess.Domain.Service" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="dataContractDirectory" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="frontendApplication" Type="Cdc.MetaManager.DataAccess.Domain.Application" Default="" Optional="true" Category="" Description="" %>
+<%
+  DataContractClassTemplate classTemplate = this.Create<DataContractClassTemplate>();
+  DataContractCollectionTemplate collectionTemplate = this.Create<DataContractCollectionTemplate>();
+
+  string nameSpace;
+	
+  if (frontendApplication != null)
+  	nameSpace = GetFrontendDataContractNamespace(frontendApplication, service);
+  else
+  	nameSpace = GetDataContractNamespace(service);
+
+  foreach(ServiceMethod serviceMethod in service.ServiceMethods) 
+  {
+	bool isMessageHandlingEnabled = (serviceMethod.MappedToAction != null) && (serviceMethod.MappedToAction.IsMessageHandlingEnabled == true) && (serviceMethod.MappedToAction.MappedToObject is StoredProcedure);
+	
+	string fileNameReq = string.Format(@"{0}\{1}.cs", dataContractDirectory, GetDataContractClassName(serviceMethod, true));
+	classTemplate.SetProperty("service", service);
+	classTemplate.SetProperty("serviceMethod", serviceMethod);
+	classTemplate.SetProperty("propertyMap", serviceMethod.RequestMap);
+	classTemplate.SetProperty("isRequest", true);
+	classTemplate.SetProperty("nameSpace", nameSpace);
+	classTemplate.SetProperty("isMessageHandlingEnabled", isMessageHandlingEnabled);
+	classTemplate.RenderToFile(fileNameReq ,true);
+	
+	string fileNameResp = string.Format(@"{0}\{1}.cs", dataContractDirectory, GetDataContractClassName(serviceMethod, false));
+	classTemplate.SetProperty("service", service);
+	classTemplate.SetProperty("serviceMethod", serviceMethod);
+	classTemplate.SetProperty("propertyMap", serviceMethod.ResponseMap);
+	classTemplate.SetProperty("isRequest", false);
+	classTemplate.SetProperty("nameSpace", nameSpace);
+	classTemplate.SetProperty("isMessageHandlingEnabled", isMessageHandlingEnabled);
+	classTemplate.RenderToFile(fileNameResp ,true);
+	
+	if(serviceMethod.ResponseMap.IsCollection) 
+	{
+      string collectionFileNameResp = string.Format(@"{0}\{1}Collection.cs", dataContractDirectory, GetDataContractClassName(serviceMethod, false));
+  	  collectionTemplate.SetProperty("service", service);
+	  collectionTemplate.SetProperty("serviceMethod", serviceMethod);
+	  collectionTemplate.SetProperty("isRequest", false);
+	  collectionTemplate.SetProperty("nameSpace", nameSpace);
+	  collectionTemplate.SetProperty("isMessageHandlingEnabled", isMessageHandlingEnabled);
+	  collectionTemplate.RenderToFile(collectionFileNameResp ,true);
+	}
+	
+	if((serviceMethod.MappedToAction != null) && (serviceMethod.MappedToAction.IsMultiEnabled == true || serviceMethod.MappedToAction.IsImportEnabled == true))
+	{
+      string collectionFileNameResp = string.Format(@"{0}\{1}Collection.cs", dataContractDirectory, GetDataContractClassName(serviceMethod, true));
+  	  collectionTemplate.SetProperty("service", service);
+	  collectionTemplate.SetProperty("serviceMethod", serviceMethod);
+	  collectionTemplate.SetProperty("isRequest", true);
+	  collectionTemplate.SetProperty("nameSpace", nameSpace);
+	  collectionTemplate.SetProperty("isMessageHandlingEnabled", isMessageHandlingEnabled);
+	  collectionTemplate.RenderToFile(collectionFileNameResp ,true);
+	}
+  }
+%>

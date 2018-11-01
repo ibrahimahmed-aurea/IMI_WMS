@@ -1,0 +1,134 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Register Name="PropertyMapTemplate" Template="..\PropertyMapTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="view" Type="Cdc.MetaManager.DataAccess.Domain.View" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="serviceMethod" Type="Cdc.MetaManager.DataAccess.Domain.ServiceMethod" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="requestMap" Type="Cdc.MetaManager.DataAccess.Domain.PropertyMap" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="responseMap" Type="Cdc.MetaManager.DataAccess.Domain.PropertyMap" Default="" Optional="false" Category="" Description="" %>
+<%
+    string viewsNamespace = GetViewsNamespace(view);
+    string viewResultClassName = GetViewResultClassName(view);
+    string viewParametersClassName = GetViewParametersClassName(view);
+	string translatorClassName;
+	if (view.ServiceMethod == serviceMethod)
+    	translatorClassName = GetViewServiceTranslatorClassName(view);
+	else
+    	translatorClassName = GetViewServiceToServiceMethodTranslatorClassName(view, serviceMethod);
+	string serviceParametersClassName = GetDataContractClassName(serviceMethod, true);
+    string serviceResultClassName = GetDataContractClassName(serviceMethod, false);
+	string serviceResultCollectionClassName = GetDataContractCollectionClassName(serviceMethod, false);
+	string dataContractNamespace = GetFrontendDataContractNamespace(view.Application, serviceMethod.Service);
+	
+    string userSessionName = GetUserSessionName(view.Application);
+	string userSessionNamespace = GetUserSessionNamespace(view.Application);
+
+	bool isSortable = false;
+
+	if ((view.ServiceMethod.MappedToAction != null) && 
+								(view.ServiceMethod.MappedToAction.MappedToObject != null) && 
+								(view.ServiceMethod.MappedToAction.MappedToObject is Query))
+	{
+		isSortable = true;
+	}
+
+
+%>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Microsoft.Practices.CompositeUI;
+using Imi.SupplyChain.UX;
+using <%=dataContractNamespace%>;
+using <%= userSessionNamespace %>;
+
+namespace <%=viewsNamespace%>
+{
+    public class <%=translatorClassName %>
+    {
+        [ServiceDependency]
+        public <%= userSessionName %> UserSessionService { get; set; }
+        
+        public <%=serviceParametersClassName%> TranslateFromViewToService(<%=viewParametersClassName%> viewParameters)
+        {
+			<%=serviceParametersClassName%> serviceParameters = new <%=serviceParametersClassName%>();
+        		
+<%
+			CodeTemplate propertyMapTemplate = this.Create<PropertyMapTemplate>();
+
+			propertyMapTemplate.SetProperty("fromName", "viewParameters");
+			propertyMapTemplate.SetProperty("toName", "serviceParameters");
+			propertyMapTemplate.SetProperty("propertyMap", requestMap);
+			if (view.Type == ViewType.Component)
+			{
+				propertyMapTemplate.SetProperty("ignoreFromNameFieldPrefix", GetDataSourceParameterPrefix());
+			}
+			
+			propertyMapTemplate.Render(this.Response);
+			
+			if(
+			    (serviceMethod.MappedToAction != null) &&
+			    (serviceMethod.MappedToAction.MappedToObject is Query) &&
+			    (! string.IsNullOrEmpty(serviceMethod.MappedToAction.RowTrackingId))
+			  )
+			{
+%>
+			serviceParameters.RowIdentities = viewParameters.RowIdentities;
+<%
+			}
+%>					
+			return serviceParameters;
+        }
+		
+		public IEnumerable<<%=viewResultClassName%>> TranslateFromServiceToView(<%=serviceResultCollectionClassName%> serviceResultCollection)
+        {
+			ICollection<<%=viewResultClassName%>> viewResultCollection = new List<<%=viewResultClassName%>>();
+			
+			foreach (<%=serviceResultClassName%> serviceResult in serviceResultCollection)
+			{
+				<%=viewResultClassName%> viewResult = new <%=viewResultClassName%>();
+					
+<%
+			foreach (MappedProperty property in responseMap.MappedProperties)
+			{
+				if (!property.IsCustom)
+				{
+%>
+				viewResult.<%=property.Name%> = serviceResult.<%=property.Name%>;
+<%
+				}
+			}
+				
+			if(
+			    (serviceMethod.MappedToAction != null) &&
+			    (serviceMethod.MappedToAction.MappedToObject is Query) &&
+			    (! string.IsNullOrEmpty(serviceMethod.MappedToAction.RowTrackingId))
+			  )
+			{
+%>
+				viewResult.RowIdentity = serviceResult.RowIdentity;
+<%
+			}
+
+			if (isSortable)
+			{
+%>
+				viewResult.SortIndex_GUI = serviceResult.SortIndex_GUI;			
+<%
+			}
+%>		
+				viewResultCollection.Add(viewResult);
+			}
+					
+			return viewResultCollection;
+        }
+    }
+}	

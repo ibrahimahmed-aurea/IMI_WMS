@@ -1,0 +1,54 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Segment CustomerOrderHead</title>
+<link href="StructureDescription.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>Segment CustomerOrderHead</h1>
+<h3>Description:</h3>
+Customer Order<h3>Attributes:</h3>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000"><tbody>
+<tr class="tableHeader"><th class="tableHeaderColumn">Tag</th><th class="tableHeaderColumn">Method</th><th class="tableHeaderColumn">Type</th><th class="tableHeaderColumn">Oracle Type</th><th class="tableHeaderColumn">Mandatory</th><th class="tableHeaderColumn">Note</th></tr>
+<tr class="tableRow"><td class="tableRowColumn">OPCODE</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Operation Code<br/>0 - No Operation<br/>1 - New<br/>2 - Change<br/>3 - Remove<br/>Note! An operation code is only useful if at least one tag supports the method</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Customer Order Number<br/>The identity of the Customer Order.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Customer Order Sequence Number<br/>A Sequence Number used by the Host system to make it possible<br/>to send a Customer Order more than once (e.g. backorder).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderType</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(2)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Customer Order Type<br/>The type of the Customer Order. Comes from the Host System and does not control any logic<br/>in the Warehouse except for what is described below:<br/>- LO = Local Order inhibits sending of Order-related information via<br/>       the HAPI and EDI interface, such as Pick Result and Receipt Report.<br/>- Other values are just information in the Warehouse system.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderClass</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(2)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Custom Order Type Identity<br/>The type of Customer Order:<br/>N  = Normal<br/>TR = Transit / Stock Replenishment<br/>Installation dependent. Controls e.g. choice of Method of Shipment.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderReference</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Reference<br/>A Reference from the Customer.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">BillToCustomerIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Bill-to Customer<br/>The Party that will be invoiced for the ordered goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">SellToCustomerIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Sell-to Customer Identity<br/>The Customer that made the Order according to the Customer Order.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipToCustomerIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Ship-to Customer Identity<br/>The Party that finally will receive the goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PickPriority</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(2)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Pick Priority<br/>The priority (1-9, where 1 is highest) is set to the Pick Orders that are generated.<br/>This priority can, if required, be changed manually while picking.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DispatchFee</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(17,7)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Service Charge<br/>Costs for Service Charge.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CODFee</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(17,7)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">COD Fee<br/>Cash on Delivery Fee.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">FreightCost</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(17,7)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Freight Cost<br/>The cost for transporting the goods to the Ship-to Customer.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">FreightPartyQualifier</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Forwarder's Party Type<br/>The Type of Party that has a forwarder agreement with the Forwarder.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">FreightPartyIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Forwarder's Party Identity<br/>The identity of the Party that has a forwarder agreement with the Forwarder.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Division</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Division<br/>Division, department, section, workshop or similar<br/>subordinate unit of a company / organization.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">TermsOfDelivery</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Terms of Shipment<br/>The Terms of Shipment for the Consignment stated<br/>as a code according to Combiterm 2000.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">TermsOfDeliveryLocation</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Terms of Shipment Destination<br/>The destination for the goods according to the Terms of Shipment.<br/>Received from the external Carrier Compliancy Provider.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CODReference</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Reference for Cash-on-Delivery<br/>Reference for the Cash-on-Delivery, usually a bank or giro account for the Bill-to Customer.</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

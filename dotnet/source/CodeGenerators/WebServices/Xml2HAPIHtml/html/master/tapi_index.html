@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>TAPI Gateway Specification</title>
+		<link href="./css/emx_nav_left.css" rel="stylesheet" type="text/css" />
+		<link href="./css/emx_nav_left_print.css" rel="stylesheet" type="text/css" media="print"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"></head>
+	<body>
+		<div id="pagecell1">
+			<!--pagecell1-->
+			<div id="breadCrumb">
+				<a href="index.html">Index</a>
+			</div>
+			<div id="pageName">
+				<h2 class="none">TAPI Gateway Specification </h2>
+			</div>
+			<div id="pageNav">
+			    <div class="relatedLinks"> 
+			      <h3>In</h3>
+				  &bull;&nbsp;<a href="Get_DEPLOAD_For_SupOrder.html">Get DEPLOAD For SupOrder</a><br/>
+				  &bull;&nbsp;<a href="Get_DEPLOAD_For_Order.html">Get DEPLOAD For Order</a><br/>
+				  &bull;&nbsp;<a href="Get_Departure_For_DEPLOAD.html">Get Departure For DEPLOAD</a><br/>
+				  &bull;&nbsp;<a href="Get_DEPLOAD_For_LoadCar.html">Get DEPLOAD For LoadCar</a><br/>
+				  &bull;&nbsp;<a href="Cancel_DEPLOAD.html">Cancel DEPLOAD</a><br/>
+				  &bull;&nbsp;<a href="Set_Departure_Status.html">Set Departure Status</a><br/>
+				  &bull;&nbsp;<a href="Report_Departure.html">Report Departure</a><br/>
+				  &bull;&nbsp;<a href="Modify_Departure_Time.html">Modify Departure Time</a><br/>
+				  &bull;&nbsp;<a href="Shipping_Address.html">Shipping Address</a><br/>
+				  &bull;&nbsp;<a href="Remove_Shipping_Address.html">Remove Shipping Address</a><br/>
+				  &bull;&nbsp;<a href="LoadCarrier.html">Load Carrier</a><br/>
+				  &bull;&nbsp;<a href="Remove_LoadCarrier.html">Remove LoadCarrier</a><br/>
+				  &bull;&nbsp;<a href="Pick_Started.html">Pick Started</a><br/>
+				  &bull;&nbsp;<a href="New_DepLoad_Order.html">New DepLoad Order</a><br/>
+				  &bull;&nbsp;<a href="Move_LoadCarrier.html">Move LoadCarrier</a><br/>
+				  &bull;&nbsp;<a href="Client_DeliveryMethod.html">Client Delivery Method</a><br/>
+				  &bull;&nbsp;<a href="Remove_Client_DeliveryMethod.html">Remove Client Delivery Method</a><br/>
+				</div> 
+			    <div class="relatedLinks"> 
+			      <h3>Out</h3>
+				  &bull;&nbsp;<a href="Departure.html">Departure</a><br/>
+				  &bull;&nbsp;<a href="DepartureTransport.html">Departure Transport</a><br/>
+				  &bull;&nbsp;<a href="DepartureNode.html">Departure Node</a><br/>
+				  &bull;&nbsp;<a href="DepartureLoad.html">Departure Load</a><br/>
+				  &bull;&nbsp;<a href="Place_Order_In_Departure.html">Place_Order In Departure</a><br/>
+				  &bull;&nbsp;<a href="Place_SupOrder_In_Departure.html">Place_SupOrder In Departure</a><br/>
+				  &bull;&nbsp;<a href="Place_LoadCar_In_Departure.html">Place LoadCar In Departure</a><br/>
+				  &bull;&nbsp;<a href="DEPLOAD_For_LoadCar.html">DEPLOAD For LoadCar</a><br/>
+				  &bull;&nbsp;<a href="DEPLOAD_For_Order.html">DEPLOAD For Order</a><br/>
+				  &bull;&nbsp;<a href="DEPLOAD_For_SupOrder.html">DEPLOAD For SupOrder</a><br/>
+				  &bull;&nbsp;<a href="DepNodeTrp.html">DepNodeTrp</a><br/>
+				  &bull;&nbsp;<a href="Get_Shipping_Address.html">Get Shipping Address</a><br/>
+				  &bull;&nbsp;<a href="Move_Car_Request.html">Move Car Request</a><br/>
+				  &bull;&nbsp;<a href="Modify_System_Config.html">Modify System Config</a><br/>
+				</div> 
+			</div>
+            <div id="content">
+		      <div class="story">
+			  	<h3>Host Application Programming Interface (TAPI)</h3>
+			  	<h4>Message Direction </h4>
+			  	<p> Each message is either inbound (to IMI Warehouse) or outbound (from IMI Warehouse). The direction of a specific message is shown in the header of each message description as (In) or (Out). </p>
+			  	<h4>Method</h4>
+			  	<p>
+                    The codes in the Method column can assume the following values: <br />
+                      <br />
+                <table width="160" border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td width="26"><div align="center">N</div></td>
+                    <td width="124">- new object</td>
+                  </tr>
+                  <tr>
+                    <td width="26"><div align="center">C</div></td>
+                    <td>- change object</td>
+                  </tr>
+                  <tr>
+                    <td width="26"><div align="center">R</div></td>
+                    <td> - remove object.</td>
+                  </tr>
+                </table>
+                <br />
+                <p>Example: The signature for the Remove operation can be determined by looking at all the attributes that have a 'R' in the method column. </p>
+                <h4>Type</h4>
+				<p>
+                    Shows the data type and length as declared in IMI Warehouse.
+                </p>
+                <h4>Mandatory</h4>
+				<p>
+				    The codes in the Mand column in the table should be interpreted as:
+                      <br />
+                      <br />
+                <table width="579" border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td width="36"><div align="center">*</div></td>
+                    <td>- always mandatory</td>
+                  </tr>
+                  <tr>
+                    <td width="36"><div align="center">-</div></td>
+                    <td>- never mandatory</td>
+                  </tr>
+                  <tr>
+                    <td width="36"><div align="center">code</div></td>
+                    <td>- mandatory for this/these methods. Example N,C means mandatory for New and Change.</td>
+                  </tr>
+                </table>
+                <p><br />
+                For outbound messages Mandatory is not displayed since it implementation dependant. </p>
+                <p><br />
+                </p>
+                <h4><br/>
+                </h4>
+                </p>
+		    </div>
+			</div>
+			<!--end content-->
+			<div id="siteInfo"><br/>
+			 </div>
+		</div>
+		<!--end pagecell1-->
+	</body>
+</html>

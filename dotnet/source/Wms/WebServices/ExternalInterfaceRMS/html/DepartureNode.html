@@ -1,0 +1,50 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Segment DepartureNode</title>
+<link href="StructureDescription.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>Segment DepartureNode</h1>
+<h3>Description:</h3>
+Incoming Message Departure Node<h3>Attributes:</h3>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000"><tbody>
+<tr class="tableHeader"><th class="tableHeaderColumn">Tag</th><th class="tableHeaderColumn">Method</th><th class="tableHeaderColumn">Type</th><th class="tableHeaderColumn">Oracle Type</th><th class="tableHeaderColumn">Mandatory</th><th class="tableHeaderColumn">Note</th></tr>
+<tr class="tableRow"><td class="tableRowColumn">OPCODE</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Operation Code<br/>0 - No Operation<br/>1 - New<br/>2 - Change<br/>3 - Remove<br/>Note! An operation code is only useful if at least one tag supports the method</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DepartureIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Departure Identity<br/>The identity of the Departure.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DepartureIdentityReference</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">External Identity<br/>A reference for the Departure Identity. Can be the identity of the Departure<br/>in an external Host system, etc.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ToNodeIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Node Identity<br/>The identity of the Node. In this case the Node is the drop location in the Route (To Node).<br/>This can be customer(s) / another warehouse.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">StopSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(5)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Stop Sequence Number<br/>The sequence number that the Node has in the Route.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">StopType</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Type of Stop<br/>The type of stop / node:<br/>D = Drop<br/>P = Pick-up</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PrevNodeDrivingTime_Day</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(15,9)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PrevNodeDrivingTime_Hour</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(15,9)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PrevNodeDrivingTime_Minutes</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(15,9)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">NodeStopTime_Day</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(15,9)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">NodeStopTime_Hour</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(15,9)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">NodeStopTime_Minutes</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(15,9)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PrevNodeDrivingDistance</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(12,1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Driving Distance from Previous Node<br/>The driving distance (in number of kilometers/miles) from the previous node.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">EarliestArrivalTime</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Earliest Arrival Time<br/>The earliest date and time when the vehicle may arrive at the Node.<br/>This is used at restrictions for visiting the Node (traffic control, etc).<br/>The Node can only be visited between Earliest Arrival Time and Latest Arrival Time.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">LatestArrivalTime</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Latest Arrival Time<br/>The latest date and time when the vehicle may arrive at the Node.<br/>This is used at restrictions for visiting the Node (traffic control, etc).<br/>The Node can only be visited between Earliest Arrival Time and Latest Arrival Time.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Instructions</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(400)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Instructions<br/>Free text for the truck driver (optional).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ReceiveTransitGoods</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Transit Goods Allowed<br/>Indicates (1=Yes,0=No) if this Ship-to Node can receive transit goods.</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

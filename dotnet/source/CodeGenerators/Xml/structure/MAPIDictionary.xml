@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DictionaryDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <fields>
+    <field name="BarCode" />
+    <field name="BatchType" />
+    <field name="BestBeforDateFlag" />
+    <field name="BitMapReplenishment" />
+    <field name="CreatedDate" />
+    <field name="FifoDate" />
+    <field name="HandlingUnitIdentity" />
+    <field name="HoldCode" />
+    <field name="ItemLoadIdentity" />
+    <field name="MAPI_OUT_ID" />
+    <field name="MaterialHandlingSystemId" />
+    <field name="MovementOrderId" />
+    <field name="MovementOrderIdentity" />
+    <field name="MovementOrderType" />
+    <field name="MovementPriority" />
+    <field name="NumberOfBasePackageS" />
+    <field name="OPCODE" />
+    <field name="OperationalCode" />
+    <field name="ProductDescription1" />
+    <field name="ProductionLotIdentity" />
+    <field name="ProductNumber" />
+    <field name="PROID" />
+    <field name="ReturnCode" />
+    <field name="SEQNUM" />
+    <field name="ToLocationAddress" />
+    <field name="UPDDTM" />
+  </fields>
+</DictionaryDefinition>

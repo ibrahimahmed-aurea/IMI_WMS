@@ -1,0 +1,98 @@
+<%-- 
+Name:
+Author: 
+Description: Dll       : Cdc.MetaManager.CodeGeneration.Templates.dll
+             Namespace : Cdc.MetaManager.CodeGeneration.Templates
+             Type      : ApplicationTemplate
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src=".\Library\Core.cst" Inherits="ReportCoreTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Assembly Name="Cdc.CodeGeneration.Caching" %>
+<%@ Import Namespace="System.IO" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="System.Text" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.CodeGeneration.Caching" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Register Name="XsdTemplate" Template=".\Report\Xsd\XsdTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="PackageBodyTemplate" Template=".\Report\Xsd\PackageBodyTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="PackageSpecTemplate" Template=".\Report\Xsd\PackageSpecTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="CallReportPackageBodyTemplate" Template=".\Report\Xsd\CallReportPackageBodyTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="CallReportPackageSpecTemplate" Template=".\Report\Xsd\CallReportPackageSpecTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Property Name="xsdDirectory" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="plsqlBodyDirectory" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="plsqlSpecDirectory" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="reports" Type="IList<Report>" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="templateCallback" Type="Cdc.MetaManager.DataAccess.CodeSmithTemplateCallback" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="printDocumentPackageName" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%
+  FileCacheManager.Open(xsdDirectory);
+
+  int callbackCnt = 1;
+  int numberOfSteps = 3;
+
+  // Generate the package body and spec for each completed report
+  foreach(Report report in reports)
+  {
+	// Callback
+	int currentPercentage = CurrentPercentage(1, numberOfSteps, callbackCnt-1, reports.Count);
+
+	string callbackText = string.Format("Generating Report ({0}/{1}) - {2}"
+										,callbackCnt.ToString()
+										,reports.Count.ToString()
+										,report.Name);
+
+	templateCallback(callbackText, currentPercentage);
+	
+	callbackCnt++;
+	
+	// XSD
+	string xsdFileName       = string.Format(@"{0}\{1}.xsd", xsdDirectory, report.Name);
+
+	XsdTemplate xsdTemplate = this.Create<XsdTemplate>();
+	xsdTemplate.SetProperty("report", report);
+	xsdTemplate.RenderToFile(xsdFileName, true);
+	
+	// PL/SQL Body File
+	string plsqlBodyFileName = string.Format(@"{0}\{1}.body", plsqlBodyDirectory, report.PackageName);
+
+	PackageBodyTemplate packageBodyTemplate = this.Create<PackageBodyTemplate>();
+	packageBodyTemplate.SetProperty("report", report);
+	packageBodyTemplate.RenderToFile(plsqlBodyFileName, true, Encoding.Default);
+
+	// PL/SQL Spec File
+	string plsqlSpecFileName = string.Format(@"{0}\{1}.spec", plsqlSpecDirectory, report.PackageName);
+	
+	PackageSpecTemplate packageSpecTemplate = this.Create<PackageSpecTemplate>();
+	packageSpecTemplate.SetProperty("report", report);
+	packageSpecTemplate.RenderToFile(plsqlSpecFileName, true, Encoding.Default);
+  }
+
+  // Callback
+  templateCallback("Generating Print Report Package Body", CurrentPercentage(2, numberOfSteps));
+
+  // Create PrintDocument body
+  string plsqlPrintDocumentBodyFileName = string.Format(@"{0}\{1}.body", plsqlBodyDirectory, printDocumentPackageName);
+
+  CallReportPackageBodyTemplate callReportPackageBodyTemplate = this.Create<CallReportPackageBodyTemplate>();
+  callReportPackageBodyTemplate.SetProperty("reports", reports);
+  callReportPackageBodyTemplate.SetProperty("packageName", printDocumentPackageName);
+  callReportPackageBodyTemplate.RenderToFile(plsqlPrintDocumentBodyFileName, true, Encoding.Default);
+
+  // Callback
+  templateCallback("Generating Print Report Package Spec", CurrentPercentage(3, numberOfSteps));
+
+  // Create PrintDocument spec
+  string plsqlPrintDocumentSpecFileName = string.Format(@"{0}\{1}.spec", plsqlSpecDirectory, printDocumentPackageName);
+
+  CallReportPackageSpecTemplate callReportPackageSpecTemplate = this.Create<CallReportPackageSpecTemplate>();
+  callReportPackageSpecTemplate.SetProperty("reports", reports);
+  callReportPackageSpecTemplate.SetProperty("packageName", printDocumentPackageName);
+  callReportPackageSpecTemplate.RenderToFile(plsqlPrintDocumentSpecFileName, true, Encoding.Default);
+
+  templateCallback("Done", 100);
+
+  FileCacheManager.Commit();
+%>

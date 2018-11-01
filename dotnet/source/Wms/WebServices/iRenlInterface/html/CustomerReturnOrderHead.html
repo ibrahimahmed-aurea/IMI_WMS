@@ -1,0 +1,42 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Segment CustomerReturnOrderHead</title>
+<link href="StructureDescription.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>Segment CustomerReturnOrderHead</h1>
+<h3>Description:</h3>
+Customer Return Order<br/>A notification of goods returned to the warehouse.<br/>The goods can be returned from a customer or another warehouse.<h3>Attributes:</h3>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000"><tbody>
+<tr class="tableHeader"><th class="tableHeaderColumn">Tag</th><th class="tableHeaderColumn">Method</th><th class="tableHeaderColumn">Type</th><th class="tableHeaderColumn">Oracle Type</th><th class="tableHeaderColumn">Mandatory</th><th class="tableHeaderColumn">Note</th></tr>
+<tr class="tableRow"><td class="tableRowColumn">OPCODE</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Operation Code<br/>0 - No Operation<br/>1 - New<br/>2 - Change<br/>3 - Remove<br/>Note! An operation code is only useful if at least one tag supports the method</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerReturnOrderNumber</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">Customer Return Order Number</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerReturnOrderSequence</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">Customer Return Order Sequence</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerReturnOrderType</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(2)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Purchase Order Type Identity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ScheduledArrivalDateTime</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">dateTime</td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Expected Arrival Date and Time</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">TransportMethod</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Transport Method<br/>Describes in what way the goods are transported to the warehouse. Only used as information.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">HostStatus</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(15)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">External System Purchase Order Status</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">VendorNumber</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Vendor Identity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">WarehouseIdentity</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(4)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Warehouse Identity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">WarehouseReceiveArea</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Area Identity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">WarehouseDock</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(5)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Dock Door Identity<br/>The dock doors are identified by a unique Identity.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Instructions</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(400)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Instructions<br/>Instructions for the receipt.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Division</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Division</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

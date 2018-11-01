@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <query name="PropertyStorageInfo.FindByTableNameColumnNameAppId">
+    <![CDATA[
+     from PropertyStorageInfo p 
+    where p.TableName = :tableName
+      and p.ColumnName = :columnName
+      and p.Schema.Application.Id = :applicationId
+    ]]>
+  </query>
+</hibernate-mapping>

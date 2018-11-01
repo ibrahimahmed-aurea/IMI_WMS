@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Cdc.MetaManager.DataAccess.Domain.UXApplication, Cdc.MetaManager.DataAccess" table="UXApplication">
+    <id name="Id" type="System.Guid">
+      <column name="Id" not-null="true"/>
+      <generator class="guid"/>
+    </id>
+    <property name="Name" type="String">
+      <column name="Name" length="50" not-null="true"/>
+    </property>
+    <property name="Namespace" type="String">
+      <column name="Namespace" length="255" not-null="false"/>
+    </property>
+    <bag name="Versions" inverse="true" lazy="false" cascade="all">
+      <key column="UXApplicationId"/>
+      <one-to-many class="Cdc.MetaManager.DataAccess.Domain.ApplicationVersion, Cdc.MetaManager.DataAccess"/>
+    </bag>
+    <property name="IsLocked" type="Boolean">
+      <column name="IsLocked" not-null="false"/>
+    </property>
+    <property name="LockedBy" type="String">
+      <column name="LockedBy" length="40" not-null="false"/>
+    </property>
+    <property name="LockedDate" type="System.DateTime">
+      <column name="LockedDate" not-null="false"/>
+    </property>
+    <bag name="ApplicationVersionDependencies" inverse="true" lazy="true" cascade="all">
+      <key column="UXApplicationId"/>
+      <one-to-many class="Cdc.MetaManager.DataAccess.Domain.ApplicationVersion, Cdc.MetaManager.DataAccess"/>
+    </bag>
+  </class>
+</hibernate-mapping>

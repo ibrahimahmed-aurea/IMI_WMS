@@ -1,0 +1,46 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Segment ConfirmationOfReceiptLoadCarrier</title>
+<link href="StructureDescription.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>Segment ConfirmationOfReceiptLoadCarrier</h1>
+<h3>Description:</h3>
+Confirmation of Receipt - Load Carrier<h3>Attributes:</h3>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000"><tbody>
+<tr class="tableHeader"><th class="tableHeaderColumn">Tag</th><th class="tableHeaderColumn">Method</th><th class="tableHeaderColumn">Type</th><th class="tableHeaderColumn">Oracle Type</th><th class="tableHeaderColumn">Mandatory</th><th class="tableHeaderColumn">Note</th></tr>
+<tr class="tableRow"><td class="tableRowColumn">OPCODE</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Operation Code<br/>1 - New</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">AcknowledgeInboundAsnIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Acknowledge Inbound ASN Identity<br/>Acknowledge Inbound ASN Identity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">LoadCarrierIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Load Carrier Identity<br/>The identity of the Load Carrier.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ParentLoadCarrierIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Load Carrier on Load Carrier Identity<br/>The identity of the Load Carrier that the current Load Carrier is placed on, if any.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">LoadCarrierQualifier</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(4)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Type of Load Carrier Identity<br/>SM  - Shipment, the Identity is unique only within the Shipment<br/>SSCC - Serial Shipping Container Code</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ArrivalDateTime</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Arrival Time<br/>Date and time when the goods arrived at / was delivered to the Warehouse.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipToPartyNodeIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-to Party Node Identity<br/>The identity of the Node for the Party that will receive the goods when they are shipped from the Ship-from Party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipToPartyIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-to Party Identity<br/>The identity of the Party that will receive the goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipToPartyQualifier</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-to Party Type<br/>The type of Party that is the Ship-to Party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipFromPartyNodeIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-from Party Node Identity<br/>The identity of the Node for the Party that has shipped the goods to the Warehouse.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipFromPartyIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-from Party Identity<br/>The identity of the Party that has shipped the goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipFromPartyQualifier</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-from Party Type<br/>The type of Party that is the Ship-from Party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">InboundAsnIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Inbound ASN Identity<br/>The identity / number of the inbound ASN.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">InboundAsnSequenceNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">ASN Sequence Number<br/>A Sequence Number to make the ASN identity unique.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DeliveryIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(8)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Receipt Identity<br/>The identity of the Receipt.</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

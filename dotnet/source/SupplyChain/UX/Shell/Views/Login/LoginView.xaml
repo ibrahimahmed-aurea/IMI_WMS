@@ -1,0 +1,24 @@
+<UserControl x:Class="Imi.SupplyChain.UX.Shell.Views.LoginView"
+    x:Name="LoginViewUc"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:controls="clr-namespace:Imi.Framework.Wpf.Controls;assembly=Imi.Framework.Wpf.Controls"
+    xmlns:ribbon="http://schemas.actiprosoftware.com/winfx/xaml/ribbon"
+    xmlns:local="clr-namespace:Imi.SupplyChain.UX.Shell"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    IsTabStop="False">
+  <Grid x:Name="LayoutRoot" Height="450" Width="700">
+    <Grid.Background>
+      <ImageBrush ImageSource="pack://application:,,,/Imi.SupplyChain.UX.Shell;component/Resources/Images/login.png"/>
+    </Grid.Background>
+    <StackPanel Margin="0,220,0,0" HorizontalAlignment="Center">
+      <controls:InfoTextBox VerticalAlignment="Center" Text="" x:Name="UserFld" TextBoxInfo="{x:Static local:StringResources.UserNameTextBox_InfoText}" HorizontalAlignment="Center" Grid.Row="1" Width="200" TextBoxBase.ClipToBounds="True"/>
+      <controls:InfoPasswordBox VerticalAlignment="Center" x:Name="PasswordFld" InfoText="{x:Static local:StringResources.PasswordTextBox_InfoText}" HorizontalAlignment="Center" Margin="0,8,0,0" Grid.Row="2" Width="200"/>
+      <ComboBox SelectionChanged="LanguageComboSelectionChanged" x:Name="LanguageCombo" Width="200" DisplayMemberPath="Name" SelectedValuePath="Culture" Grid.Row="3" Margin="0,8,0,0"/>
+      <Button x:Name="LoginButton" HorizontalAlignment="Left" Content="{x:Static local:StringResources.Login_Login}" MinWidth="80" Grid.Row="4" Grid.RowSpan="1" IsDefault="True" Margin="0,8,0,0" Click="LoginButtonClick"/>
+      <StackPanel x:Name="CapsLockWarning" Orientation="Horizontal">
+        <Image  Height="16" Source="/Imi.SupplyChain.UX.Shell;component/Resources/Images/Warning16.png" />
+        <Label  Height="Auto" Content="{x:Static local:StringResources.Login_CapsLockWarning}" />
+      </StackPanel>
+    </StackPanel>
+  </Grid>
+</UserControl>

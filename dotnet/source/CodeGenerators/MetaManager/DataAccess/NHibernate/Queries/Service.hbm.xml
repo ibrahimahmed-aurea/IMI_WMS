@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <query name="Service.FindAll">
+    <![CDATA[
+     from  Service s 
+     where s.Application.Id = :applicationId
+    ]]>
+  </query>
+  <query name="Service.FindByName">
+    <![CDATA[
+     from  Service s 
+     where s.Application.Id = :applicationId
+     and   s.Name = :serviceName
+    ]]>
+  </query>
+</hibernate-mapping>
+

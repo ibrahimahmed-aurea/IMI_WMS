@@ -1,0 +1,1 @@
+C:\project\views\olla_dotnet_ss\dotnet\source\CodeGenerators\PackageGenerator\bin\Debug\Imi.CodeGenererators.PackageGenerator.exe WEB_SERVICES_QUERY WebServicesQuery.cs Imi.Wms.WebServices.Portal.OrderPortal

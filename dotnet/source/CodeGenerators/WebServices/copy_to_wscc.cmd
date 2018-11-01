@@ -1,0 +1,19 @@
+copy ..\..\Framework\Shared\bin\Debug\Imi.Framework.Shared.dll ..\wscc\bin
+copy Framework\bin\Debug\Imi.CodeGenerators.WebServices.Framework.dll ..\wscc\bin
+copy ColumnInfo2XML\bin\Debug\Imi.CodeGenerators.WebServices.ColumnInfo2XML.exe ..\wscc\bin
+copy ..\PackageGenerator\bin\Debug\Imi.CodeGenererators.PackageGenerator.exe ..\wscc\bin
+copy Spec2XML\bin\Debug\Imi.CodeGenerators.WebServices.Spec2XML.exe ..\wscc\bin
+copy XML2CreateTable\bin\Debug\Imi.CodeGenerators.WebServices.XML2CreateTable.exe ..\wscc\bin
+copy XML2Insert\bin\Debug\Imi.CodeGenerators.WebServices.XML2Insert.exe ..\wscc\bin
+copy XML2IntoProc\bin\Debug\Imi.CodeGenerators.WebServices.XML2IntoProc.exe ..\wscc\bin
+copy XML2Struct\bin\Debug\Imi.CodeGenerators.WebServices.XML2Struct.exe ..\wscc\bin
+copy XML2WSInbound\bin\Debug\Imi.CodeGenerators.WebServices.XML2WSInbound.exe ..\wscc\bin
+copy XML2HAPIHtml\bin\Debug\Imi.CodeGenerators.WebServices.XML2HAPIHtml.exe ..\wscc\bin
+copy XML2Html\bin\Debug\Imi.CodeGenerators.WebServices.XML2Html.exe ..\wscc\bin
+copy XML2WSOutTest\bin\Debug\Imi.CodeGenerators.WebServices.XML2WSOutTest.exe ..\wscc\bin
+copy XML2Select\bin\Debug\Imi.CodeGenerators.WebServices.XML2Select.exe ..\wscc\bin
+copy XML2Sender\bin\Debug\Imi.CodeGenerators.WebServices.XML2Sender.exe ..\wscc\bin
+copy XML2BizTalkDataTypes\bin\Debug\Imi.CodeGenerators.WebServices.XML2BizTalkDataTypes.exe ..\wscc\bin
+copy XML2BizTalkProxy\bin\Debug\Imi.CodeGenerators.WebServices.XML2BizTalkProxy.exe ..\wscc\bin
+copy XML2Dictionary\bin\Debug\Imi.CodeGenerators.WebServices.XML2Dictionary.exe ..\wscc\bin
+

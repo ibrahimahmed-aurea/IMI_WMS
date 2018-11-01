@@ -1,0 +1,32 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Segment VendorReturnOrderHead</title>
+<link href="StructureDescription.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>Segment VendorReturnOrderHead</h1>
+<h3>Description:</h3>
+Vendor Return Order<br/>Orders IMI Warehouse to return goods to a vendor.<h3>Attributes:</h3>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000"><tbody>
+<tr class="tableHeader"><th class="tableHeaderColumn">Tag</th><th class="tableHeaderColumn">Method</th><th class="tableHeaderColumn">Type</th><th class="tableHeaderColumn">Oracle Type</th><th class="tableHeaderColumn">Mandatory</th><th class="tableHeaderColumn">Note</th></tr>
+<tr class="tableRow"><td class="tableRowColumn">OPCODE</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Operation Code<br/>0 - No Operation<br/>1 - New<br/>2 - Change<br/>3 - Remove<br/>Note! An operation code is only useful if at least one tag supports the method</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">VendorReturnOrderNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Vendor Return Order Number<br/>The identity of the Vendor Return Order.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">VendorReturnOrderSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Vendor Return Order Sequence Number<br/>A Sequence Number used by the Host system to make it possible to send a Vendor Return Order more than once.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">WarehouseId</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(4)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Warehouse Identity<br/>The identity of the Warehouse.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">VendorId</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Vendor Identity<br/>The identity of the Vendor.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">RequestedShipDate</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Acknowledged Ship Date<br/>The Ship Date that the Warehouse System has acknowledged to the customer.<br/>This date is mandatory if there is no Selection Type defined for the Customer Order Line.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Instructions</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(400)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Instructions<br/>Free text.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DeliveryMethod</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Method of Shipment<br/>The identity of the method that will be used when shipping the goods from the Warehouse.</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

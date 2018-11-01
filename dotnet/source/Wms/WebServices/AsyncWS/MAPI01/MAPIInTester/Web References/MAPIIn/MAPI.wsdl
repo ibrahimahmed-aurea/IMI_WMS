@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://im.se/wms/webservices/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://im.se/wms/webservices/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">MAPI Inbound (Receiver) interface 5.2.4 generated on 2008-05-12 13:23:02</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://im.se/wms/webservices/">
+      <s:element name="WhoAmI">
+        <s:complexType />
+      </s:element>
+      <s:element name="WhoAmIResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="WhoAmIResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MovementInConfirmation_01">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MHId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TransactionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aMovementInConfirmation_01Doc" type="tns:MovementInConfirmation_01Doc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MovementInConfirmation_01Doc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="OPCODE" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaterialHandlingSystemId" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ItemLoadIdentity" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ToLocationAddress" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnCode" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="MovementInConfirmation_01Response">
+        <s:complexType />
+      </s:element>
+      <s:element name="MovementOutConfirmation_01">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MHId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TransactionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aMovementOutConfirmation_01Doc" type="tns:MovementOutConfirmation_01Doc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MovementOutConfirmation_01Doc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="OPCODE" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaterialHandlingSystemId" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="MovementOrderId" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="MovementOrderType" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ItemLoadIdentity" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ToLocationAddress" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnCode" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="MovementOutConfirmation_01Response">
+        <s:complexType />
+      </s:element>
+      <s:element name="ProductConfirmation_01">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MHId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TransactionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aProductConfirmation_01Doc" type="tns:ProductConfirmation_01Doc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ProductConfirmation_01Doc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="OPCODE" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaterialHandlingSystemId" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ProductNumber" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnCode" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ProductConfirmation_01Response">
+        <s:complexType />
+      </s:element>
+      <s:element name="StatusUpdateConfirmation_01">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MHId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TransactionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aStatusUpdateConfirmation_01Doc" type="tns:StatusUpdateConfirmation_01Doc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="StatusUpdateConfirmation_01Doc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="OPCODE" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaterialHandlingSystemId" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ItemLoadIdentity" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FifoDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="HoldCode" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnCode" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="StatusUpdateConfirmation_01Response">
+        <s:complexType />
+      </s:element>
+      <s:element name="ReplenishmentRequest_01">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MHId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TransactionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aReplenishmentRequest_01Doc" type="tns:ReplenishmentRequest_01Doc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ReplenishmentRequest_01Doc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="OPCODE" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaterialHandlingSystemId" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BitMapReplenishment" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ReplenishmentRequest_01Response">
+        <s:complexType />
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="WhoAmISoapIn">
+    <wsdl:part name="parameters" element="tns:WhoAmI" />
+  </wsdl:message>
+  <wsdl:message name="WhoAmISoapOut">
+    <wsdl:part name="parameters" element="tns:WhoAmIResponse" />
+  </wsdl:message>
+  <wsdl:message name="MovementInConfirmation_01SoapIn">
+    <wsdl:part name="parameters" element="tns:MovementInConfirmation_01" />
+  </wsdl:message>
+  <wsdl:message name="MovementInConfirmation_01SoapOut">
+    <wsdl:part name="parameters" element="tns:MovementInConfirmation_01Response" />
+  </wsdl:message>
+  <wsdl:message name="MovementOutConfirmation_01SoapIn">
+    <wsdl:part name="parameters" element="tns:MovementOutConfirmation_01" />
+  </wsdl:message>
+  <wsdl:message name="MovementOutConfirmation_01SoapOut">
+    <wsdl:part name="parameters" element="tns:MovementOutConfirmation_01Response" />
+  </wsdl:message>
+  <wsdl:message name="ProductConfirmation_01SoapIn">
+    <wsdl:part name="parameters" element="tns:ProductConfirmation_01" />
+  </wsdl:message>
+  <wsdl:message name="ProductConfirmation_01SoapOut">
+    <wsdl:part name="parameters" element="tns:ProductConfirmation_01Response" />
+  </wsdl:message>
+  <wsdl:message name="StatusUpdateConfirmation_01SoapIn">
+    <wsdl:part name="parameters" element="tns:StatusUpdateConfirmation_01" />
+  </wsdl:message>
+  <wsdl:message name="StatusUpdateConfirmation_01SoapOut">
+    <wsdl:part name="parameters" element="tns:StatusUpdateConfirmation_01Response" />
+  </wsdl:message>
+  <wsdl:message name="ReplenishmentRequest_01SoapIn">
+    <wsdl:part name="parameters" element="tns:ReplenishmentRequest_01" />
+  </wsdl:message>
+  <wsdl:message name="ReplenishmentRequest_01SoapOut">
+    <wsdl:part name="parameters" element="tns:ReplenishmentRequest_01Response" />
+  </wsdl:message>
+  <wsdl:portType name="InboundInterfaceSoap">
+    <wsdl:operation name="WhoAmI">
+      <wsdl:input message="tns:WhoAmISoapIn" />
+      <wsdl:output message="tns:WhoAmISoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MovementInConfirmation_01">
+      <wsdl:input message="tns:MovementInConfirmation_01SoapIn" />
+      <wsdl:output message="tns:MovementInConfirmation_01SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MovementOutConfirmation_01">
+      <wsdl:input message="tns:MovementOutConfirmation_01SoapIn" />
+      <wsdl:output message="tns:MovementOutConfirmation_01SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProductConfirmation_01">
+      <wsdl:input message="tns:ProductConfirmation_01SoapIn" />
+      <wsdl:output message="tns:ProductConfirmation_01SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="StatusUpdateConfirmation_01">
+      <wsdl:input message="tns:StatusUpdateConfirmation_01SoapIn" />
+      <wsdl:output message="tns:StatusUpdateConfirmation_01SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReplenishmentRequest_01">
+      <wsdl:input message="tns:ReplenishmentRequest_01SoapIn" />
+      <wsdl:output message="tns:ReplenishmentRequest_01SoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="InboundInterfaceSoap" type="tns:InboundInterfaceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="WhoAmI">
+      <soap:operation soapAction="http://im.se/wms/webservices/WhoAmI" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MovementInConfirmation_01">
+      <soap:operation soapAction="http://im.se/wms/webservices/MovementInConfirmation_01" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MovementOutConfirmation_01">
+      <soap:operation soapAction="http://im.se/wms/webservices/MovementOutConfirmation_01" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProductConfirmation_01">
+      <soap:operation soapAction="http://im.se/wms/webservices/ProductConfirmation_01" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StatusUpdateConfirmation_01">
+      <soap:operation soapAction="http://im.se/wms/webservices/StatusUpdateConfirmation_01" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReplenishmentRequest_01">
+      <soap:operation soapAction="http://im.se/wms/webservices/ReplenishmentRequest_01" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="InboundInterfaceSoap12" type="tns:InboundInterfaceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="WhoAmI">
+      <soap12:operation soapAction="http://im.se/wms/webservices/WhoAmI" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MovementInConfirmation_01">
+      <soap12:operation soapAction="http://im.se/wms/webservices/MovementInConfirmation_01" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MovementOutConfirmation_01">
+      <soap12:operation soapAction="http://im.se/wms/webservices/MovementOutConfirmation_01" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProductConfirmation_01">
+      <soap12:operation soapAction="http://im.se/wms/webservices/ProductConfirmation_01" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StatusUpdateConfirmation_01">
+      <soap12:operation soapAction="http://im.se/wms/webservices/StatusUpdateConfirmation_01" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReplenishmentRequest_01">
+      <soap12:operation soapAction="http://im.se/wms/webservices/ReplenishmentRequest_01" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="InboundInterface">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">MAPI Inbound (Receiver) interface 5.2.4 generated on 2008-05-12 13:23:02</wsdl:documentation>
+    <wsdl:port name="InboundInterfaceSoap" binding="tns:InboundInterfaceSoap">
+      <soap:address location="http://localhost:4664/MAPIWebSite/MAPI.asmx" />
+    </wsdl:port>
+    <wsdl:port name="InboundInterfaceSoap12" binding="tns:InboundInterfaceSoap12">
+      <soap12:address location="http://localhost:4664/MAPIWebSite/MAPI.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

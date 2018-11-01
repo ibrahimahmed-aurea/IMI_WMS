@@ -1,0 +1,41 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="module" Type="Cdc.MetaManager.DataAccess.Domain.Module" Default="" Optional="false" Category="" Description="" %>
+<%
+	string moduleConstantsNamespace = GetModuleConstantsNamespace(module);
+%>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace <%= moduleConstantsNamespace %>
+{
+    public class EventTopicNames
+    {
+<%
+	foreach (Dialog dialog in module.Dialogs)
+	{
+		string dialogNamespace = GetDialogNamespace(dialog);
+%>
+		
+		public const string <%=dialog.Name%>DialogClosed = "event://<%=dialogNamespace%>/Closed";
+<%
+		if (dialog.Type == DialogType.Overview)
+		{
+%>
+		public const string Show<%=dialog.Name%>Dialog = "event://<%=dialogNamespace%>/ShowDialog";
+<%
+		}
+	}
+%>
+    }
+}

@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AzAdminManager MajorVersion="1" MinorVersion="0" Guid="95a61e1b-c1e9-42c6-90c6-02a35debbb3c">
+	<AzApplication Guid="861d5042-2560-409e-809f-5bf99016bd2a" Name="ABC" Description="Azman store for ABC" ApplicationVersion="7.1.6">
+		<AzOperation Guid="8af370a4-3db0-4c81-a0d6-709fe11751d0" Name="8af370a4-3db0-4c81-a0d6-709fe11751d0" Description="Activity.ActivityCost - New Activity Cost">
+			<OperationID>1</OperationID>
+		</AzOperation>
+		<AzOperation Guid="13d02c99-df23-4d7b-b6f0-0b85b70d067e" Name="13d02c99-df23-4d7b-b6f0-0b85b70d067e" Description="Activity.ActivityCost - Change Activity Cost">
+			<OperationID>2</OperationID>
+		</AzOperation>
+		<AzOperation Guid="a9ba4f64-2bd3-4720-9478-4a81fa4a1a3c" Name="a9ba4f64-2bd3-4720-9478-4a81fa4a1a3c" Description="Activity.ActivityCost - Delete Activity Cost">
+			<OperationID>3</OperationID>
+		</AzOperation>
+		<AzOperation Guid="c7db4b0d-3ee1-4dce-8165-0f0caf52e019" Name="c7db4b0d-3ee1-4dce-8165-0f0caf52e019" Description="Activity.ActivityCost - Change Activity Cost Storage">
+			<OperationID>4</OperationID>
+		</AzOperation>
+		<AzOperation Guid="f918bd59-8d0e-4764-b546-37be0f5bb02e" Name="f918bd59-8d0e-4764-b546-37be0f5bb02e" Description="Activity.ActivityCost - Change Activity Cost Picking">
+			<OperationID>5</OperationID>
+		</AzOperation>
+		<AzOperation Guid="52228307-2358-4568-856d-490244b74039" Name="52228307-2358-4568-856d-490244b74039" Description="Activity.ActivityType - Change Translation">
+			<OperationID>6</OperationID>
+		</AzOperation>
+		<AzOperation Guid="3f695916-b0cb-4167-9b01-76fb51117a50" Name="3f695916-b0cb-4167-9b01-76fb51117a50" Description="Activity.ActivityType - New Activity Type">
+			<OperationID>7</OperationID>
+		</AzOperation>
+		<AzOperation Guid="f7bf88ec-1262-4c2b-92b5-08a1975ba507" Name="f7bf88ec-1262-4c2b-92b5-08a1975ba507" Description="Activity.ActivityType - Delete Activity Type">
+			<OperationID>8</OperationID>
+		</AzOperation>
+		<AzOperation Guid="d19cbc45-a535-4683-97d8-3067534a106f" Name="d19cbc45-a535-4683-97d8-3067534a106f" Description="Activity.ActivityType - Change Activity Type">
+			<OperationID>9</OperationID>
+		</AzOperation>
+		<AzOperation Guid="5723fade-c60e-4e87-bf51-9abfd05b3c6c" Name="5723fade-c60e-4e87-bf51-9abfd05b3c6c" Description="Activity.ConfigActivityTypeChgTranslation - OK">
+			<OperationID>10</OperationID>
+		</AzOperation>
+		<AzOperation Guid="64023f15-3e8c-4b57-ae1d-ffdbd1c6f615" Name="64023f15-3e8c-4b57-ae1d-ffdbd1c6f615" Description="Activity.ConfigActivityTypeChgTranslation - Cancel">
+			<OperationID>11</OperationID>
+		</AzOperation>
+		<AzOperation Guid="06ff540c-77e4-4a0e-b74f-7c626b2a23db" Name="06ff540c-77e4-4a0e-b74f-7c626b2a23db" Description="Activity.CreateActivityCost - OK">
+			<OperationID>12</OperationID>
+		</AzOperation>
+		<AzOperation Guid="f9de6851-f289-4dce-af15-22986f9082f6" Name="f9de6851-f289-4dce-af15-22986f9082f6" Description="Activity.CreateActivityType - OK">
+			<OperationID>13</OperationID>
+		</AzOperation>
+		<AzOperation Guid="3494a876-ebdb-471e-8ea4-473fff7658ca" Name="3494a876-ebdb-471e-8ea4-473fff7658ca" Description="Activity.ModifyActivityCost - OK">
+			<OperationID>14</OperationID>
+		</AzOperation>
+		<AzOperation Guid="73b3f09d-0c99-4096-9c0d-a55db53feec5" Name="73b3f09d-0c99-4096-9c0d-a55db53feec5" Description="Activity.ModifyActivityCostPicking - OK">
+			<OperationID>15</OperationID>
+		</AzOperation>
+		<AzOperation Guid="e8e83c20-c461-4f96-9050-857a891edde0" Name="e8e83c20-c461-4f96-9050-857a891edde0" Description="Activity.ModifyActivityCostStorage - OK">
+			<OperationID>16</OperationID>
+		</AzOperation>
+		<AzOperation Guid="d5b408c4-8cb5-4c27-8de6-e5bc8868c348" Name="d5b408c4-8cb5-4c27-8de6-e5bc8868c348" Description="Activity.ModifyActivityType - OK">
+			<OperationID>17</OperationID>
+		</AzOperation>
+		<AzOperation Guid="d2a368c6-20e5-405f-b445-de79917ebe77" Name="d2a368c6-20e5-405f-b445-de79917ebe77" Description="ActivityLog.ActivityLog - New Activity Log">
+			<OperationID>18</OperationID>
+		</AzOperation>
+		<AzOperation Guid="bdb5bf10-6931-4134-bd13-3278015a8789" Name="bdb5bf10-6931-4134-bd13-3278015a8789" Description="ActivityLog.ActivityLog - Delete Activity Log">
+			<OperationID>19</OperationID>
+		</AzOperation>
+		<AzOperation Guid="c30ea37f-4173-4575-99b0-281baabae16a" Name="c30ea37f-4173-4575-99b0-281baabae16a" Description="ActivityLog.ConfigureActivityLog - Change Configuration">
+			<OperationID>20</OperationID>
+		</AzOperation>
+		<AzOperation Guid="50f573da-b6b5-4fd7-bf5c-86fceae9a726" Name="50f573da-b6b5-4fd7-bf5c-86fceae9a726" Description="ActivityLog.CreateActivityLog - OK">
+			<OperationID>21</OperationID>
+		</AzOperation>
+		<AzOperation Guid="b0a23547-173a-4f98-8ed0-83f0985e033b" Name="b0a23547-173a-4f98-8ed0-83f0985e033b" Description="ActivityLog.ModifyConfigureActivityLog - OK">
+			<OperationID>22</OperationID>
+		</AzOperation>
+		<AzOperation Guid="28e4f7ca-b89a-4841-96c3-afb965c848a0" Name="28e4f7ca-b89a-4841-96c3-afb965c848a0" Description="Start Activity Cost">
+			<OperationID>23</OperationID>
+		</AzOperation>
+		<AzOperation Guid="d6c25b99-5f4d-4a29-9634-6d3b7d9c9334" Name="d6c25b99-5f4d-4a29-9634-6d3b7d9c9334" Description="Start Activity Type">
+			<OperationID>24</OperationID>
+		</AzOperation>
+		<AzOperation Guid="4426f2c3-873d-4279-80e2-777984d12fd4" Name="4426f2c3-873d-4279-80e2-777984d12fd4" Description="Start Change User Settings">
+			<OperationID>25</OperationID>
+		</AzOperation>
+		<AzOperation Guid="20eab989-9bad-4d4e-b2e3-4c8a3d6d258d" Name="20eab989-9bad-4d4e-b2e3-4c8a3d6d258d" Description="Start Configure Activity Based Costing">
+			<OperationID>26</OperationID>
+		</AzOperation>
+		<AzOperation Guid="41d40bd9-0438-4f98-b81c-0cd58942261d" Name="41d40bd9-0438-4f98-b81c-0cd58942261d" Description="Start Activity Bill">
+			<OperationID>27</OperationID>
+		</AzOperation>
+		<AzOperation Guid="1abdea66-2b73-4071-bdaf-283494e3ecbe" Name="1abdea66-2b73-4071-bdaf-283494e3ecbe" Description="Start Activity Log">
+			<OperationID>28</OperationID>
+		</AzOperation>
+		<AzTask Guid="1d4e7de2-a2ce-4739-bba3-1696cd0e578a" Name="Activity.ActivityBill" Description="Activity Bill" BizRuleImportedPath="">
+			<OperationLink>41d40bd9-0438-4f98-b81c-0cd58942261d</OperationLink>
+		</AzTask>
+		<AzTask Guid="9fb6ce7f-ed85-47f6-b20e-12f54094167e" Name="Activity.ActivityCost" Description="Activity Cost" BizRuleImportedPath="">
+			<OperationLink>a9ba4f64-2bd3-4720-9478-4a81fa4a1a3c</OperationLink>
+			<OperationLink>28e4f7ca-b89a-4841-96c3-afb965c848a0</OperationLink>
+		</AzTask>
+		<AzTask Guid="def6a730-ad7a-478f-b511-086d0b4490a9" Name="Activity.ActivityType" Description="Activity Type" BizRuleImportedPath="">
+			<OperationLink>f7bf88ec-1262-4c2b-92b5-08a1975ba507</OperationLink>
+			<OperationLink>d6c25b99-5f4d-4a29-9634-6d3b7d9c9334</OperationLink>
+		</AzTask>
+		<AzTask Guid="135e629e-194c-4ef6-bd9e-e50f7e15753c" Name="Activity.ConfigActivityTypeChgTranslation" Description="Change Translation" BizRuleImportedPath="">
+			<OperationLink>52228307-2358-4568-856d-490244b74039</OperationLink>
+			<OperationLink>5723fade-c60e-4e87-bf51-9abfd05b3c6c</OperationLink>
+			<OperationLink>64023f15-3e8c-4b57-ae1d-ffdbd1c6f615</OperationLink>
+		</AzTask>
+		<AzTask Guid="023869cd-fce4-4e02-a9c8-cfb5fcd4b307" Name="Activity.CreateActivityCost" Description="New Activity Cost" BizRuleImportedPath="">
+			<OperationLink>8af370a4-3db0-4c81-a0d6-709fe11751d0</OperationLink>
+			<OperationLink>06ff540c-77e4-4a0e-b74f-7c626b2a23db</OperationLink>
+			<OperationLink>64023f15-3e8c-4b57-ae1d-ffdbd1c6f615</OperationLink>
+		</AzTask>
+		<AzTask Guid="3d038bc9-dc95-4d7a-a606-5d5141810e3f" Name="Activity.CreateActivityType" Description="New Activity Type" BizRuleImportedPath="">
+			<OperationLink>3f695916-b0cb-4167-9b01-76fb51117a50</OperationLink>
+			<OperationLink>f9de6851-f289-4dce-af15-22986f9082f6</OperationLink>
+			<OperationLink>64023f15-3e8c-4b57-ae1d-ffdbd1c6f615</OperationLink>
+		</AzTask>
+		<AzTask Guid="6a519f09-a984-4998-9230-17b9247a306c" Name="Activity.ModifyActivityCost" Description="Change Activity Cost" BizRuleImportedPath="">
+			<OperationLink>13d02c99-df23-4d7b-b6f0-0b85b70d067e</OperationLink>
+			<OperationLink>3494a876-ebdb-471e-8ea4-473fff7658ca</OperationLink>
+			<OperationLink>64023f15-3e8c-4b57-ae1d-ffdbd1c6f615</OperationLink>
+		</AzTask>
+		<AzTask Guid="4abd3010-a082-4fdd-add6-da9333c32016" Name="Activity.ModifyActivityCostPicking" Description="Change Activity Cost Picking" BizRuleImportedPath="">
+			<OperationLink>f918bd59-8d0e-4764-b546-37be0f5bb02e</OperationLink>
+			<OperationLink>73b3f09d-0c99-4096-9c0d-a55db53feec5</OperationLink>
+			<OperationLink>64023f15-3e8c-4b57-ae1d-ffdbd1c6f615</OperationLink>
+		</AzTask>
+		<AzTask Guid="b9fa7725-175d-4185-b715-6611b161b63f" Name="Activity.ModifyActivityCostStorage" Description="Change Activity Cost Storage" BizRuleImportedPath="">
+			<OperationLink>c7db4b0d-3ee1-4dce-8165-0f0caf52e019</OperationLink>
+			<OperationLink>e8e83c20-c461-4f96-9050-857a891edde0</OperationLink>
+			<OperationLink>64023f15-3e8c-4b57-ae1d-ffdbd1c6f615</OperationLink>
+		</AzTask>
+		<AzTask Guid="0cbb6dca-9e37-4764-a369-9864f9164977" Name="Activity.ModifyActivityType" Description="Change Activity Type" BizRuleImportedPath="">
+			<OperationLink>d19cbc45-a535-4683-97d8-3067534a106f</OperationLink>
+			<OperationLink>d5b408c4-8cb5-4c27-8de6-e5bc8868c348</OperationLink>
+			<OperationLink>64023f15-3e8c-4b57-ae1d-ffdbd1c6f615</OperationLink>
+		</AzTask>
+		<AzTask Guid="ba75033c-13f1-46e5-83a1-fe3739131652" Name="Activity" Description="Activity Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>1d4e7de2-a2ce-4739-bba3-1696cd0e578a</TaskLink>
+			<TaskLink>9fb6ce7f-ed85-47f6-b20e-12f54094167e</TaskLink>
+			<TaskLink>def6a730-ad7a-478f-b511-086d0b4490a9</TaskLink>
+			<TaskLink>135e629e-194c-4ef6-bd9e-e50f7e15753c</TaskLink>
+			<TaskLink>023869cd-fce4-4e02-a9c8-cfb5fcd4b307</TaskLink>
+			<TaskLink>3d038bc9-dc95-4d7a-a606-5d5141810e3f</TaskLink>
+			<TaskLink>6a519f09-a984-4998-9230-17b9247a306c</TaskLink>
+			<TaskLink>4abd3010-a082-4fdd-add6-da9333c32016</TaskLink>
+			<TaskLink>b9fa7725-175d-4185-b715-6611b161b63f</TaskLink>
+			<TaskLink>0cbb6dca-9e37-4764-a369-9864f9164977</TaskLink>
+		</AzTask>
+		<AzTask Guid="6cf5c61b-d12d-4fda-ad29-d555cd8ea0b6" Name="ActivityLog.ActivityLog" Description="Activity Log" BizRuleImportedPath="">
+			<OperationLink>bdb5bf10-6931-4134-bd13-3278015a8789</OperationLink>
+			<OperationLink>1abdea66-2b73-4071-bdaf-283494e3ecbe</OperationLink>
+		</AzTask>
+		<AzTask Guid="5da470b1-f83b-4807-bd40-564d476edfbe" Name="ActivityLog.ConfigureActivityLog" Description="Configure Activity Based Costing" BizRuleImportedPath="">
+			<OperationLink>20eab989-9bad-4d4e-b2e3-4c8a3d6d258d</OperationLink>
+		</AzTask>
+		<AzTask Guid="5a9949a9-a5ca-4ca2-9c2d-d3530a17af7f" Name="ActivityLog.CreateActivityLog" Description="New Activity Log" BizRuleImportedPath="">
+			<OperationLink>d2a368c6-20e5-405f-b445-de79917ebe77</OperationLink>
+			<OperationLink>50f573da-b6b5-4fd7-bf5c-86fceae9a726</OperationLink>
+			<OperationLink>64023f15-3e8c-4b57-ae1d-ffdbd1c6f615</OperationLink>
+		</AzTask>
+		<AzTask Guid="43d107c3-739e-46f6-8345-25e01c326e55" Name="ActivityLog.ModifyConfigureActivityLog" Description="Change Configuration" BizRuleImportedPath="">
+			<OperationLink>c30ea37f-4173-4575-99b0-281baabae16a</OperationLink>
+			<OperationLink>b0a23547-173a-4f98-8ed0-83f0985e033b</OperationLink>
+			<OperationLink>64023f15-3e8c-4b57-ae1d-ffdbd1c6f615</OperationLink>
+		</AzTask>
+		<AzTask Guid="63578a19-7ffa-469d-8d72-b557b0566f29" Name="ActivityLog" Description="ActivityLog Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>6cf5c61b-d12d-4fda-ad29-d555cd8ea0b6</TaskLink>
+			<TaskLink>5da470b1-f83b-4807-bd40-564d476edfbe</TaskLink>
+			<TaskLink>5a9949a9-a5ca-4ca2-9c2d-d3530a17af7f</TaskLink>
+			<TaskLink>43d107c3-739e-46f6-8345-25e01c326e55</TaskLink>
+		</AzTask>
+		<AzTask Guid="198b881c-1123-4218-a3ca-ac39953b54d4" Name="Administrator" Description="Administrator Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>ba75033c-13f1-46e5-83a1-fe3739131652</TaskLink>
+			<TaskLink>63578a19-7ffa-469d-8d72-b557b0566f29</TaskLink>
+		</AzTask>
+		<AzTask Guid="83bd5cb3-10ca-4a0b-ac08-c5c618e304ff" Name="Guest" Description="Guest Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>198b881c-1123-4218-a3ca-ac39953b54d4</TaskLink>
+		</AzTask>
+	</AzApplication>
+</AzAdminManager>

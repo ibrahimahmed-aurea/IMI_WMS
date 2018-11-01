@@ -1,0 +1,100 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="ReportCoreTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Register Name="XsdDataTypeTemplate" Template=".\XsdDataTypeTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Property Name="report" Type="Cdc.MetaManager.DataAccess.Domain.Report" Default="" Optional="false" Category="" Description="" %>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- =========================================================== 
+     THIS FILE IS GENERATED AUTOMATICALLY BY THE REPORT MANAGER! 
+     PLEASE REFRAIN FROM EDITING SINCE IT WILL BE OVERWRITTEN!   
+     =========================================================== -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:element name="<%=report.Name%>Report">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="MetaData" type="MetaDataType"/>
+				<xs:element name="Data" type="DataType"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="MetaDataType">
+		<xs:attribute name="documentType" use="required"/>
+		<xs:attribute name="documentSubType" use="required"/>
+		<xs:attribute name="applicationIdentity" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="35"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="terminalIdentity" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="35"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="printerIdentity" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="35"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="userIdentity" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="8"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="numberOfCopies" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:byte">
+					<xs:totalDigits value="5"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="isCopy" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:boolean"/>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="DataType">
+		<xs:sequence>
+			<xs:element name="<%=report.Name%>" type="<%=report.Name%>Type" minOccurs="<%=report.DataDuplicates%>" maxOccurs="<%=report.DataDuplicates%>"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="<%=report.Name%>Type">
+		<xs:sequence>
+<%
+// Find the report queries that has the interface as a parent and build from there
+foreach(ReportQuery reportQuery in report.ReportQueries.OrderBy(r => r.Sequence))
+{
+%>
+			<xs:element name="<%=reportQuery.Query.Name%>" type="<%=reportQuery.Query.Name%>Type" minOccurs="0" maxOccurs="unbounded"/>
+<%
+}
+%>                
+		</xs:sequence>
+	</xs:complexType>
+<%
+
+foreach(ReportQuery reportQuery in report.ReportQueries.OrderBy(r => r.Sequence))
+{
+	XsdDataTypeTemplate xsdDataTypeTemplate = this.Create<XsdDataTypeTemplate>();
+	xsdDataTypeTemplate.SetProperty("reportQuery", reportQuery);
+	xsdDataTypeTemplate.Render(this.Response);
+}
+%>
+</xs:schema>

@@ -1,0 +1,70 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="ServiceTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="service" Type="Cdc.MetaManager.DataAccess.Domain.Service" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="serviceContractDirectory" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="nameSpace" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isFrontend" Type="System.Boolean" Default="" Optional="false" Category="" Description="" %>
+<%
+	
+	string abortable = "";
+	
+	if (isFrontend)
+		abortable = " : IAbortable";
+		
+%>
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.ServiceModel;
+using Imi.Framework.Services;
+<%
+if (isFrontend)
+{
+%>
+using Imi.SupplyChain.UX;
+<%
+}
+%>
+
+namespace <%= nameSpace %>
+{
+    [ServiceContract(Namespace = "<%= GetServiceContractUrl(service) %>")]
+	[ServiceApplicationName("<%=service.Application.Name%>")]
+    public interface <%= GetServiceImplementationInterfaceName(service) %><%=abortable%>
+    {
+	
+<%
+  foreach(ServiceMethod serviceMethod in service.ServiceMethods)
+  {
+    string returnType = GetServiceContractClassName(serviceMethod, false);
+    string paramType = GetServiceContractClassName(serviceMethod, true);
+	bool isMessageHandlingEnabled = (serviceMethod.MappedToAction != null) && (serviceMethod.MappedToAction.IsMessageHandlingEnabled == true) && (serviceMethod.MappedToAction.MappedToObject is StoredProcedure);
+%>
+        [OperationContract]
+        [FaultContract(typeof(SystemFault))]
+        [FaultContract(typeof(ApplicationFault))]
+		[FaultContract(typeof(ValidationFault))]
+<%
+		if (isMessageHandlingEnabled)
+		{
+%>
+        [FaultContract(typeof(MessageFault))]
+<%
+		}
+%>
+        <%= returnType %> <%= serviceMethod.Name %>(
+            <%= paramType %> request);
+
+<%
+  }
+%>
+    }
+}

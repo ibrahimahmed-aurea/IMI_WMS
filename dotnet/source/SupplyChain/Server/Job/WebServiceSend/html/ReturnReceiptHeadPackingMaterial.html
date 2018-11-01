@@ -1,0 +1,34 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Segment ReturnReceiptHeadPackingMaterial</title>
+<link href="StructureDescription.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>Segment ReturnReceiptHeadPackingMaterial</h1>
+<h3>Description:</h3>
+Vendor Return Order Receipt - Packing Material<h3>Attributes:</h3>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000"><tbody>
+<tr class="tableHeader"><th class="tableHeaderColumn">Tag</th><th class="tableHeaderColumn">Method</th><th class="tableHeaderColumn">Type</th><th class="tableHeaderColumn">Oracle Type</th><th class="tableHeaderColumn">Mandatory</th><th class="tableHeaderColumn">Note</th></tr>
+<tr class="tableRow"><td class="tableRowColumn">OPCODE</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Operation Code<br/>1 - New</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ReturnOrderNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Vendor Return Order Number<br/>The identity of the Vendor Return Order.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ReturnOrderSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Vendor Return Order Sequence Number<br/>A Sequence Number used by the Host system to make it possible to send a Vendor Return Order more than once.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ReturnOrderSubSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Vendor Return Order Sub Sequence Number<br/>Used as an extra identity for the Vendor Return Order in the Warehouse system.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipDate</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship Date and Time<br/>The date and time for shipping the goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Packing Material Type Identity<br/>The identity for the type of Packing Material.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PickQuantity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Picked Quantity<br/>The number of Packing Material that have been picked for the Pick Order Line.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">SpontaneousReturn</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Vendor Return Order Type Spontaneous Return<br/>The identity of the type of Vendor Return Order:<br/>EX = External, comes from the Host System.<br/>IN = Internal, created in the Warehouse.<br/>J = Spontaneous, created in the Warehouse<br/>N = Comes from the Host System</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">WarehouseIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(4)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Warehouse Identity<br/>The identity of the Warehouse.</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

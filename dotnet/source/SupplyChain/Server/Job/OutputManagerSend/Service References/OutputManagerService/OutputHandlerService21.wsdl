@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://Imi.SupplyChain.OM.Services.OutputHandler.ServiceContracts/2016/11" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://Imi.SupplyChain.OM.Services.OutputHandler.ServiceContracts/2016/11" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://Imi.SupplyChain.OM.Services.OutputHandler.ServiceContracts/2016/11/Imports">
+      <xsd:import schemaLocation="http://se0133d:18801/OutputManager/OutputHandlerService?xsd=xsd0" namespace="http://Imi.SupplyChain.OM.Services.OutputHandler.ServiceContracts/2016/11" />
+      <xsd:import schemaLocation="http://se0133d:18801/OutputManager/OutputHandlerService?xsd=xsd3" namespace="http://Imi.Framework.Services/2011/09" />
+      <xsd:import schemaLocation="http://se0133d:18801/OutputManager/OutputHandlerService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://se0133d:18801/OutputManager/OutputHandlerService?xsd=xsd2" namespace="http://Imi.SupplyChain.OM.Services.OutputHandler.DataContracts/2016/11" />
+      <xsd:import schemaLocation="http://se0133d:18801/OutputManager/OutputHandlerService?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="CreateOutputRequest">
+    <wsdl:part name="parameters" element="tns:CreateOutputRequest" />
+  </wsdl:message>
+  <wsdl:message name="CreateOutputResponse">
+    <wsdl:part name="parameters" element="tns:CreateOutputResponse" />
+  </wsdl:message>
+  <wsdl:message name="IOutputHandlerService_CreateOutput_SystemFaultFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://Imi.Framework.Services/2011/09" name="detail" element="q1:SystemFault" />
+  </wsdl:message>
+  <wsdl:message name="IOutputHandlerService_CreateOutput_ApplicationFaultFault_FaultMessage">
+    <wsdl:part xmlns:q2="http://Imi.Framework.Services/2011/09" name="detail" element="q2:ApplicationFault" />
+  </wsdl:message>
+  <wsdl:message name="FindPrinterInfoRequest">
+    <wsdl:part name="parameters" element="tns:FindPrinterInfoRequest" />
+  </wsdl:message>
+  <wsdl:message name="FindPrinterInfoResponse">
+    <wsdl:part name="parameters" element="tns:FindPrinterInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IOutputHandlerService_FindPrinterInfo_ApplicationFaultFault_FaultMessage">
+    <wsdl:part xmlns:q3="http://Imi.Framework.Services/2011/09" name="detail" element="q3:ApplicationFault" />
+  </wsdl:message>
+  <wsdl:message name="IOutputHandlerService_FindPrinterInfo_SystemFaultFault_FaultMessage">
+    <wsdl:part xmlns:q4="http://Imi.Framework.Services/2011/09" name="detail" element="q4:SystemFault" />
+  </wsdl:message>
+  <wsdl:portType name="IOutputHandlerService">
+    <wsdl:operation name="CreateOutput">
+      <wsdl:input wsaw:Action="CreateOutput" name="CreateOutputRequest" message="tns:CreateOutputRequest" />
+      <wsdl:output wsaw:Action="http://Imi.SupplyChain.OM.Services.OutputHandler.ServiceContracts/2016/11/IOutputHandlerService/CreateOutputResponse" name="CreateOutputResponse" message="tns:CreateOutputResponse" />
+      <wsdl:fault wsaw:Action="http://Imi.SupplyChain.OM.Services.OutputHandler.ServiceContracts/2016/11/IOutputHandlerService/CreateOutputSystemFaultFault" name="SystemFaultFault" message="tns:IOutputHandlerService_CreateOutput_SystemFaultFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://Imi.SupplyChain.OM.Services.OutputHandler.ServiceContracts/2016/11/IOutputHandlerService/CreateOutputApplicationFaultFault" name="ApplicationFaultFault" message="tns:IOutputHandlerService_CreateOutput_ApplicationFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindPrinterInfo">
+      <wsdl:input wsaw:Action="FindPrinterInfo" name="FindPrinterInfoRequest" message="tns:FindPrinterInfoRequest" />
+      <wsdl:output wsaw:Action="http://Imi.SupplyChain.OM.Services.OutputHandler.ServiceContracts/2016/11/IOutputHandlerService/FindPrinterInfoResponse" name="FindPrinterInfoResponse" message="tns:FindPrinterInfoResponse" />
+      <wsdl:fault wsaw:Action="http://Imi.SupplyChain.OM.Services.OutputHandler.ServiceContracts/2016/11/IOutputHandlerService/FindPrinterInfoApplicationFaultFault" name="ApplicationFaultFault" message="tns:IOutputHandlerService_FindPrinterInfo_ApplicationFaultFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://Imi.SupplyChain.OM.Services.OutputHandler.ServiceContracts/2016/11/IOutputHandlerService/FindPrinterInfoSystemFaultFault" name="SystemFaultFault" message="tns:IOutputHandlerService_FindPrinterInfo_SystemFaultFault_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

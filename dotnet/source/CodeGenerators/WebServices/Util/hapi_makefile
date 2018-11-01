@@ -1,0 +1,64 @@
+#
+# makefile 17/12/2004
+# 
+# Copyright (c) 2004 - 2005 Industri-Matematik AB. All rights reserved.
+#
+XMLOUTDIR=.\hapi\xml
+XMLDIR=.\xml
+HTMLDIR=.\hapi\html
+
+RD=rd /s /q
+CONN="user id = owuser; password = owuser; data source = WHDEPL"
+
+INXMLFILE1=$(XMLOUTDIR)\in1.xml
+INXMLFILE2=$(XMLOUTDIR)\in2.xml
+INMASTER=$(XMLDIR)\HAPIInboundMaster.xml
+
+OUTXMLFILE=$(XMLOUTDIR)\out.xml
+OUTMASTER=$(XMLDIR)\HAPIOutboundMaster.xml
+
+# this refers to the in-side using its parameter names as dictionary for creating the out-side
+DICTIONARY=$(INXMLFILE2)
+
+
+ALLDIR= \
+    "$(XMLOUTDIR)" \
+    "$(HTMLDIR)"
+
+ALLHTML= \
+    "$(HTMLDIR)\index.html"
+
+ALLEXE= \
+    xml2hapihtml.exe
+
+# --------------------------------------------
+# Description Blocks
+# --------------------------------------------
+
+ALL: $(ALLDIR) $(INXMLFILE1) $(INXMLFILE2) $(OUTXMLFILE) $(ALLHTML)
+
+$(INXMLFILE1): 
+    spec2xml HAPI $@ /CONN $(CONN)
+
+$(INXMLFILE2): $(INXMLFILE1)
+    ColumnInfo2XML $(INXMLFILE1) $@ /CONN $(CONN)
+
+$(OUTXMLFILE): $(OUTMASTER) $(XMLOUTDIR)
+    XML2WSOutTest $(OUTMASTER) $@ $(DICTIONARY) /CONN $(CONN)
+
+$(HTMLDIR)\index.html: $(INXMLFILE2) $(INMASTER) $(ALLEXE)
+    xml2hapihtml $(INXMLFILE2) $(INMASTER) $(HTMLDIR)
+    xml2hapihtml $(OUTXMLFILE) $(OUTMASTER) $(HTMLDIR)
+
+CLEAN :
+    -@$(RD) $(XMLOUTDIR)
+    -@$(RD) $(HTMLDIR)
+    @nmake /nologo ALL
+
+"$(XMLOUTDIR)" :
+    @if not exist "$(XMLOUTDIR)/$(NULL)" mkdir "$(XMLOUTDIR)"
+
+"$(HTMLDIR)" :
+    @if not exist "$(HTMLDIR)/$(NULL)" mkdir "$(HTMLDIR)"
+
+# end makefile#

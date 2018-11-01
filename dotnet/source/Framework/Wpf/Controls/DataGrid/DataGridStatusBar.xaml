@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="Imi.Framework.Wpf.Controls.DataGridStatusBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:local="clr-namespace:Imi.Framework.Wpf.Controls"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:themes="http://schemas.actiprosoftware.com/winfx/xaml/themes"
+             Height="Auto" Width="Auto">
+    <StatusBar x:Name="StatusBar" FlowDirection="RightToLeft" Margin="0" Padding="0" Background="{DynamicResource {x:Static themes:AssetResourceKeys.ListColumnHeaderBackgroundNormalBrushKey}}">
+        <StatusBar.ItemsPanel>
+            <ItemsPanelTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="15" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                </Grid>
+            </ItemsPanelTemplate>
+        </StatusBar.ItemsPanel>
+        <StatusBarItem Grid.Column="1" Margin="0" Padding="0,0,5,0">
+            <Border BorderThickness="1" BorderBrush="{DynamicResource {x:Static themes:AssetResourceKeys.EditBorderNormalBrushKey}}" Padding="2">
+                <TextBlock x:Name="RowCountLabel" Foreground="{DynamicResource {x:Static themes:AssetResourceKeys.ControlForegroundNormalBrushKey}}" Text="0/0" FlowDirection="LeftToRight" TextAlignment="Center" Padding="5,0,0,0" MinWidth="100"/>
+            </Border>
+        </StatusBarItem>
+        <StatusBarItem Grid.Column="2" Margin="0" Padding="0,0,5,0" Visibility="Collapsed">
+            <Border BorderThickness="1" BorderBrush="{DynamicResource {x:Static themes:AssetResourceKeys.EditBorderNormalBrushKey}}" Padding="2">
+                <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight">
+                    <TextBlock x:Name="ServerFeedStatusLabel" Foreground="{DynamicResource {x:Static themes:AssetResourceKeys.ControlForegroundNormalBrushKey}}" Padding="5,0,0,0" Text="{Binding Path=ServerFeedStatusLabelText}"/>
+                    <TextBlock x:Name="ServerFeedStatusText" Foreground="{DynamicResource {x:Static themes:AssetResourceKeys.ControlForegroundNormalBrushKey}}" Padding="0,0,5,0" MinWidth="80" TextAlignment="Center" Text="{Binding Path=ServerFeedStatusTextText}"/>
+                </StackPanel>
+            </Border>
+        </StatusBarItem>
+        <StatusBarItem Grid.Column="3" Margin="0" Padding="0,0,5,0" x:Name="ExportStatusBarItem" Opacity="0">
+            <Border BorderThickness="1" BorderBrush="{DynamicResource {x:Static themes:AssetResourceKeys.EditBorderNormalBrushKey}}" Padding="2">
+                <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight">
+                    <TextBlock x:Name="ExportStatusLabel" Foreground="{DynamicResource {x:Static themes:AssetResourceKeys.ControlForegroundNormalBrushKey}}" Padding="5,0,0,0" Text="{Binding Path=ExportStatusText}"/>
+                    <ProgressBar x:Name="ExportStatus" Margin="2" Width="100"/>
+                </StackPanel>
+            </Border>
+        </StatusBarItem>
+    </StatusBar>
+</UserControl>

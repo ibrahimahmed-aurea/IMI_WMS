@@ -1,0 +1,52 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Segment BalanceAnswerLine</title>
+<link href="StructureDescription.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>Segment BalanceAnswerLine</h1>
+<h3>Description:</h3>
+Balance Answer<br/>The result to the balance query or after certain regularity according to the configuration of the system.<br/>The balance is given per Product and is used for checking differences between the Host System and the Warehouse system.<br/>If items have an inventory Status then they will be sent separately, with held Quantity.<h3>Attributes:</h3>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000"><tbody>
+<tr class="tableHeader"><th class="tableHeaderColumn">Tag</th><th class="tableHeaderColumn">Method</th><th class="tableHeaderColumn">Type</th><th class="tableHeaderColumn">Oracle Type</th><th class="tableHeaderColumn">Mandatory</th><th class="tableHeaderColumn">Note</th></tr>
+<tr class="tableRow"><td class="tableRowColumn">OPCODE</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Operation Code<br/>1 - New</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">WarehouseIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(4)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Warehouse Identity<br/>The identity of the Warehouse.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OwnerIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Owner Identity<br/>The identity of the Owner. This is the Owner of the Item Load that shall be picked.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Product Number<br/>The identity of the Product.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductionLotIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(40)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Manufacturing Lot<br/>The Manufacturing Lot for the received goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductionSubLotIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(40)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Manufacturing Sublot<br/>The Manufacturing Sublot for the received goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">MarketingLotIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(20)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Marketing Lot<br/>The Marketing Lot for the received goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">QualityLotIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(20)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Quality Lot<br/>Can be used for optional classification of the stored goods in the Warehouse (quality, color, etc).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PackageIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Unit of Measure<br/>The identity of the Unit of Measure / Package.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">InventoryStatusCode</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(8)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Item Load Status<br/>The current status of the Item Load.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">FreeQuantity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Free Quantity<br/>The total free quantity of Item Loads =<br/>+ Item Loads with the status = Free (incl locally Hold).<br/>+ Item Loads with the status = Inventory Audit.<br/>+ Remaining quantity of not assembled Component Product on the Assembly Location.<br/>- Item Loads with InventoryStatusCode &lt;&gt; Not on Hold (only when sent to Host System).<br/>- Not available goods (not received ASN Load Carrier and reported picked goods).<br/>- Goods from NOT finished Receipts.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PickLocationQuantity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Pick Location Quantity<br/>The Pick Location quantity is calculated in two steps (A and B below) depending on if Trace exists for the Pick Location or not.<br/>Only Pick Locations of type Fixed and Temporary is handled here. For Pick Location of type Floating or Station the balance<br/>has already been included in Free Quantity calculation.<br/>A: Total quantity for Pick Location with NO trace activated (incl locally Hold) =<br/>   + Quantity for Pick Locations with NO Trace.<br/>    - Pick Locations with InventoryStatusCode &lt;&gt; Not on Hold (only when sent to Host System).<br/>B: Total quantity for Pick Location with trace activated (incl locally Hold) =<br/>   + Quantity for Pick Locations with Trace.<br/>    - Pick Locations with InventoryStatusCode &lt;&gt; Not on Hold (only when sent to Host System).<br/>The PickLocationQuantity = A + B.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PickedQuantity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Picked Quantity<br/>The picked quantity =<br/>+ The quantity in Customer Orders with the status = Pick Completed.<br/>+ The quantity in Case Pick Order Lines with the status = Finished, but not yet reported to the Host system.<br/>+ The quantity in Pallet Pick Order Lines with the status = Finished, but not yet reported to the Host system.<br/>- Transit goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">TopickQuantity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Not yet picked Quantity<br/>The not yet picked quantity (reserved quantity) =<br/>+ The Ordered quantity from Customer Orders<br/>- The quantity in Customer Orders with the status = Pick Completed.<br/>- The quantity in Case Pick Order Lines with the status = Finished, but not yet reported to the Host system.<br/>- The quantity in Pallet Pick Order Lines with the status = Finished, but not yet reported to the Host system.<br/>- Transit goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerReservedQuantity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Quantity reserved for customers<br/>The quantity that is reserved for Customer Order (including transit goods that hasn''t been reported) =<br/>+ Item Loads with the status = Reserved (incl locally Hold).<br/>- Item Loads with InventoryStatusCode &lt;&gt; Not on Hold (only when sent to Host System).<br/>- Not available goods (not received ASN Load Carrier and reported picked goods).<br/>- Goods from NOT finished Receipts.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ReservedForReplenQuantity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Quantity reserved for Pick Location Replenishment<br/>The quantity that is reserved for Pick Replen-ishment =<br/>+ Item Loads with the status = Reserved and the hold code = Not on Hold (incl locally Hold).<br/>- Not available goods (not received ASN Load Carrier and reported picked goods).<br/>- Goods from NOT finished Receipts.<br/>- Quantity reserved for Customer Order of type transit goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">MessageNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(14)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Message Number<br/>The Message Number from the Host System.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">LastBalanceAnswer</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Last Balance Answer<br/>Indicates (1=Yes,0=No) if this is the last balance answer for this Warehouse.</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

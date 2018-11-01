@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AzAdminManager MajorVersion="1" MinorVersion="0" Guid="95a61e1b-c1e9-42c6-90c6-02a35debbb3c">
+	<AzApplication Guid="861d5042-2560-409e-809f-5bf99016bd2a" Name="Gateway" Description="Azman store for Gateway" ApplicationVersion="7.1.6">
+		<AzOperation Guid="df1d1e3c-ff9e-4161-bc38-86d8118838df" Name="df1d1e3c-ff9e-4161-bc38-86d8118838df" Description="CarrierCompliancyMessageQueue.CarrierCompliancyMessageQueue - Repeat Message">
+			<OperationID>1</OperationID>
+		</AzOperation>
+		<AzOperation Guid="1bc5578f-56f4-4cc8-bb70-5c3efcf5764f" Name="1bc5578f-56f4-4cc8-bb70-5c3efcf5764f" Description="CarrierCompliancyMessageQueue.CarrierCompliancyMessageQueue - Delete Message">
+			<OperationID>2</OperationID>
+		</AzOperation>
+		<AzOperation Guid="67f652e4-72a4-4436-8422-3caf8d6b31ea" Name="67f652e4-72a4-4436-8422-3caf8d6b31ea" Description="EdiMessageQueue.EDIMessageQueue - Repeat Message">
+			<OperationID>3</OperationID>
+		</AzOperation>
+		<AzOperation Guid="5968653b-22f7-4ab4-8688-3bdc80569f7e" Name="5968653b-22f7-4ab4-8688-3bdc80569f7e" Description="EdiMessageQueue.EDIMessageQueue - Delete Message">
+			<OperationID>4</OperationID>
+		</AzOperation>
+		<AzOperation Guid="0edb9715-8144-4d97-88f8-abbdb56fa7c2" Name="0edb9715-8144-4d97-88f8-abbdb56fa7c2" Description="EdiMessageQueue.EDIMessageQueue - Show Segment">
+			<OperationID>5</OperationID>
+		</AzOperation>
+		<AzOperation Guid="2de7b1ce-1d9f-4477-ac23-c0ccb4d9d01b" Name="2de7b1ce-1d9f-4477-ac23-c0ccb4d9d01b" Description="EdiMessageQueue.EDIMessageQueueSegment - Save">
+			<OperationID>6</OperationID>
+		</AzOperation>
+		<AzOperation Guid="eec1e180-e526-4907-a6d6-c7a04cfd7103" Name="eec1e180-e526-4907-a6d6-c7a04cfd7103" Description="EdiMessageSettings.EDIMessageSegment - Change EDI Segment Error Handling">
+			<OperationID>7</OperationID>
+		</AzOperation>
+		<AzOperation Guid="feb86f44-e5d6-4c3a-8d8d-dd225c26b14b" Name="feb86f44-e5d6-4c3a-8d8d-dd225c26b14b" Description="EdiMessageSettings.EDIMessageSettings - Change EDI Message Status">
+			<OperationID>8</OperationID>
+		</AzOperation>
+		<AzOperation Guid="01aba7b0-0cd6-4a2e-8841-c9225c73aae9" Name="01aba7b0-0cd6-4a2e-8841-c9225c73aae9" Description="EdiMessageSettings.EDIMessageSettings - Show Segment">
+			<OperationID>9</OperationID>
+		</AzOperation>
+		<AzOperation Guid="2ee609a9-2580-4006-9a22-10635e19bd4e" Name="2ee609a9-2580-4006-9a22-10635e19bd4e" Description="EdiMessageSettings.ModifyEDIMessageStatus - Cancel">
+			<OperationID>10</OperationID>
+		</AzOperation>
+		<AzOperation Guid="3a0a6660-d5a2-4f1b-98c3-e8c761d33fa1" Name="3a0a6660-d5a2-4f1b-98c3-e8c761d33fa1" Description="EdiMessageSettings.ModifyEDIMessageStatus - OK">
+			<OperationID>11</OperationID>
+		</AzOperation>
+		<AzOperation Guid="af10cdb1-6d86-428c-90b4-a7483b1d8fcb" Name="af10cdb1-6d86-428c-90b4-a7483b1d8fcb" Description="EdiMessageSettings.ModifyEDISegmentErrorHandling - OK">
+			<OperationID>12</OperationID>
+		</AzOperation>
+		<AzOperation Guid="c4f31f8b-4b06-4bdd-88ff-f89ee24b17d1" Name="c4f31f8b-4b06-4bdd-88ff-f89ee24b17d1" Description="EdiPartner.CreateEDIPartner - OK">
+			<OperationID>13</OperationID>
+		</AzOperation>
+		<AzOperation Guid="6db00a79-fb03-45c4-a5e3-cb39c3f9d963" Name="6db00a79-fb03-45c4-a5e3-cb39c3f9d963" Description="EdiPartner.EDIPartner - New EDI Partner">
+			<OperationID>14</OperationID>
+		</AzOperation>
+		<AzOperation Guid="f2827a2b-730c-45f2-bdfc-1aaec2b761b4" Name="f2827a2b-730c-45f2-bdfc-1aaec2b761b4" Description="EdiPartner.EDIPartner - Change EDI Partner ">
+			<OperationID>15</OperationID>
+		</AzOperation>
+		<AzOperation Guid="17265e08-a04c-465b-bbd0-46ff2ea6b7e5" Name="17265e08-a04c-465b-bbd0-46ff2ea6b7e5" Description="EdiPartner.EDIPartner - DeleteEdiPartner">
+			<OperationID>16</OperationID>
+		</AzOperation>
+		<AzOperation Guid="d2a30cb8-d1d9-4bdd-b3bc-db6a51830b47" Name="d2a30cb8-d1d9-4bdd-b3bc-db6a51830b47" Description="EdiPartner.ModifyEDIPartner - OK">
+			<OperationID>17</OperationID>
+		</AzOperation>
+		<AzOperation Guid="daf80815-e37a-45c8-a12c-76b22d9be02c" Name="daf80815-e37a-45c8-a12c-76b22d9be02c" Description="HapiInboundMessageQueue.HAPIInboundMessageQueue - Repeat Message">
+			<OperationID>18</OperationID>
+		</AzOperation>
+		<AzOperation Guid="7408fc57-720b-466c-8d5a-903fa3a23084" Name="7408fc57-720b-466c-8d5a-903fa3a23084" Description="HapiInboundMessageQueue.HAPIInboundMessageQueue - Delete Message">
+			<OperationID>19</OperationID>
+		</AzOperation>
+		<AzOperation Guid="62b70174-29fc-4847-ac89-e14dc8050dff" Name="62b70174-29fc-4847-ac89-e14dc8050dff" Description="HapiInboundMessageQueue.HAPIInboundMessageQueue - Show Segment">
+			<OperationID>20</OperationID>
+		</AzOperation>
+		<AzOperation Guid="069976eb-10bc-47a5-8864-3a79cdf50a6f" Name="069976eb-10bc-47a5-8864-3a79cdf50a6f" Description="HapiOutboundMessageQueue.HAPIOutboundMessageQueue - Show Segment">
+			<OperationID>21</OperationID>
+		</AzOperation>
+		<AzOperation Guid="d62e84ae-0789-4dc0-b6e4-e25ee492c7a1" Name="d62e84ae-0789-4dc0-b6e4-e25ee492c7a1" Description="HapiOutboundMessageQueue.HAPIOutboundMessageQueue - Repeat Message">
+			<OperationID>22</OperationID>
+		</AzOperation>
+		<AzOperation Guid="81a40bec-73a4-45c2-848e-28c1d86865aa" Name="81a40bec-73a4-45c2-848e-28c1d86865aa" Description="HapiOutboundMessageQueue.HAPIOutboundMessageQueue - Delete Message">
+			<OperationID>23</OperationID>
+		</AzOperation>
+		<AzOperation Guid="ddab686a-9d07-4d2c-9765-3f13992e3bff" Name="ddab686a-9d07-4d2c-9765-3f13992e3bff" Description="TapiMessageQueue.TAPIMessageQueue - Repeat Message">
+			<OperationID>24</OperationID>
+		</AzOperation>
+		<AzOperation Guid="7b5e315a-12d5-4cf4-9158-cf1e899574ab" Name="7b5e315a-12d5-4cf4-9158-cf1e899574ab" Description="TapiMessageQueue.TAPIMessageQueue - Delete Message">
+			<OperationID>25</OperationID>
+		</AzOperation>
+		<AzOperation Guid="ae9e4fe2-d7af-41e4-8598-eaf9abac5024" Name="ae9e4fe2-d7af-41e4-8598-eaf9abac5024" Description="TapiMessageQueue.TAPIMessageQueue - Show Segment">
+			<OperationID>26</OperationID>
+		</AzOperation>
+		<AzOperation Guid="e7bec214-3e24-4166-9dbb-2023cd7712a3" Name="e7bec214-3e24-4166-9dbb-2023cd7712a3" Description="WebServiceProfile.ConfigureWebServicesProfile - Change Message URL">
+			<OperationID>27</OperationID>
+		</AzOperation>
+		<AzOperation Guid="30e1e766-0a9e-4890-8072-e37fb2be82ed" Name="30e1e766-0a9e-4890-8072-e37fb2be82ed" Description="WebServiceProfile.ConfigureWebServicesProfile - New Web Services Profile">
+			<OperationID>28</OperationID>
+		</AzOperation>
+		<AzOperation Guid="58352d42-b458-4ebf-88ce-4a756996d080" Name="58352d42-b458-4ebf-88ce-4a756996d080" Description="WebServiceProfile.ConfigureWebServicesProfile - Change Web Services Profile">
+			<OperationID>29</OperationID>
+		</AzOperation>
+		<AzOperation Guid="362ac8b8-cb36-443a-a2b5-ba25d7fe68f3" Name="362ac8b8-cb36-443a-a2b5-ba25d7fe68f3" Description="WebServiceProfile.ConfigureWebServicesProfile - Delete Web Services Profile">
+			<OperationID>30</OperationID>
+		</AzOperation>
+		<AzOperation Guid="9b44fa8b-b8f6-4a4a-82f7-b91175d4e580" Name="9b44fa8b-b8f6-4a4a-82f7-b91175d4e580" Description="WebServiceProfile.CreateWebServicesProfile - OK">
+			<OperationID>31</OperationID>
+		</AzOperation>
+		<AzOperation Guid="b4afecaa-219f-4eb9-bac2-4c6407869b9d" Name="b4afecaa-219f-4eb9-bac2-4c6407869b9d" Description="WebServiceProfile.ModifyMessageURL - OK">
+			<OperationID>32</OperationID>
+		</AzOperation>
+		<AzOperation Guid="268167ed-934d-4085-a0c8-51fd7556e474" Name="268167ed-934d-4085-a0c8-51fd7556e474" Description="WebServiceProfile.ModifyWebServicesProfile - OK">
+			<OperationID>33</OperationID>
+		</AzOperation>
+		<AzOperation Guid="7a4fd8cf-35f4-4fbe-9eda-1dd237598ca1" Name="7a4fd8cf-35f4-4fbe-9eda-1dd237598ca1" Description="Start HAPI Outbound Message Queue">
+			<OperationID>34</OperationID>
+		</AzOperation>
+		<AzOperation Guid="4d13ecc8-289a-4c04-9ccb-726e2f68425a" Name="4d13ecc8-289a-4c04-9ccb-726e2f68425a" Description="Start Web Services Profile">
+			<OperationID>35</OperationID>
+		</AzOperation>
+		<AzOperation Guid="3d2b1ffc-c048-4467-b238-b4185c6f30d3" Name="3d2b1ffc-c048-4467-b238-b4185c6f30d3" Description="Start EDI Message Settings">
+			<OperationID>36</OperationID>
+		</AzOperation>
+		<AzOperation Guid="32311f3b-6e02-442f-ace9-2565250fdc61" Name="32311f3b-6e02-442f-ace9-2565250fdc61" Description="Start EDI Partner">
+			<OperationID>37</OperationID>
+		</AzOperation>
+		<AzOperation Guid="e47602cc-061e-461a-ba99-604b7525f867" Name="e47602cc-061e-461a-ba99-604b7525f867" Description="Start Change User Settings">
+			<OperationID>38</OperationID>
+		</AzOperation>
+		<AzOperation Guid="7d9a1eee-428c-4f69-a2fe-eb42d4ea05ea" Name="7d9a1eee-428c-4f69-a2fe-eb42d4ea05ea" Description="Start EDI Message Queue">
+			<OperationID>39</OperationID>
+		</AzOperation>
+		<AzOperation Guid="87094db6-5333-4e97-a5e9-c2fd42d37886" Name="87094db6-5333-4e97-a5e9-c2fd42d37886" Description="Start TAPI Message Queue">
+			<OperationID>40</OperationID>
+		</AzOperation>
+		<AzOperation Guid="389e55b0-777b-4f10-951a-5ea01d5f83c9" Name="389e55b0-777b-4f10-951a-5ea01d5f83c9" Description="Start HAPI Inbound Message Queue">
+			<OperationID>41</OperationID>
+		</AzOperation>
+		<AzOperation Guid="5e19affe-e144-4637-9c33-1fda90dcc500" Name="5e19affe-e144-4637-9c33-1fda90dcc500" Description="Start Carrier Compliancy Message Queue">
+			<OperationID>42</OperationID>
+		</AzOperation>
+		<AzTask Guid="f2097be8-9f63-4b19-b7d0-61276e57b940" Name="CarrierCompliancyMessageQueue.CarrierCompliancyMessageQueue" Description="Carrier Compliancy Message Queue" BizRuleImportedPath="">
+			<OperationLink>df1d1e3c-ff9e-4161-bc38-86d8118838df</OperationLink>
+			<OperationLink>1bc5578f-56f4-4cc8-bb70-5c3efcf5764f</OperationLink>
+			<OperationLink>5e19affe-e144-4637-9c33-1fda90dcc500</OperationLink>
+		</AzTask>
+		<AzTask Guid="6abeb528-e54b-4d12-bd21-51938f394100" Name="CarrierCompliancyMessageQueue" Description="CarrierCompliancyMessageQueue Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>f2097be8-9f63-4b19-b7d0-61276e57b940</TaskLink>
+		</AzTask>
+		<AzTask Guid="634c439f-ca20-479d-8344-0f50149512dd" Name="EdiMessageQueue.EDIMessageQueue" Description="EDI Message Queue" BizRuleImportedPath="">
+			<OperationLink>67f652e4-72a4-4436-8422-3caf8d6b31ea</OperationLink>
+			<OperationLink>5968653b-22f7-4ab4-8688-3bdc80569f7e</OperationLink>
+			<OperationLink>7d9a1eee-428c-4f69-a2fe-eb42d4ea05ea</OperationLink>
+		</AzTask>
+		<AzTask Guid="349f2535-8746-4799-9d0e-312ee0a9f9bc" Name="EdiMessageQueue.EDIMessageQueueSegment" Description="Segment" BizRuleImportedPath="">
+			<OperationLink>0edb9715-8144-4d97-88f8-abbdb56fa7c2</OperationLink>
+			<OperationLink>67f652e4-72a4-4436-8422-3caf8d6b31ea</OperationLink>
+			<OperationLink>5968653b-22f7-4ab4-8688-3bdc80569f7e</OperationLink>
+			<OperationLink>2de7b1ce-1d9f-4477-ac23-c0ccb4d9d01b</OperationLink>
+		</AzTask>
+		<AzTask Guid="6cc32d2f-3070-4f1e-89c2-b5b8bc693651" Name="EdiMessageQueue" Description="EdiMessageQueue Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>634c439f-ca20-479d-8344-0f50149512dd</TaskLink>
+			<TaskLink>349f2535-8746-4799-9d0e-312ee0a9f9bc</TaskLink>
+		</AzTask>
+		<AzTask Guid="e462d89a-167a-4e33-bcbd-0763833b296a" Name="EdiMessageSettings.EDIMessageSegment" Description="Segment" BizRuleImportedPath="">
+			<OperationLink>01aba7b0-0cd6-4a2e-8841-c9225c73aae9</OperationLink>
+		</AzTask>
+		<AzTask Guid="06f643b2-5690-4bdd-aec3-8c5683bb677a" Name="EdiMessageSettings.EDIMessageSettings" Description="EDI Message Settings" BizRuleImportedPath="">
+			<OperationLink>3d2b1ffc-c048-4467-b238-b4185c6f30d3</OperationLink>
+		</AzTask>
+		<AzTask Guid="0027f3d7-1334-4cda-b42b-87c53f6a8ce7" Name="EdiMessageSettings.ModifyEDIMessageStatus" Description="Change EDI Message Status" BizRuleImportedPath="">
+			<OperationLink>feb86f44-e5d6-4c3a-8d8d-dd225c26b14b</OperationLink>
+			<OperationLink>2ee609a9-2580-4006-9a22-10635e19bd4e</OperationLink>
+			<OperationLink>3a0a6660-d5a2-4f1b-98c3-e8c761d33fa1</OperationLink>
+		</AzTask>
+		<AzTask Guid="898c54d7-3415-4239-adc8-11f196fd99c5" Name="EdiMessageSettings.ModifyEDISegmentErrorHandling" Description="Change EDI Segment Error Handling" BizRuleImportedPath="">
+			<OperationLink>eec1e180-e526-4907-a6d6-c7a04cfd7103</OperationLink>
+			<OperationLink>2ee609a9-2580-4006-9a22-10635e19bd4e</OperationLink>
+			<OperationLink>af10cdb1-6d86-428c-90b4-a7483b1d8fcb</OperationLink>
+		</AzTask>
+		<AzTask Guid="c8ae6a43-49f6-4403-b2a1-725af193a541" Name="EdiMessageSettings" Description="EdiMessageSettings Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>e462d89a-167a-4e33-bcbd-0763833b296a</TaskLink>
+			<TaskLink>06f643b2-5690-4bdd-aec3-8c5683bb677a</TaskLink>
+			<TaskLink>0027f3d7-1334-4cda-b42b-87c53f6a8ce7</TaskLink>
+			<TaskLink>898c54d7-3415-4239-adc8-11f196fd99c5</TaskLink>
+		</AzTask>
+		<AzTask Guid="7845b9ab-95f1-451c-9f98-71eebff26b56" Name="EdiPartner.CreateEDIPartner" Description="New EDI Partner" BizRuleImportedPath="">
+			<OperationLink>2ee609a9-2580-4006-9a22-10635e19bd4e</OperationLink>
+			<OperationLink>c4f31f8b-4b06-4bdd-88ff-f89ee24b17d1</OperationLink>
+			<OperationLink>6db00a79-fb03-45c4-a5e3-cb39c3f9d963</OperationLink>
+		</AzTask>
+		<AzTask Guid="57d69ef5-8164-4bd7-8015-0c97ce42ba5a" Name="EdiPartner.EDIPartner" Description="EDI Partner" BizRuleImportedPath="">
+			<OperationLink>17265e08-a04c-465b-bbd0-46ff2ea6b7e5</OperationLink>
+			<OperationLink>32311f3b-6e02-442f-ace9-2565250fdc61</OperationLink>
+		</AzTask>
+		<AzTask Guid="dd5634a9-e464-4e2d-a4e5-a8cd674a8d5a" Name="EdiPartner.ModifyEDIPartner" Description="Change EDI Partner" BizRuleImportedPath="">
+			<OperationLink>f2827a2b-730c-45f2-bdfc-1aaec2b761b4</OperationLink>
+			<OperationLink>2ee609a9-2580-4006-9a22-10635e19bd4e</OperationLink>
+			<OperationLink>d2a30cb8-d1d9-4bdd-b3bc-db6a51830b47</OperationLink>
+		</AzTask>
+		<AzTask Guid="8d32abd2-9c2d-4fb5-aacc-d1d626b2ba8f" Name="EdiPartner" Description="EdiPartner Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>7845b9ab-95f1-451c-9f98-71eebff26b56</TaskLink>
+			<TaskLink>57d69ef5-8164-4bd7-8015-0c97ce42ba5a</TaskLink>
+			<TaskLink>dd5634a9-e464-4e2d-a4e5-a8cd674a8d5a</TaskLink>
+		</AzTask>
+		<AzTask Guid="3933ea1a-9841-439d-a50d-a9c8706fbed8" Name="HapiInboundMessageQueue.HAPIInboundMessageQueue" Description="HAPI Inbound Message Queue" BizRuleImportedPath="">
+			<OperationLink>daf80815-e37a-45c8-a12c-76b22d9be02c</OperationLink>
+			<OperationLink>7408fc57-720b-466c-8d5a-903fa3a23084</OperationLink>
+			<OperationLink>389e55b0-777b-4f10-951a-5ea01d5f83c9</OperationLink>
+		</AzTask>
+		<AzTask Guid="8ab3fbbd-0a8b-459a-8949-18e73b8d1436" Name="HapiInboundMessageQueue.HAPIInboundMessageQueueSegment" Description="Segment" BizRuleImportedPath="">
+			<OperationLink>62b70174-29fc-4847-ac89-e14dc8050dff</OperationLink>
+		</AzTask>
+		<AzTask Guid="74761dee-aa5c-4b40-8750-4e349926c377" Name="HapiInboundMessageQueue" Description="HapiInboundMessageQueue Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>3933ea1a-9841-439d-a50d-a9c8706fbed8</TaskLink>
+			<TaskLink>8ab3fbbd-0a8b-459a-8949-18e73b8d1436</TaskLink>
+		</AzTask>
+		<AzTask Guid="6b9e2c64-a3b6-470d-8873-f5cdf20d0e90" Name="HapiOutboundMessageQueue.HAPIOutboundMessageQueue" Description="HAPI Outbound Message Queue" BizRuleImportedPath="">
+			<OperationLink>d62e84ae-0789-4dc0-b6e4-e25ee492c7a1</OperationLink>
+			<OperationLink>81a40bec-73a4-45c2-848e-28c1d86865aa</OperationLink>
+			<OperationLink>7a4fd8cf-35f4-4fbe-9eda-1dd237598ca1</OperationLink>
+		</AzTask>
+		<AzTask Guid="4b9179f3-03db-46e7-a4f2-b2755ffe129f" Name="HapiOutboundMessageQueue.HAPIOutboundMessageQueueSegment" Description="Segment" BizRuleImportedPath="">
+			<OperationLink>069976eb-10bc-47a5-8864-3a79cdf50a6f</OperationLink>
+		</AzTask>
+		<AzTask Guid="1bcf5038-fb4f-408a-a0fe-f3a07f8a81b8" Name="HapiOutboundMessageQueue" Description="HapiOutboundMessageQueue Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>6b9e2c64-a3b6-470d-8873-f5cdf20d0e90</TaskLink>
+			<TaskLink>4b9179f3-03db-46e7-a4f2-b2755ffe129f</TaskLink>
+		</AzTask>
+		<AzTask Guid="c7d72951-5b14-4aff-b093-d8260c0ee25d" Name="TapiMessageQueue.TAPIMessageQueue" Description="TAPI Message Queue" BizRuleImportedPath="">
+			<OperationLink>ddab686a-9d07-4d2c-9765-3f13992e3bff</OperationLink>
+			<OperationLink>7b5e315a-12d5-4cf4-9158-cf1e899574ab</OperationLink>
+			<OperationLink>87094db6-5333-4e97-a5e9-c2fd42d37886</OperationLink>
+		</AzTask>
+		<AzTask Guid="151a45cb-2751-425c-be51-19bd495c9c91" Name="TapiMessageQueue.TAPIMessageQueueSegment" Description="Segment" BizRuleImportedPath="">
+			<OperationLink>ae9e4fe2-d7af-41e4-8598-eaf9abac5024</OperationLink>
+		</AzTask>
+		<AzTask Guid="a3d47cf6-745a-496f-baa3-44a03d37d942" Name="TapiMessageQueue" Description="TapiMessageQueue Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>c7d72951-5b14-4aff-b093-d8260c0ee25d</TaskLink>
+			<TaskLink>151a45cb-2751-425c-be51-19bd495c9c91</TaskLink>
+		</AzTask>
+		<AzTask Guid="d292284f-ee6d-4ee3-98d7-6dad87982cc7" Name="WebServiceProfile.ConfigureWebServicesProfile" Description="Configure Web Services Profile" BizRuleImportedPath="">
+			<OperationLink>362ac8b8-cb36-443a-a2b5-ba25d7fe68f3</OperationLink>
+			<OperationLink>4d13ecc8-289a-4c04-9ccb-726e2f68425a</OperationLink>
+		</AzTask>
+		<AzTask Guid="d6ea23d6-f8d6-432b-862d-4df81257a494" Name="WebServiceProfile.CreateWebServicesProfile" Description="New Web Services Profile" BizRuleImportedPath="">
+			<OperationLink>30e1e766-0a9e-4890-8072-e37fb2be82ed</OperationLink>
+			<OperationLink>2ee609a9-2580-4006-9a22-10635e19bd4e</OperationLink>
+			<OperationLink>9b44fa8b-b8f6-4a4a-82f7-b91175d4e580</OperationLink>
+		</AzTask>
+		<AzTask Guid="1b76b0cb-436e-43af-9d16-12750e9b326d" Name="WebServiceProfile.ModifyMessageURL" Description="Change Message URL" BizRuleImportedPath="">
+			<OperationLink>e7bec214-3e24-4166-9dbb-2023cd7712a3</OperationLink>
+			<OperationLink>b4afecaa-219f-4eb9-bac2-4c6407869b9d</OperationLink>
+			<OperationLink>2ee609a9-2580-4006-9a22-10635e19bd4e</OperationLink>
+		</AzTask>
+		<AzTask Guid="19956872-8398-4bfb-a0ee-0dfb30ea463c" Name="WebServiceProfile.ModifyWebServicesProfile" Description="Change Web Services Profile" BizRuleImportedPath="">
+			<OperationLink>58352d42-b458-4ebf-88ce-4a756996d080</OperationLink>
+			<OperationLink>268167ed-934d-4085-a0c8-51fd7556e474</OperationLink>
+			<OperationLink>2ee609a9-2580-4006-9a22-10635e19bd4e</OperationLink>
+		</AzTask>
+		<AzTask Guid="0045c021-03fd-4aab-b0b8-b335de99c49d" Name="WebServiceProfile" Description="WebServiceProfile Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>d292284f-ee6d-4ee3-98d7-6dad87982cc7</TaskLink>
+			<TaskLink>d6ea23d6-f8d6-432b-862d-4df81257a494</TaskLink>
+			<TaskLink>1b76b0cb-436e-43af-9d16-12750e9b326d</TaskLink>
+			<TaskLink>19956872-8398-4bfb-a0ee-0dfb30ea463c</TaskLink>
+		</AzTask>
+		<AzTask Guid="e86aae4b-3945-4e2b-952a-8a8dcdd86641" Name="Administrator" Description="Administrator Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>6abeb528-e54b-4d12-bd21-51938f394100</TaskLink>
+			<TaskLink>6cc32d2f-3070-4f1e-89c2-b5b8bc693651</TaskLink>
+			<TaskLink>c8ae6a43-49f6-4403-b2a1-725af193a541</TaskLink>
+			<TaskLink>8d32abd2-9c2d-4fb5-aacc-d1d626b2ba8f</TaskLink>
+			<TaskLink>74761dee-aa5c-4b40-8750-4e349926c377</TaskLink>
+			<TaskLink>1bcf5038-fb4f-408a-a0fe-f3a07f8a81b8</TaskLink>
+			<TaskLink>a3d47cf6-745a-496f-baa3-44a03d37d942</TaskLink>
+			<TaskLink>0045c021-03fd-4aab-b0b8-b335de99c49d</TaskLink>
+		</AzTask>
+		<AzTask Guid="34bbb746-ccfd-4d08-8d00-7fb358cc2362" Name="Guest" Description="Guest Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>e86aae4b-3945-4e2b-952a-8a8dcdd86641</TaskLink>
+		</AzTask>
+	</AzApplication>
+</AzAdminManager>

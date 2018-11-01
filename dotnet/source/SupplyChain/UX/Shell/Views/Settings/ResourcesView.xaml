@@ -1,0 +1,44 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:resources="clr-namespace:Imi.SupplyChain.UX.Shell"
+  xmlns:themes="http://schemas.actiprosoftware.com/winfx/xaml/themes"
+	mc:Ignorable="d"
+	x:Class="Imi.SupplyChain.UX.Shell.Views.ResourcesView"
+	x:Name="resourcesView"
+	d:DesignWidth="600" 
+  d:DesignHeight="325">
+	<Grid x:Name="LayoutRoot">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="38"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<Border BorderThickness="0,0,0,1" Background="{DynamicResource {x:Static themes:AssetResourceKeys.ContainerMediumBackgroundNormalBrushKey}}" BorderBrush="{DynamicResource {x:Static themes:AssetResourceKeys.ListBorderNormalBrushKey}}"/>
+		<StackPanel Grid.Row="1" Margin="0" VerticalAlignment="Top">
+			<Grid Margin="8,8">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="0.515*"/>
+					<RowDefinition Height="0.485*"/>
+				</Grid.RowDefinitions>
+				<TextBlock HorizontalAlignment="Left" Margin="4,0,0,4" VerticalAlignment="Bottom" FontSize="16" FontWeight="Bold" Text="{x:Static resources:StringResources.Settings_ResourcesContactUsHeading}" TextWrapping="Wrap"/>
+				<Button HorizontalAlignment="Right" Margin="0,0,4,4" VerticalAlignment="Bottom" MinWidth="80" Content="{x:Static resources:StringResources.Settings_ResourcesContactUsButton}" Click="ContactUsButtonClick"/>
+				<Path Fill="White" Stretch="Fill" Stroke="Black" Margin="2,0,2,1" VerticalAlignment="Bottom" Height="1" Grid.Row="0" Data="M8,47.14 L593,47.14"/>
+				<TextBlock HorizontalAlignment="Left" Margin="4,4,0,0" VerticalAlignment="Top" Grid.Row="1" Text="{x:Static resources:StringResources.Settings_ResourcesContactUsText}" TextWrapping="Wrap"/>
+			</Grid>
+			<Grid Margin="8,0">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="0.515*"/>
+					<RowDefinition Height="0.485*"/>
+				</Grid.RowDefinitions>
+				<TextBlock HorizontalAlignment="Left" Margin="4,0,0,4" VerticalAlignment="Bottom" FontSize="16" FontWeight="Bold" Text="{x:Static resources:StringResources.Settings_ResourcesAboutHeading}" TextWrapping="Wrap"/>
+				<Button HorizontalAlignment="Right" Margin="0,0,4,4" VerticalAlignment="Bottom" MinWidth="80" Content="{x:Static resources:StringResources.Settings_ResourcesAboutButton}" Click="AboutButtonClick"/>
+				<Path Fill="White" Stretch="Fill" Stroke="Black" Margin="2,0,2,1" VerticalAlignment="Bottom" Height="1" Grid.Row="0" Data="M8,47.14 L593,47.14"/>
+				<TextBlock HorizontalAlignment="Left" Margin="4,4,0,0" VerticalAlignment="Top" Grid.Row="1" Text="{Binding ProductName, ElementName=resourcesView}" TextWrapping="Wrap"/>
+			</Grid>
+		</StackPanel>
+		<TextBlock Margin="48,0,4,0" VerticalAlignment="Center" Text="{x:Static resources:StringResources.Settings_ResourcesHeading}" TextWrapping="Wrap" FontWeight="Bold"/>
+		<Image HorizontalAlignment="Left" Source="pack://application:,,,/Imi.SupplyChain.UX.Shell;component/Resources/Images/App.ico" Width="32" Height="32" Margin="8,0,0,0"/>
+	</Grid>
+</UserControl>

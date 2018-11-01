@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SolutionProfile xmlns="http://schemas.microsoft.com/pag/cab-profile" >
+  <Modules>
+    <!--<ModuleInfo AssemblyFile="Imi.SupplyChain.UX.Modules.OrderManagement.dll" />-->
+    <ModuleInfo AssemblyFile="Imi.SupplyChain.UX.Modules.Abc.dll" />
+    <ModuleInfo AssemblyFile="Imi.SupplyChain.UX.Modules.GatewayTMS.dll" />
+    <ModuleInfo AssemblyFile="Imi.SupplyChain.UX.Modules.Transportation.dll" />
+    <ModuleInfo AssemblyFile="Imi.SupplyChain.UX.Modules.GatewayMHS.dll" />
+    <ModuleInfo AssemblyFile="Imi.SupplyChain.UX.Modules.Gateway.dll" />
+    <ModuleInfo AssemblyFile="Imi.SupplyChain.UX.Modules.Dock.dll" />
+    <ModuleInfo AssemblyFile="Imi.SupplyChain.UX.Modules.Warehouse.dll" />
+	  <ModuleInfo AssemblyFile="Imi.SupplyChain.UX.Modules.ActivityMonitor.dll" />
+    <ModuleInfo AssemblyFile="Imi.SupplyChain.UX.Modules.OutputManager.dll" />
+    <ModuleInfo AssemblyFile="Imi.SupplyChain.UX.Shell.dll" />
+    <!--
+    <ModuleInfo AssemblyFile="Imi.SupplyChain.UX.Modules.ProofOfDelivery.dll" />
+    -->
+  </Modules>
+</SolutionProfile>

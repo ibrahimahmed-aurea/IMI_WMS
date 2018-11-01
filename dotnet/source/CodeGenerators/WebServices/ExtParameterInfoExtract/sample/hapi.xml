@@ -1,0 +1,2338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="HAPI">
+  <procedures>
+    <Procedure name="New_Product_Global" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="ART" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="ART" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductDescription1" originTable="ART" originColumn="ARTNAME1" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductDescription2" originTable="ART" originColumn="ARTNAME2" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductStockGroupIdentity" originTable="ART" originColumn="ARTGROUP" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductType" originTable="ART" originColumn="ARTTYPID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductDateType" originTable="ART" originColumn="ARTDTYPE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductShipDateLeadTime" originTable="ART" originColumn="ARTLEAD2" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductDeliveryDateLeadTime" originTable="ART" originColumn="ARTLEAD1" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductManufacturDateLeadTime" originTable="ART" originColumn="ARTLEAD3" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductionLotHandling" originTable="ART" originColumn="PRODLOT_OUT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="MarketingLotHandling" originTable="" originColumn="" datatype="VARCHAR" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="QualityLotHandling" originTable="ART" originColumn="STORBAT_OUT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="SerialNumberHandling" originTable="ART" originColumn="SERIAL" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="FIFOAllowedDiscrepancy" originTable="ART" originColumn="FIFOPLUS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ARTIDSALEABLE" originTable="PMTYP" originColumn="ARTIDSALEABLE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductionLotHandling_In" originTable="ART" originColumn="PRODLOT_IN" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="MarketingLotHandling_In" originTable="ART" originColumn="PROMOTN_IN" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="QualityLotHandling_In" originTable="ART" originColumn="STORBAT_IN" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Modify_Product_Global" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="ART" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="ART" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductDescription1" originTable="ART" originColumn="ARTNAME1" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductDescription2" originTable="ART" originColumn="ARTNAME2" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductStockGroupIdentity" originTable="ART" originColumn="ARTGROUP" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductType" originTable="ART" originColumn="ARTTYPID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductDateType" originTable="ART" originColumn="ARTDTYPE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductShipDateLeadTime" originTable="ART" originColumn="ARTLEAD2" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductDeliveryDateLeadTime" originTable="ART" originColumn="ARTLEAD1" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductManufacturDateLeadTime" originTable="ART" originColumn="ARTLEAD3" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductionLotHandling" originTable="ART" originColumn="PRODLOT_OUT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="MarketingLotHandling" originTable="" originColumn="" datatype="VARCHAR" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="QualityLotHandling" originTable="ART" originColumn="STORBAT_OUT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="SerialNumberHandling" originTable="ART" originColumn="SERIAL" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="FIFOAllowedDiscrepancy" originTable="ART" originColumn="FIFOPLUS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ARTIDSALEABLE" originTable="PMTYP" originColumn="ARTIDSALEABLE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductionLotHandling_In" originTable="ART" originColumn="PRODLOT_IN" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="MarketingLotHandling_In" originTable="ART" originColumn="PROMOTN_IN" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="QualityLotHandling_In" originTable="ART" originColumn="STORBAT_IN" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Remove_Product_Global" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="ART" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="ART" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="New_Product_Stock_Group" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="ARTGRP" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductStockGroupIdentity" originTable="ARTGRP" originColumn="ARTGROUP" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductStockGroupName" originTable="ARTGRP" originColumn="ARTGRPNAME" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Modify_Product_Stock_Group" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="ARTGRP" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductStockGroupIdentity" originTable="ARTGRP" originColumn="ARTGROUP" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductStockGroupName" originTable="ARTGRP" originColumn="ARTGRPNAME" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Remove_Product_Stock_Group" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="ARTGRP" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductStockGroupIdentity" originTable="ARTGRP" originColumn="ARTGROUP" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="New_Add_Product_Number" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="ARTNUM" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="AdditionalNumberType" originTable="ARTNUM" originColumn="ART_NUMBER_TYPE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="AdditionalProductNumber" originTable="ARTNUM" originColumn="ART_NUMBER" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="ARTNUM" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Modify_Add_Product_Number" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="ARTNUM" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="AdditionalNumberType" originTable="ARTNUM" originColumn="ART_NUMBER_TYPE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="AdditionalProductNumber" originTable="ARTNUM" originColumn="ART_NUMBER" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="ARTNUM" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Remove_Add_Product_Number" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="ARTNUM" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="AdditionalNumberType" originTable="ARTNUM" originColumn="ART_NUMBER_TYPE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="AdditionalProductNumber" originTable="ARTNUM" originColumn="ART_NUMBER" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="ARTNUM" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="New_Product_Description" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="ARTDESCR" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="ARTDESCR" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Language" originTable="ARTDESCR" originColumn="LNGID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Description1" originTable="ARTDESCR" originColumn="ARTNAME1" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Description2" originTable="ARTDESCR" originColumn="ARTNAME2" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Modify_Product_Description" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="ARTDESCR" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="ARTDESCR" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Language" originTable="ARTDESCR" originColumn="LNGID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Description1" originTable="ARTDESCR" originColumn="ARTNAME1" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Description2" originTable="ARTDESCR" originColumn="ARTNAME2" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Remove_Product_Description" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="ARTDESCR" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="ARTDESCR" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Language" originTable="ARTDESCR" originColumn="LNGID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="New_Product_In_Warehouse" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="ARTWH" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="ARTWH" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="WarehouseIdentity" originTable="ARTWH" originColumn="WHID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="InventoryAuditFrequency" originTable="ARTWH" originColumn="STFREQ_ITEM" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Stocked" originTable="ARTWH" originColumn="STOCKEDPRODUCT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="QualityCheck" originTable="ARTWH" originColumn="QCRECEIVE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="OwnerIdentity" originTable="ARTWH" originColumn="OWNID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="StorageTemperatureMin" originTable="ARTWH" originColumn="STORMINTEMP" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="StorageTemperatureMax" originTable="ARTWH" originColumn="STORMAXTEMP" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="StorageTemperatureQualifier" originTable="ARTWH" originColumn="TEMPQUALIFIER" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Frequency" originTable="ARTWH" originColumn="FREQNCY" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ABCclass" originTable="ARTWH" originColumn="ABCCLASS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Instructions" originTable="ARTWH" originColumn="INSTRUCTIONS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="HygieneCheck" originTable="ARTWH" originColumn="HYGCHK" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="TemperatureCheck" originTable="ARTWH" originColumn="TEMPCHK" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="RefuseTempHigh" originTable="ARTWH" originColumn="MAXTEMP_REFUSE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="RefuseTempLow" originTable="ARTWH" originColumn="MINTEMP_REFUSE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="WarnTempHigh" originTable="ARTWH" originColumn="MAXTEMP_WARNING" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="WarnTempLow" originTable="ARTWH" originColumn="MINTEMP_WARNING" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PackageChange" originTable="ARTWH" originColumn="PAKCHNGE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="QualityLotHandling" originTable="ARTWH" originColumn="STORBAT_OUT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductionLotHandling_In" originTable="ARTWH" originColumn="PRODLOT_IN" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="MarketingLotHandling_In" originTable="ARTWH" originColumn="PROMOTN_IN" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="QualityLotHandling_In" originTable="ARTWH" originColumn="STORBAT_IN" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Modify_Product_In_Warehouse" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="ARTWH" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="ARTWH" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="WarehouseIdentity" originTable="ARTWH" originColumn="WHID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="InventoryAuditFrequency" originTable="ARTWH" originColumn="STFREQ_ITEM" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Stocked" originTable="ARTWH" originColumn="STOCKEDPRODUCT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="QualityCheck" originTable="ARTWH" originColumn="QCRECEIVE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="OwnerIdentity" originTable="ARTWH" originColumn="OWNID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="StorageTemperatureMin" originTable="ARTWH" originColumn="STORMINTEMP" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="StorageTemperatureMax" originTable="ARTWH" originColumn="STORMAXTEMP" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="StorageTemperatureQualifier" originTable="ARTWH" originColumn="TEMPQUALIFIER" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Frequency" originTable="ARTWH" originColumn="FREQNCY" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ABCclass" originTable="ARTWH" originColumn="ABCCLASS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Instructions" originTable="ARTWH" originColumn="INSTRUCTIONS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="HygieneCheck" originTable="ARTWH" originColumn="HYGCHK" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="TemperatureCheck" originTable="ARTWH" originColumn="TEMPCHK" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="RefuseTempHigh" originTable="ARTWH" originColumn="MAXTEMP_REFUSE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="RefuseTempLow" originTable="ARTWH" originColumn="MINTEMP_REFUSE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="WarnTempHigh" originTable="ARTWH" originColumn="MAXTEMP_WARNING" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="WarnTempLow" originTable="ARTWH" originColumn="MINTEMP_WARNING" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PackageChange" originTable="ARTWH" originColumn="PAKCHNGE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="QualityLotHandling" originTable="ARTWH" originColumn="STORBAT_OUT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductionLotHandling_In" originTable="ARTWH" originColumn="PRODLOT_IN" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="MarketingLotHandling_In" originTable="ARTWH" originColumn="PROMOTN_IN" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="QualityLotHandling_In" originTable="ARTWH" originColumn="STORBAT_IN" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Remove_Product_In_Warehouse" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="ARTWH" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="ARTWH" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="WarehouseIdentity" originTable="ARTWH" originColumn="WHID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="New_Product_Package" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="PAK" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="PAK" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PackageIdentity" originTable="PAK" originColumn="PAKID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PackageName" originTable="PAK" originColumn="PAKNAME" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="BasePackageIdentity" originTable="PAK" originColumn="BASPAKID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="NumberofBasePackages" originTable="PAK" originColumn="BASEQTY" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="NumberofConsumerPackages" originTable="PAK" originColumn="CONSUMERQTY" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Weight" originTable="PAK" originColumn="WEIGHT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Height" originTable="PAK" originColumn="HEIGHT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Length" originTable="PAK" originColumn="LENGTH" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Width" originTable="PAK" originColumn="WIDTH" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Volume" originTable="PAK" originColumn="VOLUME" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PMTYPID_IN" originTable="PAK" originColumn="PMTYPID_IN" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PMTYPID_OUT" originTable="PAK" originColumn="PMTYPID_OUT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="LayerPackage" originTable="PAK" originColumn="LAYERPAK" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="VolumeFillPercent" originTable="PAK" originColumn="VOLUME_FILL_PERCENT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="BarCode" originTable="PAK" originColumn="EANDUN" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="BarCodeType" originTable="EAN" originColumn="BARCODETYPE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Modify_Product_Package" type="procedure" overloaded="true">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="PAK" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="PAK" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PackageIdentity" originTable="PAK" originColumn="PAKID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PackageName" originTable="PAK" originColumn="PAKNAME" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="BasePackageIdentity" originTable="PAK" originColumn="BASPAKID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="NumberofBasePackages" originTable="PAK" originColumn="BASEQTY" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="NumberofConsumerPackages" originTable="PAK" originColumn="CONSUMERQTY" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Weight" originTable="PAK" originColumn="WEIGHT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Height" originTable="PAK" originColumn="HEIGHT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Length" originTable="PAK" originColumn="LENGTH" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Width" originTable="PAK" originColumn="WIDTH" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Volume" originTable="PAK" originColumn="VOLUME" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PMTYPID_IN" originTable="PAK" originColumn="PMTYPID_IN" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PMTYPID_OUT" originTable="PAK" originColumn="PMTYPID_OUT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="LayerPackage" originTable="PAK" originColumn="LAYERPAK" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Modify_Product_Package" type="procedure" overloaded="true">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="PAK" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="PAK" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PackageIdentity" originTable="PAK" originColumn="PAKID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PackageName" originTable="PAK" originColumn="PAKNAME" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="BasePackageIdentity" originTable="PAK" originColumn="BASPAKID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="NumberofBasePackages" originTable="PAK" originColumn="BASEQTY" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="NumberofConsumerPackages" originTable="PAK" originColumn="CONSUMERQTY" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Weight" originTable="PAK" originColumn="WEIGHT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Height" originTable="PAK" originColumn="HEIGHT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Length" originTable="PAK" originColumn="LENGTH" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Width" originTable="PAK" originColumn="WIDTH" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Volume" originTable="PAK" originColumn="VOLUME" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PMTYPID_IN" originTable="PAK" originColumn="PMTYPID_IN" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PMTYPID_OUT" originTable="PAK" originColumn="PMTYPID_OUT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="LayerPackage" originTable="PAK" originColumn="LAYERPAK" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="VolumeFillPercent" originTable="PAK" originColumn="VOLUME_FILL_PERCENT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="BarCode" originTable="PAK" originColumn="EANDUN" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="BarCodeType" originTable="EAN" originColumn="BARCODETYPE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Remove_Product_Package" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="PAK" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="PAK" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PackageIdentity" originTable="PAK" originColumn="PAKID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Check_Remove_Product_Package" type="function" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="PAK" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="PAK" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PackageIdentity" originTable="PAK" originColumn="PAKID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="" originTable="" originColumn="" datatype="VARCHAR2" direction="result">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="New_Product_Barcode" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="EAN" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="BarCodeNumber" originTable="EAN" originColumn="EANDUN" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="EAN" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="BarcodeType" originTable="EAN" originColumn="BARCODETYPE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PackageIdentity" originTable="EAN" originColumn="PAKID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Modify_Product_Barcode" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="EAN" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="BarCodeNumber" originTable="EAN" originColumn="EANDUN" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="EAN" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="BarcodeType" originTable="EAN" originColumn="BARCODETYPE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PackageIdentity" originTable="EAN" originColumn="PAKID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Remove_Product_Barcode" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="EAN" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="BarCodeNumber" originTable="EAN" originColumn="EANDUN" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="EAN" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="New_Product_Vendor" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="ARTSUP" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="VendorIdentity" originTable="ARTSUP" originColumn="SUPID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="ARTSUP" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="VendorProductNumber" originTable="ARTSUP" originColumn="SUPARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PackageIdentity" originTable="ARTSUP" originColumn="PAKID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CountryOfOrigin" originTable="ARTSUP" originColumn="COOCOD" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Modify_Product_Vendor" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="ARTSUP" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="VendorIdentity" originTable="ARTSUP" originColumn="SUPID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="ARTSUP" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="VendorProductNumber" originTable="ARTSUP" originColumn="SUPARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PackageIdentity" originTable="ARTSUP" originColumn="PAKID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CountryOfOrigin" originTable="ARTSUP" originColumn="COOCOD" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Remove_Product_Vendor" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="ARTSUP" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="VendorIdentity" originTable="ARTSUP" originColumn="SUPID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="ARTSUP" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="New_Customer" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="CUS" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerNumber" originTable="CUS" originColumn="CUSID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerName1" originTable="CUS" originColumn="CUSNAME1" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerName2" originTable="CUS" originColumn="CUSNAME2" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Modify_Customer" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="CUS" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerNumber" originTable="CUS" originColumn="CUSID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerName1" originTable="CUS" originColumn="CUSNAME1" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerName2" originTable="CUS" originColumn="CUSNAME2" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Remove_Customer" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="CUS" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerNumber" originTable="CUS" originColumn="CUSID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="New_Vendor" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="SUP" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="VendorNumber" originTable="SUP" originColumn="SUPID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="VendorName" originTable="SUP" originColumn="SUPNAME" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Modify_Vendor" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="SUP" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="VendorNumber" originTable="SUP" originColumn="SUPID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="VendorName" originTable="SUP" originColumn="SUPNAME" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Remove_Vendor" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="SUP" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="VendorNumber" originTable="SUP" originColumn="SUPID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="New_Product_Transport_Req" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="ARTTRPREQ" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="ARTTRPREQ" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="TransportRequirementCode" originTable="ARTTRPREQ" originColumn="ARTTRPREQCOD" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Modify_Product_Transport_Req" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="ARTTRPREQ" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="ARTTRPREQ" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="TransportRequirementCode" originTable="ARTTRPREQ" originColumn="ARTTRPREQCOD" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Remove_Product_Transport_Req" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="ARTTRPREQ" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="ARTTRPREQ" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="TransportRequirementCode" originTable="ARTTRPREQ" originColumn="ARTTRPREQCOD" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="New_Party_Address" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="PARTY" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PartyQualifier" originTable="PARTY" originColumn="PARTY_QUALIFIER" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PartyIdentity" originTable="PARTY" originColumn="PARTY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PartyProfile" originTable="PARTY" originColumn="PARTY_PROFILE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PartyStatus" originTable="PARTY" originColumn="PARTY_STAT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PartyName1" originTable="PARTY" originColumn="NAME1" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PartyName2" originTable="PARTY" originColumn="NAME2" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PartyName3" originTable="PARTY" originColumn="NAME3" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PartyName4" originTable="PARTY" originColumn="NAME4" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PartyName5" originTable="PARTY" originColumn="NAME5" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PartyAddress1" originTable="PARTY" originColumn="ADR1" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PartyAddress2" originTable="PARTY" originColumn="ADR2" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PartyAddress3" originTable="PARTY" originColumn="ADR3" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PartyAddress4" originTable="PARTY" originColumn="ADR4" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ZipCode" originTable="PARTY" originColumn="POSTCODE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="City" originTable="PARTY" originColumn="CITY" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Region" originTable="PARTY" originColumn="REGION" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CountryCode" originTable="PARTY" originColumn="COUNTRYCODE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Country" originTable="PARTY" originColumn="COUNTRY" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="GeographicalCode" originTable="PARTY" originColumn="GEOREF" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Phone" originTable="PARTY" originColumn="PHONE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Fax" originTable="PARTY" originColumn="FAX" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Telex" originTable="PARTY" originColumn="TELEX" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Email" originTable="PARTY" originColumn="EMAIL" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PostalGiroAccount" originTable="PARTY" originColumn="POSTAL_GIRO_ACCNT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="BankGiroAccount" originTable="PARTY" originColumn="BANK_GIRO_ACCNT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="VATNumber" originTable="PARTY" originColumn="VAT_NUMBER" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="OrganizationNumber" originTable="PARTY" originColumn="ORG_NUMBER" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Language" originTable="PARTY" originColumn="LNGID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="SendASN" originTable="PARTY" originColumn="SENDASN" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="RcvCheckType" originTable="PARTY" originColumn="RCV_CHECK_TYPE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Modify_Party_Address" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="PARTY" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PartyQualifier" originTable="PARTY" originColumn="PARTY_QUALIFIER" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PartyIdentity" originTable="PARTY" originColumn="PARTY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PartyProfile" originTable="PARTY" originColumn="PARTY_PROFILE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PartyStatus" originTable="PARTY" originColumn="PARTY_STAT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PartyName1" originTable="PARTY" originColumn="NAME1" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PartyName2" originTable="PARTY" originColumn="NAME2" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PartyName3" originTable="PARTY" originColumn="NAME3" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PartyName4" originTable="PARTY" originColumn="NAME4" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PartyName5" originTable="PARTY" originColumn="NAME5" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PartyAddress1" originTable="PARTY" originColumn="ADR1" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PartyAddress2" originTable="PARTY" originColumn="ADR2" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PartyAddress3" originTable="PARTY" originColumn="ADR3" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PartyAddress4" originTable="PARTY" originColumn="ADR4" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ZipCode" originTable="PARTY" originColumn="POSTCODE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="City" originTable="PARTY" originColumn="CITY" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Region" originTable="PARTY" originColumn="REGION" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CountryCode" originTable="PARTY" originColumn="COUNTRYCODE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Country" originTable="PARTY" originColumn="COUNTRY" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="GeographicalCode" originTable="PARTY" originColumn="GEOREF" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Phone" originTable="PARTY" originColumn="PHONE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Fax" originTable="PARTY" originColumn="FAX" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Telex" originTable="PARTY" originColumn="TELEX" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Email" originTable="PARTY" originColumn="EMAIL" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PostalGiroAccount" originTable="PARTY" originColumn="POSTAL_GIRO_ACCNT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="BankGiroAccount" originTable="PARTY" originColumn="BANK_GIRO_ACCNT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="VATNumber" originTable="PARTY" originColumn="VAT_NUMBER" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="OrganizationNumber" originTable="PARTY" originColumn="ORG_NUMBER" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Language" originTable="PARTY" originColumn="LNGID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="SendASN" originTable="PARTY" originColumn="SENDASN" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="RcvCheckType" originTable="PARTY" originColumn="RCV_CHECK_TYPE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Remove_Party_Address" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="PARTY" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PartyQualifier" originTable="PARTY" originColumn="PARTY_QUALIFIER" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PartyIdentity" originTable="PARTY" originColumn="PARTY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="New_Purchase_Order_Head" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="RCVHEAD" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PurchaseOrderNumber" originTable="RCVHEAD" originColumn="POID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PurchaseOrderSequence" originTable="RCVHEAD" originColumn="POSEQ" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PurchaseOrderType" originTable="RCVHEAD" originColumn="POTYPID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ScheduledArrivalDateTime" originTable="RCVHEAD" originColumn="EXPARRDTM" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="TransportMethod" originTable="RCVHEAD" originColumn="TRPMETH" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="HostStatus" originTable="RCVHEAD" originColumn="MSPOSTAT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="VendorNumber" originTable="RCVHEAD" originColumn="SUPID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="WarehouseIdentity" originTable="RCVHEAD" originColumn="WHID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="WarehouseRecieveArea" originTable="WS" originColumn="WSID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="WarehouseDock" originTable="WD" originColumn="DOCKID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Instructions" originTable="RCVHEAD" originColumn="INSTRUCTIONS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Modify_Purchase_Order_Head" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="RCVHEAD" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PurchaseOrderNumber" originTable="RCVHEAD" originColumn="POID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PurchaseOrderSequence" originTable="RCVHEAD" originColumn="POSEQ" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PurchaseOrderType" originTable="RCVHEAD" originColumn="POTYPID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ScheduledArrivalDateTime" originTable="RCVHEAD" originColumn="EXPARRDTM" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="TransportMethod" originTable="RCVHEAD" originColumn="TRPMETH" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="HostStatus" originTable="RCVHEAD" originColumn="MSPOSTAT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="VendorNumber" originTable="RCVHEAD" originColumn="SUPID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="WarehouseIdentity" originTable="RCVHEAD" originColumn="WHID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="WarehouseRecieveArea" originTable="WS" originColumn="WSID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="WarehouseDock" originTable="WD" originColumn="DOCKID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Instructions" originTable="RCVHEAD" originColumn="INSTRUCTIONS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Remove_Purchase_Order_Head" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="RCVHEAD" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PurchaseOrderNumber" originTable="RCVHEAD" originColumn="POID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PurchaseOrderSequence" originTable="RCVHEAD" originColumn="POSEQ" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="New_Purchase_Order_Line" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="RCVROW" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PurchaseOrderNumber" originTable="RCVROW" originColumn="POID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PurchaseOrderSequence" originTable="RCVROW" originColumn="POSEQ" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PurchaseOrderLinePosition" originTable="RCVROW" originColumn="POPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PurchaseOrderLineSequence" originTable="RCVROW" originColumn="POSUBPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="OwnerIdentity" originTable="RCVROW" originColumn="OWNID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="RCVROW" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductDescription" originTable="RCVROW" originColumn="ARTNAME" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="VendorProductNumber" originTable="RCVROW" originColumn="SUPARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ScheduledArrivalDateTime" originTable="RCVROW" originColumn="EXPARRDTM" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PackageIdentity" originTable="RCVROW" originColumn="BASPAKID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PurchaseQuantity" originTable="RCVROW" originColumn="ORDQTY" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductionLotIdentity" originTable="RCVROW" originColumn="PRODLOT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductionSubLotIdentity" originTable="RCVROW" originColumn="PRODSUBLOT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="MarketingLotIdentity" originTable="RCVROW" originColumn="PROMOTN" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PurchasePrice" originTable="RCVROW" originColumn="PURPRICE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ShiptoCustomerQualifier" originTable="RCVROW" originColumn="SHIPTOCUSQUALIFIER" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ShiptoCustomerIdentity" originTable="RCVROW" originColumn="SHIPTOCUSID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ShiptoPartyQualifier" originTable="RCVROW" originColumn="SHIPTOPARTYQUALIFIER" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ShiptoPartyIdentity" originTable="RCVROW" originColumn="SHIPTOPARTYID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderNumber" originTable="RCVROW" originColumn="COID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderSequence" originTable="RCVROW" originColumn="COSEQ" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderLinePosition" originTable="RCVROW" originColumn="COPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderLineKitPosition" originTable="RCVROW" originColumn="COROWKITPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderLineSequence" originTable="RCVROW" originColumn="COSUBPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="InventoryStatusCode" originTable="RCVROW" originColumn="BLOCKCOD" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="InventoryStatusDays" originTable="RCVROW" originColumn="BLOCKDAYS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Instructions" originTable="RCVROW" originColumn="INSTRUCTIONS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="DeliveryWindowFirst" originTable="RCVROW" originColumn="FARRDTM" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="DeliveryWindowLast" originTable="RCVROW" originColumn="LARRDTM" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="OriginalOrderIdentity" originTable="RCVROW" originColumn="ORIGINPOID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="OriginalOrderLinePosition" originTable="RCVROW" originColumn="ORIGINPOPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="OriginalCustomerReference" originTable="RCVROW" originColumn="ORIGINCUSREF" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="SelltoCustomerQualifier" originTable="RCVROW" originColumn="SELLTOCUSQUALIFIER" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="SelltoCustomerIdentity" originTable="RCVROW" originColumn="SELLTOCUSID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="LastRow" originTable="" originColumn="" datatype="VARCHAR2" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="QualityLotIdentity" originTable="RCVROW" originColumn="STORBAT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Modify_Purchase_Order_Line" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="RCVROW" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PurchaseOrderNumber" originTable="RCVROW" originColumn="POID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PurchaseOrderSequence" originTable="RCVROW" originColumn="POSEQ" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PurchaseOrderLinePosition" originTable="RCVROW" originColumn="POPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PurchaseOrderLineSequence" originTable="RCVROW" originColumn="POSUBPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="OwnerIdentity" originTable="RCVROW" originColumn="OWNID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="RCVROW" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductDescription" originTable="RCVROW" originColumn="ARTNAME" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="VendorProductNumber" originTable="RCVROW" originColumn="SUPARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ScheduledArrivalDateTime" originTable="RCVROW" originColumn="EXPARRDTM" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PackageIdentity" originTable="RCVROW" originColumn="BASPAKID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PurchaseQuantity" originTable="RCVROW" originColumn="ORDQTY" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductionLotIdentity" originTable="RCVROW" originColumn="PRODLOT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductionSubLotIdentity" originTable="RCVROW" originColumn="PRODSUBLOT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="MarketingLotIdentity" originTable="RCVROW" originColumn="PROMOTN" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PurchasePrice" originTable="RCVROW" originColumn="PURPRICE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ShiptoCustomerQualifier" originTable="RCVROW" originColumn="SHIPTOCUSQUALIFIER" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ShiptoCustomerIdentity" originTable="RCVROW" originColumn="SHIPTOCUSID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ShiptoPartyQualifier" originTable="RCVROW" originColumn="SHIPTOPARTYQUALIFIER" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ShiptoPartyIdentity" originTable="RCVROW" originColumn="SHIPTOPARTYID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderNumber" originTable="RCVROW" originColumn="COID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderSequence" originTable="RCVROW" originColumn="COSEQ" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderLinePosition" originTable="RCVROW" originColumn="COPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderLineKitPosition" originTable="RCVROW" originColumn="COROWKITPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderLineSequence" originTable="RCVROW" originColumn="COSUBPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="InventoryStatusCode" originTable="RCVROW" originColumn="BLOCKCOD" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="InventoryStatusDays" originTable="RCVROW" originColumn="BLOCKDAYS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Instructions" originTable="RCVROW" originColumn="INSTRUCTIONS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="DeliveryWindowFirst" originTable="RCVROW" originColumn="FARRDTM" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="DeliveryWindowLast" originTable="RCVROW" originColumn="LARRDTM" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="OriginalOrderIdentity" originTable="RCVROW" originColumn="ORIGINPOID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="OriginalOrderLinePosition" originTable="RCVROW" originColumn="ORIGINPOPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="OriginalCustomerReference" originTable="RCVROW" originColumn="ORIGINCUSREF" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="SelltoCustomerQualifier" originTable="RCVROW" originColumn="SELLTOCUSQUALIFIER" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="SelltoCustomerIdentity" originTable="RCVROW" originColumn="SELLTOCUSID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="LastRow" originTable="" originColumn="" datatype="VARCHAR2" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="QualityLotIdentity" originTable="RCVROW" originColumn="STORBAT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Delta_PurchaseQuantity_I" originTable="RCVROW" originColumn="ORDQTY" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Remove_Purchase_Order_Line" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="RCVROW" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PurchaseOrderNumber" originTable="RCVROW" originColumn="POID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PurchaseOrderSequence" originTable="RCVROW" originColumn="POSEQ" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PurchaseOrderLinePosition" originTable="RCVROW" originColumn="POPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PurchaseOrderLineSequence" originTable="RCVROW" originColumn="POSUBPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="LastRow" originTable="" originColumn="" datatype="VARCHAR2" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="New_Customer_Ret_Order_Head" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="RCVHEAD" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderNumber" originTable="RCVHEAD" originColumn="CROID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderSequence" originTable="RCVHEAD" originColumn="CROSEQ" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderType" originTable="RCVHEAD" originColumn="POTYPID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ScheduledArrivalDateTime" originTable="RCVHEAD" originColumn="EXPARRDTM" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="TransportMethod" originTable="RCVHEAD" originColumn="TRPMETH" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="HostStatus" originTable="RCVHEAD" originColumn="MSPOSTAT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="VendorNumber" originTable="RCVHEAD" originColumn="SUPID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="WarehouseIdentity" originTable="RCVHEAD" originColumn="WHID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="WarehouseReceiveArea" originTable="WS" originColumn="WSID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="WarehouseDock" originTable="WD" originColumn="DOCKID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Instructions" originTable="RCVHEAD" originColumn="INSTRUCTIONS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Modify_Customer_Ret_Order_Head" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="RCVHEAD" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderNumber" originTable="RCVHEAD" originColumn="CROID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderSequence" originTable="RCVHEAD" originColumn="CROSEQ" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderType" originTable="RCVHEAD" originColumn="POTYPID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ScheduledArrivalDateTime" originTable="RCVHEAD" originColumn="EXPARRDTM" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="TransportMethod" originTable="RCVHEAD" originColumn="TRPMETH" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="HostStatus" originTable="RCVHEAD" originColumn="MSPOSTAT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="VendorNumber" originTable="RCVHEAD" originColumn="SUPID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="WarehouseIdentity" originTable="RCVHEAD" originColumn="WHID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="WarehouseReceiveArea" originTable="WS" originColumn="WSID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="WarehouseDock" originTable="WD" originColumn="DOCKID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Instructions" originTable="RCVHEAD" originColumn="INSTRUCTIONS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Remove_Customer_Ret_Order_Head" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="RCVHEAD" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderNumber" originTable="RCVHEAD" originColumn="CROID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderSequence" originTable="RCVHEAD" originColumn="CROSEQ" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="New_Customer_Ret_Order_Line" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="RCVROW" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderNumber" originTable="RCVROW" originColumn="CROID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderSequence" originTable="RCVROW" originColumn="CROSEQ" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderLinePos" originTable="RCVROW" originColumn="CROPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderLineKitPos" originTable="RCVROW" originColumn="CROKITPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderLineSeq" originTable="RCVROW" originColumn="CROSUBPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="OwnerIdentity" originTable="RCVROW" originColumn="OWNID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="RCVROW" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductDescription" originTable="RCVROW" originColumn="ARTNAME" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="VendorProductNumber" originTable="RCVROW" originColumn="SUPARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ScheduledArrivalDateTime" originTable="RCVROW" originColumn="EXPARRDTM" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PackageIdentity" originTable="RCVROW" originColumn="BASPAKID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnQuantity" originTable="RCVROW" originColumn="ORDQTY" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="MarketingLotIdentity" originTable="RCVROW" originColumn="PROMOTN" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnPrice" originTable="RCVROW" originColumn="PURPRICE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="InventoryStatusCode" originTable="RCVROW" originColumn="BLOCKCOD" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="InventoryStatusDays" originTable="RCVROW" originColumn="BLOCKDAYS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Instructions" originTable="RCVROW" originColumn="INSTRUCTIONS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="OriginalOrderIdentity" originTable="RCVROW" originColumn="ORIGINPOID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="OriginalOrderLinePosition" originTable="RCVROW" originColumn="ORIGINPOPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="OriginalCustomerReference" originTable="RCVROW" originColumn="ORIGINCUSREF" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ShiptoCustomerQualifier" originTable="RCVROW" originColumn="SHIPTOCUSQUALIFIER" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ShiptoCustomerIdentity" originTable="RCVROW" originColumn="SHIPTOCUSID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="SelltoCustomerQualifier" originTable="RCVROW" originColumn="SELLTOCUSQUALIFIER" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="SelltoCustomerIdentity" originTable="RCVROW" originColumn="SELLTOCUSID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ActionCode" originTable="RCVROW" originColumn="ACTCODID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ReasonCode" originTable="RCVROW" originColumn="REASONCODE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="FromPartyId" originTable="RCVROW" originColumn="FROMPARTYID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="FromPartyQualifier" originTable="RCVROW" originColumn="FROMPARTYQUALIFIER" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ShiptoVendorIdentity" originTable="RCVROW" originColumn="SHIPTOSUPID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ShiptoVendorQualifier" originTable="RCVROW" originColumn="SHIPTOSUPQUALIFIER" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderNumber" originTable="RCVROW" originColumn="COID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderLinePosition" originTable="RCVROW" originColumn="COPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderLineSequence" originTable="RCVROW" originColumn="COSUBPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ActionCodeRequirement" originTable="RCVROW" originColumn="ACTCODREQ" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Modify_Customer_Ret_Order_Line" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="RCVROW" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderNumber" originTable="RCVROW" originColumn="POID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderSequence" originTable="RCVROW" originColumn="POSEQ" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderLinePos" originTable="RCVROW" originColumn="POPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderLineKitPos" originTable="RCVROW" originColumn="COROWKITPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderLineSeq" originTable="RCVROW" originColumn="POSUBPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="OwnerIdentity" originTable="RCVROW" originColumn="OWNID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="RCVROW" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductDescription" originTable="RCVROW" originColumn="ARTNAME" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="VendorProductNumber" originTable="RCVROW" originColumn="SUPARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ScheduledArrivalDateTime" originTable="RCVROW" originColumn="EXPARRDTM" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PackageIdentity" originTable="RCVROW" originColumn="BASPAKID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnQuantity" originTable="RCVROW" originColumn="ORDQTY" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="MarketingLotIdentity" originTable="RCVROW" originColumn="PROMOTN" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnPrice" originTable="RCVROW" originColumn="PURPRICE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="InventoryStatusCode" originTable="RCVROW" originColumn="BLOCKCOD" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="InventoryStatusDays" originTable="RCVROW" originColumn="BLOCKDAYS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Instructions" originTable="RCVROW" originColumn="INSTRUCTIONS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="OriginalOrderIdentity" originTable="RCVROW" originColumn="ORIGINPOID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="OriginalOrderLinePosition" originTable="RCVROW" originColumn="ORIGINPOPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="OriginalCustomerReference" originTable="RCVROW" originColumn="ORIGINCUSREF" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ShiptoCustomerQualifier" originTable="RCVROW" originColumn="SHIPTOCUSQUALIFIER" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ShiptoCustomerIdentity" originTable="RCVROW" originColumn="SHIPTOCUSID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="SelltoCustomerQualifier" originTable="RCVROW" originColumn="SELLTOCUSQUALIFIER" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="SelltoCustomerIdentity" originTable="RCVROW" originColumn="SELLTOCUSID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ActionCode" originTable="RCVROW" originColumn="ACTCODID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ReasonCode" originTable="RCVROW" originColumn="REASONCODE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="FromPartyId" originTable="RCVROW" originColumn="FROMPARTYID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="FromPartyQualifier" originTable="RCVROW" originColumn="FROMPARTYQUALIFIER" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ShiptoVendorIdentity" originTable="RCVROW" originColumn="SHIPTOSUPID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ShiptoVendorQualifier" originTable="RCVROW" originColumn="SHIPTOSUPQUALIFIER" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderNumber" originTable="RCVROW" originColumn="COID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderLinePosition" originTable="RCVROW" originColumn="COPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderLineSequence" originTable="RCVROW" originColumn="COSUBPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ActionCodeRequirement" originTable="RCVROW" originColumn="ACTCODREQ" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Remove_Customer_Ret_Order_Line" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="RCVROW" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderNumber" originTable="RCVROW" originColumn="POID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderSequence" originTable="RCVROW" originColumn="POSEQ" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderLinePos" originTable="RCVROW" originColumn="POPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderLineKitPos" originTable="RCVROW" originColumn="COROWKITPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderLineSeq" originTable="RCVROW" originColumn="POSUBPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="New_Cus_Ret_Ord_Line_Pr_Lot" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="RCVROW" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderNumber" originTable="RCVROW" originColumn="POID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderSequence" originTable="RCVROW" originColumn="POSEQ" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderLinePos" originTable="RCVROW" originColumn="POPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderLineKitPos" originTable="RCVROW" originColumn="COROWKITPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderLineSeq" originTable="RCVROW" originColumn="POSUBPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductionLotIdentity" originTable="RCVROW" originColumn="PRODLOT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductionSubLotIdentity" originTable="RCVROW" originColumn="PRODSUBLOT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnQuantity" originTable="RCVROW" originColumn="ORDQTY" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnPrice" originTable="RCVROW" originColumn="PURPRICE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Modify_Cus_Ret_Ord_Line_Pr_Lot" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="RCVROW" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderNumber" originTable="RCVROW" originColumn="POID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderSequence" originTable="RCVROW" originColumn="POSEQ" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderLinePos" originTable="RCVROW" originColumn="POPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderLineKitPos" originTable="RCVROW" originColumn="COROWKITPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderLineSeq" originTable="RCVROW" originColumn="POSUBPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductionLotIdentity" originTable="RCVROW" originColumn="PRODLOT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductionSubLotIdentity" originTable="RCVROW" originColumn="PRODSUBLOT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnQuantity" originTable="RCVROW" originColumn="ORDQTY" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnPrice" originTable="RCVROW" originColumn="PURPRICE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Remove_Cus_Ret_Ord_Line_Pr_Lot" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="RCVROW" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderNumber" originTable="RCVROW" originColumn="POID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderSequence" originTable="RCVROW" originColumn="POSEQ" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderLinePos" originTable="RCVROW" originColumn="POPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderLineKitPos" originTable="RCVROW" originColumn="COROWKITPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderLineSeq" originTable="RCVROW" originColumn="POSUBPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductionLotIdentity" originTable="RCVROW" originColumn="PRODLOT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductionSubLotIdentity" originTable="RCVROW" originColumn="PRODSUBLOT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="New_Customer_Order_Head" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="CO" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderNumber" originTable="CO" originColumn="COID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderSequence" originTable="CO" originColumn="COSEQ" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderType" originTable="CO" originColumn="COTYPE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderClass" originTable="CO" originColumn="COTYPID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderReference" originTable="CO" originColumn="CO_REF" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="BilltoCustomerIdentity" originTable="CO" originColumn="BILLTOCUSID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="SelltoCustomerIdentity" originTable="CO" originColumn="SELLTOCUSID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ShiptoCustomerIdentity" originTable="CO" originColumn="SHIPTOCUSID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PickPriority" originTable="CO" originColumn="PICKPRI" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="DispatchFee" originTable="CO" originColumn="DISPATCH_FEE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CODFee" originTable="CO" originColumn="COD_FEE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Currency" originTable="CO" originColumn="CURRENCY" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="FreightCost" originTable="CO" originColumn="FREIGHT_COST" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="FreightPartyQualifier" originTable="CO" originColumn="FRE_PARTY_QUALIFIER" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="FreightPartyIdentity" originTable="CO" originColumn="FRE_PARTY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderValue" originTable="CO" originColumn="COVALUE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="New_Customer_Order_Text" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="CO" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderNumber" originTable="CO" originColumn="COID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderSequence" originTable="CO" originColumn="COSEQ" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="TextFunction" originTable="COFTX" originColumn="FTX_QUALIFIER" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Text" originTable="COFTX" originColumn="TEXT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="New_Customer_Order_Line" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="COROW" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderNumber" originTable="COROW" originColumn="COID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderSequence" originTable="COROW" originColumn="COSEQ" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderLinePosition" originTable="COROW" originColumn="COPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderLineKitPosition" originTable="COROW" originColumn="COROWKITPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderLineSequence" originTable="COROW" originColumn="COSUBPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderLineType" originTable="COROW" originColumn="COROWTYPE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Kitproduct" originTable="COROW" originColumn="KITPRODUCT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ShiptoPartyQualifier" originTable="COROW" originColumn="SHIPTOPARTYQUALIFIER" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ShiptoPartyIdentity" originTable="COROW" originColumn="SHIPTOPARTYID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ShiptoCustomerSubAddress" originTable="COROW" originColumn="SHIPSUBADRID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="RequestedShipdate" originTable="COROW" originColumn="REQSHIPDATE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="AcknowledgedShipdate" originTable="COROW" originColumn="ACKSHIPDATE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="RequestedDeliveryDate" originTable="COROW" originColumn="REQDLVRYDATE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="AcknowledgedDeliveryDate" originTable="COROW" originColumn="ACKDLVRYDATE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="WarehouseIdentity" originTable="COROW" originColumn="WHID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="COROW" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="OwnerIdentity" originTable="COROW" originColumn="OWNID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductionLotRequireMent" originTable="COROW" originColumn="PRODLOTREQ" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="MarketingLotIdentity" originTable="COROW" originColumn="PROMOTN" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="QualityLotIdentity" originTable="COROW" originColumn="STORBAT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PackageIdentity" originTable="COROW" originColumn="PAKID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="OrderedQuantity" originTable="COROW" originColumn="ORDQTY" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="OrderedQuantityTolerancePlus" originTable="COROW" originColumn="ABALDIFF_PLUS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="OrderedQuantityToleranceMinus" originTable="COROW" originColumn="ABALDIFF_MINUS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="KitDetailQuantity" originTable="COROW" originColumn="KITDETAILQTY" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="RequestedShelfLife" originTable="COROW" originColumn="REQSHELFLIFE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ForcePackage" originTable="COROW" originColumn="PAKFRCE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="SerialNumberHandling" originTable="COROW" originColumn="SERIAL" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="SerialNumber" originTable="COROW" originColumn="SERNUMB" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="VATPercent" originTable="COROW" originColumn="VAT_PERCENT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="DepartureIdentity" originTable="" originColumn="" datatype="VARCHAR2" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="DepartureWeekday" originTable="" originColumn="" datatype="VARCHAR2" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="DepartureTime" originTable="" originColumn="" datatype="DATE" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="DeliveryMethod" originTable="COROW" originColumn="DLVRYMETH_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Measure" originTable="COROW" originColumn="MEASURE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="MeasureQualifier" originTable="COROW" originColumn="MEASURE_QUALIFIER" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="SalesPrice" originTable="COROW" originColumn="PRICE1" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="LineTotal" originTable="COROW" originColumn="PRICE2" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ShiptoCustomerProductNumber" originTable="COROW" originColumn="SHIPTOCUSARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PurchaseOrderNumber" originTable="COROW" originColumn="POID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PurchaseOrderSequence" originTable="COROW" originColumn="POSEQ" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PurchaseOrderLinePosition" originTable="COROW" originColumn="POPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PurchaseOrderLineSequence" originTable="COROW" originColumn="POSUBPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="OriginalOrderIdentity" originTable="COROW" originColumn="ORIGINPOID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="OriginalOrderLinePosition" originTable="COROW" originColumn="ORIGINPOPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="DepartureLoadIdentity" originTable="COROW" originColumn="DEPLOAD_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PlanLoad" originTable="COROW" originColumn="PLAN_LOAD" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="DateSelectionType" originTable="COROW" originColumn="DATE_SELECTION_TYPE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="FirstPlannedDeliveryDtm" originTable="COROW" originColumn="FPDELDTM" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="LastPlannedDeliveryDtm" originTable="COROW" originColumn="LPDELDTM" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="FirstPlannedShipDtm" originTable="COROW" originColumn="FPSHIPDTM" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="LastPlannedShipDtm" originTable="COROW" originColumn="LPSHIPDTM" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="New_Cust_Order_Line_Prod_Lot" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="COROW" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderNumber" originTable="COROW" originColumn="COID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderSequence" originTable="COROW" originColumn="COSEQ" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderLinePosition" originTable="COROW" originColumn="COPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderLineKitPosition" originTable="COROW" originColumn="COROWKITPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderLineSequence" originTable="COROW" originColumn="COSUBPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductionLotIdentity" originTable="COROW" originColumn="PRODLOT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductionSubLotIdentity" originTable="COROW" originColumn="PRODSUBLOT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="OrderedQuantity" originTable="COROW" originColumn="ORDQTY" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="New_Customer_Order_Line_Text" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="COROW" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderNumber" originTable="COROW" originColumn="COID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderSequence" originTable="COROW" originColumn="COSEQ" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderLinePosition" originTable="COROW" originColumn="COPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderLineKitPosition" originTable="COROW" originColumn="COROWKITPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerOrderLineSequence" originTable="COROW" originColumn="COSUBPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="TextFunction" originTable="COROWFTX" originColumn="FTX_QUALIFIER" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Text" originTable="COROWFTX" originColumn="TEXT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="New_Vendor_Return_Order_Head" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="SO" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="VendorReturnOrderNumber" originTable="SO" originColumn="SOID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="VendorReturnOrderSequence" originTable="SO" originColumn="SOSEQ" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="WarehouseId" originTable="SO" originColumn="WHID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="VendorId" originTable="SO" originColumn="SUPID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="RequestedShipDate" originTable="SO" originColumn="ACKSHIPDATE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Instructions" originTable="SO" originColumn="INSTRUCTIONS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="DeliveryMethod" originTable="SO" originColumn="DLVRYMETH_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="New_Vendor_Return_Order_Line" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="ClientIdentity" originTable="SOROW" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="VendorReturnOrderNumber" originTable="SOROW" originColumn="SOID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="VendorReturnOrderSequence" originTable="SOROW" originColumn="SOSEQ" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="VendorerReturnOrderLine" originTable="SOROW" originColumn="SOROWPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="VendorReturnOrderLineSeq" originTable="SOROW" originColumn="SOROWSEQ" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="SOROW" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="PackageIdentity" originTable="SOROW" originColumn="PAKID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductionLotIdentity" originTable="SOROW" originColumn="PRODLOT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductionSubLotIdentity" originTable="SOROW" originColumn="PRODSUBLOT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="MarketingLotIdentity" originTable="SOROW" originColumn="PROMOTN" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="OwnerIdentity" originTable="SOROW" originColumn="OWNID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ReturnQuantity" originTable="SOROW" originColumn="ORDQTY" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ClaimCause" originTable="SOROW" originColumn="CLAIM_CAUSE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ClaimCauseText" originTable="SOROW" originColumn="CLAIM_CAUSE_TEXT" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ClaimCauseCode" originTable="SOROW" originColumn="CLAIM_CAUSE_CODE" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="Instructions" originTable="SOROW" originColumn="INSTRUCTIONS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderNumber" originTable="SOROW" originColumn="CROID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderSequence" originTable="SOROW" originColumn="CROSEQ" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderLinePos" originTable="SOROW" originColumn="CROPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderLineKitPos" originTable="SOROW" originColumn="CROKITPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="CustomerReturnOrderLineSeq" originTable="SOROW" originColumn="CROSUBPOS" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="InventoryStatusCode" originTable="SOROW" originColumn="BLOCKCOD" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="New_Inventory_Status" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="InventoryStatusCode" originTable="BLOCKCOD" originColumn="BLOCKCOD" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="InventoryStatusName" originTable="BLOCKCOD" originColumn="BLOCKCODNM" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="InventoryStatusAutoReset" originTable="BLOCKCOD" originColumn="AUTORESET" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Modify_Inventory_Status" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="InventoryStatusCode" originTable="BLOCKCOD" originColumn="BLOCKCOD" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="InventoryStatusName" originTable="BLOCKCOD" originColumn="BLOCKCODNM" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="InventoryStatusAutoReset" originTable="BLOCKCOD" originColumn="AUTORESET" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Remove_Inventory_Status" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="InventoryStatusCode" originTable="BLOCKCOD" originColumn="BLOCKCOD" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="New_Balance_Query" type="procedure" overloaded="true">
+      <parameters>
+        <Parameter name="WarehouseIdentity" originTable="ARTQRY" originColumn="WHID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="OwnerIdentity" originTable="ARTQRY" originColumn="OWNID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ClientIdentity" originTable="ARTQRY" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="ARTQRY" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="New_Balance_Query" type="function" overloaded="true">
+      <parameters>
+        <Parameter name="MessageNumber" originTable="ARTQRY" originColumn="MSGNO" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="WarehouseIdentity" originTable="ARTQRY" originColumn="WHID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="OwnerIdentity" originTable="ARTQRY" originColumn="OWNID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ClientIdentity" originTable="ARTQRY" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="ARTQRY" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="" originTable="" originColumn="" datatype="VARCHAR2" direction="result">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Remove_Balance_Query" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="MessageNumber" originTable="ARTQRY" originColumn="MSGNO" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ClientIdentity" originTable="ARTQRY" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="New_Stocktaking_Order" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="WarehouseIdentity" originTable="STORD" originColumn="WHID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ClientIdentity" originTable="STORD" originColumn="COMPANY_ID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ProductNumber" originTable="STORD" originColumn="ARTID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+        <Parameter name="ChangeDate" originTable="STORD" originColumn="FPDTM" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+    <Procedure name="Signal_Process" type="procedure" overloaded="false">
+      <parameters>
+        <Parameter name="PROID_I" originTable="PRO" originColumn="PROID" datatype="" direction="in">
+          <Column />
+        </Parameter>
+      </parameters>
+    </Procedure>
+  </procedures>
+</Package>

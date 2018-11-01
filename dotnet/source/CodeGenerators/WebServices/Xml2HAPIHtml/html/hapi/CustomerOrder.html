@@ -1,0 +1,740 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Customer Order</title>
+		<link href="./css/emx_nav_left.css" rel="stylesheet" type="text/css" media="screen" />
+		<link href="./css/emx_nav_left_print.css" rel="stylesheet" type="text/css" media="print" />
+	</head>
+	<body>
+		<div id="pagecell1">
+			<!--pagecell1-->
+			<div id="breadCrumb">
+				<a href="index.html">Index</a>
+			</div>
+			<div id="pageName">
+				<h2 class="in">Customer Order (In)</h2>
+			</div>
+			<div id="pageNav">
+				<div id="sectionLinks">
+					<a href="#CustomerOrderHead">Customer Order Head</a>
+					<a href="#CustomerOrderText">Customer Order Text</a>
+					<a href="#CustomerOrderLine">Customer Order Line</a>
+					<a href="#CustomerOrderLineText">Customer Order Line Text</a>
+				</div>
+			</div>
+			<div id="content">
+				<div class="description">
+					<!--description CustomerOrderHead-->
+					<a name="CustomerOrderHead" />
+					<h3>Customer Order Head</h3>
+					<p>Customer Order Head</p>
+					<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000">
+						<tr>
+							<th class="colColumn">Column</th>
+							<th class="colMethod">Method</th>
+							<th class="colType">Type</th>
+							<th class="colMandatory">Mand.</th>
+							<th class="colNote">Note</th>
+						</tr>
+						<tr>
+							<td class="colColumn">ClientIdentity</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c17</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Client.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">CustomerOrderNumber</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Customer Order.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">CustomerOrderSequence</td>
+							<td class="colMethod">N</td>
+							<td class="colType">n3</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">A Sequence Number used by the Host system to make it possible to send a Customer Order more then once (e.g. backorder).</td>
+						</tr>
+						<tr>
+							<td class="colColumn">CustomerOrderType</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c2</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The type of the Customer Order. Comes from the Host System and does not control any logic in the Warehouse except for what is described below:<br/>LO = Local Order, inhibits sending of Order-related information, such as Pick Receipt.<br/>Other values = Just information in the Warehouse system.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">CustomerOrderClass</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c2</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The type of Customer Order:<br/>N  = Normal<br/>TR = Transit/Stock Replenishment<br/><br/>Installation dependent. Controls e.g. choice of Method of Shipment.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">CustomerOrderReference</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">A Reference from Customer.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">BillToCustomerIdentity</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The Party that will be invoiced for the ordered goods.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">SellToCustomerIdentity</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The Customer that made the Order according to the Customer Order.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ShipToCustomerIdentity</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The Party that finally will receive the goods.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">PickPriority</td>
+							<td class="colMethod">N</td>
+							<td class="colType">n2</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The priority (1-9, where 1 is highest) is set to the Pick Orders that are generated for this Departure. This priority can, if required, be changed manually while picking.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">DispatchFee</td>
+							<td class="colMethod">N</td>
+							<td class="colType">n17,7</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Costs for Service Charge.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">CODFee</td>
+							<td class="colMethod">N</td>
+							<td class="colType">n17,7</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Cash on Delivery Fee</td>
+						</tr>
+						<tr>
+							<td class="colColumn">Currency</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c3</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Not used.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">FreightCost</td>
+							<td class="colMethod">N</td>
+							<td class="colType">n17,7</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Freight Cost.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">FreightPartyQualifier</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c3</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Forwarder Party Type.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">FreightPartyIdentity</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Forwarder Party Identity.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">CustomerOrderValue</td>
+							<td class="colMethod">N</td>
+							<td class="colType">n21,4</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Not used.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">Division</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c17</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Division, department, section, workshop or similar subordinate unit of a company/organisation.</td>
+						</tr>
+					</table>
+				</div>
+				<!--end description CustomerOrderHead-->
+				<div class="description">
+					<!--description CustomerOrderText-->
+					<a name="CustomerOrderText" />
+					<h3>Customer Order Text</h3>
+					<p>Customer Order Free Text</p>
+					<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000">
+						<tr>
+							<th class="colColumn">Column</th>
+							<th class="colMethod">Method</th>
+							<th class="colType">Type</th>
+							<th class="colMandatory">Mand.</th>
+							<th class="colNote">Note</th>
+						</tr>
+						<tr>
+							<td class="colColumn">ClientIdentity</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c17</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Client.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">CustomerOrderNumber</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Customer Order.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">CustomerOrderSequence</td>
+							<td class="colMethod">N</td>
+							<td class="colType">n3</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">A Sequence Number used by the Host system to make it possible to send a Customer Order more then once (e.g. backorder).</td>
+						</tr>
+						<tr>
+							<td class="colColumn">TextFunction</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c3</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">DO  = Document<br/>DEL = Shipment Instruction<br/>IN  = Instruction<br/>MKS = Goods Label<br/>PKG = Packing Instruction<br/>TRA = Transport Instruction<br/>WAR = Guarantee Conditions</td>
+						</tr>
+						<tr>
+							<td class="colColumn">Text</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c400</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Free text.</td>
+						</tr>
+					</table>
+				</div>
+				<!--end description CustomerOrderText-->
+				<div class="description">
+					<!--description CustomerOrderLine-->
+					<a name="CustomerOrderLine" />
+					<h3>Customer Order Line</h3>
+					<p>Customer Order Line<br/>Specification of ordered product and quantity</p>
+					<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000">
+						<tr>
+							<th class="colColumn">Column</th>
+							<th class="colMethod">Method</th>
+							<th class="colType">Type</th>
+							<th class="colMandatory">Mand.</th>
+							<th class="colNote">Note</th>
+						</tr>
+						<tr>
+							<td class="colColumn">ClientIdentity</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c17</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Client.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">CustomerOrderNumber</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Customer Order.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">CustomerOrderSequence</td>
+							<td class="colMethod">N</td>
+							<td class="colType">n3</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">A Sequence Number used by the Host system to make it possible to send a Customer Order more then once (e.g. backorder).</td>
+						</tr>
+						<tr>
+							<td class="colColumn">CustomerOrderLinePosition</td>
+							<td class="colMethod">N</td>
+							<td class="colType">n5</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Customer Order Line.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">CustomerOrderLineKitPosition</td>
+							<td class="colMethod">N</td>
+							<td class="colType">n2</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The Customer Order Line contains an Assembly Product.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">CustomerOrderLineSequence</td>
+							<td class="colMethod">N</td>
+							<td class="colType">n3</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">Used as an extra identity of the Customer Order Line.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">CustomerOrderLineType</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The type of Customer Order Line:<br/>N = Normal<br/>I = Information<br/>S = Service<br/>T = Transit</td>
+						</tr>
+						<tr>
+							<td class="colColumn">Kitproduct</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">Indicates (1=Yes,0=No) if the Customer Order Line contains a Kit Product that has to be assembled before picking (only sent from the Host system).</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ShipToPartyQualifier</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c3</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The type of Party that is the Ship-to Party.<br/>CU - Customer<br/>WH - Warehouse</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ShipToPartyIdentity</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Party that will receive the goods when they are shipped from the current warehouse.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ShipToCustomerSubAddress</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c17</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">Is received from the host system and might be a specification of the Ship-to Address for the shipping of the Customer Order Line, like Floor 3 or Gate 7.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">RequestedShipdate</td>
+							<td class="colMethod">N</td>
+							<td class="colType">date</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The date that the customer has requested that the goods shall be shipped from the warehouse.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">AcknowledgedShipdate</td>
+							<td class="colMethod">N</td>
+							<td class="colType">date</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The shipping date that the Warehouse System has acknowledged to the customer.<br/>This date is mandatory if there is no Date Selection Type defined for the Customer Order Line.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">RequestedDeliveryDate</td>
+							<td class="colMethod">N</td>
+							<td class="colType">date</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">Requested Arrival Date.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">AcknowledgedDeliveryDate</td>
+							<td class="colMethod">N</td>
+							<td class="colType">date</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">Acknowledged Arrival Date.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">WarehouseIdentity</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c4</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Warehouse.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ProductNumber</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Product.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">OwnerIdentity</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Owner.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ProductionLotRequireMent</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Controls if there is check of the Manufacturing Lot when selecting the goods/Item Load :<br/>&lt;null&gt; = No control<br/>1 = Any Lot (must belong to a Lot)<br/>2 = Only one Lot (must belong to the same Manufacturing Lot)<br/>3 = Specified Lot (must belong to the stated Manufacturing Lot)</td>
+						</tr>
+						<tr>
+							<td class="colColumn">MarketingLotIdentity</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c20</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The Marketing Lot that the picked goods have to belong to.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">QualityLotIdentity</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c20</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Can be used for optional classification of the stored goods in the warehouse (quality, colour, etc).</td>
+						</tr>
+						<tr>
+							<td class="colColumn">PackageIdentity</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c17</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Unit of Measure / Package.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">OrderedQuantity</td>
+							<td class="colMethod">N</td>
+							<td class="colType">n20,6</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The ordered quantity of the product.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">OrderedQuantityTolerancePlus</td>
+							<td class="colMethod">N</td>
+							<td class="colType">n20,6</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The number of Lowest UMs that the ordered quantity in a Pick Order Line can differ by upwards, so that this package/unit may still be picked without having to register a discrepancy code.<br/>This value is normally defined for each Package of the Product but that value is always overridden if there is a value transferred from the host system in the Customer Order Line.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">OrderedQuantityToleranceMinus</td>
+							<td class="colMethod">N</td>
+							<td class="colType">n20,6</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The number of Lowest UMs that the ordered quantity in a Pick Order Line can differ by downwards, so that this package/unit may still be picked without having to register a discrepancy code.<br/>This value is normally defined for each Package of the Product but that value is always overridden if there is a value transferred from the host system in the Customer Order Line.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">KitDetailQuantity</td>
+							<td class="colMethod">N</td>
+							<td class="colType">n20,6</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The Quantity of the Component Product that is needed for each copy of the Kit Product.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">RequestedShelfLife</td>
+							<td class="colMethod">N</td>
+							<td class="colType">n4</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Not used.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ForcePackage</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Forced Package.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">SerialNumberHandling</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Controls (1=Yes,0=No) if the Serial Number is required at Case Pick.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">SerialNumber</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c21</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">A unique identity for a single Item Load. Only used for Case Pick and Serial Number handling!</td>
+						</tr>
+						<tr>
+							<td class="colColumn">VATPercent</td>
+							<td class="colMethod">N</td>
+							<td class="colType">n6,4</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The financial conditions for the Customer Order Line, which VAT applies.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">DepartureIdentity</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c255</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">n/a</td>
+						</tr>
+						<tr>
+							<td class="colColumn">DepartureWeekday</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c255</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">n/a</td>
+						</tr>
+						<tr>
+							<td class="colColumn">DepartureTime</td>
+							<td class="colMethod">N</td>
+							<td class="colType">date</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">n/a</td>
+						</tr>
+						<tr>
+							<td class="colColumn">DeliveryMethod</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c17</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The identity of method that will be used when shipping the goods from the warehouse.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">Measure</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Controls (1=Yes,0=No) if the Products shall go through Catch Measure (Quantity check) at Case Pick.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">MeasureQualifier</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c4</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">States in which unit to measure the goods if Catch Measure is set.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">SalesPrice</td>
+							<td class="colMethod">N</td>
+							<td class="colType">n17,7</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Price for the Product per Package (info).</td>
+						</tr>
+						<tr>
+							<td class="colColumn">LineTotal</td>
+							<td class="colMethod">N</td>
+							<td class="colType">n17,7</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Price for the Product per Package (info).</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ShipToCustomerProductNumber</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The Product Number at the Customer site.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">PurchaseOrderNumber</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The identity of the Purchase Order.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">PurchaseOrderSequence</td>
+							<td class="colMethod">N</td>
+							<td class="colType">n3</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The Sequence Number of the Purchase Order that the Customer Order Line is connected to.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">PurchaseOrderLinePosition</td>
+							<td class="colMethod">N</td>
+							<td class="colType">n4</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The identity of the Purchase Order Line.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">PurchaseOrderLineSequence</td>
+							<td class="colMethod">N</td>
+							<td class="colType">n3</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Used as an extra identity of the Purchase Order Line.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">OriginalOrderIdentity</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The final recipients Purchase Order Number reference. Used for transit goods.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">OriginalOrderLinePosition</td>
+							<td class="colMethod">N</td>
+							<td class="colType">n16</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The final recipients Purchase Order Line Number reference. Used for transit goods.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">DepartureLoadIdentity</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The identity of the Transport Load, that can be a Customer Order (whole or part of) or a Transit Consignment in a Departure.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">PlanLoad</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Indicates (1=Yes,0=No) if the Transport Load should be connected to a Departure.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">DateSelectionType</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Indicates how the date/time fields are evaluated.<br/>Values:<br/>S = Ship Date decided from Earliest and Latest Ship Date and Time<br/>D = Delivery Date decided from Earliest and Latest Delivery Date and Time<br/>Default value is Ship Date.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">FirstPlannedDeliveryDtm</td>
+							<td class="colMethod">N</td>
+							<td class="colType">date</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The earliest delivery date and time at Customer site. Valid if Date Selection Type = Delivery.<br/>This date is mandatory if the Date Selection Type = Delivery and if the Transport Loads should be connected to a departure.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">LastPlannedDeliveryDtm</td>
+							<td class="colMethod">N</td>
+							<td class="colType">date</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The latest delivery date and time at Customer site. Valid if Date Selection Type = Delivery.This date is mandatory if the Date Selection Type = Delivery and if the Transport Loads should not be connected to a departure.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">FirstPlannedShipDtm</td>
+							<td class="colMethod">N</td>
+							<td class="colType">date</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The earliest date and time for shipping the goods from the Warehouse. Only used when the Date Selection Type = Ship.<br/>This  date is mandatory if the Date Selection Type = Ship and if the Transport Loads should be connected to a departure.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">LastPlannedShipDtm</td>
+							<td class="colMethod">N</td>
+							<td class="colType">date</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The latest date and time for shipping the goods from the Warehouse. Only used when the Date Selection Type = Ship.<br/>This date is mandatory if the Date Selection Type = Ship and if the Transport Loads should not be connected to a departure.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">OwnerIdentityAtShipToCustomer</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The identity of the Owner that will registered for the goods at the Final Node (the Ship-to Customer). </td>
+						</tr>
+						<tr>
+							<td class="colColumn">InventoryStatusCode</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c8</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">A Hold Code may be applied on an Item Load or a Pick Location to temporarily exclude it from further processing.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">OrderedQuantityLowerTolerance</td>
+							<td class="colMethod">N</td>
+							<td class="colType">n20,6</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The minimum quantity (number of Lowest Units of Measure) that has to be picked for this Order Line. This quantity is transferred from the Host System.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">OrderedQuantityUpperTolerance</td>
+							<td class="colMethod">N</td>
+							<td class="colType">n20,6</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The maximum quantity (number of Lowest Units of Measure) that can be picked for this Order Line. This quantity is transferred from the Host System.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">CatchMeasureLowerTolerance</td>
+							<td class="colMethod">N</td>
+							<td class="colType">n20,6</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The minimum accepted Measured Quantity per ordered unit. It is used to check that the registered Measured Quantity is within the limits of reason. This tolerance quantity is transferred from the Host System.<br/>Example: The Ordered Quantity is 20 cheeses of 700 gram each. The Lower Limit for Measured Quantity = 550 gram. When the picker measures all 20 cheeses, the system will accept any registered weight that is above 11 kg (=20x550g).</td>
+						</tr>
+						<tr>
+							<td class="colColumn">CatchMeasureUpperTolerance</td>
+							<td class="colMethod">N</td>
+							<td class="colType">n20,6</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The maximum accepted Measured Quantity per ordered unit. It is used to check that the registered Measured Quantity is within the limits of reason. This tolerance quantity is transferred from the Host System.<br/>Example: The Ordered Quantity is 20 cheeses of 700 gram each. The Upper Limit for Measured Quantity = 770 gram. When the picker measures all 20 cheeses, the system will accept any registered weight that is below 15.4 kg (=20x770g).</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ProductionLotIdentity</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c40</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The Manufacturing Lot that the picked goods have to belong to (if required by Manufacturing Lor Requirement).</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ProductionSubLotIdentity</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c40</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The Manufacturing Sublot that the picked goods have to belong to (if required by Manufacuring Lot Requirement).</td>
+						</tr>
+					</table>
+				</div>
+				<!--end description CustomerOrderLine-->
+				<div class="description">
+					<!--description CustomerOrderLineText-->
+					<a name="CustomerOrderLineText" />
+					<h3>Customer Order Line Text</h3>
+					<p>Customer Order Line Text</p>
+					<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000">
+						<tr>
+							<th class="colColumn">Column</th>
+							<th class="colMethod">Method</th>
+							<th class="colType">Type</th>
+							<th class="colMandatory">Mand.</th>
+							<th class="colNote">Note</th>
+						</tr>
+						<tr>
+							<td class="colColumn">ClientIdentity</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c17</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Client.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">CustomerOrderNumber</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Customer Order.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">CustomerOrderSequence</td>
+							<td class="colMethod">N</td>
+							<td class="colType">n3</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">A Sequence Number used by the Host system to make it possible to send a Customer Order more then once (e.g. backorder).</td>
+						</tr>
+						<tr>
+							<td class="colColumn">CustomerOrderLinePosition</td>
+							<td class="colMethod">N</td>
+							<td class="colType">n5</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Customer Order Line.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">CustomerOrderLineKitPosition</td>
+							<td class="colMethod">N</td>
+							<td class="colType">n2</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The Customer Order Line contains an Assembly Product.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">CustomerOrderLineSequence</td>
+							<td class="colMethod">N</td>
+							<td class="colType">n3</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">Used as an extra identity of the Customer Order Line.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">TextFunction</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c3</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">DO  = Document<br/>DEL = Shipment Instruction<br/>IN  = Instruction<br/>MKS = Goods Label<br/>PKG = Packing Instruction<br/>TRA = Transport Instruction<br/>WAR = Guarantee Conditions</td>
+						</tr>
+						<tr>
+							<td class="colColumn">Text</td>
+							<td class="colMethod">N</td>
+							<td class="colType">c400</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Free text.</td>
+						</tr>
+					</table>
+				</div>
+				<!--end description CustomerOrderLineText-->
+			</div>
+			<!--end content-->
+			<div id="siteInfo">Version 5.0i.28 generated on 2005-12-20 10:16:20<br />&copy;2005 Industri-Matematik AB</div>
+		</div>
+		<!--end pagecell1-->
+	</body>
+</html>

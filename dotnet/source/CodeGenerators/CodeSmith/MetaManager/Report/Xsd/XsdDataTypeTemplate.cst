@@ -1,0 +1,248 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="ReportCoreTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Assembly Name="Cdc.MetaManager.BusinessLogic" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.BusinessLogic" %>
+<%@ Import Namespace="Cdc.MetaManager.BusinessLogic.Helpers" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Register Name="XsdDataTypeTemplate" Template=".\XsdDataTypeTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Property Name="reportQuery" Type="Cdc.MetaManager.DataAccess.Domain.ReportQuery" Default="" Optional="false" Category="" Description="" %>
+<%
+
+IApplicationService applicationService = MetaManagerServices.GetApplicationService();
+
+%>
+	<xs:complexType name="<%=reportQuery.Query.Name%>Type">
+<%
+
+// Does the report query have any children that will be new DataTypes
+if (reportQuery.Children.Count > 0)
+{
+%>
+		<xs:sequence>
+<%
+	// Loop through all children to add the types
+	foreach(ReportQuery childReportQuery in reportQuery.Children.OrderBy(r => r.Sequence))
+	{
+%>
+			<xs:element name="<%=childReportQuery.Query.Name%>" type="<%=childReportQuery.Query.Name%>Type" minOccurs="0" maxOccurs="unbounded"/>
+<%
+	}
+%>                
+		</xs:sequence>
+<%
+}
+
+// Write all attributes for the query
+foreach (QueryProperty prop in reportQuery.Query.Properties.Where(p => p.PropertyType == DbPropertyType.Out).OrderBy(p => p.Sequence))
+{
+	Property foundProperty = null;
+	
+	if (!string.IsNullOrEmpty(prop.OriginalColumn) &&
+		!string.IsNullOrEmpty(prop.OriginalTable))
+	{
+		// Find the property for the column and table
+		foundProperty = applicationService.GetPropertyByTableAndColumn(prop.OriginalTable, prop.OriginalColumn, ReportQueryHelper.GetReport(reportQuery).Application.Id);
+	}
+	else
+	{
+		foundProperty = null;
+	}
+	
+	if (foundProperty != null)
+	{
+		// Check if name is same as columnname, then use the found propertyname.
+		// If it's not the same then use the name set for the queryproperty.
+		string propertyName = prop.Name == prop.OriginalColumn ? foundProperty.Name : prop.Name;
+%>
+		<xs:attribute name="<%=propertyName%>" use="required">
+			<xs:simpleType>
+<%
+		// Check property type
+		if (foundProperty.Type == typeof(string))
+		{
+%>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="<%=foundProperty.StorageInfo.Length.ToString()%>"/>
+				</xs:restriction>
+<%
+		}
+		else if (foundProperty.Type == typeof(int) || foundProperty.Type == typeof(long))
+		{
+			if (foundProperty.StorageInfo.Precision > 0)
+			{
+%>
+				<xs:restriction base="xs:integer">
+					<xs:totalDigits value="<%=foundProperty.StorageInfo.Precision.ToString()%>"/>
+				</xs:restriction>
+<%
+			}
+			else
+			{
+%>
+				<xs:restriction base="xs:integer"/>
+<%
+			}
+		}
+		else if (foundProperty.Type == typeof(decimal) ||
+		         foundProperty.Type == typeof(double))
+		{
+			if (foundProperty.StorageInfo.Precision > 0 ||
+			    foundProperty.StorageInfo.Scale > 0)
+			{
+%>
+				<xs:restriction base="xs:decimal">
+<%
+				if (foundProperty.StorageInfo.Precision > 0)
+				{
+%>
+					<xs:totalDigits value="<%=foundProperty.StorageInfo.Precision.ToString()%>"/>
+<%
+				}
+				
+				if (foundProperty.StorageInfo.Scale > 0)
+				{
+%>
+					<xs:fractionDigits value="<%=foundProperty.StorageInfo.Scale.ToString()%>"/>
+<%
+				}
+%>
+				</xs:restriction>
+<%
+			}
+			else
+			{
+%>
+				<xs:restriction base="xs:decimal"/>
+<%
+			}
+		}
+		else if (foundProperty.Type == typeof(bool))
+		{
+%>
+				<xs:restriction base="xs:boolean"/>
+<%
+		}
+		else if (foundProperty.Type == typeof(DateTime))
+		{
+%>
+				<xs:restriction base="xs:dateTime"/>
+<%
+		}
+%>
+			</xs:simpleType>
+		</xs:attribute>
+<%
+	}
+	else
+	{
+%>
+		<xs:attribute name="<%=prop.Name%>" use="required">
+			<xs:simpleType>
+<%
+		if (prop.DbDatatype == "CHAR")
+		{
+			if (!prop.Length.HasValue)
+			{
+%>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+<%
+			}
+			else
+			{
+%>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="<%=prop.Length.Value.ToString()%>"/>
+				</xs:restriction>
+<%
+			}
+		}
+		else if (prop.DbDatatype == "DATE")
+		{
+%>
+				<xs:restriction base="xs:dateTime"/>
+<%
+		}
+		else if (prop.DbDatatype == "NUMBER")
+		{
+			if (prop.Scale.HasValue &&
+			    prop.Scale.Value == 0)
+			{
+%>
+				<xs:restriction base="xs:integer">
+					<xs:totalDigits value="<%=prop.Precision.Value.ToString()%>"/>
+				</xs:restriction>
+<%
+			}
+			else
+			{
+				if (prop.Precision.HasValue || prop.Scale.HasValue)
+				{
+%>
+				<xs:restriction base="xs:decimal">
+<%
+					if (prop.Precision.HasValue && prop.Precision.Value > 0)
+					{
+%>
+					<xs:totalDigits value="<%=prop.Precision.Value.ToString()%>"/>
+<%
+					}
+					
+					if (prop.Scale.HasValue && prop.Scale.Value > 0)
+					{
+%>
+					<xs:fractionDigits value="<%=prop.Scale.Value.ToString()%>"/>
+<%
+					}
+%>
+				</xs:restriction>
+<%
+				}
+				else
+				{
+%>
+				<xs:restriction base="xs:decimal"/>
+<%
+				}
+			}
+		}
+		else if (prop.DbDatatype == "VARCHAR2")
+		{
+%>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="<%=prop.Length.Value.ToString()%>"/>
+				</xs:restriction>
+<%
+		}
+		
+%>
+			</xs:simpleType>
+		</xs:attribute>
+<%
+	}
+}
+%>
+	</xs:complexType>
+<%
+
+// Does the report query have any children that will be new DataTypes
+if (reportQuery.Children.Count > 0)
+{
+	foreach(ReportQuery childReportQuery in reportQuery.Children.OrderBy(r => r.Sequence))
+	{
+		XsdDataTypeTemplate xsdDataTypeTemplate = this.Create<XsdDataTypeTemplate>();
+		xsdDataTypeTemplate.SetProperty("reportQuery", childReportQuery);
+		xsdDataTypeTemplate.Render(this.Response);
+	}
+}
+%>

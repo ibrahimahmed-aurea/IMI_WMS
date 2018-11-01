@@ -1,0 +1,64 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Segment ASNLoadCarrier</title>
+<link href="StructureDescription.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>Segment ASNLoadCarrier</h1>
+<h3>Description:</h3>
+Advanced Shipping Notice Carrier<h3>Attributes:</h3>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000"><tbody>
+<tr class="tableHeader"><th class="tableHeaderColumn">Tag</th><th class="tableHeaderColumn">Method</th><th class="tableHeaderColumn">Type</th><th class="tableHeaderColumn">Oracle Type</th><th class="tableHeaderColumn">Mandatory</th><th class="tableHeaderColumn">Note</th></tr>
+<tr class="tableRow"><td class="tableRowColumn">OPCODE</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Operation Code<br/>0 - No Operation<br/>1 - New<br/>2 - Change<br/>3 - Remove<br/>Note! An operation code is only useful if at least one tag supports the method</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ASNIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Inbound ASN Identity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ASNSequenceNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Inbound ASN Sequence Number</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipFromPartyNodeIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Ship-from Party Node Identity<br/>Node for the Party that has shipped the goods to the warehouse.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">LoadCarrierIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Load Carrier Identity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">LoadCarrierQualifier</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(4)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Type of Load Carrier Identity<br/>SM  - Shipment, the Identity is unique only within the Shipment<br/>SSCC - Serial Shipping Container Code</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">LoadCarrierType</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Load Carrier Type Identity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ExternalLoadCarrierType</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(20)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">External Load Carrier Type<br/>Identity used by the Ship-from Party to identify a Load Carrier Type.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ParentLoadCarrierIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Load Carrier on Load Carrier Identity<br/>If the Load Carrier exists on another Load Carrier, the Identity of this is shown here.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipToCustomerNodeIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-to Customer Node Identity<br/>The Node that finally will receive the goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipToCustomerIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-to Customer Identity<br/>The Party that finally will receive the goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipToCustomerQualifier</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-to Customer Type<br/>Type of Party that is the Ship-to Customer.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Instructions</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(400)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Instructions<br/>Instructions for the Load Carrier.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">TotalWeight</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(16,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Total Weight<br/>Total estimated Weight for the Load Carrier and the included Item Loads.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">WeightUOMIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Unit of Measurement Identity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">TotalVolume</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(16,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Total Volume<br/>Total estimated Volume for the Load Carrier and the included Item Loads.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">VolumeUOMIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Unit of Measurement Identity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">TotalHeight</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(9,4)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Total Height<br/>Total height for the Load Carrier and the included Item Loads.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">HeightUOMIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Unit of Measurement Identity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductTransportIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(5)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Product Transport Type Identity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipFromPartyIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-from Party Identity<br/>Party that has shipped the goods to the warehouse.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipToPartyIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-to Party Identity<br/>The Party that will receive the goods when it is shipped from the Ship-from Party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipToPartyNodeIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-to Party Node Identity<br/>The Node for the Party that will receive the goods when it is shipped from the Ship-from Party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipToPartyQualifier</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-to Party Type<br/>Type of Party that is the Ship-to Party.</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

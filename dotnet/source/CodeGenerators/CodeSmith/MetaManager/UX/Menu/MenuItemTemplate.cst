@@ -1,0 +1,103 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" ClassName="MenuItemTemplate" Inherits="DialogTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="menuItem" Type="Cdc.MetaManager.DataAccess.Domain.MenuItem" Default="" Optional="False" Category="" Description="" %>
+<%@ Property Name="tabLevel" Type="System.Int32" Default="" Optional="False" Category="" Description="" %>
+<%@ Property Name="dialogs" Type="List<Dialog>" Default="" Optional="false" Category="" Description="" %>
+<%
+	List<MenuItem> sortedMenuItems = SortMenuItemBySequence(menuItem.Children);
+
+	foreach (Cdc.MetaManager.DataAccess.Domain.MenuItem childItem in sortedMenuItems)
+	{
+		string tabstring = new string(' ', tabLevel * 2);
+		
+		if (childItem.Children.Count > 0)
+		{
+			if (MenuItemHasChildren(childItem, dialogs))
+			{
+%>
+<%=tabstring%><folder id="<%=childItem.AuthorizationId%>" caption="<%=childItem.Caption%>">
+<%
+			MenuItemTemplate menuItemTemplate = this.Create<MenuItemTemplate>();
+			menuItemTemplate.SetProperty("menuItem", childItem);
+			menuItemTemplate.SetProperty("tabLevel", tabLevel + 1);
+			menuItemTemplate.SetProperty("dialogs", dialogs);
+			menuItemTemplate.Render(this.Response);
+%>
+<%=tabstring%></folder>
+<%
+			}
+		}
+		else
+		{
+			string assemblyFile = "";
+			string topicIdentity = "";
+			string parameters = "";
+			string operation = childItem.AuthorizationId;
+			
+			if (childItem.Action != null)
+			{
+				if (childItem.Action.Dialog != null &&
+					childItem.Action.Dialog.Type == DialogType.Overview)
+				{
+					operation = childItem.Action.Dialog.Id.ToString();
+					string dllName = string.Format("{0}.dll", GetModuleNamespace(childItem.Action.Dialog.Module));
+					assemblyFile = string.Format("assemblyFile=\"{0}\" ", dllName);
+					topicIdentity = string.Format("event://Imi.SupplyChain.UX.Modules.{0}/ShowDialog", childItem.Action.Dialog.Module.Application.Name);	
+					parameters = string.Format("event://{0}/ShowDialog", GetDialogNamespace(childItem.Action.Dialog));
+				}
+				else if (childItem.Action.CustomDialog != null)
+				{
+					operation = childItem.Action.CustomDialog.Id.ToString();
+					assemblyFile = string.Format("assemblyFile=\"{0}\" ", childItem.Action.CustomDialog.DLLName);
+					topicIdentity = string.Format("event://Imi.SupplyChain.UX.Modules.{0}/ShowDialog", childItem.Action.CustomDialog.Application.Name);
+					parameters = childItem.Action.CustomDialog.Topic;
+				}
+			}
+			
+			if (!string.IsNullOrEmpty(topicIdentity))
+			{
+%>
+<%=tabstring%><item caption="<%=childItem.Caption%>" id="<%=childItem.Id%>" operation="<%=operation%>" <%=assemblyFile%>topicIdentity="<%=topicIdentity%>" parameters="<%=parameters%>"/>
+<%
+			}
+		}
+	}
+%>
+<script runat="template">
+
+	private bool MenuItemHasChildren(MenuItem childItem, List<Dialog> dialogList)
+	{
+		bool retVal = false;
+		
+		if (childItem.Children.Count > 0)
+		{
+			foreach (Cdc.MetaManager.DataAccess.Domain.MenuItem child in childItem.Children)
+			{
+				if (MenuItemHasChildren(child, dialogList))
+				{
+					retVal = true;
+					break;
+				}
+				else if (child.Action != null &&
+						 child.Action.Dialog != null)
+				{
+					retVal = true;
+					break;
+				}
+			}
+		}
+		
+		return retVal;
+	}
+
+</script>

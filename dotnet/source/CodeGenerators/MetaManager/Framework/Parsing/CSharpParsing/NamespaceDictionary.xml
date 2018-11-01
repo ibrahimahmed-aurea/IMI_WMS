@@ -1,0 +1,793 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<crossreference>
+	<assemblies>
+
+		<assembly name="System">
+			<![CDATA[
+    <Reference Include="System"/>
+]]>
+		</assembly>
+
+		<assembly name="System.Core">
+			<![CDATA[
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="System.Runtime.Serialization">
+			<![CDATA[
+    <Reference Include="System.Runtime.Serialization" />
+]]>
+		</assembly>
+
+		<assembly name="System.ServiceModel">
+			<![CDATA[
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="System.Xml.Linq">
+			<![CDATA[
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="System.Data">
+			<![CDATA[
+    <Reference Include="System.Data"/>
+]]>
+		</assembly>
+
+		<assembly name="System.Xml">
+			<![CDATA[
+    <Reference Include="System.Xml"/>
+]]>
+		</assembly>
+
+		<assembly name="System.Xml.XPath">
+			<![CDATA[
+    <Reference Include="System.Xml"/>
+]]>
+		</assembly>
+
+		<assembly name="ActiproSoftware.Shared.Wpf">
+			<![CDATA[
+    <Reference Include="ActiproSoftware.Shared.Wpf, Version=12.2.571.0, Culture=neutral, PublicKeyToken=36ff2196ab5654b9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\ActiproSoftware.Shared.Wpf.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="ActiproSoftware.Editors.Wpf" depends="ActiproSoftware.Shared.Wpf">
+			<![CDATA[
+    <Reference Include="ActiproSoftware.Editors.Wpf, Version=12.2.571.0, Culture=neutral, PublicKeyToken=36ff2196ab5654b9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\ActiproSoftware.Editors.Wpf.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="ActiproSoftware.Ribbon.Wpf" depends="ActiproSoftware.Shared.Wpf">
+			<![CDATA[
+    <Reference Include="ActiproSoftware.Ribbon.Wpf, Version=12.2.571.0, Culture=neutral, PublicKeyToken=36ff2196ab5654b9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\ActiproSoftware.Ribbon.Wpf.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Imi.Framework.DataAccess">
+			<![CDATA[
+    <Reference Include="Imi.Framework.DataAccess, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.Framework.DataAccess.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Imi.Framework.Services">
+			<![CDATA[
+    <Reference Include="Imi.Framework.Services, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.Framework.Services.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Imi.SupplyChain.Transportation.Alarm.BusinessLogic">
+			<![CDATA[
+    <Reference Include="Imi.SupplyChain.Transportation.Alarm.BusinessLogic, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.Transportation.Alarm.BusinessLogic.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Imi.SupplyChain.Transportation.Services.Alarm.DataContracts">
+			<![CDATA[
+    <Reference Include="Imi.SupplyChain.Transportation.Services.Alarm.DataContracts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.Transportation.Services.Alarm.DataContracts.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Imi.SupplyChain.Transportation.Services.Alarm.ServiceContracts">
+			<![CDATA[
+    <Reference Include="Imi.SupplyChain.Transportation.Services.Alarm.ServiceContracts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.Transportation.Services.Alarm.ServiceContracts.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Imi.SupplyChain.Warehouse.Alarm.BusinessLogic">
+			<![CDATA[
+    <Reference Include="Imi.SupplyChain.Warehouse.Alarm.BusinessLogic, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.Warehouse.Alarm.BusinessLogic.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Imi.SupplyChain.Warehouse.Services.Alarm.DataContracts">
+			<![CDATA[
+    <Reference Include="Imi.SupplyChain.Warehouse.Services.Alarm.DataContracts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.Warehouse.Services.Alarm.DataContracts.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Imi.SupplyChain.Warehouse.Services.Alarm.ServiceContracts">
+			<![CDATA[
+    <Reference Include="Imi.SupplyChain.Warehouse.Services.Alarm.ServiceContracts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.Warehouse.Services.Alarm.ServiceContracts.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+    <assembly name="Imi.SupplyChain.OutputManager.Alarm.BusinessLogic">
+      <![CDATA[
+    <Reference Include="Imi.SupplyChain.OutputManager.Alarm.BusinessLogic, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.OutputManager.Alarm.BusinessLogic.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+    </assembly>
+
+    <assembly name="Imi.SupplyChain.OutputManager.Services.Alarm.DataContracts">
+      <![CDATA[
+    <Reference Include="Imi.SupplyChain.OutputManager.Services.Alarm.DataContracts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.OutputManager.Services.Alarm.DataContracts.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+    </assembly>
+
+    <assembly name="Imi.SupplyChain.OutputManager.Services.Alarm.ServiceContracts">
+      <![CDATA[
+    <Reference Include="Imi.SupplyChain.OutputManager.Services.Alarm.ServiceContracts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.OutputManager.Services.Alarm.ServiceContracts.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+    </assembly>
+
+		<assembly name="Imi.SupplyChain.Transportation.RowTracker.BusinessEntities">
+			<![CDATA[
+    <Reference Include="Imi.SupplyChain.Transportation.RowTracker.BusinessEntities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.Transportation.RowTracker.BusinessEntities.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Imi.SupplyChain.Transportation.RowTracker.DataAccess">
+			<![CDATA[
+    <Reference Include="Imi.SupplyChain.Transportation.RowTracker.DataAccess, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.Transportation.RowTracker.DataAccess.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Imi.SupplyChain.Transportation.MessageHandler.BusinessEntities">
+			<![CDATA[
+    <Reference Include="Imi.SupplyChain.Transportation.MessageHandler.BusinessEntities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.Transportation.MessageHandler.BusinessEntities.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Imi.SupplyChain.Transportation.MessageHandler.DataAccess">
+			<![CDATA[
+    <Reference Include="Imi.SupplyChain.Transportation.MessageHandler.DataAccess, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.Transportation.MessageHandler.DataAccess.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Imi.SupplyChain.Warehouse.RowTracker.BusinessEntities">
+			<![CDATA[
+    <Reference Include="Imi.SupplyChain.Warehouse.RowTracker.BusinessEntities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.Warehouse.RowTracker.BusinessEntities.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Imi.SupplyChain.Warehouse.RowTracker.DataAccess">
+			<![CDATA[
+    <Reference Include="Imi.SupplyChain.Warehouse.RowTracker.DataAccess, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.Warehouse.RowTracker.DataAccess.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Imi.SupplyChain.Warehouse.MessageHandler.BusinessEntities">
+			<![CDATA[
+    <Reference Include="Imi.SupplyChain.Warehouse.MessageHandler.BusinessEntities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.Warehouse.MessageHandler.BusinessEntities.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Imi.SupplyChain.Warehouse.MessageHandler.DataAccess">
+			<![CDATA[
+    <Reference Include="Imi.SupplyChain.Warehouse.MessageHandler.DataAccess, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.Warehouse.MessageHandler.DataAccess.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+    <assembly name="Imi.SupplyChain.OutputManager.RowTracker.BusinessEntities">
+      <![CDATA[
+    <Reference Include="Imi.SupplyChain.OutputManager.RowTracker.BusinessEntities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.OutputManager.RowTracker.BusinessEntities.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+    </assembly>
+
+    <assembly name="Imi.SupplyChain.OutputManager.RowTracker.DataAccess">
+      <![CDATA[
+    <Reference Include="Imi.SupplyChain.OutputManager.RowTracker.DataAccess, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.OutputManager.RowTracker.DataAccess.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+    </assembly>
+
+    <assembly name="Imi.SupplyChain.OutputManager.MessageHandler.BusinessEntities">
+      <![CDATA[
+    <Reference Include="Imi.SupplyChain.OutputManager.MessageHandler.BusinessEntities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.OutputManager.MessageHandler.BusinessEntities.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+    </assembly>
+
+    <assembly name="Imi.SupplyChain.OutputManager.MessageHandler.DataAccess">
+      <![CDATA[
+    <Reference Include="Imi.SupplyChain.OutputManager.MessageHandler.DataAccess, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.OutputManager.MessageHandler.DataAccess.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+    </assembly>
+
+		<assembly name="Microsoft.Practices.Unity.Interception">
+			<![CDATA[
+    <Reference Include="Microsoft.Practices.Unity.Interception, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Microsoft.Practices.Unity.Interception.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.WCF" depends="System.ServiceModel">
+			<![CDATA[
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.WCF, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.WCF.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling">
+			<![CDATA[
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Microsoft.Practices.EnterpriseLibrary.Validation">
+			<![CDATA[
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Validation, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Microsoft.Practices.EnterpriseLibrary.Validation.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Microsoft.Practices.EnterpriseLibrary.Common">
+			<![CDATA[
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Microsoft.Practices.EnterpriseLibrary.PolicyInjection" depends="Microsoft.Practices.EnterpriseLibrary.Common">
+			<![CDATA[
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.PolicyInjection, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Microsoft.Practices.EnterpriseLibrary.PolicyInjection.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Imi.Framework.UX">
+			<![CDATA[
+    <Reference Include="Imi.Framework.UX, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.Framework.UX.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Imi.SupplyChain.UX.Modules.Dock.Infrastructure" depends="Imi.SupplyChain.UX.Infrastructure">
+			<![CDATA[
+    <Reference Include="Imi.SupplyChain.UX.Modules.Dock.Infrastructure, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.UX.Modules.Dock.Infrastructure.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Imi.SupplyChain.UX.Modules.Gateway.Infrastructure" depends="Imi.SupplyChain.UX.Infrastructure">
+			<![CDATA[
+    <Reference Include="Imi.SupplyChain.UX.Modules.Gateway.Infrastructure, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.UX.Modules.Gateway.Infrastructure.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Imi.SupplyChain.UX.Modules.GatewayTMS.Infrastructure" depends="Imi.SupplyChain.UX.Infrastructure">
+			<![CDATA[
+    <Reference Include="Imi.SupplyChain.UX.Modules.GatewayTMS.Infrastructure, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.UX.Modules.GatewayTMS.Infrastructure.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+    
+    <assembly name="Imi.SupplyChain.UX.Modules.GatewayMHS.Infrastructure" depends="Imi.SupplyChain.UX.Infrastructure">
+      <![CDATA[
+    <Reference Include="Imi.SupplyChain.UX.Modules.GatewayMHS.Infrastructure, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.UX.Modules.GatewayMHS.Infrastructure.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+    </assembly>
+    
+		<assembly name="Imi.SupplyChain.UX.Modules.Abc.Infrastructure" depends="Imi.SupplyChain.UX.Infrastructure">
+			<![CDATA[
+    <Reference Include="Imi.SupplyChain.UX.Modules.Abc.Infrastructure, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.UX.Modules.Abc.Infrastructure.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Imi.SupplyChain.UX.Modules.ActivityMonitor.Infrastructure" depends="Imi.SupplyChain.UX.Infrastructure">
+			<![CDATA[
+    <Reference Include="Imi.SupplyChain.UX.Modules.ActivityMonitor.Infrastructure, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.UX.Modules.ActivityMonitor.Infrastructure.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Imi.SupplyChain.UX.Modules.Transportation.Infrastructure" depends="Imi.SupplyChain.UX.Infrastructure">
+			<![CDATA[
+    <Reference Include="Imi.SupplyChain.UX.Modules.Transportation.Infrastructure, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.UX.Modules.Transportation.Infrastructure.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Imi.SupplyChain.UX.Modules.Warehouse.Infrastructure" depends="Imi.SupplyChain.UX.Infrastructure">
+			<![CDATA[
+    <Reference Include="Imi.SupplyChain.UX.Modules.Warehouse.Infrastructure, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.UX.Modules.Warehouse.Infrastructure.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+    <assembly name="Imi.SupplyChain.UX.Modules.OutputManager.Infrastructure" depends="Imi.SupplyChain.UX.Infrastructure">
+      <![CDATA[
+    <Reference Include="Imi.SupplyChain.UX.Modules.OutputManager.Infrastructure, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.UX.Modules.OutputManager.Infrastructure.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+    </assembly>
+
+		<assembly name="Imi.Framework.Wpf.Controls" depends="ActiproSoftware.Editors.Wpf">
+			<![CDATA[
+    <Reference Include="Imi.Framework.Wpf.Controls, Version=1.0.3027.26170, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.Framework.Wpf.Controls.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Imi.Framework.Wpf.Data">
+			<![CDATA[
+    <Reference Include="Imi.Framework.Wpf.Data, Version=1.0.3027.26170, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.Framework.Wpf.Data.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Imi.SupplyChain.UX">
+			<![CDATA[
+    <Reference Include="Imi.SupplyChain.UX, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.UX.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Imi.SupplyChain.UX.Rules">
+			<![CDATA[
+    <Reference Include="Imi.SupplyChain.UX.Rules, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.UX.Rules.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Imi.SupplyChain.UX.Workflow">
+			<![CDATA[
+    <Reference Include="Imi.SupplyChain.UX.Workflow, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.UX.Workflow.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Imi.SupplyChain.UX.Infrastructure">
+			<![CDATA[
+    <Reference Include="Imi.SupplyChain.UX.Infrastructure, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.SupplyChain.UX.Infrastructure.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Microsoft.Practices.CompositeUI">
+			<![CDATA[
+    <Reference Include="Microsoft.Practices.CompositeUI, Version=1.0.51205.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Microsoft.Practices.CompositeUI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Microsoft.Practices.ObjectBuilder">
+			<![CDATA[
+    <Reference Include="Microsoft.Practices.ObjectBuilder, Version=1.0.51206.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Microsoft.Practices.ObjectBuilder.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="PresentationCore">
+			<![CDATA[
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="System.Xaml">
+			<![CDATA[
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="PresentationFramework" depends="System.Xaml">
+			<![CDATA[
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="PresentationFramework.Aero">
+			<![CDATA[
+    <Reference Include="PresentationFramework.Aero">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="WindowsBase" depends="PresentationCore,PresentationFramework,PresentationFramework.Aero">
+			<![CDATA[
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Xceed.Wpf.Controls">
+			<![CDATA[
+    <Reference Include="Xceed.Wpf.Controls.v6.0, Version=6.0.16356.15490, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+	  <HintPath>{references}\Xceed.Wpf.Controls.v6.0.dll</HintPath>
+	  <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+
+    <assembly name="Xceed.Wpf.DataGrid" depends="Xceed.Wpf.Controls">
+      <![CDATA[
+	  <Reference Include="Xceed.Wpf.DataGrid.v6.0, Version=6.0.16356.15490, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+	  <HintPath>{references}\Xceed.Wpf.DataGrid.v6.0.dll</HintPath>
+	  <Private>False</Private>
+    </Reference>
+]]>
+
+    </assembly>
+
+		<assembly name="Imi.Framework.UX.Wpf" depends="WindowsBase">
+			<![CDATA[
+    <Reference Include="Imi.Framework.UX.Wpf, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Imi.Framework.UX.Wpf.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="System.Workflow.Activities">
+			<![CDATA[
+    <Reference Include="System.Workflow.Activities">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="System.Workflow.ComponentModel">
+			<![CDATA[
+    <Reference Include="System.Workflow.ComponentModel">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="System.Workflow.Runtime">
+			<![CDATA[
+    <Reference Include="System.Workflow.Runtime">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Oracle.DataAccess">
+			<![CDATA[
+    <Reference Include="Oracle.DataAccess, Version=2.111.7.20, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86" >
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Oracle.DataAccess.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+		<assembly name="System.Configuration">
+			<![CDATA[
+    <Reference Include="System.configuration" />
+]]>
+		</assembly>
+
+		<assembly name="Telerik.Windows.Controls.Chart" depends="Telerik.Windows.Controls,Telerik.Windows.Data">
+			<![CDATA[
+    <Reference Include="Telerik.Windows.Controls.Chart, Version=2012.3.1129.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL" >
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Telerik.Windows.Controls.Chart.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Telerik.Windows.Controls">
+			<![CDATA[
+    <Reference Include="Telerik.Windows.Controls, Version=2012.3.1129.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL" >
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Telerik.Windows.Controls.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Telerik.Windows.Data">
+			<![CDATA[
+    <Reference Include="Telerik.Windows.Data, Version=2012.3.1129.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL" >
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\Telerik.Windows.Data.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+		<assembly name="Microsoft.IdentityModel">
+			<![CDATA[
+    <Reference Include="Microsoft.IdentityModel, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>{references}\WIF\Microsoft.IdentityModel.dll</HintPath>
+	  <Private>False</Private>
+    </Reference>
+]]>
+		</assembly>
+
+	</assemblies>
+
+	<namespaces>
+		<namespace name="System" assembly="System"/>
+		<namespace name="System.Data" assembly="System.Data"/>
+		<namespace name="System.Xml" assembly="System.Xml"/>
+		<namespace name="System.Xml.Linq" assembly="System.Xml.Linq"/>
+		<namespace name="System.Collections.Generic" assembly="System.Core"/>
+		<namespace name="System.Text" assembly="System"/>
+		<namespace name="System.Runtime.CompilerServices" assembly="System"/>
+		<namespace name="System.Runtime.InteropServices" assembly="System"/>
+		<namespace name="System.Runtime.Serialization" assembly="System.Runtime.Serialization"/>
+		<namespace name="System.ServiceModel" assembly="System.ServiceModel"/>
+		<namespace name="System.Windows" assembly="WindowsBase"/>
+		<namespace name="System.Configuration" assembly="System.Configuration"/>
+		<namespace name="Imi.Framework.Services" assembly="Imi.Framework.Services"/>
+		<namespace name="Imi.Framework.DataAccess" assembly="Imi.Framework.DataAccess"/>
+		<namespace name="Microsoft.Practices.EnterpriseLibrary.PolicyInjection" assembly="Microsoft.Practices.EnterpriseLibrary.PolicyInjection"/>
+		<namespace name="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.WCF" assembly="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.WCF"/>
+		<namespace name="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling" assembly="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling"/>
+		<namespace name="Microsoft.Practices.EnterpriseLibrary.Validation" assembly="Microsoft.Practices.EnterpriseLibrary.Validation"/>
+		<namespace name="Microsoft.Practices.EnterpriseLibrary.Validation.Validators" assembly="Microsoft.Practices.EnterpriseLibrary.Validation"/>
+		<namespace name="Microsoft.Practices.Unity.InterceptionExtension" assembly="Microsoft.Practices.Unity.Interception"/>
+		<namespace name="Imi.Framework.UX" assembly="Imi.Framework.UX"/>
+		<namespace name="Imi.Framework.UX.Wpf" assembly="Imi.Framework.UX.Wpf"/>
+		<namespace name="Imi.Framework.UX.Wpf.Settings" assembly="Imi.Framework.UX.Wpf"/>
+		<namespace name="Imi.Framework.UX.Wpf.Workspaces" assembly="Imi.Framework.UX.Wpf"/>
+		<namespace name="Imi.Framework.Wpf.Controls" assembly="Imi.Framework.Wpf.Controls"/>
+		<namespace name="Imi.Framework.Wpf.Data" assembly="Imi.Framework.Wpf.Data"/>
+		<namespace name="Imi.Framework.Wpf.Data.Converters" assembly="Imi.Framework.Wpf.Data"/>
+		<namespace name="Xceed.Wpf.DataGrid" assembly="Xceed.Wpf.DataGrid"/>
+		<namespace name="ActiproSoftware.Windows.Controls.Ribbon" assembly="ActiproSoftware.Ribbon.Wpf"/>
+		<namespace name="Imi.SupplyChain.UX" assembly="Imi.SupplyChain.UX"/>
+		<namespace name="Imi.SupplyChain.UX.Services" assembly="Imi.SupplyChain.UX"/>
+		<namespace name="Imi.SupplyChain.UX.Infrastructure" assembly="Imi.SupplyChain.UX.Infrastructure"/>
+		<namespace name="Imi.SupplyChain.UX.Infrastructure.Services" assembly="Imi.SupplyChain.UX.Infrastructure"/>
+		<namespace name="Imi.SupplyChain.UX.Rules" assembly="Imi.SupplyChain.UX.Rules"/>
+		<namespace name="Imi.SupplyChain.UX.Resources" assembly="Imi.SupplyChain.UX"/>
+		<namespace name="Imi.SupplyChain.UX.Workflow" assembly="Imi.SupplyChain.UX.Workflow"/>
+		<namespace name="Imi.SupplyChain.Transportation.RowTracker.DataAccess" assembly="Imi.SupplyChain.Transportation.RowTracker.DataAccess"/>
+		<namespace name="Imi.SupplyChain.Transportation.RowTracker.BusinessEntities" assembly="Imi.SupplyChain.Transportation.RowTracker.BusinessEntities"/>
+		<namespace name="Imi.SupplyChain.Transportation.MessageHandler.DataAccess" assembly="Imi.SupplyChain.Transportation.MessageHandler.DataAccess"/>
+		<namespace name="Imi.SupplyChain.Transportation.MessageHandler.BusinessEntities" assembly="Imi.SupplyChain.Transportation.MessageHandler.BusinessEntities"/>
+		<namespace name="Imi.SupplyChain.Warehouse.RowTracker.DataAccess" assembly="Imi.SupplyChain.Warehouse.RowTracker.DataAccess"/>
+		<namespace name="Imi.SupplyChain.Warehouse.RowTracker.BusinessEntities" assembly="Imi.SupplyChain.Warehouse.RowTracker.BusinessEntities"/>
+		<namespace name="Imi.SupplyChain.Warehouse.MessageHandler.DataAccess" assembly="Imi.SupplyChain.Warehouse.MessageHandler.DataAccess"/>
+		<namespace name="Imi.SupplyChain.Warehouse.MessageHandler.BusinessEntities" assembly="Imi.SupplyChain.Warehouse.MessageHandler.BusinessEntities"/>
+    <namespace name="Imi.SupplyChain.OutputManager.RowTracker.DataAccess" assembly="Imi.SupplyChain.OutputManager.RowTracker.DataAccess"/>
+    <namespace name="Imi.SupplyChain.OutputManager.RowTracker.BusinessEntities" assembly="Imi.SupplyChain.OutputManager.RowTracker.BusinessEntities"/>
+    <namespace name="Imi.SupplyChain.OutputManager.MessageHandler.DataAccess" assembly="Imi.SupplyChain.OutputManager.MessageHandler.DataAccess"/>
+    <namespace name="Imi.SupplyChain.OutputManager.MessageHandler.BusinessEntities" assembly="Imi.SupplyChain.OutputManager.MessageHandler.BusinessEntities"/>
+		<namespace name="Imi.SupplyChain.Transportation.Alarm.BusinessLogic" assembly="Imi.SupplyChain.Transportation.Alarm.BusinessLogic"/>
+		<namespace name="Imi.SupplyChain.Transportation.Services.Alarm.DataContracts" assembly="Imi.SupplyChain.Transportation.Services.Alarm.DataContracts"/>
+		<namespace name="Imi.SupplyChain.Transportation.Services.Alarm.ServiceContracts" assembly="Imi.SupplyChain.Transportation.Services.Alarm.ServiceContracts"/>
+		<namespace name="Imi.SupplyChain.Warehouse.Alarm.BusinessLogic" assembly="Imi.SupplyChain.Warehouse.Alarm.BusinessLogic"/>
+		<namespace name="Imi.SupplyChain.Warehouse.Services.Alarm.DataContracts" assembly="Imi.SupplyChain.Warehouse.Services.Alarm.DataContracts"/>
+		<namespace name="Imi.SupplyChain.Warehouse.Services.Alarm.ServiceContracts" assembly="Imi.SupplyChain.Warehouse.Services.Alarm.ServiceContracts"/>
+    <namespace name="Imi.SupplyChain.OutputManager.Alarm.BusinessLogic" assembly="Imi.SupplyChain.OutputManager.Alarm.BusinessLogic"/>
+    <namespace name="Imi.SupplyChain.OutputManager.Services.Alarm.DataContracts" assembly="Imi.SupplyChain.OutputManager.Services.Alarm.DataContracts"/>
+    <namespace name="Imi.SupplyChain.OutputManager.Services.Alarm.ServiceContracts" assembly="Imi.SupplyChain.OutputManager.Services.Alarm.ServiceContracts"/>
+		<namespace name="Imi.SupplyChain.UX.Modules.Dock.Infrastructure.Services" assembly="Imi.SupplyChain.UX.Modules.Dock.Infrastructure"/>
+		<namespace name="Imi.SupplyChain.UX.Modules.Gateway.Infrastructure.Services" assembly="Imi.SupplyChain.UX.Modules.Gateway.Infrastructure"/>
+		<namespace name="Imi.SupplyChain.UX.Modules.GatewayTMS.Infrastructure.Services" assembly="Imi.SupplyChain.UX.Modules.GatewayTMS.Infrastructure"/>
+    <namespace name="Imi.SupplyChain.UX.Modules.GatewayMHS.Infrastructure.Services" assembly="Imi.SupplyChain.UX.Modules.GatewayMHS.Infrastructure"/>
+    <namespace name="Imi.SupplyChain.UX.Modules.ABC.Infrastructure.Services" assembly="Imi.SupplyChain.UX.Modules.Abc.Infrastructure"/>
+		<namespace name="Imi.SupplyChain.UX.Modules.ActivityMonitor.Infrastructure.Services" assembly="Imi.SupplyChain.UX.Modules.ActivityMonitor.Infrastructure"/>
+		<namespace name="Imi.SupplyChain.UX.Modules.Transportation.Infrastructure.Services" assembly="Imi.SupplyChain.UX.Modules.Transportation.Infrastructure"/>
+		<namespace name="Imi.SupplyChain.UX.Modules.Warehouse.Infrastructure.Services" assembly="Imi.SupplyChain.UX.Modules.Warehouse.Infrastructure"/>
+    <namespace name="Imi.SupplyChain.UX.Modules.OutputManager.Infrastructure.Services" assembly="Imi.SupplyChain.UX.Modules.OutputManager.Infrastructure"/>
+		<namespace name="Microsoft.Practices.CompositeUI" assembly="Microsoft.Practices.CompositeUI"/>
+		<namespace name="Microsoft.Practices.CompositeUI.SmartParts" assembly="Microsoft.Practices.CompositeUI"/>
+		<namespace name="Microsoft.Practices.CompositeUI.EventBroker" assembly="Microsoft.Practices.CompositeUI"/>
+		<namespace name="Microsoft.Practices.CompositeUI.Utility" assembly="Microsoft.Practices.CompositeUI"/>
+		<namespace name="Microsoft.Practices.ObjectBuilder" assembly="Microsoft.Practices.ObjectBuilder"/>
+		<namespace name="System.Workflow.Activities.Rules" assembly="System.Workflow.Activities"/>
+		<namespace name="System.Workflow.ComponentModel.Serialization" assembly="System.Workflow.ComponentModel"/>
+		<namespace name="System.Workflow.Runtime" assembly="System.Workflow.Runtime"/>
+		<namespace name="Oracle.DataAccess.Client" assembly="Oracle.DataAccess"/>
+		<namespace name="Telerik.Windows.Controls.Chart" assembly="Telerik.Windows.Controls.Chart"/>
+		<namespace name="Microsoft.IdentityModel.Claims" assembly="Microsoft.IdentityModel"/>
+	</namespaces>
+
+
+</crossreference>

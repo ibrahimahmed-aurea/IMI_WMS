@@ -1,0 +1,73 @@
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:transitions="clr-namespace:Cdc.Framework.Wpf.Transitions;assembly=Cdc.Framework.Wpf.Transitions"
+    xmlns:workspaces="clr-namespace:Cdc.Framework.UX.Wpf.Workspaces;assembly=Cdc.Framework.UX.Wpf">
+  
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="pack://application:,,,/Cdc.SupplyChain.UX;component/Resources/generic.xaml"/>
+  </ResourceDictionary.MergedDictionaries>
+  
+    <transitions:FadeTransition x:Key="workSpaceTransition1" Duration="0:0:1"/>
+
+    <transitions:StoryboardTransition x:Key="workSpaceTransition" TextSearch.Text="Fade And Grow" IsNewContentTopmost="False">
+        
+        <transitions:StoryboardTransition.OldContentStyle>
+            <Style TargetType="ContentPresenter">
+                <Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
+                <Setter Property="RenderTransform">
+                    <Setter.Value>
+                        <ScaleTransform ScaleX="1" ScaleY="1"/>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </transitions:StoryboardTransition.OldContentStyle>
+        <transitions:StoryboardTransition.OldContentStoryboard>
+            <Storyboard>
+                <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:0.5"/>
+                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" From="1" To="1.2" Duration="0:0:0.5"/>
+                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" From="1" To="1.2" Duration="0:0:0.5"/>
+            </Storyboard>
+        </transitions:StoryboardTransition.OldContentStoryboard>
+
+        <transitions:StoryboardTransition.NewContentStyle>
+            <Style TargetType="ContentPresenter">
+                <Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
+                <Setter Property="RenderTransform">
+                    <Setter.Value>
+                        <ScaleTransform ScaleX="1" ScaleY="1"/>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </transitions:StoryboardTransition.NewContentStyle>
+        <transitions:StoryboardTransition.NewContentStoryboard>
+            <Storyboard>
+                <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.5"/>
+                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" From="0.8" To="1" Duration="0:0:0.5"/>
+                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" From="0.8" To="1" Duration="0:0:0.5"/>
+            </Storyboard>
+        </transitions:StoryboardTransition.NewContentStoryboard>
+    </transitions:StoryboardTransition>
+    
+    <!-- Resource dictionary entries should be defined here. -->
+    <Style x:Key="DialogViewDeckWorkspaceStyle" TargetType="{x:Type workspaces:DeckWorkspace}">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="Margin" Value="0,0,0,0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type workspaces:DeckWorkspace}">
+                    <Grid ClipToBounds="true" SnapsToDevicePixels="true">
+                        <transitions:TransitionPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" x:Name="PART_SelectedContentHost" ContentSource="Content" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0">
+                            <transitions:TransitionPresenter.TransitionSelector>
+                                <transitions:TransitionSelector Transition="{StaticResource workSpaceTransition}"/>
+                            </transitions:TransitionPresenter.TransitionSelector>
+                        </transitions:TransitionPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+</ResourceDictionary>

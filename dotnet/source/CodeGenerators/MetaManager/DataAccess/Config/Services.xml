@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+
+	<!-- Referenced by main application context configuration file -->
+
+	<description>
+		The Metamanager service layer definitions
+	</description>
+
+	<!-- Property placeholder configurer for database settings -->
+	<object id="IssueManagementService" type="Cdc.MetaManager.BusinessLogic.DeployIssueManagementService, Cdc.MetaManager.BusinessLogic">
+	</object>
+	<object id="ConfigurationManagementService" type="Cdc.MetaManager.BusinessLogic.ConfigurationManagementService, Cdc.MetaManager.BusinessLogic">
+	 	<property name="ModelService" ref="ModelService"/>
+	</object>
+	<object id="ModelService" type="Cdc.MetaManager.BusinessLogic.ModelService, Cdc.MetaManager.BusinessLogic">
+		<property name="ConfigurationManagementService" ref="ConfigurationManagementService"/>
+	</object>
+	<object id="ModelChangeNotificationService" type="Cdc.MetaManager.BusinessLogic.ModelChangeNotificationService, Cdc.MetaManager.BusinessLogic">
+		<property name="ConfigurationManagementService" ref="ConfigurationManagementService"/>
+		<property name="ModelService" ref="ModelService"/>
+	</object>
+	
+	<!--Helpers-->
+	<object id="ApplicationHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.ApplicationHelper, Cdc.MetaManager.BusinessLogic">
+    <property name="ModelService" ref="ModelService"/>
+	</object>
+	<object id="SchemaHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.SchemaHelper, Cdc.MetaManager.BusinessLogic">
+	</object>
+	<object id="StoredProcedureHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.StoredProcedureHelper, Cdc.MetaManager.BusinessLogic">
+	</object>
+	<object id="ProcedurePropertyHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.ProcedurePropertyHelper, Cdc.MetaManager.BusinessLogic">
+	</object>
+	<object id="QueryHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.QueryHelper, Cdc.MetaManager.BusinessLogic">
+	</object>
+	<object id="QueryPropertyHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.QueryPropertyHelper, Cdc.MetaManager.BusinessLogic">
+	</object>
+	<object id="PackageHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.PackageHelper, Cdc.MetaManager.BusinessLogic">
+	</object>
+	<object id="PropertyStorageInfoHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.PropertyStorageInfoHelper, Cdc.MetaManager.BusinessLogic">
+	</object>
+	<object id="BusinessEntityHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.BusinessEntityHelper, Cdc.MetaManager.BusinessLogic">
+    <property name="ModelService" ref="ModelService"/>
+    <property name="ConfigurationManagementService" ref="ConfigurationManagementService"/>
+	</object>
+	<object id="ActionHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.ActionHelper, Cdc.MetaManager.BusinessLogic">
+		<property name="ModelService" ref="ModelService"/>
+		<property name="ConfigurationManagementService" ref="ConfigurationManagementService"/>
+	</object>
+	<object id="ServiceHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.ServiceHelper, Cdc.MetaManager.BusinessLogic">
+	</object>
+	<object id="PropertyHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.PropertyHelper, Cdc.MetaManager.BusinessLogic">
+	</object>
+	<object id="PropertyCaptionHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.PropertyCaptionHelper, Cdc.MetaManager.BusinessLogic">
+	</object>
+	<object id="PropertyCodeHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.PropertyCodeHelper, Cdc.MetaManager.BusinessLogic">
+	</object>
+	<object id="ServiceMethodHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.ServiceMethodHelper, Cdc.MetaManager.BusinessLogic">
+    <property name="ModelService" ref="ModelService"/>
+	</object>
+	<object id="ViewHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.ViewHelper, Cdc.MetaManager.BusinessLogic">
+		<property name="ModelService" ref="ModelService"/>
+	</object>
+	<object id="DialogHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.DialogHelper, Cdc.MetaManager.BusinessLogic">
+	</object>
+	<object id="MenuHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.MenuHelper, Cdc.MetaManager.BusinessLogic">
+	</object>
+	<object id="MenuItemHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.MenuItemHelper, Cdc.MetaManager.BusinessLogic">
+	</object>
+	<object id="UXActionHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.UXActionHelper, Cdc.MetaManager.BusinessLogic">
+		<property name="modelService" ref="ModelService"/>
+	</object>
+	<object id="ModuleHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.ModuleHelper, Cdc.MetaManager.BusinessLogic">
+		<property name="ModelService" ref="ModelService"/>
+		<property name="ViewHelper" ref="ViewHelper"/>
+	</object>
+	<object id="MappedPropertyHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.MappedPropertyHelper, Cdc.MetaManager.BusinessLogic">
+    <property name="ModelService" ref="ModelService"/>
+	</object>
+	<object id="PropertyMapHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.PropertyMapHelper, Cdc.MetaManager.BusinessLogic">
+    <property name="ModelService" ref="ModelService"/>
+    <property name="ConfigurationManagementService" ref="ConfigurationManagementService"/>
+	</object>
+	<object id="ViewNodeHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.ViewNodeHelper, Cdc.MetaManager.BusinessLogic">
+	</object>
+	<object id="ViewActionHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.ViewActionHelper, Cdc.MetaManager.BusinessLogic">
+	</object>
+	<object id="UXSessionHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.UXSessionHelper, Cdc.MetaManager.BusinessLogic">
+	</object>
+	<object id="UXSessionPropertyHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.UXSessionPropertyHelper, Cdc.MetaManager.BusinessLogic">
+	</object>
+	<object id="IssueHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.IssueHelper, Cdc.MetaManager.BusinessLogic">
+	</object>
+	<object id="CustomDialogHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.CustomDialogHelper, Cdc.MetaManager.BusinessLogic">
+	</object>
+	<object id="DataSourceHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.DataSourceHelper, Cdc.MetaManager.BusinessLogic">
+	</object>
+	<object id="WorkflowHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.WorkflowHelper, Cdc.MetaManager.BusinessLogic">
+	</object>
+	<object id="WorkflowDialogHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.WorkflowDialogHelper, Cdc.MetaManager.BusinessLogic">
+	</object>
+	<object id="ReportHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.ReportHelper, Cdc.MetaManager.BusinessLogic">
+    <property name="modelService" ref="ModelService"/>
+	</object>
+	<object id="ReportQueryHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.ReportQueryHelper, Cdc.MetaManager.BusinessLogic">
+    <property name="ModelService" ref="ModelService"/>
+	<property name="ConfigurationManagementService" ref="ConfigurationManagementService"/>
+	</object>
+	<object id="HintCollectionHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.HintCollectionHelper, Cdc.MetaManager.BusinessLogic">
+    <property name="ModelService" ref="ModelService"/>
+    <property name="ConfigurationManagementService" ref="ConfigurationManagementService"/>
+	</object>
+	<object id="HintHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.HintHelper, Cdc.MetaManager.BusinessLogic">
+	</object>
+	<object id="WorkflowSubworkflowHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.WorkflowSubworkflowHelper, Cdc.MetaManager.BusinessLogic">
+	</object>
+	<object id="WorkflowServiceMethodHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.WorkflowServiceMethodHelper, Cdc.MetaManager.BusinessLogic">
+	</object>
+	<object id="ImportChangeHelper" type="Cdc.MetaManager.BusinessLogic.Helpers.ImportChangeHelper, Cdc.MetaManager.BusinessLogic">
+		<property name="modelService" ref="ModelService"/>
+		<property name="configurationManagementService" ref="ConfigurationManagementService"/>
+		<property name="issueManagementService" ref="IssueManagementService"/>
+	</object>
+	
+	<object id="ApplicationService" type="Cdc.MetaManager.BusinessLogic.ApplicationService, Cdc.MetaManager.BusinessLogic">
+		<property name="ApplicationDao" ref="ApplicationDao"/>
+		<property name="SchemaDao" ref="SchemaDao"/>
+		<property name="PackageDao" ref="PackageDao"/>
+		<property name="ActionDao" ref="ActionDao"/>
+		<property name="PropertyMapDao" ref="PropertyMapDao"/>
+		<property name="MappedPropertyDao" ref="MappedPropertyDao"/>
+		<property name="ServiceDao" ref="ServiceDao"/>
+		<property name="UXSessionDao" ref="UXSessionDao"/>
+		<property name="ServiceMethodDao" ref="ServiceMethodDao"/>
+		<property name="QueryDao" ref="QueryDao"/>
+		<property name="QueryPropertyDao" ref="QueryPropertyDao"/>
+		<property name="StoredProcedureDao" ref="StoredProcedureDao"/>
+		<property name="StoredProcedurePropertyDao" ref="StoredProcedurePropertyDao"/>
+		<property name="DeploymentGroupDao" ref="DeploymentGroupDao"/>
+		<property name="PropertyDao" ref="PropertyDao"/>
+		<property name="BusinessEntityDao" ref="BusinessEntityDao"/>
+		<property name="ReportQueryDao" ref="ReportQueryDao"/>
+		<property name="HintDao" ref="HintDao"/>
+		<property name="ViewDao" ref="ViewDao"/>
+		<property name="HintCollectionDao" ref="HintCollectionDao"/>
+	</object>
+	<object id="DialogService" type="Cdc.MetaManager.BusinessLogic.DialogService, Cdc.MetaManager.BusinessLogic">
+		<property name="DialogDao" ref="DialogDao"/>
+		<property name="ModuleDao" ref="ModuleDao"/>
+		<property name="ViewDao" ref="ViewDao"/>
+		<property name="ViewActionDao" ref="ViewActionDao"/>
+		<property name="QueryPropertyDao" ref="QueryPropertyDao"/>
+		<property name="ApplicationService" ref="ApplicationService"/>
+		<property name="MappedPropertyDao" ref="MappedPropertyDao"/>
+		<property name="ServiceMethodDao" ref="ServiceMethodDao"/>
+		<property name="QueryDao" ref="QueryDao"/>
+		<property name="ActionDao" ref="ActionDao"/>
+		<property name="PropertyDao" ref="PropertyDao"/>
+		<property name="ViewNodeDao" ref="ViewNodeDao"/>
+		<property name="PropertyMapDao" ref="PropertyMapDao"/>
+		<property name="UXActionDao" ref="UXActionDao"/>
+		<property name="BusinessEntityDao" ref="BusinessEntityDao"/>
+		<property name="CustomDialogDao" ref="CustomDialogDao"/>
+		<property name="MenuService" ref="MenuService"/>
+		<property name="DataSourceDao" ref="DataSourceDao"/>
+		<property name="StoredProcedureDao" ref="StoredProcedureDao"/>
+		<property name="StoredProcedurePropertyDao" ref="StoredProcedurePropertyDao"/>
+		<property name="IssueDao" ref="IssueDao"/>
+		<property name="WorkflowDao" ref="WorkflowDao"/>
+		<property name="WorkflowDialogDao" ref="WorkflowDialogDao"/>
+		<property name="HintDao" ref="HintDao"/>
+    <property name="ReportDao" ref="ReportDao"/>
+		<property name="WorkflowSubworkflowDao" ref="WorkflowSubworkflowDao"/>
+    <property name="ViewHelper" ref="ViewHelper"/>
+	</object>
+	<object id="MenuService" type="Cdc.MetaManager.BusinessLogic.MenuService, Cdc.MetaManager.BusinessLogic">
+		<property name="MenuDao" ref="MenuDao"/>
+		<property name="MenuItemDao" ref="MenuItemDao"/>
+	</object>
+	<object id="UXActionService" type="Cdc.MetaManager.BusinessLogic.UXActionService, Cdc.MetaManager.BusinessLogic">
+		<property name="UXActionDao" ref="UXActionDao"/>
+		<property name="ViewActionDao" ref="ViewActionDao"/>
+		<property name="DialogDao" ref="DialogDao"/>
+		<property name="PropertyMapDao" ref="PropertyMapDao"/>
+		<property name="ApplicationService" ref="ApplicationService"/>
+		<property name="MappedPropertyDao" ref="MappedPropertyDao"/>
+		<property name="ServiceMethodDao" ref="ServiceMethodDao"/>
+		<property name="ViewNodeDao" ref="ViewNodeDao"/>
+		<property name="CustomDialogDao" ref="CustomDialogDao"/>
+		<property name="WorkflowDao" ref="WorkflowDao"/>
+	</object>
+	<object id="AnalyzeService" type="Cdc.MetaManager.BusinessLogic.AnalyzeService, Cdc.MetaManager.BusinessLogic">
+		<property name="ServiceMethodDao" ref="ServiceMethodDao"/>
+		<property name="DialogDao" ref="DialogDao"/>
+		<property name="DialogService" ref="DialogService"/>
+		<property name="IssueDao" ref="IssueDao"/>
+		<property name="ApplicationDao" ref="ApplicationDao"/>
+		<property name="UXActionDao" ref="UXActionDao"/>
+		<property name="PackageDao" ref="PackageDao"/>
+		<property name="StoredProcedureDao" ref="StoredProcedureDao"/>
+		<property name="QueryDao" ref="QueryDao"/>
+		<property name="SchemaDao" ref="SchemaDao"/>
+		<property name="PropertyDao" ref="PropertyDao"/>
+	</object>
+	<import resource="assembly://Cdc.MetaManager.DataAccess.Config/Cdc.MetaManager.DataAccess.Config/DeclarativeServicesAttributeDriven.xml"/>
+</objects>

@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThinClient.exe", "ThinClient.exe.csproj", "{C5E0E970-CFB2-42F9-BC3C-A70FD47A5064}"
+EndProject
+Project("{B900F1C2-3D47-4FEC-85B3-04AAF18C3634}") = "SetupThinClient", "SetupThinClient\SetupThinClient.vddproj", "{230204D2-0E7B-4D88-8F58-CB1D94CE9317}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C5E0E970-CFB2-42F9-BC3C-A70FD47A5064}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5E0E970-CFB2-42F9-BC3C-A70FD47A5064}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5E0E970-CFB2-42F9-BC3C-A70FD47A5064}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C5E0E970-CFB2-42F9-BC3C-A70FD47A5064}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5E0E970-CFB2-42F9-BC3C-A70FD47A5064}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5E0E970-CFB2-42F9-BC3C-A70FD47A5064}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{230204D2-0E7B-4D88-8F58-CB1D94CE9317}.Debug|Any CPU.ActiveCfg = Debug
+		{230204D2-0E7B-4D88-8F58-CB1D94CE9317}.Release|Any CPU.ActiveCfg = Release
+		{230204D2-0E7B-4D88-8F58-CB1D94CE9317}.Release|Any CPU.Build.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,72 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Segment NodeParty</title>
+<link href="StructureDescription.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>Segment NodeParty</h1>
+<h3>Description:</h3>
+Incoming Message Node Party<h3>Attributes:</h3>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000"><tbody>
+<tr class="tableHeader"><th class="tableHeaderColumn">Tag</th><th class="tableHeaderColumn">Method</th><th class="tableHeaderColumn">Type</th><th class="tableHeaderColumn">Oracle Type</th><th class="tableHeaderColumn">Mandatory</th><th class="tableHeaderColumn">Note</th></tr>
+<tr class="tableRow"><td class="tableRowColumn">OPCODE</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Operation Code<br/>0 - No Operation<br/>1 - New<br/>2 - Change<br/>3 - Remove<br/>Note! An operation code is only useful if at least one tag supports the method</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PartyIdentity</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">Party Identity<br/>The identity of the Party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PartyQualifier</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">Party Type<br/>The type of the Party:<br/>CU = Customer<br/>SU = Vendor<br/>WH = Warehouse</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ClientName</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Client Name<br/>The name of the Client.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">NodeIdentity</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Node Identity<br/>The identity of the Node. This is the Identity (Global Location Number, Longitude, etc)<br/>that will be used when transporting the goods to / from the Party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PartyName1</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Name<br/>The Name of the party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PartyName2</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Name<br/>Line 2 of the name for the party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PartyName3</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Name<br/>Line 3 of the name for the party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PartyName4</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Name<br/>Line 4 of the name for the party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PartyName5</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Name<br/>Line 5 of the name for the party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PartyAddress1</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Address<br/>The Address to the party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PartyAddress2</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Address<br/>Line 2 of the Address to the party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PartyAddress3</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Address<br/>Line 3 of the Address to the party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PartyAddress4</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Address<br/>Line 4 of the Address to the party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ZipCode</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(12)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Post/Zip Code<br/>The Post/Zip Code of the address for the party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">City</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">City<br/>The City part of the address for the party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Region</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">State<br/>The State part of the address for the party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CountryCode</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Country Code<br/>The Country Code of the address for the party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Country</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Country<br/>The Country part of the address for the party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Division</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Division<br/>Division, department, section, workshop or similar subordinate unit of a company / organization.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Phone</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Phone<br/>The Phone number for the party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Fax</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Fax<br/>The Fax number for the party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Telex</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Telex<br/>The Telex number for the party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Email</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(50)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">E-mail<br/>The E-mail address for the party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OrganizationNumber</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Company Registration Number<br/>Is used in some countries for fiscal purposes (VAT accounting, etc).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">GlobalLocationNumber</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Geographical Reference<br/>The Geographical Reference (EAN) for the party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Latitude</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Latitude<br/>The latitude coordinates for the party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Longitude</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Longitude<br/>The longitude coordinates for the party.</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

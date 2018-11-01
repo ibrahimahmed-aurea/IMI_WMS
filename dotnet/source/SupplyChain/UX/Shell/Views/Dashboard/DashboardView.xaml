@@ -1,0 +1,13 @@
+﻿<UserControl
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2006" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+  xmlns:workspaces="clr-namespace:Imi.Framework.UX.Wpf.Workspaces;assembly=Imi.Framework.UX.Wpf"
+  xmlns:controls="clr-namespace:Imi.Framework.Wpf.Controls;assembly=Imi.Framework.Wpf.Controls"
+  xmlns:themes="http://schemas.actiprosoftware.com/winfx/xaml/themes"
+  xmlns:local="clr-namespace:Imi.SupplyChain.UX.Shell"
+  x:Class="Imi.SupplyChain.UX.Shell.Views.DashboardView"
+  x:Name="dashboardView"
+  DataContext="{x:Null}">
+  <workspaces:DockWorkspace x:Name="dashboardWorkspace" Background="Transparent"/>
+</UserControl>

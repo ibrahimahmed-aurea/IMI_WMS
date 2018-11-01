@@ -1,0 +1,97 @@
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+    xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation">
+
+    <Style TargetType="Border" x:Key="ChartBorderStyle">
+        <Setter Property="BorderBrush" Value="Gray"/>
+        <Setter Property="BorderThickness" Value="0,1,0,0"/>
+    </Style>
+
+    <SolidColorBrush x:Key="ChartSerie1Brush" Color="#FFF6921E" />
+    <SolidColorBrush x:Key="ChartSerie2Brush" Color="#FF96C93C" />
+    <SolidColorBrush x:Key="ChartSerie3Brush" Color="#FF2FAAE1" />
+    <SolidColorBrush x:Key="ChartSerie4Brush" Color="#FFF05A28" />
+    <SolidColorBrush x:Key="ChartSerie5Brush" Color="#FFFFD340" />
+    <SolidColorBrush x:Key="ChartSerie6Brush" Color="Black" />
+
+    <SolidColorBrush x:Key="ChartTransparentSerieBrush" Color="Transparent" />
+
+
+    <Style x:Key="OnGraphLableStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="Foreground" Value="#FF767676" />
+    </Style>
+
+    <Style x:Key="OnGraphLableStyleLarge" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="22" />
+        <Setter Property="Foreground" Value="#FF767676" />
+    </Style>
+
+    <Style x:Key="OnGraphTextStyleLarge" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="22" />
+    </Style>
+
+    <Style x:Key="LegendLableStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="Foreground" Value="#FF767676" />
+        <Setter Property="Margin" Value="4,2,4,2" />
+    </Style>
+    
+    <Style x:Key="LegendRectangleStyle" TargetType="Rectangle">
+        <Setter Property="Width" Value="12"/>
+        <Setter Property="Height" Value="12"/>
+    </Style>
+    
+    <SolidColorBrush x:Key="TrackBallBorderBrush" Color="#FFB2B2B2" />
+    <SolidColorBrush x:Key="TrackBallInfoHeaderBackground" Color="#FFEBEBEB" />
+    <SolidColorBrush x:Key="TrackBallInfoColumnHeaderBackground" Color="#FFDEDEDE" />
+    <SolidColorBrush x:Key="TrackBallInfoBackground" Color="White"/>
+
+    <Style TargetType="telerik:TrackBallInfoControl">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="telerik:TrackBallInfoControl">
+                    <Border BorderThickness="1" BorderBrush="{StaticResource TrackBallBorderBrush}" Background="{StaticResource TrackBallInfoBackground}">
+                        <StackPanel>
+                            <StackPanel x:Name="panel" />
+                        </StackPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Polyline"  x:Key="TrackBallLineStyle">
+        <Setter Property="Stroke" Value="{StaticResource TrackBallBorderBrush}"/>
+        <Setter Property="StrokeThickness" Value="1"/>
+    </Style>
+
+    <sys:String x:Key="TrackBallDateTimeFormat">dd MMMM HH:mm</sys:String>
+
+    <Style TargetType="StackPanel" x:Key="TrackBallItemStyle">
+        <Setter Property="Margin" Value="4,0,4,2" />
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="TrackBallHeaderStyle">
+        <Setter Property="Margin" Value="4,2,4,4" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="TextAlignment" Value="Center" />
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="TrackBallHeaderStyleColumns">
+        <Setter Property="Margin" Value="4,0,4,2" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="TextAlignment" Value="Left" />
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="TrackBallItemStyleColumns">
+        <Setter Property="Margin" Value="4,0,4,2" />
+    </Style>
+
+</ResourceDictionary>

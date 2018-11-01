@@ -1,0 +1,48 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Segment CustomerOrderHead</title>
+<link href="StructureDescription.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>Segment CustomerOrderHead</h1>
+<h3>Description:</h3>
+Customer Order<h3>Attributes:</h3>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000"><tbody>
+<tr class="tableHeader"><th class="tableHeaderColumn">Tag</th><th class="tableHeaderColumn">Method</th><th class="tableHeaderColumn">Type</th><th class="tableHeaderColumn">Oracle Type</th><th class="tableHeaderColumn">Mandatory</th><th class="tableHeaderColumn">Note</th></tr>
+<tr class="tableRow"><td class="tableRowColumn">OPCODE</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Operation Code<br/>0 - No Operation<br/>1 - New<br/>2 - Change<br/>3 - Remove<br/>Note! An operation code is only useful if at least one tag supports the method</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Customer Order Number</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Customer Order Sequence Number<br/>A Sequence Number used by Host to make it possible to send an Order more then once (e.g. backorder).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderType</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(2)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Customer Order Type<br/>Comes from the Host System and does not control any logic in the Warehouse except for what is described below:<br/>LO = Local Order, inhibits sending of Order-related information, such as Pick Receipt.<br/>Other values = Just information in the Warehouse system.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderClass</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(2)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Custom Order Type Identity<br/>Installation dependent. Controls e.g. choice of Method of Shipment.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderReference</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">A Reference from Customer.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">BilltoCustomerIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Bill-to Customer<br/>The Party that will be invoiced for the ordered goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">SelltoCustomerIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Sell-to Customer Identity<br/>The Customer that made the Order.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShiptoCustomerIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Ship-to Customer Identity<br/>The Party that finally will receive the goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PickPriority</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(2)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Pick Priority<br/>Between 1 and 9, 1 is the highest priority.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DispatchFee</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(17,7)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Costs for Service Charge.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CODFee</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(17,7)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Cash on Delivery Fee</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">FreightCost</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(17,7)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Freight Cost</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">FreightPartyQualifier</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Forwarder Party Type</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">FreightPartyIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Forwarder Party Identity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Division</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Division</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

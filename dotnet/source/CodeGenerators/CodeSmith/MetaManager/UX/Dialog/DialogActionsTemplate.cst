@@ -1,0 +1,455 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="dialog" Type="Cdc.MetaManager.DataAccess.Domain.Dialog" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isAdapted" Type="System.Boolean" Default="false" Optional="false" Category="" Description="" %>
+<%
+	string dialogNamespace = GetDialogNamespace(dialog);
+	string actionsNamespace = GetActionsNamespace(dialog.Module);
+	string translatorsNamespace = GetActionTranslatorNamespace(dialog);
+	string controllerClassName = GetControllerClassName(dialog);
+	string moduleNamespace = GetModuleNamespace(dialog.Module);
+	string applicationName = dialog.Module.Application.Name;
+%>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Microsoft.Practices.CompositeUI;
+using Microsoft.Practices.ObjectBuilder;
+using Microsoft.Practices.EnterpriseLibrary.Validation;
+using Imi.Framework.UX;
+using Imi.Framework.UX.Services;
+using Imi.SupplyChain.UX;
+using <%=moduleNamespace%>;
+using <%=actionsNamespace%>;
+<%
+if (NeedsActionTranslators(dialog))
+{
+%>
+using <%=translatorsNamespace%>;
+<%
+}
+foreach (View view in GetUniqueViews(dialog))
+{
+%>
+using <%=GetViewsNamespace(view)%>;
+<%
+}
+%>
+
+namespace <%= dialogNamespace %>
+{
+<%
+if (!isAdapted)
+{
+%>
+	//Extract the following class to <%=dialog.Name%>ActionConditionsAdapted.cs in order to customize its behavior    	
+	public class <%=GetDialogActionsClassName(dialog)%> : <%=GetDialogActionsBaseClassName(dialog)%>
+    {
+		
+	}
+<%
+}
+%>
+
+	public class <%=GetDialogActionsBaseClassName(dialog)%> : IBuilderAware
+    {
+		[ServiceDependency]
+		public IActionCatalogService ActionCatalog
+		{
+			get;
+			set;
+		}
+		
+		[ServiceDependency]
+        public IWorkspaceLocatorService WorkspaceLocatorService
+        {
+            get;
+            set;
+        }
+		
+		protected WorkItem GetModuleWorkItem(WorkItem context)
+		{
+			return context.RootWorkItem.WorkItems["<%=applicationName%>"].WorkItems.FindByType<ControlledWorkItem<ModuleController>>().Last();
+		}
+		
+<%
+foreach (ViewNode viewNode in dialog.ViewNodes)
+{
+	foreach (ViewAction viewAction in viewNode.ViewActions)
+	{
+		string proxyActionName = string.Format("{0}{1}", viewNode.View.Name, viewAction.Action.Name);
+		string proxyActionOperation = string.Format("{0}Operation", proxyActionName);
+		string actionName = viewAction.Action.Name;
+		string viewParametersClassName = GetViewParametersClassName(viewNode.View);
+		string translatorClassName = GetActionTranslatorClassName(viewAction);
+		string viewClassName = GetViewClassName(viewNode.View);
+		string viewInterfaceName = GetViewInterfaceName(viewNode.View);
+		string actionId = string.Format("action://{0}/{1}", dialogNamespace, proxyActionName);
+
+		bool isMulti = (IsMultiEnabled(viewAction.Action));
+		bool isImportEnabled = IsImportEnabled(viewAction.Action);
+		
+		string viewResultClassName = GetViewResultClassName(viewNode.View, isMulti || isImportEnabled, true);
+		string viewResultClassNameBase = GetViewResultClassName(viewNode.View);
+		string actionParametersClassName = GetActionParametersClassName(viewAction.Action, isMulti || isImportEnabled, true);
+		string actionParametersClassNameBase = GetActionParametersClassName(viewAction.Action);
+%>
+
+		/* Proxy action for <%=proxyActionName%> */
+		
+		public string <%=proxyActionName%> 
+        { 
+            get 
+            { 
+                return <%=ToCamelCase(proxyActionName)%>; 
+            } 
+        }
+				
+		protected string <%=ToCamelCase(proxyActionName)%> = "<%=actionId%>";
+		public const string <%=proxyActionOperation%> = "<%=viewAction.Action.AuthorizationId%>";
+		        
+        public virtual void On<%=proxyActionName%>(WorkItem context, object caller, object target)
+        {
+			bool importUsed = false;
+			WorkItem wi = GetModuleWorkItem(context);
+			
+			if (wi.Items.FindByType<<%=GetActionClassName(viewAction.Action)%>>().Count == 0)
+				wi.Items.AddNew<<%=GetActionClassName(viewAction.Action)%>>();
+		
+<%
+		if(viewAction.Type != ViewActionType.Drilldown)
+		{
+%>
+			<%=viewResultClassName%> viewResult = null;
+			<%=actionParametersClassName%> actionParameters = null;
+			<%=translatorClassName%> translator = null;			
+			bool isItemSelected = false;
+			
+			if (context.Items.FindByType<<%=translatorClassName%>>().Count > 0)
+				translator = context.Items.FindByType<<%=translatorClassName%>>().Last();
+			else
+				translator = context.Items.AddNew<<%=translatorClassName%>>();
+			
+				
+			if (context.Items.FindByType<<%=viewResultClassName%>>().Count > 0)
+            {
+<%
+			if (isImportEnabled && !isMulti)
+			{
+%>
+				if (context.Items.FindByType<<%=viewResultClassNameBase%>>().Count > 0) //Dialog is import enabled but import was not used.
+				{
+					viewResult = new List<<%=viewResultClassNameBase%>>() {context.Items.FindByType<<%=viewResultClassNameBase%>>().Last()};
+				}
+				else //Import was used.
+				{
+					viewResult = context.Items.FindByType<<%=viewResultClassName%>>().Last();
+					importUsed = true;
+				}
+<%
+			}
+			else
+			{
+%>
+				viewResult = context.Items.FindByType<<%=viewResultClassName%>>().Last();
+<%
+				if (isImportEnabled && isMulti)
+				{
+%>
+					if (context.Items.FindByType<<%=viewResultClassNameBase%>>().Count == 0) //Import was used in multi select dialog
+					{
+						importUsed = true;
+					}
+<%
+				}
+			}
+%>
+				isItemSelected = true;
+			}
+<%
+			if(((viewAction.Action.ServiceMethod != null) || (viewAction.Action.Workflow != null) || IsCreateDialog(viewAction.Action)) && !isMulti)
+			{
+%>
+			else
+			{
+				<%=viewResultClassNameBase%> tmpViewResult = new <%=viewResultClassNameBase%>();
+				
+				if (context.Items.FindByType<<%=viewParametersClassName%>>().Count() > 0)
+				{
+					<%=viewParametersClassName%> viewParameters = context.Items.FindByType<<%=viewParametersClassName%>>().Last();
+								
+<%
+				foreach (MappedProperty mappedProperty in viewNode.View.ResponseMap.MappedProperties)
+				{
+					if (mappedProperty.RequestMappedProperty != null)
+					{
+%>
+					tmpViewResult.<%=mappedProperty.Name%> = viewParameters.<%=mappedProperty.RequestMappedProperty.Name%>;
+<%
+					}
+				}
+%>
+				}
+
+<%
+				if (viewResultClassNameBase != viewResultClassName)
+				{
+%>
+				//Import enabled dialog.
+				viewResult = new List<<%=viewResultClassNameBase%>>();
+				viewResult.Add(tmpViewResult);
+<%
+				}
+				else
+				{
+%>
+				viewResult = tmpViewResult;
+<%
+				}
+%>
+
+			}
+<%
+			} // IsCreateDialog
+%>
+			
+			actionParameters = translator.Translate(viewResult);
+<%			
+			if(isMulti || isImportEnabled)
+			{
+				if((dialog.Type == DialogType.Modify || dialog.Type == DialogType.Create) && 
+				   (viewAction.Action.ServiceMethod != null))
+				{
+%>			
+
+            if ((actionParameters != null) && (actionParameters.Count() > 1) && !importUsed)
+            {
+                // Remove dummy record
+                actionParameters.RemoveAt(actionParameters.Count - 1);
+            }
+<%			
+				}
+%>						
+            bool multi = actionParameters.Count() > 1;
+			
+            foreach (<%= actionParametersClassNameBase %> ap in actionParameters)
+            {
+                ap.IsItemSelected = isItemSelected;
+				ap.IsMultipleItemsSelected = multi;
+            }
+<%				
+			}
+			else
+			{
+%>				
+			actionParameters.IsItemSelected = isItemSelected;
+			actionParameters.IsMultipleItemsSelected = false;
+<%				
+			}
+			
+		}
+		else // viewAction.Type == ViewActionType.Drilldown
+		{
+%>
+			IList<object> args = target as IList<object>;
+			<%=actionParametersClassName%> actionParameters = null;
+						
+			if ((args != null) && (args.Count > 0))
+            {
+				<%=translatorClassName%> translator = null;
+				
+				if (context.Items.FindByType<<%=translatorClassName%>>().Count > 0)
+					translator = context.Items.FindByType<<%=translatorClassName%>>().Last();
+				else
+					translator = context.Items.AddNew<<%=translatorClassName%>>();
+
+				<%=viewParametersClassName%> vp = args[0] as <%=viewParametersClassName%>;
+				actionParameters = translator.Translate(vp);
+
+                if (args.Count() > 1)
+                    actionParameters.CurrentRecord = args[1];
+			}
+<%
+		}
+%>
+			
+			<%=viewInterfaceName%> view = context.SmartParts.FindByType<<%=viewClassName%>>().Last();
+			
+			try
+			{
+<%
+			if (viewAction.Type == ViewActionType.Normal && 
+			   (viewAction.Action.DialogResult == UXDialogResult.Ok || 
+			    viewAction.Action.DialogResult == UXDialogResult.Update || 
+			    viewAction.Action.DialogResult == UXDialogResult.UpdateMoveNext))
+			{
+%>
+				
+				if (!importUsed)
+				{
+					if (!view.Validate())
+					{
+						return;
+					}
+				}
+					
+<%
+			}
+%>
+				ActionCatalog.Execute(ActionNames.<%=actionName%>, context, caller, actionParameters); 
+				
+				// Check if view should be closed.
+				bool ignoreClosing = ((context.Items.Get("<%=GetWorkItemConstantIgnoreClose()%>") != null) &&
+									((bool)(context.Items.Get("<%=GetWorkItemConstantIgnoreClose()%>"))));
+				
+<%
+			if (viewAction.Action.DialogResult == UXDialogResult.Ok ||
+				viewAction.Action.DialogResult == UXDialogResult.Cancel)
+			{
+				string viewFullName = string.Format("{0}.{1}", GetViewsNamespace(viewNode.View), GetViewInterfaceName(viewNode.View));
+%>
+				if (!ignoreClosing)
+				{
+					/* close wrapper if view was dynamically loaded */
+					object wrapper = context.Items.Get("<%=viewFullName%>");
+					
+					if (wrapper == null)
+						WorkspaceLocatorService.FindContainingWorkspace(context, view).Close(view);
+					else
+						WorkspaceLocatorService.FindContainingWorkspace(context, wrapper).Close(wrapper);
+				}
+<%	
+			}
+			else if ((viewAction.Action.DialogResult == UXDialogResult.Update) || (viewAction.Action.DialogResult == UXDialogResult.UpdateMoveNext))
+			{
+				if (viewNode.RenderMode == RenderMode.Inline)
+				{
+%>
+				viewResult.IsModified = true;
+				view.OnViewUpdated();
+
+				if (!ignoreClosing)
+				{
+<%
+					if (viewNode.UpdatePropagation == UpdatePropagation.Parent)
+					{
+						string parentViewClassName = GetViewClassName(viewNode.Parent.View);
+						string parentViewInterfaceName = GetViewInterfaceName(viewNode.Parent.View);
+%>						
+					<%=parentViewInterfaceName%> parentView = context.SmartParts.FindByType<<%=parentViewClassName%>>().Last();
+					parentView.Refresh();						
+<%					
+					}
+%>					
+				}
+<%
+				}
+				else
+				{
+%>
+				
+				if (!ignoreClosing)
+				{
+<%
+					if (viewNode.UpdatePropagation == UpdatePropagation.Parent)
+					{
+						string parentViewClassName = GetViewClassName(viewNode.Parent.View);
+						string parentViewInterfaceName = GetViewInterfaceName(viewNode.Parent.View);
+%>						
+					<%=parentViewInterfaceName%> parentView = context.SmartParts.FindByType<<%=parentViewClassName%>>().Last();
+					parentView.Refresh();						
+<%					
+					}
+					else
+					{
+%>					
+					view.Refresh();
+<%	
+					}
+%>
+				}
+<%
+				}
+			}
+%>
+			}
+			catch (Imi.SupplyChain.UX.ValidationException ex)
+			{
+
+				view.HandleValidationResult(ValidationHelper.ConvertToResult((Imi.SupplyChain.UX.ValidationException)ex));
+<%
+				if (viewNode.RenderMode == RenderMode.Inline)
+				{
+%>
+				throw ex;
+<%
+				}
+%>
+				
+			}
+		}
+<%
+	}
+}
+%>
+		
+		#region IBuilderAware Members
+
+        public virtual void OnBuiltUp(string id)
+        {
+<%
+	foreach (ViewNode viewNode in dialog.ViewNodes)
+	{
+        string viewResultClassName = GetViewResultClassName(viewNode.View);
+        
+        foreach (ViewAction viewAction in viewNode.ViewActions)
+		{
+			string proxyActionName = string.Format("{0}{1}", viewNode.View.Name, viewAction.Action.Name);
+%>
+			
+			<%=ToCamelCase(proxyActionName)%> += "/" + id;
+			ActionCatalog.RegisterActionImplementation(<%=ToCamelCase(proxyActionName)%>, On<%=proxyActionName%>);
+<%
+			if(viewAction.Type != ViewActionType.Drilldown)
+			{
+%>
+			ActionCatalog.RegisterSpecificCondition(<%=ToCamelCase(proxyActionName)%>, new <%=proxyActionName%>Condition());
+<%
+			}
+		}
+	}
+%>
+        }
+
+        public virtual void OnTearingDown()
+        {
+<%
+	foreach (ViewNode viewNode in dialog.ViewNodes)
+	{
+        string viewResultClassName = GetViewResultClassName(viewNode.View);
+        
+        foreach (ViewAction viewAction in viewNode.ViewActions)
+		{
+			string proxyActionName = string.Format("{0}{1}", viewNode.View.Name, viewAction.Action.Name);
+%>
+			ActionCatalog.RemoveActionImplementation(<%=ToCamelCase(proxyActionName)%>);
+<%
+			
+		}
+	}
+%>            
+        }
+
+        #endregion
+	}
+}

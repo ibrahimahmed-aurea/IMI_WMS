@@ -1,0 +1,77 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="ServiceTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="service" Type="Cdc.MetaManager.DataAccess.Domain.Service" Default="" Optional="false" Category="" Description="" %>
+<%
+  string className = GetServiceImplementationClassName(service);
+  string interfaceName = GetServiceImplementationInterfaceName(service);
+  string appNamespace = service.Application.Namespace;
+  string adapterName = string.Format("{0}Adapter", className);
+%>
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.ServiceModel;
+using Imi.Framework.Services;
+using <%= GetServiceContractNamespace(service) %>;
+using Microsoft.Practices.EnterpriseLibrary.PolicyInjection;
+using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
+using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.WCF;
+
+namespace <%= GetServiceImplementationNamespace(service) %>
+{
+    [ExceptionShielding("DefaultShieldingPolicy")]
+	[ServiceApplicationName("<%=service.Application.Name%>")]
+	[ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
+    public class <%= className %> : <%= interfaceName %>
+    {
+		private <%= interfaceName %> adapter;
+		
+		public <%= className %>()
+		{
+			adapter = PolicyInjection.Create<<%= adapterName %>, <%= interfaceName %>>();
+		}
+		
+<%
+  foreach(ServiceMethod serviceMethod in service.ServiceMethods)
+  {
+	string returnTypeName = GetServiceContractClassName(serviceMethod,false);
+	string paramTypeName = GetServiceContractClassName(serviceMethod,true);
+%>
+        
+		public <%= returnTypeName %> <%= serviceMethod.Name %>(<%= paramTypeName %> request)
+        {
+            <%= returnTypeName %> result = null;
+			
+			try
+			{
+            	result = adapter.<%= serviceMethod.Name %>(request);
+			}
+			catch (Exception ex)
+			{
+				Exception exceptionToThrow;
+				
+				if (ExceptionPolicy.HandleException(ex, "ServiceLayerPolicy", out exceptionToThrow))
+				{
+					if(exceptionToThrow == null)
+						throw;
+					else
+						throw exceptionToThrow;
+				}
+			}
+			
+			return result;
+        }
+
+<%
+  }
+%>
+    }
+}

@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<query name="Dialog.FindAllDialogsWithInterfaceView">
+		<![CDATA[
+     select  d
+       from  Dialog d
+       where d.Module.Application.Id = :applicationId
+       and   d.InterfaceView is not null
+    ]]>
+	</query>
+	<query name="Dialog.FindAll">
+		<![CDATA[
+     select  d
+       from  Dialog d
+       where d.Module.Application.Id = :applicationId
+    ]]>
+	</query>
+	<query name="Dialog.FindAllDialogsWithInterfaceViewByDialogType">
+		<![CDATA[
+     select  d
+       from  Dialog d
+       where d.Module.Application.Id = :applicationId
+       and   d.InterfaceView is not null
+       and   d.Type = :dialogType
+    ]]>
+	</query>
+	<query name="Dialog.FindAllDrilldownDialogs">
+		<![CDATA[
+     select  d
+       from  Dialog d
+       where d.Module.Application.Id = :applicationId
+       and   d.InterfaceView is not null
+       and   d.Type = :dialogType
+    ]]>
+	</query>
+	<query name="Dialog.FindDialogs">
+		<![CDATA[
+     select  d
+       from  Dialog d
+       where d.Module.Application.Id = :applicationId
+       and   d.Module.Name like :moduleName
+       and   d.Name like :dialogName
+       and   coalesce(d.OriginalDialogName,'%') like :originalDialogName
+       and   d.Title like :title
+       order by d.Name
+    ]]>
+	</query>
+	<query name="Dialog.FindDialogsByNameAndModule">
+		<![CDATA[
+     select  d
+       from  Dialog d
+       where d.Module.Application.Id = :applicationId
+       and   d.Module.Name = :moduleName
+       and   d.Name = :dialogName      
+    ]]>
+	</query>
+	<query name="Dialog.FindAllByModule">
+		<![CDATA[
+     select  d
+       from  Dialog d
+       where d.Module.Id = :moduleId     
+    ]]>
+	</query>
+
+</hibernate-mapping>

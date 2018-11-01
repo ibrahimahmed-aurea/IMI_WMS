@@ -1,0 +1,28 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Segment DepartureNode</title>
+<link href="StructureDescription.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>Segment DepartureNode</h1>
+<h3>Description:</h3>
+Departure Node<h3>Attributes:</h3>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000"><tbody>
+<tr class="tableHeader"><th class="tableHeaderColumn">Tag</th><th class="tableHeaderColumn">Method</th><th class="tableHeaderColumn">Type</th><th class="tableHeaderColumn">Oracle Type</th><th class="tableHeaderColumn">Mandatory</th><th class="tableHeaderColumn">Note</th></tr>
+<tr class="tableRow"><td class="tableRowColumn">OPCODE</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Operation Code<br/>1 - New</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DepartureIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Departure Identity<br/>The identity of the Departure.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">SEQNUM</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(5)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Sequence Number<br/>Internal identity (counter) for the Ship-to Nodes.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ToNodeIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Node Identity<br/>The identity of the Node. This is the drop location in the Route (To-Node).<br/>It can be a customer / another warehouse.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">EstimatedArrivalDateTime</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Estimated Arrival Time<br/>The date and time when the goods is estimated to arrive at the Node.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ReceiveTransitGoods</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Transit Goods Allowed<br/>Indicates (1=Yes,0=No) if this Ship-to Node can receive transit goods.</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

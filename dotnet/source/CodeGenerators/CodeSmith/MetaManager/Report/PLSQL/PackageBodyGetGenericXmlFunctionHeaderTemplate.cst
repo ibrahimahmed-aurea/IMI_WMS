@@ -1,0 +1,38 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="ReportCoreTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Assembly Name="System.Collections.Generic" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="report" Type="Cdc.MetaManager.DataAccess.Domain.Report" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isSpec" Type="System.Boolean" Default="" Optional="false" Category="" Description="" %>
+<%
+string procedureText = "function GetGenericXml( ";
+
+int indent = procedureText.Length;
+
+ReportInterfaceParameterList parameterList = report.GetUserDefinedInterfaceParameterList();
+
+int maxParamLength = Math.Max(parameterList.MaxNameLength, 17);
+
+string parameterText = parameterList.GetNameAndTypePadded(maxParamLength).Aggregate((current, next) => current + "," + Environment.NewLine + string.Empty.PadRight(indent) + next);
+
+procedureText = procedureText + parameterText + ",";
+
+string indentString = string.Empty.PadRight(indent);
+%>
+<%=procedureText%>
+<%=indentString%><%="META_DOCSUBTYPE_I".PadRight(maxParamLength + 1)%>varchar2,
+<%=indentString%><%="META_TERID_I".PadRight(maxParamLength + 1)%>varchar2,
+<%=indentString%><%="META_PRTID_I".PadRight(maxParamLength + 1)%>varchar2,
+<%=indentString%><%="META_EMPID_I".PadRight(maxParamLength + 1)%>varchar2,
+<%=indentString%><%="META_NO_COPIES_I".PadRight(maxParamLength + 1)%>number )
+    return XMLType<%=(isSpec ? ";" : string.Empty)%>

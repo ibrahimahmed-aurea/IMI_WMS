@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<query name="Property.FindByStorageInfoId">
+		<![CDATA[
+     from Property p 
+    where p.StorageInfo.Id = :storageInfoId
+    ]]>
+	</query>
+	<query name="Property.FindByBusinessEntityId">
+		<![CDATA[
+     from Property p 
+    where p.BusinessEntity.Id = :businessEntityId
+    ]]>
+	</query>
+	<query name="Property.FindAllByTableAndColumn">
+		<![CDATA[
+     select p
+     from Property p
+      inner join fetch p.StorageInfo
+      where p.StorageInfo.TableName like :tableName
+      and p.StorageInfo.ColumnName  like :columnName
+      and p.StorageInfo.Schema.Application.Id = :applicationId
+     order by p.Name
+    ]]>
+	</query>
+	<query name="Property.FindAll">
+		<![CDATA[
+     from Property p 
+    where p.BusinessEntity.Application.Id = :applicationId
+    ]]>
+	</query>
+</hibernate-mapping>

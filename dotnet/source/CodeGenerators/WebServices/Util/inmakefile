@@ -1,0 +1,120 @@
+#
+# makefile 17/12/2004
+# 
+# Copyright (c) 2004 - 2005 Industri-Matematik AB. All rights reserved.
+#
+CSDIR=.\genin\src
+XMLOUTDIR=.\genin\xml
+XMLDIR=.\xml
+SQLDIR=.\genin\sql
+RD=rd /s /q
+HTMLDIR=.\genin\html
+# CONN="user id = owuser; password = owuser; data source = WHTRUNK"
+CONN="user id = websuser; password = websuser; data source = WHTRUNK"
+
+INXMLFILE1=$(XMLOUTDIR)\in1.xml
+INXMLFILE2=$(XMLOUTDIR)\in2.xml
+INMASTER=$(XMLDIR)\WSInboundMaster.xml
+
+
+ALLDIR= \
+    "$(CSDIR)" \
+    "$(SQLDIR)" \
+    "$(XMLOUTDIR)" \
+    "$(HTMLDIR)"
+
+ALLSQL= \
+    "$(SQLDIR)\Web_Services_RCV_Column.def" \
+    "$(SQLDIR)\Web_Services_RCV_Comment.def" \
+    "$(SQLDIR)\Web_Services_RCV_PK.def" \
+    "$(SQLDIR)\Web_Services_RCV_FK.def" \
+    "$(SQLDIR)\Web_Services_RCV_Trace.def" \
+    "$(SQLDIR)\Web_Services_RCV_View.def" \
+    "$(SQLDIR)\Web_Services_RCV_Drop.def" \
+    "$(SQLDIR)\HAPI_Rcv_Object.spec" \
+    "$(SQLDIR)\HapiRcv_Clean.body" \
+    "$(SQLDIR)\HAPI_Rcv_Object.body"
+
+ALLCS= \
+    "$(CSDIR)\ExternalClass.cs" \
+    "$(CSDIR)\InsertHandler.cs" \
+    "$(CSDIR)\ExternalInterface.asmx.cs"
+
+ALLHTML= \
+    "$(HTMLDIR)\index.html"
+
+
+# --------------------------------------------
+# Description Blocks
+# --------------------------------------------
+
+ALL: $(ALLDIR) $(INXMLFILE1) $(INXMLFILE2) $(ALLCS) $(ALLSQL) $(ALLHTML)
+
+$(INXMLFILE1): 
+    Imi.DevTools.CodeGenerators.WebServices.Spec2XML.exe Web_Services_API $@ /CONN $(CONN)
+
+$(INXMLFILE2): $(INXMLFILE1)
+    Imi.DevTools.CodeGenerators.WebServices.ColumnInfo2XML.exe $(INXMLFILE1) $@ /CONN $(CONN)
+
+$(SQLDIR)\Web_Services_RCV_Column.def: $(INXMLFILE2) $(INMASTER)
+    Imi.DevTools.CodeGenerators.WebServices.XML2CreateTable.exe $(INXMLFILE2) $(INMASTER) $@ COLUMN
+
+$(SQLDIR)\Web_Services_RCV_PK.def: $(INXMLFILE2) $(INMASTER)
+    Imi.DevTools.CodeGenerators.WebServices.XML2CreateTable.exe $(INXMLFILE2) $(INMASTER) $@ PK
+
+$(SQLDIR)\Web_Services_RCV_FK.def: $(INXMLFILE2) $(INMASTER)
+    Imi.DevTools.CodeGenerators.WebServices.XML2CreateTable.exe $(INXMLFILE2) $(INMASTER) $@ FK
+
+$(SQLDIR)\Web_Services_RCV_Comment.def: $(INXMLFILE2) $(INMASTER)
+    Imi.DevTools.CodeGenerators.WebServices.XML2CreateTable.exe $(INXMLFILE2) $(INMASTER) $@ COMMENT
+
+$(SQLDIR)\Web_Services_RCV_Trace.def: $(INXMLFILE2) $(INMASTER)
+    Imi.DevTools.CodeGenerators.WebServices.XML2CreateTable.exe $(INXMLFILE2) $(INMASTER) $@ TRIGGER
+
+$(SQLDIR)\Web_Services_RCV_View.def: $(INXMLFILE2) $(INMASTER)
+    Imi.DevTools.CodeGenerators.WebServices.XML2CreateTable.exe $(INXMLFILE2) $(INMASTER) $@ VIEW
+
+$(SQLDIR)\Web_Services_RCV_Drop.def: $(INXMLFILE2) $(INMASTER)
+    Imi.DevTools.CodeGenerators.WebServices.XML2CreateTable.exe $(INXMLFILE2) $(INMASTER) $@ DROP
+
+$(SQLDIR)\HapiRcv_Clean.body: $(INXMLFILE2) $(INMASTER)
+    Imi.DevTools.CodeGenerators.WebServices.XML2CreateTable.exe $(INXMLFILE2) $(INMASTER) $@ CLEAN
+
+$(SQLDIR)\HAPI_Rcv_Object.body: $(INXMLFILE2) $(INMASTER)
+    Imi.DevTools.CodeGenerators.WebServices.XML2IntoProc.exe $(INXMLFILE2) $(INMASTER) $@
+
+$(SQLDIR)\HAPI_Rcv_Object.spec: $(INXMLFILE2) $(INMASTER)
+    Imi.DevTools.CodeGenerators.WebServices.XML2IntoProc.exe $(INXMLFILE2) $(INMASTER) $@ SPEC
+
+$(CSDIR)\ExternalClass.cs: $(INXMLFILE2) $(INMASTER)
+    Imi.DevTools.CodeGenerators.WebServices.XML2Struct.exe $(INXMLFILE2) $(INMASTER) $@
+
+$(CSDIR)\InsertHandler.cs: $(INXMLFILE2) $(INMASTER)
+    Imi.DevTools.CodeGenerators.WebServices.XML2Insert.exe $(INXMLFILE2) $(INMASTER) $@
+
+$(CSDIR)\ExternalInterface.asmx.cs: $(INXMLFILE2) $(INMASTER)
+    Imi.DevTools.CodeGenerators.WebServices.XML2WSInbound.exe $(INXMLFILE2) $(INMASTER) $@ RECEIVER
+
+$(HTMLDIR)\index.html: $(INXMLFILE2) $(INMASTER)
+    Imi.DevTools.CodeGenerators.WebServices.XML2Html.exe $(INXMLFILE2) $(INMASTER) $(HTMLDIR)
+
+CLEAN :
+    -@$(RD) $(CSDIR)
+    -@$(RD) $(SQLDIR)
+    -@$(RD) $(XMLOUTDIR)
+    -@$(RD) $(HTMLDIR)
+    @nmake /nologo ALL
+
+"$(CSDIR)" :
+    @if not exist "$(CSDIR)/$(NULL)" mkdir "$(CSDIR)"
+
+"$(SQLDIR)" :
+    @if not exist "$(SQLDIR)/$(NULL)" mkdir "$(SQLDIR)"
+
+"$(XMLOUTDIR)" :
+    @if not exist "$(XMLOUTDIR)/$(NULL)" mkdir "$(XMLOUTDIR)"
+
+"$(HTMLDIR)" :
+    @if not exist "$(HTMLDIR)/$(NULL)" mkdir "$(HTMLDIR)"
+
+# end makefile

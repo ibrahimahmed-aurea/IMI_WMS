@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About_CopyInfo" xml:space="preserve">
+    <value>Copy Info</value>
+  </data>
+  <data name="About_HostedApplications" xml:space="preserve">
+    <value>Installed applications:</value>
+  </data>
+  <data name="About_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="About_SystemInfo" xml:space="preserve">
+    <value>System Info</value>
+  </data>
+  <data name="About_Warning" xml:space="preserve">
+    <value>Warning: This computer program is protected by copyright law and international treaties. Unauthorized reproduction or distribution of this program, or any portion of it, may result in severe civil and criminal penalties, and will be prosecuted to the maximum extent possible under law.</value>
+  </data>
+  <data name="ActionMenu_Header" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="AllRightsReserved" xml:space="preserve">
+    <value>All rights reserved.</value>
+  </data>
+  <data name="AppMenu_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="AppMenu_CloseAll" xml:space="preserve">
+    <value>Close All</value>
+  </data>
+  <data name="AppMenu_CloseAllText" xml:space="preserve">
+    <value>Closes all open windows of the application.</value>
+  </data>
+  <data name="AppMenu_CloseHeader" xml:space="preserve">
+    <value>Close windows</value>
+  </data>
+  <data name="AppMenu_CloseText" xml:space="preserve">
+    <value>Closes the current window of the application.</value>
+  </data>
+  <data name="AppMenu_Help" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="AppMenu_Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="Copyright" xml:space="preserve">
+    <value>© 2017 Aptean.</value>
+  </data>
+  <data name="FavoritesMenu_Header" xml:space="preserve">
+    <value>Favorites</value>
+  </data>
+  <data name="Favorites_AddNewFolder" xml:space="preserve">
+    <value>Add New Folder</value>
+  </data>
+  <data name="Favorites_AddToFavorites" xml:space="preserve">
+    <value>Add to Favorites</value>
+  </data>
+  <data name="Favorites_Copy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="Favorites_Cut" xml:space="preserve">
+    <value>Cut</value>
+  </data>
+  <data name="Favorites_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Favorites_Paste" xml:space="preserve">
+    <value>Paste</value>
+  </data>
+  <data name="Favorites_Rename" xml:space="preserve">
+    <value>Rename</value>
+  </data>
+  <data name="NavigationPane_Title" xml:space="preserve">
+    <value>Navigation Pane</value>
+  </data>
+  <data name="NewFavoritesFolder_Text" xml:space="preserve">
+    <value>New Folder</value>
+  </data>
+  <data name="OKButton_Content" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="PasswordTextBox_InfoText" xml:space="preserve">
+    <value>Password...</value>
+  </data>
+  <data name="Settings_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Settings_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Settings_PopularAuthenticationAutoLogin" xml:space="preserve">
+    <value>Automatically login using Windows credentials.</value>
+  </data>
+  <data name="Settings_PopularAuthenticationHeading" xml:space="preserve">
+    <value>Options for authorization</value>
+  </data>
+  <data name="Settings_PopularHeading" xml:space="preserve">
+    <value>Change the most popular options for the Smart Client.</value>
+  </data>
+  <data name="Settings_PopularTitle" xml:space="preserve">
+    <value>Popular</value>
+  </data>
+  <data name="Settings_ResourcesAboutButton" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="Settings_ResourcesAboutHeading" xml:space="preserve">
+    <value>About Smart Client</value>
+  </data>
+  <data name="Settings_ResourcesContactUsButton" xml:space="preserve">
+    <value>Contact us</value>
+  </data>
+  <data name="Settings_ResourcesContactUsHeading" xml:space="preserve">
+    <value>Contact us</value>
+  </data>
+  <data name="Settings_ResourcesContactUsText" xml:space="preserve">
+    <value>Let us know if you need help, or how we can improve the APTEAN applications.</value>
+  </data>
+  <data name="Settings_ResourcesHeading" xml:space="preserve">
+    <value>Find support resources for the Smart Client.</value>
+  </data>
+  <data name="Settings_Title" xml:space="preserve">
+    <value>IMI Supply Chain Smart Client Options</value>
+  </data>
+  <data name="Settings_ResourcesTitle" xml:space="preserve">
+    <value>Resources</value>
+  </data>
+  <data name="ShutdownButton_Content" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="StartMenuBackButton_Content" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="StartMenu_Header" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="StartMenu_SearchInfoText" xml:space="preserve">
+    <value>Find...</value>
+  </data>
+  <data name="StartMenu_SearchResultText" xml:space="preserve">
+    <value>Results</value>
+  </data>
+  <data name="StatusBar_Zoom" xml:space="preserve">
+    <value>Zoom</value>
+  </data>
+  <data name="StatusBar_ZoomIn" xml:space="preserve">
+    <value>Zoom In</value>
+  </data>
+  <data name="StatusBar_ZoomMenuButton" xml:space="preserve">
+    <value>Zoom level: Click to open the Zoom dialog box.</value>
+  </data>
+  <data name="StatusBar_ZoomOut" xml:space="preserve">
+    <value>Zoom Out</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>IMI Supply Chain Smart Client</value>
+  </data>
+  <data name="UserNameTextBox_InfoText" xml:space="preserve">
+    <value>User...</value>
+  </data>
+  <data name="Version_Text" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="WelcomeLabel_Content" xml:space="preserve">
+    <value>Welcome</value>
+  </data>
+  <data name="ZoomBox_Text" xml:space="preserve">
+    <value>Zoom</value>
+  </data>
+  <data name="Settings_ResourcesSupportLink" xml:space="preserve">
+    <value>http://www.aptean.com/en/Support.aspx</value>
+  </data>
+  <data name="About_ConfigFileContent" xml:space="preserve">
+    <value>Configuration files:</value>
+  </data>
+  <data name="About_FilesAndVersions" xml:space="preserve">
+    <value>Included files:</value>
+  </data>
+  <data name="About_OtherFiles" xml:space="preserve">
+    <value>Other files:</value>
+  </data>
+  <data name="AppMenu_Exit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="AppMenu_Options" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="StartMenu_MoreResultsText" xml:space="preserve">
+    <value>More results...</value>
+  </data>
+  <data name="About_Title" xml:space="preserve">
+    <value>About IMI Supply Chain Smart Client</value>
+  </data>
+  <data name="Zoom_100" xml:space="preserve">
+    <value>100%</value>
+  </data>
+  <data name="Zoom_200" xml:space="preserve">
+    <value>200%</value>
+  </data>
+  <data name="Zoom_25" xml:space="preserve">
+    <value>25%</value>
+  </data>
+  <data name="Zoom_50" xml:space="preserve">
+    <value>50%</value>
+  </data>
+  <data name="Zoom_75" xml:space="preserve">
+    <value>75%</value>
+  </data>
+  <data name="Zoom_Custom" xml:space="preserve">
+    <value>Custom:</value>
+  </data>
+  <data name="Zoom_Percent" xml:space="preserve">
+    <value>%</value>
+  </data>
+  <data name="Zoom_Title" xml:space="preserve">
+    <value>Zoom</value>
+  </data>
+  <data name="Zoom_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Zoom_Magnification" xml:space="preserve">
+    <value>Magnification</value>
+  </data>
+  <data name="Zoom_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="About_Between50And200Error" xml:space="preserve">
+    <value>Value must be between 50 and 200.</value>
+  </data>
+  <data name="No_Help_Message" xml:space="preserve">
+    <value>Help is not available for this application.</value>
+  </data>
+  <data name="Login_Title" xml:space="preserve">
+    <value>IMI Supply Chain Smart Client</value>
+  </data>
+  <data name="LoadingLabel_Content" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="Unhandled_Exception_Text" xml:space="preserve">
+    <value>The action could not be performed.</value>
+  </data>
+  <data name="ActionException_Text" xml:space="preserve">
+    <value>The action could not be performed.</value>
+  </data>
+  <data name="MessageBox_AdditionalInfo" xml:space="preserve">
+    <value>Additional information</value>
+  </data>
+  <data name="MessageBox_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="MessageBox_No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="MessageBox_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="MessageBox_Title" xml:space="preserve">
+    <value>IMI Supply Chain Smart Client</value>
+  </data>
+  <data name="MessageBox_Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Authorization_Message" xml:space="preserve">
+    <value>You are not authorized to perform this action. If you require access to this action, please contact your system administrator.</value>
+  </data>
+  <data name="Authorization_NotAuhtorized" xml:space="preserve">
+    <value>Not Authorized</value>
+  </data>
+  <data name="MessageBox_CopyInfo" xml:space="preserve">
+    <value>Copy Info</value>
+  </data>
+  <data name="Login_InvalidCredentials" xml:space="preserve">
+    <value>The user name or password is incorrect.</value>
+  </data>
+  <data name="Settings_DiagnosticsTitle" xml:space="preserve">
+    <value>Diagnostics</value>
+  </data>
+  <data name="Settings_DiagnosticsHeading" xml:space="preserve">
+    <value>Diagnose and troubleshoot problems with the Smart Client.</value>
+  </data>
+  <data name="Settings_DiagnosticsRun" xml:space="preserve">
+    <value>Settings...</value>
+  </data>
+  <data name="Settings_DiagnosticsText" xml:space="preserve">
+    <value>Click Settings to diagnose and troubleshoot problems with the application</value>
+  </data>
+  <data name="NavigationPane_AddRemoveButtons" xml:space="preserve">
+    <value>Add or Remove Buttons</value>
+  </data>
+  <data name="NavigationPane_ButtonOrder" xml:space="preserve">
+    <value>Display buttons in this order</value>
+  </data>
+  <data name="NavigationPane_ConfigureButtons" xml:space="preserve">
+    <value>Configure Buttons</value>
+  </data>
+  <data name="NavigationPane_Expand" xml:space="preserve">
+    <value>Expand the Navigation Pane</value>
+  </data>
+  <data name="NavigationPane_ExpandMenu" xml:space="preserve">
+    <value>Click to expand {0}</value>
+  </data>
+  <data name="NavigationPane_FewerButtons" xml:space="preserve">
+    <value>Show Fewer Buttons</value>
+  </data>
+  <data name="NavigationPane_Minimize" xml:space="preserve">
+    <value>Minimize the Navigation Pane</value>
+  </data>
+  <data name="NavigationPane_MoreButtons" xml:space="preserve">
+    <value>Show More Buttons</value>
+  </data>
+  <data name="NavigationPane_MoveDown" xml:space="preserve">
+    <value>Move Down</value>
+  </data>
+  <data name="NavigationPane_MoveUp" xml:space="preserve">
+    <value>Move Up</value>
+  </data>
+  <data name="NavigationPane_Options" xml:space="preserve">
+    <value>Navigation Pane Options...</value>
+  </data>
+  <data name="NavigationPane_Options_Title" xml:space="preserve">
+    <value>Navigation Pane Options</value>
+  </data>
+  <data name="NavigationPane_Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="WindowContainer_ActiveWindows" xml:space="preserve">
+    <value>Active Windows</value>
+  </data>
+  <data name="WindowContainer_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="WindowContainer_Dock" xml:space="preserve">
+    <value>Dock</value>
+  </data>
+  <data name="WindowContainer_Float" xml:space="preserve">
+    <value>Float</value>
+  </data>
+  <data name="WindowContainer_HorizontalTabGroup" xml:space="preserve">
+    <value>New Horizontal Tab Group</value>
+  </data>
+  <data name="WindowContainer_NextTabGroup" xml:space="preserve">
+    <value>Move to Next Tab Group</value>
+  </data>
+  <data name="WindowContainer_PreviousTabGroup" xml:space="preserve">
+    <value>Move to Previous Tab Group</value>
+  </data>
+  <data name="WindowContainer_VerticalTabGroup" xml:space="preserve">
+    <value>New Vertical Tab Group</value>
+  </data>
+  <data name="Authorization_Notification" xml:space="preserve">
+    <value>Warning: authorization is disabled for this application.</value>
+  </data>
+  <data name="StartMenu_OpenInNewWindow" xml:space="preserve">
+    <value>Open in New Tab</value>
+  </data>
+  <data name="AppMenu_Title" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="Settings_PopularGlassEnabled" xml:space="preserve">
+    <value>Glass window border</value>
+  </data>
+  <data name="Settings_PopularThemeHeading" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="Login_Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Settings_PopularUseDefaultTheme" xml:space="preserve">
+    <value>Use default theme</value>
+  </data>
+  <data name="Settings_PopularCommonWorkspace" xml:space="preserve">
+    <value>Use common workspace for all applications</value>
+  </data>
+  <data name="Settings_PopularGeneralHeading" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="Dashboard_Title" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="Settings_CloseAllWindows" xml:space="preserve">
+    <value>Changing this setting will close any open windows. Are you sure you want to continue?</value>
+  </data>
+  <data name="StartMenu_AddToDashboard" xml:space="preserve">
+    <value>Add to Dashboard</value>
+  </data>
+  <data name="Dashboard_Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Dashboard_RefreshInterval" xml:space="preserve">
+    <value>Refresh every</value>
+  </data>
+  <data name="Dashboard_RefreshIntervalMinutes" xml:space="preserve">
+    <value>minutes</value>
+  </data>
+  <data name="Dashboard_Arrange" xml:space="preserve">
+    <value>Arrange</value>
+  </data>
+  <data name="Dashboard_WebPage" xml:space="preserve">
+    <value>Web Page</value>
+  </data>
+  <data name="Dashboard_WebPage_Address" xml:space="preserve">
+    <value>Address:</value>
+  </data>
+  <data name="Dashboard_WebPage_Title" xml:space="preserve">
+    <value>Title:</value>
+  </data>
+  <data name="WebView_Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="WebView_Forward" xml:space="preserve">
+    <value>Forward</value>
+  </data>
+  <data name="Login_CapsLockWarning" xml:space="preserve">
+    <value>Caps Lock is On</value>
+  </data>
+</root>

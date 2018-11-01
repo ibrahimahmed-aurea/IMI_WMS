@@ -1,0 +1,64 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Segment ProductInWarehouse</title>
+<link href="StructureDescription.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>Segment ProductInWarehouse</h1>
+<h3>Description:</h3>
+Product in Warehouse<br/>Handling rules for a product in a specific warehouse.<h3>Attributes:</h3>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000"><tbody>
+<tr class="tableHeader"><th class="tableHeaderColumn">Tag</th><th class="tableHeaderColumn">Method</th><th class="tableHeaderColumn">Type</th><th class="tableHeaderColumn">Oracle Type</th><th class="tableHeaderColumn">Mandatory</th><th class="tableHeaderColumn">Note</th></tr>
+<tr class="tableRow"><td class="tableRowColumn">OPCODE</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Operation Code<br/>0 - No Operation<br/>1 - New<br/>2 - Change<br/>3 - Remove<br/>Note! An operation code is only useful if at least one tag supports the method</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductNumber</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">Product Number</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">WarehouseIdentity</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(4)</td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">Warehouse Identity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">InventoryAuditFrequency</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(4)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Interval between Audits for Item Load (days)<br/>The number of days that has to pass from a previous inventory audit before the system is allowed to generate an new inventory audit order for the product's Item Loads.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">StockedProduct</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Stocked Product (1=Yes,0=No)<br/>No mean that it is a transit goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OwnerIdentity</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Owner Identity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">StorageTemperatureMin</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(4)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Min Storage Temperature</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">StorageTemperatureMax</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(4)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Max Storage Temperature</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">StorageTemperatureQualifier</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Unit of Measurement on Temperature<br/>Only info, no logic implemented.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Frequency</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(8)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Product Handling Frequency<br/>The rate of turnover in the warehouse, controls where the Products will be stored.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Instructions</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(800)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Instructions<br/>Free text.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">HygieneCheck</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Hygiene check (1=Yes,0=No, default: No)</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">TemperatureCheck</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Temperature Check (1=Yes,0=No, default: No)</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">RefuseTempHigh</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(7,2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Upper Refuse Temperature Limit</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">RefuseTempLow</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(7,2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Lower Refuse Temperature Limit</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">WarnTempHigh</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(7,2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Upper Warning Temperature Limit</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">WarnTempLow</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(7,2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Lower Warning Temperature Limit</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PackageChange</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Package Change<br/>Indicates if the Products Lowest Unit of Measure must be registered the Product is received.<br/>N = Never<br/>D = During Change (Lowest Unit of Measure must be registered until the first time the new Package is received.)<br/>A = Always</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductionLotHandling</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Manufacturing Lot at Outbound<br/>Controls (1=Yes,0=No) if Manufacturing Lot is used when generating Pick Order Lines.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">StorageLotHandling</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Storage Lot at Outbound<br/>Controls (1=Yes,0=No) if Storage Lot is used when generating Pick Order Lines.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductionLotHandling_In</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Manufacturing Lot at Inbound<br/>Controls (1=Yes,0=No) if Manufacturing Lot has to be registered at Reception.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">MarketingLotHandling_In</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Marketing Lot at Inbound<br/>Controls (1=Yes,0=No) if Marketing Lot has to be registered at Reception.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">StorageLotHandling_In</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Storage Lot at Inbound<br/>Controls (1=Yes,0=No) if Storage Lot has to be registered at Reception.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductionLotVerify</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Lotted Product has to be verified</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

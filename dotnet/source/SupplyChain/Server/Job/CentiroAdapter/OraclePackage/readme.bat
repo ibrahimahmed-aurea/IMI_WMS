@@ -1,0 +1,1 @@
+..\..\..\..\..\CodeGenerators\PackageGenerator\bin\Debug\Imi.CodeGenererators.PackageGenerator.exe FREIGHTERREPORT Freighterreport.cs Imi.Wms.Server.Job.CentiroAdapter.OraclePackage /conn "data source=WH51SLD;user id=owuser;password=owuser;pooling=false;enlist=false"

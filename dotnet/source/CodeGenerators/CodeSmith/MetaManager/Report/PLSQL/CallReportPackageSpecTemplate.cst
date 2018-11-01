@@ -1,0 +1,51 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="ReportCoreTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Assembly Name="Cdc.CodeGeneration.Caching" %>
+<%@ Assembly Name="System.Collections.Generic" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Import Namespace="Cdc.CodeGeneration.Caching" %>
+<%@ Property Name="reports" Type="IList<Report>" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="packageName" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+/*
+** File         : <%=packageName%>.spec 
+**
+** Description  : PLEASE NOTE !!!!
+**                This package is generated and should not be manually edited!
+**                All changes to this package is handled in the Report Manager.
+**                PLEASE NOTE !!!!
+**
+** Author       : Anders Jarl, CDC Software.
+** Date         : 2010-04-06
+** 
+** Rev.          Sign.  Date    Note
+** ------------  -----  ------  ----------------------------------------------------
+** 5.3           anja           Total rewrite from original and is now generated!
+**
+********************************************************************************
+*/
+
+create or replace package <%=packageName%> as 
+<%
+foreach(Report report in reports)
+{
+%>
+ 
+<%
+	CallReportPackageProcHeaderTemplate callReportPackageProcHeaderTemplate = this.Create<CallReportPackageProcHeaderTemplate>();
+	callReportPackageProcHeaderTemplate.SetProperty("report", report);
+	callReportPackageProcHeaderTemplate.SetProperty("isSpec", true);
+	callReportPackageProcHeaderTemplate.Render(this.Response);
+}
+%>
+
+end <%=packageName%>;
+/

@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AzAdminManager MajorVersion="1" MinorVersion="0" Guid="95a61e1b-c1e9-42c6-90c6-02a35debbb3c">
+	<AzApplication Guid="861d5042-2560-409e-809f-5bf99016bd2a" Name="OutputManager" Description="Azman store for OutputManager" ApplicationVersion="7.1.6">
+		<AzOperation Guid="4870f6ae-c409-4185-9452-aafa29871ac5" Name="4870f6ae-c409-4185-9452-aafa29871ac5" Description="Terminal.CreateTerminalGroup - OK">
+			<OperationID>1</OperationID>
+		</AzOperation>
+		<AzOperation Guid="d499a00d-3f20-480b-9497-2ff0a0b8e599" Name="d499a00d-3f20-480b-9497-2ff0a0b8e599" Description="Terminal.CreateTerminalGroup - Cancel">
+			<OperationID>2</OperationID>
+		</AzOperation>
+		<AzOperation Guid="5dd605cd-40cf-454a-976d-4d6e3d6c639d" Name="5dd605cd-40cf-454a-976d-4d6e3d6c639d" Description="Terminal.ModifyTerminalGroup - OK">
+			<OperationID>3</OperationID>
+		</AzOperation>
+		<AzOperation Guid="4da71bb7-86ca-4e57-9d0e-225128760e4e" Name="4da71bb7-86ca-4e57-9d0e-225128760e4e" Description="Start Terminal">
+			<OperationID>4</OperationID>
+		</AzOperation>
+		<AzOperation Guid="8df1f9ba-06a4-4acf-b751-4ce2cd18d626" Name="8df1f9ba-06a4-4acf-b751-4ce2cd18d626" Description="Start Terminal Group">
+			<OperationID>5</OperationID>
+		</AzOperation>
+		<AzTask Guid="0de59535-b18d-447a-992b-3cad98bad374" Name="Terminal.Terminal" Description="Terminal" BizRuleImportedPath="">
+			<OperationLink>4da71bb7-86ca-4e57-9d0e-225128760e4e</OperationLink>
+		</AzTask>
+		<AzTask Guid="1881e44f-085c-4c98-96d1-d44e33caece5" Name="Terminal.TerminalGroup" Description="Terminal Group" BizRuleImportedPath="">
+			<OperationLink>8df1f9ba-06a4-4acf-b751-4ce2cd18d626</OperationLink>
+		</AzTask>
+		<AzTask Guid="41e0e734-ad9f-4c03-9ca2-865f334b34d5" Name="Terminal.CreateTerminalGroup" Description="New Terminal Group" BizRuleImportedPath="">
+			<OperationLink>4870f6ae-c409-4185-9452-aafa29871ac5</OperationLink>
+			<OperationLink>d499a00d-3f20-480b-9497-2ff0a0b8e599</OperationLink>
+		</AzTask>
+		<AzTask Guid="54302df4-bc5f-4d43-abae-723b8fac4184" Name="Terminal.ModifyTerminalGroup" Description="Change Terminal Group" BizRuleImportedPath="">
+			<OperationLink>d499a00d-3f20-480b-9497-2ff0a0b8e599</OperationLink>
+			<OperationLink>5dd605cd-40cf-454a-976d-4d6e3d6c639d</OperationLink>
+		</AzTask>
+		<AzTask Guid="cde06ab9-784f-4787-a40f-c2105a226eaf" Name="Terminal" Description="Terminal Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>0de59535-b18d-447a-992b-3cad98bad374</TaskLink>
+			<TaskLink>1881e44f-085c-4c98-96d1-d44e33caece5</TaskLink>
+			<TaskLink>41e0e734-ad9f-4c03-9ca2-865f334b34d5</TaskLink>
+			<TaskLink>54302df4-bc5f-4d43-abae-723b8fac4184</TaskLink>
+		</AzTask>
+		<AzTask Guid="ce96627b-a13b-4ddd-bf4e-c7bab9918fe6" Name="Administrator" Description="Administrator Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>cde06ab9-784f-4787-a40f-c2105a226eaf</TaskLink>
+		</AzTask>
+		<AzTask Guid="3d6333b9-46da-4c62-9c05-354b904d8adf" Name="Guest" Description="Guest Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>ce96627b-a13b-4ddd-bf4e-c7bab9918fe6</TaskLink>
+		</AzTask>
+	</AzApplication>
+</AzAdminManager>

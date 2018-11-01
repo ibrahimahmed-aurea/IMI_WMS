@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{642F7455-DA5E-4286-8B5B-750E69D2545B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Imi.SupplyChain.Services.OrderManagement.Guiconfiguration.ServiceImplementation</RootNamespace>
+    <AssemblyName>Imi.SupplyChain.Services.OrderManagement.Guiconfiguration.ServiceImplementation</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.WCF">
+      <HintPath>..\..\..\..\..\..\references\EntLib4\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.WCF.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GetGuiconfigurationService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\GetGuiconfigurationServiceReal\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\Framework\Services\Framework.Services.csproj">
+      <Project>{095B36E1-AF0A-4ADB-AEFD-DDD0C677896F}</Project>
+      <Name>Framework.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Users\ServiceImplementation\SupplyChain.Services.OrderManagement.Users.ServiceImplementation.csproj">
+      <Project>{3FEAFC3F-3A6A-4867-A7B4-FC8E17FCAA15}</Project>
+      <Name>SupplyChain.Services.OrderManagement.Users.ServiceImplementation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Utilities\ServiceImplementation\SupplyChain.Services.OrderManagement.Utilities.ServiceImplementation.csproj">
+      <Project>{302D2D99-3321-4D02-99A0-12DFA333D333}</Project>
+      <Name>SupplyChain.Services.OrderManagement.Utilities.ServiceImplementation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataContracts\SupplyChain.Services.OrderManagement.Guiconfiguration.DataContracts.csproj">
+      <Project>{66F768B3-F131-4B2E-8CF6-A6AE393672C3}</Project>
+      <Name>SupplyChain.Services.OrderManagement.Guiconfiguration.DataContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServiceContracts\SupplyChain.Services.OrderManagement.Guiconfiguration.ServiceContracts.csproj">
+      <Project>{CCD318EB-042B-47F3-AE99-FE36B351A9A9}</Project>
+      <Name>SupplyChain.Services.OrderManagement.Guiconfiguration.ServiceContracts</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Service References\GetGuiconfigurationServiceReal\wsdl.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\GetGuiconfigurationServiceReal\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\GetGuiconfigurationServiceReal\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\GetGuiconfigurationServiceReal\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\GetGuiconfigurationServiceReal\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>set RuntimeDir=$(ProjectDir)..\..\..\..\..\SupplyChain\Server\Console\$(OutDir)
+xcopy $(TargetDir)*.dll %25RuntimeDir%25 /d /y
+xcopy $(TargetDir)*.pdb %25RuntimeDir%25 /d /y
+xcopy $(TargetDir)*.exe %25RuntimeDir%25 /d /y</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

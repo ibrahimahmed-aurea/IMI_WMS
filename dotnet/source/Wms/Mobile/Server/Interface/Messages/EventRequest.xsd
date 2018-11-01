@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Event">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="TargetId" type="xs:string"/>
+        <xs:element name="Type" type="xs:string"/>
+        <xs:element name="Data" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Events">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Event" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EventRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="HashCode" type="xs:string"/>
+        <xs:element ref="Events"/>
+      </xs:sequence>
+      <xs:attribute name="SessionId" type="xs:string" use="required"/>
+      <xs:attribute name="Sequence" type="xs:int" use="required"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

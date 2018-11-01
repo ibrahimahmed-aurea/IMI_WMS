@@ -1,0 +1,32 @@
+﻿<UserControl
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2006" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+  xmlns:workspaces="clr-namespace:Imi.Framework.UX.Wpf.Workspaces;assembly=Imi.Framework.UX.Wpf"
+  xmlns:controls="clr-namespace:Imi.Framework.Wpf.Controls;assembly=Imi.Framework.Wpf.Controls"
+  xmlns:settings="clr-namespace:Imi.Framework.UX.Wpf.BuilderStrategies;assembly=Imi.Framework.UX.Wpf"
+  xmlns:local="clr-namespace:Imi.SupplyChain.UX.Views"
+  xmlns:localSettings="clr-namespace:Imi.SupplyChain.UX.Settings"
+  xmlns:themes="http://schemas.actiprosoftware.com/winfx/xaml/themes"
+  x:Class="Imi.SupplyChain.UX.Views.MasterDetailView"
+  x:Name="LayoutRoot"
+  settings:FrameworkElementStrategySettings.SettingsProviderType="{x:Type localSettings:MasterDetailViewSettingsProvider}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid x:Name="mainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" x:Name="searchPanelRow"/>
+            <RowDefinition Height="*" x:Name="masterRow"/>
+            <RowDefinition Height="0" x:Name="splitterRow"/>
+            <RowDefinition Height="0" x:Name="detailRow"/>
+        </Grid.RowDefinitions>
+        <workspaces:DeckWorkspace Grid.Row="0" TabIndex="0" Margin="0,1,0,4" x:Name="searchWorkspace" Visibility="Collapsed"/>
+        <workspaces:DeckWorkspace Grid.Row="1" TabIndex="1" x:Name="masterWorkspace" controls:DataGrid.SelectionChanged="SelectionChangedEventHandler"/>
+        <GridSplitter Grid.Row="2" Visibility="{Binding Converter={StaticResource BoolToVisConverter}, RelativeSource={RelativeSource AncestorType={x:Type local:MasterDetailView}}, Path=HasDetailView}" HorizontalAlignment="Stretch" Background="{DynamicResource {x:Static themes:AssetResourceKeys.GridSplitterBackgroundNormalBrushKey}}" Margin="0,1,0,1" BorderThickness="0,1,0,1" BorderBrush="{DynamicResource {x:Static themes:AssetResourceKeys.EditBorderNormalBrushKey}}" x:Name="detailGridSplitter" IsTabStop="False"/>
+        <ToggleButton Grid.Row="2" Width="20" HorizontalAlignment="Center" Visibility="{Binding Converter={StaticResource BoolToVisConverter}, RelativeSource={RelativeSource AncestorType={x:Type local:MasterDetailView}}, Path=HasDetailView}" x:Name="detailPaneToggleButton" Style="{DynamicResource GridSplitterToggleButtonStyle}" IsChecked="True" Click="DetailPaneToggleButtonClickEventHandler" IsTabStop="False"/>
+        <workspaces:TabWorkspace Grid.Row="3" TabIndex="2" Visibility="{Binding Converter={StaticResource BoolToVisConverter}, RelativeSource={RelativeSource AncestorType={x:Type local:MasterDetailView}}, Path=HasDetailView}"  x:Name="detailWorkspace"/>
+    </Grid>
+</UserControl>

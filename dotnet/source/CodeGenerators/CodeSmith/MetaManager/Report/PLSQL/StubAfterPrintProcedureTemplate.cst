@@ -1,0 +1,48 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="ReportCoreTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Assembly Name="Cdc.CodeGeneration.Caching" %>
+<%@ Assembly Name="System.Collections.Generic" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Import Namespace="Cdc.CodeGeneration.Caching" %>
+<%@ Register Name="StubAfterPrintProcedureHeaderTemplate" Template=".\StubAfterPrintProcedureHeaderTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Property Name="report" Type="Cdc.MetaManager.DataAccess.Domain.Report" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="packageName" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+/*page
+********************************************************************************
+**
+** Procedure     : After_<%=report.Name%>
+**
+********************************************************************************
+*/
+<%
+StubAfterPrintProcedureHeaderTemplate stubAfterPrintProcedureHeaderTemplate = this.Create<StubAfterPrintProcedureHeaderTemplate>();
+stubAfterPrintProcedureHeaderTemplate.SetProperty("report", report);
+stubAfterPrintProcedureHeaderTemplate.SetProperty("isSpec", false);
+stubAfterPrintProcedureHeaderTemplate.Render(this.Response);
+%>
+is
+begin
+  Global.Stack_Name('<%=packageName%>.After_<%=report.Name%>');
+  logg_output.put_line('>>> <%=packageName%>.After_<%=report.Name%>');
+
+  Global.ALMID := null;
+
+  /* 
+  ** YOUR CODE HERE! 
+  */
+
+  ALMID_O := Global.ALMID;
+
+  logg_output.put_line('<<< <%=packageName%>.After_<%=report.Name%>  ALMID:' || nvl( Global.ALMID, '<null>' ));
+  Global.Unstack_Name;
+
+end After_<%=report.Name%>;

@@ -21,12 +21,12 @@ node {
        bat '''@echo off
                 echo *************************************
                 echo 	Demo Build Started
-                echo 	@author: Ayushya
+                echo 	@author: Ibrahim
                 echo *************************************
                 echo Trying to kill all node processes.
-               // taskkill /f /im node.exe
-               // echo Running the application...
-               // CALL start echo HELLO WORLD....
+                rem taskkill /f /im node.exe
+                echo Running the application...
+                rem CALL start echo HELLO WORLD....
                 echo Success...'''
    }
    

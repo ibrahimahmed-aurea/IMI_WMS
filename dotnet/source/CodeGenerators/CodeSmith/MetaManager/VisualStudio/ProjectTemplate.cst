@@ -1,0 +1,73 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="" Inherits="" Debug="false" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Assembly Name="Cdc.CodeGeneration.Caching" %>
+<%@ Import Namespace="Cdc.CodeGeneration.Caching" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.IO" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Import Namespace="Cdc.Framework.Parsing.CSharpParsing" %>
+<%@ Register Name="ProjectFileTemplate" Template="ProjectFileTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="AssemblyInfoTemplate" Template="AssemblyInfoTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="AppConfigTemplate" Template="AppConfigTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Property Name="project" Type="ProjectInfo" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="referenceList" Type="List<ProjectInfo>" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="referenceDirectory" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="assemblyVersion" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="solutionDirectory" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%
+  string projectNamespace = project.Namespace;
+  string projectDirectory = project.ProjectDirectory.FullName;
+  Guid projectGuid = project.ProjectGuid;
+  string projectFilename = project.ProjectFile;
+  string assemblyName = project.Namespace;
+
+  string assemblyInfoFilename = projectDirectory + @"\Properties\" + "AssemblyInfo.cs";
+  AssemblyInfoTemplate assemblyInfoTemplate = this.Create<AssemblyInfoTemplate>();
+  assemblyInfoTemplate.SetProperty("assemblyName", assemblyName);
+  assemblyInfoTemplate.SetProperty("assemblyGuid", FileCacheManager.GetGuidForFile(assemblyInfoFilename));
+  assemblyInfoTemplate.SetProperty("assemblyVersion", assemblyVersion);
+  assemblyInfoTemplate.RenderToFile(assemblyInfoFilename,true);
+
+  
+  List<string> listOfFiles = new List<string>();
+  List<string> listOfEmbeddedFiles = new List<string>();
+
+  if(project.ProjectType == ProjectInfoType.Wpf)
+  {
+    listOfFiles.AddRange(FileCacheManager.GetSessionFilesInDirectory(projectDirectory, ".xaml"));
+  }
+
+  if(project.ProjectType == ProjectInfoType.Workflow)
+  {
+    listOfFiles.AddRange(FileCacheManager.GetSessionFilesInDirectory(projectDirectory, ".xoml"));
+	listOfEmbeddedFiles.AddRange(FileCacheManager.GetSessionFilesInDirectory(projectDirectory, ".rules"));
+  }
+  
+  listOfFiles.AddRange(FileCacheManager.GetSessionFilesInDirectory(projectDirectory, ".cs"));
+   
+  listOfEmbeddedFiles.AddRange(FileCacheManager.GetSessionFilesInDirectory(projectDirectory, ".xml"));
+  listOfEmbeddedFiles.AddRange(FileCacheManager.GetSessionFilesInDirectory(projectDirectory, ".sql"));
+  listOfEmbeddedFiles.AddRange(FileCacheManager.GetSessionFilesInDirectory(projectDirectory, ".resx"));
+
+  ProjectFileTemplate projectTemplate = this.Create<ProjectFileTemplate>();
+  projectTemplate.SetProperty("project", project);
+  projectTemplate.SetProperty("referenceDirectory", referenceDirectory);
+  projectTemplate.SetProperty("referenceList", referenceList);
+  projectTemplate.SetProperty("listOfFiles", listOfFiles);
+  projectTemplate.SetProperty("listOfEmbeddedFiles", listOfEmbeddedFiles);
+  projectTemplate.SetProperty("solutionDirectory", solutionDirectory);
+  projectTemplate.RenderToFile(projectFilename, true);
+
+  if(project.ProjectType == ProjectInfoType.Wcf)
+  {
+    AppConfigTemplate appConfig = this.Create<AppConfigTemplate>();
+    appConfig.RenderToFile(projectDirectory + @"\App.config",true);
+  }
+%>

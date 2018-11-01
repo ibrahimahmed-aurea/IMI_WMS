@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="CreateSessionRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="ApplicationName" type="xs:string"/>
+        <xs:element name="ClientVersion" type="xs:string"/>
+        <xs:element name="TerminalId" type="xs:string"/>
+        <xs:element name="ClientPlatform" type="xs:string"/>
+      </xs:sequence>
+      <xs:attribute name="SessionId" type="xs:string" use="required"/>
+      <xs:attribute name="Sequence" type="xs:int" use="required"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

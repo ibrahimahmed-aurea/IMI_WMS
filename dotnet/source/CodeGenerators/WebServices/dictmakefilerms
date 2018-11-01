@@ -1,0 +1,48 @@
+#
+# NOTE!
+# 
+# First run inmakefile and outmakefile with an empty dictionary-file!
+# If you want to extend old dictionary: no change
+# If create completely new, replace xml\WMSDictionary.xml with emty dict
+#
+BIN=.\bin
+XMLOUTDIR=.\rmsdict
+RD=rd /s /q
+
+DATAXMLFILE_IN=.\geninrms\xml\in1.xml
+DATAXMLFILE_OUT=.\genoutrms\xml\out.xml
+DICTFILE_AFTERIN=$(XMLOUTDIR)\pass1.xml
+DICTFILE_AFTERINOUT=$(XMLOUTDIR)\RMSDictionary.xml
+XMLDIR=.\xml
+INMASTER=$(XMLDIR)\WSRMSInboundMaster.xml
+OUTMASTER=$(XMLDIR)\WSRMSOutboundMaster.xml
+DICTIONARY=$(XMLDIR)\RMSDictionary.xml
+
+ALLDIR= \
+    "$(XMLOUTDIR)"
+
+ALLDICT= \
+    "$(DICTFILE_AFTERIN)" \
+    "$(DICTFILE_AFTERINOUT)"
+
+
+# --------------------------------------------
+# Description Blocks
+# --------------------------------------------
+
+ALL: $(ALLDIR) $(ALLDICT)
+
+$(DICTFILE_AFTERIN): 
+    $(BIN)\Imi.CodeGenerators.WebServices.XML2Dictionary $(DATAXMLFILE_IN) $(INMASTER) $@ $(DICTIONARY)
+
+$(DICTFILE_AFTERINOUT): $(DICTFILE_AFTERIN)
+    $(BIN)\Imi.CodeGenerators.WebServices.XML2Dictionary $(DATAXMLFILE_OUT) $(OUTMASTER) $@ $(DICTFILE_AFTERIN)
+
+CLEAN :
+    -@$(RD) $(XMLOUTDIR)
+    @nmake /nologo ALL
+
+"$(XMLOUTDIR)" :
+    @if not exist "$(XMLOUTDIR)/$(NULL)" mkdir "$(XMLOUTDIR)"
+
+# end makefile

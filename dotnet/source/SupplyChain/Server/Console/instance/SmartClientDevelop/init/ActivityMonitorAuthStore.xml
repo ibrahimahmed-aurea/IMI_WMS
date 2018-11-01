@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AzAdminManager MajorVersion="1" MinorVersion="0" Guid="95a61e1b-c1e9-42c6-90c6-02a35debbb3c">
+	<AzApplication Guid="861d5042-2560-409e-809f-5bf99016bd2a" Name="ActivityMonitor" Description="Azman store for ActivityMonitor" ApplicationVersion="1.0.0">
+		<AzOperation Guid="d1f71448-4043-40d7-b223-c7660c6a8e20" Name="d1f71448-4043-40d7-b223-c7660c6a8e20" Description="Start Outbound Staging Monitor">
+			<OperationID>1</OperationID>
+		</AzOperation>
+		<AzOperation Guid="607b9c40-8433-47ff-87f0-6b7dfac9739a" Name="607b9c40-8433-47ff-87f0-6b7dfac9739a" Description="Start Assembly Monitor">
+			<OperationID>2</OperationID>
+		</AzOperation>
+		<AzOperation Guid="c177bbdc-91be-40a0-8eb2-4b7c4537108e" Name="c177bbdc-91be-40a0-8eb2-4b7c4537108e" Description="Start Movement Monitor">
+			<OperationID>3</OperationID>
+		</AzOperation>
+		<AzOperation Guid="24cd9629-716f-4e53-9969-22f7a444c534" Name="24cd9629-716f-4e53-9969-22f7a444c534" Description="Start Pick Monitor">
+			<OperationID>4</OperationID>
+		</AzOperation>
+		<AzOperation Guid="37b749b8-18c9-498b-abc8-3d0ee722bd93" Name="37b749b8-18c9-498b-abc8-3d0ee722bd93" Description="Start Pack Monitor">
+			<OperationID>5</OperationID>
+		</AzOperation>
+		<AzOperation Guid="0759801e-9ba2-4f20-8383-5549a777f9ab" Name="0759801e-9ba2-4f20-8383-5549a777f9ab" Description="Start Receive Monitor">
+			<OperationID>6</OperationID>
+		</AzOperation>
+		<AzOperation Guid="2b50c1d8-19fe-41dc-ba6b-05e86c87a9d8" Name="2b50c1d8-19fe-41dc-ba6b-05e86c87a9d8" Description="Start Loading Monitor">
+			<OperationID>7</OperationID>
+		</AzOperation>
+		<AzTask Guid="7ad3f57b-84c4-4bf2-a8fb-89287ed95818" Name="OutboundStaging.OutboundStagingMonitor" Description="Outbound Staging Monitor" BizRuleImportedPath="">
+			<OperationLink>d1f71448-4043-40d7-b223-c7660c6a8e20</OperationLink>
+		</AzTask>
+		<AzTask Guid="12f85ef3-1043-43a8-810a-b22c155246b9" Name="OutboundStaging" Description="OutboundStaging Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>7ad3f57b-84c4-4bf2-a8fb-89287ed95818</TaskLink>
+		</AzTask>
+		<AzTask Guid="d36f6748-4442-488e-884f-447755919609" Name="Movement.MovementMonitor" Description="Movement Monitor" BizRuleImportedPath="">
+			<OperationLink>c177bbdc-91be-40a0-8eb2-4b7c4537108e</OperationLink>
+		</AzTask>
+		<AzTask Guid="286b25f9-eed8-4d03-a868-1d38e99135f8" Name="Movement" Description="Movement Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>d36f6748-4442-488e-884f-447755919609</TaskLink>
+		</AzTask>
+		<AzTask Guid="3b6b025f-d92e-47c1-b874-ec9e2d4fb145" Name="Receive.ReceiveMonitor" Description="Receive Monitor" BizRuleImportedPath="">
+			<OperationLink>0759801e-9ba2-4f20-8383-5549a777f9ab</OperationLink>
+		</AzTask>
+		<AzTask Guid="8e0a570d-fc4e-43b6-af9d-01a284c7e3fe" Name="Receive" Description="Receive Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>3b6b025f-d92e-47c1-b874-ec9e2d4fb145</TaskLink>
+		</AzTask>
+		<AzTask Guid="05e8bae4-7445-4486-af24-58c28c67dc70" Name="Pack.PackMonitor" Description="Pack Monitor" BizRuleImportedPath="">
+			<OperationLink>37b749b8-18c9-498b-abc8-3d0ee722bd93</OperationLink>
+		</AzTask>
+		<AzTask Guid="33528102-c1d1-4708-a035-b994dcf1c78c" Name="Pack" Description="Pack Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>05e8bae4-7445-4486-af24-58c28c67dc70</TaskLink>
+		</AzTask>
+		<AzTask Guid="9e2db3c9-8bdb-4a9a-a3ad-9c225fb379e9" Name="CasePick.CasePickMonitor" Description="Pick Monitor" BizRuleImportedPath="">
+			<OperationLink>24cd9629-716f-4e53-9969-22f7a444c534</OperationLink>
+		</AzTask>
+		<AzTask Guid="2f70c2b8-887d-4699-ba11-2048f8596e89" Name="CasePick" Description="CasePick Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>9e2db3c9-8bdb-4a9a-a3ad-9c225fb379e9</TaskLink>
+		</AzTask>
+		<AzTask Guid="1fa12ac4-4845-4e23-bd56-e2d9b1a6b693" Name="LightAssembly.AssemblyMonitor" Description="Assembly Monitor" BizRuleImportedPath="">
+			<OperationLink>607b9c40-8433-47ff-87f0-6b7dfac9739a</OperationLink>
+		</AzTask>
+		<AzTask Guid="2658cfe8-96ca-4b2f-a832-96ef59d87eac" Name="LightAssembly" Description="LightAssembly Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>1fa12ac4-4845-4e23-bd56-e2d9b1a6b693</TaskLink>
+		</AzTask>
+		<AzTask Guid="5fb3d0fc-b6d5-42b6-acc8-692e1005c154" Name="Loading.LoadingMonitor" Description="Loading Monitor" BizRuleImportedPath="">
+			<OperationLink>2b50c1d8-19fe-41dc-ba6b-05e86c87a9d8</OperationLink>
+		</AzTask>
+		<AzTask Guid="7b778588-2422-47a9-b967-e713782417c2" Name="Loading" Description="Loading Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>5fb3d0fc-b6d5-42b6-acc8-692e1005c154</TaskLink>
+		</AzTask>
+		<AzTask Guid="fc691417-8f97-4f1c-954a-6ff5cbf59816" Name="Administrator" Description="Administrator Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>12f85ef3-1043-43a8-810a-b22c155246b9</TaskLink>
+			<TaskLink>286b25f9-eed8-4d03-a868-1d38e99135f8</TaskLink>
+			<TaskLink>8e0a570d-fc4e-43b6-af9d-01a284c7e3fe</TaskLink>
+			<TaskLink>33528102-c1d1-4708-a035-b994dcf1c78c</TaskLink>
+			<TaskLink>2f70c2b8-887d-4699-ba11-2048f8596e89</TaskLink>
+			<TaskLink>2658cfe8-96ca-4b2f-a832-96ef59d87eac</TaskLink>
+			<TaskLink>7b778588-2422-47a9-b967-e713782417c2</TaskLink>
+		</AzTask>
+		<AzTask Guid="f0ea5350-ceb2-4361-8e53-0720344dac08" Name="Guest" Description="Guest Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>fc691417-8f97-4f1c-954a-6ff5cbf59816</TaskLink>
+		</AzTask>
+	</AzApplication>
+</AzAdminManager>

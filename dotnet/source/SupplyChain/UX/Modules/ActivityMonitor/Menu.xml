@@ -1,0 +1,3 @@
+﻿<folder caption="Activity Monitor" id="cc5314d2-71d2-49bb-ad21-745313cb3610">
+  <item caption="Case Pick Monitor" id="24cd9629-716f-4e53-9969-22f7a444c534" assemblyFile="Imi.SupplyChain.ActivityMonitor.UX.Modules.CasePick.dll" topicIdentity="event://Imi.SupplyChain.UX.Modules.ActivityMonitor/ShowDialog" parameters="event://Imi.SupplyChain.ActivityMonitor.UX.Modules.CasePick.CasePickMonitor/ShowDialog"/>
+</folder>

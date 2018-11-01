@@ -1,0 +1,309 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="ReportCoreTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Assembly Name="Cdc.CodeGeneration.Caching" %>
+<%@ Assembly Name="System.Collections.Generic" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Import Namespace="Cdc.CodeGeneration.Caching" %>
+<%@ Property Name="report" Type="Cdc.MetaManager.DataAccess.Domain.Report" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="packageName" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%
+bool isApplicationWarehouseReport = IsApplicationWarehouseReport(report);
+%>
+
+/*page
+********************************************************************************
+**
+** Procedure     : Print_<%=report.Name%>
+**
+** Description   : <%=report.Description%>
+**
+** **
+**
+********************************************************************************
+*/
+<%
+CallReportPackageProcHeaderTemplate callReportPackageProcHeaderTemplate = this.Create<CallReportPackageProcHeaderTemplate>();
+callReportPackageProcHeaderTemplate.SetProperty("report", report);
+callReportPackageProcHeaderTemplate.SetProperty("isSpec", false);
+callReportPackageProcHeaderTemplate.Render(this.Response);
+%>
+is
+  TER_Rec_W     TER%rowtype;
+  PLSQL_W       varchar2(255);
+  XML_W         XMLType;
+  DOCSUBTYPE_W  WHDOC.DOCSUBTYPE%type;
+  NO_COPIES_W   WHDOC.NO_COPIES%type;
+  REPORT_MODE_W WHDOC.REPORT_MODE%type;
+  PRTID_W       varchar2(255);
+  CC_W          boolean;
+  JobCreated_W  boolean := false;
+  IS_DEFINED_W  varchar2(1);
+begin
+
+  Global.Stack_Name('<%=packageName%>.Print_<%=report.Name%>');
+  logg_output.put_line('>>> <%=packageName%>.Print_<%=report.Name%>');
+
+  Global.ALMID := null;
+  DOCSUBTYPE_W := null;
+  NO_COPIES_W  := null;
+  REPORT_MODE_W:= null;
+  XML_W        := null;
+  PRTID_W      := META_PRTID_I;
+  CC_W         := false;
+
+<%
+string indentString = string.Empty.PadRight(2);
+
+if (isApplicationWarehouseReport)
+{
+	if (report.WarehouseReportType == WarehouseReportType.WarehouseReport)
+	{
+%>
+  IS_DEFINED_W := Document.IsDefinedWarehouseReport( CHECK_WHID_I
+                                                    ,Def.<%=report.DocumentTypeDefinition%>
+                                                    ,DOCSUBTYPE_W
+                                                    ,NO_COPIES_W 
+                                                    ,REPORT_MODE_W);
+
+  if (SKIP_CHECK_I is not null and SKIP_CHECK_I = Def.Yes) or 
+     (IS_DEFINED_W = Def.Yes)  then
+<%
+		indentString = string.Empty.PadRight(4);
+	}
+	else if (report.WarehouseReportType == WarehouseReportType.DeliveryReport)
+	{
+%>
+  IS_DEFINED_W := Document.IsDefinedDeliveryReport( CHECK_DLVRYMETH_ID_I
+                                                   ,CHECK_COMPANY_ID_I
+                                                   ,Def.<%=report.DocumentTypeDefinition%>
+                                                   ,DOCSUBTYPE_W
+                                                   ,NO_COPIES_W 
+                                                   ,REPORT_MODE_W);
+
+  if (SKIP_CHECK_I is not null and SKIP_CHECK_I = Def.Yes) or 
+     (IS_DEFINED_W = Def.Yes) then
+<%
+		indentString = string.Empty.PadRight(4);
+	}
+	else if (report.WarehouseReportType == WarehouseReportType.FreighterReport)
+	{
+%>
+  IS_DEFINED_W := Document.IsDefinedFreighterReport( CHECK_FREID_I
+	                                                ,CHECK_DLVRYMETH_ID_I
+                                                    ,Def.<%=report.DocumentTypeDefinition%>
+                                                    ,DOCSUBTYPE_W
+                                                    ,NO_COPIES_W );
+
+  if (SKIP_CHECK_I is not null and SKIP_CHECK_I = Def.Yes) or 
+     (IS_DEFINED_W = Def.Yes) then
+<%
+		indentString = string.Empty.PadRight(4);
+	}
+}
+
+IList<string> parameterNames = report.GetUserDefinedInterfaceParameterList().GetNames();
+
+// Create a list with :a, :b, :c etc. depending on how many keys exist in the list
+int staticParameterCount = report.IsABCEnabled ? 8 : 6;
+
+string xmlBeforeAfterCallParamList = GetExecuteImmediateABCParameters(parameterNames.Count + staticParameterCount);
+string xmlCallParamList = GetExecuteImmediateABCParameters(parameterNames.Count + 5);
+
+string xmlCallInParams = parameterNames.Aggregate((current, next) => current + "," + Environment.NewLine + indentString + string.Empty.PadRight(10) + next);
+%>
+
+<%=indentString%>DOCSUBTYPE_W := nvl(META_DOCSUBTYPE_I, DOCSUBTYPE_W);
+<%=indentString%>NO_COPIES_W  := nvl(META_NO_COPIES_I, NO_COPIES_W);
+
+<%=indentString%>/* Call before-print procedure if it exists, or it will be ignored */
+<%=indentString%>PLSQL_W := 'call PrintBeforeAfter.Before_<%=report.Name%>( <%=xmlBeforeAfterCallParamList%> )';
+
+<%=indentString%>begin
+<%=indentString%>  EXECUTE IMMEDIATE PLSQL_W 
+<%=indentString%>    USING <%=xmlCallInParams%>,
+<%
+if (report.IsABCEnabled)
+{
+%>
+<%=indentString%>          ACTLOG_WHID_I,
+<%=indentString%>          ACTLOG_COMPANY_ID_I,
+<%
+}
+%>
+<%=indentString%>          META_TERID_I,
+<%=indentString%>          META_EMPID_I,
+<%=indentString%>          in out PRTID_W,
+<%=indentString%>          in out DOCSUBTYPE_W,
+<%=indentString%>          in out NO_COPIES_W,
+<%=indentString%>          out Global.ALMID;
+<%=indentString%>exception
+<%=indentString%>  when DEADLOCK_DETECTED then
+<%=indentString%>    logg_output.put_line ('Exception (Deadlock): ' || substr(SQLERRM,1,80));
+<%=indentString%>    raise;
+
+<%=indentString%>  when PROCEDURE_NOT_FOUND then
+<%=indentString%>    logg_output.put_line ('The before-print procedure does not exist. Ignore.');
+
+<%=indentString%>  when PROCEDURE_HAS_CHANGED then
+<%=indentString%>    logg_output.put_line ('Exception (PL/SQL procedure has changed): ' || substr(SQLERRM,1,80));
+<%=indentString%>    raise;
+
+<%=indentString%>  when OTHERS then
+<%=indentString%>    logg_output.put_line('Exception: ' || substr(SQLERRM,1,80));
+<%=indentString%>    raise;
+
+<%=indentString%>end;
+
+<%=indentString%>if Global.ALMID is null then
+
+<%=indentString%>  if REPORT_MODE_W = Def.REPORT_MODE_Data then
+<%=indentString%>    PLSQL_W := 'call <%=report.PackageName%>.GetXml( <%=xmlCallParamList%> ) into :XML_W';
+<%=indentString%>  elsif REPORT_MODE_W = Def.REPORT_MODE_Parameter then
+<%=indentString%>	/* Do it another way!! */
+<%=indentString%>    PLSQL_W := 'call <%=report.PackageName%>.GetGenericXml( <%=xmlCallParamList%> ) into :XML_W';
+<%=indentString%>  end if;
+<%=indentString%>    begin 
+
+<%
+xmlCallInParams = parameterNames.Aggregate((current, next) => current + "," + Environment.NewLine + indentString + string.Empty.PadRight(12) + next);
+%>
+<%=indentString%>      EXECUTE IMMEDIATE PLSQL_W 
+<%=indentString%>        USING <%=xmlCallInParams%>,
+<%=indentString%>              DOCSUBTYPE_W,
+<%=indentString%>              META_TERID_I,
+<%=indentString%>              PRTID_W,
+<%=indentString%>              META_EMPID_I,
+<%=indentString%>              NO_COPIES_W,
+<%=indentString%>              out XML_W;
+
+<%=indentString%>    exception
+<%=indentString%>      when DEADLOCK_DETECTED then
+<%=indentString%>        logg_output.put_line ('Exception (Deadlock): ' || substr(SQLERRM,1,80));
+<%=indentString%>        raise;
+
+<%=indentString%>      when PROCEDURE_NOT_FOUND then
+<%=indentString%>        logg_output.put_line ('Exception (PL/SQL package does not exist): ' || substr(SQLERRM,1,80));
+<%=indentString%>        Global.ALMID := 'REP009';
+
+<%=indentString%>      when PROCEDURE_HAS_CHANGED then
+<%=indentString%>        logg_output.put_line ('Exception (PL/SQL procedure has changed): ' || substr(SQLERRM,1,80));
+<%=indentString%>        raise;
+
+<%=indentString%>      when OTHERS then
+<%=indentString%>        logg_output.put_line('Exception: ' || substr(SQLERRM,1,80));
+<%=indentString%>        raise;
+
+<%=indentString%>    end;
+
+<%=indentString%>end if;
+
+<%=indentString%>if XML_W is not null and Global.ALMID is null then
+
+<%=indentString%>  if Print_Queue.CurrentPrintJobId is null then
+<%=indentString%>    if Terminal.TER_Read( META_TERID_I
+<%=indentString%>                         ,TER_Rec_W, Def.ALARM_No, Def.Force_Yes ) then
+<%=indentString%>      Print_Queue.CreatePrintJob( nvl(Print_Queue.WHID, TER_Rec_W.WHID) );
+<%=indentString%>      JobCreated_W := true;
+<%=indentString%>    end if;
+<%=indentString%>  end if;
+
+<%=indentString%>  if Global.ALMID is null then
+<%=indentString%>    Print_Queue.EnqueueDocument( XML_W.GetClobVal()
+<%=indentString%>                                ,Global.ALMID );
+<%=indentString%>    if Global.ALMID is null then
+<%=indentString%>      CC_W := true;
+<%=indentString%>    end if;
+
+<%=indentString%>    if JobCreated_W then    
+<%=indentString%>      Print_Queue.CompletePrintJob();
+<%=indentString%>    end if;  
+<%=indentString%>  end if;
+
+<%=indentString%>end if;
+
+<%
+if (report.IsABCEnabled)
+{
+%>
+<%=indentString%>if XML_W is not null and Global.ALMID is null then
+<%=indentString%>  ActivityLog.New_PrintActivityLog( ACTLOG_WHID_I
+<%=indentString%>                                   ,ACTLOG_COMPANY_ID_I
+<%=indentString%>                                   ,META_EMPID_I
+<%=indentString%>                                   ,Def.<%=report.DocumentTypeDefinition%>
+<%=indentString%>                                   ,nvl(NO_COPIES_W, 1)
+<%=indentString%>                                   ,Global.ALMID );
+<%=indentString%>end if;
+
+<%
+}
+%>
+<%=indentString%>if XML_W is not null and Global.ALMID is null then
+<%=indentString%>  /* Call after-print procedure if it exists, or it will be ignored */
+<%=indentString%>  PLSQL_W := 'call PrintBeforeAfter.After_<%=report.Name%>( <%=xmlBeforeAfterCallParamList%> )';
+
+<%
+xmlCallInParams = parameterNames.Aggregate((current, next) => current + "," + Environment.NewLine + indentString + string.Empty.PadRight(12) + next);
+%>
+<%=indentString%>  begin
+<%=indentString%>    EXECUTE IMMEDIATE PLSQL_W 
+<%=indentString%>      USING <%=xmlCallInParams%>,
+<%
+if (report.IsABCEnabled)
+{
+%>
+<%=indentString%>            ACTLOG_WHID_I,
+<%=indentString%>            ACTLOG_COMPANY_ID_I,
+<%
+}
+%>
+<%=indentString%>            META_TERID_I,
+<%=indentString%>            META_EMPID_I,
+<%=indentString%>            PRTID_W,
+<%=indentString%>            DOCSUBTYPE_W,
+<%=indentString%>            NO_COPIES_W,
+<%=indentString%>            out Global.ALMID;
+<%=indentString%>  exception
+<%=indentString%>    when DEADLOCK_DETECTED then
+<%=indentString%>      logg_output.put_line ('Exception (Deadlock): ' || substr(SQLERRM,1,80));
+<%=indentString%>      raise;
+
+<%=indentString%>    when PROCEDURE_NOT_FOUND then
+<%=indentString%>      logg_output.put_line ('The after-print procedure does not exist. Ignore.');
+
+<%=indentString%>    when PROCEDURE_HAS_CHANGED then
+<%=indentString%>      logg_output.put_line ('Exception (PL/SQL procedure has changed): ' || substr(SQLERRM,1,80));
+<%=indentString%>      raise;
+
+<%=indentString%>    when OTHERS then
+<%=indentString%>      logg_output.put_line('Exception: ' || substr(SQLERRM,1,80));
+<%=indentString%>      raise;
+
+<%=indentString%>  end;
+<%=indentString%>end if;
+
+<%
+if (isApplicationWarehouseReport)
+{
+%>
+  end if;
+<%
+}
+%>
+
+  ALMID_O := Global.ALMID;
+
+  logg_output.put_line('<<< <%=packageName%>.Print_<%=report.Name%>  ALMID:' || nvl( Global.ALMID, '<null>' ));
+  Global.Unstack_Name;
+
+  return CC_W;
+
+end Print_<%=report.Name%>;

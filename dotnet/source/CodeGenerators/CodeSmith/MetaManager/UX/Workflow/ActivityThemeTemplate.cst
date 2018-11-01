@@ -1,0 +1,90 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text"  Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="false" Description="Template description here." %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="workflow" Type="Cdc.MetaManager.DataAccess.Domain.Workflow" Default="" Optional="false" Category="" Description="" OnChanged="" Editor="" EditorBase="" Serializer="" %>
+<%@ Property Name="isDesignTime" Type="System.Boolean" Default="false" Optional="false" Category="" Description="" OnChanged="" Editor="" EditorBase="" Serializer="" %>
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Workflow.ComponentModel;
+using System.Workflow.ComponentModel.Compiler;
+using System.Workflow.Activities;
+using System.Workflow.ComponentModel.Design;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+
+namespace <%=GetWorkflowNamespace(workflow)%>
+{
+	[ActivityDesignerTheme(typeof(DialogDesignerTheme))]
+    public class DialogActivityDesigner: ActivityDesigner
+    {
+    }
+
+    public class DialogDesignerTheme : ActivityDesignerTheme
+    {
+        public DialogDesignerTheme(WorkflowTheme theme)
+            : base(theme)
+        {
+            BackColorStart = Color.LemonChiffon;
+            BackColorEnd = Color.GreenYellow;
+            BackgroundStyle = LinearGradientMode.Horizontal;
+			BorderColor = Color.SlateGray;
+        }
+    }
+	
+	[ActivityDesignerTheme(typeof(ServiceMethodDesignerTheme))]
+    public class ServiceMethodActivityDesigner: ActivityDesigner
+    {
+    }
+
+    public class ServiceMethodDesignerTheme : ActivityDesignerTheme
+    {
+        public ServiceMethodDesignerTheme(WorkflowTheme theme)
+            : base(theme)
+        {
+            BackColorStart = Color.Azure;
+            BackColorEnd = Color.LightSkyBlue;
+            BackgroundStyle = LinearGradientMode.Horizontal;
+			BorderColor = Color.SlateGray;
+        }
+    }
+	
+	[ActivityDesignerTheme(typeof(SubworkflowDesignerTheme))]
+    public class SubworkflowActivityDesigner: ActivityDesigner
+    {
+    }
+
+    public class SubworkflowDesignerTheme : ActivityDesignerTheme
+    {
+        public SubworkflowDesignerTheme(WorkflowTheme theme)
+            : base(theme)
+        {
+            BackColorStart = Color.LightPink;
+            BackColorEnd = Color.HotPink;
+            BackgroundStyle = LinearGradientMode.Horizontal;
+			BorderColor = Color.SlateGray;
+        }
+    }
+	
+	[ActivityDesignerTheme(typeof(AlarmDesignerTheme))]
+    public class AlarmActivityDesigner: ActivityDesigner
+    {
+    }
+
+    public class AlarmDesignerTheme : ActivityDesignerTheme
+    {
+        public AlarmDesignerTheme(WorkflowTheme theme)
+            : base(theme)
+        {
+            BackColorStart = Color.PeachPuff;
+            BackColorEnd = Color.Tomato;
+            BackgroundStyle = LinearGradientMode.Horizontal;
+			BorderColor = Color.SlateGray;
+        }
+    }
+}

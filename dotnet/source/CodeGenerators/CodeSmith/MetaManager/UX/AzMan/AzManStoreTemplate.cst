@@ -1,0 +1,236 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="modules" Type="List<Module>" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="topMenuItem" Type="Cdc.MetaManager.DataAccess.Domain.MenuItem" Default="" Optional="False" Category="" Description="" %>
+<%
+ 	IList<UXAction> actionList = new List<UXAction>();
+%>
+<?xml version="1.0" encoding="utf-8"?>
+<AzAdminManager MajorVersion="1" MinorVersion="0" Guid="95a61e1b-c1e9-42c6-90c6-02a35debbb3c">
+	<AzApplication Guid="861d5042-2560-409e-809f-5bf99016bd2a" Name="<%= modules[0].Application.Name %>" Description="Azman store for <%= modules[0].Application.Name %>" ApplicationVersion="<%= GetVersionString(modules[0].Application) %>">
+<%
+	int operationId = 1;
+
+	List<string> roleOps = new List<string>();
+	Dictionary<object, List<string>> dialogOpsDictionary = new Dictionary<object, List<string>>();
+
+    // Prepare dialog dictionary
+	foreach (Module module in modules)
+	{
+		foreach (Dialog dialog in module.Dialogs)
+		{
+			AddDialogToDictionary(dialogOpsDictionary, dialog);
+		}
+	}	
+
+    // Do all viewactions
+	foreach (Module module in modules)
+	{
+		foreach (Dialog dialog in module.Dialogs)
+		{
+			List<string> ops = new List<string>();
+
+			foreach (ViewNode viewNode in dialog.ViewNodes)
+			{
+				string dialogNamespace = GetDialogNamespace(dialog);
+			
+				foreach (ViewAction viewAction in viewNode.ViewActions)
+				{
+					string opGuid = viewAction.Action.AuthorizationId;
+					
+					if(string.IsNullOrEmpty(opGuid))
+						continue;
+					
+					if(viewAction.Action.Dialog != null)
+					{
+						if (!AddDialogOpcode(dialogOpsDictionary, viewAction.Action.Dialog, opGuid))
+						{
+							if (!ops.Contains(opGuid))
+							{
+								ops.Add(opGuid);
+							}
+						}
+					}
+					else
+					{
+						if (!ops.Contains(opGuid))
+						{
+							ops.Add(opGuid);
+						}
+					}
+
+					if (!actionList.Contains(viewAction.Action))
+					{
+						actionList.Add(viewAction.Action);
+						string opDescription = string.Format("{0}.{1} - {2}", module.Name, dialog.Name, viewAction.Action.Caption);
+%>
+		<AzOperation Guid="<%= opGuid %>" Name="<%= opGuid %>" Description="<%= opDescription %>">
+			<OperationID><%= operationId %></OperationID>
+		</AzOperation>
+<%	
+						operationId++;
+					}
+				}
+			}
+			
+			if(!dialogOpsDictionary.ContainsKey(dialog))
+				AddDialogToDictionary(dialogOpsDictionary, dialog);
+				
+			dialogOpsDictionary[dialog].AddRange(ops);
+		}
+	}
+
+    // Do all menuItems
+	
+	List<Cdc.MetaManager.DataAccess.Domain.MenuItem> menuItems = GetAllMenuItems(topMenuItem);
+    List<string> menuOps = new List<string>();
+	
+	foreach (Cdc.MetaManager.DataAccess.Domain.MenuItem m in menuItems)
+	{
+		if (m.Action != null)
+		{
+			string opGuid = m.AuthorizationId;
+			
+			if (m.Action.Dialog != null)
+			{
+				opGuid = m.Action.Dialog.Id.ToString();	
+			}
+			
+			string opDescription = string.Format("Start {0}", m.Caption);
+			
+			menuOps.Add(opGuid);
+%>			
+		<AzOperation Guid="<%= opGuid %>" Name="<%= opGuid %>" Description="<%= opDescription %>">
+			<OperationID><%= operationId %></OperationID>
+		</AzOperation>
+<%		
+			if(m.Action.Dialog != null)
+			{
+				AddDialogOpcode(dialogOpsDictionary, m.Action.Dialog, opGuid);
+			}
+
+            operationId++;
+		}
+	}
+	
+	//
+    // Do dialogs and modules
+	//
+	foreach (Module module in modules)
+	{
+		List<string> moduleOps = new List<string>();
+		
+		foreach (Dialog dialog in module.Dialogs)
+		{
+			string moduleDialog = string.Format("{0}.{1}", module.Name, dialog.Name);
+			string dialogOp = dialogOpsDictionary[dialog][0];
+%>
+		<AzTask Guid="<%= dialogOp %>" Name="<%= moduleDialog %>" Description="<%= dialog.Title %>" BizRuleImportedPath="">
+<%					
+			foreach(string opCode in dialogOpsDictionary[dialog])
+			{
+				if(opCode == dialogOp)
+					continue;
+%>
+			<OperationLink><%= opCode %></OperationLink>
+<%					
+			}
+%>
+		</AzTask>
+<%
+
+		    moduleOps.Add(dialogOp);
+		}
+
+		string moduleTask = string.Format("{0}", module.Name);
+		string moduleOp = Guid.NewGuid().ToString();
+%>
+		<AzTask Guid="<%= moduleOp %>" Name="<%= moduleTask %>" Description="<%= moduleTask %> Role" BizRuleImportedPath="" RoleDefinition="True">
+<%					
+		foreach(string opCode in moduleOps)
+		{
+%>
+			<TaskLink><%= opCode %></TaskLink>
+<%					
+		}
+%>
+		</AzTask>
+<%
+        roleOps.Add(moduleOp); 
+	}	
+
+    // Do Admin role
+	string adminOp = Guid.NewGuid().ToString();
+%>
+		<AzTask Guid="<%= adminOp %>" Name="Administrator" Description="Administrator Role" BizRuleImportedPath="" RoleDefinition="True">
+<%					
+	foreach(string opCode in roleOps)
+	{
+%>
+			<TaskLink><%= opCode %></TaskLink>
+<%					
+	}
+%>
+		</AzTask>
+<%					
+
+    // Do Guest role
+	string guestOp = Guid.NewGuid().ToString();
+%>
+		<AzTask Guid="<%= guestOp %>" Name="Guest" Description="Guest Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink><%= adminOp %></TaskLink>
+		</AzTask>
+	</AzApplication>
+</AzAdminManager>
+<script runat="template">
+
+private List<Cdc.MetaManager.DataAccess.Domain.MenuItem> GetAllMenuItems(Cdc.MetaManager.DataAccess.Domain.MenuItem menu)
+{
+	List<Cdc.MetaManager.DataAccess.Domain.MenuItem> items = new List<Cdc.MetaManager.DataAccess.Domain.MenuItem>();
+	AddMenuItemHierarchy(menu, items);
+	
+	return items;
+}
+
+private void AddMenuItemHierarchy(Cdc.MetaManager.DataAccess.Domain.MenuItem parent, List<Cdc.MetaManager.DataAccess.Domain.MenuItem> items)
+{
+    items.Add(parent);
+
+    foreach (Cdc.MetaManager.DataAccess.Domain.MenuItem child in parent.Children)
+    {
+        AddMenuItemHierarchy(child, items);
+    }
+}
+
+private bool AddDialogOpcode(Dictionary<object, List<string>> dialogOpsDictionary, Dialog dialog, string opGuid)
+{
+	//Removed to support jump-to from one application to another.
+	//if(!dialogOpsDictionary.ContainsKey(dialog))
+	//	AddDialogToDictionary(dialogOpsDictionary, dialog);
+
+	//Added to support jump-to from one application to another
+	if(!dialogOpsDictionary.ContainsKey(dialog))
+	{
+		return false;
+	}
+
+		
+	dialogOpsDictionary[dialog].Add(opGuid);
+	return true;
+}
+
+private void AddDialogToDictionary(Dictionary<object, List<string>> dialogOpsDictionary, Dialog dialog)
+{
+	dialogOpsDictionary.Add(dialog, new List<string>());
+	dialogOpsDictionary[dialog].Add(Guid.NewGuid().ToString());
+}
+</script>

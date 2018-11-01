@@ -1,0 +1,356 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Assembly Name="System.Workflow.Activities" %>
+<%@ Assembly Name="System.Workflow.ComponentModel" %>
+<%@ Assembly Name="Cdc.CodeGeneration.Caching" %>
+<%@ Import Namespace="Cdc.CodeGeneration.Caching" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Xml" %>
+<%@ Import Namespace="System.Text" %>
+<%@ Import Namespace="System.IO" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="System.Workflow.Activities" %>
+<%@ Import Namespace="System.Workflow.ComponentModel.Serialization" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain.VisualModel" %>
+<%@ Property Name="view" Type="Cdc.MetaManager.DataAccess.Domain.View" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="rulesDirectory" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%
+    string viewsNamespace = GetViewsNamespace(view);
+	string rulesEngineClassName = GetViewRulesEngineClassName(view);
+	string viewResultClassName = GetViewResultClassName(view);
+	IList<UXComponent> componentList = new List<UXComponent>();
+    string userSessionName = GetUserSessionName(view.Application);
+	string userSessionNamespace = GetUserSessionNamespace(view.Application);
+
+	WriteRuleXml(view.VisualTree, componentList);
+	
+%>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.IO;
+using System.Reflection;
+using System.ComponentModel;
+using System.Xml;
+using System.Workflow.ComponentModel.Serialization;
+using System.Workflow.Activities.Rules;
+using Microsoft.Practices.CompositeUI.EventBroker;
+using Microsoft.Practices.CompositeUI;
+using Imi.Framework.UX;
+using Imi.SupplyChain.UX;
+using Imi.SupplyChain.UX.Infrastructure;
+using Imi.SupplyChain.UX.Rules;
+using <%=GetViewsConstantsNamespace(view)%>;
+using <%= userSessionNamespace %>;
+
+namespace <%=viewsNamespace%>
+{
+    #region Compiler Settings
+	  // Disable value assigned but never used
+	  #pragma warning disable 414 
+	#endregion
+	
+	public class <%= rulesEngineClassName %>
+    {                        
+		private <%=viewResultClassName%> currentResult;
+		private bool isLoaded;
+		private bool isInitializing;
+
+<%
+	foreach (UXComponent component in componentList)
+	{
+			IBindable bindable = component as IBindable;
+%>
+		private RuleSetManager <%=ToCamelCase(component.Name)%>Rule;	
+<%
+	}
+%>
+		
+		[ServiceDependency]
+		public WorkItem WorkItem
+		{
+			get;
+			set;
+		}
+		
+		[ServiceDependency]
+        public <%= userSessionName %> UserSessionService
+		{ 
+			get;
+			set;
+		}
+				
+		public Func<string, MessageBoxButton, MessageBoxImage, MessageBoxResult> MessageBoxDelegate
+		{
+			get;
+			set;
+		}
+						
+		public bool IsMultipleItemsSelected
+		{ 
+			get;
+			set;
+		}
+		
+		public void Initialize(<%=viewResultClassName%> viewResult)
+		{
+			if (currentResult != null)
+				currentResult.PropertyChanged -= PropertyChangedEventHandler;
+						
+			currentResult = viewResult;
+			
+			if (currentResult != null)
+			{
+				if (!isLoaded)
+				{
+					isLoaded = true;
+<%
+			foreach (UXComponent component in componentList)
+			{
+%>
+			
+					/* Load <%=component.Name%> rules */
+					<%=ToCamelCase(component.Name)%>Rule = new RuleSetManager();
+					<%=ToCamelCase(component.Name)%>Rule.Load(Assembly.GetExecutingAssembly().GetManifestResourceStream("<%=viewsNamespace%>.<%=view.Name%>.Rules.<%=component.Name%>.xml"));
+<%
+			}
+%>
+				}
+			
+<%		
+			foreach (UXComponent component in componentList)
+			{
+				IBindable bindable = component as IBindable;
+				
+				if (bindable != null)
+				{
+%>
+				<%=ToCamelCase(component.Name)%>Rule.Context = new ViewComponentRuleContext<<%=viewResultClassName%>, <%=GetShortTypeName(bindable.MappedProperty.Type, true)%>, <%= userSessionName %>>(currentResult, UserSessionService, MessageBoxDelegate) { IsMultipleItemsSelected = this.IsMultipleItemsSelected };
+<%
+				}
+				else
+				{
+%>
+				<%=ToCamelCase(component.Name)%>Rule.Context = new ComponentRuleContext<<%=viewResultClassName%>, <%= userSessionName %>>(currentResult, UserSessionService, MessageBoxDelegate) { IsMultipleItemsSelected = this.IsMultipleItemsSelected };
+<%
+				}
+			}
+%>
+			
+				ApplyDefaultValues();
+				
+				currentResult.PropertyChanged += PropertyChangedEventHandler;
+				
+				isInitializing = true;
+				
+				try
+				{
+<%		
+			foreach (UXComponent component in componentList)
+			{
+%>
+					Execute<%=component.Name%>Rule();
+<%
+			}
+%>
+				}
+				finally
+				{
+					isInitializing = false;
+				}
+			}
+		}
+		
+		public void ApplyDefaultValues()
+		{
+<%
+if (view.ResponseMap != null)
+{
+	foreach (MappedProperty property in view.ResponseMap.MappedProperties)
+	{
+		string targetValue = null;
+		Type targetType = null;
+		
+		if (property.DefaultSessionProperty != null)
+		{
+			targetValue = string.Format("{0}.{1}", "UserSessionService", property.DefaultSessionProperty.Name);	
+			targetType = property.DefaultSessionProperty.Type;
+		}
+		else if (!string.IsNullOrEmpty(property.DefaultValue))
+		{
+			targetValue = string.Format("\"{0}\"", property.DefaultValue);
+			targetType = typeof(string);
+		}
+		else
+		{
+			continue;	
+		}
+		
+		if (property.Type == typeof(string))
+		{
+%>
+		
+			if (string.IsNullOrEmpty(currentResult.<%=property.Name%>))
+<%
+		}
+		else
+		{
+%>
+		
+			if (currentResult.<%=property.Name%> == null)
+<%
+		}
+		
+		if (property.Type != targetType)
+		{
+%>
+				currentResult.<%=property.Name%> = new Nullable<<%=GetShortTypeName(property.Type)%>>((<%=GetShortTypeName(property.Type)%>)Convert.ChangeType(<%=targetValue%>, typeof(<%=GetShortTypeName(property.Type)%>)));
+<%
+		}
+		else
+		{
+%>
+				currentResult.<%=property.Name%> = <%=targetValue%>;
+<%
+		}
+					
+	}
+}				
+%>
+		}
+		
+		private bool IsAffected(RuleSet ruleSet, string propertyName)
+		{
+			foreach (Rule rule in ruleSet.Rules)
+			{
+				if (rule.Condition.ToString().Contains("View." + propertyName))
+					return true;
+			}
+		
+			return false;
+		}
+								
+		private void PropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
+        {
+			
+<%
+		foreach (UXComponent component in componentList)
+		{
+%>			
+			if (IsAffected(<%=ToCamelCase(component.Name)%>Rule.RuleSet, e.PropertyName))
+			{
+				Execute<%=component.Name%>Rule();
+			}
+			
+<%
+		}
+%>
+		}
+<%
+	foreach (UXComponent component in componentList)
+	{
+		IBindable bindable = component as IBindable;
+%>			
+
+		private void Execute<%=component.Name%>Rule()
+		{
+			if (WorkItem.SmartParts.FindByType<<%=GetViewInterfaceName(view)%>>().Count() > 0)
+			{
+				<%=GetViewInterfaceName(view)%> view = WorkItem.SmartParts.FindByType<<%=GetViewInterfaceName(view)%>>().Last();
+<%
+			if (bindable != null)
+			{
+%>			
+				ViewComponentRuleContext<<%=viewResultClassName%>, <%=GetShortTypeName(bindable.MappedProperty.Type, true)%>, <%= userSessionName %>> context = <%=ToCamelCase(component.Name)%>Rule.Context as ViewComponentRuleContext<<%=viewResultClassName%>, <%=GetShortTypeName(bindable.MappedProperty.Type, true)%>, <%= userSessionName %>>;
+<%
+			}
+			else
+			{
+%>		
+				ComponentRuleContext<<%=viewResultClassName%>, <%= userSessionName %>> context = <%=ToCamelCase(component.Name)%>Rule.Context as ComponentRuleContext<<%=viewResultClassName%>, <%= userSessionName %>>;
+<%
+			}
+%>
+				context.IsInitializing = isInitializing;
+				
+				<%=ToCamelCase(component.Name)%>Rule.Execute();
+				
+				view.EnableComponent("<%=component.Name%>", context.IsEnabled);
+				
+				if (context.IsVisibilitySet)
+				{
+					context.IsVisibilitySet = false;
+					view.ShowComponent("<%=component.Name%>", context.Visibility);
+				}
+			
+<%
+			if (bindable != null)
+			{
+%>
+				view.ApplyUIAttentionLevel("<%=component.Name%>", context.AttentionLevel, context.View);
+				
+				if (context.IsValueSet)
+				{
+					context.IsValueSet = false;	
+					currentResult.<%=bindable.MappedProperty.Name%> = context.Value;
+				}
+<%
+			}
+%>
+			}
+		}
+<%
+	}
+%>
+    }
+}
+<script runat="template">
+
+	public void WriteRuleXml(UXComponent component, IList<UXComponent> componentList)
+	{
+		if (component.RuleSetWrapper.RuleSet != null)
+		{
+			string filename = Path.Combine(rulesDirectory, string.Format("{0}.xml", component.Name));
+			
+			StringWriter strWriter = new StringWriter();
+			XmlWriter writer = XmlWriter.Create(strWriter, new XmlWriterSettings() { Encoding = Encoding.UTF8, OmitXmlDeclaration = true });
+
+			try
+			{
+				WorkflowMarkupSerializer serializer = new WorkflowMarkupSerializer();
+				serializer.Serialize(writer, component.RuleSetWrapper.RuleSet);
+				string content = strWriter.ToString();
+				FileCacheManager.WriteFile(filename, content, FileMode.Create, Encoding.UTF8);				
+			}
+			finally
+			{
+				writer.Close();
+			}
+
+			componentList.Add(component);
+		}
+		
+		
+		UXContainer container = null;
+
+        if (component is UXGroupBox)
+            container = (component as UXGroupBox).Container;
+        else
+            container = component as UXContainer;
+
+        if (container != null)
+        {
+            foreach (UXComponent child in container.Children)
+                WriteRuleXml(child, componentList);
+        }
+	}
+	
+</script>

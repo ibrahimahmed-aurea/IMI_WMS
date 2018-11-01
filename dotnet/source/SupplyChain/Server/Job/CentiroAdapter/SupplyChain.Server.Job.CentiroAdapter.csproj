@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DF1CEC25-B655-45A9-AF23-EFF543CE18DD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Imi.SupplyChain.Server.Job.CentiroAdapter</RootNamespace>
+    <AssemblyName>Imi.SupplyChain.Server.Job.CentiroAdapter</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Oracle.DataAccess, Version=4.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\references\Oracle\Oracle.DataAccess.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BusinessDataMapper.cs" />
+    <Compile Include="CentiroAdapter.cs" />
+    <Compile Include="DataEntities\CentiroCloseDeparture.cs" />
+    <Compile Include="DataEntities\CentiroPrintDeparture.cs" />
+    <Compile Include="DataEntities\CentiroPrintParcels.cs" />
+    <Compile Include="DataEntities\CentiroPrintShipment.cs">
+      <SubType>code</SubType>
+    </Compile>
+    <Compile Include="DataEntities\CentiroRemoveParcels.cs" />
+    <Compile Include="DataEntities\CentiroUpdateParcels.cs" />
+    <Compile Include="DataEntities\CentiroUpdateShipment.cs" />
+    <Compile Include="CentiroServiceAgent.cs" />
+    <Compile Include="DataEntities\GenericReport.cs" />
+    <Compile Include="OraclePackage\CarrierCompliant.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="OraclePackage\CarrierCompliantQueue.cs" />
+    <Compile Include="OraclePackage\PrintQueue.cs" />
+    <Compile Include="OutputManagerInterface\OutputManagerInformationProvider.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\CentiroService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\OutputManagerService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="StringWriterWithEncoding.cs" />
+    <Compile Include="xml\XMLHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Framework\Job\Framework.Job.csproj">
+      <Project>{BBCF9DA2-8238-4CB2-A191-562FC9937DD1}</Project>
+      <Name>Framework.Job</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\Shared\Framework.Shared.csproj">
+      <Project>{D50F8E00-4006-436A-8533-88209763DA3E}</Project>
+      <Name>Framework.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\Versioning\Framework.Versioning.csproj">
+      <Project>{3536BFF6-DA06-4D96-A7D6-5146A235430B}</Project>
+      <Name>Framework.Versioning</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\StandardJob\SupplyChain.Server.Job.StandardJob.csproj">
+      <Project>{60C7F6AD-8420-4682-A005-2F92D33AC1B2}</Project>
+      <Name>SupplyChain.Server.Job.StandardJob</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="xsd\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Service References\CentiroService\CDCInterface.wsdl" />
+    <None Include="Service References\CentiroService\CDCInterface.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\CentiroService\CDCInterface1.wsdl" />
+    <None Include="Service References\CentiroService\CDCInterface1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\CentiroService\CDCInterface2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\CentiroService\Imi.SupplyChain.Server.Job.CentiroAdapter.CentiroService.AuthenticateResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CentiroService\Imi.SupplyChain.Server.Job.CentiroAdapter.CentiroService.CloseDepartureResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CentiroService\Imi.SupplyChain.Server.Job.CentiroAdapter.CentiroService.PrintDepartureResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CentiroService\Imi.SupplyChain.Server.Job.CentiroAdapter.CentiroService.PrintParcelsResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CentiroService\Imi.SupplyChain.Server.Job.CentiroAdapter.CentiroService.PrintShipmentResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CentiroService\Imi.SupplyChain.Server.Job.CentiroAdapter.CentiroService.RemoveParcelsResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CentiroService\Imi.SupplyChain.Server.Job.CentiroAdapter.CentiroService.UpdateParcelsResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CentiroService\Imi.SupplyChain.Server.Job.CentiroAdapter.CentiroService.UpdateShipmentResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OutputManagerService\Imi.SupplyChain.Server.Job.CentiroAdapter.OutputManagerService.CreateOutputResultCollection.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OutputManagerService\Imi.SupplyChain.Server.Job.CentiroAdapter.OutputManagerService.FindPrinterInfoResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OutputManagerService\OutputHandlerService.wsdl" />
+    <None Include="Service References\OutputManagerService\OutputHandlerService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\OutputManagerService\OutputHandlerService1.wsdl" />
+    <None Include="Service References\OutputManagerService\OutputHandlerService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\OutputManagerService\OutputHandlerService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\OutputManagerService\OutputHandlerService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\OutputManagerService\OutputHandlerService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\CentiroService\" />
+    <WCFMetadataStorage Include="Service References\OutputManagerService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CentiroService\CDCInterface.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CentiroService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CentiroService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CentiroService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\OutputManagerService\OutputHandlerService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\OutputManagerService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\OutputManagerService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\OutputManagerService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>set RuntimeDir=$(ProjectDir)..\..\..\..\SupplyChain\Server\Console\$(OutDir)
+xcopy $(TargetDir)*.dll %25RuntimeDir%25 /d /y
+xcopy $(TargetDir)*.pdb %25RuntimeDir%25 /d /y
+xcopy $(TargetDir)*.exe %25RuntimeDir%25 /d /y</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

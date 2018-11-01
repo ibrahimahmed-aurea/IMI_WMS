@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<query name="UXAction.FindAll">
+		<![CDATA[
+     select  a
+       from  UXAction a
+       where a.Application.Id = :applicationId
+    ]]>
+	</query>
+	<query name="UXAction.FindAllUnmappedAction">
+		<![CDATA[
+     select  a
+       from  UXAction a
+       where a.Application.Id = :applicationId
+       and   a.ServiceMethod is null
+       and   a.Dialog is null
+    ]]>
+	</query>
+	<query name="UXAction.FindWorkflowAction">
+		<![CDATA[
+     select  a
+       from  UXAction a
+       where a.Workflow.Id = :workflowId
+    ]]>
+	</query>
+	<query name="UXAction.FindDialogAction">
+		<![CDATA[
+     select  a
+       from  UXAction a
+       where a.Dialog.Id = :dialogId
+    ]]>
+	</query>
+	<query name="UXAction.FindCustomDialogAction">
+		<![CDATA[
+     select  a
+       from  UXAction a
+       where a.CustomDialog.Id = :customDialogId
+    ]]>
+	</query>
+	<query name="UXAction.FindAllByServiceMethodId">
+		<![CDATA[
+     select  a
+       from  UXAction a
+       where a.ServiceMethod.Id = :serviceMethodId
+    ]]>
+	</query>
+	<query name="UXAction.FindNonUniqueActionsByDialogId">
+		<![CDATA[
+     select a
+       from UXAction as a
+       where exists (
+                     select  va.Action.Id, count(*)
+                       from  ViewAction as va
+                       where va.ViewNode.Dialog.Id = :dialogId
+                       and   va.Action.Id = a.Id
+                       group by va.Action.Id
+                       having count(*) > 1
+                    )
+    ]]>
+	</query>
+	<query name="UXAction.FindByPropertyMapId">
+		<![CDATA[
+       from  UXAction a
+       where a.RequestMap.Id = :propertyMapId
+    ]]>
+	</query>
+</hibernate-mapping>
+

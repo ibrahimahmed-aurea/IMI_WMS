@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Mats Nordgren (IMI) -->
+<MessageDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="C:\project\views\togr_trunk_ss\users\togr\xml\xsd\StructureDescription.xsd" name="OutBound">
+    <globalParameters>
+        <parameter name="OPCODE" originTable="" originColumn="" dataType="varchar" direction="In" fieldType="OpCode">
+            <column caption="Operation Code" declaration="VARCHAR2(1)" dataType="VARCHAR2" length="1" precision="" scale="" primaryKey="false" mandatory="true">
+                <comment>
+                    <line>Operation Code</line>
+                    <line>1 - New</line>
+                </comment>
+            </column>
+            <use insert="true" update="true" delete="true"/>
+        </parameter>
+        <parameter name="HAPIRCV_ID" originTable="HAPIRCV" originColumn="HAPIRCV_ID" dataType="" direction="In" fieldType="SystemId">
+            <column caption="Received HAPI Transaction Identity" declaration="VARCHAR2(35)" dataType="VARCHAR2" length="35" precision="" scale="" primaryKey="false" mandatory="true">
+                <comment>
+                    <line>Received HAPI Transaction Identity</line>
+                    <line>Local system generated transaction identity</line>
+                </comment>
+            </column>
+            <use insert="true" update="true" delete="true"/>
+        </parameter>
+        <parameter name="UPDDTM" originTable="HAPIRCV" originColumn="UPDDTM" dataType="" direction="In" fieldType="SystemAdmin">
+            <column caption="Update Date" declaration="DATE" dataType="DATE" length="" precision="" scale="" primaryKey="false" mandatory="true">
+                <comment>
+                    <line>Update Date  (insert by trigger)</line>
+                </comment>
+            </column>
+            <use insert="true" update="true" delete="true"/>
+        </parameter>
+        <parameter name="PROID" originTable="HAPIRCV" originColumn="PROID" dataType="" direction="In" fieldType="SystemAdmin">
+            <column caption="Process Identity" declaration="VARCHAR2(35)" dataType="VARCHAR2" length="35" precision="" scale="" primaryKey="false" mandatory="true">
+                <comment>
+                    <line>Process Identity (insert by trigger)</line>
+                </comment>
+            </column>
+            <use insert="true" update="true" delete="true"/>
+        </parameter>
+    </globalParameters>
+    <interfaces>
+        <interface name="DeliveryReceipt" structure="DeliveryReceiptHead" HAPIObjectName="DR" direction="Out"/>
+        <interface name="PickReceipt" structure="PickReceiptHead" HAPIObjectName="PR" direction="Out"/>
+        <interface name="VendorReturnReceipt" structure="ReturnReceiptHead" HAPIObjectName="RR" direction="Out"/>
+        <interface name="InspectionReceipt" structure="InspectionReceiptHead" HAPIObjectName="IR" direction="Out"/>
+        <interface name="InventoryChange" structure="InventoryChangeLine" HAPIObjectName="IC" direction="Out"/>
+        <interface name="BalanceAnswer" structure="BalanceAnswerLine" HAPIObjectName="BA" direction="Out"/>
+        <interface name="ReturnedPackingMaterial" structure="ReturnedPackingMaterialHead" HAPIObjectName="PM" direction="Out"/>
+        <interface name="ASN" structure="ASNHead" HAPIObjectName="SR" direction="Out"/>
+        <interface name="ConfirmationOfReceipt" structure="ConfirmationOfReceiptHead" HAPIObjectName="COR" direction="Out"/>
+        <interface name="InboundOrderCompleted" structure="InboundOrderCompleted" HAPIObjectName="IOC" direction="Out"/>
+    <interface name="TransportInstruction" structure="TransportInstruction" HAPIObjectName="TI" direction="Out"/>
+    <interface name="TransportPlan" structure="TransportPlanHead" HAPIObjectName="TP" direction="Out"/>
+  </interfaces>
+    <structures>
+        <structure name="BalanceAnswerLine" queueTable="EXT_BALANCE_ANSWER" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_BALANCE_ANSWER">
+            <comment>
+                <line>Balance Answer</line>
+                <line>The result to the balance query or after certain regularity according to the configuration of the system.</line>
+                <line>The balance is given per Product and is used for checking differences between the Host System and the Warehouse system.</line>
+                <line>If items have an inventory Status then they will be sent separately, with held Quantity.</line>
+            </comment>
+        </structure>
+        <structure name="DeliveryReceiptHead" queueTable="EXT_DLVRY_RECEIPT_HEAD" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_DLVRY_RECEIPT_HEAD">
+            <comment>
+                <line>Receipt Report</line>
+                <line>Is sent when a Receipt has been finished.</line>
+            </comment>
+            <children>
+                <child name="DeliveryReceiptHeadText" minOccurrs="0" maxOccurrs="*"/>           
+                <child name="DeliveryReceiptLine" minOccurrs="0" maxOccurrs="*"/>
+                <child name="DeliveryReceiptPackingMaterial" minOccurrs="0" maxOccurrs="*"/>
+            </children>
+        </structure>
+        <structure name="DeliveryReceiptHeadText" queueTable="EXT_DLVRY_RECEIPT_HEAD_TEXT" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_DLVRY_RECEIPT_HEAD_TEXT">
+            <comment>
+                <line>Receipt Report Text</line>
+            </comment>
+        </structure>                
+        <structure name="DeliveryReceiptLine" queueTable="EXT_DLVRY_RECEIPT_LINE" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_DLVRY_RECEIPT_LINE">
+            <comment>
+                <line>Receipt Report Line</line>
+            </comment>
+            <children>
+                <child name="DeliveryReceiptLineText" minOccurrs="0" maxOccurrs="*"/>           
+            </children>
+            <modifications>
+                <modification name="Deliveredquantity" exclude="false" overrideName="DeliveredQuantity"/>
+            </modifications>
+        </structure>
+        <structure name="DeliveryReceiptLineText" queueTable="EXT_DLVRY_RECEIPT_LINE_TEXT" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_DLVRY_RECEIPT_LINE_TEXT">
+            <comment>
+                <line>Receipt Line - Text</line>
+            </comment>
+        </structure>            
+        <structure name="DeliveryReceiptPackingMaterial" queueTable="EXT_DLVRY_RECEIPT_PM" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_DLVRY_RECEIPT_PM">
+            <comment>
+                <line>Receipt Report - Packing Material</line>
+            </comment>
+            <modifications>
+                <modification name="Deliveredquantity" exclude="false" overrideName="DeliveredQuantity"/>
+            </modifications>
+        </structure>
+        <structure name="InspectionReceiptHead" queueTable="EXT_INSPECTION_RECEIPT_HEAD" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_INSPECTION_RECEIPT_HEAD">
+            <comment>
+                <line>Inspection Receipt</line>
+            </comment>
+            <children>
+                <child name="InspectionReceiptLine" minOccurrs="0" maxOccurrs="*"/>
+            </children>
+        </structure>
+        <structure name="InspectionReceiptLine" queueTable="EXT_INSPECTION_RECEIPT_LINE" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_INSPECTION_RECEIPT_LINE">
+            <comment>
+                <line>Inspection Receipt Line</line>
+            </comment>
+            <children>
+                <child name="InspectionReceiptLinePackingMaterial" minOccurrs="0" maxOccurrs="*"/>
+            </children>
+        </structure>
+        <structure name="InspectionReceiptLinePackingMaterial" queueTable="EXT_INSPECTION_RECEIPT_LINEPM" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_INSPECTION_RECEIPT_LINEPM">
+            <comment>
+                <line>Inspection Receipt Line - Packing Material</line>
+            </comment>
+            <modifications>
+                <modification name="Workorderlineseq" exclude="false" overrideName="WorkOrderLineSeq"/>
+                <modification name="Workorderlinepmseq" exclude="false" overrideName="WorkOrderLinePmSeq"/>
+            </modifications>
+        </structure>
+        <structure name="InventoryChangeLine" queueTable="EXT_INVENTORY_CHANGE" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_INVENTORY_CHANGE">
+            <comment>
+                <line>Inventory Change</line>
+                <line>Changes of Item Loads that effect the Balance or Status Code in the Host System.</line>
+            </comment>
+            <modifications>
+                <modification name="Operationcode" exclude="false" overrideName="OperationCode"/>
+                <modification name="Vendoridentity2" exclude="false" overrideName="VendorIdentity2"/>
+                <modification name="Productdate2" exclude="false" overrideName="ProductDate2"/>
+                <modification name="Measuredqty2" exclude="false" overrideName="MeasuredQty2"/>
+                <modification name="Employeeid" exclude="false" overrideName="EmployeeId"/>
+                <modification name="Freetext" exclude="false" overrideName="FreeText"/>
+            </modifications>
+        </structure>
+        <structure name="PickReceiptHead" queueTable="EXT_PICK_RECEIPT_HEAD" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_PICK_RECEIPT_HEAD">
+            <comment>
+                <line>Pick Receipt</line>
+                <line>The Pick result is sent to the Host System when the picking or loading is finished.</line>
+            </comment>
+            <children>
+                <child name="PickReceiptHeadPackingMaterial" minOccurrs="0" maxOccurrs="*"/>
+                <child name="PickReceiptLine" minOccurrs="0" maxOccurrs="*"/>
+                <child name="PickReceiptService" minOccurrs="0" maxOccurrs="*"/>
+                <child name="PickReceiptText" minOccurrs="0" maxOccurrs="*"/>
+            </children>
+            <modifications>
+                <modification name="CustomerOrderSubsequence" exclude="false" overrideName="CustomerOrderSubSequence"/>
+            </modifications>
+        </structure>
+        <structure name="PickReceiptHeadPackingMaterial" queueTable="EXT_PICK_RECEIPT_HEAD_PM" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_PICK_RECEIPT_HEAD_PM">
+            <comment>
+                <line>Pick Receipt - Packing Material</line>
+            </comment>
+            <modifications>
+                <modification name="CustomerOrderSubsequence" exclude="false" overrideName="CustomerOrderSubSequence"/>
+            </modifications>
+        </structure>
+        <structure name="PickReceiptLine" queueTable="EXT_PICK_RECEIPT_LINE" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_PICK_RECEIPT_LINE">
+            <comment>
+                <line>Pick Receipt Line</line>
+            </comment>
+            <children>
+                <child name="PickReceiptLineText" minOccurrs="0" maxOccurrs="*"/>
+                <child name="PickReceiptLinePackingMaterial" minOccurrs="0" maxOccurrs="*"/>
+            </children>
+            <modifications>
+                <modification name="PickOrderLineIdentity" exclude="true" overrideName=""/>
+                <modification name="CustomerOrderSubsequence" exclude="false" overrideName="CustomerOrderSubSequence"/>
+                <modification name="DepartureweekDay" exclude="false" overrideName="DepartureWeekday"/>
+            </modifications>
+        </structure>
+        <structure name="PickReceiptLineText" queueTable="EXT_PICK_RECEIPT_LINE_TEXT" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_PICK_RECEIPT_LINE_TEXT">
+            <comment>
+                <line>Pick Receipt Line - Free Text</line>
+            </comment>
+        </structure>        
+        <structure name="PickReceiptLinePackingMaterial" queueTable="EXT_PICK_RECEIPT_LINE_PM" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_PICK_RECEIPT_LINE_PM">
+            <comment>
+                <line>Pick Receipt Line - Packing Material</line>
+            </comment>
+            <modifications>
+                <modification name="PickOrderLineIdentity" exclude="true" overrideName=""/>
+                <modification name="CustomerOrderSubsequence" exclude="false" overrideName="CustomerOrderSubSequence"/>
+            </modifications>
+        </structure>
+        <structure name="PickReceiptService" queueTable="EXT_PICK_RECEIPT_SERVICE" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_PICK_RECEIPT_SERVICE">
+            <comment>
+                <line>Pick Receipt Service</line>
+                <line>Used for extra Customer service.</line>
+            </comment>
+            <modifications>
+                <modification name="CustomerOrderSubsequence" exclude="false" overrideName="CustomerOrderSubSequence"/>
+                <modification name="Servicequalifier" exclude="false" overrideName="ServiceQualifier"/>
+            </modifications>
+        </structure>
+        <structure name="PickReceiptText" queueTable="EXT_PICK_RECEIPT_TEXT" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_PICK_RECEIPT_TEXT">
+            <comment>
+                <line>Pick Receipt - Free Text</line>
+            </comment>
+            <modifications>
+                <modification name="CustomerOrderSubsequence" exclude="false" overrideName="CustomerOrderSubSequence"/>
+            </modifications>
+        </structure>
+        <structure name="ReturnedPackingMaterialHead" queueTable="EXT_RETURNED_PM_HEAD" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_RETURNED_PM_HEAD">
+            <comment>
+                <line>Returned Packing Material</line>
+            </comment>
+            <children>
+                <child name="ReturnedPackingMaterialLine" minOccurrs="0" maxOccurrs="*"/>
+            </children>
+        </structure>
+        <structure name="ReturnedPackingMaterialLine" queueTable="EXT_RETURNED_PM_LINE" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_RETURNED_PM_LINE">
+            <comment>
+                <line>Returned Packing Material Line</line>
+            </comment>
+        </structure>
+        <structure name="ReturnReceiptHead" queueTable="EXT_RETURN_RECEIPT_HEAD" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_RETURN_RECEIPT_HEAD">
+            <comment>
+                <line>Vendor Return Order Receipt</line>
+            </comment>
+            <children>
+                <child name="ReturnReceiptHeadPackingMaterial" minOccurrs="0" maxOccurrs="*"/>
+                <child name="ReturnReceiptLine" minOccurrs="0" maxOccurrs="*"/>
+            </children>
+            <modifications>
+                <modification name="ReturnOrderSubsequence" exclude="false" overrideName="ReturnOrderSubSequence"/>
+            </modifications>
+        </structure>
+        <structure name="ReturnReceiptHeadPackingMaterial" queueTable="EXT_RETURN_RECEIPT_HEAD_PM" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_RETURN_RECEIPT_HEAD_PM">
+            <comment>
+                <line>Vendor Return Order Receipt - Packing Material</line>
+            </comment>
+            <modifications>
+                <modification name="ReturnOrderSubsequence" exclude="false" overrideName="ReturnOrderSubSequence"/>
+            </modifications>
+        </structure>
+        <structure name="ReturnReceiptLine" queueTable="EXT_RETURN_RECEIPT_LINE" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_RETURN_RECEIPT_LINE">
+            <comment>
+                <line>Vendor Return Order Line Receipt</line>
+            </comment>
+            <modifications>
+                <modification name="ReturnOrderSubsequence" exclude="false" overrideName="ReturnOrderSubSequence"/>
+            </modifications>
+        </structure>
+        <structure name="ASNHead" queueTable="EXT_SHIPMENT_REPORT_HEAD" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_SHIPMENT_REPORT_HEAD">
+            <comment>
+                <line>ASN - Shipment Report</line>
+            </comment>
+            <children>
+                <child name="ASNLoadCarrier" minOccurrs="0" maxOccurrs="*"/>
+                <child name="ASNHeadText" minOccurrs="0" maxOccurrs="*"/>
+                <child name="ASNLine" minOccurrs="0" maxOccurrs="*"/>
+            </children>
+        </structure>
+        <structure name="ASNLoadCarrier" queueTable="EXT_SHIPMENT_REPORT_CARRIER" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_SHIPMENT_REPORT_CARRIER">
+            <comment>
+                <line>ASN - Shipment Report - Load Carrier</line>
+            </comment>
+        </structure>
+        <structure name="ASNHeadText" queueTable="EXT_SHIPMENT_REPORT_HEAD_TEXT" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_SHIPMENT_REPORT_HEAD_TEXT">
+            <comment>
+                <line>ASN - Shipment Report - Text</line>
+            </comment>
+        </structure>            
+        <structure name="ASNLine" queueTable="EXT_SHIPMENT_REPORT_LINE" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_SHIPMENT_REPORT_LINE">
+            <comment>
+                <line>ASN - Shipment Report - Product Line</line>
+            </comment>
+            <children>
+                <child name="ASNLineText" minOccurrs="0" maxOccurrs="*"/>
+            </children>            
+        </structure>
+        <structure name="ASNLineText" queueTable="EXT_SHIPMENT_REPORT_LINE_TEXT" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_SHIPMENT_REPORT_LINE_TEXT">
+            <comment>
+                <line>ASN - Shipment Report - Text</line>               
+            </comment>
+        </structure>
+        <structure name="ConfirmationOfReceiptHead" queueTable="EXT_CONF_OF_RECEIPT_HEAD" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_CONF_OF_RECEIPT_HEAD">
+            <comment>
+                <line>Confirmation of Receipt</line>
+            </comment>
+            <children>
+                <child name="ConfirmationOfReceiptLoadCarrier" minOccurrs="0" maxOccurrs="*"/>
+                <child name="ConfirmationOfReceiptLine" minOccurrs="0" maxOccurrs="*"/>
+            </children>
+            <modifications>
+                <modification name="Acknowledgeinboundasntype" exclude="false" overrideName="AcknowledgeInboundAsnType"/>
+            </modifications>
+        </structure>
+        <structure name="ConfirmationOfReceiptLoadCarrier" queueTable="EXT_CONF_OF_RECEIPT_CARRIER" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_CONF_OF_RECEIPT_CARRIER">
+            <comment>
+                <line>Confirmation of Receipt - Load Carrier</line>
+            </comment>
+        </structure>
+        <structure name="ConfirmationOfReceiptLine" queueTable="EXT_CONF_OF_RECEIPT_LINE" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_CONF_OF_RECEIPT_LINE">
+            <comment>
+                <line>Confirmation of Receipt - Product Line</line>
+            </comment>
+        </structure>
+            <structure name="InboundOrderCompleted" queueTable="EXT_INB_ORDER_COMPLETED" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_INBOUND_ORDER_COMPLETED">
+            <comment>
+                <line>HAPI Inbound Order Completed</line>
+                <line>Is sent when a Inbound Order is registered as completed.</line>
+            </comment>
+        </structure>
+		<structure name="TransportInstruction" queueTable="EXT_TRPINSTR" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_TRPINSTR">
+			<comment>
+				<line>Transport Instruction</line>
+			</comment>
+			<children>
+				<child name="TRIConsignment" minOccurrs="0" maxOccurrs="*"/>
+			</children>
+		</structure>
+		<structure name="TRIConsignment" queueTable="EXT_TRPINSTR_CONSIGNMENT" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_TRPINSTR_CONSIGNMENT">
+			<comment>
+				<line>Transport Instruction Consignment</line>
+			</comment>
+			<children>
+				<child name="TRIParty" minOccurrs="0" maxOccurrs="*"/>
+				<child name="TRILoadCarrier" minOccurrs="0" maxOccurrs="*"/>
+			</children>
+		</structure>
+		<structure name="TRIParty" queueTable="EXT_TRPINSTR_PARTY" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_TRPINSTR_PARTY">
+			<comment>
+				<line>Transport Instruction Party</line>
+			</comment>
+		</structure>
+		<structure name="TRILoadCarrier" queueTable="EXT_TRPINSTR_CAR" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_TRPINSTR_CAR">
+			<comment>
+				<line>Transport Instruction Load Carrier</line>
+			</comment>
+			<children>
+				<child name="TRIProduct" minOccurrs="0" maxOccurrs="*"/>
+			</children>
+		</structure>
+		<structure name="TRIProduct" queueTable="EXT_TRPINSTR_ART" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_TRPINSTR_ART">
+			<comment>
+				<line>Transport Instruction Product</line>
+			</comment>
+			<children>
+				<child name="TRIProductCode" minOccurrs="0" maxOccurrs="*"/>
+			</children>
+			<modifications>
+				<modification name="DepartureIdentity" exclude="true" overrideName=""/>
+				<modification name="Consignment_id" exclude="true" overrideName=""/>
+				<modification name="ShipToPartyIdentity" exclude="true" overrideName=""/>
+				<modification name="ShipToPartyNodeIdentity" exclude="true" overrideName=""/>
+				<modification name="LoadCarrierIdentity" exclude="true" overrideName=""/>
+			</modifications>
+		</structure>
+		<structure name="TRIProductCode" queueTable="EXT_TRPINSTR_ARTCOD" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_TRPINSTR_ARTCOD">
+			<comment>
+				<line>Transport Instruction Product Code</line>
+			</comment>
+			<modifications>
+				<modification name="DepartureIdentity" exclude="true" overrideName=""/>
+				<modification name="Consignment_id" exclude="true" overrideName=""/>
+				<modification name="ShipToPartyIdentity" exclude="true" overrideName=""/>
+				<modification name="ShipToPartyNodeIdentity" exclude="true" overrideName=""/>
+				<modification name="LoadCarrierIdentity" exclude="true" overrideName=""/>
+				<modification name="ProductIdentity" exclude="true" overrideName=""/>
+			</modifications>
+		</structure>
+    <structure name="TransportPlanHead" queueTable="EXT_TRANSPORT_PLAN_HEAD" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_TRANSPORT_PLAN_HEAD">
+      <comment>
+        <line>Transport Plan Head</line>
+      </comment>
+      <children>
+        <child name="TransportPlanLine" minOccurrs="0" maxOccurrs="*"/>
+      </children>
+    </structure>
+    <structure name="TransportPlanLine" queueTable="EXT_TRANSPORT_PLAN_LINE" insertSP="" updateSP="" deleteSP="" baseTable="HAPI_TRANSPORT_PLAN_LINE">
+      <comment>
+        <line>Transport Plan Line</line>
+      </comment>
+    </structure>
+  </structures>
+</MessageDefinition>

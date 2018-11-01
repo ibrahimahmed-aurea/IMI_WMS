@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<objects xmlns="http://www.springframework.net" xmlns:db="http://www.springframework.net/database">
+
+	<!-- Referenced by main application context configuration file -->
+	<description>
+		The HibernateConsole object definitions for the Data Access Objects.
+	</description>
+
+	<!-- Database and NHibernate Configuration -->
+	<db:provider id="DbProvider" provider="${db.provider}" connectionString="${db.connectionstring}"/>
+
+	<object id="DomainInterceptor" type="Cdc.MetaManager.DataAccess.DomainInterceptor, Cdc.MetaManager.DataAccess">
+	</object>
+
+	<object id="SessionFactory" type="Spring.Data.NHibernate.LocalSessionFactoryObject, Spring.Data.NHibernate21">
+		<property name="DbProvider" ref="DbProvider"/>
+		<property name="MappingAssemblies">
+			<list>
+				<value>Cdc.MetaManager.DataAccess.NHibernate</value>
+			</list>
+		</property>
+		<property name="HibernateProperties">
+			<dictionary>
+				<entry key="connection.provider" value="NHibernate.Connection.DriverConnectionProvider"/>
+				<entry key="dialect" value="${hibernate.dialect}"/>
+				<entry key="connection.driver_class" value="${hibernate.connection.driver_class}"/>
+        <entry key="proxyfactory.factory_class" value ="NHibernate.ByteCode.Castle.ProxyFactoryFactory, NHibernate.ByteCode.Castle"/>
+			</dictionary>
+		</property>
+		
+	</object>
+
+
+	<object id="HibernateTransactionManager" type="Spring.Data.NHibernate.HibernateTransactionManager, Spring.Data.NHibernate21">
+
+		<property name="DbProvider" ref="DbProvider"/>
+		<property name="SessionFactory" ref="SessionFactory"/>
+		<property name="EntityInterceptor" ref="DomainInterceptor"/>
+
+	</object>
+
+	<object id="HibernateTemplate" type="Spring.Data.NHibernate.Generic.HibernateTemplate">
+		<property name="SessionFactory" ref="SessionFactory"/>
+		<property name="TemplateFlushMode" value="Auto"/>
+		<property name="CacheQueries" value="true"/>
+	</object>
+
+	<!-- To make the db. parameters propagate to this file -->
+	<object name="appConfigPropertyHolder" type="Spring.Objects.Factory.Config.PropertyPlaceholderConfigurer, Spring.Core">
+		<property name="configSections">
+			<value>databaseSettings</value>
+		</property>
+	</object>
+
+	<!-- Data Access Objects -->
+	<object id="DynamicDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateDynamicDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="ApplicationDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateApplicationDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="SchemaDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateSchemaDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="StoredProcedureDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateStoredProcedureDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="StoredProcedurePropertyDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateStoredProcedurePropertyDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="QueryDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateQueryDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="QueryPropertyDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateQueryPropertyDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="PackageDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernatePackageDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="PropertyStorageInfoDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernatePropertyStorageInfoDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="BusinessEntityDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateBusinessEntityDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="ActionDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateActionDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="ServiceDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateServiceDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="PropertyDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernatePropertyDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="PropertyCaptionDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernatePropertyCaptionDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="PropertyCodeDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernatePropertyCodeDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="ServiceMethodDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateServiceMethodDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="ViewDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateViewDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="DialogDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateDialogDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="MenuDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateMenuDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="MenuItemDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateMenuItemDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="UXActionDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateUXActionDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="ModuleDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateModuleDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="MappedPropertyDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateMappedPropertyDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="PropertyMapDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernatePropertyMapDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="ViewNodeDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateViewNodeDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="ViewActionDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateViewActionDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="UXSessionDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateUXSessionDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="UXSessionPropertyDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateUXSessionPropertyDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="IssueDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateIssueDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="CustomDialogDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateCustomDialogDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="DataSourceDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateDataSourceDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="DeploymentGroupDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateDeploymentGroupDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="WorkflowDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateWorkflowDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="WorkflowDialogDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateWorkflowDialogDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="ReportDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateReportDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="ReportQueryDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateReportQueryDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="HintCollectionDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateHintCollectionDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="HintDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateHintDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="WorkflowSubworkflowDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateWorkflowSubworkflowDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="WorkflowServiceMethodDao" type="Cdc.MetaManager.DataAccess.NHibernate.Dao.HibernateWorkflowServiceMethodDao, Cdc.MetaManager.DataAccess.NHibernate">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+</objects>

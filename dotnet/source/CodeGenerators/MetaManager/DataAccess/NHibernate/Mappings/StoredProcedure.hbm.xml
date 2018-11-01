@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Cdc.MetaManager.DataAccess.Domain.StoredProcedure, Cdc.MetaManager.DataAccess" table="DbStoredProcedure">
+    <id name="Id" type="System.Guid">
+      <column name="Id" not-null="true"/>
+      <generator class="assigned"/>
+    </id>
+    <property name="ProcedureName" type="String">
+      <column name="ProcedureName" length="50" not-null="false"/>
+    </property>
+    <property name="RefCursorParameterName" type="String">
+      <column name="RefCursorParameterName" length="50" not-null="false"/>
+    </property>
+    <property name="IsReturningRefCursor" type="Boolean">
+      <column name="IsReturningRefCursor" not-null="false"/>
+    </property>
+    <bag name="Properties" inverse="true" lazy="true" cascade="all-delete-orphan">
+      <key column="StoredProcedureId"/>
+      <one-to-many class="Cdc.MetaManager.DataAccess.Domain.ProcedureProperty, Cdc.MetaManager.DataAccess"/>
+    </bag>
+    <many-to-one name="Package" class="Cdc.MetaManager.DataAccess.Domain.Package, Cdc.MetaManager.DataAccess" foreign-key="FK_StorProc_SourceFile">
+      <column name="PackageId" not-null="false"/>
+    </many-to-one>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Mats Nordgren (IMI) -->
+<MessageDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="C:\project\views\togr_trunk_ss\users\togr\xml\xsd\StructureDescription.xsd" name="OutBound">
+	<globalParameters>
+		<parameter name="OPCODE" originTable="" originColumn="" dataType="varchar" direction="In" fieldType="OpCode">
+			<column caption="Operation Code" declaration="VARCHAR2(1)" dataType="VARCHAR2" length="1" precision="" scale="" primaryKey="false" mandatory="true">
+				<comment>
+					<line>Operation Code</line>
+					<line>1 - New</line>
+				</comment>
+			</column>
+			<use insert="true" update="true" delete="true"/>
+		</parameter>
+		<parameter name="MSG_IN_ID" originTable="MSG_IN" originColumn="MSG_IN_ID" dataType="" direction="In" fieldType="SystemId">
+			<column caption="Received Incoming Message Identity" declaration="VARCHAR2(35)" dataType="VARCHAR2" length="35" precision="" scale="" primaryKey="false" mandatory="true">
+				<comment>
+					<line>Received Incoming Message Identity</line>
+					<line>Local system generated message identity</line>
+				</comment>
+			</column>
+			<use insert="true" update="true" delete="true"/>
+		</parameter>
+		<parameter name="UPDDTM" originTable="MSG_IN" originColumn="UPDDTM" dataType="" direction="In" fieldType="SystemAdmin">
+			<column caption="Update Date" declaration="DATE" dataType="DATE" length="" precision="" scale="" primaryKey="false" mandatory="true">
+				<comment>
+					<line>Update Date  (insert by trigger)</line>
+				</comment>
+			</column>
+			<use insert="true" update="true" delete="true"/>
+		</parameter>
+		<parameter name="PROID" originTable="MSG_IN" originColumn="PROID" dataType="" direction="In" fieldType="SystemAdmin">
+			<column caption="Process Identity" declaration="VARCHAR2(35)" dataType="VARCHAR2" length="35" precision="" scale="" primaryKey="false" mandatory="true">
+				<comment>
+					<line>Process Identity (insert by trigger)</line>
+				</comment>
+			</column>
+			<use insert="true" update="true" delete="true"/>
+		</parameter>
+	</globalParameters>
+	<interfaces>
+		<interface name="Departure" structure="Departure" HAPIObjectName="DEP" direction="Out"/>
+		<interface name="DepartureNode" structure="DepartureNode" HAPIObjectName="DEP_NODE" direction="Out"/>
+		<interface name="DepartureTransportType" structure="DepartureTransportType" HAPIObjectName="DEP_TRP" direction="Out"/>
+		<interface name="DepartureLoad" structure="DepartureLoad" HAPIObjectName="DEP_LOAD" direction="Out"/>
+		<interface name="ModifyDepartureLoad" structure="ModifyDepartureLoad" HAPIObjectName="MOD_DEP_LOAD" direction="Out"/>
+		<interface name="RemoveDeparture" structure="RemoveDeparture" HAPIObjectName="REM_DEP" direction="Out"/>
+		<interface name="RemoveDepartureNode" structure="RemoveDepartureNode" HAPIObjectName="REM_DEP_NODE" direction="Out"/>
+		<interface name="RemoveDepartureTransportType" structure="RemoveDepartureTransportType" HAPIObjectName="REM_DEP_TRP" direction="Out"/>
+		<interface name="Confirm" structure="Confirm" HAPIObjectName="CONFIRM" direction="Out"/>
+	</interfaces>
+	<structures>
+		<structure name="Departure" queueTable="EXT_MSG_OUT_DEPARTURE" insertSP="" updateSP="" deleteSP="" baseTable="MSG_OUT_DEPARTURE">
+			<comment>
+				<line>Departure</line>
+			</comment>
+		</structure>
+		<structure name="DepartureNode" queueTable="EXT_MSG_OUT_DEPARTURE_NODE" insertSP="" updateSP="" deleteSP="" baseTable="MSG_OUT_DEPARTURE_NODE">
+			<comment>
+				<line>Departure Node</line>
+			</comment>
+		</structure>
+		<structure name="DepartureTransportType" queueTable="EXT_MSG_OUT_DEPARTURE_TRP" insertSP="" updateSP="" deleteSP="" baseTable="MSG_OUT_DEPARTURE_TRP">
+			<comment>
+				<line>Departure Transport Type</line>
+			</comment>
+		</structure>
+		<structure name="DepartureLoad" queueTable="EXT_MSG_OUT_DEPLOAD" insertSP="" updateSP="" deleteSP="" baseTable="MSG_OUT_DEPLOAD">
+			<comment>
+				<line>Departure Load</line>
+			</comment>
+		</structure>
+		<structure name="ModifyDepartureLoad" queueTable="EXT_MSG_OUT_MODIFY_DEPLOAD" insertSP="" updateSP="" deleteSP="" baseTable="MSG_OUT_MODIFY_DEPLOAD">
+			<comment>
+				<line>Modify Departure Load</line>
+			</comment>
+		</structure>
+		<structure name="RemoveDeparture" queueTable="EXT_MSG_OUT_REMOVE_DEP" insertSP="" updateSP="" deleteSP="" baseTable="MSG_OUT_REMOVE_DEP">
+			<comment>
+				<line>Remove Departure</line>
+			</comment>
+		</structure>
+		<structure name="RemoveDepartureNode" queueTable="EXT_MSG_OUT_REMOVE_DEP_NODE" insertSP="" updateSP="" deleteSP="" baseTable="MSG_OUT_REMOVE_DEP_NODE">
+			<comment>
+				<line>Remove Departure Node</line>
+			</comment>
+		</structure>
+		<structure name="RemoveDepartureTransportType" queueTable="EXT_MSG_OUT_REMOVE_DEP_TRP" insertSP="" updateSP="" deleteSP="" baseTable="MSG_OUT_REMOVE_DEP_TRP">
+			<comment>
+				<line>Remove Departure Transport Type</line>
+			</comment>
+		</structure>
+		<structure name="Confirm" queueTable="EXT_MSG_OUT_CONFIRM" insertSP="" updateSP="" deleteSP="" baseTable="MSG_OUT_CONFIRM">
+			<comment>
+				<line>Confirmation Message</line>
+			</comment>
+			<modifications>
+				<modification name="Transaction_id" exclude="false" overrideName="TransactionId"/>
+				<modification name="Transaction_Status" exclude="false" overrideName="TransactionStatus"/>
+				<modification name="Errmsg" exclude="false" overrideName="ErrMsg"/>
+			</modifications>
+		</structure>
+</structures>
+</MessageDefinition>

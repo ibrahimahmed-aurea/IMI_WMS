@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AzAdminManager MajorVersion="1" MinorVersion="0" Guid="95a61e1b-c1e9-42c6-90c6-02a35debbb3c">
+	<AzApplication Guid="861d5042-2560-409e-809f-5bf99016bd2a" Name="OrderManagement" Description="Azman store for AOM" ApplicationVersion="7.1.6">
+	</AzApplication>
+</AzAdminManager>

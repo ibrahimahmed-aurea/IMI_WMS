@@ -1,0 +1,102 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Segment CustomerReturnOrderLine</title>
+<link href="StructureDescription.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>Segment CustomerReturnOrderLine</h1>
+<h3>Description:</h3>
+Customer Return Order Line<br/>A specification of goods returned to a warehouse.<br/>Includes the reason for the returns as well as a suggested action for the returned goods.<h3>Attributes:</h3>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000"><tbody>
+<tr class="tableHeader"><th class="tableHeaderColumn">Tag</th><th class="tableHeaderColumn">Method</th><th class="tableHeaderColumn">Type</th><th class="tableHeaderColumn">Oracle Type</th><th class="tableHeaderColumn">Mandatory</th><th class="tableHeaderColumn">Note</th></tr>
+<tr class="tableRow"><td class="tableRowColumn">OPCODE</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Operation Code<br/>0 - No Operation<br/>1 - New<br/>2 - Change<br/>3 - Remove<br/>Note! An operation code is only useful if at least one tag supports the method</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerReturnOrderNumber</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">Customer Return Order Number<br/>The identity of the Customer Return Order.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerReturnOrderSequence</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">Customer Return Order Sequence Number<br/>A Sequence Number to make the Customer Return Order identity unique.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerReturnOrderLinePos</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(5)</td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">Customer Return Order Line Number<br/>The number of the Customer Return Order Line.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerReturnOrderLineKitPos</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(2)</td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">Kit<br/>Indicates (1=Yes,0=No) if the Customer Return Order Line contains a Kit Product.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerReturnOrderLineSeq</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">Customer Return Order Line Sub Number<br/>A Sub Number to make the Customer Return Order Line Number unique.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OwnerIdentity</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Owner Identity<br/>The identity of the Owner.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductNumber</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Product Number<br/>The identity of the Product.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductDescription</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(256)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Product Description<br/>The description / name of the Product. It is displayed in the dialogs for the ASN Line.<br/>Could be another Product Description than that in the Product table.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">VendorProductNumber</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Vendor Product Number<br/>The Vendors identity of the Product.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ScheduledArrivalDateTime</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Expected Arrival Date and Time<br/>The date and time when the goods are estimated to arrive.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PackageIdentity</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Lowest Unit of Measure<br/>The identity of the Lowest Unit of Measure / Base Package of the Product that can be handled.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerReturnQuantity</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Ordered Quantity<br/>The ordered quantity of the product.<br/>This is the number of Lowest Unit of Measure of the Products that is expected to be received.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">MarketingLotIdentity</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(20)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Marketing Lot<br/>The Marketing Lot for the received goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerReturnPrice</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(22,7)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Purchase Price<br/>Purchase price per Lowest Unit of Measure (Base Package) of the Product.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">InventoryStatusCode</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(8)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Hold Code<br/>A Hold Code may be applied on an Item Load or a Pick Location to temporarily restrict its processing.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">InventoryStatusDays</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(5)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Number of Hold Days<br/>The number of Hold Days is after how many days the hold will be released automatically<br/>if it has not been removed manually before that.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Instructions</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(400)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Instructions<br/>Free text for the ASN Line.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OriginalOrderIdentity</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Original Customer Purchase Order Number<br/>The final recipients Purchase Order Number reference. Used for transit goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OriginalOrderLinePosition</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(16)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Original Customer Purchase Order Line Number<br/>The final recipients Purchase Order Line Number reference. Used for transit goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OriginalCustomerReference</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Original Customer Reference<br/>The final recipients Customer Reference. Used for transit goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipToCustomerQualifier</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-to Customer Type<br/>The type of Party that is the Ship-to Customer.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipToCustomerIdentity</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-to Customer Identity<br/>The Party that finally will receive the goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">SellToCustomerQualifier</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Sell-to Customer Type<br/>The type of Party that is the Sell-to Customer.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">SellToCustomerIdentity</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Sell-to Customer Identity<br/>The Customer that made the Order according to the Customer Order.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ActionCode</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Action Code Identity.<br/>The identity of the Action Code for the Action that has been performed for the inspected received goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ReasonCode</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Reason Code<br/>Is used for Customer Return Orders and states the Code for the Reason why the goods are returned.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">FromPartyId</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">From Party Identity<br/>Party where the goods originated from. Used for returns.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">FromPartyQualifier</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">From Party Type<br/>The type of Party that is the From Party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipToVendorIdentity</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-to Vendor Identity<br/>The identity of the Party / Vendor that finally will receive the returned goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipToVendorQualifier</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-to Vendor Type<br/>Type of Party that is the Ship-to Vendor.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderNumber</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Order Number<br/>The identity of the Customer Order. Used for transit / warehouse transfer goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderLinePosition</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(5)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Order Line Number<br/>The identity of the Customer Order Line. Used for transit / warehouse transfer goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderLineSequence</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Order Line Sub Number<br/>Used as an extra identity of the Customer Order Line. Used for transit / warehouse transfer goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ActionCodeRequirement</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Action Code Requirement<br/>Indicates (1=Yes,0=No, default: Yes) if it is allowed to change the Action Code.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">QuantityUpperTolerance</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Upper Limit for Received Quantity<br/>The maximum quantity (number of Lowest Units of Measure) that can be received in this Inbound Order Line.<br/>This quantity is transferred from the Host System.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CatchMeasureLowerTolerance</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Lower Limit for Measured Quantity<br/>The minimum accepted Measured Quantity per ordered unit.<br/>It is used to check that the registered Measured Quantity is within the limits of reason.<br/>This tolerance quantity is transferred from the Host System.<br/>Example: The Ordered Quantity is 20 cheeses of 700 gram each.<br/>The Lower Limit for Measured Quantity = 550 gram. When the user measures all 20 cheeses,<br/>the system will accept any registered weight that is above 11,0 kg (=20x550g).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CatchMeasureUpperTolerance</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Upper Limit for Measured Quantity<br/>The maximum accepted Measured Quantity per ordered unit.<br/>It is used to check that the registered Measured Quantity is within the limits of reason.<br/>This tolerance quantity is transferred from the Host System.<br/>Example: The Ordered Quantity is 20 cheeses of 700 gram each.<br/>The Upper Limit for Measured Quantity = 770 gram. When the user measures all 20 cheeses,<br/>the system will accept any registered weight that is below 15.4 kg (=20x770g).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductionLotIdentity</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(40)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Manufacturing Lot<br/>The Manufacturing Lot for the received goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductionSubLotIdentity</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(40)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Manufacturing Sublot<br/>The Manufacturing Sublot for the received goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Measure</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Catch Measure<br/>Controls (1=Yes,0=No) if the Products shall go through Catch Measure (Quantity check).<br/>If nothing is registered (null), then the Product configuration will decide if the Products shall go through Catch Measure.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">MeasureQualifier</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(4)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Catch Measure Unit<br/>States in which unit to measure the goods if Catch Measure is set.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ReserveForAssembly</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Reserve for Assembly<br/>Controls (1=Yes,0=No) if the goods should be used for an Assembly Order.</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

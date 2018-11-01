@@ -1,0 +1,184 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Assembly Name="System.Workflow.Activities" %>
+<%@ Assembly Name="System.Workflow.ComponentModel" %>
+<%@ Assembly Name="Cdc.CodeGeneration.Caching" %>
+<%@ Import Namespace="Cdc.CodeGeneration.Caching" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.IO" %>
+<%@ Import Namespace="System.Xml" %>
+<%@ Import Namespace="System.Text" %>
+<%@ Import Namespace="System.Workflow.Activities" %>
+<%@ Import Namespace="System.Workflow.ComponentModel.Serialization" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Register Name="ViewEventAggregatorNodeTemplate" Template="ViewEventAggregatorNodeTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="ViewEventTranslatorTemplate" Template="ViewEventTranslatorTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Property Name="dialog" Type="Cdc.MetaManager.DataAccess.Domain.Dialog" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="dialogDirectory" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isAdapted" Type="System.Boolean" Default="false" Optional="false" Category="" Description="" %>
+<%
+    string eventAggregatorClassName = GetEventAggregatorClassName(dialog);
+	string eventAggregatorBaseClassName = GetEventAggregatorBaseClassName(dialog);
+    string dialogNamespace = GetDialogNamespace(dialog);
+	
+	ViewEventAggregatorNodeTemplate nodeTemplate = this.Create<ViewEventAggregatorNodeTemplate>();  
+	nodeTemplate.SetProperty("viewNode", dialog.RootViewNode);
+	nodeTemplate.SetProperty("dialog", dialog);
+	nodeTemplate.SetProperty("dialogDirectory", dialogDirectory);
+	
+	string userSessionName = GetUserSessionName(dialog.Module.Application);
+	string userSessionNamespace = GetUserSessionNamespace(dialog.Module.Application);
+	
+%>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Reflection;
+using Microsoft.Practices.CompositeUI.EventBroker;
+using Microsoft.Practices.CompositeUI;
+using Imi.Framework.UX;
+using Imi.SupplyChain.UX;
+using Imi.SupplyChain.UX.Rules;
+<%
+foreach (View view in GetUniqueViews(dialog))
+{
+%>
+using <%=GetViewsNamespace(view)%>;
+<%
+  if(view.BusinessEntity == dialog.RootViewNode.View.BusinessEntity)
+  {
+%>
+using <%=GetViewsConstantsNamespace(view)%>;
+<%
+  }
+}
+
+if(NeedsViewTranslators(dialog))
+{
+%>
+using <%=GetViewTranslatorNamespace(dialog)%>;
+<%
+}
+%>
+using <%= userSessionNamespace %>;
+
+namespace <%=dialogNamespace%>
+{
+    #region Compiler Settings
+	  // Disable assigned property never used
+	  #pragma warning disable 414 
+	#endregion
+
+<%
+if (!isAdapted)
+{
+%>
+	//Extract the following class to <%= eventAggregatorClassName %>Adapted.cs in order to customize its behavior        
+	public class <%= eventAggregatorClassName %> : <%= eventAggregatorBaseClassName %>
+    {                        
+				
+    }	
+<%
+}
+%>
+    
+	public class <%= eventAggregatorBaseClassName %>
+    {                        
+				
+<%
+	foreach (ViewNode viewNode in dialog.ViewNodes)
+	{
+		if (viewNode.RuleSet != null)
+		{
+			string rulesDirectory = string.Format(@"{0}\Rules", dialogDirectory);
+			Directory.CreateDirectory(rulesDirectory);
+			string filename = Path.Combine(rulesDirectory, string.Format("{0}.xml", viewNode.View.Name));
+			
+			StringWriter strWriter = new StringWriter();
+			XmlWriter xmlWriter = XmlWriter.Create(strWriter, new XmlWriterSettings() { Encoding = Encoding.UTF8, OmitXmlDeclaration = true });
+
+			try
+			{
+				WorkflowMarkupSerializer serializer = new WorkflowMarkupSerializer();
+            	serializer.Serialize(xmlWriter, viewNode.RuleSet);
+				string content = strWriter.ToString();
+				FileCacheManager.WriteFile(filename, content, FileMode.Create, Encoding.UTF8);				
+			}
+			finally
+			{
+				xmlWriter.Close();
+			}
+%>
+		protected RuleSetManager <%=ToCamelCase(viewNode.View.Name)%>Rule;	
+<%
+		}
+	}
+%>
+		
+		[ServiceDependency]
+		public WorkItem WorkItem
+		{
+			get;
+			set;
+		}
+		
+		[ServiceDependency]
+        public <%= userSessionName %> UserSessionService { get; set; }
+		
+		public <%= eventAggregatorBaseClassName %>()
+		{
+		}
+		
+<%
+	if ((dialog.SearchPanelView != null) && (dialog.SearchPanelView.VisualTree != null))
+	{
+
+		string translatorClassName = GetViewTranslatorClassName(dialog.SearchPanelView, dialog.InterfaceView);
+		string fileName = string.Format(@"{0}\Translators\{1}.cs", dialogDirectory, translatorClassName);
+		ViewEventTranslatorTemplate translatorTemplate = this.Create<ViewEventTranslatorTemplate>();  
+		translatorTemplate.SetProperty("fromView", dialog.SearchPanelView);
+		translatorTemplate.SetProperty("toView", dialog.InterfaceView);
+		translatorTemplate.SetProperty("translatorNamespace", GetViewTranslatorNamespace(dialog));
+		translatorTemplate.SetProperty("generateResultTranslator", false);
+		translatorTemplate.SetProperty("propertyMap", dialog.SearchPanelView.ResponseMap);
+		translatorTemplate.SetProperty("isAdapted", CacheAdaptedFile(fileName));
+		translatorTemplate.RenderToFile(fileName, true);
+		
+		string viewClassName = GetViewClassName(dialog.SearchPanelView);
+		string viewResultClassName = GetViewResultClassName(dialog.SearchPanelView);
+		
+		string interfaceViewInterfaceName = GetViewInterfaceName(dialog.InterfaceView);
+		string interfaceViewClassName = GetViewClassName(dialog.InterfaceView);
+		string interfaceViewParametersClassName = GetViewParametersClassName(dialog.InterfaceView);
+%>		
+		[EventSubscription(EventTopicNames.<%=viewClassName%>SearchExecutedTopic)]
+        public virtual void <%=viewClassName%>SearchExecutedEventHandler(object sender, DataEventArgs<<%= viewResultClassName %>> eventArgs)
+        {
+			if (eventArgs.Data != null)
+			{
+				<%=translatorClassName%> <%=ToCamelCase(translatorClassName)%> = null;
+					
+				if (WorkItem.Items.FindByType<<%=translatorClassName%>>().Count > 0)
+					<%=ToCamelCase(translatorClassName)%> = WorkItem.Items.FindByType<<%=translatorClassName%>>().Last();
+				else
+					<%=ToCamelCase(translatorClassName)%> = WorkItem.Items.AddNew<<%=translatorClassName%>>();
+				
+				<%=interfaceViewInterfaceName%> <%=ToCamelCase(interfaceViewClassName)%> = WorkItem.SmartParts.FindByType<<%=interfaceViewInterfaceName%>>().Last();
+				
+				<%=interfaceViewParametersClassName%> viewParameters = <%=ToCamelCase(translatorClassName)%>.TranslateFromResultToParameters(eventArgs.Data);
+				<%=ToCamelCase(interfaceViewClassName)%>.Update(viewParameters);
+			}
+		}
+<%
+	}
+%>
+		<%nodeTemplate.Render(this.Response);%>
+    }	
+}

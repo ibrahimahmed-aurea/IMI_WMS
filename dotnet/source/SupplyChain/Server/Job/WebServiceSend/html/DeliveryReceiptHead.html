@@ -1,0 +1,34 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Segment DeliveryReceiptHead</title>
+<link href="StructureDescription.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>Segment DeliveryReceiptHead</h1>
+<h3>Description:</h3>
+Receipt Report<br/>Is sent when a Receipt has been finished.<h3>Attributes:</h3>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000"><tbody>
+<tr class="tableHeader"><th class="tableHeaderColumn">Tag</th><th class="tableHeaderColumn">Method</th><th class="tableHeaderColumn">Type</th><th class="tableHeaderColumn">Oracle Type</th><th class="tableHeaderColumn">Mandatory</th><th class="tableHeaderColumn">Note</th></tr>
+<tr class="tableRow"><td class="tableRowColumn">OPCODE</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Operation Code<br/>1 - New</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DeliveryIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<int></td><td class="tableRowColumn">NUMBER(8)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Receipt Identity<br/>The identity of the Receipt.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ArrivalDateTime</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Arrival Date and Time<br/>Date and Time when the receiving was done.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">WarehouseIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(4)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Warehouse Identity<br/>The identity of the Warehouse.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">EmployeeIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">User Identity<br/>The identity of the User. This is the User that has received and registered the Item Loads.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ReceiveType</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Receive Type Identity<br/>The identity of the Receive Type:<br/>N   = Normal Station. The normal receive type in the Stationary client.<br/>H   = Normal RF. The normal receive type in the RF terminal.<br/>RG = Receive Goods. Replenishment from Receiving based on a Purchase Order Line.<br/>PR = Prepare Goods. The goods that has arrived is sorted on Preparation Load Carriers.<br/>PC = Prepared Load Carrier. Receiving a Preparation Load carrier that is finished.<br/>CR = Return Order. Normally used for Customer Return Order Lines.<br/>RE = Return Goods. Receiving not notified returned goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PackingSlipNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Packing Slip<br/>The identity / number of the Packing Slip.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">BillOfLadingNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Bill of Lading<br/>The identity / number of the Bill of Lading.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">VehicleIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Vehicle Identity<br/>The systems identity of the Vehicle (NOT the Vehicle Registration number).</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

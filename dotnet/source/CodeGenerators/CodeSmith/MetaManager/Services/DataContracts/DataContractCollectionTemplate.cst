@@ -1,0 +1,50 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="ServiceTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="service" Type="Cdc.MetaManager.DataAccess.Domain.Service" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="serviceMethod" Type="Cdc.MetaManager.DataAccess.Domain.ServiceMethod" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isRequest" Type="System.Boolean" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="nameSpace" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isMessageHandlingEnabled" Type="System.Boolean" Default="" Optional="false" Category="" Description="" %>
+<%
+  string dataCarrier = GetDataContractClassName(serviceMethod, isRequest);
+  string className = GetDataContractCollectionClassName(serviceMethod, isRequest);
+  int idx = 1;
+%>
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Runtime.Serialization;
+
+namespace <%= nameSpace %>
+{
+    [CollectionDataContract(Namespace = "<%= GetDataContractUrl(service) %>")]
+    public class <%= className %> : List<<%= dataCarrier %>>
+    {
+<%
+  if (isRequest && (isMessageHandlingEnabled == true))
+  {
+%>
+		[DataMember(Order = <%=idx++%>, IsRequired = false)]
+		public string MessageXML { get; set; }
+<%
+  }
+%>
+
+        public  <%= className %>()
+        {
+        }
+
+        public  <%= className %>(IEnumerable<<%= dataCarrier %>> collection)
+            : base(collection)
+        {
+        }
+    }
+}

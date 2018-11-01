@@ -1,0 +1,507 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DomainTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="System.Text.RegularExpressions" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="action" Type="Cdc.MetaManager.DataAccess.Domain.Action" Default="" Optional="false" Category="" Description="" %>
+<%
+	bool isTracking = (!string.IsNullOrEmpty(action.RowTrackingId));
+%>
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Data;
+using System.Configuration;
+using Oracle.DataAccess.Client;
+using Imi.Framework.DataAccess;
+using <%=GetEntitiesNamespace(action.BusinessEntity)%>;
+
+namespace <%=GetIbatisNamespace(action.BusinessEntity)%>
+{
+    #region Compiler Settings
+	  // Disable variable declared but never used
+	  #pragma warning disable 168 
+	#endregion
+	
+	public class <%=action.Name%>Translator
+    {
+        
+        static <%=action.Name%>Translator()
+        {
+
+        }
+		
+<%        
+		bool isCollection = action.ResponseMap.IsCollection;
+		bool isMulti = ((action.IsMultiEnabled == true) && (action.MappedToObject is StoredProcedure));
+		bool isRefCursor = ((action.MappedToObject.ObjectType == ActionMapTarget.StoredProcedure) && 
+		                    (((StoredProcedure)action.MappedToObject).IsReturningRefCursor == true));
+		bool refCursorHasAlarm = false;
+		
+		string resultClassName  = GetEntityClassName(action, false);
+		string resultListName = string.Format("IList<{0}>", resultClassName);
+		string parametersClassName  = GetEntityClassName(action, true);
+		string actionName = action.Name;
+
+		bool isSortable = false;
+		if (action.MappedToObject is Query)
+		{
+			isSortable = true;
+		}
+						
+%>
+		public static IList<IDbDataParameter> TranslateParameters(<%=parametersClassName%> parameters)
+		{
+			IList<IDbDataParameter> parameterList = new List<IDbDataParameter>();
+			IDbDataParameter dbParameter;
+			
+<%			
+	IEnumerable<MappedProperty> properties = action.RequestMap.MappedProperties;
+			
+	if (action.StoredProcedure != null)
+		properties = properties.Concat(action.ResponseMap.MappedProperties);
+	
+	IList<string> parameterList = new List<string>();
+	
+	foreach (MappedProperty property in properties)
+    {
+		string direction = "Input";
+		bool isOutput = false;
+		bool isInput = true;
+		
+		if (property.Source is ProcedureProperty)
+		{
+			if (parameterList.Contains(property.Source.Name))
+				continue;
+			
+			parameterList.Add(property.Source.Name);
+			
+			ProcedureProperty prop = property.Source as ProcedureProperty;
+			
+			if (prop.PropertyType == DbPropertyType.Out)
+			{
+				direction = "Output";
+				isOutput = true;
+				isInput = false;
+			}
+			else if (prop.PropertyType == DbPropertyType.InOut)
+			{
+			    direction = "InputOutput";
+				isOutput = true;
+			}
+		}
+		
+		// If this is a ref cursor then only process the input parameters 
+		if (isRefCursor && !direction.Equals("Input"))
+		{
+			if (property.Name == "AlarmId")
+			{
+				refCursorHasAlarm = true;
+			}
+			continue;
+		}
+		
+%>                
+			dbParameter = new OracleParameter();
+            dbParameter.ParameterName = "<%=property.Source.Name%>";
+			dbParameter.DbType = DbTypeConvertor.ConvertToDbType(typeof(<%=GetShortTypeName(property.Type)%>));	
+            dbParameter.Direction = ParameterDirection.<%=direction%>;
+<%
+		if (property.Type == typeof(byte[]))
+		{
+%>
+			((OracleParameter)dbParameter).OracleDbType = OracleDbType.Blob;
+<%
+		}
+
+		if (isInput)
+		{
+			if (property.Type == typeof(bool))
+			{
+%>
+			dbParameter.Value = DbTypeConvertor.ConvertBoolToString(parameters.<%=property.Name%>);
+<%
+			}
+			else
+			{
+%>				
+			dbParameter.Value = parameters.<%=property.Name%>;
+<%
+			}
+		}
+		
+		if (isOutput)
+		{
+			if (property.Type == typeof(bool))
+			{
+%>
+			dbParameter.Size = 1;
+<%
+			}
+			else if (property.Type == typeof(string))
+			{
+				if (property.ProcedureProperty != null)
+				{
+					if (property.ProcedureProperty.Name == "ALMID_O")
+					{
+						if (property.ProcedureProperty.Length == null)
+							property.ProcedureProperty.Length = 35;
+					}
+					
+					if (property.ProcedureProperty.Length == null)
+						property.ProcedureProperty.Length = 300;
+%>
+			dbParameter.Size = <%=property.ProcedureProperty.Length%>;
+<%
+				}
+				else
+				{
+					// No size specified, set to max size for VARCHAR2 field.
+%>
+			dbParameter.Size = 4000;
+<%
+				}
+			}
+		}
+%>			
+			parameterList.Add(dbParameter);
+<%            
+	}
+
+	// If this is a ref cursor then add the output Ref Cur parameter
+	if (isRefCursor)
+	{
+%>			
+			dbParameter = new OracleParameter("<%=((StoredProcedure)action.MappedToObject).RefCursorParameterName%>"
+                                             ,OracleDbType.RefCursor
+                                             ,ParameterDirection.Output);
+            parameterList.Add(dbParameter);
+<%
+		if (refCursorHasAlarm)
+		{
+%>
+
+			dbParameter = new OracleParameter();
+            dbParameter.ParameterName = "ALMID_O";
+			dbParameter.DbType = DbTypeConvertor.ConvertToDbType(typeof(string));	
+            dbParameter.Direction = ParameterDirection.Output;
+			dbParameter.Size = 35;
+
+            parameterList.Add(dbParameter);
+<%
+		}
+	}
+%>			
+
+			return parameterList;
+		}
+<%
+	if (!isCollection)
+	{
+%>
+		
+		public static <%=resultClassName%> TranslateResult(IDataParameterCollection resultParameters)
+		{
+			<%=resultClassName%> result = new <%=resultClassName%>();
+			object data;
+			
+<%			
+		foreach (MappedProperty property in action.ResponseMap.MappedProperties)
+        {
+%>
+			
+			data = ((IDbDataParameter)resultParameters["<%=property.Source.Name%>"]).Value;
+            						
+			if (data != DBNull.Value)
+<%
+			if (property.Type == typeof(bool))
+			{
+%>
+				result.<%=property.Name%> = DbTypeConvertor.ConvertStringToBool((string)data);
+<%
+			}
+			else
+			{
+%>
+				result.<%=property.Name%> = DbTypeConvertor.Convert<<%=GetShortTypeName(property.Type)%>>(data);
+<%            
+			}
+		}
+%>		
+			
+			return result;
+		}
+<%
+	}
+	else
+	{
+%>
+		
+		public static void TranslateResultSet(IDataReader reader, DataPartitioningContainer partitioningContainer)
+		{
+			IList<<%=resultClassName%>> resultList = new List<<%=resultClassName%>>();
+			bool isInitialized = false;
+			
+<%
+			foreach (MappedProperty property in action.ResponseMap.MappedProperties)
+			{
+				if (!(isRefCursor && property.Source.Name == "ALMID_O"))
+				{	
+%>			
+			int <%=ToCamelCase(property.Name)%>Index = 0;
+<%
+				}
+			}
+
+			if (isSortable)
+			{
+%>			
+			long sortIndex_GUI = 0;
+<%
+			}
+%>
+			<%=resultClassName%> previousResult = null;
+			<%=resultClassName%> currentResult = null;
+									
+			while (reader.Read())
+            {
+				if (!isInitialized)
+				{
+<%
+			foreach (MappedProperty property in action.ResponseMap.MappedProperties)
+			{
+				if (!(isRefCursor && property.Source.Name == "ALMID_O"))
+				{	
+%>			
+					<%=ToCamelCase(property.Name)%>Index = reader.GetOrdinal("<%=property.Source.Name%>");
+<%
+				}
+			}
+%>			
+					isInitialized = true;
+				}
+				
+				if (partitioningContainer.Abort)
+                {
+                    resultList.Clear();
+                    currentResult = null;
+                    break;
+                }
+
+				previousResult = currentResult;
+				currentResult = new <%=resultClassName%>();
+<%
+			foreach (MappedProperty property in action.ResponseMap.MappedProperties)
+			{
+				if (!(isRefCursor && property.Source.Name == "ALMID_O"))
+				{				
+%>
+				
+				if (!reader.IsDBNull(<%=ToCamelCase(property.Name)%>Index))
+<%
+					if (property.Type == typeof(bool))
+					{
+%>
+					currentResult.<%=property.Name%> = DbTypeConvertor.ConvertStringToBool(reader.GetString(<%=ToCamelCase(property.Name)%>Index));
+<%
+					}
+					else if (property.Type == typeof(double) && ((DbProperty)property.Source).DbDatatype.ToUpper().Equals("NUMBER"))
+					{
+%>
+					currentResult.<%=property.Name%> = DbTypeConvertor.Convert<<%=GetShortTypeName(property.Type)%>>(reader.GetDecimal(<%=ToCamelCase(property.Name)%>Index));
+<%
+					}
+					else
+					{
+%>
+					currentResult.<%=property.Name%> = DbTypeConvertor.Convert<<%=GetShortTypeName(property.Type)%>>(reader.GetValue(<%=ToCamelCase(property.Name)%>Index));
+<%
+					}
+				}
+			}
+
+			if (isTracking)
+			{
+%>				
+				
+				currentResult.RowIdentity = reader["RowIdentity"] as string;
+<%
+			}
+
+			if (isSortable)
+			{
+%>
+				sortIndex_GUI++;
+
+                currentResult.SortIndex_GUI = sortIndex_GUI;
+<%
+			}
+%>
+				
+				if (previousResult != null)
+                {
+                    resultList.Add(previousResult);
+                }
+
+                if (resultList.Count == DataPartitioningContainer.PARTITION_SIZE)
+                {
+                    partitioningContainer.PushPartition(resultList);
+                    resultList = new List<<%=resultClassName%>>();
+                    System.Threading.Thread.Sleep(50);
+                }
+
+				//Keep buffer at max 5 partitions and not under 2.
+                //Check if session has been idle for more than 1 hour then exit.
+                if (partitioningContainer.NumberOfPartitons >= 5)
+                {
+                    DateTime startIdeling = DateTime.Now;
+                    bool timeOut = false;
+
+                    while (partitioningContainer.NumberOfPartitons > 2)
+                    {
+                        System.Threading.Thread.Sleep(5000);
+
+                        if (((DateTime.Now - startIdeling).Hours >= 1) || partitioningContainer.Abort)
+                        {
+                            resultList.Clear();
+                            currentResult = null;
+                            timeOut = true;
+                            break;
+                        }
+                    }
+
+                    if (timeOut) { break; }
+                }
+			}
+			
+			if (currentResult != null)
+            {
+                resultList.Add(currentResult);
+            }
+
+            if (resultList.Count > 0)
+            {
+                partitioningContainer.PushPartition(resultList, true);
+            }
+			else
+			{
+				partitioningContainer.DataFetchFinished = true;
+			}
+		}
+<%
+	}
+%>
+		
+		public static string GetPropertyName(string tableName, string columnName)
+		{
+			int matches = 0;
+			string propertyName = null;
+<%
+		foreach (MappedProperty property in action.RequestMap.MappedProperties)
+		{
+			DbProperty dbProperty = property.Source as DbProperty;
+			
+%>
+			
+			if ((tableName == "<%=dbProperty.OriginalTable%>") && (columnName == "<%=dbProperty.OriginalColumn%>"))
+			{
+				matches++;
+				propertyName = "<%=property.Name%>";
+			}
+<%
+		}
+%>
+			if (matches == 1)
+				return propertyName;
+			else
+				return null;	
+		}
+
+		public static string GetFieldName(string propertyName)
+		{
+			string fieldName = string.Empty;
+<%
+		foreach (MappedProperty property in action.ResponseMap.MappedProperties)
+		{
+			DbProperty dbProperty = property.Source as DbProperty;
+			string fieldName = string.Empty;
+
+			fieldName = dbProperty.Name;
+						
+%>		
+			if (propertyName == "<%=property.Name%>")
+			{
+				fieldName = "<%=fieldName%>";
+			}
+<%
+		}
+%>
+			return fieldName;
+		}
+
+		public static string GetSortExpression(List<SortParameter> sortParameters)
+        {
+            string sortString = string.Empty;
+
+            if (sortParameters != null)
+            {
+                foreach (SortParameter sortParameter in sortParameters)
+                {
+                    string fieldName = GetFieldName(sortParameter.PropertyName);
+
+                    if (!string.IsNullOrEmpty(fieldName))
+                    {
+                        if (!string.IsNullOrEmpty(sortString))
+                        {
+                            sortString += ", ";
+                        }
+
+                        sortString += fieldName;
+
+                        if (sortParameter.SortDirection == SortDirections.Ascending)
+                        {
+                            sortString += " ASC NULLS FIRST";
+                        }
+                        else
+                        {
+                            sortString += " DESC NULLS LAST";
+                        }
+                    }
+                }
+            }
+
+            return sortString;
+        }
+	
+	}
+}
+<script runat="template">
+	
+	public string GetShortTypeNameNoAlias(Type type)	
+	{
+		if (type == typeof(bool))
+			type = typeof(string);
+			
+		string typeName = type.AssemblyQualifiedName;
+		string[] splitStrings = typeName.Split(new char[] { ',' });
+
+		if ((splitStrings == null) || (splitStrings.Length == 0))
+			return typeName;
+		
+		string prefixName = splitStrings[0];
+		
+		if (typeName.StartsWith("System.")) 
+			return prefixName.Substring(7);
+				
+		return splitStrings[0];
+	}
+
+</script>

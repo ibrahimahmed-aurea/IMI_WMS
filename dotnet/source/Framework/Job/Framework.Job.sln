@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Job", "Framework.Job.csproj", "{BBCF9DA2-8238-4CB2-A191-562FC9937DD1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Job.RemoteInterface", "RemoteInterface\Framework.Job.RemoteInterface.csproj", "{A535D6FD-4373-4DC1-AA98-5D47CF0587AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Shared", "..\Shared\Framework.Shared.csproj", "{D50F8E00-4006-436A-8533-88209763DA3E}"
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 4
+		SccProjectName0 = SAK
+		SccLocalPath0 = .
+		SccProvider0 = MSSCCI:ClearCase
+		CanCheckoutShared = false
+		SccProjectUniqueName1 = Framework.Job.csproj
+		SccLocalPath1 = .
+		CanCheckoutShared = false
+		SccProjectUniqueName2 = RemoteInterface\\Framework.Job.RemoteInterface.csproj
+		SccLocalPath2 = RemoteInterface
+		CanCheckoutShared = false
+		SccProjectUniqueName3 = ..\\Shared\\Framework.Shared.csproj
+		SccLocalPath3 = ..\\Shared
+		CanCheckoutShared = false
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BBCF9DA2-8238-4CB2-A191-562FC9937DD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBCF9DA2-8238-4CB2-A191-562FC9937DD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBCF9DA2-8238-4CB2-A191-562FC9937DD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBCF9DA2-8238-4CB2-A191-562FC9937DD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A535D6FD-4373-4DC1-AA98-5D47CF0587AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A535D6FD-4373-4DC1-AA98-5D47CF0587AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A535D6FD-4373-4DC1-AA98-5D47CF0587AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A535D6FD-4373-4DC1-AA98-5D47CF0587AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D50F8E00-4006-436A-8533-88209763DA3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D50F8E00-4006-436A-8533-88209763DA3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D50F8E00-4006-436A-8533-88209763DA3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D50F8E00-4006-436A-8533-88209763DA3E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

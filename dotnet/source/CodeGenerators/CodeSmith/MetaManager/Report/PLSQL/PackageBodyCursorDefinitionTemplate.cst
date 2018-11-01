@@ -1,0 +1,60 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="ReportCoreTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="System.Text" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="reportQuery" Type="Cdc.MetaManager.DataAccess.Domain.ReportQuery" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="report" Type="Cdc.MetaManager.DataAccess.Domain.Report" Default="" Optional="false" Category="" Description="" %>
+<%
+IList<string> queryParameterList = GetQueryParameterList(reportQuery);
+
+// Replace the parameters in SQL from :[XXX.]YYY to just YYY
+string sql = ReplaceParametersInSQL(reportQuery.Query.SqlStatement);
+
+// Indent all the rows in the sql
+sql = IndentRows(sql, 4);
+
+string cursorCallText = string.Format("  cursor {0}_Cur( ", reportQuery.Query.Name);
+
+int indent = cursorCallText.Length;
+
+string cursorParamString = queryParameterList.Aggregate((current, next) => current + "," + Environment.NewLine + string.Empty.PadRight(indent) + next);
+
+cursorCallText = string.Format("{0}{1} )", cursorCallText, cursorParamString);
+
+%>
+<%=cursorCallText%>
+  is
+<%=sql%>;
+
+  <%=reportQuery.Query.Name%>_XML     XMLType;
+  <%=reportQuery.Query.Name%>_Cur_Rec <%=reportQuery.Query.Name%>_Cur%rowtype;
+<%
+if (reportQuery.Children.Count > 0)
+{
+%>
+  <%=reportQuery.Query.Name%>_BX      XMLType;
+<%
+}
+%>
+  
+<%
+// Does the report query have any children that will be new cursors
+if (reportQuery.Children.Count > 0)
+{
+	foreach(ReportQuery childReportQuery in reportQuery.Children.OrderBy(r => r.Sequence))
+	{
+		PackageBodyCursorDefinitionTemplate packageBodyCursorDefinitionTemplate = this.Create<PackageBodyCursorDefinitionTemplate>();
+		packageBodyCursorDefinitionTemplate.SetProperty("reportQuery", childReportQuery);
+		packageBodyCursorDefinitionTemplate.Render(this.Response);
+	}
+}
+%>

@@ -1,0 +1,173 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="module" Type="Cdc.MetaManager.DataAccess.Domain.Module" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isAdapted" Type="System.Boolean" Default="false" Optional="false" Category="" Description="" %>
+<%
+	string moduleNamespace = GetModuleNamespace(module);
+	string actionsNamespace = GetActionsNamespace(module);
+	string moduleConstantNamespace = GetModuleConstantsNamespace(module);
+	IList<UXAction> actionList = new List<UXAction>();
+%>
+using System;
+using System.Linq;
+using System.Threading;
+using System.Reflection;
+using System.Collections.Generic;
+using Microsoft.Practices.CompositeUI;
+using Microsoft.Practices.CompositeUI.Commands;
+using Microsoft.Practices.CompositeUI.EventBroker;
+using Microsoft.Practices.CompositeUI.SmartParts;
+using Imi.Framework.UX;
+using Imi.Framework.UX.Services;
+using Imi.SupplyChain.UX;
+using Imi.SupplyChain.UX.Infrastructure.Services;
+using Imi.SupplyChain.UX.Infrastructure;
+using <%=actionsNamespace%>;
+using <%=moduleConstantNamespace%>;
+<%
+	foreach (Dialog dialog in module.Dialogs)
+	{
+%>
+using <%=GetDialogNamespace(dialog)%>;
+<%
+	}
+
+	foreach (View view in GetUniqueViews(module))
+	{
+%>
+using <%=GetViewsNamespace(view)%>;
+<%
+	}
+%>
+
+namespace <%= moduleNamespace %>
+{
+<%
+if (!isAdapted)
+{
+%>
+	//Extract the following class to ModuleControllerAdapted.cs in order to customize its behavior
+	public class ModuleController : ModuleControllerBase
+    {
+			
+	}
+	
+<%
+}
+%>
+
+	public class ModuleControllerBase : WorkItemController
+    {
+		[ServiceDependency]
+		public IActionCatalogService ActionCatalog
+		{
+			get;
+			set;
+		}
+		
+		[ServiceDependency]
+		public IShellInteractionService ShellInteractionService
+		{
+			get;
+			set;
+		}
+		
+		public override void Run()
+        {
+			RegisterActions();
+        }
+        
+		public virtual void RegisterActions()
+		{
+<%
+foreach (Dialog dialog in module.Dialogs)
+{
+	foreach (ViewNode viewNode in dialog.ViewNodes)
+	{
+		foreach (ViewAction viewAction in viewNode.ViewActions)
+		{
+			if (!actionList.Contains(viewAction.Action))
+			{
+				actionList.Add(viewAction.Action);
+%>
+			ActionCatalog.RegisterSpecificCondition(ActionNames.<%= viewAction.Action.Name %>, new <%=GetActionConditionClassName(viewAction.Action)%>());
+<%
+			}
+		}
+	}
+}
+%>		
+		}
+		
+<%
+	foreach (Dialog dialog in module.Dialogs)
+	{
+        if (dialog.Type == DialogType.Overview)
+		{
+			string viewParameterClassName = GetViewParametersClassName(dialog.InterfaceView);
+			
+%>
+						
+		[EventSubscription(EventTopicNames.Show<%=dialog.Name%>Dialog)]
+        public virtual void OnShow<%=dialog.Name%>Overview(object sender, EventArgs e)
+        {
+            <%=viewParameterClassName%> viewParameters = null;
+			bool openInNewWindow = false;
+			
+			if (e is MenuEventArgs)
+			{
+				openInNewWindow = ((MenuEventArgs)e).OpenInNewWindow;
+				string parameters = ((MenuEventArgs)e).Parameters;
+				
+				if (!string.IsNullOrEmpty(parameters))
+				{
+					viewParameters = new <%=viewParameterClassName%>();
+					HyperlinkHelper.MapQueryString(parameters, viewParameters);
+				}
+			}
+			else if (e is MenuItemExecutedEventArgs)
+			{
+				openInNewWindow = ((MenuItemExecutedEventArgs)e).OpenInNewWindow;
+                string parameters = ((MenuItemExecutedEventArgs)e).MenuItem.Parameters;
+
+                if (!string.IsNullOrEmpty(parameters))
+				{
+					viewParameters = new <%=viewParameterClassName%>();
+					HyperlinkHelper.MapQueryString(parameters, viewParameters);
+				}
+			}
+			else if (e is DataEventArgs<<%= viewParameterClassName %>>)
+			{
+				viewParameters = ((DataEventArgs<<%= viewParameterClassName %>>)e).Data;
+			}
+			
+			ControlledWorkItem<<%=GetControllerClassName(dialog)%>> workItem = (from wi in WorkItem.WorkItems.FindByType<ControlledWorkItem<<%=GetControllerClassName(dialog)%>>>()
+																			    where wi.Items.Get<string>("ModuleId") == ShellInteractionService.ActiveModule.Id
+																			    select wi).LastOrDefault();
+									
+			if (workItem == null || openInNewWindow)
+            {
+				workItem = WorkItem.WorkItems.AddNew<ControlledWorkItem<<%=GetControllerClassName(dialog)%>>>();
+				workItem.Items.Add(ShellInteractionService.ActiveModule.Id, "ModuleId");
+                workItem.Controller.Run(viewParameters);
+			}
+			else
+			{
+				workItem.Controller.Activate(viewParameters);	
+			}
+        }
+<%
+		}
+	}
+%>		
+    }
+}

@@ -1,0 +1,23 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DomainTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Register Name="ActionDaoTemplate" Template="ActionDaoTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Property Name="entity" Type="Cdc.MetaManager.DataAccess.Domain.BusinessEntity" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="businessActionsDirectory" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%
+  ActionDaoTemplate actionTemplate = this.Create<ActionDaoTemplate>();
+
+  foreach(Cdc.MetaManager.DataAccess.Domain.Action action in entity.Actions) 
+  {
+    string fileName = string.Format(@"{0}\{1}Action.cs", businessActionsDirectory, action.Name);
+	actionTemplate.SetProperty("action", action);
+	actionTemplate.RenderToFile(fileName ,true);
+  }
+%>

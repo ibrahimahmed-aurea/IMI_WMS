@@ -1,0 +1,6 @@
+﻿      select EMP.EMPID
+	        ,EMP.EMPNAME
+            ,EMP.RECENT_NODE_ID
+            ,EMP.LASTLOGONDTM
+        from EMP
+       where (EMP.MAPPED_EMPID = :MAPPED_EMPID or (NOT EXISTS(SELECT EMPID FROM EMP WHERE MAPPED_EMPID = :MAPPED_EMPID) and  EMP.EMPID = :EMPID))

@@ -1,0 +1,150 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Register Name="PropertyMapTemplate" Template="..\PropertyMapTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="viewAction" Type="Cdc.MetaManager.DataAccess.Domain.ViewAction" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isAdapted" Type="System.Boolean" Default="false" Optional="false" Category="" Description="" %>
+<%
+    string parametersClassName = GetActionParametersClassName(viewAction.Action);
+    
+	string resultClassName = GetViewResultClassName(viewAction.ViewNode.View);
+    if(viewAction.Type == ViewActionType.Drilldown)
+	    resultClassName = GetViewParametersClassName(viewAction.ViewNode.View);
+
+    string actionsNamespace = GetActionsNamespace(viewAction.ViewNode.Dialog.Module);
+	string translatorClassName = GetActionTranslatorClassName(viewAction);
+    string translatorBaseClassName = GetActionTranslatorBaseClassName(viewAction);
+    string translatorNamespace = GetActionTranslatorNamespace(viewAction.ViewNode.Dialog);
+	string viewsNamespace = GetViewsNamespace(viewAction.ViewNode.View);
+	string userSessionName = GetUserSessionName(viewAction.ViewNode.Dialog.Module.Application);
+	string userSessionNamespace = GetUserSessionNamespace(viewAction.ViewNode.Dialog.Module.Application);
+	
+	
+%>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Microsoft.Practices.CompositeUI;
+using Imi.SupplyChain.UX;
+using <%=viewsNamespace%>;
+using <%=actionsNamespace%>;
+using <%= userSessionNamespace %>;
+using Imi.Framework.Services;
+
+namespace <%= translatorNamespace %>
+{
+<%
+if (!isAdapted)
+{
+%>
+	//Extract the following class to <%=translatorClassName %>Adapted.cs in order to customize its behavior    
+	public class <%= translatorClassName %> : <%= translatorBaseClassName %>
+    {
+		
+    }
+<%
+}
+%>	
+
+	public class <%= translatorBaseClassName %>
+    {
+        [ServiceDependency]
+        public <%= userSessionName %> UserSessionService { get; set; }
+
+		private Type extendedParametersType = null;
+		private bool multiselect = false;
+		
+		public <%= translatorBaseClassName %>()
+		{
+		}
+						
+		public virtual <%=parametersClassName%> Translate(<%=resultClassName%> <%=ToCamelCase(resultClassName)%>)
+        {
+			<%=parametersClassName %> parameters = null;
+
+			if (!multiselect)
+            {
+                parameters = new <%=parametersClassName%>();
+            }
+            else
+            {
+                parameters = (<%=parametersClassName%>)Activator.CreateInstance(extendedParametersType);
+
+                GenericMapper.MapExtendedValues(parameters, <%=ToCamelCase(resultClassName)%>);
+            }
+<%
+		if (viewAction.ViewToActionMap != null)
+		{
+			CodeTemplate propertyMapTemplate = this.Create<PropertyMapTemplate>();
+
+            string fromName = ToCamelCase(resultClassName);
+			string toName = "parameters";
+			
+  			propertyMapTemplate.SetProperty("fromName", fromName);
+			propertyMapTemplate.SetProperty("toName", toName);
+			propertyMapTemplate.SetProperty("propertyMap", viewAction.ViewToActionMap);
+			propertyMapTemplate.Render(this.Response);
+			
+			
+			// If this action is kicking a dialog that uses rowidentity
+			UXAction action = viewAction.Action;
+			
+ 	    	if (action.Dialog != null && 
+ 	    	    viewAction.Type != ViewActionType.JumpTo && 
+ 	    	    action.Dialog.InterfaceView != null)
+			{
+		  		View actionView = action.Dialog.InterfaceView;
+								
+		  		if ((actionView != null) && (ViewIsRowTracker(actionView)) && ViewIsRowTracker(viewAction.ViewNode.View))
+		  		{
+					if(viewAction.Type != ViewActionType.Drilldown)
+					{
+	%>
+				<%= toName %>.RowIdentities = new List<string>() {<%= fromName %>.RowIdentity};
+<%
+					}
+					else
+					{
+%>
+				<%= toName %>.RowIdentities = <%= fromName %>.RowIdentities;
+<%
+					}
+				}
+			}
+		}
+%>
+			return parameters;
+        }
+		
+        public virtual IList<<%=parametersClassName%>> Translate(IList<<%=resultClassName%>> viewCollection)
+        {
+            IList<<%=parametersClassName%>> actionParameters = new List<<%=parametersClassName%>>();
+			multiselect = (viewCollection.Count > 1);
+
+			if (multiselect)
+            {
+                extendedParametersType = GenericMapper.GetExtendedDataCarrierType(typeof(<%=parametersClassName%>), typeof(<%=resultClassName%>));
+            }
+
+            foreach (<%=resultClassName%> viewItem in viewCollection)
+            {
+                <%=parametersClassName%> actionItem = Translate(viewItem);
+                actionParameters.Add(actionItem);
+            }
+
+			multiselect = false;
+
+            return actionParameters;
+        }
+		
+    }
+}	
+	

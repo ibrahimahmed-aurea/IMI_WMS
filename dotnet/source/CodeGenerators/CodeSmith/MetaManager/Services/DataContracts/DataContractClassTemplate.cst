@@ -1,0 +1,110 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="ServiceTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Register Name="DataContractPropertiesTemplate" Template="DataContractPropertiesTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Property Name="service" Type="Cdc.MetaManager.DataAccess.Domain.Service" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="serviceMethod" Type="Cdc.MetaManager.DataAccess.Domain.ServiceMethod" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="propertyMap" Type="Cdc.MetaManager.DataAccess.Domain.PropertyMap" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isRequest" Type="System.Boolean" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="nameSpace" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isMessageHandlingEnabled" Type="System.Boolean" Default="" Optional="false" Category="" Description="" %>
+<%
+	string className = GetDataContractClassName(serviceMethod, isRequest);
+	bool isQuery = (serviceMethod.MappedToAction.MappedToObject is Query);
+	bool isMultiEnabled = ((serviceMethod.MappedToAction != null) &&
+	                       (serviceMethod.MappedToAction.IsMultiEnabled == true));
+
+	bool isSortable = false;
+	if (serviceMethod.MappedToAction.MappedToObject is Query)
+	{
+		isSortable = true;
+	}
+%>
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Runtime.Serialization;
+<%
+	if ((isMessageHandlingEnabled == true) && !isRequest)
+	{
+%>
+using Imi.Framework.Services;
+<%
+	}
+%>
+
+namespace <%= nameSpace %>
+{
+    [DataContract(Name = "r", Namespace = "<%= GetDataContractUrl(service) %>")]
+    public class <%= className %>
+    {
+<%
+  DataContractPropertiesTemplate mapTemplate = this.Create<DataContractPropertiesTemplate>();
+  mapTemplate.SetProperty("propertyMap", propertyMap);
+  mapTemplate.SetProperty("isRequest", isRequest);
+  mapTemplate.SetProperty("isQuery", isQuery);
+  mapTemplate.SetProperty("rowTrackingId", serviceMethod.MappedToAction.RowTrackingId);
+  mapTemplate.SetProperty("isMessageHandlingEnabled", isMessageHandlingEnabled);
+  mapTemplate.SetProperty("isMultiEnabled", isMultiEnabled);
+  mapTemplate.SetProperty("isSortable", isSortable);
+
+
+  mapTemplate.Render(this.Response);
+%>
+
+		public override string ToString()
+		{
+			string result = base.ToString();
+			
+<%
+
+		foreach(MappedProperty mapProp in propertyMap.MappedProperties)
+		{
+			string publicName = mapProp.Name;
+			if(string.IsNullOrEmpty(publicName ))
+			publicName = mapProp.Target.Name;
+	
+%>
+        	result += string.Format("\r\n{0}={1}", "<%= publicName %>", <%= publicName %>);
+<%
+		}
+
+		// Stored procedure resultSet or
+		// Query parameters & results
+		if ((!string.IsNullOrEmpty(serviceMethod.MappedToAction.RowTrackingId)) && ((!isQuery && !isRequest) || (isQuery)))
+		{
+			if (!isRequest && isQuery)
+			{
+%>
+
+        	result += string.Format("\r\nRowIdentity={0}", RowIdentity);
+<%
+			}
+			else
+			{
+%>
+			result += string.Format("\r\nRowIdentities={0}", RowIdentities == null ? "Null" : string.Join(", ", RowIdentities));
+<%
+			}
+  		}
+
+		if (isSortable)
+		{
+%>
+			result += string.Format("\r\nSortIndex_GUI={0}", SortIndex_GUI);
+<%
+		}
+%>
+			return result;
+		}	
+
+
+    }
+}

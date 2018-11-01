@@ -1,0 +1,198 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Segment ASNLine</title>
+<link href="StructureDescription.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>Segment ASNLine</h1>
+<h3>Description:</h3>
+Advanced Shipping Notice Line<br/>Specifies the product that should be received.<h3>Attributes:</h3>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000"><tbody>
+<tr class="tableHeader"><th class="tableHeaderColumn">Tag</th><th class="tableHeaderColumn">Method</th><th class="tableHeaderColumn">Type</th><th class="tableHeaderColumn">Oracle Type</th><th class="tableHeaderColumn">Mandatory</th><th class="tableHeaderColumn">Note</th></tr>
+<tr class="tableRow"><td class="tableRowColumn">OPCODE</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Operation Code<br/>0 - No Operation<br/>1 - New<br/>2 - Change<br/>3 - Remove<br/>Note! An operation code is only useful if at least one tag supports the method</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ASNIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Inbound ASN Identity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ASNSequenceNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Inbound ASN Sequence Number</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipFromPartyNodeIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Ship-from Party Node Identity<br/>Node for the Party that has shipped the goods to the warehouse.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ASNLineNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(5)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Inbound ASN Line Number</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ASNLineSequenceNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Inbound ASN Line Sequence Number</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">LoadCarrierIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Load Carrier Identity<br/>May be identified by a SSCC-id or by internal identification.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OwnerIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Owner Identity<br/>Rules for deciding Owner of the goods:<br/>1. If the ASN Line references an existing Purchase Order, the Owner is fetched from the Purchase Order.<br/>2. If the ASN Line contains a valid Owner, the Owner stated in the ASN is used.<br/>3. (Only for Stock Replenishment.) If the Client configuration has a default Owner configured for the Warehouse, the Owner is fetched from the Client configuration.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductNumberShipFromPartner</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Product Number at the Ship-from Party site</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductNumberShipToPartner</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Product Number at the Ship-to Party site</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">GlobalProductNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Global Product Number</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ExpiryDate</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">dateTime</td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Expiry Date</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ManufacturingDate</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">dateTime</td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Manufacturing Date</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductionLotIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(40)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Manufacturing Lot</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductionSubLotIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(40)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Manufacturing Sublot</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">MarketingLotIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(20)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Marketing Lot</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">StorageLot</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(20)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Storage Lot</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">SerialNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(21)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Serial Number</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShippedQuantity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Ordered Quantity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Volume</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(16,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Estimated Volume.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">VolumeUOMIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Unit of Measurement Identity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Weight</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(16,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Weight<br/>The Weight for the Line Quantity.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">WeightUOMIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Unit of Measurement Identity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PurchaseOrderNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Purchase Order Number</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PurchaseOrderSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Purchase Order Sequence Number<br/>Sequence Number of the Purchase Order.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PurchaseOrderLinePos</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(4)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Purchase Order Line Number</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PurchaseOrderLineSeq</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Purchase Order Sub Line Number</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Instructions</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(400)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Instructions<br/>Instructions for the Product.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">VendorIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Vendor Identity<br/>Rules for deciding Vendor:<br/>1. If the ASN Line references an existing Purchase Order, the Vendor is fetched from the Purchase Order.<br/>2. If the ASN Line contains a valid Vendor, the Vendor stated in the ASN is used.<br/>3. (Only for Stock Replenishment.) If the Client configuration has a default Vendor configured for the Warehouse, the Vendor is fetched from the Client configuration.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">VendorPartyNodeIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PredefinedItemLoadIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Predefined Item Load Identity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">MeasuredQuantity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Measured Quantity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">MeasureQualifier</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(4)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Catch Measure Unit</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">AdditionalPackingMaterial</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Additional Packing Material</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipFromPartyIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-from Party Identity<br/>Party that has shipped the goods to the warehouse</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipToPartyIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-to Party Identity<br/>The Party that will receive the goods when it is shipped from the Ship-from Party. So in this case the Ship-to Party is your own warehouse.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShiptoPartyNodeIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-to Party Node Identity<br/>The Node for the Party that will receive the goods when it is shipped from the Ship-from Party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShiptoPartyQualifier</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-to Party Type<br/>Type of Party that is the Ship-to Party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderType</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Order Type</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">StockedProductNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Stocked Product Number<br/>This is only used if you want to include information about a Packing Material connected to the product. Then this field shows the identity of the Stocked Product for the saleable form of the Packing Material. This way the system can identify the Lowest Unit of Measure for the received product.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">GlobalStockedProductNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(20)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Global Stocked Product Number<br/>This is only used if you want to include information about a Packing Material connected to the product. Then this field shows the global identity of the Stocked Product for the saleable form of the Packing Material. This way the system can identify the Lowest Unit of Measure for the received product.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ActionCode</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Action Code Identity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ReasonCode</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Reason Code</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ReasonText</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(400)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Reason Text</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">FromPartyIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">From Party Identity<br/>Used for Returns.<br/>Party that returned the goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">FromPartyQualifier</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">From Party Type<br/>Type of Party that is the From Party.<br/>Allowed values:<br/>WH - Warehouse<br/>CU - Customer</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerReturnOrderNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Return Order Number</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerReturnOrderSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Return Order Sequence</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerReturnOrderLinePos</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(5)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Return Order Line Number</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerReturnOrderLineKitPos</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Return Order Line Kit Number</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerReturnOrderLineSeq</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Return Order Line Sequence Number</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipToVendorIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-to Vendor Identity<br/>The Party that finally will receive the returned goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShipToVendorQualifier</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-to Vendor Type<br/>Type of Party that is the Ship-to Vendor.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ActionCodeRequirement</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Action Code Requirement<br/>If it is allowed to change the Action Code (1=Yes,0=No, default: Yes)</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Order Number<br/>Used for transit/warehouse transfer goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Order Sequence Number<br/>Used for transit/warehouse transfer goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderLinePosition</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(5)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Order Line Number<br/>Used for transit/warehouse transfer goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderLineSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Order Sub Line Number<br/>Used for transit/warehouse transfer goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderLineKitPosition</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Customer Order Line Kit Position<br/>Used for transit/warehouse transfer goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OwnerIdentityAtShipToCustomer</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OriginalPurchaseOrderNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Original Customer Purchase Order Number<br/>The final recipients Purchase Order Number reference. Used for transit goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OriginalPurchaseOrderSequence</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Original Customer Purchase Order Sequence Number<br/>The final recipients Purchase Order Sequence Number reference. Used for transit goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OriginalPurchaseOrderLinePos</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(16)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Original Customer Purchase Order Line Number<br/>The final recipients Purchase Order Line Number reference. Used for transit goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OriginalPurchaseOrderLineSeq</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Original Customer Purchase Order Sub Line Number<br/>The final recipients Purchase Order Sub Line Number reference. Used for transit goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OriginalCustomerReference</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Original Customer Reference<br/>The final recipients Customer Reference. Used for transit goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">InventorystatusCode</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(8)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Hold Code</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">InventorystatusDays</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(5)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Number of Hold Days</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">InventorystatusKey</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(12)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Hold Code Key<br/>Inherited from the Product or manually registered.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">InventorystatusText</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(200)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Free hold text</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">InventorystatusAlarmDate</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">dateTime</td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Alarm Date for the Hold Code<br/>Date when an alarm should be printed if the Hold Code has not been removed.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DiscrepancyQuantity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Discrepancy Quantity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DiscrepancyCode</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Discrepancy Code</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DiscrepancyText</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Discrepancy Code Description</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShiptoCustomerNodeIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-to Customer Node Identity<br/>The Node that finally will receive the goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShiptoCustomerIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-to Customer Identity<br/>The Party that finally will receive the goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ShiptoCustomerQualifier</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Ship-to Customer Type<br/>Type of Party that is the Ship-to Customer.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">SelltoCustomerIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Sell-to Customer Identity<br/>The Customer that made the Order according to the Customer Order.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">SelltoCustomerQualifier</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Sell-to Customer Type<br/>Type of Party that is the Sell-to Customer.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Product Number</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductDescription</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Product Description<br/>The Product Description is displayed in the dialogs for the Line. Could be another Product Description than that in the Product table.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductNumberType</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Product Number Type<br/>Indicates whether the Product has a known Identity within the warehouse:<br/>0 = Without known Product Number. Alternative Number in ARTID2 (e.g. transit goods)<br/>1 = With known Identity in ARTID</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">AlternativeProductNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Alternative Product Number<br/>E.g. transit goods unknown within the warehouse.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">AlternativeProductDescription</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Product Description 2</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductDate</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">dateTime</td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Product Date<br/>The meaning of the Product Date depends on the Product Date Type.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">VendorProductNumber</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Vendor Product Number</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PurchasePrice</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(22,7)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Purchase price</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PackageIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Lowest Unit of Measure Identity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">QuantityUpperTolerance</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Tolerance on ordered quantity<br/>The maximum number of Lowest Units of Measure that can be received.<br/>(I.e. the ordered quantity is included.)</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CatchMeasureLowerTolerance</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Lower tolerance on measured quantity<br/>Minimum measured quantity per Lowest Unit of Measure</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CatchMeasureUpperTolerance</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Upper tolerance on measured quantity<br/>Maximum measured quantity per Lowest Unit of Measure</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ManufacturingUnit</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(20)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Manufacturing Unit</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,55 @@
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
+
+  <DrawingImage x:Key="LookingGlassImage" PresentationOptions:Freeze="True">
+    <DrawingImage.Drawing>
+      <DrawingGroup>
+        <DrawingGroup.Children>
+          <GeometryDrawing Geometry="F1 M 428.797,253.374C 436.916,255.019 442.215,262.69 440.631,270.509C 439.047,278.328 431.181,283.333 423.062,281.688C 414.942,280.043 409.644,272.372 411.228,264.553C 412.812,256.734 420.677,251.729 428.797,253.374 Z ">
+            <GeometryDrawing.Pen>
+              <Pen Thickness="5" LineJoin="Round" Brush="#FF2A60CB"/>
+            </GeometryDrawing.Pen>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FF2A60CB" Geometry="F1 M 411.23,278.38C 408.722,280.804 403.821,285.685 401.272,288.696C 398.722,291.706 398.523,292.846 398.698,293.838C 398.873,294.83 399.423,295.673 400.094,296.131C 400.764,296.588 401.556,296.66 402.304,296.597C 403.053,296.534 403.757,296.337 404.41,295.937C 405.063,295.537 405.664,294.934 408.052,292.374C 410.439,289.814 414.614,285.296 416.743,283.054C 418.873,280.811 418.957,280.844 418.705,280.684C 418.454,280.523 417.865,280.169 417.337,279.78C 416.809,279.392 416.341,278.969 415.897,278.56C 415.454,278.151 415.036,277.754 414.719,277.333C 414.401,276.912 414.186,276.466 414.02,276.227C 413.854,275.988 413.738,275.955 411.23,278.38 Z "/>
+        </DrawingGroup.Children>
+      </DrawingGroup>
+    </DrawingImage.Drawing>
+  </DrawingImage>
+
+  <DrawingImage x:Key="DashboardIcon" PresentationOptions:Freeze="True">
+    <DrawingImage.Drawing>
+      <DrawingGroup>
+        <DrawingGroup.Children>
+          <GeometryDrawing Geometry="F1 M 4.99988,0.999908L 28.9959,0.999908C 31.2051,0.999908 32.9959,2.79077 32.9959,4.99991L 32.9959,28.9959C 32.9959,31.205 31.2051,32.9959 28.9959,32.9959L 4.99988,32.9959C 2.79077,32.9959 0.999878,31.205 0.999878,28.9959L 0.999878,4.99991C 0.999878,2.79077 2.79077,0.999908 4.99988,0.999908 Z ">
+            <GeometryDrawing.Pen>
+              <Pen Thickness="1.99975" LineJoin="Round" Brush="#FF4E4E4E"/>
+            </GeometryDrawing.Pen>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M 5.49976,1.49982L 28.4959,1.49982C 30.705,1.49982 32.4958,3.29065 32.4958,5.49979L 32.4958,28.4959C 32.4958,30.705 30.705,32.4959 28.4959,32.4959L 5.49976,32.4959C 3.29065,32.4959 1.49982,30.705 1.49982,28.4959L 1.49982,5.49979C 1.49982,3.29065 3.29065,1.49982 5.49976,1.49982 Z ">
+            <GeometryDrawing.Pen>
+              <Pen LineJoin="Round" Brush="#FF6D6E70"/>
+            </GeometryDrawing.Pen>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FF96C93C" Geometry="F1 M 20.743,16.7458L 27.2466,16.7458L 27.2466,27.0294L 20.743,27.0294L 20.743,16.7458 Z ">
+            <GeometryDrawing.Pen>
+              <Pen Thickness="0.999875" LineJoin="Round" Brush="#FF000000"/>
+            </GeometryDrawing.Pen>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FF2FAAE1" Geometry="F1 M 6.86816,6.58252L 13.783,6.58252L 13.783,27.0477L 6.86816,27.0477L 6.86816,6.58252 Z ">
+            <GeometryDrawing.Pen>
+              <Pen Thickness="0.999875" LineJoin="Round" Brush="#FF000000"/>
+            </GeometryDrawing.Pen>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FF1D8191" Geometry="F1 M 13.7893,11.8318L 20.6685,11.8318L 20.6685,27.0327L 13.7893,27.0327L 13.7893,11.8318 Z ">
+            <GeometryDrawing.Pen>
+              <Pen Thickness="0.999875" LineJoin="Round" Brush="#FF000000"/>
+            </GeometryDrawing.Pen>
+          </GeometryDrawing>
+        </DrawingGroup.Children>
+      </DrawingGroup>
+    </DrawingImage.Drawing>
+  </DrawingImage>
+
+</ResourceDictionary>

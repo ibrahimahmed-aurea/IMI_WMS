@@ -1,0 +1,36 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Segment ModifyDepartureLoad</title>
+<link href="StructureDescription.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>Segment ModifyDepartureLoad</h1>
+<h3>Description:</h3>
+Modify Departure Load<h3>Attributes:</h3>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000"><tbody>
+<tr class="tableHeader"><th class="tableHeaderColumn">Tag</th><th class="tableHeaderColumn">Method</th><th class="tableHeaderColumn">Type</th><th class="tableHeaderColumn">Oracle Type</th><th class="tableHeaderColumn">Mandatory</th><th class="tableHeaderColumn">Note</th></tr>
+<tr class="tableRow"><td class="tableRowColumn">OPCODE</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Operation Code<br/>1 - New</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DepartureLoadIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Transport Load Identity<br/>The identity of the Transport Load, that can be a Customer Order (whole or part of)<br/>or a Transit Consignment in a Departure.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">FromNodeIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Node Identity<br/>The identity of the Node. In this case the Node is the start location of the Departure.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DepartureIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Departure Identity<br/>The identity of the Departure.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">RouteIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Route Identity<br/>The identity of the dispatch Route.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">RouteDescription</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Route Description<br/>The description / name of the Route.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderReleaseDateTime</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Order Release Time<br/>The recommended time to release Customer Orders from the Order system.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderStopDateTime</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Order Stop Time<br/>The date and time when no more Customer Orders may be registered on the Departure.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PlannedDepartureDateTime</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Planned Departure Time<br/>The date and time when the Departure is planned to occur.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">EstimatedArrivalDateTime</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Estimated Arrival Time<br/>The date and time when the goods are estimated to arrive at the Node.</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

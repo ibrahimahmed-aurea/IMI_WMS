@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Localizer", "Localizer\Localizer.csproj", "{FC04DA3B-6060-481F-9B9F-7B1283CCE5D0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Setup", "Setup", "{570CF231-20EE-4BBF-A149-FE5EDD14A81A}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "LocalizerSetup", "LocalizerSetup\LocalizerSetup.vdproj", "{94ED9C5E-3BB9-4251-91E5-CE5AD5DE6B51}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Localizer.GUI.exe", "Localizer.GUI.exe\Localizer.GUI.exe.csproj", "{A4174312-9283-4EC0-831E-AA694D0782E3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FC04DA3B-6060-481F-9B9F-7B1283CCE5D0}.Debug|x86.ActiveCfg = Debug|x86
+		{FC04DA3B-6060-481F-9B9F-7B1283CCE5D0}.Debug|x86.Build.0 = Debug|x86
+		{FC04DA3B-6060-481F-9B9F-7B1283CCE5D0}.Release|x86.ActiveCfg = Release|x86
+		{FC04DA3B-6060-481F-9B9F-7B1283CCE5D0}.Release|x86.Build.0 = Release|x86
+		{94ED9C5E-3BB9-4251-91E5-CE5AD5DE6B51}.Debug|x86.ActiveCfg = Debug
+		{94ED9C5E-3BB9-4251-91E5-CE5AD5DE6B51}.Release|x86.ActiveCfg = Release
+		{A4174312-9283-4EC0-831E-AA694D0782E3}.Debug|x86.ActiveCfg = Debug|x86
+		{A4174312-9283-4EC0-831E-AA694D0782E3}.Debug|x86.Build.0 = Debug|x86
+		{A4174312-9283-4EC0-831E-AA694D0782E3}.Release|x86.ActiveCfg = Release|x86
+		{A4174312-9283-4EC0-831E-AA694D0782E3}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{94ED9C5E-3BB9-4251-91E5-CE5AD5DE6B51} = {570CF231-20EE-4BBF-A149-FE5EDD14A81A}
+	EndGlobalSection
+EndGlobal

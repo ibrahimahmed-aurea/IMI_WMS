@@ -1,0 +1,44 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DomainTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="action" Type="Cdc.MetaManager.DataAccess.Domain.Action" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isRequest" Type="System.Boolean" Default="" Optional="false" Category="" Description="" %>
+<%
+  string dataCarrier = GetEntityClassName(action, isRequest);
+  string className = string.Format("{0}Collection", dataCarrier);
+  bool isQuery = (action.MappedToObject is Query);
+%>
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace <%= GetEntitiesNamespace(action.BusinessEntity) %>
+{
+    public class <%= className %> : List<<%= dataCarrier %>>
+    {
+<%
+		if ((action.IsMessageHandlingEnabled == true) && !isQuery && isRequest)
+		{
+%>
+        public string MessageXML { get; set; }
+<%
+		}
+%>
+
+        public  <%= className %>()
+        {
+        }
+
+        public  <%= className %>(IEnumerable<<%= dataCarrier %>> collection)
+            : base(collection)
+        {
+        }
+    }
+}

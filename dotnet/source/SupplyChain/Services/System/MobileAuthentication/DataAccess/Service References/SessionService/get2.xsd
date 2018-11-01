@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://Cdc.SupplyChain.Services.System.Session.ServiceContracts/2007/05" elementFormDefault="qualified" targetNamespace="http://Cdc.SupplyChain.Services.System.Session.ServiceContracts/2007/05" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://fabrikamenterprises:18802/System/SessionService/get?xsd=xsd2" namespace="http://Cdc.SupplyChain.Services.System.Session.DataContracts/2007/05" />
+  <xs:element name="CreateSessionRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://Cdc.SupplyChain.Services.System.Session.DataContracts/2007/05" minOccurs="0" name="CreateSessionParams" nillable="true" type="q1:CreateSessionParams" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateSessionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://Cdc.SupplyChain.Services.System.Session.DataContracts/2007/05" minOccurs="0" name="CreateSessionResultParams" nillable="true" type="q2:CreateSessionResultParams" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AbortTransactionRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://Cdc.SupplyChain.Services.System.Session.DataContracts/2007/05" minOccurs="0" name="AbortTransactionParams" nillable="true" type="q3:AbortTransactionParams" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

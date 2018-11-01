@@ -1,0 +1,272 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text"  Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="false" Description="Template description here." %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="module" Type="Cdc.MetaManager.DataAccess.Domain.Module" Default="" Optional="false" Category="" Description="" OnChanged="" Editor="" EditorBase="" Serializer="" %>
+<%@ Property Name="backendApplication" Type="Cdc.MetaManager.DataAccess.Domain.Application" Default="false" Optional="false" Category="" Description="" OnChanged="" Editor="" EditorBase="" Serializer="" %>
+<%@ Property Name="isDesignTime" Type="System.Boolean" Default="false" Optional="false" Category="" Description="" OnChanged="" Editor="" EditorBase="" Serializer="" %>
+<%
+	string alarmDataContractNamespace = GetAlarmDataContractNamespace(backendApplication);
+	string alarmServiceContractNamespace = GetAlarmServiceContractNamespace(backendApplication);
+	string userSessionName = GetUserSessionName(module.Application);
+	string userSessionNamespace = GetUserSessionNamespace(module.Application);
+%>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.ComponentModel;
+using System.Reflection;
+using System.Threading;
+using System.Workflow.ComponentModel;
+using System.Workflow.ComponentModel.Compiler;
+using System.Workflow.Activities;
+<%
+if (!isDesignTime)
+{
+%>	
+using Microsoft.Practices.CompositeUI;
+using Microsoft.Practices.CompositeUI.Configuration;
+using Microsoft.Practices.CompositeUI.Services;
+using Imi.Framework.UX;
+using Imi.Framework.UX.Services;
+using Imi.SupplyChain.UX.Infrastructure;
+using Imi.SupplyChain.UX.Infrastructure.Services;
+using Imi.SupplyChain.UX.Views;
+using <%=alarmDataContractNamespace%>;
+using <%=alarmServiceContractNamespace%>;
+using <%=userSessionNamespace%>;
+
+<%
+}
+else
+{
+%>
+using System.Workflow.ComponentModel.Design;
+using <%=GetWorkflowNamespace(module)%>;
+<%
+}
+%>
+
+namespace <%=GetWorkflowNamespace(module)%>.Activities
+{
+	public enum TerminationMode
+    {
+        Never,
+        OnOk,
+		OnCancel,
+        OnYes,
+        OnNo
+    }
+	
+<%	
+if (isDesignTime)
+{
+%>
+	public enum MessageBoxButton
+    {
+        Ok = 0,
+        OkCancel = 1,
+        YesNoCancel = 2,
+        YesNo = 3,
+    }
+				
+	[Designer(typeof(AlarmActivityDesigner))]
+<%
+}
+%>
+	public class AlarmActivity : Activity 
+    {
+		public string AlarmId
+        {
+            get { return (string)GetValue(AlarmIdProperty); }
+            set { SetValue(AlarmIdProperty, value); }
+        }
+                
+        public static readonly DependencyProperty AlarmIdProperty =
+            DependencyProperty.Register("AlarmId", typeof(string), typeof(AlarmActivity), new PropertyMetadata(null));
+				
+		public MessageBoxButton MessageBoxButton
+        {
+            get { return (MessageBoxButton)GetValue(MessageBoxButtonProperty); }
+            set { SetValue(MessageBoxButtonProperty, value); }
+        }
+                
+        public static readonly DependencyProperty MessageBoxButtonProperty =
+            DependencyProperty.Register("MessageBoxButton", typeof(MessageBoxButton), typeof(AlarmActivity), new PropertyMetadata(MessageBoxButton.Ok));
+			
+		public TerminationMode Terminate
+        {
+            get { return (TerminationMode)GetValue(TerminateProperty); }
+            set { SetValue(TerminateProperty, value); }
+        }
+                
+        public static readonly DependencyProperty TerminateProperty =
+            DependencyProperty.Register("Terminate", typeof(TerminationMode), typeof(AlarmActivity), new PropertyMetadata(TerminationMode.Never));	
+			
+		public bool IsResultYes
+        {
+            get { return (bool)GetValue(IsResultYesProperty); }
+            set { SetValue(IsResultYesProperty, value); }
+        }
+                
+        public static readonly DependencyProperty IsResultYesProperty =
+            DependencyProperty.Register("IsResultYes", typeof(bool), typeof(AlarmActivity), new PropertyMetadata(false));	
+		
+		public bool IsResultNo
+        {
+            get { return (bool)GetValue(IsResultNoProperty); }
+            set { SetValue(IsResultNoProperty, value); }
+        }
+                
+        public static readonly DependencyProperty IsResultNoProperty =
+            DependencyProperty.Register("IsResultNo", typeof(bool), typeof(AlarmActivity), new PropertyMetadata(false));	
+		
+		public bool IsResultCancel
+        {
+            get { return (bool)GetValue(IsResultCancelProperty); }
+            set { SetValue(IsResultCancelProperty, value); }
+        }
+                
+        public static readonly DependencyProperty IsResultCancelProperty =
+            DependencyProperty.Register("IsResultCancel", typeof(bool), typeof(AlarmActivity), new PropertyMetadata(false));	
+			
+		public bool IsResultOk
+        {
+            get { return (bool)GetValue(IsResultOkProperty); }
+            set { SetValue(IsResultOkProperty, value); }
+        }
+                
+        public static readonly DependencyProperty IsResultOkProperty =
+            DependencyProperty.Register("IsResultOk", typeof(bool), typeof(AlarmActivity), new PropertyMetadata(false));	
+		
+<%	
+	if (!isDesignTime)
+	{
+%>
+		protected override ActivityExecutionStatus Execute(ActivityExecutionContext executionContext)
+        {
+			IChannelFactoryService channelFactory = WorkItem.Services.Get<IChannelFactoryService>(true);
+			IShellInteractionService shellInteractionService = WorkItem.Services.Get<IShellInteractionService>(true);
+            IAlarmService alarmService = channelFactory.CreateChannel(typeof(IAlarmService)) as IAlarmService;
+						
+			FindAlarmTextRequest findAlarmTextRequest = new FindAlarmTextRequest();
+			findAlarmTextRequest.FindAlarmTextParams = new FindAlarmTextParams();
+			findAlarmTextRequest.FindAlarmTextParams.AlarmId = AlarmId;
+			findAlarmTextRequest.FindAlarmTextParams.LanguageCode = Session.LanguageCode;
+			
+			FindAlarmTextResponse findAlarmTextResponse = alarmService.FindAlarmText(findAlarmTextRequest);
+						
+			using (EventWaitHandle waitHandle = new EventWaitHandle(false, EventResetMode.AutoReset))
+            {
+				SynchronizationContext.Send(delegate(object data)
+				{
+					MessageBoxResult result = shellInteractionService.ShowMessageBox(Title, findAlarmTextResponse.FindAlarmTextResult.AlarmText, null, this.MessageBoxButton, MessageBoxImage.Warning);
+					
+					switch (result)
+					{
+						case MessageBoxResult.Cancel:
+							IsResultCancel = true;
+							break;
+						case MessageBoxResult.Ok:
+							IsResultOk = true;
+							break;
+						case MessageBoxResult.Yes:
+							IsResultYes = true;
+							break;
+						case MessageBoxResult.No:
+							IsResultNo = true;
+							break;			
+					}
+										
+					waitHandle.Set();        
+	
+				}, null);
+	
+				waitHandle.WaitOne();
+				
+				if (IsResultCancel && (Terminate == TerminationMode.OnCancel))
+					throw new WorkflowTerminatedException();
+				else if (IsResultOk && (Terminate == TerminationMode.OnOk))
+					throw new WorkflowTerminatedException();
+				else if (IsResultYes && (Terminate == TerminationMode.OnYes))
+					throw new WorkflowTerminatedException();
+				else if (IsResultNo && (Terminate == TerminationMode.OnNo))
+					throw new WorkflowTerminatedException();
+			}
+						
+			return base.Execute(executionContext);
+        }
+		
+		private WorkItem WorkItem
+        {
+            get
+            {
+                Activity activity = this;
+
+                while (activity.Parent != null)
+                {
+                    activity = activity.Parent;    
+                }
+
+                PropertyInfo propertyInfo = activity.GetType().GetProperty("WorkItem");
+                return propertyInfo.GetValue(activity, null) as WorkItem;
+            }
+        }
+		
+		private SynchronizationContext SynchronizationContext
+        {
+            get
+            {
+                Activity activity = this;
+
+                while (activity.Parent != null)
+                {
+                    activity = activity.Parent;
+                }
+
+                PropertyInfo propertyInfo = activity.GetType().GetProperty("SynchronizationContext");
+                return propertyInfo.GetValue(activity, null) as SynchronizationContext;
+            }
+        }
+		
+		private string Title
+        {
+            get
+            {
+                Activity activity = this;
+
+                while (activity.Parent != null)
+                {
+                    activity = activity.Parent;    
+                }
+
+                PropertyInfo propertyInfo = activity.GetType().GetProperty("Title");
+                return propertyInfo.GetValue(activity, null) as string;
+            }
+        }
+
+		private <%=userSessionName%> Session
+        {
+            get
+            {
+                Activity activity = this;
+
+                while (activity.Parent != null)
+                {
+                    activity = activity.Parent;
+                }
+
+                PropertyInfo propertyInfo = activity.GetType().GetProperty("Session");
+                return propertyInfo.GetValue(activity, null) as <%=userSessionName%>;
+            }
+        }
+<%
+	}
+%>
+	}
+}

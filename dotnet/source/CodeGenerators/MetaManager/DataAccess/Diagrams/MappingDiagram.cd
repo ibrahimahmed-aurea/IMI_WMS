@@ -1,0 +1,351 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Can have fields in map that don't map to SchemaField, i.e MappedField == null&#xD;&#xA;">
+    <Position X="10.397" Y="11.375" Height="0.75" Width="2.158" />
+  </Comment>
+  <Comment CommentText="Order of fields is important&#xD;&#xA;">
+    <Position X="10.528" Y="13.569" Height="0.562" Width="1.606" />
+  </Comment>
+  <Comment CommentText="Handle fields not mapped to a&#xD;&#xA;specific field *string concats etc&#xD;&#xA;in Text + Alias property">
+    <Position X="12.266" Y="13.548" Height="0.75" Width="2.158" />
+  </Comment>
+  <Comment CommentText="What about hierarchial documents&#xD;&#xA;">
+    <Position X="0.604" Y="5.896" Height="0.75" Width="1.7" />
+  </Comment>
+  <Comment CommentText="IsPrimaryKey ?">
+    <Position X="7.031" Y="12.844" Height="0.365" Width="1.148" />
+  </Comment>
+  <Comment CommentText="Even calculated fields needs a target.&#xD;&#xA;Otherwise we need Name and Type in the MappedProperty">
+    <Position X="7.827" Y="16.823" Height="1.236" Width="1.697" />
+  </Comment>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.Application">
+    <Position X="3" Y="1" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAQAAIAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Application.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Versions" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.ReportInterfaceProperty">
+    <Position X="3" Y="4" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAQAAAAAAACAQEABAA=</HashCode>
+      <FileName>Domain\ReportInterfaceProperty.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.Query">
+    <Position X="3.25" Y="7.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="Properties" Type="Cdc.MetaManager.DataAccess.Domain.QueryProperty">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.078" Y="0.226" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAICAAAAAAAQAABEAAAAAAQEAAAAACAAAIAAAAACAAE=</HashCode>
+      <FileName>Domain\Query.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Properties" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.StoredProcedure">
+    <Position X="5.5" Y="8" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="Properties" Type="Cdc.MetaManager.DataAccess.Domain.ProcedureProperty">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.119" Y="0.289" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Package" Type="Cdc.MetaManager.DataAccess.Domain.Package">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.099" Y="0.207" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAICAAAAACAAAAAEgAAQAAAAAAAAAAAAAKAgAAACIAA=</HashCode>
+      <FileName>Domain\StoredProcedure.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Package" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Properties" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.1" Collapsed="true" />
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.DbProperty">
+    <Position X="3.5" Y="12.5" Width="1.5" />
+    <AssociationLine Name="PropertyType" Type="Cdc.MetaManager.DataAccess.Domain.DbPropertyType">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.017" Y="0.091" Height="0.182" Width="1.118" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAECAAAAAAAAAAAAAAIAAARAAAIAAAAAAQACaAEAEAA=</HashCode>
+      <FileName>Domain\DbProperty.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="PropertyType" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.MappedProperty">
+    <Position X="8.75" Y="11" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>ABAKACgQUgKgABgEAAMAECQAAAJEBAgkQRIEQAEQCBA=</HashCode>
+      <FileName>Domain\MappedProperty.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Left" Position="0.227" />
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.PropertyMap">
+    <Position X="8.25" Y="8.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="MappedProperties" Type="Cdc.MetaManager.DataAccess.Domain.MappedProperty">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-0.766" Y="0.258" Height="0.182" Width="1.43" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACBAAAAAQAAAAEAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\PropertyMap.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="MappedProperties" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.Action">
+    <Position X="8.25" Y="4.75" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="RequestMap" Type="Cdc.MetaManager.DataAccess.Domain.PropertyMap">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.091" Y="0.068" Height="0.182" Width="1.108" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="ResponseMap" Type="Cdc.MetaManager.DataAccess.Domain.PropertyMap">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-1.537" Y="0.13" Height="0.182" Width="1.358" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AACCABQAgAIAQAQEAAAAEAQAgAAAAAhgAIAIAACAAAA=</HashCode>
+      <FileName>Domain\Action.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="RequestMap" />
+      <Property Name="ResponseMap" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.Application">
+    <Position X="8.25" Y="1" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="Application" Type="Cdc.MetaManager.DataAccess.Domain.Application">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.998" Y="0.11" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>IAACEAAAABAAAAAAAAAAAAQGAACAgAAEAAAgBAAAQCA=</HashCode>
+      <FileName>Domain\Application.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Application" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.Service">
+    <Position X="13" Y="1" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="Application" Type="Cdc.MetaManager.DataAccess.Domain.Application">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.61" Y="-0.378" Height="0.182" Width="1.472" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="ServiceMethods" Type="Cdc.MetaManager.DataAccess.Domain.ServiceMethod">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-0.825" Y="0.602" Height="0.182" Width="1.448" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAgAAAAAgAAAQAAAAAAAAAAAABAAAAAQA=</HashCode>
+      <FileName>Domain\Service.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Application" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="ServiceMethods" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.ServiceMethod">
+    <Position X="13" Y="5.75" Width="2" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="RequestMap" Type="Cdc.MetaManager.DataAccess.Domain.PropertyMap" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13" Y="7.5" />
+        <Point X="12.625" Y="7.5" />
+        <Point X="12.625" Y="9.503" />
+        <Point X="9.75" Y="9.503" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.474" Y="0.071" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="ResponseMap" Type="Cdc.MetaManager.DataAccess.Domain.PropertyMap" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13" Y="6.938" />
+        <Point X="12.023" Y="6.938" />
+        <Point X="12.023" Y="8.97" />
+        <Point X="9.75" Y="8.97" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.495" Y="0.047" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="MappedToAction" Type="Cdc.MetaManager.DataAccess.Domain.Action">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.214" Y="0.112" Height="0.182" Width="2.152" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAQAAEAAAAAAQAgBAAUAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\ServiceMethod.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="RequestMap" />
+      <Property Name="ResponseMap" />
+      <Property Name="MappedToAction" />
+    </ShowAsAssociation>
+    <Lollipop Orientation="Left" Position="0.1" />
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.Property">
+    <Position X="13" Y="8.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAACAAIAABKiAAAEAQAgAAUAAAABCBYAAQAGABIAAAA=</HashCode>
+      <FileName>Domain\Property.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.QueryProperty" HideInheritanceLine="true">
+    <Position X="3.25" Y="10.75" Width="1.5" />
+    <AssociationLine Name="Query" Type="Cdc.MetaManager.DataAccess.Domain.Query">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.358" Y="0.206" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\QueryProperty.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Query" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.ProcedureProperty" HideInheritanceLine="true">
+    <Position X="5.75" Y="11" Width="1.5" />
+    <AssociationLine Name="StoredProcedure" Type="Cdc.MetaManager.DataAccess.Domain.StoredProcedure">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.015" Y="0.394" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAEAQAAAAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\ProcedureProperty.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="StoredProcedure" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.Package">
+    <Position X="5.75" Y="4.5" Width="1.5" />
+    <AssociationLine Name="Procedures" Type="Cdc.MetaManager.DataAccess.Domain.StoredProcedure">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.015" Y="0.279" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAQIAwAEEAAAAAAQEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Package.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Procedures" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Interface Name="Cdc.MetaManager.DataAccess.IMappableProperty">
+    <Position X="0.75" Y="10.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>IMappableProperty.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Cdc.MetaManager.DataAccess.IMappableObject">
+    <Position X="0.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>IMappableObject.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Cdc.MetaManager.DataAccess.IValueConverter">
+    <Position X="0.75" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IValueConverter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Cdc.MetaManager.DataAccess.IValueCalculator">
+    <Position X="0.75" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IValueCalculator.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Cdc.MetaManager.DataAccess.Domain.DbPropertyType">
+    <Position X="6.5" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAQAEAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>Domain\DbPropertyType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Cdc.MetaManager.DataAccess.Domain.ActionMapTarget">
+    <Position X="11.5" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\ActionMapTarget.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

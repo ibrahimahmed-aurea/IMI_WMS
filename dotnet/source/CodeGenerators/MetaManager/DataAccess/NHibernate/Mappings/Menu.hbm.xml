@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Cdc.MetaManager.DataAccess.Domain.Menu, Cdc.MetaManager.DataAccess" table="Menu">
+    <id name="Id" type="System.Guid">
+      <column name="Id" not-null="true"/>
+      <generator class="assigned"/>
+    </id>
+    <many-to-one name="TopMenuItem" class="Cdc.MetaManager.DataAccess.Domain.MenuItem, Cdc.MetaManager.DataAccess" foreign-key="FK_Menu_MenuItem" cascade="all">
+      <column name="TopMenuItemId" not-null="true"/>
+    </many-to-one>
+    <bag name="MenuItems" inverse="true" lazy="true" cascade="all-delete-orphan">
+      <key column="MenuId"/>
+      <one-to-many class="Cdc.MetaManager.DataAccess.Domain.MenuItem, Cdc.MetaManager.DataAccess"/>
+    </bag>
+    <many-to-one name="Application" class="Cdc.MetaManager.DataAccess.Domain.Application, Cdc.MetaManager.DataAccess" foreign-key="FK_Menu_Application">
+      <column name="ApplicationId" not-null="true"/>
+    </many-to-one>
+    <property name="IsLocked" type="Boolean">
+      <column name="IsLocked" not-null="false"/>
+    </property>
+    <property name="LockedBy" type="String">
+      <column name="LockedBy" length="40" not-null="false"/>
+    </property>
+    <property name="LockedDate" type="System.DateTime">
+      <column name="LockedDate" not-null="false"/>
+    </property>
+    <property name="State" type="Int32">
+      <column name="State" not-null="true"/>
+    </property>
+  </class>
+</hibernate-mapping>

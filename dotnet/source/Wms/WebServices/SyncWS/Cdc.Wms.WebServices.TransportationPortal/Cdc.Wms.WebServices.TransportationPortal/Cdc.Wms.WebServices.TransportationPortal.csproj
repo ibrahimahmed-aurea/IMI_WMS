@@ -1,0 +1,73 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D96DACD9-4F27-42C6-A547-FBDBB62CC567}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cdc.Wms.WebServices.TransportationPortal</RootNamespace>
+    <AssemblyName>Cdc.Wms.WebServices.TransportationPortal</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Oracle.DataAccess, Version=2.111.7.20, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86" ><SpecificVersion>False</SpecificVersion></Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataReader\WarehouseReader.cs" />
+    <Compile Include="Interface\baseParameters.cs" />
+    <Compile Include="Interface\Interface.cs" />
+    <Compile Include="Interface\InterfacePartial.cs" />
+    <Compile Include="Interface\FindDepartureRouteResponse.cs" />
+    <Compile Include="Interface\ITransportationPortal.cs" />
+    <Compile Include="Interface\Route.cs" />
+    <Compile Include="Interface\RouteStop.cs" />
+    <Compile Include="Interface\searchResult.cs" />
+    <Compile Include="Package\WebServicesTransport.cs" />
+    <Compile Include="Package\WebServicesTransportPartial.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\TransportationPortal.cs" />
+    <Compile Include="TransportationPortalWebService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\Framework\Job\Framework.Job.csproj">
+      <Project>{BBCF9DA2-8238-4CB2-A191-562FC9937DD1}</Project>
+      <Name>Framework.Job</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Wms.WebServices.SyncWS.Framework\Wms.WebServices.SyncWS.Framework.csproj">
+      <Project>{AE015EBE-AE94-439A-A6B5-2E90091425D3}</Project>
+      <Name>Wms.WebServices.SyncWS.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

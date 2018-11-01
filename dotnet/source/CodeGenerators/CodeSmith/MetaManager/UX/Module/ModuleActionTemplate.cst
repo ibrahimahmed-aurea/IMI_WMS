@@ -1,0 +1,131 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Register Name="ModuleServiceMethodActionTemplate" Template="ModuleServiceMethodActionTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="ModuleDialogActionTemplate" Template="ModuleDialogActionTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="ModuleWorkflowActionTemplate" Template="ModuleWorkflowActionTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="module" Type="Cdc.MetaManager.DataAccess.Domain.Module" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="action" Type="Cdc.MetaManager.DataAccess.Domain.UXAction" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="backendApplication" Type="Cdc.MetaManager.DataAccess.Domain.Application" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isDrillDownAction" Type="System.Boolean" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isJumpToAction" Type="System.Boolean" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isAdapted" Type="System.Boolean" Default="false" Optional="false" Category="" Description="" %>
+<%
+	if (action.MappedToObject != null)
+	{
+		if (action.MappedToObject.ActionType == UXActionType.ServiceMethod)
+		{
+			ModuleServiceMethodActionTemplate moduleServiceMethodActionTemplate = this.Create<ModuleServiceMethodActionTemplate>();
+			moduleServiceMethodActionTemplate.SetProperty("module", module);
+			moduleServiceMethodActionTemplate.SetProperty("action", action);
+			moduleServiceMethodActionTemplate.SetProperty("isAdapted", isAdapted);
+			moduleServiceMethodActionTemplate.Render(this.Response);	
+		}
+		else if (action.MappedToObject.ActionType == UXActionType.Dialog)
+		{
+			ModuleDialogActionTemplate moduleDialogActionTemplate = this.Create<ModuleDialogActionTemplate>();
+			moduleDialogActionTemplate.SetProperty("module", module);
+			moduleDialogActionTemplate.SetProperty("action", action);
+			moduleDialogActionTemplate.SetProperty("isDrillDownAction", isDrillDownAction);
+			moduleDialogActionTemplate.SetProperty("isJumpToAction", isJumpToAction);
+			moduleDialogActionTemplate.SetProperty("isAdapted", isAdapted);
+			moduleDialogActionTemplate.Render(this.Response);	
+			
+		}
+		else if (action.MappedToObject.ActionType == UXActionType.Workflow)
+		{
+			ModuleWorkflowActionTemplate moduleWorkflowActionTemplate = this.Create<ModuleWorkflowActionTemplate>();
+			moduleWorkflowActionTemplate.SetProperty("module", module);
+			moduleWorkflowActionTemplate.SetProperty("action", action);
+			moduleWorkflowActionTemplate.SetProperty("backendApplication", backendApplication);
+			moduleWorkflowActionTemplate.SetProperty("isAdapted", isAdapted);
+			moduleWorkflowActionTemplate.Render(this.Response);	
+		}
+	}
+	else
+	{
+%>		
+using System;
+using Microsoft.Practices.CompositeUI;
+using Microsoft.Practices.ObjectBuilder;
+using Imi.Framework.UX;
+using Imi.Framework.UX.Services;
+using Imi.SupplyChain.UX;
+
+namespace <%=GetActionsNamespace(module)%>
+{
+<%
+if (!isAdapted)
+{
+%>
+	//Extract the following class to <%=GetActionClassName(action)%>Adapted.cs in order to customize its behavior    
+	public class <%=GetActionClassName(action)%> : <%=GetActionBaseClassName(action)%>
+    {
+			
+	}
+<%
+}
+%>
+
+	public class <%=GetActionBaseClassName(action)%> : IBuilderAware
+    {
+		[ServiceDependency]
+		public IActionCatalogService ActionCatalog
+		{
+			get;
+			set;
+		}
+				
+        public virtual void On<%= action.Name %>(WorkItem context, object caller, object target)
+        {
+            if (context.Items.Contains("<%=GetWorkItemConstantIgnoreClose()%>"))
+                context.Items.Remove(context.Items["<%=GetWorkItemConstantIgnoreClose()%>"]);
+				
+			if (context.Items.Contains("DialogResult"))
+            	context.Items.Remove(context.Items["DialogResult"]);
+				
+<%
+		if (action.DialogResult == UXDialogResult.Cancel)
+		{
+%>
+			context.Items.Add(DialogResult.Cancel, "DialogResult");
+<%
+		}
+		else if (action.DialogResult == UXDialogResult.Ok)
+		{
+%>
+			context.Items.Add(DialogResult.Ok, "DialogResult");
+<%
+		}
+		else
+		{
+%>
+			context.Items.Add(DialogResult.None, "DialogResult");
+<%
+		}
+%>
+		}
+		
+		public virtual void OnBuiltUp(string id)
+        {
+			ActionCatalog.RegisterActionImplementation(ActionNames.<%= action.Name %>, On<%= action.Name %>); 
+        }
+
+        public virtual void OnTearingDown()
+        {
+            ActionCatalog.RemoveActionImplementation(ActionNames.<%= action.Name %>);
+        }
+	}
+}
+		
+<%
+	}
+%>

@@ -1,0 +1,116 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="ServiceTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="propertyMap" Type="Cdc.MetaManager.DataAccess.Domain.PropertyMap" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isRequest" Type="System.Boolean" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isQuery" Type="System.Boolean" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="rowTrackingId" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isMessageHandlingEnabled" Type="System.Boolean" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isMultiEnabled" Type="System.Boolean" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isSortable" Type="System.Boolean" Default="" Optional="false" Category="" Description="" %>
+<%
+  	if(propertyMap == null)
+    	return;
+
+  	if(propertyMap.MappedProperties == null)
+    	return;
+
+  	int orderIdx = 0;
+  
+  	foreach(MappedProperty mapProp in propertyMap.MappedProperties)
+  	{
+		orderIdx++;
+		string dataType = GetShortTypeName(mapProp);
+		
+		string publicName = mapProp.Name;
+	
+		if (string.IsNullOrEmpty(publicName))
+	  		publicName = mapProp.Target.Name;
+%>
+
+        [DataMember(Name = "<%=IndexToName(orderIdx)%>", Order = <%=orderIdx%>, IsRequired = <%=BoolToString(mapProp.IsMandatory)%>)]
+        public <%=dataType%> <%=publicName%> { get; set; }
+<%
+  	}
+
+  	if (isRequest && (isMessageHandlingEnabled == true) && !isMultiEnabled)
+  	{
+%>
+
+		[DataMember(Order = <%=orderIdx++%>, IsRequired = false)]
+		public string MessageXML { get; set; }
+<%
+  	}
+
+  	if (!isRequest && (isMessageHandlingEnabled == true))
+  	{
+%>
+
+		[DataMember(Order = <%=orderIdx++%>, IsRequired = false)]
+		public string InformationXML { get; set; }
+<%
+  	}
+
+  // Stored procedure result or
+  // Query parameters & results
+  	if(!string.IsNullOrEmpty(rowTrackingId))
+  	{
+%>
+
+		// TrackerId = "<%= rowTrackingId.ToUpper() %>";
+		[DataMember(Order = <%=orderIdx++%>, IsRequired = false)]
+<%
+		if (!isRequest && isQuery)
+		{
+%>
+		public string RowIdentity { get; set; }
+<%
+		}
+		else
+		{
+%>
+		public List<string> RowIdentities { get; set; }
+<%
+		}
+  	}
+
+	if (isSortable)
+	{
+%>
+		[DataMember(Order = <%=orderIdx++%>, IsRequired = false)]
+        public long SortIndex_GUI { get; set; }
+<%
+	}
+%>
+<script runat="template">
+   
+	private static string IndexToName(int index)
+    {
+        string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+        // Calculate the letters.
+        string result = "";
+        while (index > 0)
+        {
+            // Get the least significant digit.
+            index -= 1;
+            int digit = index % 52;
+
+            // Convert the digit into a letter.
+            result = chars[digit] + result;
+
+            index = (int)(index / 52);
+        }
+
+        return result;
+    }
+
+	
+</script>

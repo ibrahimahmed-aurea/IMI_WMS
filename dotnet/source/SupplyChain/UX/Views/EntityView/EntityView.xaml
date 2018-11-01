@@ -1,0 +1,46 @@
+<ribbon:RibbonWindow x:Class="Imi.SupplyChain.UX.Views.EntityView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:Imi.Framework.Wpf.Data.Converters;assembly=Imi.Framework.Wpf.Data"
+    xmlns:ribbon="http://schemas.actiprosoftware.com/winfx/xaml/ribbon"
+    xmlns:local="clr-namespace:Imi.SupplyChain.UX.Views"
+    xmlns:themes="http://schemas.actiprosoftware.com/winfx/xaml/themes"
+    xmlns:resources="clr-namespace:Imi.SupplyChain.UX;assembly=Imi.SupplyChain.UX"
+    xmlns:localResources="clr-namespace:Imi.SupplyChain.UX"
+    xmlns:controls="clr-namespace:Imi.Framework.Wpf.Controls;assembly=Imi.Framework.Wpf.Controls"
+    xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+	DocumentName="{x:Static localResources:StringResources.EntityView_Header}"
+    Width="800"
+    Height="500"
+    HorizontalAlignment="Center"
+    VerticalAlignment="Center"
+    ShowInTaskbar="False"
+    ResizeMode="CanResizeWithGrip"
+    IsMaximizeButtonVisible="True"
+    IsMinimizeButtonVisible="False"
+    WindowStartupLocation="CenterScreen"
+    TextOptions.TextFormattingMode="Display">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Imi.SupplyChain.UX;component/Resources/generic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <converters:StringFormatConverter x:Key="stringFormatConverter" />
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Focusable="False" Width="Auto" Height="Auto">
+        <controls:DataGrid 
+          x:Name="EntityGrid" 
+          ItemsSource="{Binding Mode=OneWay}" 
+          Title="{x:Static localResources:StringResources.EntityView_Header}" 
+          SelectionUnit="Cell"
+          SelectionMode="Single"
+          NavigationBehavior="CellOnly"
+          DataExport="Grid_DataExport">
+            <controls:DataGrid.View>
+                <xcdg:TableView ShowRowSelectorPane="False" ColumnVirtualizationMode="Virtualizing"/>
+            </controls:DataGrid.View>
+        </controls:DataGrid>
+    </Grid>
+</ribbon:RibbonWindow>

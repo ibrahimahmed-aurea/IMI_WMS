@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://Cdc.SupplyChain.Services.System.Session.DataContracts/2007/05" elementFormDefault="qualified" targetNamespace="http://Cdc.SupplyChain.Services.System.Session.DataContracts/2007/05" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="CreateSessionParams">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="LanguageCode" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CreateSessionParams" nillable="true" type="tns:CreateSessionParams" />
+  <xs:complexType name="CreateSessionResultParams">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="SessionId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CreateSessionResultParams" nillable="true" type="tns:CreateSessionResultParams" />
+  <xs:complexType name="AbortTransactionParams">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="TransactionId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AbortTransactionParams" nillable="true" type="tns:AbortTransactionParams" />
+</xs:schema>

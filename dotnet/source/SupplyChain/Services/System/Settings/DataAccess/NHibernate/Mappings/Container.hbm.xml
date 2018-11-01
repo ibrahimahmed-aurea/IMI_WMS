@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Imi.SupplyChain.Settings.BusinessEntities.Container, Imi.SupplyChain.Settings.BusinessEntities" table="Container">
+    <id name="Id" type="Int32">
+      <column name="Id" not-null="true"/>
+      <generator class="native"/>
+    </id>
+    <property name="Name" type="String" unique-key="Unq_Container_Name">
+      <column name="Name" length="512" not-null="true"/>
+    </property>
+    <property name="LastModified" type="System.DateTime">
+      <column name="LastModified" not-null="false"/>
+    </property>
+    <bag name="MetaData" inverse="false" lazy="false" cascade="all-delete-orphan">
+      <key column="ContainerId"/>
+      <one-to-many class="Imi.SupplyChain.Settings.BusinessEntities.ContainerMetaData, Imi.SupplyChain.Settings.BusinessEntities"/>
+    </bag>
+    <bag name="Blobs" inverse="true" lazy="true" cascade="all-delete-orphan">
+      <key column="ContainerId"/>
+      <one-to-many class="Imi.SupplyChain.Settings.BusinessEntities.Blob, Imi.SupplyChain.Settings.BusinessEntities"/>
+    </bag>
+  </class>
+</hibernate-mapping>

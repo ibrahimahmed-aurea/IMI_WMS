@@ -1,0 +1,1106 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Assembly Name="Cdc.MetaManager.BusinessLogic" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain.VisualModel" %>
+<%@ Import Namespace="Cdc.MetaManager.BusinessLogic.Helpers" %>
+<%@ Register Name="PropertyMapTemplate" Template="..\PropertyMapTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Property Name="dialog" Type="Cdc.MetaManager.DataAccess.Domain.Dialog" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isAdapted" Type="System.Boolean" Default="false" Optional="false" Category="" Description="" %>
+<%
+	string dialogNamespace = GetDialogNamespace(dialog);
+	string controllerClassName = GetControllerClassName(dialog);
+    string controllerBaseClassName = GetControllerBaseClassName(dialog);
+	string eventAggregatorClassName = GetEventAggregatorClassName(dialog);
+	string actionsNamespace = GetActionsNamespace(dialog.Module);
+	string dialogActionsClassName = GetDialogActionsClassName(dialog);
+	string userSessionName = GetUserSessionName(dialog.Module.Application);
+	string userSessionNamespace = GetUserSessionNamespace(dialog.Module.Application);
+	string viewParametersClassName = null;
+	string applicationName = dialog.Module.Application.Name;
+	
+	ViewNode mainNode = null;
+
+    if(dialog.InterfaceView != null)
+    {
+        foreach (ViewNode viewNode in dialog.ViewNodes)
+        {
+            if (viewNode.View == dialog.InterfaceView)
+            {
+                mainNode = viewNode;
+                break;
+            }
+        }
+    }
+    else
+    {
+        if(dialog.ViewNodes.Count >= 2)
+        {
+            mainNode = dialog.ViewNodes[1];
+        }
+        else
+        {
+            mainNode = dialog.ViewNodes[0];
+        }
+    }
+	
+	viewParametersClassName = GetViewParametersClassName(mainNode.View);
+		
+	List<ViewNode> sortedDialogViewNodes = SortViewNodesBySequence(dialog.ViewNodes);
+
+%>
+using System;
+using System.Linq;
+using System.ServiceModel;
+using System.Reflection;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Text;
+using System.Windows;
+using System.Windows.Threading;
+using Microsoft.Practices.CompositeUI;
+using Microsoft.Practices.CompositeUI.SmartParts;
+using Microsoft.Practices.CompositeUI.EventBroker;
+using Imi.Framework.UX;
+using Imi.Framework.UX.Services;
+using Imi.SupplyChain.UX.Infrastructure;
+using Imi.SupplyChain.UX.Infrastructure.Services;
+using Imi.SupplyChain.UX;
+using Imi.SupplyChain.UX.Workflow;
+using Imi.SupplyChain.UX.Services;
+using Imi.SupplyChain.UX.Views;
+using <%=GetModuleConstantsNamespace(dialog.Module)%>;
+using <%= userSessionNamespace %>;
+<%
+foreach (View view in FindViewDependencies(dialog, mainNode))
+{
+%>
+using <%= GetViewsNamespace(view) %>;
+<%
+}
+
+if (NeedsViewTranslators(dialog))
+{
+%>
+using <%=GetViewTranslatorNamespace(dialog)%>;
+<%
+}
+%>
+
+namespace <%= dialogNamespace %>
+{
+<%
+if (!isAdapted)
+{
+%>
+	//Extract the following class to <%= controllerClassName %>Adapted.cs in order to customize its behavior    	
+	public class <%= controllerClassName %> : <%= controllerBaseClassName %>
+    {
+	
+	}  
+<%
+}
+%>
+
+	public class <%= controllerBaseClassName %> : WorkItemController
+    {
+        protected bool runInCurrentWorkspace;
+		protected IMasterDetailView masterDetailView;
+        protected IWorkspace dialogWorkspace;
+        protected IDialogView dialogView;
+		protected ActionProviderService actionProviderService;
+		protected UXSettingsService settingsService;
+		protected <%=viewParametersClassName%> parameters;
+<%
+	if (dialog.SearchPanelView != null && dialog.SearchPanelView.VisualTree != null)
+	{
+%>
+		protected <%=GetViewInterfaceName(dialog.SearchPanelView)%> searchPanelView;
+<%
+	}
+	
+foreach (ViewNode viewNode in sortedDialogViewNodes)
+{
+	if ((viewNode.View.VisualTree == null) && (viewNode.View.Type == ViewType.Standard))
+		continue;
+    
+	if (viewNode.RenderMode == RenderMode.Inline)
+	{
+%>
+		protected <%=GetViewResultClassName(viewNode.View)%> <%=ToCamelCase(GetViewResultClassName(viewNode.View))%>;
+		protected IInlineDetailView inline<%=GetViewClassName(viewNode.View)%>;
+<%
+	}
+	else
+	{
+%>
+		protected DynamicViewLoader <%=ToCamelCase(GetViewClassName(viewNode.View))%>Loader;
+<%
+	}
+%>
+		protected <%=GetViewInterfaceName(viewNode.View)%> <%=ToCamelCase(GetViewClassName(viewNode.View))%>;
+<%
+	
+}
+%>
+    
+        [EventPublication(EventTopicNames.<%=dialog.Name%>DialogClosed, PublicationScope.WorkItem)]
+        public event EventHandler<DataEventArgs<DialogResult>> DialogClosed;
+		
+		[ServiceDependency]
+        public IShellInteractionService ShellInteractionService
+        {
+            get;
+            set;
+        }
+		
+		[ServiceDependency]
+		public IActionCatalogService ActionCatalog
+		{
+			get;
+			set;
+		}
+        
+        [ServiceDependency]
+        public <%= userSessionName %> UserSessionService { get; set; }
+		
+		public override void Run()
+        {
+            Run(null);
+        }
+		
+		public virtual void Run(<%=viewParametersClassName%> parameters)
+		{
+<%
+		if (dialog.Type == DialogType.Overview)
+		{
+%>	
+			Run(parameters, false);	
+<%
+		}
+		else
+		{
+%>
+			Run(parameters, true);	
+<%
+		}
+%>
+		}
+		
+		public virtual void Run(<%=viewParametersClassName%> parameters, bool runInCurrentWorkspace)
+        {
+			this.runInCurrentWorkspace = runInCurrentWorkspace;
+			this.parameters = parameters;
+			
+			WorkItem.Items.Add(DialogType.<%=dialog.Type.ToString()%>, "DialogType");
+			
+			if (!runInCurrentWorkspace)
+				dialogView = WorkItem.SmartParts.AddNew<DialogView>();
+				
+			dialogWorkspace = WorkItem.Workspaces["dialogWorkspace"];
+					
+			AddServices();
+			RegisterActions();
+			BuildViews();
+			CreateEventAggregator();
+				
+            masterDetailView = WorkItem.SmartParts.AddNew<MasterDetailView>();
+			
+<%
+if (mainNode != null)
+{
+		if ((dialog.SearchPanelView != null) && (dialog.SearchPanelView.VisualTree != null))
+		{
+%>
+			if (!runInCurrentWorkspace)
+				masterDetailView.ShowInSearchWorkspace(searchPanelView);
+						
+<%
+		}
+%>					
+            masterDetailView.ShowInMasterWorkspace(<%=ToCamelCase(GetViewClassName(mainNode.View))%>Loader);
+                
+		    object firstDetailView = null;
+<%
+	bool isFirstView = true;
+	
+	List<ViewNode> sortedMainNodeViewNodes = SortViewNodesBySequence(mainNode.Children);
+	
+	foreach (ViewNode childNode in sortedMainNodeViewNodes)
+	{		
+		if ((childNode.View.VisualTree == null) && (childNode.View.Type == ViewType.Standard))
+			continue;
+		
+		if (childNode.RenderMode == RenderMode.Inline)
+			continue;
+			
+		if (isFirstView)
+		{
+%>
+
+            firstDetailView = <%=ToCamelCase(GetViewClassName(childNode.View))%>Loader;
+			
+            if (firstDetailView != null)
+        	    masterDetailView.ShowInDetailWorkspace(firstDetailView);
+<%
+		}
+		else
+		{
+			string variableName = string.Format("{0}Loader", ToCamelCase(GetViewClassName(childNode.View)));
+					
+%>
+
+			if (<%= variableName %> != null)
+        	    masterDetailView.ShowInDetailWorkspace(<%= variableName %>);
+<%
+		}
+		
+	  	isFirstView = false;
+	}
+%>
+			
+			//To make first detail view selected at start up
+            if (firstDetailView != null)
+                masterDetailView.ShowInDetailWorkspace(firstDetailView);
+            				
+			SmartPartInfo info = new SmartPartInfo(<%=GetResourceReference(dialog, "Title")%>, "");
+            dialogWorkspace.Show(masterDetailView, info);
+
+			if (runInCurrentWorkspace)
+			{
+				dialogWorkspace.SmartPartClosing += SmartPartClosingEventHandler;
+			}
+			else
+			{
+				ShellInteractionService.SmartPartClosing += SmartPartClosingEventHandler;
+				ShellInteractionService.Show(dialogView, info);
+			}
+			
+			WorkItem.Terminated += (s, e) =>
+            {
+				ShellInteractionService.SmartPartClosing -= SmartPartClosingEventHandler;
+				dialogWorkspace.SmartPartClosing -= SmartPartClosingEventHandler;
+				dialogWorkspace.Close(masterDetailView);
+				
+				DialogResult result = DialogResult.None;
+				
+				if (WorkItem.Items.Get("DialogResult") != null) 
+			    	result = (DialogResult)WorkItem.Items.Get("DialogResult");
+				
+				EventTopic eventTopic = WorkItem.EventTopics.Get(EventTopicNames.<%=dialog.Name%>DialogClosed);
+				eventTopic.Fire(this, new DataEventArgs<DialogResult>(result), WorkItem.Parent, PublicationScope.WorkItem);
+            };
+						
+			WorkItem.Terminating += (s, e) =>
+            {
+                try
+				{
+					settingsService.SaveSettings();
+				}
+				catch
+				{
+				}
+            };
+			
+			settingsService.SettingsApplied += SettingsAppliedEventHandler;
+			
+			try
+			{
+	           settingsService.LoadSettings();
+			}
+			catch
+			{
+			}
+			
+            base.Run();
+	    }
+<%
+} 
+
+if ((dialog.SearchPanelView != null) && (dialog.SearchPanelView.VisualTree != null))
+{
+	string resultClassName = GetViewResultClassName(dialog.SearchPanelView);
+	string viewNamespace = GetViewsConstantsNamespace(dialog.SearchPanelView);
+	string searchPanelClassName = GetViewClassName(dialog.SearchPanelView);
+%>
+		protected virtual void InitializeSearchPanel(<%=viewParametersClassName%> parameters)
+		{
+			<%=resultClassName%> result = new <%=resultClassName%>();
+			
+			if (parameters != null)
+            {
+<%			foreach (MappedProperty property in mainNode.View.RequestMap.MappedProperties)
+			{
+%>
+				result.<%=property.Name%> = parameters.<%=property.Name%>;	
+<%
+					
+			}
+%>
+				
+				//Set isModified to indicate that the searchpanel is called from a Jump to or Link
+				result.IsModified = true;
+			}
+			
+			searchPanelView.PresentData(result);
+			searchPanelView.SetFocus();
+		}
+				
+		[EventSubscription(<%=viewNamespace%>.EventTopicNames.<%=searchPanelClassName%>SearchExecutedTopic)]
+        public virtual void <%=searchPanelClassName%>SearchExecutedEventHandler(object sender, DataEventArgs<<%=resultClassName%>> eventArgs)
+        {
+			if (eventArgs.Data == null)
+			{
+				InitializeSearchPanel(null);	
+				<%=ToCamelCase(GetViewClassName(mainNode.View))%>.Update(null);
+			}
+		}
+<%
+	if (dialog.Type == DialogType.Overview || dialog.Type == DialogType.Drilldown)
+	{
+%>			
+		
+		[EventSubscription(UXEventTopicNames.UserSettingsChangedTopic)]
+        public virtual void UserSettingsChangedEventHandler(object sender, UserSettingsChangedEventArgs e)
+        {
+            if (WorkItem.Items.Get<string>("ModuleId") == "Dashboard")
+			{
+				return;
+			}
+			
+			if (e.ForceClose)
+			{
+				foreach (var workItem in WorkItem.WorkItems.ToArray())
+				{
+					workItem.Value.Terminate();
+				}
+				
+				if (WorkItem.WorkItems.Count == 0)
+				{
+<%
+		if ((dialog.SearchPanelView != null) && (dialog.SearchPanelView.VisualTree != null))
+		{
+%>			
+					InitializeSearchPanel(null);
+<%
+		}
+%>
+            		<%=ToCamelCase(GetViewClassName(mainNode.View))%>.Update(null);
+				}				
+			}
+			else
+			{
+				foreach (var workItem in WorkItem.GetDescendants())
+        		{
+					DialogType? dialogType = null;
+					
+					if (workItem.Items.FindByType<DialogType>().Count() > 0)
+					{
+						dialogType = workItem.Items.FindByType<DialogType>().Last();
+					}
+					
+					if (dialogType == DialogType.Create || dialogType == DialogType.Modify)
+					{
+						e.OpenDialogs.Add(<%=GetResourceReference(dialog, "Title")%>);
+						break;
+					}
+				}
+			}
+		}
+<%		
+	}
+	
+	if (dialog.Type == DialogType.Overview)
+	{
+%>		
+		
+		[EventSubscription(<%=viewNamespace%>.EventTopicNames.<%=searchPanelClassName%>AddToFavoritesTopic)]
+        public virtual void <%=searchPanelClassName%>AddToFavoritesEventHandler(object sender, DataEventArgs<<%=resultClassName%>> eventArgs)
+        {
+           ShellInteractionService.AddToFavorites(HyperlinkHelper.CreateFavoritesItem(
+				<%=GetResourceReference(dialog, "Title")%>, 
+				"<%=dialog.Id%>",
+				<%=GetModuleConstantsNamespace(dialog.Module)%>.EventTopicNames.Show<%=dialog.Name%>Dialog,
+				Assembly.GetExecutingAssembly().ManifestModule.Name,
+				eventArgs.Data));
+		}
+				
+		[EventSubscription(<%=viewNamespace%>.EventTopicNames.CreateHyperlinkTopic)]
+        public virtual void CreateHyperlinkEventHandler(object sender, DataEventArgs<object> eventArgs)
+        {
+			//Fix to use searchpanel values in hyper link. 
+            if (WorkItem.Items.Get<string>("ModuleId") == "Dashboard")
+            {
+                <%=resultClassName%> searchPanelParameters = WorkItem.Items.FindByType<<%=resultClassName%>>().LastOrDefault();
+
+                if (searchPanelParameters != null)
+                {
+                    eventArgs.Data = searchPanelParameters;
+                }
+            }
+
+			ShellHyperlink hyperlink = HyperlinkHelper.CreateShellHyperlink(WorkItem, "<%=applicationName%>", "<%=dialog.Id%>", <%=GetResourceReference(dialog, "Title")%>, eventArgs.Data);
+			eventArgs.Data = hyperlink;
+		}
+		
+<%
+	}
+}
+	if (mainNode != null)
+	{
+%>	
+
+		protected virtual void SettingsAppliedEventHandler(object sender, SettingsAppliedEventArgs e)
+        {
+<%
+		if ((dialog.SearchPanelView != null) && (dialog.SearchPanelView.VisualTree != null))
+		{
+%>
+			if (e.Target.GetType().Name == "SearchPanel")
+            {
+                searchPanelView.IsVisible = true;
+				InitializeSearchPanel(parameters);
+            }
+<%
+		}
+%>
+        }		
+						
+		public virtual void Activate()
+        {
+			Activate(null);
+		}
+		
+		public virtual void Activate(<%=viewParametersClassName%> parameters) 
+        {
+ 			if (runInCurrentWorkspace)
+			{
+				dialogWorkspace.Show(masterDetailView);
+			}
+			else
+			{
+				if (parameters != null)
+				{
+<%
+				if ((dialog.SearchPanelView != null) && (dialog.SearchPanelView.VisualTree != null))
+				{
+%>
+					InitializeSearchPanel(parameters);	
+<%
+				}
+%>				
+					<%=ToCamelCase(GetViewClassName(mainNode.View))%>.Update(parameters);
+				}
+				
+				ShellInteractionService.Show(dialogView);
+			}
+        }
+<%
+	}
+%>
+		
+		protected virtual void RegisterActions()
+		{
+			WorkItem.Items.AddNew<<%=dialogActionsClassName%>>();
+		}
+		
+		protected virtual void AddServices()
+		{
+			actionProviderService = new ActionProviderService("<%=applicationName%>"); 
+			WorkItem.Services.Add<IActionProviderService>(actionProviderService);
+
+			settingsService = new UXSettingsService("<%=dialogNamespace%>", true);
+			WorkItem.Services.Add<IUXSettingsService>(settingsService);
+		}
+				
+		protected virtual void BuildViews()
+		{
+<%		
+		if (dialog.SearchPanelView != null)
+		{
+%>			
+			searchPanelView = WorkItem.SmartParts.AddNew<<%=GetViewClassName(dialog.SearchPanelView)%>>();
+			searchPanelView.RefreshDataOnShow = false;
+			searchPanelView.IsVisible = false;
+			
+<%
+		}
+	
+	List<ViewAction> sortedActions;
+	
+	foreach (ViewNode viewNode in sortedDialogViewNodes)
+	{		
+		if ((viewNode.View.VisualTree == null) && (viewNode.View.Type == ViewType.Standard))
+			continue;
+			
+		if (viewNode.RenderMode == RenderMode.Inline)
+			continue;
+        
+		string viewFullName = string.Format("{0}.{1}", GetViewsNamespace(viewNode.View), GetViewInterfaceName(viewNode.View));
+		
+		if (viewNode.View.Type == ViewType.Custom)
+		{			
+			string assemblyName = viewNode.View.CustomDLLName;
+			string viewTypeName = viewNode.View.CustomClassName;
+			
+			if (assemblyName.ToUpper().EndsWith(".DLL"))
+				assemblyName = assemblyName.Remove(assemblyName.Length - 4);
+%>			
+            <%=ToCamelCase(GetViewClassName(viewNode.View))%>Loader = WorkItem.SmartParts.AddNew<DynamicViewLoader>("<%=viewFullName%>");
+			<%=ToCamelCase(GetViewClassName(viewNode.View))%>Loader.ViewType = Assembly.Load("<%=assemblyName%>").GetType("<%=viewTypeName%>");
+<%
+		}
+		else
+		{
+%>
+			<%=ToCamelCase(GetViewClassName(viewNode.View))%>Loader = WorkItem.SmartParts.AddNew<DynamicViewLoader>("<%=viewFullName%>");
+			<%=ToCamelCase(GetViewClassName(viewNode.View))%>Loader.ViewType = typeof(<%=GetViewClassName(viewNode.View)%>);
+<%
+		}
+		
+		if (((viewNode == mainNode) && ((dialog.Type == DialogType.Overview) || (dialog.Type == DialogType.Drilldown))) 
+			|| (viewNode.RenderMode == RenderMode.Inline))
+		{
+%>	
+            <%=ToCamelCase(GetViewClassName(viewNode.View))%>Loader.RefreshDataOnShow = false;
+<%
+	   	}
+		
+		if (viewNode == mainNode)
+		{
+%>
+    		if (parameters != null)
+				<%=ToCamelCase(GetViewClassName(viewNode.View))%>Loader.Update(parameters);
+				
+			<%=ToCamelCase(GetViewClassName(viewNode.View))%>Loader.IsDetailView = false;
+			<%=ToCamelCase(GetViewClassName(viewNode.View))%>Loader.Title = <%=GetResourceReference(dialog, "Title")%>;
+<%
+		}
+		else
+		{
+%>
+			<%=ToCamelCase(GetViewClassName(viewNode.View))%>Loader.Title = <%=GetViewTitleReference(viewNode)%>;
+<%
+			if (viewNode.Visibility != UXVisibility.Visible)
+			{	
+%>
+					<%=ToCamelCase(GetViewClassName(viewNode.View))%>Loader.IsVisible = false;
+<%
+			}
+		}
+%>
+			<%=ToCamelCase(GetViewClassName(viewNode.View))%>Loader.ViewLoaded += (s, e) =>
+				{
+					<%=ToCamelCase(GetViewClassName(viewNode.View))%> = e.Data as <%=GetViewInterfaceName(viewNode.View)%>;
+<%
+		foreach (ViewNode childNode in viewNode.Children)
+		{
+			if (childNode.RenderMode == RenderMode.Inline)
+			{
+				string childViewFullName = string.Format("{0}.{1}", GetViewsNamespace(childNode.View), GetViewInterfaceName(childNode.View));
+%>
+					<%=ToCamelCase(GetViewClassName(childNode.View))%> = WorkItem.SmartParts.AddNew<<%=GetViewClassName(childNode.View)%>>("<%=childViewFullName%>");
+					<%=ToCamelCase(GetViewClassName(childNode.View))%>.RefreshDataOnShow = false;
+					inline<%=GetViewClassName(childNode.View)%> = WorkItem.SmartParts.AddNew<InlineDetailView>();
+					inline<%=GetViewClassName(childNode.View)%>.ShowInDetailWorkspace(<%=ToCamelCase(GetViewClassName(childNode.View))%>);
+					<%=ToCamelCase(GetViewClassName(viewNode.View))%>.InlineDetailView = inline<%=GetViewClassName(childNode.View)%>; 
+<%
+				sortedActions = SortViewActionsBySequence(childNode.ViewActions);
+				
+				bool moveToNextLine;
+				foreach (ViewAction viewAction in sortedActions)
+				{
+					string proxyActionName = string.Format("{0}{1}", childNode.View.Name, viewAction.Action.Name);
+					moveToNextLine = viewAction.Action.DialogResult == UXDialogResult.UpdateMoveNext;
+%>
+					inline<%=GetViewClassName(childNode.View)%>.AddAction(WorkItem.Items.FindByType<<%=dialogActionsClassName%>>().First().<%=proxyActionName%>, <%=GetResourceReference(viewAction.Action, "Caption")%>, <%=moveToNextLine.ToString().ToLower()%>);
+<%
+				}
+				break;
+			}
+		}
+			
+		sortedActions = SortViewActionsBySequence(viewNode.ViewActions);
+            
+		foreach (ViewAction viewAction in sortedActions)
+		{
+			string proxyActionName = string.Format("{0}{1}", viewNode.View.Name, viewAction.Action.Name);
+			string proxyActionOperation = string.Format("{0}Operation", proxyActionName);
+			
+			//Only register in menu for normal or jump-to actions without hyperlink field
+			if (((viewAction.Type != ViewActionType.Drilldown) && ((viewAction.Type != ViewActionType.JumpTo)) && ((viewAction.Type != ViewActionType.OpenFile)))
+				|| ((viewAction.Type == ViewActionType.JumpTo) && (viewAction.DrilldownFieldMappedProperty == null)))
+			{
+%>
+					actionProviderService.RegisterAction(<%=ToCamelCase(GetViewClassName(viewNode.View))%>, WorkItem.Items.FindByType<<%=dialogActionsClassName%>>().First().<%=proxyActionName%>, <%=GetResourceReference(viewAction.Action, "Caption")%>, <%=dialogActionsClassName%>.<%=proxyActionOperation%>);
+<%	
+			}
+			else
+			{
+%>
+					actionProviderService.RegisterDrillDownAction(<%=ToCamelCase(GetViewClassName(viewNode.View))%>, WorkItem.Items.FindByType<<%=dialogActionsClassName%>>().First().<%=proxyActionName%>, <%=GetResourceReference(viewAction.Action, "Caption")%>, <%=dialogActionsClassName%>.<%=proxyActionOperation%>);
+<%
+				string fieldName = "??";
+				
+				if (viewAction.DrilldownFieldMappedProperty != null)
+				  fieldName = viewAction.DrilldownFieldMappedProperty.Name;
+
+				string fileContentFieldName = "??";
+
+				if (viewAction.FileContentMappedProperty != null)
+				  fileContentFieldName = viewAction.FileContentMappedProperty.Name;
+
+				if (viewAction.Type == ViewActionType.JumpTo)
+				{
+					// JumpTo						
+%>
+            		<%=ToCamelCase(GetViewClassName(viewNode.View))%>.EnableDrillDown(new DrillDownArgs() { FieldName = "<%= fieldName %>", Caption=<%=GetResourceReference(viewAction.Action, "Caption")%>, ActionId = WorkItem.Items.FindByType<<%=dialogActionsClassName%>>().First().<%=proxyActionName%>, Type = DrillDownType.JumpTo });
+<%	
+				}
+				else if (viewAction.Type == ViewActionType.OpenFile)
+				{
+					//Open File
+%>
+					<%=ToCamelCase(GetViewClassName(viewNode.View))%>.EnableDrillDown(new DrillDownArgs() { FieldName = "<%= fieldName %>", FileContentFieldName = "<%= fileContentFieldName %>", Caption=<%=GetResourceReference(viewAction.Action, "Caption")%>, ActionId = WorkItem.Items.FindByType<<%=dialogActionsClassName%>>().First().<%=proxyActionName%>, Type = DrillDownType.OpenFile });
+<%
+				}
+				else
+				{
+%>
+            		<%=ToCamelCase(GetViewClassName(viewNode.View))%>.EnableDrillDown(new DrillDownArgs() { FieldName = "<%= fieldName %>", Caption=<%=GetResourceReference(viewAction.Action, "Caption")%>, ActionId = WorkItem.Items.FindByType<<%=dialogActionsClassName%>>().First().<%=proxyActionName%> });
+<%	
+				}
+
+			}
+				
+			if (IsMultiEnabled(viewAction.Action))
+			{
+%>
+           			<%=ToCamelCase(GetViewClassName(viewNode.View))%>.SetMultiSelect(true);
+<%	
+			}
+		}
+%>
+				};
+				
+<%
+		
+	}
+%>
+		}
+		
+        protected virtual void SmartPartClosingEventHandler(object sender, WorkspaceCancelEventArgs e)
+        {
+            if (e.SmartPart == dialogView)
+            {
+				if (WorkItem.Status != WorkItemStatus.Terminated)
+					WorkItem.Terminate();
+            }
+            else if (e.SmartPart == masterDetailView)
+            {
+				if (WorkItem.Status != WorkItemStatus.Terminated)
+					WorkItem.Terminate();  
+            }
+        }
+        				
+		protected virtual void CreateEventAggregator()
+        {
+            WorkItem.Items.AddNew<<%= eventAggregatorClassName %>>();
+        }
+<%
+
+Dictionary<Workflow, List<View>> workflowList =  FindWorkflowDependencies(mainNode);
+
+foreach (KeyValuePair<Workflow, List<View>> pair in workflowList)
+{
+    Workflow currentWorkFlow = pair.Key;
+	List<View> currentViewList = pair.Value;
+	foreach (View currentView in currentViewList)
+	{
+	
+		string parametersClassName = GetViewParametersClassName(currentView);
+%>
+		
+		[EventSubscription("<%=currentWorkFlow.Name%>CompletedTopic")]
+		public void <%=currentWorkFlow.Name%>UpdatedEventHandler(object sender, DataEventArgs<WorkflowResult> eventArgs)
+		{
+			if (eventArgs.Data == WorkflowResult.Update)
+			{
+				if (WorkItem.Items.Contains("DialogResult"))
+            		WorkItem.Items.Remove(WorkItem.Items["DialogResult"]);
+				
+				WorkItem.Items.Add(DialogResult.Ok, "DialogResult");
+				
+				<%=ToCamelCase(GetViewClassName(currentView))%>.Refresh();
+			}
+		}
+<%	
+	}
+}
+foreach (Dialog subDialog in FindDialogDependencies(mainNode))
+{
+	View view = subDialog.InterfaceView;
+	string viewResultClassName = GetViewResultClassName(view);
+		
+	if (subDialog.Type == DialogType.Modify)
+	{
+%>
+		
+		[EventSubscription(<%=GetModuleConstantsNamespace(subDialog.Module)%>.EventTopicNames.<%=subDialog.Name%>DialogClosed)]
+        public void <%=subDialog.Name%>DialogClosedEventHandler(object sender, DataEventArgs<DialogResult> eventArgs)
+        {
+			DialogResult result = eventArgs.Data;
+			
+			if (result == DialogResult.Ok)
+			{
+				if (WorkItem.Items.Contains("DialogResult"))
+            		WorkItem.Items.Remove(WorkItem.Items["DialogResult"]);
+				
+				WorkItem.Items.Add(result, "DialogResult");
+				
+				<%=ToCamelCase(GetViewClassName(mainNode.View))%>.Refresh();
+			}
+		}
+<%	
+	}
+	else if (subDialog.Type == DialogType.Drilldown)
+	{
+%>		
+		
+		[EventSubscription(<%=GetModuleConstantsNamespace(subDialog.Module)%>.EventTopicNames.<%=subDialog.Name%>DialogClosed)]
+        public void <%=subDialog.Name%>DialogClosedEventHandler(object sender, DataEventArgs<DialogResult> eventArgs)
+        {
+			DialogResult result = eventArgs.Data;
+			
+			if (result == DialogResult.Ok)
+			{
+				if (WorkItem.Items.Contains("DialogResult"))
+            		WorkItem.Items.Remove(WorkItem.Items["DialogResult"]);
+				
+				WorkItem.Items.Add(result, "DialogResult");
+				
+				<%=ToCamelCase(GetViewClassName(mainNode.View))%>.Refresh();
+			}
+		}
+<%		
+	}
+	else if (subDialog.Type == DialogType.Create)
+	{
+	  	string parametersClassName = GetViewParametersClassName(mainNode.View);
+%>
+		
+		[EventSubscription(<%=GetModuleConstantsNamespace(subDialog.Module)%>.EventTopicNames.<%=subDialog.Name%>DialogClosed)]
+        public void <%=subDialog.Name%>DialogClosedEventHandler(object sender, DataEventArgs<DialogResult> eventArgs)
+        {
+			DialogResult result = eventArgs.Data;
+			
+<%
+		// If a create dialog and multiselect just refresh view
+		if (IsMultiEnabled(subDialog))
+		{
+%>
+			if (result == DialogResult.Ok)
+			{
+				if (WorkItem.Items.Contains("DialogResult"))
+            		WorkItem.Items.Remove(WorkItem.Items["DialogResult"]);
+				
+				WorkItem.Items.Add(result, "DialogResult");
+				
+				<%=ToCamelCase(GetViewClassName(mainNode.View))%>.Refresh();
+			}
+<%
+		}
+		else
+		{
+			if ((dialog.SearchPanelView != null) && 
+				(dialog.SearchPanelView.VisualTree != null))
+			{
+%>	
+			if (result == DialogResult.Ok)
+			{
+				if (!runInCurrentWorkspace)
+					InitializeSearchPanel(null);
+			}
+			
+<%
+			}
+		
+			if (ViewIsRowTracker(mainNode.View))
+			{
+%>
+			if ((result == DialogResult.Ok) &&
+			    WorkItem.Items.FindByType<Bookmark>().Count > 0)
+            {
+				Bookmark bookmark = WorkItem.Items.FindByType<Bookmark>().Last();
+                WorkItem.Items.Remove(bookmark);
+				
+				if (WorkItem.Items.Contains("DialogResult"))
+            		WorkItem.Items.Remove(WorkItem.Items["DialogResult"]);
+				
+				WorkItem.Items.Add(result, "DialogResult");
+				
+<%	
+				if(dialog.Type != DialogType.Drilldown)
+				{
+%>				
+   				<%= parametersClassName %> parameters = new <%= parametersClassName %>();
+				parameters.RowIdentities = bookmark.MultipleSelection.Select(i => i.RowIdentity).ToList();
+
+                <%=ToCamelCase(GetViewClassName(mainNode.View))%>.Update(parameters);
+<%	
+				}
+				else
+				{
+%>
+                <%=ToCamelCase(GetViewClassName(mainNode.View))%>.Refresh(bookmark.RowIdentity);
+<%	
+				}
+%>
+            }
+<%
+			}
+			else
+			{
+				if (dialog.Type != DialogType.Drilldown)
+				{
+%>
+			if (result == DialogResult.Ok)
+			{
+				if (WorkItem.Items.Contains("DialogResult"))
+            		WorkItem.Items.Remove(WorkItem.Items["DialogResult"]);
+				
+				WorkItem.Items.Add(result, "DialogResult");
+				
+				<%= parametersClassName %> parameters = new <%= parametersClassName %>();
+				<%=ToCamelCase(GetViewClassName(mainNode.View))%>.Update(parameters);
+			}
+<%
+				}
+				else
+				{
+%>
+			if (result == DialogResult.Ok)
+			{
+				if (WorkItem.Items.Contains("DialogResult"))
+            		WorkItem.Items.Remove(WorkItem.Items["DialogResult"]);
+				
+				WorkItem.Items.Add(result, "DialogResult");
+				
+				<%=ToCamelCase(GetViewClassName(mainNode.View))%>.Refresh();
+			}
+<%			
+				}
+			}
+		}
+%>
+		}	
+<%	
+	}
+}
+
+foreach (ViewNode viewNode in sortedDialogViewNodes)
+{
+	if (viewNode.RenderMode == RenderMode.Inline)
+	{
+			
+		View view = viewNode.View;
+		View parentView = viewNode.Parent.View;
+						
+	  	if (view != null)
+	  	{
+	  		string viewResultClassName = GetViewResultClassName(view);
+			string parentViewResultClassName = GetViewResultClassName(parentView);
+			string parametersClassName = GetViewParametersClassName(parentView);
+			string viewClassName = GetViewClassName(view);
+						
+%>
+		
+		[EventSubscription(<%=GetViewsConstantsNamespace(view)%>.EventTopicNames.<%=GetViewClassName(view)%>UpdatedTopic)]
+        public void <%=view.Name%>UpdatedEventHandler(object sender, DataEventArgs<<%= viewResultClassName %>> eventArgs)
+        {
+			if (<%=ToCamelCase(viewResultClassName)%> != null)
+                <%=ToCamelCase(viewResultClassName)%>.PropertyChanged -= <%=view.Name%>PropertyChanged;
+					
+			<%=ToCamelCase(viewResultClassName)%> = eventArgs.Data;
+			
+			if (<%=ToCamelCase(viewResultClassName)%> != null)
+            {
+				if (<%=ToCamelCase(viewResultClassName)%>.IsModified)
+				{
+					<%=parentViewResultClassName%> currentItem = <%=ToCamelCase(GetViewClassName(parentView))%>.CurrentItem;
+					
+<%
+				CodeTemplate propertyMapTemplate = this.Create<PropertyMapTemplate>();
+				propertyMapTemplate.SetProperty("fromName", ToCamelCase(viewResultClassName));
+				propertyMapTemplate.SetProperty("toName", "currentItem");
+				propertyMapTemplate.SetProperty("propertyMap", view.ResponseMap);
+				propertyMapTemplate.Render(this.Response);
+%>
+				}
+				
+				inline<%=viewClassName%>.UpdateActions();
+                <%=ToCamelCase(viewResultClassName)%>.PropertyChanged += <%=view.Name%>PropertyChanged;
+			}
+		}
+		
+		protected virtual void <%=view.Name%>PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            inline<%=viewClassName%>.UpdateActions();
+        }	
+<%
+		}
+	}
+}
+%>
+    }
+}
+<script runat="template">
+   
+	private IEnumerable<Dialog> FindDialogDependencies(ViewNode node)
+	{
+		List<Dialog> dialogList = new List<Dialog>();
+		
+		if ((node.View == node.Dialog.InterfaceView) || (node.UpdatePropagation == UpdatePropagation.Parent))
+		{
+			foreach (ViewAction viewAction in node.ViewActions)
+			{
+				if ((viewAction.Action.Dialog != null) && (viewAction.Action.Dialog.InterfaceView != null))
+					dialogList.Add(viewAction.Action.Dialog);
+			}
+		}
+		
+		foreach (ViewNode childNode in node.Children)
+		{
+			dialogList.AddRange(FindDialogDependencies(childNode));
+		}
+		
+		return dialogList.Distinct();	
+	}
+	
+	private Dictionary<Workflow, List<View>> FindWorkflowDependencies(ViewNode node)
+	{
+		Dictionary<Workflow, List<View>> workflowList = new Dictionary<Workflow, List<View>>();
+		
+		foreach (ViewAction viewAction in node.ViewActions)
+		{
+			if ((node.View == node.Dialog.InterfaceView) || (node.UpdatePropagation == UpdatePropagation.Parent))
+			{
+			    if (viewAction.Action.Workflow != null)
+				{
+					if (!workflowList.ContainsKey(viewAction.Action.Workflow))
+					{
+						List<View> listViews = new List<View>();
+						listViews.Add( node.Dialog.InterfaceView);
+						workflowList.Add(viewAction.Action.Workflow, listViews);					
+					}
+					else
+					{
+						workflowList[viewAction.Action.Workflow].Add( node.Dialog.InterfaceView);	
+					}
+				}
+			}
+			else
+			{
+			    if (viewAction.Action.Workflow != null)
+				{
+					if (!workflowList.ContainsKey(viewAction.Action.Workflow))
+					{
+						List<View> listViews = new List<View>();
+						listViews.Add(node.View);
+						workflowList.Add(viewAction.Action.Workflow, listViews);					
+					}
+					else
+					{
+						if (!workflowList[viewAction.Action.Workflow].Contains(node.View))
+						{
+							workflowList[viewAction.Action.Workflow].Add(node.View);	
+						}
+						
+					}
+				}
+			}
+		}
+		
+		foreach (ViewNode childNode in node.Children)
+		{
+		    Dictionary<Workflow, List<View>> workflowChildList = FindWorkflowDependencies(childNode);
+			
+			foreach (KeyValuePair<Workflow, List<View>> pair in workflowChildList)
+			{
+				if (!workflowList.ContainsKey(pair.Key))
+				{
+					workflowList.Add(pair.Key, pair.Value);
+				}
+				else
+				{
+					foreach (View currView in workflowList[pair.Key])
+					{
+					    if (!workflowList[pair.Key].Contains(currView))
+						{
+							workflowList[pair.Key].Add(currView);	
+						}
+					}
+				}
+			}
+		}
+		
+		return workflowList;
+	}
+	
+	private IList<View> FindViewDependencies(Dialog dialog, ViewNode node)
+	{
+		IList<View> viewList = new List<View>(GetUniqueViews(dialog));
+		
+		foreach (ViewAction viewAction in node.ViewActions)
+		{
+			if ((viewAction.Action.Dialog != null) && ((viewAction.Action.Dialog.Type == DialogType.Modify) || (viewAction.Action.Dialog.Type == DialogType.Create)))
+			{
+				View view = viewAction.Action.Dialog.InterfaceView;
+								
+				if (view != null)
+				{
+					bool found = false;
+					
+					foreach (View v in viewList)
+					{
+						if (v.BusinessEntity == view.BusinessEntity)	
+						{
+							found = true;
+							break;
+						}
+					}
+					
+					if (!found)
+						viewList.Add(view);
+				}
+			}
+		}
+		
+		return viewList;
+	}
+	
+	private string GetResourceReference(ILocalizable target, string propertyName)
+	{
+		return string.Format("{0}.{1}", GetResourceManagerClassName(dialog.Module), GlobalizationHelper.GetResourceId(target, propertyName));	
+	}
+	
+	private string GetViewTitleReference(ViewNode viewNode)
+	{
+		if (string.IsNullOrEmpty(viewNode.Title))
+			return string.Format("{0}.{1}", GetResourceManagerClassName(viewNode.View), GlobalizationHelper.GetResourceId(viewNode.View, "Title"));	
+		else
+			return GetResourceReference(viewNode, "Title");
+	}
+	
+	
+</script>

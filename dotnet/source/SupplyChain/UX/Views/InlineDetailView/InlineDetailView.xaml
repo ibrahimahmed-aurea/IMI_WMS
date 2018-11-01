@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="Imi.SupplyChain.UX.Views.InlineDetailView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:settings="clr-namespace:Imi.Framework.UX.Wpf.BuilderStrategies;assembly=Imi.Framework.UX.Wpf"
+    xmlns:workspaces="clr-namespace:Imi.Framework.UX.Wpf.Workspaces;assembly=Imi.Framework.UX.Wpf"
+    xmlns:controls="clr-namespace:Imi.Framework.Wpf.Controls;assembly=Imi.Framework.Wpf.Controls"
+    xmlns:themes="http://schemas.actiprosoftware.com/winfx/xaml/themes"
+    Height="Auto"
+    Width="Auto"
+    Focusable="True"
+    >
+    <Border SnapsToDevicePixels="True" Margin="5,0,0,0" CornerRadius="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemBorderNormalCornerRadiusKey}}" Background="{DynamicResource {x:Static themes:AssetResourceKeys.ContainerLightBackgroundNormalBrushKey}}" BorderBrush="{DynamicResource {x:Static themes:AssetResourceKeys.ListBorderNormalBrushKey}}" BorderThickness="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemBorderNormalThicknessKey}}" Padding="5">
+        <Grid x:Name="inlineGrid" PreviewKeyDown="PreviewKeyDownEventHandler" KeyDown="KeyDownEventHandler" KeyboardNavigation.TabNavigation="Cycle">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <workspaces:DeckWorkspace settings:FrameworkElementStrategySettings.IsIgnored="True" x:Name="inlineDetailWorkspace" Grid.Row="0" FocusVisualStyle="{x:Null}"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" x:Name="buttonPanel" Grid.Row="1"/>
+        </Grid>
+    </Border>
+</UserControl>

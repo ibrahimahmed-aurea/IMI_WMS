@@ -1,0 +1,396 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="module" Type="Cdc.MetaManager.DataAccess.Domain.Module" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="action" Type="Cdc.MetaManager.DataAccess.Domain.UXAction" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isDrillDownAction" Type="System.Boolean" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isJumpToAction" Type="System.Boolean" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isAdapted" Type="System.Boolean" Default="false" Optional="false" Category="" Description="" %>
+<%
+    bool isMulti = IsMultiEnabled(action);
+	string actionsNamespace = GetActionsNamespace(module);
+    string actionBaseClassName = GetActionBaseClassName(action);
+	string actionParametersClassName = GetActionParametersClassName(action,isMulti,true);
+	string actionParametersClassNameBase = GetActionParametersClassName(action,false,false);
+	string viewParametersClassName = null;
+	string viewParametersClassNameBase = null;
+	string controllerClassName = null;
+	string viewsNamespace = null;
+	string viewsConstantsNamespace = null;
+	string alarmDataContractNamespace = null;
+	string alarmServiceContractNamespace = null;
+	string dialogNamespace = null;
+	string applicationName = action.Dialog.Module.Application.Name;
+	bool isDialog = false;
+			
+	if (action.MappedToObject != null)
+	{
+		viewParametersClassName = GetViewParametersClassName(action.Dialog.InterfaceView,isMulti,false);
+		viewParametersClassNameBase = GetViewParametersClassName(action.Dialog.InterfaceView);
+		dialogNamespace = GetDialogNamespace(action.Dialog);
+		controllerClassName = GetControllerClassName(action.Dialog);
+		viewsNamespace = GetViewsNamespace(action.Dialog.InterfaceView);
+		viewsConstantsNamespace = GetViewsConstantsNamespace(action.Dialog.InterfaceView);
+
+		if(isJumpToAction)
+		{
+			isDialog = false;
+		}
+		else
+		{
+			isDialog = true;
+			
+			if (action.Dialog.InterfaceView.ServiceMethod != null)
+			{
+				alarmDataContractNamespace = GetAlarmDataContractNamespace(action.Dialog.InterfaceView.ServiceMethod.Service.Application);
+				alarmServiceContractNamespace = GetAlarmServiceContractNamespace(action.Dialog.InterfaceView.ServiceMethod.Service.Application);
+			}
+		}
+	
+		
+	}
+
+	string userSessionName = GetUserSessionName(module.Application);
+	string userSessionNamespace = GetUserSessionNamespace(module.Application);
+
+%>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.ServiceModel;
+using System.Reflection;
+using Microsoft.Practices.CompositeUI;
+using Microsoft.Practices.CompositeUI.EventBroker;
+using Microsoft.Practices.CompositeUI.Configuration;
+using Microsoft.Practices.CompositeUI.Services;
+using Microsoft.Practices.ObjectBuilder;
+using Imi.Framework.UX;
+using Imi.Framework.UX.Services;
+using Imi.Framework.Services;
+using Imi.SupplyChain.UX;
+using Imi.SupplyChain.UX.Infrastructure;
+using Imi.SupplyChain.UX.Infrastructure.Services;
+using Imi.SupplyChain.UX.Views;
+<%
+if (!string.IsNullOrEmpty(action.AlarmId))
+{
+%>
+using <%=alarmDataContractNamespace%>;
+using <%=alarmServiceContractNamespace%>;
+<%
+}
+%>
+using <%= userSessionNamespace %>;
+<%
+if (isDialog)
+{
+%>
+using <%=dialogNamespace%>;
+using <%=viewsNamespace%>;
+using <%=viewsConstantsNamespace%>;
+<%	
+}
+%>
+
+namespace <%= actionsNamespace %>
+{
+<%
+if (!isAdapted)
+{
+%>
+	//Extract the following class to <%=GetActionClassName(action)%>Adapted.cs in order to customize its behavior    
+	public class <%=GetActionClassName(action)%> : <%=GetActionBaseClassName(action)%>
+    {
+			
+	}
+<%
+}
+%>
+
+	public class <%= actionBaseClassName %> : IBuilderAware
+    {
+	
+		[ServiceDependency]
+		public IActionCatalogService ActionCatalog
+		{
+			get;
+			set;
+		}
+
+		[ServiceDependency]
+		public IShellInteractionService ShellInteractionService
+		{
+			get;
+			set;
+		}
+
+		
+<%
+	if (!string.IsNullOrEmpty(action.AlarmId))
+	{
+%>		
+		[WcfServiceDependency]
+        public IAlarmService AlarmService
+        {
+            get;
+			set;
+        }
+		
+<%
+	}
+%>		
+		[ServiceDependency]
+        public <%= userSessionName %> UserSessionService { get; set; }
+		
+		[ServiceDependency]
+        public IModuleLoaderService ModuleLoaderService { get; set; }
+		        
+        public virtual void On<%= action.Name %>(WorkItem context, object caller, object target)
+        {
+            if (context.Items.Contains("<%=GetWorkItemConstantIgnoreClose()%>"))
+                context.Items.Remove(context.Items["<%=GetWorkItemConstantIgnoreClose()%>"]);
+			
+<%
+		if (!string.IsNullOrEmpty(action.AlarmId))
+		{
+%>			
+			FindAlarmTextRequest findAlarmTextRequest = new FindAlarmTextRequest();
+			findAlarmTextRequest.FindAlarmTextParams = new FindAlarmTextParams();
+			findAlarmTextRequest.FindAlarmTextParams.AlarmId = "<%=action.AlarmId%>";
+			findAlarmTextRequest.FindAlarmTextParams.LanguageCode = UserSessionService.LanguageCode;
+			
+			FindAlarmTextResponse findAlarmTextResponse = AlarmService.FindAlarmText(findAlarmTextRequest);
+						
+            if (ShellInteractionService.ShowMessageBox(string.Empty, findAlarmTextResponse.FindAlarmTextResult.AlarmText, null, MessageBoxButton.YesNo, MessageBoxImage.Warning) 
+				== MessageBoxResult.No)
+			{
+				context.Items.Add((object)true, "<%=GetWorkItemConstantIgnoreClose()%>");
+				return;
+			}
+			
+<%			
+		}
+		else if (!string.IsNullOrEmpty(action.AskQuestionToRun))
+		{
+%>			
+            if (ShellInteractionServuce.ShowMessageBox(string.Empty, <%=GetResourceReference(action, "AskQuestionToRun")%>, null, MessageBoxButton.YesNo, MessageBoxImage.Warning) 
+				== MessageBoxResult.No)
+			{
+				context.Items.Add((object)true, "<%=GetWorkItemConstantIgnoreClose()%>");
+				return;
+			}
+			
+<%
+		}
+%>
+			if (context.Items.Contains("DialogResult"))
+            	context.Items.Remove(context.Items["DialogResult"]);
+
+<%
+		if (action.DialogResult == UXDialogResult.Cancel)
+		{
+%>
+			context.Items.Add(DialogResult.Cancel, "DialogResult");
+			
+<%
+		}
+		else if (action.DialogResult == UXDialogResult.Ok)
+		{
+%>
+			context.Items.Add(DialogResult.Ok, "DialogResult");
+			
+<%
+		}
+		else
+		{
+%>
+			context.Items.Add(DialogResult.None, "DialogResult");
+			
+<%
+		}
+%>
+			<%=actionParametersClassName%> actionParameters = target as <%=actionParametersClassName%>;
+			
+<%
+		if (isDialog)
+		{
+%>
+			ModuleInfo info = new ModuleInfo(typeof(<%=controllerClassName%>).Assembly);
+            ModuleLoaderService.Load(context.RootWorkItem.WorkItems["<%=applicationName%>"], info);
+			
+			ControlledWorkItem<<%=controllerClassName%>> workItem = context.WorkItems.AddNew<ControlledWorkItem<<%=controllerClassName%>>>();
+			<%=viewParametersClassName%> viewParameters = new <%=viewParametersClassName%>();
+				
+<%
+			/* Use one-to-one mapping for Action->Dialog */
+			if(!isMulti)
+			{
+				
+				foreach (MappedProperty property in action.RequestMap.MappedProperties)
+				{
+					if (property.Source != null)
+					{
+%>
+			viewParameters.<%=property.Name%> = actionParameters.<%=property.Name%>;
+<%
+					}
+				}
+				
+				// If this action is kicking a dialog that uses rowidentity
+ 	    		if (action.Dialog != null && action.Dialog.InterfaceView != null)
+				{
+		  			View view = action.Dialog.InterfaceView;
+								
+		  			if ((view != null) && (ViewIsRowTracker(view)))
+		  			{
+%>
+			viewParameters.RowIdentities = actionParameters.RowIdentities;
+<%
+					}
+				}
+				
+			}
+			else
+			{
+%>
+			bool multiselect = (actionParameters.Count > 1);
+
+            Type extendedParametersType = null;
+
+            if (multiselect)
+            {
+                extendedParametersType = GenericMapper.GetExtendedDataCarrierType(typeof(<%=viewParametersClassNameBase%>), actionParameters[0].GetType());
+            }
+
+		
+			foreach(<%=actionParametersClassNameBase%> ap in actionParameters)
+			{
+				<%=viewParametersClassNameBase%> vp = null;
+				if (!multiselect)
+                {
+					vp = new <%=viewParametersClassNameBase%>();
+				}
+				else
+				{
+					vp = (<%=viewParametersClassNameBase%>)Activator.CreateInstance(extendedParametersType);
+
+                    GenericMapper.MapExtendedValues(vp, ap);
+				}
+
+<%
+				foreach (MappedProperty property in action.RequestMap.MappedProperties)
+				{
+					if (property.Source != null)
+					{
+%>
+				vp.<%=property.Name%> = ap.<%=property.Name%>;
+<%
+					}
+				}
+%>
+<%				
+				// If this action is kicking a dialog that uses rowidentity
+ 	    		if (action.Dialog != null && action.Dialog.InterfaceView != null)
+				{
+		  			View view = action.Dialog.InterfaceView;
+								
+		  			if ((view != null) && (ViewIsRowTracker(view)))
+		  			{
+%>
+				vp.RowIdentities = ap.RowIdentities;
+<%
+					}
+				}
+%>
+				viewParameters.Add(vp);
+			}
+<%
+
+				
+			}
+			
+
+				
+			if (isDrillDownAction)
+			{
+%>
+			if (actionParameters.CurrentRecord != null)
+                workItem.Items.Add(actionParameters.CurrentRecord);
+<%
+			}
+%>
+
+			workItem.Controller.Run(viewParameters);
+
+<%
+		}
+		else if (isJumpToAction) // jumpTo
+		{
+			
+%>
+			ModuleInfo info = new ModuleInfo("<%=GetModuleNamespace(action.Dialog.Module)%>.dll");
+            ModuleLoaderService.Load(context.RootWorkItem.WorkItems["<%=applicationName%>"], info);
+			
+			Assembly assembly = Assembly.Load("<%=viewsNamespace%>");
+						
+			Type viewParametersType = assembly.GetType("<%=viewsNamespace%>.<%=viewParametersClassNameBase%>");
+			object viewParameters = Activator.CreateInstance(viewParametersType);
+			
+<%			
+			foreach (MappedProperty property in action.RequestMap.MappedProperties)
+			{
+				if (property.Source != null)
+				{
+%>
+			viewParametersType.GetProperty("<%=property.Name%>").SetValue(viewParameters, actionParameters.<%=property.Name%>, null);
+<%
+				}
+			}			
+%>
+            
+			EventTopic itemTopic = context.RootWorkItem.EventTopics.Get("event://<%=dialogNamespace%>/ShowDialog");
+			
+			if (itemTopic != null)
+            {
+            	Type[] typeArgs = { viewParametersType };
+            	Type eventArgsType = typeof(DataEventArgs<>).MakeGenericType(typeArgs);
+            	object[] args = { viewParameters };
+                        
+            	EventArgs eventArgs = Activator.CreateInstance(eventArgsType, args) as EventArgs;
+			
+				itemTopic.Fire(this, eventArgs, context.RootWorkItem, PublicationScope.Global);
+            }
+<%
+		}
+%>
+		}
+		
+		public virtual void OnBuiltUp(string id)
+        {
+			ActionCatalog.RegisterActionImplementation(ActionNames.<%= action.Name %>, On<%= action.Name %>); 
+        }
+
+        public virtual void OnTearingDown()
+        {
+            ActionCatalog.RemoveActionImplementation(ActionNames.<%= action.Name %>);
+        }
+	}
+}
+<script runat="template">
+
+	private string GetResourceReference(ILocalizable target, string propertyName)
+	{
+		return string.Format("{0}.{1}", GetResourceManagerClassName(module), GlobalizationHelper.GetResourceId(target, propertyName));	
+	}
+
+</script>

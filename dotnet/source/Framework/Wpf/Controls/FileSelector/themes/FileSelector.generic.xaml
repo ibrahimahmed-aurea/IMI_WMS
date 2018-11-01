@@ -1,0 +1,98 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Imi.Framework.Wpf.Controls"
+                    xmlns:themes="http://schemas.actiprosoftware.com/winfx/xaml/themes"
+                    xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+                    xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
+
+    <DrawingBrush x:Key="uploadimg" Viewbox="0,0,320,320" ViewboxUnits="Absolute">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Transform>
+                    <MatrixTransform Matrix="1.25,0,0,-1.25,0,320"/>
+                </DrawingGroup.Transform>
+                <GeometryDrawing Brush="#FFFBD140" Geometry="F1 M15.98,209 C15.51,215.62 21.35,221.93 27.97,222 51.98,222.01 75.99,221.98 100,222.02 104.46,222.16 108.91,220.17 111.96,216.94 116.37,212.3 121.24,208.14 125.63,203.48 121.27,198.13 116.01,193.63 111.27,188.64 108.2,185.2 103.55,183.89 99.06,184.03 71.39,183.91 43.7,184.12 16.03,183.93 15.96,192.28 16.04,200.64&#xd;&#xa;15.98,209"/>
+                <GeometryDrawing Brush="#FF1AC3F2" Geometry="F1 M30,208 C33.34,208.01 36.67,208 40,208 40,204.67 40,201.34 40,198 36.67,198 33.34,198 30,198 30,201.33 30,204.67 30,208"/>
+                <GeometryDrawing Brush="White" Geometry="F1 M40,208 C52.33,208 64.66,208 76.99,208 77.01,204.67 77.01,201.34 76.99,198.01 64.66,198 52.33,198 40,198 40,201.34 40,204.67 40,208"/>
+                <GeometryDrawing Brush="#FFFFE797" Geometry="F1 M125.63,203.48 C126.73,203.21 127.86,202.95 129.01,202.98 141.08,202.98 153.15,203.06 165.21,202.95 158.38,193.47 150.81,184.53 143.68,175.27 131.59,159.35 118.82,143.98 106.85,127.97 104.7,127.96 102.56,127.96 100.41,127.97 95.33,128.04 90.24,127.97 85.16,127.99 81.09,127.97 77.02,128.06 72.96,128 62.51,127.96 53.04,118.55&#xd;&#xa;53.04,108.09 53,100 52.98,91.92 53.02,83.83 53.04,76.51 52.96,69.19 53.02,61.86 53.06,55.91 53.01,49.95 53,44 44.68,44.01 36.35,43.99 28.03,44 21.37,44.05 15.53,50.4 15.98,57.04 16.04,99.34 15.95,141.63 16.03,183.93 43.7,184.12 71.39,183.91 99.06,184.03 103.55,183.89&#xd;&#xa;108.2,185.2 111.27,188.64 116.01,193.63 121.27,198.13 125.63,203.48"/>
+                <DrawingGroup>
+                    <DrawingGroup.Transform>
+                        <MatrixTransform Matrix="1,0,0,1,1.4210854715202E-14,28"/>
+                    </DrawingGroup.Transform>
+                    <GeometryDrawing Brush="#FFFEE38A">
+                        <GeometryDrawing.Geometry>
+                            <PathGeometry Figures="M165.21,202.95 C181.18,202.97 197.14,203.05 213.11,202.97 202.06,188.67 190.77,174.55 179.68,160.27 171.53,149.4 162.55,139.16 154.79,128 152.55,127.99 150.31,127.98 148.06,127.99 140.1,128.03 132.13,127.97 124.16,127.99 118.39,128.03 112.62,128 106.85,127.97 118.82,143.98 131.59,159.35 143.68,175.27 150.81,184.53 158.38,193.47&#xd;&#xa;165.21,202.95" FillRule="Nonzero">
+                                <PathGeometry.Transform>
+                                    <MatrixTransform Matrix="2.40918496944688,0,0,2.7720452166189,-257.421410309275,-354.738629754566"/>
+                                </PathGeometry.Transform>
+                            </PathGeometry>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                </DrawingGroup>
+                <GeometryDrawing Brush="#FFFDDF79" Geometry="F1 M213.11,202.97 C218.08,202.9 223.05,203.01 228.02,202.98 234.64,202.95 240.51,196.63 240.02,190.01 239.98,184.05 240.01,178.09 240,172.12 225.82,155.12 213.06,136.96 198.6,120.2 196.04,123.16 192.84,125.63 189.12,126.92 184.99,128.49 180.5,127.86 176.2,127.98 169.06,128.02 161.93,128.02 154.79,128 162.55,139.16 171.53,149.4&#xd;&#xa;179.68,160.27 190.77,174.55 202.06,188.67 213.11,202.97"/>
+                <GeometryDrawing Brush="#FFFCD965" Geometry="F1 M198.6,120.2 C213.06,136.96 225.82,155.12 240,172.12 239.91,155.15 240.05,138.17 240,121.2 230.28,108.86 220.62,96.47 210.92,84.11 209.84,82.73 208.53,81.57 207.2,80.43 206.08,83.86 204.59,87.15 203.06,90.4 202.91,96.3 203.06,102.2 203,108.1 203.05,112.51 201.2,116.72 198.6,120.2"/>
+                <GeometryDrawing Brush="#FF5BD4F6" Geometry="F1 M53.04,108.09 C53.04,118.55 62.51,127.96 72.96,128 77.02,128.06 81.09,127.97 85.16,127.99 74.25,113.42 64.04,98.32 53.02,83.83 52.98,91.92 53,100 53.04,108.09"/>
+                <GeometryDrawing Brush="#FF49CFF5" Geometry="F1 M85.16,127.99 C90.24,127.97 95.33,128.04 100.41,127.97 94.71,118.44 87.5,109.93 81.22,100.79 71.78,87.84 62.55,74.75 53.02,61.86 52.96,69.19 53.04,76.51 53.02,83.83 64.04,98.32 74.25,113.42 85.16,127.99"/>
+                <GeometryDrawing Brush="#FF35CAF4" Geometry="F1 M100.41,127.97 C102.56,127.96 104.7,127.96 106.85,127.97 112.62,128 118.39,128.03 124.16,127.99 115.83,115.38 106.35,103.57 97.96,91 95.65,90.99 93.34,90.97 91.02,90.98 L91.1,90.27 C90.97,82.9 91.06,75.53 91.02,68.17 84.49,60.5 79.25,51.86 73.07,43.92 70.84,41.07 68.88,38.02 66.88,35 62.25,35 57.63,35 53,35 53,38 53,41 53,44 53.01,49.95 53.06,55.91 53.02,61.86 62.55,74.75 71.78,87.84 81.22,100.79 87.5,109.93 94.71,118.44&#xd;&#xa;100.41,127.97"/>
+                <GeometryDrawing Brush="#FF25C6F3" Geometry="F1 M124.16,127.99 C132.13,127.97 140.1,128.03 148.06,127.99 143.4,121.33 138.35,114.95 133.8,108.2 129.8,102.44 125.22,97.08 121.68,91.01 113.77,90.94 105.87,91.03 97.96,91 106.35,103.57 115.83,115.38 124.16,127.99"/>
+                <GeometryDrawing Brush="#FF16C2F2" Geometry="F1 M148.06,127.99 C150.31,127.98 152.55,127.99 154.79,128 161.93,128.02 169.06,128.02 176.2,127.98 167.86,115.37 158.39,103.56 149.97,91.01 140.54,90.97 131.11,91.03 121.68,91.01 125.22,97.08 129.8,102.44 133.8,108.2 138.35,114.95 143.4,121.33 148.06,127.99"/>
+                <GeometryDrawing Brush="#FF04BDF1" Geometry="F1 M176.2,127.98 C180.5,127.86 184.99,128.49 189.12,126.92 192.84,125.63 196.04,123.16 198.6,120.2 201.2,116.72 203.05,112.51 203,108.1 203.06,102.2 202.91,96.3 203.06,90.4 203,74.94 203.03,59.47 203,44 203,41 203,38 203,35 190.33,35 177.67,35 165,35 165,38 165,41&#xd;&#xa;165,44 164.99,59.67 165.03,75.34 165,91 163.05,91.01 161.1,91.03 159.15,91.03 156.09,91.04 153.03,91.03 149.97,91.01 158.39,103.56 167.86,115.37 176.2,127.98"/>
+                <GeometryDrawing Brush="#FFFAD555" Geometry="F1 M210.92,84.11 C220.62,96.47 230.28,108.86 240,121.2 239.94,107.92 240.05,94.65 239.99,81.38 233.2,73.93 227.4,65.67 221.1,57.83 220.02,56.42 218.53,55.45 217.09,54.46 213.89,63.16 210.33,71.71 207.2,80.43 208.53,81.57 209.84,82.73 210.92,84.11"/>
+                <GeometryDrawing Brush="#FFFDE07D" Geometry="F1 M91.02,90.98 C93.34,90.97 95.65,90.99 97.96,91 105.87,91.03 113.77,90.94 121.68,91.01 131.11,91.03 140.54,90.97 149.97,91.01 153.03,91.03 156.09,91.04 159.15,91.03 151.29,80.52 142.9,70.42 134.96,59.98 130.87,54.67 126.29,49.72 122.73,44.01 118.16,43.98 113.58,43.99 109.01,44.01 102.93,59.39 97.56,75.05&#xd;&#xa;91.1,90.27 L91.02,90.98"/>
+                <GeometryDrawing Brush="#FFFCDC6F" Geometry="F1 M159.15,91.03 C161.1,91.03 163.05,91.01 165,91 165.03,75.34 164.99,59.67 165,44 150.91,43.99 136.82,44.01 122.73,44.01 126.29,49.72 130.87,54.67 134.96,59.98 142.9,70.42 151.29,80.52 159.15,91.03"/>
+                <GeometryDrawing Brush="#FFDEC572" Geometry="F1 M91.1,90.27 C97.56,75.05 102.93,59.39 109.01,44.01 103.01,43.99 97.01,44 91.01,44 91.02,52.06 91.02,60.11 91.02,68.17 91.06,75.53 90.97,82.9 91.1,90.27"/>
+                <GeometryDrawing Brush="#FFDBB948" Geometry="F1 M203.06,90.4 C204.59,87.15 206.08,83.86 207.2,80.43 210.33,71.71 213.89,63.16 217.09,54.46 218.28,50.95 219.49,47.44 220.89,44 214.93,44 208.97,44 203,44 203.03,59.47 203,74.94 203.06,90.4"/>
+                <GeometryDrawing Brush="#FFFAD148" Geometry="F1 M221.1,57.83 C227.4,65.67 233.2,73.93 239.99,81.38 239.99,73.25 239.98,65.12 240.02,56.98 240.36,52.06 237.23,47.28 232.84,45.18 229.16,43.23 224.86,44.24 220.89,44 219.49,47.44 218.28,50.95 217.09,54.46 218.53,55.45 220.02,56.42 221.1,57.83"/>
+                <GeometryDrawing Brush="#FF22C5F3" Geometry="F1 M73.07,43.92 C79.25,51.86 84.49,60.5 91.02,68.17 91.02,60.11 91.02,52.06 91.01,44 91,41 91,38 91,35 82.96,34.99 74.92,35.01 66.88,35 68.88,38.02 70.84,41.07 73.07,43.92"/>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+
+    <Style TargetType="{x:Type local:FileSelector}" BasedOn="{StaticResource {x:Static themes:SharedResourceKeys.TextBoxBaseStyleKey}}">
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="AllowDrop" Value="true"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Height" Value="21"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:FileSelector}">
+                    <Grid Focusable="False">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Border x:Name="Border" Grid.Column="0" Padding="{TemplateBinding Padding}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}">
+                            <ScrollViewer x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </Border>
+
+                        <Button Focusable="True" Grid.Column="1" x:Name="PART_ClearButton" IsEnabled="{TemplateBinding IsEnabled}">
+                            <Path Margin="1,1,1,1" Width="7" Height="7" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="#FF000000" Data="F1 M 288,224L 384,128L 448,192L 320,320L 448,448L 384,512L 252.061,380.061L 124,508.121L 63.9394,448.061L 192,320L 64,192L 128,128L 256,256L 288,224 Z " x:Name="path"/>
+                        </Button>
+
+                        <Button Focusable="True" Grid.Column="2" x:Name="PART_BrowseButton" IsEnabled="{TemplateBinding IsEnabled}">
+                            <Rectangle 
+                                    Fill="{StaticResource uploadimg}" Stroke="{x:Null}"
+                                    Width="18"
+                                    Height="18"
+                                    Margin="1"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Button>
+                        
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsReadOnly" Value="true">
+                            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<OrderedTest name="createandsetupdatabasefortest" storage="c:\project\anja_trunk_ss\dotnet\source\codegenerators\metamanager\testschema\createandsetupdatabasefortest.orderedtest" id="e9cafbaf-f816-4dd8-bc6b-a5968f9b035e" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2006">
+  <Css projectStructure="" iteration="" />
+  <Execution timeOut="2147483647" />
+  <Owners>
+    <Owner name="" />
+  </Owners>
+  <TestLinks>
+    <TestLink id="25256ad2-be97-6b18-32fd-58043f9b1c9f" name="CreateDatabase" storage="bin\debug\cdc.metamanager.testschema.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="4b310cc8-b72c-a725-4738-0f1e04fa2404" name="CreateApplication" storage="bin\debug\cdc.metamanager.testschema.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="75a9bab7-bc06-7e39-9022-ff0c612a7118" name="CreateApplicationVersion" storage="bin\debug\cdc.metamanager.testschema.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="dc51cb4a-720b-1719-3bd7-d1e1f55d1294" name="CreateSchema" storage="bin\debug\cdc.metamanager.testschema.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="fb0cea8a-9866-d1e6-5de4-dc05183edbef" name="CreateUXApplicationWithService" storage="bin\debug\cdc.metamanager.testschema.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+  </TestLinks>
+</OrderedTest>

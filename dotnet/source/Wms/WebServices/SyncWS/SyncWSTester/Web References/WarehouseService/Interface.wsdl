@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://im.se/webservices/c3pl" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://im.se/webservices/c3pl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://im.se/webservices/c3pl">
+      <s:element name="findByClient">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="warehouseSearchParameters" type="tns:warehouseSearchParameters" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="warehouseSearchParameters">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:baseParameters" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="baseParameters">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="clientId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="returnDetails" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="firstResult" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="maxResult" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="stockNo" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="findByClientResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="return" type="tns:warehouseSearchResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="warehouseSearchResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:searchResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="unbounded" form="unqualified" name="list" type="tns:warehouse" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="searchResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="totalHits" nillable="true" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="warehouse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="stockNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="findByClientSoapIn">
+    <wsdl:part name="parameters" element="tns:findByClient" />
+  </wsdl:message>
+  <wsdl:message name="findByClientSoapOut">
+    <wsdl:part name="parameters" element="tns:findByClientResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WarehouseServiceBinding">
+    <wsdl:operation name="findByClient">
+      <wsdl:input message="tns:findByClientSoapIn" />
+      <wsdl:output message="tns:findByClientSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WarehouseServiceBinding" type="tns:WarehouseServiceBinding">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="findByClient">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WarehouseServiceBinding1" type="tns:WarehouseServiceBinding">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="findByClient">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WarehouseWebService">
+    <wsdl:port name="WarehouseServiceBinding" binding="tns:WarehouseServiceBinding">
+      <soap:address location="http://localhost:1095/Wms.WebServices.SyncWS.WebSite/Interface.c3PL.Warehouse.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WarehouseServiceBinding1" binding="tns:WarehouseServiceBinding1">
+      <soap12:address location="http://localhost:1095/Wms.WebServices.SyncWS.WebSite/Interface.c3PL.Warehouse.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

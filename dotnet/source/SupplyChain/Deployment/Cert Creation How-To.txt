@@ -1,0 +1,25 @@
+Certificate "cert.pfx" created to be able to sign ClickOnce deploy manifests.
+
+Do the following to create one:
+
+1. Start "Visual Studio 2008 Command Prompt" (in the start menu).
+
+2. Go to a directory where you want to create the cert.
+
+3. Type the following:
+	makecert -r -pe -n "CN=CDC Software" -sr LocalMachine -sv MyCert.pvk MyCert.cer
+
+	Don't enter a password. Just push the "None" button.
+
+4. And then type:
+	pvk2pfx.exe -pvk MyCert.pvk -spc MyCert.cer
+
+	In the Wizard that comes up do this:
+		* Push Next
+		* Select "Yes, export the private key" and push Next.
+		* Just push Next again.
+		* Don't enter any password, just push Next again.
+		* Select where to save. The filename should be called "cert.pfx".
+		* Push Finish and the file is saved.
+
+

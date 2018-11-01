@@ -1,0 +1,46 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="ReportCoreTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Assembly Name="Cdc.CodeGeneration.Caching" %>
+<%@ Assembly Name="System.Collections.Generic" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Import Namespace="Cdc.CodeGeneration.Caching" %>
+<%@ Property Name="report" Type="Cdc.MetaManager.DataAccess.Domain.Report" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isSpec" Type="System.Boolean" Default="" Optional="false" Category="" Description="" %>
+<%
+string procText = string.Format("procedure Before_{0}( ", report.Name);
+int indent = procText.Length;
+
+IList<string> parameterNames = report.GetUserDefinedInterfaceParameterList().GetNameAndTypePadded(25);
+string xmlCallInParams = parameterNames.Aggregate((current, next) => current + "," + Environment.NewLine + string.Empty.PadRight(indent) + next);
+
+procText = string.Format("{0}{1},", procText, xmlCallInParams);
+
+int padLength = Math.Max(25, report.GetUserDefinedInterfaceParameterList().MaxNameLength);
+
+string indentString = string.Empty.PadRight(indent);
+%>
+<%=procText%>
+<%
+if (report.IsABCEnabled)
+{
+%>
+<%=indentString%><%=string.Format("{0} ACTLOG.WHID%type,", "ACTLOG_WHID_I".PadRight(padLength))%>
+<%=indentString%><%=string.Format("{0} ACTLOG.COMPANY_ID%type,", "ACTLOG_COMPANY_ID_I".PadRight(padLength))%>
+<%
+}
+%>
+<%=indentString%><%=string.Format("{0} varchar2,", "META_TERID_I".PadRight(padLength))%>
+<%=indentString%><%=string.Format("{0} varchar2,", "META_EMPID_I".PadRight(padLength))%>
+<%=indentString%><%=string.Format("{0} in out varchar2,", "META_PRTID_IO".PadRight(padLength - 7))%>
+<%=indentString%><%=string.Format("{0} in out varchar2,", "META_DOCSUBTYPE_IO".PadRight(padLength - 7))%>
+<%=indentString%><%=string.Format("{0} in out number,", "META_NO_COPIES_IO".PadRight(padLength - 7))%>
+<%=indentString%><%=string.Format("{0} out ALM.ALMID%type ){1}", "ALMID_O".PadRight(padLength - 4), isSpec ? ";" : string.Empty)%>

@@ -1,0 +1,64 @@
+#
+# makefile 17/12/2004
+# 
+# Copyright (c) 2004 - 2005 Industri-Matematik AB. All rights reserved.
+#
+BIN=.\bin
+XMLOUTDIR=.\hapi\xml
+XMLDIR=.\xml
+HTMLDIR=.\hapi\html
+
+RD=rd /s /q
+CONN="user id = owuser; password = owuser; data source = WHTRUNK"
+
+INXMLFILE1=$(XMLOUTDIR)\in1.xml
+INXMLFILE2=$(XMLOUTDIR)\in2.xml
+INMASTER=$(XMLDIR)\HAPIInboundMaster.xml
+
+OUTXMLFILE=$(XMLOUTDIR)\out.xml
+OUTMASTER=$(XMLDIR)\HAPIOutboundMaster.xml
+
+DICTIONARY=$(XMLDIR)\HAPIDictionary.xml
+
+
+ALLDIR= \
+    "$(XMLOUTDIR)" \
+    "$(HTMLDIR)"
+
+ALLHTML= \
+    "$(HTMLDIR)\index.html"
+
+ALLEXE= \
+    $(BIN)\Imi.CodeGenerators.WebServices.xml2hapihtml.exe
+
+# --------------------------------------------
+# Description Blocks
+# --------------------------------------------
+
+ALL: $(ALLDIR) $(INXMLFILE1) $(INXMLFILE2) $(OUTXMLFILE) $(ALLHTML)
+
+$(INXMLFILE1): 
+    $(BIN)\Imi.CodeGenerators.WebServices.spec2xml HAPI $@ $(DICTIONARY) /OPTDICT 1 /CONN $(CONN)
+
+$(INXMLFILE2): $(INXMLFILE1)
+    $(BIN)\Imi.CodeGenerators.WebServices.ColumnInfo2XML $(INXMLFILE1) $@ /CONN $(CONN)
+
+$(OUTXMLFILE): $(OUTMASTER) $(XMLOUTDIR)
+    $(BIN)\Imi.CodeGenerators.WebServices.XML2WSOutTest $(OUTMASTER) $@ $(DICTIONARY) /CONN $(CONN)
+
+$(HTMLDIR)\index.html: $(INXMLFILE2) $(INMASTER) $(ALLEXE)
+    $(BIN)\Imi.CodeGenerators.WebServices.xml2hapihtml $(INXMLFILE2) $(INMASTER) $(HTMLDIR)
+    $(BIN)\Imi.CodeGenerators.WebServices.xml2hapihtml $(OUTXMLFILE) $(OUTMASTER) $(HTMLDIR)
+
+CLEAN :
+    -@$(RD) $(XMLOUTDIR)
+    -@$(RD) $(HTMLDIR)
+    @nmake /nologo ALL
+
+"$(XMLOUTDIR)" :
+    @if not exist "$(XMLOUTDIR)/$(NULL)" mkdir "$(XMLOUTDIR)"
+
+"$(HTMLDIR)" :
+    @if not exist "$(HTMLDIR)/$(NULL)" mkdir "$(HTMLDIR)"
+
+# end makefile#

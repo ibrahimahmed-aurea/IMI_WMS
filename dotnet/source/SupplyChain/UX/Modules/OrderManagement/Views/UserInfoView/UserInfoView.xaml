@@ -1,0 +1,110 @@
+<Window x:Class="Imi.SupplyChain.UX.Modules.OrderManagement.Views.UserInfoView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:Imi.Framework.Wpf.Data.Converters;assembly=Imi.Framework.Wpf.Data"        
+    xmlns:local="clr-namespace:Imi.SupplyChain.UX.Modules.OrderManagement.Views"
+    xmlns:resources="clr-namespace:Imi.SupplyChain.UX.Modules.OrderManagement"
+    Title="{x:Static resources:Resources.OMSUserInfo_title}"
+    Width="512.676" Height="330"
+    MaxWidth="600" MaxHeight="500"
+    HorizontalAlignment="Center"  VerticalAlignment="Center"
+    Margin="0,0,0,0"  MinWidth="400"
+    AllowsTransparency="True"
+    ShowInTaskbar="False" 
+    ResizeMode="NoResize"
+    SizeToContent="WidthAndHeight"
+    Background="{x:Null}"
+    WindowStartupLocation="CenterOwner"
+    FontFamily="Segoe UI"
+    FontSize="11"
+    WindowStyle="None"
+    HorizontalContentAlignment="Stretch"
+    VerticalContentAlignment="Stretch" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Imi.SupplyChain.UX;component/Resources/generic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            
+            <converters:StringFormatConverter x:Key="stringFormatConverter" />            
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid x:Name="LayoutRoot" Width="Auto" Height="Auto" Margin="20,20,20,20">
+        <Border Margin="0,1,-9.09,0" CornerRadius="5,5,5,5" x:Name="Border" BorderThickness="1,1,1,1" Background="#c9cac8" SnapsToDevicePixels="True">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="20"/>
+            </Border.Effect>
+            <Border.BorderBrush>
+                <SolidColorBrush Color="#c9cac8"/>
+            </Border.BorderBrush>
+            <Border CornerRadius="0,0,0,0" BorderBrush="#FF707070" BorderThickness="1,1,1,1" Margin="5,25,5,5" Background="#FFFFFFFF">
+                <Grid Focusable="False" Width="Auto" Height="Auto">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" MinHeight="0"/>
+                        <RowDefinition Height="35"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" MinWidth="0"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border HorizontalAlignment="Stretch" Margin="0,0,0,0" Width="Auto" Grid.RowSpan="1" Grid.Row="1" CornerRadius="0,0,0,0" Background="#FFDEDEDE" BorderThickness="0,1,0,0" BorderBrush="#FFB7B7B7" VerticalAlignment="Stretch" Grid.ColumnSpan="2"/>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Margin="5,0,0,0">
+                        <Button Width="Auto" Content="{x:Static resources:Resources.OMSUserInfoOKButton_content}" x:Name="OkButton" Height="Auto" IsDefault="True" IsCancel="False" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0" Click="OkButton_Click" />
+                    </StackPanel>
+
+
+                    <Grid x:Name="HeaderGrid" VerticalAlignment="Top" HorizontalAlignment="Left" ShowGridLines="False" Width="420" Height="180">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="130"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5"/>
+                            <RowDefinition Height="15"/>
+                            <RowDefinition Height="15"/>
+                            <RowDefinition Height="15"/>
+                            <RowDefinition Height="15"/>
+                            <RowDefinition Height="15"/>
+                            <RowDefinition Height="15"/>
+                            <RowDefinition Height="15"/>
+                            <RowDefinition Height="15"/>
+                            <RowDefinition Height="15"/>
+                            <RowDefinition Height="15"/>
+                            <RowDefinition Height="15"/>
+                        </Grid.RowDefinitions>
+                        
+                        <TextBlock FontWeight="Bold" Grid.Row="1" Grid.Column="1" Text="{x:Static resources:Resources.OMSUserInfo_UserId}" />
+                        <TextBlock FontWeight="Bold" Grid.Row="2" Grid.Column="1" Text="{x:Static resources:Resources.OMSUserInfo_UserName}" />
+                        <TextBlock FontWeight="Bold" Grid.Row="3" Grid.Column="1" Text="{x:Static resources:Resources.OMSUserInfo_EmployeeNumber}" />
+                        <TextBlock FontWeight="Bold" Grid.Row="4" Grid.Column="1" Text="{x:Static resources:Resources.OMSUserInfo_LangCode}" />
+                        <TextBlock FontWeight="Bold" Grid.Row="5" Grid.Column="1" Text="{x:Static resources:Resources.OMSUserInfo_LegalEntity}" />
+                        <TextBlock FontWeight="Bold" Grid.Row="6" Grid.Column="1" Text="{x:Static resources:Resources.OMSUserInfo_WhsNumber}" />
+                        <TextBlock FontWeight="Bold" Grid.Row="7" Grid.Column="1" Text="{x:Static resources:Resources.OMSUserInfo_OrgUnit}" />
+                        <TextBlock FontWeight="Bold" Grid.Row="8" Grid.Column="1" Text="{x:Static resources:Resources.OMSUserInfo_LoginId}" />
+                        <TextBlock FontWeight="Bold" Grid.Row="9" Grid.Column="1" Text="{x:Static resources:Resources.OMSUserInfo_SystemName}" />
+                        <TextBlock FontWeight="Bold" Grid.Row="10" Grid.Column="1" Text="{x:Static resources:Resources.OMSUserInfo_Host}" />
+                        <TextBlock FontWeight="Bold" Grid.Row="11" Grid.Column="1" Text="{x:Static resources:Resources.OMSUserInfo_Port}" />
+
+                        <TextBlock x:Name="userId"      Grid.Row="1" Grid.Column="2" />
+                        <TextBlock x:Name="userName"    Grid.Row="2" Grid.Column="2" />
+                        <TextBlock x:Name="empNum"      Grid.Row="3" Grid.Column="2" />
+                        <TextBlock x:Name="langCode"    Grid.Row="4" Grid.Column="2" />
+                        <TextBlock x:Name="legalEntity" Grid.Row="5" Grid.Column="2" />
+                        <TextBlock x:Name="whsNum"      Grid.Row="6" Grid.Column="2" />
+                        <TextBlock x:Name="orgUnit"     Grid.Row="7" Grid.Column="2" />
+                        <TextBlock x:Name="loginId"     Grid.Row="8" Grid.Column="2" />
+                        <TextBlock x:Name="systemName"  Grid.Row="9" Grid.Column="2" />
+                        <TextBlock x:Name="host"        Grid.Row="10" Grid.Column="2" />
+                        <TextBlock x:Name="port"        Grid.Row="11" Grid.Column="2" />
+                        <ProgressBar Visibility="Collapsed" HorizontalAlignment="Right" Margin="6" Style="{StaticResource dotProgressBarStyle}" Width="45" x:Name="progressBar" VerticalAlignment="Top" Height="45" />
+                    </Grid>
+                </Grid>
+            </Border>
+        </Border>
+        <Label Margin="0,1,0,0" VerticalAlignment="Top" Height="Auto" Content="{x:Static resources:Resources.OMSUserInfo_title}" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" HorizontalAlignment="Left" x:Name="TitleLabel" IsHitTestVisible="False" Width="Auto" />
+    </Grid>
+</Window>

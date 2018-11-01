@@ -1,0 +1,1654 @@
+<ResourceDictionary
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+  xmlns:dataGrid="clr-namespace:Xceed.Wpf.DataGrid;assembly=Xceed.Wpf.DataGrid.v6.0"
+  xmlns:views="clr-namespace:Xceed.Wpf.DataGrid.Views;assembly=Xceed.Wpf.DataGrid.v6.0"
+  xmlns:local="clr-namespace:Imi.SupplyChain.UX"
+  xmlns:themes="http://schemas.actiprosoftware.com/winfx/xaml/themes"
+  xmlns:actipro="http://schemas.actiprosoftware.com/winfx/xaml/shared"
+  xmlns:ux="clr-namespace:Imi.SupplyChain.UX.Views"
+  xmlns:conv="clr-namespace:Xceed.Wpf.DataGrid.Converters;assembly=Xceed.Wpf.DataGrid.v6.0"
+  xmlns:markup="clr-namespace:Xceed.Wpf.DataGrid.Markup;assembly=Xceed.Wpf.DataGrid.v6.0"
+  xmlns:controls="clr-namespace:Imi.Framework.Wpf.Controls;assembly=Imi.Framework.Wpf.Controls"
+  xmlns:data="clr-namespace:Imi.Framework.Wpf.Data;assembly=Imi.Framework.Wpf.Data"
+  xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+  xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
+    <!-- Resource dictionary entries should be defined here. -->
+
+    <Style TargetType="{x:Type controls:DataGrid}">
+        <Setter Property="AutoCreateColumns" Value="False"/>
+        <Setter Property="NavigationBehavior" Value="RowOnly"/>
+        <Setter Property="ReadOnly" Value="True"/>
+        <Setter Property="SelectionMode" Value="Single"/>
+        <Setter Property="BorderBrush" Value="{x:Null}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="{DynamicResource {x:Static themes:AssetResourceKeys.EditBackgroundNormalBrushKey}}"/>
+        <Setter Property="Margin" Value="0,0,0,0"/>
+        <Setter Property="Width" Value="Auto"/>
+        <Setter Property="Height" Value="Auto"/>
+        <Setter Property="ItemScrollingBehavior" Value="Immediate"/>
+    </Style>
+
+    <DrawingBrush x:Key="ExcelLogo" Stretch="Uniform" PresentationOptions:Freeze="True">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Geometry="F1 M 275.426,217.672L 275.426,243.922L 249.176,243.922L 249.176,226.672C 249.176,221.702 253.206,217.672 258.176,217.672L 275.426,217.672 Z ">
+                        <GeometryDrawing.Pen>
+                            <Pen StartLineCap="Square" EndLineCap="Square" MiterLimit="2.75" Brush="#FF50AF23"/>
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Geometry="F1 M 274.051,219.047L 274.051,242.547L 250.551,242.547L 250.551,227.104C 250.551,222.654 254.159,219.047 258.608,219.047L 274.051,219.047 Z ">
+                        <GeometryDrawing.Pen>
+                            <Pen Thickness="0.5" StartLineCap="Square" EndLineCap="Square" MiterLimit="2.75" Brush="#FFE5E9E5"/>
+                        </GeometryDrawing.Pen>
+                        <GeometryDrawing.Brush>
+                            <LinearGradientBrush StartPoint="0.517526,1.0232" EndPoint="0.517526,-0.0033946">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStop Color="#FF41731E" Offset="0"/>
+                                    <GradientStop Color="#FF67A445" Offset="0.457627"/>
+                                    <GradientStop Color="#FFA3B29D" Offset="0.716102"/>
+                                    <GradientStop Color="#FFA7BC9F" Offset="0.75"/>
+                                    <GradientStop Color="#FFE6F3E3" Offset="1"/>
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                    <GeometryDrawing Geometry="F1 M 254.809,223.409L 279.842,225.809L 278.609,246.276L 252.009,242.309L 254.809,223.409 Z ">
+                        <GeometryDrawing.Pen>
+                            <Pen LineJoin="Round" Brush="#FF989C97"/>
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#FFFAFBF5" Geometry="F1 M 254.596,222.882L 279.63,224.782L 278.096,245.449L 251.496,241.482L 254.596,222.882 Z ">
+                        <GeometryDrawing.Pen>
+                            <Pen Thickness="0.5" LineJoin="Round" Brush="#FFE9EAE7"/>
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#FF589452" Geometry="F1 M 270.877,231.695L 276.863,232.113L 276.549,236.602L 270.564,236.184L 270.877,231.695 Z ">
+                        <GeometryDrawing.Pen>
+                            <Pen Thickness="0.5" LineJoin="Round" Brush="#FFD1E3CF"/>
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#FF589452" Geometry="F1 M 271.477,225.695L 277.463,226.113L 277.149,230.602L 271.164,230.184L 271.477,225.695 Z ">
+                        <GeometryDrawing.Pen>
+                            <Pen Thickness="0.5" LineJoin="Round" Brush="#FFD1E3CF"/>
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#FF589452" Geometry="F1 M 270.111,238.428L 276.096,238.847L 275.782,243.336L 269.797,242.917L 270.111,238.428 Z ">
+                        <GeometryDrawing.Pen>
+                            <Pen Thickness="0.5" LineJoin="Round" Brush="#FFD1E3CF"/>
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#FF589452" Geometry="F1 M 262.011,236.928L 267.996,237.347L 267.682,241.836L 261.697,241.417L 262.011,236.928 Z ">
+                        <GeometryDrawing.Pen>
+                            <Pen Thickness="0.5" LineJoin="Round" Brush="#FFD1E3CF"/>
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#FF589452" Geometry="F1 M 253.577,235.362L 259.563,235.78L 259.249,240.269L 253.263,239.851L 253.577,235.362 Z ">
+                        <GeometryDrawing.Pen>
+                            <Pen Thickness="0.5" LineJoin="Round" Brush="#FFD1E3CF"/>
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Geometry="F1 M 254.746,233.32L 263.746,225.69L 269.213,225.674L 262.085,231.324L 266.827,232.837L 267.813,233.216L 254.746,233.32 Z ">
+                        <GeometryDrawing.Pen>
+                            <Pen Thickness="0.5" LineJoin="Round" Brush="#FF9ABF94"/>
+                        </GeometryDrawing.Pen>
+                        <GeometryDrawing.Brush>
+                            <LinearGradientBrush StartPoint="-0.633637,0.619334" EndPoint="-0.633637,0.619334">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStop Color="#FF6AA05B" Offset="0"/>
+                                    <GradientStop Color="#FF86B467" Offset="1"/>
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                    <GeometryDrawing Geometry="F1 M 255.629,225.016L 260.363,224.982L 267.429,234.916L 262.663,234.916L 255.629,225.016 Z ">
+                        <GeometryDrawing.Pen>
+                            <Pen Thickness="0.5" LineJoin="Round" Brush="#FF5A843A"/>
+                        </GeometryDrawing.Pen>
+                        <GeometryDrawing.Brush>
+                            <LinearGradientBrush StartPoint="0.151197,-0.0619076" EndPoint="1.40623,-0.0619076">
+                                <LinearGradientBrush.RelativeTransform>
+                                    <TransformGroup>
+                                        <SkewTransform CenterX="0.151197" CenterY="-0.0619076" AngleX="9.22551" AngleY="0"/>
+                                        <RotateTransform CenterX="0.151197" CenterY="-0.0619076" Angle="59.574"/>
+                                    </TransformGroup>
+                                </LinearGradientBrush.RelativeTransform>
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStop Color="#FF568820" Offset="0"/>
+                                    <GradientStop Color="#FF0F4701" Offset="1"/>
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+
+    <DataTemplate x:Key="groupByItemAscendingSortGlyph">
+        <Canvas Height="4"
+            Width="7">
+            <Path Opacity="1"
+            Data="M 3.59375,0.15625 C3.59375,0.15625 7,4 7,4 7,4 0,4 0,4 0,4 3.59375,0.15625 3.59375,0.15625 z"
+            Fill="{Binding RelativeSource={RelativeSource Self},Path=(TextElement.Foreground)}" />
+
+            <Path Opacity="1"
+            Data="M 0.5,3.5 C0.5,3.5 3.5,0.5 3.5,0.5 "
+            Stroke="{Binding RelativeSource={RelativeSource Self},Path=(TextElement.Foreground)}"
+            StrokeThickness="1" />
+        </Canvas>
+    </DataTemplate>
+
+    <DataTemplate x:Key="groupByItemDescendingSortGlyph">
+        <Canvas Height="4"
+            Width="7">
+            <Path Opacity="1"
+            Data="M 3.59375,4 C3.59375,4 7,0.15625 7,0.15625 7,0.15625 0,0.15625 0,0.15625 0,0.15625 3.59375,4 3.59375,4 z"
+            Fill="{Binding RelativeSource={RelativeSource Self},Path=(TextElement.Foreground)}" />
+
+            <Path Opacity="1"
+            Data="M 0.5,0.5 C0.5,0.5 3.5,3.5 3.5,3.5 "
+            Stroke="{Binding RelativeSource={RelativeSource Self},Path=(TextElement.Foreground)}"
+            StrokeThickness="1" />
+        </Canvas>
+    </DataTemplate>
+
+    <!--**************************
+    * TEMPLATE: HierarchicalGroupByItem 
+    ************************** -->
+    <ControlTemplate x:Key="aeroNormalColorGroupByItemTemplate"
+                   TargetType="xcdg:GroupByItem">
+
+        <Border x:Name="border" BorderThickness="1" Background="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonBackgroundNormalBrushKey}}" BorderBrush="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonBorderNormalBrushKey}}">
+
+            <Border x:Name="innerBorder" BorderThickness="1" BorderBrush="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonInnerBorderNormalBrushKey}}">
+
+
+                <!-- This StackPanel is used to layout the ContentPresenter and the Sort Glyph (when present). -->
+                <StackPanel Orientation="Horizontal"
+                      Margin="{TemplateBinding Padding}">
+
+                    <ContentPresenter Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+
+                    <ContentPresenter x:Name="sortGlyphPresenter"
+                              Margin="6,0,4,0"
+                              Content="{x:Null}"
+                              ContentTemplate="{StaticResource groupByItemAscendingSortGlyph}"
+                              Visibility="Hidden" />
+
+                </StackPanel>
+
+            </Border>
+
+        </Border>
+
+        <ControlTemplate.Triggers>
+
+            <Trigger Property="IsMouseOver"
+               Value="True">
+
+                <Setter TargetName="border"
+                Property="BorderBrush"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonBorderHoverBrushKey}}" />
+
+                <Setter TargetName="border"
+                        Property="Background"
+                        Value="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonBackgroundHoverBrushKey}}" />
+
+                <Setter TargetName="innerBorder"
+                Property="BorderBrush"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonInnerBorderHoverBrushKey}}" />
+
+
+            </Trigger>
+
+            <Trigger Property="IsPressed"
+               Value="True">
+
+                <Setter TargetName="border"
+                Property="BorderBrush"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonBorderPressedBrushKey}}" />
+
+                <Setter TargetName="border"
+                        Property="Background"
+                        Value="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonBackgroundPressedBrushKey}}" />
+
+                <Setter TargetName="innerBorder"
+                Property="BorderBrush"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonInnerBorderPressedBrushKey}}" />
+
+
+            </Trigger>
+
+            <!-- The following 2 triggers allow the appropriate Sort Glyph to be displayed
+              depending on the ParentColumn's SortDirection. -->
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=SortDirection}"
+                   Value="Ascending">
+
+                <Setter TargetName="sortGlyphPresenter"
+                Property="Visibility"
+                Value="Visible" />
+
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=SortDirection}"
+                   Value="Descending">
+
+                <Setter TargetName="sortGlyphPresenter"
+                Property="ContentPresenter.ContentTemplate"
+                Value="{StaticResource groupByItemDescendingSortGlyph}" />
+
+                <Setter TargetName="sortGlyphPresenter"
+                Property="Visibility"
+                Value="Visible" />
+
+            </DataTrigger>
+        </ControlTemplate.Triggers>
+
+    </ControlTemplate>
+
+    <!--**************************
+    * STYLE: HierarchicalGroupByItem 
+    **************************-->
+    <Style TargetType="xcdg:GroupByItem">
+
+        <Setter Property="Foreground"
+        Value="{DynamicResource {x:Static themes:AssetResourceKeys.ControlForegroundNormalBrushKey}}" />
+
+
+        <Setter Property="Template"
+            Value="{StaticResource aeroNormalColorGroupByItemTemplate}" />
+
+    </Style>
+
+
+    <Style x:Key="invisibleThumbStyle"
+          TargetType="Thumb">
+
+        <Setter Property="MinWidth"
+            Value="{DynamicResource {x:Static SystemParameters.ResizeFrameVerticalBorderWidthKey}}" />
+
+        <Setter Property="MinHeight"
+            Value="{DynamicResource {x:Static SystemParameters.ResizeFrameHorizontalBorderHeightKey}}" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+
+                <ControlTemplate TargetType="Thumb">
+                    <Grid Background="Transparent" />
+                </ControlTemplate>
+
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ControlTemplated applied to the Button that is used in the DataRows
+        to expand/collapse Details. -->
+    <ControlTemplate x:Key="detailsExpanderButtonTemplate"
+                   TargetType="Button">
+        <ContentPresenter x:Name="expanderGlyphPresenter"
+                      Content="{x:Null}"
+                      ContentTemplate="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).CollapseGroupGlyph}" />
+
+        <ControlTemplate.Triggers>
+            <Trigger Property="xcdg:DataGridControl.HasExpandedDetails"
+               Value="False">
+                <Setter TargetName="expanderGlyphPresenter"
+                Property="ContentTemplate"
+                Value="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).ExpandGroupGlyph}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="GroupByToggleButtonStyle" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static themes:AssetResourceKeys.ControlForegroundNormalBrushKey}}"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <actipro:ScrollChrome x:Name="chrome" Background="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonBackgroundNormalBrushKey}}"
+              BackgroundDisabled="{DynamicResource {x:Static themes:AssetResourceKeys.DropDownBackgroundDisabledBrushKey}}"
+              BackgroundHover="{DynamicResource {x:Static themes:AssetResourceKeys.DropDownBackgroundHoverBrushKey}}"
+              BackgroundPressed="{DynamicResource {x:Static themes:AssetResourceKeys.DropDownBackgroundPressedBrushKey}}" BorderBrush="{TemplateBinding BorderBrush}"
+              BorderBrushDisabled="{DynamicResource {x:Static themes:AssetResourceKeys.DropDownBorderDisabledBrushKey}}"
+              BorderBrushHover="{DynamicResource {x:Static themes:AssetResourceKeys.DropDownBorderHoverBrushKey}}"
+              BorderBrushPressed="{DynamicResource {x:Static themes:AssetResourceKeys.DropDownBorderPressedBrushKey}}" BorderThickness="{TemplateBinding BorderThickness}"
+              GlyphBackground="{DynamicResource {x:Static themes:AssetResourceKeys.DropDownGlyphBackgroundNormalBrushKey}}"
+              GlyphBackgroundDisabled="{DynamicResource {x:Static themes:AssetResourceKeys.DropDownGlyphBackgroundDisabledBrushKey}}"
+              GlyphBackgroundHover="{DynamicResource {x:Static themes:AssetResourceKeys.DropDownGlyphBackgroundHoverBrushKey}}"
+              GlyphBackgroundPressed="{DynamicResource {x:Static themes:AssetResourceKeys.DropDownGlyphBackgroundPressedBrushKey}}"
+              InnerBorderBrush="{DynamicResource {x:Static themes:AssetResourceKeys.DropDownInnerBorderNormalBrushKey}}"
+              InnerBorderBrushDisabled="{DynamicResource {x:Static themes:AssetResourceKeys.DropDownInnerBorderDisabledBrushKey}}"
+              InnerBorderBrushHover="{DynamicResource {x:Static themes:AssetResourceKeys.DropDownInnerBorderHoverBrushKey}}"
+              InnerBorderBrushPressed="{DynamicResource {x:Static themes:AssetResourceKeys.DropDownInnerBorderPressedBrushKey}}" InnerBorderThickness="1"
+              IsAnimationEnabled="{TemplateBinding themes:ThemeProperties.IsAnimationEnabled}"
+              BorderStyle="{DynamicResource {x:Static themes:AssetResourceKeys.DropDownElementChromeBorderStyleKey}}"
+              CornerRadius="{TemplateBinding themes:ThemeProperties.CornerRadius}"
+              UseAlternateGeometry="{DynamicResource {x:Static themes:AssetResourceKeys.DropDownGlyphUseAlternateGeometryBooleanKey}}"
+              Margin="{DynamicResource {x:Static themes:AssetResourceKeys.DropDownChromeMarginNormalThicknessKey}}" SnapsToDevicePixels="true" />
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="chrome" Property="State" Value="Hover" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter TargetName="chrome" Property="State" Value="Pressed" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter TargetName="chrome" Property="State" Value="Disabled" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--**************************
+    * TEMPLATE: GroupByControl
+    **************************-->
+    <ControlTemplate x:Key="aeroNormalColorGroupByControlTemplate"
+                   TargetType="xcdg:GroupByControl">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <ToggleButton IsTabStop="false" x:Name="GroupByToggleButton" Height="7" Content="" Style="{StaticResource GroupByToggleButtonStyle}" IsChecked="{Binding IsGroupByAreaVisible, RelativeSource={RelativeSource AncestorType={x:Type controls:DataGrid}}}"/>
+            <Grid Grid.Row="1" x:Name="ContentGrid" Visibility="Collapsed">
+                <Border BorderBrush="{DynamicResource {x:Static themes:AssetResourceKeys.ListBorderNormalBrushKey}}" BorderThickness="1,0,1,1" Background="{DynamicResource {x:Static themes:AssetResourceKeys.ContainerMediumBackgroundNormalBrushKey}}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <!--This ContentPresenter displays the value of the NoGroupContent property
+                             of the GroupByControl. This content must only be displayed when there are
+                             no groups present, so we set its Visibility to Collapsed by default and
+                             it is made visible via a trigger.-->
+                        <ContentPresenter x:Name="noGroupContentPresenter"
+                Margin="{TemplateBinding Padding}"
+                Content="{x:Static local:StringResources.DataGrid_GroupByContent}"
+                VerticalAlignment="Center"
+              Visibility="Visible"/>
+
+                        <!--The GroupByControl is an ItemsControl, so it must have an ItemsPresenter in its
+                             Template in order to layout and show its child items. The default ItemsPanel
+                             of the GroupByControl is a "StaircasePanel", which layout its items in a
+                             staircase-like pattern and draws connecting lines between the items.-->
+                        <ItemsPresenter Margin="{TemplateBinding Padding}" />
+                        <StackPanel Orientation="Horizontal" Grid.Column="1">
+                            <Grid>
+                                <Button x:Name="ExcelExportButton"
+                                HorizontalAlignment="Center" VerticalAlignment="Center"
+                                Margin="4,4,4,4"
+                                Opacity="0"
+                                Focusable="false"
+                                IsEnabled="{Binding IsExportEnabled, RelativeSource={RelativeSource AncestorType={x:Type controls:DataGrid}}}"
+                                Command="{Binding ExcelExportCommand, RelativeSource={RelativeSource AncestorType={x:Type controls:DataGrid}}}">
+                                    <Rectangle 
+                                    Fill="{DynamicResource ExcelLogo}" Stroke="{x:Null}"
+                                    Width="24"
+                                    Height="24"
+                                    Margin="2"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Button>
+                                <Rectangle x:Name="ExcelLogoRect"
+                                Fill="{DynamicResource ExcelLogo}" Stroke="{x:Null}"
+                                Width="24"
+                                Height="24"
+                                Margin="2"
+                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsChecked" Value="True" SourceName="GroupByToggleButton">
+                <Setter Property="MinHeight" Value="25" TargetName="ContentGrid"/>
+                <Setter Property="Visibility" Value="Visible" TargetName="ContentGrid"/>
+            </Trigger>
+            <!--When there are no groups, make the NoGroupContent visible.-->
+            <Trigger Property="HasItems" Value="True">
+                <Setter TargetName="noGroupContentPresenter" Property="Visibility" Value="Collapsed"/>
+                <Setter TargetName="GroupByToggleButton" Property="IsChecked" Value="True"/>
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver" Value="True" SourceName="ExcelLogoRect"/>
+                    <Condition Property="IsEnabled" Value="True" SourceName="ExcelExportButton"/>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="Opacity" Value="1" TargetName="ExcelExportButton"/>
+                    <Setter Property="Visibility" Value="Collapsed" TargetName="ExcelLogoRect"/>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+            <!--<Trigger Property="IsMouseOver" Value="True" SourceName="ExcelLogoRect">
+                <Setter Property="Opacity" Value="1" TargetName="ExcelExportButton"/>
+                <Setter Property="Visibility" Value="Collapsed" TargetName="ExcelLogoRect"/>
+            </Trigger>-->
+            <Trigger Property="IsMouseOver" Value="True" SourceName="ExcelExportButton">
+                <Setter Property="Opacity" Value="1" TargetName="ExcelExportButton"/>
+                <Setter Property="Visibility" Value="Collapsed" TargetName="ExcelLogoRect"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+
+    </ControlTemplate>
+
+    <!--**************************
+    * STYLE: GroupByControl 
+    **************************-->
+    <Style TargetType="xcdg:GroupByControl">
+
+        <Setter Property="Foreground"
+            Value="{DynamicResource {x:Static themes:AssetResourceKeys.ControlForegroundNormalBrushKey}}" />
+
+        <!--If we don't specify a MinHeight, the default "size-to-content" behavior will arrange 
+           the control with a Height of 0, which makes it invisible and unusable.
+           In a typical TableView, a height of at least 25 is appropriate for the GroupByControl.-->
+        <Setter Property="MinHeight"
+            Value="0" />
+
+        <Setter Property="Padding"
+            Value="4"/>
+
+        <Setter Property="Template"
+            Value="{StaticResource aeroNormalColorGroupByControlTemplate}" />
+
+    </Style>
+
+    <Style TargetType="xcdg:HierarchicalGroupByControl">
+
+        <Setter Property="ConnectionLinePen">
+            <Setter.Value>
+                <Pen Brush="{DynamicResource {x:Static themes:AssetResourceKeys.ControlForegroundNormalBrushKey}}" Thickness="2"/>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
+    <conv:IndexToOddConverter x:Key="rowIndexConverter"/>
+    <data:NullToBoolConverter x:Key="nullToBoolConverter"/>
+
+    <!--**************************
+     * TEMPLATE: FilterToggleButton
+      **************************-->
+    <ControlTemplate TargetType="{x:Type ToggleButton}"
+                   x:Key="filterToggleButton">
+
+        <Grid Background="Transparent"
+          VerticalAlignment="Stretch"
+          HorizontalAlignment="Stretch">
+
+            <Grid Width="16"
+            Background="Transparent"
+            HorizontalAlignment="Center">
+
+                <ContentPresenter x:Name="glyphPresenter"
+                          ContentTemplate="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).AutoFilterDropDownGlyph}"
+                          Content="{TemplateBinding Content}"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Center"
+                          Margin="0,0,0,0"
+                          Opacity="{TemplateBinding Opacity}" />
+
+                <ContentPresenter x:Name="filterActivatedGlyphPresenter"
+                          ContentTemplate="{x:Null}"
+                          Content="{TemplateBinding Content}"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Center"
+                          Margin="0,0,2,0"
+                          Opacity="{TemplateBinding Opacity}">
+
+                </ContentPresenter>
+            </Grid>
+        </Grid>
+
+        <ControlTemplate.Triggers>
+
+            <!-- Display AutoFilterGlyph when there are AutoFilterValues -->
+            <DataTrigger Binding="{Binding ElementName=autoFilterControl, Path=HasAutoFilterValues}"
+                   Value="True">
+
+                <Setter TargetName="glyphPresenter"
+                Property="ContentTemplate"
+                Value="{x:Null}" />
+
+                <Setter TargetName="filterActivatedGlyphPresenter"
+                Property="ContentTemplate"
+                Value="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).AutoFilterGlyph}" />
+
+            </DataTrigger>
+
+            <!-- Restore DropDownGlyph when there are no AutoFilterValues -->
+            <DataTrigger Binding="{Binding ElementName=autoFilterControl, Path=HasAutoFilterValues}"
+                   Value="False">
+
+                <Setter TargetName="glyphPresenter"
+                Property="ContentTemplate"
+                Value="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).AutoFilterDropDownGlyph}" />
+
+            </DataTrigger>
+
+        </ControlTemplate.Triggers>
+
+    </ControlTemplate>
+
+
+    <!--**************************
+    * TEMPLATE: ColumnManagerCell 
+    ************************** -->
+    <ControlTemplate x:Key="tableViewColumnManagerCellTemplate"
+                   TargetType="xcdg:ColumnManagerCell">
+        <ControlTemplate.Resources>
+            <Style TargetType="ToggleButton">
+                <Setter Property="Template"
+                Value="{StaticResource filterToggleButton}" />
+            </Style>
+        </ControlTemplate.Resources>
+
+        <!-- This Grid is used to position the resizer Thumb over the ColumnManagerCell -->
+        <Grid>
+
+            <Border x:Name="rootBorder"
+              Background="{DynamicResource {x:Static themes:AssetResourceKeys.ListColumnHeaderBackgroundNormalBrushKey}}"
+              BorderBrush="{DynamicResource {x:Static themes:AssetResourceKeys.ListColumnHeaderBorderNormalBrushKey}}"
+              BorderThickness="{TemplateBinding BorderThickness}">
+
+                <DockPanel>
+
+                    <Grid>
+
+                        <DockPanel Margin="{TemplateBinding Padding}">
+
+                            <ContentPresenter x:Name="sortGlyphPresenter"
+                                DockPanel.Dock="Top"
+                                Content="{x:Null}"
+                                ContentTemplate="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).AscendingSortGlyph}"
+                                Visibility="Hidden"
+                                HorizontalAlignment="Center" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <xcdg:CellContentPresenter x:Name="PART_CellContentPresenter"
+                                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+
+                                <Border x:Name="thumbToggleBackgroundBorder"
+                        Grid.Column="1"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="0"
+                        Background="{DynamicResource {x:Static themes:AssetResourceKeys.ListColumnHeaderBackgroundNormalBrushKey}}">
+
+                                    <ToggleButton x:Name="toggleButton"
+                                Focusable="False"
+                                VerticalAlignment="Stretch"
+                                Visibility="Collapsed"
+                                Margin="2,0,0,0"
+                                Opacity="0.5" />
+
+                                </Border>
+                            </Grid>
+
+                        </DockPanel>
+
+                        <Border x:Name="delimiterBorder"
+                    BorderThickness="1,0,1,0"
+                    BorderBrush="{DynamicResource {x:Static themes:AssetResourceKeys.MenuSeparatorHighlightNormalBrushKey}}" />
+
+                        <xcdg:AutoFilterPopup x:Name="filterOptions"
+                                   PopupAnimation="Slide"
+                                   IsOpen="{Binding ElementName=toggleButton,
+                                                    Path=IsChecked,
+                                                    Mode=TwoWay,
+                                                    UpdateSourceTrigger=PropertyChanged}"
+                                   StaysOpen="False"
+                                   AllowsTransparency="True"
+                                   PlacementTarget="{Binding ElementName=toggleButton}">
+
+                            <xcdg:AutoFilterControl x:Name="autoFilterControl"
+                                       Background="White"
+                                       BorderBrush="Black"
+                                       BorderThickness="1"
+                                       AutoFilterColumn="{Binding RelativeSource={RelativeSource self}, Path=(xcdg:Cell.ParentCell).ParentColumn}"
+                                       Style="{Binding RelativeSource={RelativeSource self}, Path=(xcdg:Cell.ParentCell).ParentColumn.AutoFilterControlStyle}"
+                                       TextElement.Foreground="{TemplateBinding TextElement.Foreground}" />
+                        </xcdg:AutoFilterPopup>
+
+                    </Grid>
+
+                </DockPanel>
+
+            </Border>
+
+            <!-- Thumb that is used to resize the Column. -->
+            <Thumb x:Name="PART_ColumnResizerThumbLeft"
+             Style="{StaticResource invisibleThumbStyle}"
+             HorizontalAlignment="Left" />
+
+            <!-- Thumb that is used to resize the Column. -->
+            <Thumb x:Name="PART_ColumnResizerThumb"
+             Style="{StaticResource invisibleThumbStyle}"
+             HorizontalAlignment="Right" />
+
+        </Grid>
+
+        <ControlTemplate.Triggers>
+            <!-- The following triggers allows the content to correctly align to the center when the mouse is over the ColumnManagerCell and the HorizontalContentAlignment is Center -->
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Value="Visible"
+                     Binding="{Binding ElementName=toggleButton, Path=Visibility}" />
+                    <Condition Value="Center"
+                     Binding="{Binding RelativeSource={RelativeSource Self},
+                        Path=HorizontalContentAlignment}" />
+                </MultiDataTrigger.Conditions>
+
+                <Setter TargetName="PART_CellContentPresenter"
+                Property="Margin"
+                Value="19,0,0,0" />
+            </MultiDataTrigger>
+
+            <!-- Trigger related to the filteringToggleButton-->
+            <Trigger SourceName="toggleButton"
+               Property="IsMouseOver"
+               Value="True">
+
+                <Setter TargetName="toggleButton"
+                Property="Opacity"
+                Value="1" />
+            </Trigger>
+
+            <!-- Always visible if filterOptions popup IsOpen -->
+            <Trigger SourceName="filterOptions"
+               Property="IsOpen"
+               Value="True">
+
+                <Setter TargetName="toggleButton"
+                Property="Visibility"
+                Value="Visible" />
+
+                <Setter TargetName="toggleButton"
+                Property="Opacity"
+                Value="1" />
+
+                <Setter TargetName="rootBorder"
+                Property="BorderBrush"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListColumnHeaderBorderHoverBrushKey}}" />
+
+                <Setter TargetName="rootBorder"
+                Property="Background"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListColumnHeaderBackgroundHoverBrushKey}}" />
+
+                <Setter TargetName="delimiterBorder"
+                Property="Visibility"
+                Value="Hidden" />
+
+                <Setter TargetName="thumbToggleBackgroundBorder"
+                Property="BorderThickness"
+                Value="1,0,0,0" />
+
+                <Setter TargetName="thumbToggleBackgroundBorder"
+                Property="Background"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListColumnHeaderBackgroundHoverBrushKey}}" />
+
+                <Setter TargetName="thumbToggleBackgroundBorder"
+                Property="BorderBrush"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListColumnHeaderBorderHoverBrushKey}}" />
+
+            </Trigger>
+
+            <!-- Display FilterToggleButton Trigger on MouseOver -->
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=ParentRow.AllowAutoFilter}"
+                     Value="True" />
+
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=ParentColumn.AllowAutoFilter}"
+                     Value="True" />
+
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}"
+                     Value="True" />
+
+                    <Condition Value="True"
+                     Binding="{Binding ElementName=autoFilterControl, Path=HasDistinctValues}" />
+
+                </MultiDataTrigger.Conditions>
+
+                <Setter TargetName="toggleButton"
+                Property="Visibility"
+                Value="Visible" />
+
+                <Setter TargetName="thumbToggleBackgroundBorder"
+                Property="BorderThickness"
+                Value="1,0,0,0" />
+
+                <Setter TargetName="thumbToggleBackgroundBorder"
+                Property="BorderBrush"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListColumnHeaderBorderHoverBrushKey}}" />
+
+            </MultiDataTrigger>
+
+            <!-- Display FilterToggleButton Trigger to display AutoFilterGlyph -->
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=ParentRow.AllowAutoFilter}"
+                     Value="True" />
+
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=ParentColumn.AllowAutoFilter}"
+                     Value="True" />
+
+                    <Condition Value="True"
+                     Binding="{Binding ElementName=autoFilterControl, Path=HasDistinctValues}" />
+
+                    <Condition Value="True"
+                     Binding="{Binding ElementName=autoFilterControl, Path=HasAutoFilterValues}" />
+
+                </MultiDataTrigger.Conditions>
+
+                <Setter TargetName="toggleButton"
+                Property="Visibility"
+                Value="Visible" />
+
+                <Setter TargetName="thumbToggleBackgroundBorder"
+                Property="BorderThickness"
+                Value="1,0,0,0" />
+
+                <Setter TargetName="toggleButton"
+                Property="Opacity"
+                Value="1" />
+
+            </MultiDataTrigger>
+
+            <!-- The following 2 triggers allow the appropriate Sort Glyph to be displayed
+              depending on the ParentColumn's SortDirection. -->
+
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=ParentColumn.SortDirection}"
+                   Value="Ascending">
+
+                <Setter TargetName="sortGlyphPresenter"
+                Property="Visibility"
+                Value="Visible" />
+
+                <Setter TargetName="rootBorder"
+                Property="BorderBrush"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListColumnHeaderBorderHoverBrushKey}}" />
+
+                <Setter TargetName="rootBorder"
+                Property="Background"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListColumnHeaderBackgroundHoverBrushKey}}" />
+
+                <Setter TargetName="thumbToggleBackgroundBorder"
+                Property="Background"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListColumnHeaderBackgroundHoverBrushKey}}" />
+
+                <Setter TargetName="delimiterBorder"
+                Property="Visibility"
+                Value="Hidden" />
+
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=ParentColumn.SortDirection}"
+                   Value="Descending">
+
+                <Setter TargetName="sortGlyphPresenter"
+                Property="ContentPresenter.ContentTemplate"
+                Value="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).DescendingSortGlyph}" />
+
+                <Setter TargetName="sortGlyphPresenter"
+                Property="Visibility"
+                Value="Visible" />
+
+                <Setter TargetName="rootBorder"
+                Property="BorderBrush"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListColumnHeaderBorderHoverBrushKey}}" />
+
+                <Setter TargetName="rootBorder"
+                Property="Background"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListColumnHeaderBackgroundHoverBrushKey}}" />
+
+                <Setter TargetName="thumbToggleBackgroundBorder"
+                Property="Background"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListColumnHeaderBackgroundHoverBrushKey}}" />
+
+                <Setter TargetName="delimiterBorder"
+                Property="Visibility"
+                Value="Hidden" />
+
+            </DataTrigger>
+
+            <Trigger Property="IsMouseOver"
+               Value="True">
+
+                <Setter TargetName="rootBorder"
+                Property="BorderBrush"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListColumnHeaderBorderHoverBrushKey}}" />
+
+                <Setter TargetName="rootBorder"
+                Property="Background"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListColumnHeaderBackgroundHoverBrushKey}}" />
+
+                <Setter TargetName="delimiterBorder"
+                Property="Visibility"
+                Value="Hidden" />
+
+                <Setter TargetName="thumbToggleBackgroundBorder"
+                Property="Background"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListColumnHeaderBackgroundHoverBrushKey}}" />
+
+            </Trigger>
+
+            <Trigger Property="IsPressed"
+               Value="True">
+
+                <Setter TargetName="rootBorder"
+                Property="BorderBrush"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListColumnHeaderBorderPressedBrushKey}}" />
+
+                <Setter TargetName="rootBorder"
+                Property="Background"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListColumnHeaderBackgroundPressedBrushKey}}" />
+
+                <Setter TargetName="thumbToggleBackgroundBorder"
+                Property="Background"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListColumnHeaderBackgroundPressedBrushKey}}" />
+
+                <Setter TargetName="delimiterBorder"
+                Property="Visibility"
+                Value="Hidden" />
+
+            </Trigger>
+
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=ParentColumn.HasFixedWidth}"
+                     Value="True" />
+
+                    <!-- Don't disable resizing if ColumnStretching can be disabled by an 
+                    end-user resize. -->
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).RemoveColumnStretchingOnResize}"
+                     Value="False" />
+                </MultiDataTrigger.Conditions>
+
+                <Setter TargetName="PART_ColumnResizerThumb"
+                Property="IsEnabled"
+                Value="False" />
+            </MultiDataTrigger>
+
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=ParentColumn.PreviousVisibleColumn.HasFixedWidth}"
+                     Value="True" />
+
+                    <!-- Don't disable resizing if ColumnStretching can be disabled by an 
+                    end-user resize. -->
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).RemoveColumnStretchingOnResize}"
+                     Value="False" />
+                </MultiDataTrigger.Conditions>
+
+                <Setter TargetName="PART_ColumnResizerThumbLeft"
+                Property="IsEnabled"
+                Value="False" />
+            </MultiDataTrigger>
+
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=ParentRow.AllowColumnResize}"
+                   Value="False">
+                <Setter TargetName="PART_ColumnResizerThumb"
+                Property="IsEnabled"
+                Value="False" />
+                <Setter TargetName="PART_ColumnResizerThumbLeft"
+                Property="IsEnabled"
+                Value="False" />
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=ParentColumn.Visible}"
+                   Value="False">
+                <Setter Property="Visibility"
+                Value="Collapsed" />
+            </DataTrigger>
+
+        </ControlTemplate.Triggers>
+
+    </ControlTemplate>
+
+
+    <!-- Styles used to hide the splitter column in the grid -->
+    <Style x:Key="hiddenSplitter_style" TargetType="{x:Type xcdg:FixedColumnSplitter}">
+        <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent},Path=CurrentBackground}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+
+    <Style x:Key="hiddenSelectedFocusedSplitter_style" TargetType="{x:Type xcdg:FixedColumnSplitter}">
+        <Setter Property="Background" Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemBackgroundSelectedFocusedBrushKey}}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+
+    <Style x:Key="hiddenSelectedNormalSplitter_style" TargetType="{x:Type xcdg:FixedColumnSplitter}">
+        <Setter Property="Background" Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemBackgroundSelectedNormalBrushKey}}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+
+    <Style x:Key="hiddenHoverSplitter_style" TargetType="{x:Type xcdg:FixedColumnSplitter}">
+        <Setter Property="Background" Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemBackgroundHoverBrushKey}}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+
+    <Style x:Key="hiddenSelectedHoverSplitter_style" TargetType="{x:Type xcdg:FixedColumnSplitter}">
+        <Setter Property="Background" Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemBackgroundSelectedHoverBrushKey}}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+
+
+    <!--**************************
+    * TEMPLATE: Row 
+    ************************** -->
+    <Style TargetType="{x:Type xcdg:DataRow}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate  TargetType="xcdg:DataRow">
+
+                    <ControlTemplate.Resources>
+                        <conv:TypeToBooleanConverter x:Key="typeToBooleanConverter" />
+                    </ControlTemplate.Resources>
+
+                    <!-- This Grid is used to layout the GroupLevelIndicatorPane placeholder and the CellsHost panel. -->
+                    <Grid x:Name="rootGrid">
+                        <Grid.ColumnDefinitions>
+                            <!-- HierarchicalGroupLevelIndicatorPane -->
+                            <ColumnDefinition Width="Auto" />
+                            <!-- GroupLevelIndicatorPane -->
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+
+                            <!-- CellsHost panel -->
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <xcdg:HierarchicalGroupLevelIndicatorPane views:TableView.CanScrollHorizontally="False"
+                                                       Grid.Column="0" />
+
+                        <!-- GroupLevelIndicatorPane is a placeholder for individual GroupLevelIndicator elements that are added
+                       whenever this Row is part of a group. -->
+                        <xcdg:GroupLevelIndicatorPane x:Name="groupLevelIndicatorPane"
+                                           views:TableView.CanScrollHorizontally="False"
+                                           Grid.Column="1" />
+
+                        <Border x:Name="outerBackground"
+                    Grid.Column="2"
+                    Grid.ColumnSpan="2"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="0"
+                    views:TableView.CanScrollHorizontally="False" />
+
+                        <Border x:Name="rowBorder"
+                    Grid.Column="2"
+                    Grid.ColumnSpan="2"
+                    BorderThickness="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemBorderNormalThicknessKey}}"
+                    CornerRadius="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemBorderNormalCornerRadiusKey}}"
+                    views:TableView.CanScrollHorizontally="False">
+                            <Border x:Name="innerBackground"
+                      BorderThickness="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemInnerBorderNormalThicknessKey}}"
+                      CornerRadius="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemBorderNormalCornerRadiusKey}}" />
+                        </Border>
+
+                        <!-- Button that is used to expand/collapse the group. -->
+                        <Button x:Name="detailsToggle"
+                    Template="{StaticResource detailsExpanderButtonTemplate}"
+                    VerticalAlignment="Top"
+                    Grid.Column="2"
+                    Margin="2"
+                    OverridesDefaultStyle="True"
+                    Focusable="False"
+                    Visibility="Collapsed"
+                    views:TableView.CanScrollHorizontally="False" />
+
+                        <!-- 
+                        This TextBlock is used to ensure that the DesiredSize for 
+         the Row will never fall below the Height of a String using the inherited font size and face-->
+                        <TextBlock Text=""
+                       Visibility="Hidden"
+                       Grid.Column="3"
+                       Margin="{TemplateBinding BorderThickness}" />
+
+                        <!-- The PART_CellsHost part designates the Panel to which this Row's Cells should be added.-->
+                        <Grid x:Name="cellsGrid" Grid.Column="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <views:FixedCellPanel x:Name="PART_CellsHost" 
+                                    ColumnStretchMinWidth="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).ColumnStretchMinWidth}"
+                                    ColumnStretchMode="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).ColumnStretchMode}"
+                                    FixedCellCount="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).FixedColumnCount, Mode=TwoWay}"
+                                    SplitterStyle="{StaticResource hiddenSplitter_style}"          
+                                    SplitterWidth="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).FixedColumnSplitterWidth}"
+                                    ShowSplitter="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).ShowFixedColumnSplitter}"
+                                    FixedColumnDropMarkPen="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).FixedColumnDropMarkPen}"
+                                    TextElement.Foreground="{TemplateBinding Foreground}"
+                                    Margin="{TemplateBinding BorderThickness}" />
+                            <ContentPresenter
+                        Grid.Row="1"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Stretch"
+                        Grid.Column="0"
+                        x:Name="PART_DetailPresenter"
+                        Margin="6"
+                        Focusable="True"
+                        Visibility="Collapsed"/>
+                            <Button
+                      Grid.Row="2"
+                      x:Name="PART_DrillDownButton"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Bottom"
+                      Margin="6,6,0,6"
+                      IsTabStop="True"
+                      MinWidth="80"
+                      MinHeight="23"
+                      Visibility="Collapsed"
+                      Content="{x:Static local:StringResources.DataGrid_DrillDown}"/>
+                        </Grid>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, 
+                                       Path=(xcdg:DataGridVirtualizingPanel.ItemIndex), 
+                                       Converter={StaticResource rowIndexConverter}}"
+                                    Value="True">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="Black" Opacity="0.02"/>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, 
+                                       Path=Tag}" Value="{x:Static local:UIAttentionLevel.High}">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="Red" Opacity="0.25"/>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, 
+                                       Path=Tag}" Value="{x:Static local:UIAttentionLevel.Medium}">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="Gold" Opacity="0.25"/>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource Self}}"
+                  Value="True"/>
+                                <Condition Binding="{Binding Path=IsMultipleItemsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type xcdg:DataGridControl}}}"
+                  Value="False"/>
+                                <Condition Binding="{Binding Path=IsDrillDownEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:IDrillDownView}}}"
+                  Value="True"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="PART_DrillDownButton"
+                Property="Visibility"
+                Value="Visible" />
+                        </MultiDataTrigger>
+
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self},Path=IsSelected}"
+                           Value="True" />
+
+                                <Condition Binding="{Binding Path=IsMultipleItemsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type xcdg:DataGridControl}}}"
+                                  Value="False"/>
+
+                                <Condition Binding="{Binding Path=Content, ElementName=PART_DetailPresenter, Converter={StaticResource nullToBoolConverter}}"
+                  Value="True"/>
+
+                            </MultiDataTrigger.Conditions>
+
+                            <Setter TargetName="PART_DetailPresenter"
+                      Property="Visibility"
+                      Value="Visible" />
+
+                        </MultiDataTrigger>
+
+                        <!-- This trigger is used to display the Active Selection look -->
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self},Path=IsSelected}"
+                           Value="True" />
+
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.DataGridContext).DataGridControl.IsKeyboardFocusWithin}"
+                           Value="True" />
+
+                            </MultiDataTrigger.Conditions>
+
+                            <Setter TargetName="rowBorder"
+                      Property="BorderBrush"
+                      Value="Black" />
+
+                            <Setter TargetName="rowBorder"
+                      Property="Background"
+                      Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemBackgroundSelectedFocusedBrushKey}}" />
+
+                            <Setter TargetName="innerBackground"
+                      Property="BorderBrush"
+                      Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemInnerBorderSelectedFocusedBrushKey}}" />
+
+                            <Setter Property="xcdg:TableView.FixedColumnSplitterStyle"
+                        Value="{StaticResource hiddenSelectedFocusedSplitter_style}"/>
+
+
+                        </MultiDataTrigger>
+
+                        <!-- This trigger is used to display the Inactive Selection look -->
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self},Path=IsSelected}"
+                           Value="True" />
+
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.DataGridContext).DataGridControl.IsKeyboardFocusWithin}"
+                           Value="False" />
+
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.DataGridContext).DataGridControl.HideSelection}"
+                           Value="False" />
+
+                            </MultiDataTrigger.Conditions>
+
+                            <Setter TargetName="rowBorder"
+                      Property="BorderBrush"
+                      Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemBorderSelectedFocusedBrushKey}}" />
+
+                            <Setter TargetName="rowBorder"
+                      Property="Background"
+                      Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemBackgroundSelectedFocusedBrushKey}}" />
+
+                            <Setter TargetName="innerBackground"
+                      Property="BorderBrush"
+                      Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemInnerBorderSelectedFocusedBrushKey}}" />
+
+                            <Setter Property="xcdg:TableView.FixedColumnSplitterStyle"
+                        Value="{StaticResource hiddenSelectedNormalSplitter_style}"/>
+
+
+                        </MultiDataTrigger>
+
+                        <!-- This trigger is used to display Mouse Over look -->
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}"
+                           Value="True" />
+
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.DataGridContext).DataGridControl.SelectionUnit}"
+                           Value="Row" />
+
+                            </MultiDataTrigger.Conditions>
+
+                            <Setter TargetName="rowBorder"
+                      Property="BorderBrush"
+                      Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemBorderHoverBrushKey}}" />
+
+                            <Setter TargetName="rowBorder"
+                      Property="Background"
+                      Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemBackgroundHoverBrushKey}}" />
+
+                            <Setter TargetName="innerBackground"
+                      Property="BorderBrush"
+                      Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemInnerBorderHoverBrushKey}}" />
+
+                            <Setter Property="xcdg:TableView.FixedColumnSplitterStyle"
+                        Value="{StaticResource hiddenHoverSplitter_style}"/>
+
+                        </MultiDataTrigger>
+
+                        <!-- This trigger is used to display Mouse Over + Selected look -->
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}"
+                           Value="True" />
+
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsSelected}"
+                           Value="True" />
+
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.DataGridContext).DataGridControl.SelectionUnit}"
+                           Value="Row" />
+
+                            </MultiDataTrigger.Conditions>
+
+                            <Setter TargetName="rowBorder"
+                      Property="BorderBrush"
+                      Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemBorderSelectedHoverBrushKey}}" />
+
+                            <Setter TargetName="rowBorder"
+                      Property="Background"
+                      Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemBackgroundSelectedHoverBrushKey}}" />
+
+                            <Setter TargetName="innerBackground"
+                      Property="BorderBrush"
+                      Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemInnerBorderSelectedHoverBrushKey}}" />
+
+                            <Setter Property="xcdg:TableView.FixedColumnSplitterStyle"
+                        Value="{StaticResource hiddenSelectedHoverSplitter_style}"/>
+
+
+                        </MultiDataTrigger>
+
+                        <!-- This trigger is reponsible to hide the FixedColumnSplitter if the FixedColumnCount is 0 and we are Grouped.-->
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).FixedColumnCount}"
+                           Value="0" />
+
+                                <Condition Value="True">
+                                    <Condition.Binding>
+                                        <Binding RelativeSource="{RelativeSource Self}"
+                             Path="(xcdg:DataGridControl.DataGridContext).GroupLevelDescriptions.Count">
+                                            <Binding.Converter>
+                                                <conv:GreaterThanZeroConverter />
+                                            </Binding.Converter>
+                                        </Binding>
+                                    </Condition.Binding>
+                                </Condition>
+                            </MultiDataTrigger.Conditions>
+
+                            <Setter TargetName="PART_CellsHost"
+                      Property="ShowSplitter"
+                      Value="False" />
+                        </MultiDataTrigger>
+
+                        <!-- When the FixedColumnCount is 0 and there are details, do not display the FixedColumn splitter in the Row Template, it will be displayed
+              in the margin of the ColumnManagerRow instead-->
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).FixedColumnCount}"
+                           Value="0" />
+
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).HasDetails}"
+                           Value="True" />
+
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).AllowDetailToggle}"
+                           Value="True" />
+                            </MultiDataTrigger.Conditions>
+
+                            <Setter TargetName="PART_CellsHost"
+                      Property="ShowSplitter"
+                      Value="False" />
+                        </MultiDataTrigger>
+
+                        <!-- When there are details, display the Toggle button for the expansion, collapsing of the details -->
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).HasDetails}"
+                           Value="True" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).AllowDetailToggle}"
+                           Value="True" />
+                                <Condition Value="True"
+                           Binding="{Binding RelativeSource={RelativeSource Self}, Path=., Mode=OneWay, Converter={StaticResource typeToBooleanConverter}, ConverterParameter={x:Type xcdg:DataRow}}" />
+                                <Condition Value="False"
+                           Binding="{Binding RelativeSource={RelativeSource Self}, Path=., Mode=OneWay, Converter={StaticResource typeToBooleanConverter}, ConverterParameter={x:Type xcdg:InsertionRow}}" />
+                            </MultiDataTrigger.Conditions>
+
+                            <Setter TargetName="detailsToggle"
+                      Property="Visibility"
+                      Value="Visible" />
+
+                        </MultiDataTrigger>
+
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Value="True"
+                           Binding="{Binding RelativeSource={RelativeSource Self}, Path=., Mode=OneWay, Converter={StaticResource typeToBooleanConverter}, ConverterParameter={x:Type xcdg:InsertionRow}}" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).HasDetails}"
+                           Value="True" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).AllowDetailToggle}"
+                           Value="True" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="detailsToggle"
+                      Property="Visibility"
+                      Value="Hidden" />
+                        </MultiDataTrigger>
+
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).HasDetails}"
+                           Value="True" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).AllowDetailToggle}"
+                           Value="True" />
+                                <Condition Value="False"
+                           Binding="{Binding RelativeSource={RelativeSource Self}, Path=., Mode=OneWay, Converter={StaticResource typeToBooleanConverter}, ConverterParameter={x:Type xcdg:DataRow}}" />
+                            </MultiDataTrigger.Conditions>
+
+                            <Setter TargetName="detailsToggle"
+                      Property="Visibility"
+                      Value="Hidden" />
+
+                        </MultiDataTrigger>
+
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <SolidColorBrush x:Key="selectionRowBorderBrush"
+                    Color="#99DEFD" />
+
+    <SolidColorBrush x:Key="inactiveSelectionRowBorderBrush"
+                   Color="#D9D9D9" />
+
+    <!--**************************
+    * TEMPLATE: Cell 
+    ************************** -->
+    <ControlTemplate x:Key="tableViewCellTemplate"
+                   TargetType="xcdg:Cell">
+
+        <Grid>
+
+            <Border x:Name="rootBorder"
+              Background="{TemplateBinding Background}"
+              BorderBrush="{TemplateBinding BorderBrush}"
+              BorderThickness="0">
+                <Grid>
+                    <Border x:Name="cellBorder"
+                  BorderThickness="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemBorderNormalThicknessKey}}"
+                  CornerRadius="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemBorderNormalCornerRadiusKey}}"
+                  Visibility="Collapsed">
+                        <Border x:Name="innerBackground"
+                    BorderThickness="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemInnerBorderNormalThicknessKey}}"
+                    CornerRadius="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemBorderNormalCornerRadiusKey}}">
+
+                        </Border>
+                    </Border>
+
+                    <xcdg:CellContentPresenter x:Name="PART_CellContentPresenter"
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      Margin="{TemplateBinding Padding}" />
+                </Grid>
+            </Border>
+
+            <Border x:Name="currentBorder"
+              BorderBrush="Transparent"
+              BorderThickness="1" />
+
+        </Grid>
+
+        <ControlTemplate.Triggers>
+
+            <!-- When changing the appearance (e.g., background/foreground) of the Cell to reflect specific
+              states (e.g., IsCurrent), it is recommended to apply the changes directly to the template
+              elements because we want those modifications to be effective even when a value has been
+              explicitly set to these properties on the TemplatedParent. Also, when someone queries
+              the value of these properties on the TemplatedParent, we don't want to return the
+              intermediate, state-specific values. -->
+
+            <!-- When the Cell is Current, we want to change its background/foreground to the appropriate brushes.
+              We do this only when the cell does not have a validation error because we must give priority
+              to the CellErrorStyle (if present).-->
+
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+
+                    <Condition Property="IsCurrent"
+                     Value="True" />
+
+                    <Condition Property="HasValidationError"
+                     Value="False" />
+
+                </MultiTrigger.Conditions>
+
+                <Setter TargetName="rootBorder"
+                Property="Background"
+                Value="{Binding RelativeSource={RelativeSource TemplatedParent},Path=CurrentBackground}" />
+
+                <Setter TargetName="rootBorder"
+                Property="TextElement.Foreground"
+                Value="{Binding RelativeSource={RelativeSource TemplatedParent},Path=CurrentForeground}" />
+
+            </MultiTrigger>
+
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+
+                    <Condition Property="IsCurrent"
+                     Value="True" />
+
+                    <Condition Property="HasValidationError"
+                     Value="True" />
+
+                    <Condition Property="CellErrorStyle"
+                     Value="{x:Null}" />
+
+                </MultiTrigger.Conditions>
+
+                <Setter TargetName="rootBorder"
+                Property="Background"
+                Value="{Binding RelativeSource={RelativeSource TemplatedParent},Path=CurrentBackground}" />
+
+                <Setter TargetName="rootBorder"
+                Property="TextElement.Foreground"
+                Value="{Binding RelativeSource={RelativeSource TemplatedParent},Path=CurrentForeground}" />
+
+            </MultiTrigger>
+
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self},Path=IsCurrent}"
+                     Value="True" />
+
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.DataGridContext).(xcdg:DataGridContext.DataGridControl).IsKeyboardFocusWithin}"
+                     Value="True" />
+
+                </MultiDataTrigger.Conditions>
+
+                <Setter TargetName="currentBorder"
+                Property="BorderBrush"
+                Value="{StaticResource selectionRowBorderBrush}" />
+
+            </MultiDataTrigger>
+
+            <!-- When the Row is Selected but the parent DataGridControl is not focused, we want to change
+              the Row's background/foreground to the appropriate brushes. -->
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self},Path=IsCurrent}"
+                     Value="True" />
+
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.DataGridContext).(xcdg:DataGridContext.DataGridControl).IsKeyboardFocusWithin}"
+                     Value="False" />
+
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.DataGridContext).(xcdg:DataGridContext.DataGridControl).HideSelection}"
+                     Value="False" />
+
+                </MultiDataTrigger.Conditions>
+
+                <Setter TargetName="currentBorder"
+                Property="BorderBrush"
+                Value="{StaticResource inactiveSelectionRowBorderBrush}" />
+
+            </MultiDataTrigger>
+
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.DataGridContext).(xcdg:DataGridContext.DataGridControl).SelectionUnit}"
+                   Value="Cell">
+
+                <Setter TargetName="cellBorder"
+                Property="Visibility"
+                Value="Visible" />
+
+                <Setter TargetName="currentBorder"
+                Property="Visibility"
+                Value="Collapsed" />
+
+            </DataTrigger>
+
+            <!-- This trigger is used to display Mouse Over look -->
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}"
+                     Value="True" />
+
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.DataGridContext).(xcdg:DataGridContext.DataGridControl).SelectionUnit}"
+                     Value="Cell" />
+
+                </MultiDataTrigger.Conditions>
+
+                <Setter TargetName="cellBorder"
+                Property="BorderBrush"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemBorderHoverBrushKey}}" />
+
+                <Setter TargetName="cellBorder"
+                Property="Background"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemBackgroundHoverBrushKey}}" />
+
+                <Setter TargetName="innerBackground"
+                Property="BorderBrush"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemInnerBorderHoverBrushKey}}" />
+
+            </MultiDataTrigger>
+
+            <!-- This trigger is used to display Mouse Over + Selected look -->
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}"
+                     Value="True" />
+
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsSelected}"
+                     Value="True" />
+
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.DataGridContext).(xcdg:DataGridContext.DataGridControl).SelectionUnit}"
+                     Value="Cell" />
+
+                </MultiDataTrigger.Conditions>
+
+                <Setter TargetName="cellBorder"
+                Property="BorderBrush"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemBorderSelectedHoverBrushKey}}" />
+
+                <Setter TargetName="cellBorder"
+                Property="Background"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemBackgroundSelectedHoverBrushKey}}" />
+
+                <Setter TargetName="innerBackground"
+                Property="BorderBrush"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemInnerBorderSelectedHoverBrushKey}}" />
+
+            </MultiDataTrigger>
+
+            <!-- When the Cell is Selected, we want to change its background/foreground to the appropriate brushes. -->
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self},Path=IsSelected}"
+                     Value="True" />
+
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.DataGridContext).(xcdg:DataGridContext.DataGridControl).IsKeyboardFocusWithin}"
+                     Value="True" />
+
+                </MultiDataTrigger.Conditions>
+
+                <Setter TargetName="cellBorder"
+                Property="Background"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemBackgroundSelectedFocusedBrushKey}}" />
+
+                <Setter TargetName="cellBorder"
+                Property="BorderBrush"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemBorderSelectedFocusedBrushKey}}" />
+
+                <Setter TargetName="innerBackground"
+                Property="BorderBrush"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemInnerBorderSelectedFocusedBrushKey}}" />
+
+                <Setter TargetName="rootBorder"
+                Property="TextElement.Foreground"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemForegroundSelectedFocusedBrushKey}}" />
+
+            </MultiDataTrigger>
+
+            <!-- When the Cell is Selected but the parent DataGridControl is not focused, we want to change
+              the Cell's background/foreground to the appropriate brushes. -->
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self},Path=IsSelected}"
+                     Value="True" />
+
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.DataGridContext).(xcdg:DataGridContext.DataGridControl).IsKeyboardFocusWithin}"
+                     Value="False" />
+
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.DataGridContext).(xcdg:DataGridContext.DataGridControl).HideSelection}"
+                     Value="False" />
+
+                </MultiDataTrigger.Conditions>
+
+                <Setter TargetName="cellBorder"
+                Property="Background"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemBackgroundSelectedNormalBrushKey}}" />
+
+                <Setter TargetName="cellBorder"
+                Property="BorderBrush"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemBorderSelectedNormalBrushKey}}" />
+
+                <Setter TargetName="innerBackground"
+                Property="BorderBrush"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemInnerBorderSelectedNormalBrushKey}}" />
+
+                <Setter TargetName="rootBorder"
+                Property="TextElement.Foreground"
+                Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListItemForegroundSelectedNormalBrushKey}}" />
+
+            </MultiDataTrigger>
+
+            <!-- When the Cell's content is Null and the row is not being edited, we want to ensure that the row/cell
+              will preserve a minimum height based on the current font size for the row/cell. To do this, we override
+              the ContentPresenter's content binding and replace it with an empty string (""), the textbox generated 
+              this way will then size to the default text's height. When the trigger is not active anymore, default binding
+              is restored automatically. -->
+
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=ParentColumn.Visible}"
+                   Value="False">
+                <Setter Property="Visibility"
+                Value="Collapsed" />
+            </DataTrigger>
+
+        </ControlTemplate.Triggers>
+
+    </ControlTemplate>
+
+    <Style TargetType="{x:Type xcdg:ColumnManagerRow}">
+        <Setter Property="MinWidth" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type ScrollContentPresenter}}, Path=ActualWidth}"/>
+        <Setter Property="Background" Value="{DynamicResource {x:Static themes:AssetResourceKeys.ListColumnHeaderBackgroundNormalBrushKey}}"/>
+    </Style>
+
+    <Style TargetType="{x:Type xcdg:ColumnManagerCell}">
+        <Setter Property="Template"
+           Value="{StaticResource tableViewColumnManagerCellTemplate}" />
+    </Style>
+
+    <Style TargetType="{x:Type xcdg:DataCell}">
+        <Setter Property="Template"
+       Value="{StaticResource tableViewCellTemplate}" />
+    </Style>
+</ResourceDictionary>

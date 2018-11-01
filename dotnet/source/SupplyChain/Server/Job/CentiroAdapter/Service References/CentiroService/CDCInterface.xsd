@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://www.centiro.com/CentiroServices.Adapted.CDC.Contracts/1/0" elementFormDefault="qualified" targetNamespace="http://www.centiro.com/CentiroServices.Adapted.CDC.Contracts/1/0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://test.centiro.com/Universe.Services/Adapted/CDC/1/1/CDCInterface.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:element name="Authenticate">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="request" nillable="true" type="tns:AuthenticateRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="AuthenticateRequestType">
+    <xs:sequence>
+      <xs:element name="Password" nillable="true" type="xs:string" />
+      <xs:element name="UserName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AuthenticateRequestType" nillable="true" type="tns:AuthenticateRequestType" />
+  <xs:element name="AuthenticateResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AuthenticateResult" nillable="true" type="tns:AuthenticateResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="AuthenticateResponseType">
+    <xs:sequence>
+      <xs:element name="StatusCode" type="tns:AuthenticateStatusCode" />
+      <xs:element minOccurs="0" name="StatusMessage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Ticket" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AuthenticateResponseType" nillable="true" type="tns:AuthenticateResponseType" />
+  <xs:simpleType name="AuthenticateStatusCode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Successful" />
+      <xs:enumeration value="Failed" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="AuthenticateStatusCode" nillable="true" type="tns:AuthenticateStatusCode" />
+  <xs:element name="UpdateShipment">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="request" nillable="true" type="tns:UpdateShipmentRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="UpdateShipmentRequestType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:RequestBase">
+        <xs:sequence>
+          <xs:element name="AggregateParcels" type="xs:boolean" />
+          <xs:element minOccurs="0" name="Shipment" nillable="true" type="tns:Shipment" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="UpdateShipmentRequestType" nillable="true" type="tns:UpdateShipmentRequestType" />
+  <xs:complexType name="RequestBase">
+    <xs:sequence>
+      <xs:element name="MessageId" nillable="true" type="xs:string" />
+      <xs:element name="Ticket" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RequestBase" nillable="true" type="tns:RequestBase" />
+  <xs:complexType name="Shipment">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Addresses" nillable="true" type="tns:ArrayOfAddress" />
+      <xs:element minOccurs="0" name="CODAmount" type="xs:double" />
+      <xs:element minOccurs="0" name="CODCurrency" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CODReference" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DeliveryInstruction1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DeliveryInstruction2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DeliveryInstruction3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DeliveryInstruction4" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FreightCost" type="xs:double" />
+      <xs:element minOccurs="0" name="FreightCurrency" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FreightPrice" type="xs:double" />
+      <xs:element minOccurs="0" name="InsuranceAmount" type="xs:double" />
+      <xs:element minOccurs="0" name="LastModifiedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LoadingMeasure" type="xs:double" />
+      <xs:element minOccurs="0" name="MemoField" nillable="true" type="xs:string" />
+      <xs:element name="ModeOfTransport" nillable="true" type="tns:ModeOfTransport" />
+      <xs:element minOccurs="0" name="NumberOfEURPallets" type="xs:int" />
+      <xs:element minOccurs="0" name="OrderNo" nillable="true" type="xs:string" />
+      <xs:element name="Receiver" nillable="true" type="tns:Receiver" />
+      <xs:element minOccurs="0" name="Reference" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RouteNo" nillable="true" type="xs:string" />
+      <xs:element name="SenderCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SequenceNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ShipDate" type="xs:dateTime" />
+      <xs:element name="ShipmentIdentifier" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TODLocation" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TermsOfDelivery" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TransportPayer" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TransportPayerCustNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TripNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Volume" type="xs:double" />
+      <xs:element minOccurs="0" name="Weight" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Shipment" nillable="true" type="tns:Shipment" />
+  <xs:complexType name="ArrayOfAddress">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Address" nillable="true" type="tns:Address" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAddress" nillable="true" type="tns:ArrayOfAddress" />
+  <xs:complexType name="Address">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Address1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Address2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Address3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CellPhone" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="City" nillable="true" type="xs:string" />
+      <xs:element name="Code" type="tns:AddressCode" />
+      <xs:element minOccurs="0" name="Contact" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CustNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ISOCountry" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Phone" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="State" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VatNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ZipCode" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Address" nillable="true" type="tns:Address" />
+  <xs:simpleType name="AddressCode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Sender" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="AddressCode" nillable="true" type="tns:AddressCode" />
+  <xs:complexType name="ModeOfTransport">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Carrier" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CarrierService" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CarrierServiceAttributes" nillable="true" type="tns:ArrayOfCarrierServiceAttribute" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ModeOfTransport" nillable="true" type="tns:ModeOfTransport" />
+  <xs:complexType name="ArrayOfCarrierServiceAttribute">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CarrierServiceAttribute" nillable="true" type="tns:CarrierServiceAttribute" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCarrierServiceAttribute" nillable="true" type="tns:ArrayOfCarrierServiceAttribute" />
+  <xs:complexType name="CarrierServiceAttribute">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Value" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CarrierServiceAttribute" nillable="true" type="tns:CarrierServiceAttribute" />
+  <xs:complexType name="Receiver">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Address1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Address2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Address3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CellPhone" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="City" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Contact" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CustNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ISOCountry" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PalletRegNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Phone" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="State" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VatNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ZipCode" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Receiver" nillable="true" type="tns:Receiver" />
+  <xs:element name="UpdateShipmentResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdateShipmentResult" nillable="true" type="tns:UpdateShipmentResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="UpdateShipmentResponseType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResponseBase">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="UpdateShipmentResponseType" nillable="true" type="tns:UpdateShipmentResponseType" />
+  <xs:complexType name="ResponseBase">
+    <xs:sequence>
+      <xs:element name="MessageId" nillable="true" type="xs:string" />
+      <xs:element name="StatusCode" type="tns:StatusCode" />
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="StatusMessages" nillable="true" type="q1:ArrayOfstring" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ResponseBase" nillable="true" type="tns:ResponseBase" />
+  <xs:simpleType name="StatusCode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Ok" />
+      <xs:enumeration value="DataValidationError" />
+      <xs:enumeration value="DepartureMissing" />
+      <xs:enumeration value="InvalidModeOfTransport" />
+      <xs:enumeration value="MissingReceiverInformation" />
+      <xs:enumeration value="ParcelNotFound" />
+      <xs:enumeration value="SenderMissing" />
+      <xs:enumeration value="ShipmentDeparted" />
+      <xs:enumeration value="ShipmentNotFound" />
+      <xs:enumeration value="ShipDateCannotBeInPast" />
+      <xs:enumeration value="Error" />
+      <xs:enumeration value="InvalidTicket" />
+      <xs:enumeration value="ShipmentInvalid" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="StatusCode" nillable="true" type="tns:StatusCode" />
+  <xs:element name="PrintShipment">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="request" nillable="true" type="tns:PrintShipmentRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="PrintShipmentRequestType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ShipmentBasedRequest">
+        <xs:sequence>
+          <xs:element name="CreateCustomerSpec" type="xs:boolean" />
+          <xs:element name="CreateLabels" type="xs:boolean" />
+          <xs:element name="CreateShipmentDoc" type="xs:boolean" />
+          <xs:element name="DocumentType" type="tns:DocumentType" />
+          <xs:element name="LabelPrinterType" nillable="true" type="xs:string" />
+          <xs:element name="ReturnSequenceNumbers" type="xs:boolean" />
+          <xs:element name="ReturnTrackingUrls" type="xs:boolean" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="PrintShipmentRequestType" nillable="true" type="tns:PrintShipmentRequestType" />
+  <xs:complexType name="ShipmentBasedRequest">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:RequestBase">
+        <xs:sequence>
+          <xs:element name="SenderCode" nillable="true" type="xs:string" />
+          <xs:element name="ShipmentIdentifier" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ShipmentBasedRequest" nillable="true" type="tns:ShipmentBasedRequest" />
+  <xs:simpleType name="DocumentType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Pdf" />
+      <xs:enumeration value="Rdf" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="DocumentType" nillable="true" type="tns:DocumentType" />
+  <xs:element name="PrintShipmentResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PrintShipmentResult" nillable="true" type="tns:PrintShipmentResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="PrintShipmentResponseType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResponseBase">
+        <xs:sequence>
+          <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="CustomerSpecCode" nillable="true" type="q2:ArrayOfstring" />
+          <xs:element minOccurs="0" name="LabelCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ShipmentDetails" nillable="true" type="tns:ShipmentDetails" />
+          <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ShipmentDocCode" nillable="true" type="q3:ArrayOfstring" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="PrintShipmentResponseType" nillable="true" type="tns:PrintShipmentResponseType" />
+  <xs:complexType name="ShipmentDetails">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ParcelDetails" nillable="true" type="tns:ArrayOfParcelDetails" />
+      <xs:element minOccurs="0" name="SequenceNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SequenceNo2" nillable="true" type="xs:string" />
+      <xs:element name="ShipmentIdentifier" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ShipmentDetails" nillable="true" type="tns:ShipmentDetails" />
+  <xs:complexType name="ArrayOfParcelDetails">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ParcelDetails" nillable="true" type="tns:ParcelDetails" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfParcelDetails" nillable="true" type="tns:ArrayOfParcelDetails" />
+  <xs:complexType name="ParcelDetails">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Barcode" nillable="true" type="xs:string" />
+      <xs:element name="ParcelIdentifier" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SSCC" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SequenceNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SequenceNo2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TrackingUrl" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ParcelDetails" nillable="true" type="tns:ParcelDetails" />
+  <xs:element name="UpdateParcels">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="request" nillable="true" type="tns:UpdateParcelsRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="UpdateParcelsRequestType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ShipmentBasedRequest">
+        <xs:sequence>
+          <xs:element name="AggregateParcels" type="xs:boolean" />
+          <xs:element name="Parcels" nillable="true" type="tns:ArrayOfParcel" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="UpdateParcelsRequestType" nillable="true" type="tns:UpdateParcelsRequestType" />
+  <xs:complexType name="ArrayOfParcel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Parcel" nillable="true" type="tns:Parcel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfParcel" nillable="true" type="tns:ArrayOfParcel" />
+  <xs:complexType name="Parcel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DeliveryInstruction1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DeliveryInstruction2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DeliveryInstruction3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DeliveryInstruction4" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Height" type="xs:double" />
+      <xs:element minOccurs="0" name="LastModifiedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Length" type="xs:double" />
+      <xs:element minOccurs="0" name="LoadingMeasure" type="xs:double" />
+      <xs:element minOccurs="0" name="NetWeight" type="xs:double" />
+      <xs:element name="ParcelIdentifier" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SequenceNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SequenceNoSSCC" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ShippingLocation" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TransportInstruction1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TransportInstruction2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TransportInstruction3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TypeOfGoods" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TypeOfPackage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Value" type="xs:double" />
+      <xs:element minOccurs="0" name="Volume" type="xs:double" />
+      <xs:element minOccurs="0" name="Weight" type="xs:double" />
+      <xs:element minOccurs="0" name="Width" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Parcel" nillable="true" type="tns:Parcel" />
+  <xs:element name="UpdateParcelsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdateParcelsResult" nillable="true" type="tns:UpdateParcelsResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="UpdateParcelsResponseType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResponseBase">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="UpdateParcelsResponseType" nillable="true" type="tns:UpdateParcelsResponseType" />
+  <xs:element name="RemoveParcels">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="request" nillable="true" type="tns:RemoveParcelsRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="RemoveParcelsRequestType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ShipmentBasedRequest">
+        <xs:sequence>
+          <xs:element name="AggregateParcels" type="xs:boolean" />
+          <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays" name="ParcelIdentifierList" nillable="true" type="q4:ArrayOfstring" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="RemoveParcelsRequestType" nillable="true" type="tns:RemoveParcelsRequestType" />
+  <xs:element name="RemoveParcelsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="RemoveParcelsResult" nillable="true" type="tns:RemoveParcelsResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="RemoveParcelsResponseType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResponseBase">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="RemoveParcelsResponseType" nillable="true" type="tns:RemoveParcelsResponseType" />
+  <xs:element name="PrintParcels">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="request" nillable="true" type="tns:PrintParcelsRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="PrintParcelsRequestType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ShipmentBasedRequest">
+        <xs:sequence>
+          <xs:element name="LabelPrinterType" nillable="true" type="xs:string" />
+          <xs:element name="NumberOfTags" type="xs:int" />
+          <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" name="ParcelIdentifierList" nillable="true" type="q5:ArrayOfstring" />
+          <xs:element name="ReturnSequenceNumbers" type="xs:boolean" />
+          <xs:element name="ReturnTrackingUrls" type="xs:boolean" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="PrintParcelsRequestType" nillable="true" type="tns:PrintParcelsRequestType" />
+  <xs:element name="PrintParcelsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PrintParcelsResult" nillable="true" type="tns:PrintParcelsResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="PrintParcelsResponseType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResponseBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="LabelCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ParcelDetails" nillable="true" type="tns:ArrayOfParcelDetails" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="PrintParcelsResponseType" nillable="true" type="tns:PrintParcelsResponseType" />
+  <xs:element name="PrintDeparture">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="request" nillable="true" type="tns:PrintDepartureRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="PrintDepartureRequestType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:RequestBase">
+        <xs:sequence>
+          <xs:element name="CreateCarrierDoc" type="xs:boolean" />
+          <xs:element name="CreateCustomerSpec" type="xs:boolean" />
+          <xs:element name="DocumentType" type="tns:DocumentType" />
+          <xs:element name="RouteNo" nillable="true" type="xs:string" />
+          <xs:element name="SenderCode" nillable="true" type="xs:string" />
+          <xs:element name="TripNo" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="PrintDepartureRequestType" nillable="true" type="tns:PrintDepartureRequestType" />
+  <xs:element name="PrintDepartureResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PrintDepartureResult" nillable="true" type="tns:PrintDepartureResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="PrintDepartureResponseType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResponseBase">
+        <xs:sequence>
+          <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="CarrierDocCode" nillable="true" type="q6:ArrayOfstring" />
+          <xs:element xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="CustomerSpecCode" nillable="true" type="q7:ArrayOfstring" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="PrintDepartureResponseType" nillable="true" type="tns:PrintDepartureResponseType" />
+  <xs:element name="CloseDeparture">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="request" nillable="true" type="tns:CloseDepartureRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="CloseDepartureRequestType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:RequestBase">
+        <xs:sequence>
+          <xs:element name="CreateCarrierDoc" type="xs:boolean" />
+          <xs:element name="CreateCustomerSpec" type="xs:boolean" />
+          <xs:element name="DocumentType" type="tns:DocumentType" />
+          <xs:element name="ReturnSequenceNumbers" type="xs:boolean" />
+          <xs:element name="ReturnTrackingUrls" type="xs:boolean" />
+          <xs:element name="RouteNo" nillable="true" type="xs:string" />
+          <xs:element name="SenderCode" nillable="true" type="xs:string" />
+          <xs:element name="TripNo" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="CloseDepartureRequestType" nillable="true" type="tns:CloseDepartureRequestType" />
+  <xs:element name="CloseDepartureResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CloseDepartureResult" nillable="true" type="tns:CloseDepartureResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="CloseDepartureResponseType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResponseBase">
+        <xs:sequence>
+          <xs:element xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="CarrierDocCode" nillable="true" type="q8:ArrayOfstring" />
+          <xs:element xmlns:q9="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="CustomerSpecCode" nillable="true" type="q9:ArrayOfstring" />
+          <xs:element minOccurs="0" name="ShipmentDetails" nillable="true" type="tns:ArrayOfShipmentDetails" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="CloseDepartureResponseType" nillable="true" type="tns:CloseDepartureResponseType" />
+  <xs:complexType name="ArrayOfShipmentDetails">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ShipmentDetails" nillable="true" type="tns:ShipmentDetails" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfShipmentDetails" nillable="true" type="tns:ArrayOfShipmentDetails" />
+</xs:schema>

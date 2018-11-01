@@ -1,0 +1,41 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain.VisualModel" %>
+<%@ Property Name="view" Type="Cdc.MetaManager.DataAccess.Domain.View" Default="" Optional="false" Category="" Description="" %>
+<%
+                
+	string interfaceClassName = GetViewInterfaceName(view);
+	string viewsNamespace = GetViewsNamespace(view);
+		
+	
+%>
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Linq;
+using Microsoft.Practices.CompositeUI;
+using Microsoft.Practices.CompositeUI.EventBroker;
+using Microsoft.Practices.ObjectBuilder;
+using Imi.Framework.Services;
+using Imi.Framework.UX;
+using Imi.Framework.UX.Services;
+using Imi.SupplyChain.UX;
+using Imi.SupplyChain.UX.Services;
+using Imi.SupplyChain.UX.Views;
+
+namespace <%=viewsNamespace%>
+{
+	public interface <%=interfaceClassName%>
+    {
+        void PresentData(object leftListBoxData, object rightListBoxData);
+    }
+}

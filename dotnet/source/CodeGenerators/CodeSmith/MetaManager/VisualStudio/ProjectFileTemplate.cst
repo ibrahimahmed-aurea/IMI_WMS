@@ -1,0 +1,284 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="" Inherits="" Debug="false" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Assembly Name="Cdc.Framework.Parsing.CSharpParsing" %>
+<%@ Import Namespace="Cdc.Framework.Parsing.CSharpParsing" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.IO" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="project" Type="ProjectInfo" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="referenceDirectory" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="listOfFiles" Type="List<string>" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="listOfEmbeddedFiles" Type="List<string>" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="referenceList" Type="List<ProjectInfo>" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="solutionDirectory" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%
+  Guid projectGuid = project.ProjectGuid;
+  string projectDirectory = project.ProjectDirectory.FullName;
+  string rootNamespace = project.Namespace;
+  string assemblyName = project.Namespace;
+
+  string binBase = PathHelper.RelativePathTo(project.ProjectDirectory.FullName, Path.Combine(solutionDirectory, "bin"));
+  string binDebug = Path.Combine(binBase,"Debug");
+  string binRelease = Path.Combine(binBase,"Release");
+  
+  string binDebugX86 = Path.Combine(binBase,"x86\\Debug");
+  string binReleaseX86 = Path.Combine(binBase,"x86\\Release");
+  
+%>
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{<%= projectGuid.ToString() %>}</ProjectGuid>
+<%
+    if(project.ProjectType == ProjectInfoType.Default)
+	{
+%>
+    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+<%  
+    }
+
+    if(project.ProjectType == ProjectInfoType.Wcf)
+	{
+%>
+    <ProjectTypeGuids>{3D9AD99F-2412-4246-B90B-4EAA41C64699};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+<%  
+    }
+    
+    if(project.ProjectType == ProjectInfoType.Wpf)
+	{
+%>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+<%  
+    }
+	if(project.ProjectType == ProjectInfoType.Workflow)
+	{
+%>
+    <ProjectTypeGuids>{14822709-B5A1-4724-98CA-57A101D1B079};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+<%  
+    }
+%>
+	<OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace><%= rootNamespace %></RootNamespace>
+    <AssemblyName><%= assemblyName %></AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath><%= binDebug %></OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath><%=binRelease%></OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath><%= binDebugX86 %></OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath><%= binReleaseX86 %></OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+<%
+  ProjectAnalyser.ReferenceDirectory = referenceDirectory;
+  List<string> assemblyRef = ProjectAnalyser.GetAssemblyReferences(project, referenceList);
+
+  foreach(string referenceSource in assemblyRef)
+  {
+	string adjSource = referenceSource.TrimStart(new char[] { '\n', ' ' }).TrimEnd(new char[] { '\n', ' ' }).Replace("\n", Environment.NewLine);
+%>
+    <%= adjSource %>
+<%
+  }
+%>
+  </ItemGroup>
+<%
+
+  if(listOfFiles.Count > 0)
+  {
+%>	
+  <ItemGroup>
+<%
+    DirectoryInfo projectDirectoryInfo = new DirectoryInfo(projectDirectory);
+
+	foreach(string fileFullName in listOfFiles)
+    {
+	  // Make relative path
+	    string fileName = fileFullName.Substring(projectDirectoryInfo.FullName.Length + 1);
+		
+        if(fileName.EndsWith("xaml.cs")) 
+        {
+            continue;  // Handled below
+        }
+		if(fileName.EndsWith("xoml.cs")) 
+        {
+            continue;  // Handled below
+        }
+        else if(fileName.EndsWith("g.cs"))
+        {
+            continue; // Don't want these
+        }
+        else if(fileName.EndsWith(".xaml"))
+        {
+            string baseName = (new FileInfo(fileName)).Name;
+%>
+    <Compile Include="<%= fileName %>.cs">
+      <DependentUpon><%= baseName %></DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+<%
+        }
+		else if(fileName.EndsWith(".xoml"))
+		{
+			string baseName = (new FileInfo(fileName)).Name;
+%>
+    <Compile Include="<%= fileName %>.cs">
+      <DependentUpon><%= baseName %></DependentUpon>
+    </Compile>
+<%
+		}
+        else
+        {
+%>
+    <Compile Include="<%= fileName %>"/>
+<%
+        }
+    }
+%>
+  </ItemGroup>
+  <ItemGroup>
+<%
+	foreach(string fileFullName in listOfFiles)
+    {
+		string fileName = fileFullName.Substring(projectDirectoryInfo.FullName.Length + 1);
+		
+		if (fileName.EndsWith(".xoml"))
+		{
+%>
+    <Content Include="<%= fileName %>">
+      <SubType>Component</SubType>
+    </Content>
+<%
+		}
+		else
+		{
+			continue;	
+		}
+	}
+%>
+  </ItemGroup>
+  <ItemGroup>
+<%
+	foreach(string fileFullName in listOfFiles)
+    {
+		string fileName = fileFullName.Substring(projectDirectoryInfo.FullName.Length + 1);
+		
+		if (fileName.EndsWith(".xaml"))
+		{
+%>
+    <Page Include="<%= fileName %>">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+<%
+		}
+		else
+		{
+			continue;	
+		}
+	}
+%>
+  </ItemGroup>
+<%
+  }
+  
+  if(listOfEmbeddedFiles.Count > 0)
+  {
+%>
+  <ItemGroup>
+<%
+    DirectoryInfo projectDirectoryInfo = new DirectoryInfo(projectDirectory);
+	
+    foreach(string fileFullName in listOfEmbeddedFiles)
+    {
+	  // Make relative path
+	  string fileName = fileFullName.Substring(projectDirectoryInfo.FullName.Length + 1);
+	
+	  if (fileName.EndsWith(".rules"))
+	  {
+		string baseName = (new FileInfo(fileName)).Name;
+		baseName = baseName.Substring(0, baseName.LastIndexOf('.'));
+%>		
+    <EmbeddedResource Include="<%=fileName%>">
+      <DependentUpon><%=baseName%>.xoml</DependentUpon>
+    </EmbeddedResource>
+<%
+	  }
+	  else
+	  {
+%>
+    <EmbeddedResource Include="<%= fileName %>"/>
+<%
+      }
+	}
+%>
+  </ItemGroup>
+<%
+  }
+%>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+<%
+if (project.ProjectType == ProjectInfoType.Workflow)
+{
+%>  
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Windows Workflow Foundation\v3.5\Workflow.Targets" />	
+<%
+}
+%>
+
+<!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Target Name="BeforeResolveReferences">
+  <CreateProperty
+      Value="<%=referenceDirectory%>;$(AssemblySearchPaths)">
+      <Output TaskParameter="Value"
+        PropertyName="AssemblySearchPaths" />
+    </CreateProperty>
+  </Target>
+
+</Project>

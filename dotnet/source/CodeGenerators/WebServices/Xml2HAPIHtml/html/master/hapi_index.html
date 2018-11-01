@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>HAPI Gateway Specification</title>
+		<link href="./css/emx_nav_left.css" rel="stylesheet" type="text/css" />
+		<link href="./css/emx_nav_left_print.css" rel="stylesheet" type="text/css" media="print"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"></head>
+	<body>
+		<div id="pagecell1">
+			<!--pagecell1-->
+			<div id="breadCrumb">
+				<a href="index.html">Index</a>
+			</div>
+			<div id="pageName">
+				<h2 class="none">HAPI Gateway Specification </h2>
+			</div>
+			<div id="pageNav">
+			    <div class="relatedLinks"> 
+			      <h3>Support</h3>
+				  &bull;&nbsp;<a href="Product.html">Product</a><br/>
+			      &bull;&nbsp;<a href="Party.html">Party</a><br/>
+				</div> 
+		      <div class="relatedLinks"> 
+			      <h3>Order</h3>
+				  &bull;&nbsp;<a href="PurchaseOrder.html">Purchase Order</a><br/>
+			      &bull;&nbsp;<a href="CustomerReturnOrder.html">Customer Return Order</a><br/>
+				  &bull;&nbsp;<a href="CustomerOrder.html">Customer Order</a><br/>
+				  &bull;&nbsp;<a href="VendorReturnOrder.html">Vendor Return Order</a><br/>
+				</div> 
+			    <div class="relatedLinks"> 
+			      <h3>Receipt</h3>
+				  &bull;&nbsp;<a href="DeliveryReceipt.html">Delivery Receipt</a><br/>
+			      &bull;&nbsp;<a href="PickReceipt.html">Pick Receipt</a><br/>
+				  &bull;&nbsp;<a href="VendorReturnReceipt.html">Vendor Return Receipt</a><br/>
+				  &bull;&nbsp;<a href="InspectionReceipt.html">Inspections Receipt</a><br/>
+				  &bull;&nbsp;<a href="InboundOrderCompleted.html">Inbound Order Compl.</a><br/>
+				  &bull;&nbsp;<a href="ReturnedPackingMaterial.html">Packing Material</a><br/>
+				</div> 
+			    <div class="relatedLinks"> 
+			      <h3>Inventory</h3>
+				  &bull;&nbsp;<a href="InventoryStatus.html">Inventory Status</a><br/>
+			      &bull;&nbsp;<a href="StockTakingOrder.html">Inventory Audit Order</a><br/>
+				  &bull;&nbsp;<a href="InventoryChange.html">Inventory Change</a><br/>
+				  &bull;&nbsp;<a href="BalanceQuery.html">Balance Query </a><br/>
+				  &bull;&nbsp;<a href="BalanceAnswer.html">Balance Answer</a><br/>
+				</div> 
+			    <div class="relatedLinks"> 
+			      <h3>System</h3>
+				  &bull;&nbsp;<a href="SignalProcess.html">Signal Process</a><br/>
+				</div> 
+			</div>
+            <div id="content">
+		      <div class="story">
+			  	<h3>Host Application Programming Interface (HAPI)</h3>
+			  	<h4>Message Direction </h4>
+			  	<p> Each message is either inbound (to IMI Warehouse) or outbound (from IMI Warehouse). The direction of a specific message is shown in the header of each message description as (In) or (Out). </p>
+			  	<h4>Method</h4>
+			  	<p>
+                    The codes in the Method column can assume the following values: <br />
+                      <br />
+                <table width="160" border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td width="26"><div align="center">N</div></td>
+                    <td width="124">- new object</td>
+                  </tr>
+                  <tr>
+                    <td width="26"><div align="center">C</div></td>
+                    <td>- change object</td>
+                  </tr>
+                  <tr>
+                    <td width="26"><div align="center">R</div></td>
+                    <td> - remove object.</td>
+                  </tr>
+                </table>
+                <br />
+                <p>Example: The signature for the Remove operation can be determined by looking at all the attributes that have a 'R' in the method column. </p>
+                <h4>Type</h4>
+				<p>
+                    Shows the data type and length as declared in IMI Warehouse.
+                </p>
+                <h4>Mandatory</h4>
+				<p>
+				    The codes in the Mand column in the table should be interpreted as:
+                      <br />
+                      <br />
+                <table width="579" border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td width="36"><div align="center">*</div></td>
+                    <td>- always mandatory</td>
+                  </tr>
+                  <tr>
+                    <td width="36"><div align="center">-</div></td>
+                    <td>- never mandatory</td>
+                  </tr>
+                  <tr>
+                    <td width="36"><div align="center">code</div></td>
+                    <td>- mandatory for this/these methods. Example N,C means mandatory for New and Change.</td>
+                  </tr>
+                </table>
+                <p><br />
+                For outbound messages Mandatory is not displayed since it implementation dependant. </p>
+                <p><br />
+                </p>
+                <h4><br/>
+                </h4>
+                </p>
+		    </div>
+			</div>
+			<!--end content-->
+			<div id="siteInfo"><br/>
+			 </div>
+		</div>
+		<!--end pagecell1-->
+	</body>
+</html>

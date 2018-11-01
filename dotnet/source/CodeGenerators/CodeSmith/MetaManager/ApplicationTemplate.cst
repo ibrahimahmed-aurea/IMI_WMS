@@ -1,0 +1,290 @@
+<%-- 
+Name:
+Author: 
+Description: Dll       : Cdc.MetaManager.CodeGeneration.Templates.dll
+             Namespace : Cdc.MetaManager.CodeGeneration.Templates
+             Type      : ApplicationTemplate
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src=".\Library\Core.cst" Inherits="ServiceTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Assembly Name="Cdc.Framework.Parsing.CSharpParsing" %>
+<%@ Assembly Name="Cdc.CodeGeneration.Caching" %>
+<%@ Import Namespace="Cdc.CodeGeneration.Caching" %>
+<%@ Import Namespace="Cdc.Framework.Parsing.CSharpParsing" %>
+<%@ Import Namespace="System.IO" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Register Name="DataContractTemplate" Template=".\Services\DataContracts\DataContractTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="ServiceContractTemplate" Template=".\Services\ServiceContracts\ServiceContractTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="ServiceImplementationTemplate" Template=".\Services\ServiceImplementation\ServiceImplementationTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="DaoInterfaceTemplate" Template=".\BusinessLogic\DataAccess\DaoInterfaceTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="DaoImplementationTemplate" Template=".\BusinessLogic\DataAccess\DaoImplementationTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="DaoTranslatorTemplate" Template=".\BusinessLogic\DataAccess\DaoTranslatorTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="EntitiesTemplate" Template=".\BusinessLogic\Entities\EntitiesTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="ActionsTemplate" Template=".\BusinessLogic\Actions\ActionsTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="ProjectTemplate" Template=".\VisualStudio\ProjectTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="SolutionTemplate" Template=".\VisualStudio\SolutionTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Property Name="solutionFileName" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="referenceDirectory" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="entities" Type="List<BusinessEntity>" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="services" Type="List<Service>" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="templateCallback" Type="Cdc.MetaManager.DataAccess.CodeSmithTemplateCallback" Default="" Optional="false" Category="" Description="" %>
+<%
+  ProjectTemplate projectTemplate = this.Create<ProjectTemplate>();
+  SolutionTemplate solutionTemplate = this.Create<SolutionTemplate>();
+
+  List<ProjectInfo> projects = new List<ProjectInfo>();
+
+  int callbackCnt;
+  int numberOfSteps = 4;
+
+  string assemblyVersion = "1.0.0.*";
+
+  if((services != null) && (services.Count > 0))
+  {
+    assemblyVersion= GetVersionString(services[0].Application);
+  }	
+  else	
+  {
+    if((entities != null) && (entities.Count > 0))
+	{
+      assemblyVersion= GetVersionString(entities[0].Application);
+	}
+  }	
+
+  string solutionDirectory = new FileInfo(solutionFileName).DirectoryName;
+  string servicesDirectory = Path.Combine(solutionDirectory,"Services");
+  string businessDirectory = Path.Combine(solutionDirectory,"BusinessLogic");
+  referenceDirectory = new DirectoryInfo(referenceDirectory).FullName;
+
+  FileCacheManager.Open(solutionDirectory);
+
+  callbackCnt = 1;
+
+  foreach(Service service in services)
+  {
+	// Callback
+	int currentPercentage = CurrentPercentage(0, numberOfSteps, callbackCnt-1, services.Count);
+	string callbackText = string.Format("Generating Service ({0}/{1}) - {2}"
+							,callbackCnt.ToString()
+							,services.Count.ToString()
+							,service.Name);
+	callbackCnt++;
+	
+	//
+	// Setup directory paths
+	//
+	string dataContractDirectory = GetDataContractDirectory(service, servicesDirectory);
+	string serviceContractDirectory = GetServiceContractDirectory(service, servicesDirectory);
+	string serviceImplementationDirectory = GetServiceImplementationDirectory(service, servicesDirectory);
+	
+	ProjectInfo projectInfo;
+	string projectDirectory;
+	string projectNamespace;
+	
+	//
+	// Datacontract
+	// 
+	templateCallback(string.Format("{0} - Datacontract", callbackText)
+					,currentPercentage);
+	
+	DataContractTemplate dataContractTemplate = this.Create<DataContractTemplate>();
+	dataContractTemplate.SetProperty("service", service);
+	dataContractTemplate.SetProperty("dataContractDirectory", dataContractDirectory);
+	dataContractTemplate.SetProperty("frontendApplication", null);
+	dataContractTemplate.Render(this.Response);
+	
+	// Create project info
+	projectDirectory = dataContractDirectory;
+	projectNamespace = GetDataContractNamespace(service);
+	
+	projectInfo = new ProjectInfo();
+	projectInfo.ProjectFile = GetProjectFilename(projectDirectory, projectNamespace);
+	projectInfo.Namespace = projectNamespace;
+	projectInfo.ProjectGuid = FileCacheManager.GetGuidForFile(projectInfo.ProjectFile);
+	projects.Add(projectInfo);
+	
+	//
+	// Service Contract
+	//
+	templateCallback(string.Format("{0} - Servicecontract", callbackText)
+					,currentPercentage);
+					
+	ServiceContractTemplate serviceContractTemplate = this.Create<ServiceContractTemplate>();
+	serviceContractTemplate.SetProperty("service", service);
+	serviceContractTemplate.SetProperty("serviceContractDirectory", serviceContractDirectory);
+	serviceContractTemplate.SetProperty("frontendApplication", null);
+	serviceContractTemplate.Render(this.Response);
+	
+	// Create project info
+	projectDirectory = serviceContractDirectory;
+	projectNamespace = GetServiceContractNamespace(service);
+	
+	projectInfo = new ProjectInfo();
+	projectInfo.ProjectFile = GetProjectFilename(projectDirectory, projectNamespace);
+	projectInfo.Namespace = projectNamespace;
+	projectInfo.ProjectGuid = FileCacheManager.GetGuidForFile(projectInfo.ProjectFile);
+	projects.Add(projectInfo);
+	
+	//
+	// Service Implementation
+	//
+	templateCallback(string.Format("{0} - Serviceimplementation", callbackText)
+					,currentPercentage);
+					
+	ServiceImplementationTemplate ServiceImplementationTemplate = this.Create<ServiceImplementationTemplate>();
+	ServiceImplementationTemplate.SetProperty("service", service);
+	ServiceImplementationTemplate.SetProperty("serviceImplementationDirectory", serviceImplementationDirectory);
+	ServiceImplementationTemplate.Render(this.Response);
+	
+	// Create project info
+	projectDirectory = serviceImplementationDirectory;
+	projectNamespace = GetServiceImplementationNamespace(service);
+	
+	projectInfo = new ProjectInfo();
+	projectInfo.ProjectFile = GetProjectFilename(projectDirectory, projectNamespace);
+	projectInfo.Namespace = projectNamespace;
+	projectInfo.ProjectGuid = FileCacheManager.GetGuidForFile(projectInfo.ProjectFile);
+	projectInfo.ProjectType = ProjectInfoType.Wcf;
+	projects.Add(projectInfo);
+
+  }
+
+
+  callbackCnt = 1;
+
+  foreach(BusinessEntity entity in entities)
+  {
+	// Callback
+	int currentPercentage = CurrentPercentage(1, numberOfSteps, callbackCnt-1, entities.Count);
+	string callbackText = string.Format("Generating for BusinessEntity ({0}/{1}) - {2}"
+							,callbackCnt.ToString()
+							,entities.Count.ToString()
+							,entity.Name);
+	callbackCnt++;
+	
+	//
+	// Setup directory paths
+	//
+    string dataAccessDirectory = DomainTemplate.GetDataAccessDirectory(entity, businessDirectory);
+    string entitiesDirectory = DomainTemplate.GetEntitiesDirectory(entity, businessDirectory);
+    string actionsDirectory = DomainTemplate.GetActionsDirectory(entity, businessDirectory);
+	
+	ProjectInfo projectInfo;
+	string projectDirectory;
+	string projectNamespace;
+
+	//
+	// Create IbatisMap
+	//
+	templateCallback(string.Format("{0} - Data Access Objects", callbackText)
+					,currentPercentage);
+	
+	//DataAccessIbatisMapTemplate dataAccessIbatisMapTemplate = this.Create<DataAccessIbatisMapTemplate>();
+	//dataAccessIbatisMapTemplate.SetProperty("entity", entity);
+	//dataAccessIbatisMapTemplate.RenderToFile(string.Format(@"{0}\{1}Map.xml",dataAccessDirectory, entity.Name),true);
+	
+	DaoInterfaceTemplate interfaceTemplate = this.Create<DaoInterfaceTemplate>();
+    interfaceTemplate.SetProperty("entity", entity);
+    interfaceTemplate.RenderToFile(string.Format(@"{0}\I{1}Dao.cs", dataAccessDirectory, entity.Name),true);
+	
+	DaoImplementationTemplate implementationTemplate = this.Create<DaoImplementationTemplate>();
+    implementationTemplate.SetProperty("entity", entity);
+	implementationTemplate.SetProperty("dataAccessDirectory", dataAccessDirectory);
+    implementationTemplate.RenderToFile(string.Format(@"{0}\{1}Dao.cs", dataAccessDirectory, entity.Name),true);
+	
+	DaoTranslatorTemplate translatorTemplate = this.Create<DaoTranslatorTemplate>();
+	
+	foreach(Cdc.MetaManager.DataAccess.Domain.Action action in entity.Actions) 
+  	{
+		string fileName = string.Format(@"{0}\Translators\{1}Translator.cs", dataAccessDirectory, action.Name);
+		translatorTemplate.SetProperty("action", action);
+		translatorTemplate.RenderToFile(fileName ,true);
+  	}
+	
+	// Create project info
+	projectDirectory = dataAccessDirectory;
+	projectNamespace = DomainTemplate.GetIbatisNamespace(entity);
+	
+	projectInfo = new ProjectInfo();
+	projectInfo.ProjectFile = GetProjectFilename(projectDirectory, projectNamespace);
+	projectInfo.Namespace = projectNamespace;
+	projectInfo.ProjectGuid = FileCacheManager.GetGuidForFile(projectInfo.ProjectFile);
+	projects.Add(projectInfo);
+	
+    //
+    // Create Entities
+    //
+	templateCallback(string.Format("{0} - Entities", callbackText)
+					,currentPercentage);
+	
+    EntitiesTemplate entitiesTemplate = this.Create<EntitiesTemplate>();
+    entitiesTemplate.SetProperty("entity", entity);
+    entitiesTemplate.SetProperty("businessEntitiesDirectory", entitiesDirectory);
+    entitiesTemplate.Render(this.Response);
+
+	// Create project info
+	projectDirectory = entitiesDirectory;
+	projectNamespace = DomainTemplate.GetEntitiesNamespace(entity);
+	
+	projectInfo = new ProjectInfo();
+	projectInfo.ProjectFile = GetProjectFilename(projectDirectory, projectNamespace);
+	projectInfo.Namespace = projectNamespace;
+	projectInfo.ProjectGuid = FileCacheManager.GetGuidForFile(projectInfo.ProjectFile);
+	projects.Add(projectInfo);
+
+	//
+	// Create Actions
+	//
+	templateCallback(string.Format("{0} - Actions", callbackText)
+					,currentPercentage);
+	
+	ActionsTemplate actionsTemplate = this.Create<ActionsTemplate>();
+	actionsTemplate.SetProperty("entity", entity);
+	actionsTemplate.SetProperty("businessActionsDirectory", actionsDirectory);
+	actionsTemplate.Render(this.Response);
+	
+	// Create project info
+	projectDirectory = actionsDirectory;
+	projectNamespace = DomainTemplate.GetActionsNamespace(entity);
+	
+	projectInfo = new ProjectInfo();
+	projectInfo.ProjectFile = GetProjectFilename(projectDirectory, projectNamespace);
+	projectInfo.Namespace = projectNamespace;
+	projectInfo.ProjectGuid = FileCacheManager.GetGuidForFile(projectInfo.ProjectFile);
+	projects.Add(projectInfo);
+
+  }
+
+  callbackCnt = 1;
+
+  foreach(ProjectInfo pi in projects)
+  {
+	// Callback
+	templateCallback(string.Format("Generating Project Files ({0}/{1})"
+						,callbackCnt.ToString()
+						,projects.Count.ToString())
+					,CurrentPercentage(2, numberOfSteps, callbackCnt-1, projects.Count));
+	callbackCnt++;
+	
+    projectTemplate.SetProperty("project", pi);
+    projectTemplate.SetProperty("referenceList", projects);
+    projectTemplate.SetProperty("referenceDirectory", referenceDirectory);
+    projectTemplate.SetProperty("assemblyVersion", assemblyVersion);
+    projectTemplate.SetProperty("solutionDirectory", solutionDirectory);
+    projectTemplate.Render(this.Response);
+  }
+
+  templateCallback("Generating Solution File"
+				  ,CurrentPercentage(3, numberOfSteps));
+
+  solutionTemplate.SetProperty("projects", projects);
+  solutionTemplate.SetProperty("solutionDirectory", solutionDirectory);
+  solutionTemplate.RenderToFile(solutionFileName, true);
+
+  templateCallback("Done"
+                  ,CurrentPercentage(4, numberOfSteps));
+
+  FileCacheManager.Commit();
+%>

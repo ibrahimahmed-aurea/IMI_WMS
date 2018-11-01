@@ -1,0 +1,70 @@
+#
+# makefile 17/12/2004
+# 
+# Copyright (c) 2004 - 2005 Industri-Matematik AB. All rights reserved.
+#
+BIN=.\bin
+XMLOUTDIR=.\tapi\xml
+XMLDIR=.\xml
+HTMLDIR=.\tapi\html
+
+RD=rd /s /q
+CONNRMS="user id = rmuser; password = rmuser; data source = WHTRUNK"
+CONNWMS="user id = owuser; password = owuser; data source = WHTRUNK"
+#CONNRMS="user id = rmuser; password = rmuser; data source = WHTEST"
+#CONNWMS="user id = owuser; password = owuser; data source = WHTEST"
+
+INXMLFILE1=$(XMLOUTDIR)\in1.xml
+INXMLFILE2=$(XMLOUTDIR)\in2.xml
+INMASTER=$(XMLDIR)\TAPIInboundMaster.xml
+
+OUTXMLFILE1=$(XMLOUTDIR)\out1.xml
+OUTXMLFILE2=$(XMLOUTDIR)\out2.xml
+OUTMASTER=$(XMLDIR)\TAPIOutboundMaster.xml
+
+DICTIONARY=$(XMLDIR)\TAPIDictionary.xml
+
+ALLDIR= \
+    "$(XMLOUTDIR)" \
+    "$(HTMLDIR)"
+
+ALLHTML= \
+    "$(HTMLDIR)\index.html"
+
+ALLEXE= \
+    $(BIN)\Imi.CodeGenerators.WebServices.xml2hapihtml.exe
+
+# --------------------------------------------
+# Description Blocks
+# --------------------------------------------
+
+ALL: $(ALLDIR) $(INXMLFILE1) $(INXMLFILE2) $(OUTXMLFILE) $(ALLHTML)
+
+$(INXMLFILE1): $(XMLOUTDIR)
+    $(BIN)\Imi.CodeGenerators.WebServices.spec2xml TAPI $@ $(DICTIONARY) /OPTDICT 1 /CONN $(CONNRMS)
+
+$(INXMLFILE2): $(INXMLFILE1)
+    $(BIN)\Imi.CodeGenerators.WebServices.ColumnInfo2XML $(INXMLFILE1) $@ /CONN $(CONNRMS)
+
+$(OUTXMLFILE1): $(XMLOUTDIR)
+    $(BIN)\Imi.CodeGenerators.WebServices.spec2xml TAPI $@ $(DICTIONARY) /OPTDICT 1 /CONN $(CONNWMS)
+
+$(OUTXMLFILE2): $(OUTXMLFILE1)
+    $(BIN)\Imi.CodeGenerators.WebServices.ColumnInfo2XML $(OUTXMLFILE1) $@ /CONN $(CONNWMS)
+
+$(HTMLDIR)\index.html: $(INXMLFILE2) $(INMASTER) $(OUTXMLFILE2) $(OUTMASTER) $(ALLEXE)
+    $(BIN)\Imi.CodeGenerators.WebServices.xml2hapihtml $(INXMLFILE2) $(INMASTER) $(HTMLDIR)
+    $(BIN)\Imi.CodeGenerators.WebServices.xml2hapihtml $(OUTXMLFILE2) $(OUTMASTER) $(HTMLDIR)
+
+CLEAN :
+    -@$(RD) $(XMLOUTDIR)
+    -@$(RD) $(HTMLDIR)
+    @nmake /nologo ALL
+
+"$(XMLOUTDIR)" :
+    @if not exist "$(XMLOUTDIR)/$(NULL)" mkdir "$(XMLOUTDIR)"
+
+"$(HTMLDIR)" :
+    @if not exist "$(HTMLDIR)/$(NULL)" mkdir "$(HTMLDIR)"
+
+# end makefile#

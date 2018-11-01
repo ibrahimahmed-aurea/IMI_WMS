@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="56d3658f-a7d8-4e8f-a0d7-e662c6d8c7d8" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:18801/OutputManager/OutputHandlerService" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="OutputHandlerService.disco" MetadataType="Disco" ID="5be0d346-20f1-464c-aef9-c4f4f729f0d7" SourceId="1" SourceUrl="http://localhost:18801/OutputManager/OutputHandlerService?disco" />
+    <MetadataFile FileName="OutputHandlerService.wsdl" MetadataType="Wsdl" ID="708bd4a5-b0a4-43d7-b61d-2db3cfb056a9" SourceId="1" SourceUrl="http://localhost:18801/OutputManager/OutputHandlerService?wsdl" />
+    <MetadataFile FileName="OutputHandlerService1.wsdl" MetadataType="Wsdl" ID="b4ae3fe2-00c4-4927-b646-5818aa2d9bac" SourceId="1" SourceUrl="http://localhost:18801/OutputManager/OutputHandlerService?wsdl=wsdl0" />
+    <MetadataFile FileName="OutputHandlerService.xsd" MetadataType="Schema" ID="2df3f1b4-39eb-43d9-b437-d8febbc37269" SourceId="1" SourceUrl="http://localhost:18801/OutputManager/OutputHandlerService?xsd=xsd3" />
+    <MetadataFile FileName="OutputHandlerService1.xsd" MetadataType="Schema" ID="6c9ccb0a-cda4-425a-b288-1221bd699d12" SourceId="1" SourceUrl="http://localhost:18801/OutputManager/OutputHandlerService?xsd=xsd2" />
+    <MetadataFile FileName="OutputHandlerService2.xsd" MetadataType="Schema" ID="32ea7234-f6c7-4d4e-99e9-9d8525fbed66" SourceId="1" SourceUrl="http://localhost:18801/OutputManager/OutputHandlerService?xsd=xsd1" />
+    <MetadataFile FileName="OutputHandlerService3.xsd" MetadataType="Schema" ID="ff8dd6f4-920b-4403-9606-e71a0e9fdbdd" SourceId="1" SourceUrl="http://localhost:18801/OutputManager/OutputHandlerService?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

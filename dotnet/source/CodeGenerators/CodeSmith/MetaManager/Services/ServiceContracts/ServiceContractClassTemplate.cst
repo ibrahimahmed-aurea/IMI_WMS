@@ -1,0 +1,129 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="ServiceTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="service" Type="Cdc.MetaManager.DataAccess.Domain.Service" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="serviceMethod" Type="Cdc.MetaManager.DataAccess.Domain.ServiceMethod" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="propertyMap" Type="Cdc.MetaManager.DataAccess.Domain.PropertyMap" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isRequest" Type="System.Boolean" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="dataContractNamespace" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="nameSpace" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%
+  string className = GetServiceContractClassName(serviceMethod, isRequest);
+  
+  string baseClassText = GetServiceContractBaseClassName(serviceMethod, isRequest);
+  
+  if(!string.IsNullOrEmpty(baseClassText))
+  {
+     baseClassText = string.Format(" : {0}", baseClassText);
+  }	
+
+  bool isMulti = (serviceMethod.MappedToAction.IsMultiEnabled == true);
+  bool isImport = (serviceMethod.MappedToAction.IsImportEnabled == true);
+  bool isMessageHandlingEnabled = (serviceMethod.MappedToAction.IsMessageHandlingEnabled == true);
+  bool isCollection = propertyMap.IsCollection;
+
+  // We want the collection name if connected to multi enabled action
+  if(isRequest && (isMulti || isImport))
+  {
+	isCollection = true;		
+  }
+
+  int idx = 1;
+
+  string paramTypeName = GetServiceContractParamType(serviceMethod, isRequest, isCollection);
+  string publicName = paramTypeName;
+
+  string partitioningInterfaceText = string.Empty;
+
+  if (isRequest)
+  {
+	partitioningInterfaceText = "IPartitioningRequest";
+  }
+  else
+  {
+	if (isCollection)
+	{
+		partitioningInterfaceText = "IPartitioningResponse";
+	}
+  }
+
+  if (!string.IsNullOrEmpty(partitioningInterfaceText))
+  {
+	if(!string.IsNullOrEmpty(baseClassText))
+	{
+		partitioningInterfaceText = string.Format(", {0}", partitioningInterfaceText);
+	}
+	else
+	{
+		partitioningInterfaceText = string.Format(": {0}", partitioningInterfaceText);
+	}
+  }
+
+%>
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.ServiceModel;
+using Imi.Framework.Services;
+using <%= dataContractNamespace %>;
+
+namespace <%= nameSpace %>
+{
+    [MessageContract(WrapperName = "<%= className %>", WrapperNamespace = "<%= GetServiceContractUrl(service) %>")]
+    public class <%= className %><%= baseClassText %><%= partitioningInterfaceText %>
+    {
+        [MessageBodyMember(Order = <%=idx++%>)]
+        public <%= paramTypeName %> <%= publicName %> { get; set; }
+<%
+		if (isCollection && isMessageHandlingEnabled)
+		{
+%>
+
+        [MessageBodyMember(Order = <%=idx++%>)]
+        public string MessageXML { get; set; }
+<%
+		}
+		
+		if (!isRequest && isMessageHandlingEnabled)
+		{
+%>
+
+        [MessageBodyMember(Order = <%=idx++%>)]
+        public string InformationXML { get; set; }
+<%
+		}
+
+		if(isRequest)
+		{
+%>
+
+		[MessageBodyMember(Order = <%=idx++%>)]
+        public CustomServiceComParameters ComParameters { get; set; }
+<%
+		}
+		else
+		{
+			if (isCollection)
+			{
+%>
+
+		[MessageBodyMember(Order = <%=idx++%>)]
+        public CustomServiceComMetaResult ComMetaResult { get; set; }
+<%
+			}
+		}
+%>
+
+		public override string ToString()
+		{
+			return string.Format("{0}\r\n{1}", base.ToString(), <%= publicName %>.ToString());
+		}
+    }
+}

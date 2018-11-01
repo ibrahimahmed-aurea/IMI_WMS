@@ -1,0 +1,161 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="workflow" Type="Cdc.MetaManager.DataAccess.Domain.Workflow" Default="" Optional="false" Category="" Description="" OnChanged="" Editor="" EditorBase="" Serializer="" %>
+<%
+	string userSessionName = GetUserSessionName(workflow.Module.Application);
+	string userSessionNamespace = GetUserSessionNamespace(workflow.Module.Application);
+%>
+using System;
+using System.Linq;
+using System.ServiceModel;
+using System.Reflection;
+using System.Collections.Generic;
+using System.Threading;
+using System.Workflow.Runtime;
+using System.Workflow.Activities.Rules;
+using System.Workflow.ComponentModel;
+using System.Workflow.ComponentModel.Serialization;
+using System.Xml;
+using ActiproSoftware.Windows.Controls.Ribbon;
+using Microsoft.Practices.CompositeUI;
+using Microsoft.Practices.CompositeUI.SmartParts;
+using Microsoft.Practices.CompositeUI.EventBroker;
+using Imi.Framework.UX;
+using Imi.SupplyChain.UX;
+using Imi.SupplyChain.UX.Views;
+using Imi.SupplyChain.UX.Infrastructure;
+using Imi.SupplyChain.UX.Infrastructure.Services;
+using Imi.SupplyChain.UX.Workflow;
+using <%= userSessionNamespace %>;
+
+namespace <%=GetWorkflowNamespace(workflow)%>
+{
+	#region Compiler Settings
+	  // The event is never used
+	  #pragma warning disable 67 
+	#endregion
+	
+	public class <%=GetWorkflowControllerClassName(workflow)%> : WorkItemController
+    {
+		[EventPublication("<%=workflow.Name%>CompletedTopic", PublicationScope.WorkItem)]
+        public event EventHandler<DataEventArgs<WorkflowResult>> WorkflowCompleted;
+		
+		[ServiceDependency]
+        public <%= userSessionName %> UserSessionService { get; set; }
+		
+		[ServiceDependency]
+        public IShellInteractionService ShellInteractionService { get; set; }
+		
+		[ServiceDependency]
+        public WorkflowRuntime WorkflowRuntime { get; set; }
+		
+        public Exception WorkflowException { get; private set; }
+		
+		private SynchronizationContext context;
+		private WorkflowInstance instance;
+		
+		public void Run(<%=GetWorkflowParametersClassName(workflow)%> parameters, string title)
+        {
+			context = SynchronizationContext.Current;
+			
+			WorkItem.Terminated += (s, e) => 
+				{
+					WorkflowRuntime.WorkflowCompleted -= WorkflowCompletedEventHandler;
+					WorkflowRuntime.WorkflowTerminated -= WorkflowTerminatedEventHandler;
+				};
+			
+			WorkflowRuntime.WorkflowCompleted += WorkflowCompletedEventHandler;
+			WorkflowRuntime.WorkflowTerminated += WorkflowTerminatedEventHandler;
+			            
+			var parameterDictionary = new Dictionary<string, object>();
+            parameterDictionary.Add("Session", UserSessionService);
+            parameterDictionary.Add("WorkItem", WorkItem);
+            parameterDictionary.Add("SynchronizationContext", context);
+			parameterDictionary.Add("Request", parameters);
+			parameterDictionary.Add("Title", title);
+			parameterDictionary.Add("Result", WorkflowResult.None);
+						            
+			instance = WorkflowRuntime.CreateWorkflow(typeof(<%=GetWorkflowClassName(workflow)%>), parameterDictionary);
+<%
+		if (!string.IsNullOrEmpty(workflow.RuleSetXml))
+		{
+%>            
+			ApplyRuleDefinitions(instance);
+<%
+		}
+%>           
+			base.Run();
+			
+			instance.Start();
+        }
+		
+		private void WorkflowCompletedEventHandler(object sender, WorkflowCompletedEventArgs e)
+		{
+			if (e.WorkflowInstance == instance)
+			{
+				context.Send(delegate(object data)
+                    {
+						WorkflowResult result = (WorkflowResult)e.OutputParameters["Result"];
+						FireWorkflowCompleted(result);
+						
+						Terminate();
+										
+                    }, null);
+			}
+		}
+		
+		private void WorkflowTerminatedEventHandler(object sender, WorkflowTerminatedEventArgs e)
+		{
+			if (e.WorkflowInstance == instance)
+			{
+				context.Send(delegate(object data)
+					{
+						if (!(e.Exception is WorkflowTerminatedException))
+						{
+							ShellInteractionService.ShowMessageBox(StringResources.ActionException_Text, e.Exception.Message, e.Exception.ToString(), MessageBoxButton.Ok, MessageBoxImage.Error);
+						}
+					
+						if (WorkflowException == null && e.Exception != null)
+							WorkflowException = e.Exception;
+					
+						Terminate();
+						
+					}, null);
+			}
+		}
+		
+		private void FireWorkflowCompleted(WorkflowResult result)
+		{
+			EventTopic topic = WorkItem.EventTopics.Get("<%=workflow.Name%>CompletedTopic");
+            topic.Fire(this, new DataEventArgs<WorkflowResult>(result), WorkItem.Parent, PublicationScope.WorkItem);
+		}
+		
+		private void ApplyRuleDefinitions(WorkflowInstance instance)
+		{
+			WorkflowMarkupSerializer serializer = new WorkflowMarkupSerializer();
+            XmlReader reader = XmlReader.Create(Assembly.GetExecutingAssembly().GetManifestResourceStream("<%=GetWorkflowNamespace(workflow)%>.<%=GetWorkflowClassName(workflow)%>.rules"));
+            RuleDefinitions rules = serializer.Deserialize(reader) as RuleDefinitions;
+			
+			WorkflowChanges changes = new WorkflowChanges(instance.GetWorkflowDefinition());
+            changes.TransientWorkflow.SetValue(RuleDefinitions.RuleDefinitionsProperty, rules);
+
+            instance.ApplyWorkflowChanges(changes);
+		}
+		
+		private void Terminate()
+		{
+			if (WorkItem.Status != WorkItemStatus.Terminated)
+				WorkItem.Terminate();
+		}
+	}				
+}

@@ -1,0 +1,921 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="false" Description="Template description here." %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Assembly Name="Cdc.MetaManager.BusinessLogic" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="Cdc.MetaManager.BusinessLogic.Helpers" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain.VisualModel" %>
+<%@ Register Name="DataGridTemplate" Template="DataGridTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="LayoutGridTemplate" Template="LayoutGridTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Property Name="component" Type="UXComponent" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="attachedProperty" Type="String" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="debugOutput" Type="System.Boolean" Default="" Optional="false" Category="" Description="" OnChanged="" Editor="" EditorBase="" Serializer="" %>
+<%@ Property Name="currentScope" Type="UXComponent" Default="" Optional="false" Category="" Description="" OnChanged="" Editor="" EditorBase="" Serializer="" %>
+<%@ Property Name="layoutScope" Type="UXLayoutGrid" Default="" Optional="false" Category="" Description="" OnChanged="" Editor="" EditorBase="" Serializer="" %>
+<%
+	
+	bool hasError = false;
+	
+	if(debugOutput)
+	{
+%>		
+  <!--  <%= component.Name %> -->
+<%
+
+		if (component.Name.Contains(UXComponent.Duplicate_Suffix) 
+		|| ((component is IBindable) && (component.Hint == null)))
+		{
+			hasError = true;
+%>
+		<Border BorderThickness="2"
+				BorderBrush="Red" <%= attachedProperty %>>
+<%
+		}
+ 	}
+	
+    CodeTemplate componentTemplate = null;
+
+    if(!string.IsNullOrEmpty(attachedProperty) && (! attachedProperty.EndsWith(" ")))
+	  attachedProperty += " ";
+	
+	//
+	// RadioGroup
+	//
+	if(component is UXRadioGroup)
+	{
+		UXRadioGroup radioGroup = component as UXRadioGroup;
+        
+        string dataProperty = GetDataProperty(radioGroup);
+		string styleAdd = "";
+        
+        if (component.IsReadOnly  && !debugOutput)
+        {
+			styleAdd = " IsEnabled=\"False\" Style=\"{StaticResource ReadOnlyRadioGroupStyle}\" ToolTipService.ShowOnDisabled=\"True\"";    
+        }
+		else if (!debugOutput)
+		{
+			styleAdd = " Style=\"{StaticResource RadioGroupStyle}\" ToolTipService.ShowOnDisabled=\"True\"";    
+		}
+				
+%>		
+		<ListBox <%=GetToolTip(component)%><%=GetXName(component)%>Background="Transparent" <%= attachedProperty %>BorderThickness="0"<%=styleAdd%> SelectedValue="{Binding <%= dataProperty %>, Mode=TwoWay}" DisplayMemberPath="Caption" SelectedValuePath="Value" Margin="4,0,0,0" Visibility="<%=GetVisibility(component)%>">
+			<ListBox.ItemContainerStyle>
+				<Style TargetType="ListBoxItem">
+					<Setter Property="Template">
+						<Setter.Value>
+							<ControlTemplate TargetType="ListBoxItem">
+								<Grid Background="Transparent">
+									<RadioButton IsTabStop="False" Margin="0,4,0,0" IsHitTestVisible="False" <%if (component.IsReadOnly){%>Style="{StaticResource ReadOnlyRadioButtonStyle}"<%}%> IsChecked="{TemplateBinding IsSelected}">
+										<ContentPresenter/>
+									</RadioButton>
+								</Grid>
+							</ControlTemplate>
+						</Setter.Value>
+					</Setter>
+				</Style>
+			</ListBox.ItemContainerStyle>
+<%
+			for (int i = 0; i < radioGroup.Keys.Count; i++)
+			{
+				string resourceReference = null;
+				
+				if (!debugOutput)
+					resourceReference = string.Format("{{x:Static local:ResourceManager.{0}}}", GlobalizationHelper.FormatResourceId(radioGroup, ConvertToHex(radioGroup.Keys[i])));
+				else
+					resourceReference = radioGroup.Values[i];
+				
+				
+%>
+			<controls:RadioItem Value="<%=radioGroup.Keys[i]%>" Caption="<%=resourceReference%>"/>
+<%
+			}
+%>
+			
+		</ListBox>
+<%
+	}
+		
+	//
+	// ListBox
+	//
+	else if(component is UXListBox)
+	{
+		UXListBox listBox = component as UXListBox;
+		string dataProperty = GetDataProperty(listBox);
+%>		
+        <ListBox <%=GetToolTip(component)%><%=GetXName(component)%><%= attachedProperty %>IsSynchronizedWithCurrentItem="True" Margin="4,1,1,1" Width="<%= GetWidth(listBox) %>" Height="<%= GetHeight(listBox) %>" Visibility="<%=GetVisibility(component)%>"/>
+<%
+	}
+
+    //
+	// CheckBox
+	//
+	else if(component is UXCheckBox)
+	{
+		UXCheckBox checkBox = component as UXCheckBox;
+		string dataProperty = GetDataProperty(checkBox);
+        string readOnlyAdd = "";
+		string nullableAdd = "";
+        string converter="";
+		
+		if (component.IsReadOnly  && !debugOutput)
+        {
+            readOnlyAdd = "IsEnabled=\"False\" Style=\"{StaticResource ReadOnlyCheckBoxStyle}\" ToolTipService.ShowOnDisabled=\"True\" ";
+        }
+		
+		if (checkBox.IsNullable)
+        {
+            nullableAdd = "IsThreeState=\"True\" ";
+        }
+		
+		if (checkBox.IsInverted && !debugOutput)
+		{
+			converter = ", Converter={StaticResource invertNullableBoolConverter}, ConverterParameter={}";
+		}
+%>		
+        <CheckBox <%=GetToolTip(component)%><%=GetXName(component)%><%= attachedProperty %>HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4,0,0,0" Content="" <%= readOnlyAdd %><%= nullableAdd %>IsChecked="{Binding Path=<%= dataProperty %><%= converter %>}" Visibility="<%=GetVisibility(component)%>"/>
+<%
+	}
+	//
+	// MonthCalendar
+	//
+	else if(component is UXMonthCalendar)
+	{
+		UXMonthCalendar monthCalendar = component as UXMonthCalendar;
+		string dataProperty = GetDataProperty(monthCalendar);
+%>		
+        <controls:MonthCalendar <%=GetToolTip(component)%><%=GetXName(component)%><%= attachedProperty %>HorizontalAlignment="<%=GetHorizontalAlignment(monthCalendar)%>" Width="<%= GetWidth(monthCalendar) %>" Height="<%= GetHeight(monthCalendar) %>" IsWeekNumberColumnVisible="True" Margin="2,2,2,2" SelectedDate="{Binding Path=<%= dataProperty %>, Mode=TwoWay}" Visibility="<%=GetVisibility(component)%>"/>
+<%
+	}
+	//
+	// DatePicker
+	//
+	else if(component is UXDatePicker)
+	{
+		UXDatePicker datePicker = component as UXDatePicker;
+		string dataProperty = GetDataProperty(datePicker);
+%>		
+		<controls:DatePicker <%=GetToolTip(component)%><%=GetXName(component)%><%= attachedProperty %>HorizontalAlignment="<%=GetHorizontalAlignment(datePicker)%>" BorderThickness="1" Width="<%= GetWidth(datePicker) %>" VerticalAlignment="Center" Margin="4,0,0,0" SelectedDate="{Binding Path=<%= dataProperty %>, Mode=TwoWay}" Visibility="<%=GetVisibility(component)%>"/>
+<%
+	}
+	//
+	// ViewBox
+	//
+	else if(component is UXViewBox)
+	{
+		UXViewBox viewBox = component as UXViewBox;
+%>	
+		<local:<%=viewBox.View.Name%>View <%=GetToolTip(component)%><%=GetXName(component)%><%=attachedProperty%>/>
+<%
+	}	
+
+	//
+	// Label
+	//
+	else if(component is UXLabel)
+	{
+		UXLabel label = component as UXLabel;
+		
+		bool isDataCaption = false;
+		bool isMultiLine = false;
+		
+		if (layoutScope != null)
+		{
+			var currentCell = (from c in layoutScope.Cells
+					    	   where c.Component == component
+							   select c).LastOrDefault();
+			
+			if (currentCell != null)
+			{
+				for (int i = currentCell.Column + 1; i < layoutScope.ColumnCount; i++)
+				{
+					UXComponent c = layoutScope.GetComponent(currentCell.Row, i);
+					
+					if (c != null)
+					{
+						var components = ViewHelper.GetAllComponents<IBindable>(c);
+						
+						if (components.Count > 0)
+						{
+							isDataCaption = true;
+
+							if (components[0] is UXTextBox)
+							{
+								if (((UXTextBox)components[0]).IsMultiLine)
+								{
+									isMultiLine = true;
+								}
+							}
+
+							break;
+						}
+					}
+				}
+			}
+		}
+if (isMultiLine)
+{
+%>	
+<StackPanel <%=GetXName(component)%><%= attachedProperty %> Orientation="Horizontal" Margin="5,5,5,5">		
+<%
+}
+else
+{
+%>
+<StackPanel <%=GetXName(component)%><%= attachedProperty %> Orientation="Horizontal" Margin="5,5,5,5" VerticalAlignment="Center">
+<%
+}
+%>
+  <TextBlock Foreground="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" Text="<%=GetResourceReference(label, "Caption")%>" Visibility="<%=GetVisibility(component)%>"/>
+<% 
+if (isDataCaption)
+{
+%>
+  <TextBlock Foreground="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" Text=":" Visibility="<%=GetVisibility(component)%>"/>
+<%
+}
+%>
+</StackPanel>		
+<%
+	}
+
+	//
+	// ComboBox
+	//
+	else if (component is UXComboBox)
+	{
+		UXComboBox comboBox = component as UXComboBox;
+		
+		string textSearch = "";
+		
+		if (comboBox.DisplayPropertyNames.Count > 0)
+			textSearch = string.Format(" IsTextSearchEnabled=\"True\" TextSearch.TextPath=\"{0}\"", comboBox.DisplayPropertyNames[0]);
+			
+		string dataProperty = GetDataProperty(comboBox);
+		string selectionChangedEvent = string.Empty;
+		
+		if ((!debugOutput) && (comboBox.ComponentMap != null) && (comboBox.ServiceMethod != null))
+			selectionChangedEvent = string.Format("SelectionChanged=\"{0}_SelectionChanged\" ", comboBox.Name);
+%>	
+        <controls:NullableComboBox <%=GetToolTip(component)%><%=GetXName(component)%><%=selectionChangedEvent%>IsNullable="<%=comboBox.IsNullable.ToString()%>" IsSynchronizedWithCurrentItem="False" <%= attachedProperty %>HorizontalAlignment="<%=GetHorizontalAlignment(comboBox)%>" VerticalAlignment="Center" Margin="4,1,0,1" ItemsSource="{Binding Path=ComponentItemsSource, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" SelectedValuePath="<%=comboBox.KeyPropertyName%>" SelectedValue="{Binding <%= dataProperty %>, Mode=TwoWay}"<%=textSearch%> Width="<%= GetWidth(comboBox) %>" IsEnabled="<%=!comboBox.IsReadOnly%>" Visibility="<%=GetVisibility(component)%>">
+<%
+		if (comboBox.DisplayPropertyNames.Count > 0)
+		{
+			string borderThickness = "0,0,0,0";
+%>			
+			<controls:NullableComboBox.ItemTemplate>
+              	<DataTemplate>
+                	<Grid>
+                		<Grid.ColumnDefinitions>
+<%
+						if (comboBox.DisplayPropertyNames.Count > 1)
+						{
+							borderThickness = "0,0,1,0";
+%>							
+							<ColumnDefinition Width="Auto" MaxWidth="100" SharedSizeGroup="<%=comboBox.Name%>_0"/>
+<%
+						}
+%>
+                			<ColumnDefinition Width="*" SharedSizeGroup="<%=comboBox.Name%>_1"/>
+                		</Grid.ColumnDefinitions>
+						<TextBlock Grid.Column="0" Text="{Binding Path=<%=comboBox.DisplayPropertyNames[0]%>, Mode=Default}" VerticalAlignment="Center" Margin="4,0,4,0"  TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/>
+<%
+					if (comboBox.DisplayPropertyNames.Count > 1)				
+					{
+%>
+                  		<TextBlock Grid.Column="1" Text="{Binding Path=<%=comboBox.DisplayPropertyNames[1]%>, Mode=Default}" VerticalAlignment="Center" Margin="4,0,4,0"  TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/>
+<%
+					}
+%>					
+                	</Grid>
+              	</DataTemplate>
+            </controls:NullableComboBox.ItemTemplate>
+<%
+		}
+%>		
+		</controls:NullableComboBox>
+<%
+	}
+	//
+	// SearchPanel
+	//
+	else if (component is UXSearchPanel)
+	{
+		UXSearchPanel searchPanel = component as UXSearchPanel;
+		string eventAdd = "";
+		
+		if (!debugOutput)
+		{
+			eventAdd = "SearchExecuted=\"SearchExecutedEventHandler\" ";	
+		}
+%>	
+        <controls:SearchPanel settings:FrameworkElementStrategySettings.SettingsProviderType="{x:Type providers:SearchPanelSettingsProvider}" <%=GetToolTip(component)%><%=GetXName(component)%><%=eventAdd%><%=attachedProperty%> Visibility="<%=GetVisibility(component)%>">
+<%
+		if (!debugOutput)
+		{
+%>
+			<controls:SearchPanel.CommandBindings>
+				<CommandBinding Command="{x:Static resources:UXCommands.AddToFavoritesCommand}"
+                  Executed="AddToFavoritesExecutedEventHandler"
+				  CanExecute="AddToFavoritesCanExecuteEventHandler"/>
+				<CommandBinding Command="{x:Static resources:UXCommands.CreateHyperlinkCommand}"
+                  Executed="CreateHyperlinkExecutedEventHandler"
+				  CanExecute="AddToFavoritesCanExecuteEventHandler"/>
+			</controls:SearchPanel.CommandBindings>
+<%	
+		}
+		
+		currentScope = component;
+		
+		// Recursively call componenttemplate
+		componentTemplate = Activator.CreateInstance(this.GetType()) as CodeTemplate;
+		
+		foreach(UXComponent child in searchPanel.Children)
+		{
+			componentTemplate.SetProperty("component", child);
+			componentTemplate.SetProperty("attachedProperty", "");
+			componentTemplate.SetProperty("debugOutput", debugOutput);
+			componentTemplate.SetProperty("currentScope", currentScope);
+			componentTemplate.SetProperty("layoutScope", layoutScope);
+			componentTemplate.Render(this.Response);
+		}
+		
+		currentScope = null;
+%>	
+		</controls:SearchPanel>
+<%
+	}
+	
+	//
+	// SearchPanelItem
+	//
+	else if (component is UXSearchPanelItem)
+	{
+		UXSearchPanelItem item = component as UXSearchPanelItem;
+		
+		string name = GetXName(item);
+		
+		if (string.IsNullOrEmpty(name))
+			name = string.Format("Name=\"_{0}\" ", item.MetaId.Replace("-", "_"));
+			
+		string isFixed = "False";
+		
+		var items = from c in ViewHelper.GetAllComponents<UXComboBox>(item)
+					where !c.IsNullable
+					select c;
+		
+		if (items.Count() > 0)
+			isFixed = "True";
+	
+%>
+	<controls:SearchPanelItem Caption="<%=GetResourceReference(item, "Caption")%>" <%=name%>IsActive="<%=item.IsDefaultVisible.ToString()%>" IsFixed="<%=isFixed%>" <%= attachedProperty %> Visibility="<%=GetVisibility(component)%>">
+		<Grid>
+<%	
+    	// Recursively call componenttemplate
+		componentTemplate = Activator.CreateInstance(this.GetType()) as CodeTemplate;
+		
+		foreach(UXComponent child in item.Children)
+		{
+			componentTemplate.SetProperty("component", child);
+			componentTemplate.SetProperty("attachedProperty", "");
+			componentTemplate.SetProperty("debugOutput", debugOutput);
+			componentTemplate.SetProperty("currentScope", currentScope);
+			componentTemplate.SetProperty("layoutScope", layoutScope);
+			componentTemplate.Render(this.Response);
+		}
+%>	
+		</Grid>
+	</controls:SearchPanelItem>
+<%
+	}
+
+	
+	//
+	// TextBox/Memo
+	//
+	else if(component is UXTextBox) 
+	{
+		UXTextBox textBox = component as UXTextBox;
+		string dataProperty = GetDataProperty(textBox);
+		string style = "";
+		string converter = "";
+		string maxLength = "";
+		string precision = "";
+		string scale = "";
+		string pswCharAttribute = "";
+		string pswChar = textBox.PasswordChar;
+		bool isPsw = !(string.IsNullOrEmpty(pswChar));
+		
+		if (!debugOutput)
+		{
+			converter = string.Format(", Converter={{StaticResource stringFormatConverter}}, ConverterParameter={{}}{0}", textBox.DisplayFormat);
+			
+			if (!(currentScope is UXSearchPanel))
+			{
+				int? length = GetMaxFieldLength(textBox.MappedProperty);
+				
+				if (length != null)
+					maxLength = string.Format("MaxLength=\"{0}\" ", length);
+
+				int? prec = GetPrecision(textBox.MappedProperty);
+				
+				if (prec != null)
+					precision = string.Format("Precision=\"{0}\" ", prec);
+
+				int? scal = GetScale(textBox.MappedProperty);
+				
+				if (scal != null)
+					scale = string.Format("Scale=\"{0}\" ", scal);
+			
+			}
+			
+			if ((component.IsReadOnly) && (textBox.IsMultiLine))
+				style = "Style=\"{StaticResource ReadOnlyMultiLineTextBox}\" Height=\"" + GetHeight(textBox) + "\"";
+			else if ((!component.IsReadOnly) && (textBox.IsMultiLine))
+				style = "Style=\"{StaticResource MultiLineTextBox}\" Height=\"" + GetHeight(textBox) + "\"";
+			else if (component.IsReadOnly)
+				style = "Style=\"{StaticResource ReadOnlyTextBox}\"";
+				
+			if (pswChar != null && pswChar.Length == 1)
+			{
+				pswCharAttribute = string.Format(@"PasswordChar=""{0}""", pswChar);
+			}
+		}
+%>
+<% 
+        if (isPsw && !debugOutput)
+        {
+%>
+		<PasswordBox controls:PasswordBoxAssistant.BindPassword="true"  controls:PasswordBoxAssistant.BoundPassword="{Binding Path=<%= dataProperty %>, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" <%= pswCharAttribute %>  <%=GetToolTip(component)%><%=GetXName(component)%><%=maxLength%> <%=precision%> <%=scale%><%= attachedProperty %><%=style%> HorizontalAlignment="<%=GetHorizontalAlignment(textBox)%>" VerticalAlignment="Center" Margin="4,0,0,0" Width="<%= GetWidth(textBox) %>" Visibility="<%=GetVisibility(component)%>"/>
+<%
+        }
+        else
+        {
+ %>
+		<controls:TextBox <%=GetToolTip(component)%><%=GetXName(component)%><%=maxLength%> <%=precision%> <%=scale%><%= attachedProperty %><%=style%> HorizontalAlignment="<%=GetHorizontalAlignment(textBox)%>" VerticalAlignment="Center" Margin="4,0,0,0" Width="<%= GetWidth(textBox) %>" Text="{Binding Path=<%= dataProperty %><%=converter%>}" Visibility="<%=GetVisibility(component)%>"/>
+ <%       
+		}
+%>		
+<%		
+	}
+	
+	//
+	// ComboDialog
+	//
+	else if (component is UXComboDialog) 
+	{
+		UXComboDialog comboDialog = component as UXComboDialog;
+		string dataProperty = GetDataProperty(comboDialog);
+		string style = "";
+		string converter = "";
+		string events = "";
+		string bindingMode = "";
+		
+		if (!debugOutput)
+			events = "controls:DataGrid.ItemSelected=\"" + comboDialog.Name + "ItemSelectedEventHandler\" DialogButtonClick=\"" + comboDialog.Name + "ButtonClickEventHandler\" LostKeyboardFocus=\"" + comboDialog.Name + "LostKeyboardFocusEventHandler\" ";
+
+		if (!(currentScope is UXSearchPanel))
+		{
+			bindingMode = " Mode=OneWay,";
+		}
+			
+%>
+		<controls:ComboDialog <%=GetToolTip(component)%><%=GetXName(component)%><%=events%><%= attachedProperty %><%=style%> HorizontalAlignment="<%=GetHorizontalAlignment(comboDialog)%>" VerticalAlignment="Center" IsEditable="<%=comboDialog.IsEditable.ToString()%>" Margin="4,0,0,0" Width="<%= GetWidth(comboDialog) %>" Text="{Binding<%= bindingMode %> Path=<%= dataProperty %><%=converter%>}" Visibility="<%=GetVisibility(component)%>">
+		  <controls:ComboDialog.DropDownContent>
+			<workspaces:DeckWorkspace/>
+		  </controls:ComboDialog.DropDownContent>
+		</controls:ComboDialog>
+<%		
+	}
+	
+	//
+	// HyperDialog
+	//
+	else if(component is UXHyperDialog)
+	{
+		UXHyperDialog hyperDialog = component as UXHyperDialog;
+		
+		string events = "";
+		
+		if (!debugOutput)
+			events = "Clicked=\"" + hyperDialog.Name + "ClickEventHandler\" ";
+%>	
+		<controls:HyperLink <%= attachedProperty %><%=GetXName(component)%>VerticalAlignment="Center" Margin="4,0,0,0" Content="<%=GetResourceReference(hyperDialog, "Caption")%>" <%=events%>Visibility="<%=GetVisibility(component)%>"/>
+<%
+	}
+	
+	//
+	// WrapPanel
+	//
+	else if(component is UXWrapPanel)
+	{
+		string margin = "";
+		
+		if(debugOutput)
+		{
+			margin = " Margin=\"4,4,4,4\"";	
+		}
+
+		UXWrapPanel wrapPanel = component as UXWrapPanel;
+		string orientation = (wrapPanel.Orientation == UXPanelOrientation.Horizontal) ? "Horizontal" : "Vertical";
+%>
+	<Grid>
+	  <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+		<controls:FlowGrid <%=GetXName(component)%>Columns="2" <%= attachedProperty %>Visibility="<%=GetVisibility(component)%>">
+<%	
+    	// Recursively call componenttemplate
+		componentTemplate = Activator.CreateInstance(this.GetType()) as CodeTemplate;
+		
+		foreach(UXComponent child in wrapPanel.Children)
+		{
+			componentTemplate.SetProperty("component", child);
+			componentTemplate.SetProperty("attachedProperty", "");
+			componentTemplate.SetProperty("debugOutput", debugOutput);
+			componentTemplate.SetProperty("currentScope", currentScope);
+			componentTemplate.SetProperty("layoutScope", layoutScope);
+			componentTemplate.Render(this.Response);
+		}
+%>	
+	
+		</controls:FlowGrid>
+	  </ScrollViewer>
+	</Grid>
+<%
+	}
+
+	//
+	// DockPanel
+	//
+	else if(component is UXDockPanel)
+	{
+		UXDockPanel dockPanel = component as UXDockPanel;
+%>
+	<Grid <%=GetXName(component)%>Visibility="<%=GetVisibility(component)%>">
+<%	
+    	// Recursively call componenttemplate
+		componentTemplate = Activator.CreateInstance(this.GetType()) as CodeTemplate;
+		foreach(UXComponent child in dockPanel.Children)
+		{
+			componentTemplate.SetProperty("component", child);
+			componentTemplate.SetProperty("attachedProperty", "");
+			componentTemplate.SetProperty("debugOutput", debugOutput);
+			componentTemplate.SetProperty("currentScope", currentScope);
+			componentTemplate.SetProperty("layoutScope", layoutScope);
+			componentTemplate.Render(this.Response);
+		}
+%>	
+	</Grid>
+<%
+	}
+
+	//
+	// StackPanel
+	//
+	else if(component is UXStackPanel)
+	{
+		UXStackPanel stackPanel = component as UXStackPanel;
+		string orientation = (stackPanel.Orientation == UXPanelOrientation.Horizontal) ? "Horizontal" : "Vertical";		
+		
+		bool hasExpander = false;
+		
+		if (stackPanel.Children.Count > 0)
+		{
+			if (stackPanel.Children[0] is UXExpander)
+				hasExpander = true;	
+		}
+		
+	if (hasExpander)
+	{
+%>
+	<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+<%
+	}
+%>
+	  <StackPanel <%=GetXName(component)%><%= attachedProperty %> Orientation="<%= orientation %>" Visibility="<%=GetVisibility(component)%>">
+<%	
+    	// Recursively call componenttemplate
+		componentTemplate = Activator.CreateInstance(this.GetType()) as CodeTemplate;
+		foreach(UXComponent child in stackPanel.Children)
+		{
+			componentTemplate.SetProperty("component", child);
+			componentTemplate.SetProperty("attachedProperty", "");
+			componentTemplate.SetProperty("debugOutput", debugOutput);
+			componentTemplate.SetProperty("currentScope", currentScope);
+			componentTemplate.SetProperty("layoutScope", layoutScope);
+			componentTemplate.Render(this.Response);
+		}
+%>	
+	  </StackPanel>
+<%
+	if (hasExpander)
+	{
+%>		
+	</ScrollViewer>
+<%
+	}
+	}
+
+	//
+	// GroupBox
+	//
+	else if(component is UXGroupBox)
+	{
+		UXGroupBox groupBox = component as UXGroupBox;
+		
+%>
+    <GroupBox <%=GetToolTip(component)%><%=GetXName(component)%><%= attachedProperty %>Header="<%=GetResourceReference(groupBox, "Caption")%>" Margin="2,2,2,2" Visibility="<%=GetVisibility(component)%>">
+<%	
+		if (groupBox.Container != null)
+		{
+			componentTemplate = Activator.CreateInstance(this.GetType()) as CodeTemplate;
+			componentTemplate.SetProperty("component", groupBox.Container);
+			componentTemplate.SetProperty("attachedProperty", "");
+			componentTemplate.SetProperty("debugOutput", debugOutput);
+			componentTemplate.SetProperty("currentScope", currentScope);
+			componentTemplate.SetProperty("layoutScope", layoutScope);
+			componentTemplate.Render(this.Response);
+		}
+%>	
+	</GroupBox>
+<%
+	}
+
+	//
+	// UpDown
+	//
+	else if(component is UXUpDown)
+	{
+		UXUpDown upDown = component as UXUpDown;
+		
+		string dataProperty = GetDataProperty(upDown);
+		string maxValue = "";
+		string minValue = "";
+		
+		if (upDown.MaxValue.HasValue)
+			maxValue = string.Format("Maximum=\"{0}\" ", upDown.MaxValue);
+			
+		if (upDown.MinValue.HasValue)
+			minValue = string.Format("Minimum=\"{0}\" ", upDown.MinValue);
+				
+%>
+    <editors:Int32EditBox <%=GetToolTip(component)%><%=GetXName(component)%><%= attachedProperty %><%=minValue%><%=maxValue%>Value="{Binding Path=<%= dataProperty %>}" Width="<%= GetWidth(upDown) %>" MinWidth="40" SpinnerVisibility="Visible" CheckBoxVisibility="Collapsed" IsNullAllowed="False" HorizontalAlignment="<%=GetHorizontalAlignment(upDown)%>" VerticalAlignment="Center" Margin="4,0,0,0" Visibility="<%=GetVisibility(component)%>"/>
+<%
+	}
+
+	//
+	// FileSelector
+	//
+	else if (component is UXFileSelector)
+	{
+		UXFileSelector fileSelector = component as UXFileSelector;
+
+		string textProperty = GetDataProperty(fileSelector);
+		string maxLength = "";
+
+		int? length = GetMaxFieldLength(fileSelector.MappedProperty);
+				
+		if (length != null)
+		{
+			maxLength = string.Format("MaxLength=\"{0}\" ", length);
+		}
+
+		string fileDataPropertyName = "";
+			
+		if (fileSelector.FileDataMappedProperty != null)
+		{
+			fileDataPropertyName = fileSelector.FileDataMappedProperty.Name;
+		}
+		else
+		{ 
+			fileDataPropertyName = "xxx";
+		}
+
+		string fileDateModifiedPropertyName = "";
+			
+		if (fileSelector.FileDateModifiedMappedProperty != null)
+		{
+			fileDateModifiedPropertyName = fileSelector.FileDateModifiedMappedProperty.Name;
+		}
+		else
+		{ 
+			fileDateModifiedPropertyName = "xxx";
+		}
+
+		string fileSizePropertyName = "";
+			
+		if (fileSelector.FileSizeMappedProperty != null)
+		{
+			fileSizePropertyName = fileSelector.FileSizeMappedProperty.Name;
+		}
+		else
+		{ 
+			fileSizePropertyName = "xxx";
+		}
+
+		string readOnly = "True";
+
+		if (!component.IsReadOnly)
+		{
+			readOnly = "False";
+		}
+
+
+%>
+	<controls:FileSelector <%=GetToolTip(component)%><%=GetXName(component)%><%=maxLength%> <%= attachedProperty %> HorizontalAlignment="<%=GetHorizontalAlignment(fileSelector)%>" VerticalAlignment="Center" Margin="4,0,0,0" Width="<%= GetWidth(fileSelector) %>" IsReadOnly="<%= readOnly %>" FileData="{Binding Path=<%= fileDataPropertyName %>, Mode=TwoWay}" FileLastModified="{Binding Path=<%= fileDateModifiedPropertyName %>, Mode=TwoWay}" FileSize="{Binding Path=<%= fileSizePropertyName %>, Mode=TwoWay}" Text="{Binding Path=<%= textProperty %>}" Visibility="<%=GetVisibility(component)%>"/>
+<%
+	}
+	//
+	// Expander
+	//
+	else if(component is UXExpander)
+	{
+		UXExpander expander = component as UXExpander;
+		
+%>
+	<Expander <%=GetToolTip(component)%><%=GetXName(component)%><%= attachedProperty %>HorizontalAlignment="Stretch" VerticalAlignment="Top" Header="<%=GetResourceReference(expander, "Caption")%>" IsExpanded="True" Margin="2,2,2,2" Visibility="<%=GetVisibility(component)%>">
+		<controls:FlowGrid Columns="2" <%= attachedProperty %>Visibility="<%=GetVisibility(component)%>">
+<%	
+		foreach(UXComponent child in expander.Children)
+		{
+			componentTemplate = Activator.CreateInstance(this.GetType()) as CodeTemplate;
+			componentTemplate.SetProperty("component", child);
+			componentTemplate.SetProperty("attachedProperty", "");
+			componentTemplate.SetProperty("debugOutput", debugOutput);
+			componentTemplate.SetProperty("currentScope", currentScope);
+			componentTemplate.SetProperty("layoutScope", layoutScope);
+			componentTemplate.Render(this.Response);
+		}
+%>	
+		</controls:FlowGrid>
+	</Expander>
+<%
+	}
+
+	//
+	// LayoutGrid
+	//
+	else if(component is UXLayoutGrid)
+	{
+		UXLayoutGrid layoutGrid = component as UXLayoutGrid;
+		LayoutGridTemplate layoutGridTemplate = this.Create<LayoutGridTemplate>();
+		layoutGridTemplate.SetProperty("layoutGrid", layoutGrid);
+		layoutGridTemplate.SetProperty("componentTemplateType", this.GetType());
+		layoutGridTemplate.SetProperty("attachedProperty", attachedProperty);
+		layoutGridTemplate.SetProperty("debugOutput", debugOutput);
+		layoutGridTemplate.Render(this.Response);
+	}
+
+	//
+	// DataGrid
+	//
+	else if(component is UXDataGrid)
+	{
+		UXDataGrid dataGrid = component as UXDataGrid;
+		DataGridTemplate dataGridTemplate = this.Create<DataGridTemplate>();
+		dataGridTemplate.SetProperty("dataGrid", dataGrid);
+		dataGridTemplate.SetProperty("attachedProperty", attachedProperty);
+		dataGridTemplate.SetProperty("componentTemplateType", this.GetType());
+		dataGridTemplate.SetProperty("debugOutput", debugOutput);
+		dataGridTemplate.Render(this.Response);
+	}
+	
+	
+	if (hasError)
+	{
+%>
+	</Border>
+<%
+	}
+	
+%>
+<script runat="template">
+
+	private int? GetMaxFieldLength(MappedProperty mappedProperty)
+	{
+		if ((mappedProperty != null) && (mappedProperty.Type == typeof(string)))
+		{
+			if ((mappedProperty.TargetProperty != null) && (mappedProperty.TargetProperty.StorageInfo != null))
+				return mappedProperty.TargetProperty.StorageInfo.Length;
+			else if (mappedProperty.Source is DbProperty)
+				return (mappedProperty.Source as DbProperty).Length;
+			else if (mappedProperty.Source is MappedProperty)
+				return GetMaxFieldLength(mappedProperty.MapProperty);
+			else
+				return null;
+		}
+		else
+			return null;
+	}
+
+	private int? GetPrecision(MappedProperty mappedProperty)
+	{
+		if ((mappedProperty != null) && 
+		      (mappedProperty.Type == typeof(int) 
+			|| mappedProperty.Type == typeof(long) 
+			|| mappedProperty.Type == typeof(decimal) 
+			|| mappedProperty.Type == typeof(double)))
+		{
+			if ((mappedProperty.TargetProperty != null) && (mappedProperty.TargetProperty.StorageInfo != null))
+				return mappedProperty.TargetProperty.StorageInfo.Precision;
+			else if (mappedProperty.Source is DbProperty)
+				return (mappedProperty.Source as DbProperty).Precision;
+			else if (mappedProperty.Source is MappedProperty)
+				return GetPrecision(mappedProperty.MapProperty);
+			else
+				return null;
+		}
+		else
+			return null;
+	}
+
+	private int? GetScale(MappedProperty mappedProperty)
+	{
+		if ((mappedProperty != null) && 
+		      (mappedProperty.Type == typeof(int) 
+			|| mappedProperty.Type == typeof(long) 
+			|| mappedProperty.Type == typeof(decimal) 
+			|| mappedProperty.Type == typeof(double)))
+		{
+			if ((mappedProperty.TargetProperty != null) && (mappedProperty.TargetProperty.StorageInfo != null))
+				return mappedProperty.TargetProperty.StorageInfo.Scale;
+			else if (mappedProperty.Source is DbProperty)
+				return (mappedProperty.Source as DbProperty).Scale;
+			else if (mappedProperty.Source is MappedProperty)
+				return GetScale(mappedProperty.MapProperty);
+			else
+				return null;
+		}
+		else
+			return null;
+	}
+
+	private string GetDataProperty(IBindable bindable)
+	{
+		string propertyName = null;
+			
+		if (bindable.MappedProperty != null)
+			propertyName = bindable.MappedProperty.Name;
+		else 
+			propertyName = "xxx";
+		
+		return propertyName;
+	}
+	
+	private string GetVisibility(UXComponent component)
+	{
+		return component.Visibility.ToString();
+	}
+	
+	private string GetWidth(UXComponent component)
+	{
+		if (component.Width == -1)
+			return "Auto";
+		else
+			return component.Width.ToString();
+	}
+	
+	private string GetHeight(UXComponent component)
+	{
+		if (component.Height == -1)
+			return "Auto";
+		else
+			return component.Height.ToString();
+	}
+	
+	private string GetHorizontalAlignment(UXComponent component)
+	{
+		if (component.Width == -1)
+			return "Stretch";
+		else
+			return "Left";
+	}
+	
+	private string GetToolTip(UXComponent component)
+	{
+		if (component.Hint != null)
+		{
+			if (!debugOutput)
+				return string.Format("ToolTip=\"{{x:Static local:ResourceManager.{0}}}\" ", GlobalizationHelper.GetHintResourceId(component));
+			else
+				return string.Format("ToolTip=\"{0}\" ", XmlString(component.Hint.Text));
+		}
+		else
+			return null;
+	}
+	
+	private string GetResourceReference(ILocalizable target, string propertyName)
+	{
+		if (!debugOutput)
+			return string.Format("{{x:Static local:ResourceManager.{0}}}", GlobalizationHelper.GetResourceId(target, propertyName));
+		else
+			return XmlString(GlobalizationHelper.GetPropertyValue(target, propertyName));
+	}
+		
+</script>

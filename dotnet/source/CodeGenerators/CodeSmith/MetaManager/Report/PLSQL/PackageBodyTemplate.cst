@@ -1,0 +1,62 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="ReportCoreTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Assembly Name="Cdc.CodeGeneration.Caching" %>
+<%@ Assembly Name="System.Collections.Generic" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Import Namespace="Cdc.CodeGeneration.Caching" %>
+<%@ Register Name="PackageBodyGetXmlFunctionTemplate" Template=".\PackageBodyGetXmlFunctionTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="PackageBodyGetGenericXmlFunctionTemplate" Template=".\PackageBodyGetGenericXmlFunctionTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Property Name="report" Type="Cdc.MetaManager.DataAccess.Domain.Report" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="doPreCompile" Type="System.Boolean" Default="" Optional="false" Category="" Description="" %>
+/*
+** THIS FILE IS GENERATED AUTOMATICALLY BY THE REPORT MANAGER!
+** PLEASE REFRAIN FROM EDITING SINCE IT WILL BE OVERWRITTEN!
+*/
+
+create or replace package body <%=report.PackageName%> as 
+
+Debug_W boolean := true;
+
+<%
+PackageBodyGetXmlFunctionTemplate packageBodyGetXmlFunctionTemplate = this.Create<PackageBodyGetXmlFunctionTemplate>();
+packageBodyGetXmlFunctionTemplate.SetProperty("report", report);
+packageBodyGetXmlFunctionTemplate.SetProperty("doPreCompile", doPreCompile);
+string getXmlString = packageBodyGetXmlFunctionTemplate.RenderToString();
+
+// Calculate Hash for the generated function.
+string hashString = Hashing.Get(HashTypes.SHA1, getXmlString);
+
+this.Response.Write(getXmlString);
+
+%>
+<%
+this.Response.WriteLine("");
+
+%>
+
+<%
+PackageBodyGetGenericXmlFunctionTemplate packageBodyGetGenericXmlFunctionTemplate = this.Create<PackageBodyGetGenericXmlFunctionTemplate>();
+packageBodyGetGenericXmlFunctionTemplate.SetProperty("report", report);
+packageBodyGetGenericXmlFunctionTemplate.SetProperty("doPreCompile", doPreCompile);
+string getGenericXmlString = packageBodyGetGenericXmlFunctionTemplate.RenderToString();
+
+
+this.Response.Write(getGenericXmlString);
+%>
+function GetXmlHashSHA1 return varchar2
+is
+begin
+  return '<%=hashString%>';
+end GetXmlHashSHA1;
+
+end <%=report.PackageName%>;
+/

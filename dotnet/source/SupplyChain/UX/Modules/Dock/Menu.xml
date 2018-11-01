@@ -1,0 +1,7 @@
+<folder caption="Dock">
+  <item caption="Expected Arrival" id="918ae11e-6023-4e4d-bb7c-15fe708b907d" assemblyFile="Cdc.SupplyChain.Dock.UX.Modules.ExpectedArrival.dll" topicIdentity="event://Cdc.SupplyChain.Dock.UX.Modules.ExpectedArrival.ExpectedArrival/ShowDialog"/>
+  <item caption="Vehicle" id="1b53f3c4-1209-4bfb-925a-1a495336dc62" assemblyFile="Cdc.SupplyChain.Dock.UX.Modules.VehicleLoadUnit.dll" topicIdentity="event://Cdc.SupplyChain.Dock.UX.Modules.VehicleLoadUnit.Vehicle/ShowDialog"/>
+  <item caption="Vehicle Load Unit" id="3ce01ba0-21a0-4684-880a-86f927bd2377" assemblyFile="Cdc.SupplyChain.Dock.UX.Modules.VehicleLoadUnit.dll" topicIdentity="event://Cdc.SupplyChain.Dock.UX.Modules.VehicleLoadUnit.VehicleLoadUnit/ShowDialog"/>
+  <item caption="Dock Door" id="5a4ece3f-92b2-4bc3-8a31-abb52b13beb7" assemblyFile="Cdc.SupplyChain.Dock.UX.Modules.DockDoor.dll" topicIdentity="event://Cdc.SupplyChain.Dock.UX.Modules.DockDoor.DockDoor/ShowDialog"/>
+  <item caption="Change User Settings" id="308f27b9-6a51-4a28-8cbd-1182d688b944" assemblyFile="Cdc.SupplyChain.UX.Modules.Dock.dll" topicIdentity="event://Cdc.SupplyChain.UX.Modules.Dock.Views.ChooseDefaultWarehouse/ShowDialog"/>
+</folder>

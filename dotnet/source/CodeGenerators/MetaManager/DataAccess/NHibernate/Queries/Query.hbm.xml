@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <query name="Query.FindAllBySchemaId">
+    <![CDATA[
+     from Query q 
+    where q.Schema.Id = :schemaId
+    ]]>
+  </query>
+  <query name="Query.FindAllBySchemaIdAndQueryType">
+    <![CDATA[
+     from Query q 
+    where q.Schema.Id = :schemaId
+    and   q.QueryType = :queryType
+    ]]>
+  </query>
+  <query name="Query.FindByNameAndApplicationId">
+    <![CDATA[
+     from Query q
+    where q.Schema.Application.Id = :applicationId
+    and   q.Name = :name
+    ]]>
+  </query>
+  <query name="Query.FindAllByApplicationId">
+    <![CDATA[
+     from Query q
+    where q.Schema.Application.Id = :applicationId
+    ]]>
+  </query>
+</hibernate-mapping>

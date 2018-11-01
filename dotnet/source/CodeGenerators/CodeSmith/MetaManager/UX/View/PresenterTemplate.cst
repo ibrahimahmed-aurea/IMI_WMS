@@ -1,0 +1,1825 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Assembly Name="Cdc.MetaManager.BusinessLogic" %>
+<%@ Register Name="PropertyMapTemplate" Template="..\PropertyMapTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="Cdc.MetaManager.BusinessLogic.Helpers" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain.VisualModel" %>
+<%@ Property Name="view" Type="Cdc.MetaManager.DataAccess.Domain.View" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isAdapted" Type="System.Boolean" Default="false" Optional="false" Category="" Description="" %>
+<%
+	bool hasServiceMethod = false;
+	
+    string viewsNamespace = GetViewsNamespace(view);
+    string viewInterfaceName = GetViewInterfaceName(view);
+	string viewClassName = GetViewClassName(view);
+	string presenterClassName = GetPresenterClassName(view);
+    string presenterBaseClassName = GetPresenterBaseClassName(view);
+
+    string viewResultClassName = GetViewResultClassName(view);
+    string viewParametersClassName = GetViewParametersClassName(view);
+	string userSessionName = GetUserSessionName(view.Application);
+	string userSessionNamespace = GetUserSessionNamespace(view.Application);
+    
+	string viewServiceTranslatorClassName = null;
+	string serviceImplementationInterfaceName = null;
+	string serviceInterfaceNamespace = null;
+	string dataContractNamespace = null;
+	string serviceImplementationClassName = null;
+	string serviceMethodName = null;
+    string serviceParametersClassName = null;
+	string serviceContractRequestClassName = null;
+	string serviceContractResponseClassName = null;
+	string serviceResultCollectionClassName = null;
+	string alarmDataContractNamespace = null;
+	string alarmServiceContractNamespace = null;
+	
+	Dictionary<Service, string> services = new Dictionary<Service, string>();
+
+	// Fetch all IBindable components from the visual tree.
+	// Since it's traversed from top til bottom the components should come in the correct order
+	// automatically to populate the list.
+	IList<IBindable> bindableComponents = ViewHelper.GetAllComponents<IBindable>(view.VisualTree);
+	
+	// Fetch all comboboxViews that exists in the VisualTree.
+	IEnumerable<View> comboboxViews = from viewBox in ViewHelper.GetAllComponents<UXViewBox>(view.VisualTree)
+									  where ViewHelper.GetAllComponents<UXComboBox>(viewBox.View.VisualTree).Count() > 0
+								      select viewBox.View;
+					
+	if (view.ServiceMethod != null)
+	{
+		hasServiceMethod = true;
+		serviceImplementationInterfaceName = GetServiceImplementationInterfaceName(view.ServiceMethod.Service);
+		serviceInterfaceNamespace = GetFrontendServiceContractNamespace(view.Application, view.ServiceMethod.Service);
+		serviceImplementationClassName = GetServiceImplementationClassName(view.ServiceMethod.Service);
+		serviceMethodName = view.ServiceMethod.Name;
+        dataContractNamespace = GetFrontendDataContractNamespace(view.Application, view.ServiceMethod.Service);
+		serviceParametersClassName = GetDataContractClassName(view.ServiceMethod, true);
+		viewServiceTranslatorClassName = GetViewServiceTranslatorClassName(view);
+		serviceContractRequestClassName = GetServiceContractClassName(view.ServiceMethod, true);
+		serviceContractResponseClassName = GetServiceContractClassName(view.ServiceMethod, false);
+		serviceResultCollectionClassName = GetDataContractCollectionClassName(view.ServiceMethod, false);
+		alarmDataContractNamespace = GetAlarmDataContractNamespace(view.ServiceMethod.Service.Application);
+		alarmServiceContractNamespace = GetAlarmServiceContractNamespace(view.ServiceMethod.Service.Application);
+    }
+	
+	// Get all services used
+	foreach (DataSource dataSource in view.DataSources)
+	{
+		if ((!hasServiceMethod) || (view.ServiceMethod.Service != dataSource.ServiceMethod.Service))
+		{
+			if (!services.ContainsKey(dataSource.ServiceMethod.Service))
+			{
+				services.Add(dataSource.ServiceMethod.Service, null);
+			}
+		}
+	}
+    foreach (UXComboDialog combo in ViewHelper.GetAllComponents<UXComboDialog>(view.VisualTree))
+	{
+        if (combo.KeyMappedPropertyId != Guid.Empty)
+        {
+		    if ((!hasServiceMethod) || (view.ServiceMethod.Service != combo.Dialog.InterfaceView.ServiceMethod.Service))
+		    {
+			    if (!services.ContainsKey(combo.Dialog.InterfaceView.ServiceMethod.Service))
+			    {
+				    services.Add(combo.Dialog.InterfaceView.ServiceMethod.Service, null);
+			    }
+		    }
+        }
+	}
+	
+	bool isSearchPanel = view.VisualTree is UXSearchPanel;
+
+	bool usePartitioning = false; 
+	
+	if (GetFirstGridComponent(view.VisualTree) != null  && !isSearchPanel && view.Type != ViewType.Component && hasServiceMethod)
+	{
+		usePartitioning = true;
+	}
+
+	bool useServerSorting = false;
+	if (usePartitioning)
+	{
+		if ((view.ServiceMethod.MappedToAction != null) && 
+									(view.ServiceMethod.MappedToAction.MappedToObject != null) && 
+									(view.ServiceMethod.MappedToAction.MappedToObject is Query))
+		{
+			useServerSorting = true;
+		}
+	}
+%>
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Linq;
+using System.Reflection;
+using System.ComponentModel;
+using Microsoft.Practices.CompositeUI;
+using Microsoft.Practices.CompositeUI.Services;
+using Microsoft.Practices.CompositeUI.EventBroker;
+using Microsoft.Practices.CompositeUI.SmartParts;
+using Microsoft.Practices.ObjectBuilder;
+using Imi.Framework.Wpf.Controls;
+using Imi.Framework.Services;
+using Imi.Framework.UX;
+using Imi.Framework.UX.Services;
+using ActiproSoftware.Windows.Controls.Ribbon;
+using Imi.SupplyChain.UX;
+using Imi.SupplyChain.UX.Infrastructure;
+using Imi.SupplyChain.UX.Services;
+using Imi.SupplyChain.UX.Views;
+using <%= userSessionNamespace %>;
+using <%= GetViewsConstantsNamespace(view) %>;
+<%
+
+IList<string> namespaceList = new List<string>();
+
+foreach (UXComponent component in ViewHelper.GetAllComponents<UXComponent>(view.VisualTree))
+{
+	Dialog dialog = null;
+	
+	if (component is UXComboDialog)
+		dialog = ((UXComboDialog)component).Dialog;
+	else if (component is UXHyperDialog)
+		dialog = ((UXHyperDialog)component).Dialog;
+		
+	if (dialog != null)
+	{
+		string ns = GetViewsNamespace(dialog.InterfaceView);
+		
+		if (!namespaceList.Contains(ns))
+		{
+			namespaceList.Add(ns);
+		
+%>
+using <%=ns%>;
+<%
+		}
+	}
+}
+if (hasServiceMethod)
+{
+%>
+using <%= serviceInterfaceNamespace %>;
+using <%= dataContractNamespace %>;
+using <%=alarmDataContractNamespace%>;
+using <%=alarmServiceContractNamespace%>;
+<%
+}
+
+foreach (Service service in services.Keys)
+{
+	string tmpServiceInterfaceNamespace = GetFrontendServiceContractNamespace(view.Application, service);
+	string tmpServiceDataContractNamespace = GetFrontendDataContractNamespace(view.Application, service);
+%>
+using <%=tmpServiceDataContractNamespace%>;
+using <%=tmpServiceInterfaceNamespace%>;
+<%
+}
+%>
+
+namespace <%= viewsNamespace %>
+{
+	#region Compiler Settings
+	  // Disable value assigned but never used
+	  #pragma warning disable 414 
+	#endregion
+<%
+if (!isAdapted)
+{
+%>
+    //Extract the following class to <%= presenterClassName %>Adapted.cs in order to customize its behavior    
+	public class <%= presenterClassName %> : <%= presenterBaseClassName %>                           
+	{
+<%	if (hasServiceMethod)
+	{
+%>
+        [InjectionConstructor]
+        public <%=presenterClassName%>([WcfServiceDependency] <%=serviceImplementationInterfaceName%> <%= ToCamelCase(serviceImplementationClassName) %>)
+            : base(<%= ToCamelCase(serviceImplementationClassName) %>)
+        {
+        }
+<%
+	}
+	else
+	{
+%>
+		public <%=presenterClassName%>()
+		{
+		}
+<%
+	}
+%>
+    }
+
+<%
+}
+if (hasServiceMethod)
+{
+%>
+    public class <%= presenterBaseClassName %> : AsyncDataPresenter<<%=serviceImplementationInterfaceName%>, <%= viewInterfaceName %>>, IActionProvider                            
+<%
+}
+else
+{
+%>        
+    public class <%= presenterBaseClassName %> : DataPresenter<<%= viewInterfaceName %>>, IActionProvider
+<%
+}
+%>
+{
+        [ServiceDependency]
+        public <%= userSessionName %> UserSessionService { get; set; }
+	
+		protected <%=viewParametersClassName%> viewParameters;
+		protected <%=viewResultClassName%> currentItem;
+		protected <%=viewResultClassName%> drillDownItem;
+		protected IList<string> updatingList = new List<string>();
+		protected bool forceUpdate;
+
+<%
+	if (view.Type != ViewType.Component)
+	{
+%>
+		protected <%=GetViewRulesEngineClassName(view)%> rulesEngine;
+<%
+	}
+%>
+		// Dictionary with all components and their datasource identity.
+<%
+	
+	if (bindableComponents.Count > 0)
+	{
+%>
+		Dictionary<string, Guid> ComponentDataSourceDictionary = new Dictionary<string, Guid>() {
+<%
+		bool first = true;
+
+		foreach(IBindable component in bindableComponents)
+		{
+			// Only add components that has a DataSource identity set
+			if (component.DataSource != null && 
+			    component.DataSource.Id != Guid.Empty)
+			{
+%>
+			<%=(first ? " " : ",")%>{"<%=((UXComponent)component).Name%>",new Guid("<%=component.DataSource.Id.ToString()%>")}
+<%			
+				first = false;
+			}
+		}
+%>
+		};
+<%
+	}
+	else
+	{
+%>
+    	Dictionary<string, Guid> ComponentDataSourceDictionary = new Dictionary<string, Guid>();
+<%
+	}
+	
+	if (isSearchPanel)
+	{
+%>
+		
+		[EventPublication(EventTopicNames.<%=viewClassName%>AddToFavoritesTopic, PublicationScope.WorkItem)]
+        public event EventHandler<DataEventArgs<<%= viewResultClassName %>>> AddToFavorites;
+
+		protected void RaiseAddToFavorites(<%=viewResultClassName%> arg)
+        {
+            if (AddToFavorites != null)
+            {
+                AddToFavorites(this, new DataEventArgs<<%= viewResultClassName %>>(arg));
+            }
+        }
+				
+		[EventPublication(EventTopicNames.<%=viewClassName%>SearchExecutedTopic, PublicationScope.WorkItem)]
+        public event EventHandler<DataEventArgs<<%= viewResultClassName %>>> SearchExecuted;
+		
+		protected void RaiseSearchExecuted(<%=viewResultClassName%> arg)
+        {
+            if (SearchExecuted != null)
+            {
+                SearchExecuted(this, new DataEventArgs<<%= viewResultClassName %>>(arg));
+            }
+        }
+		
+<%
+	}
+%>
+	
+        [EventPublication(EventTopicNames.<%=viewClassName%>UpdatedTopic, PublicationScope.WorkItem)]
+        public event EventHandler<DataEventArgs<<%=viewResultClassName%>>> ViewUpdated;
+
+		protected void RaiseViewUpdated(<%=viewResultClassName%> arg)
+        {
+            if (ViewUpdated != null)
+            {
+                ViewUpdated(this, new DataEventArgs<<%=viewResultClassName%>>(arg));
+            }
+        }
+						
+		protected void PropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
+        {
+			if ((DialogType == DialogType.Create) || (DialogType == DialogType.Modify))
+				UpdateMultiCollection(e.PropertyName);
+				
+<%
+foreach (UXComboDialog combo in ViewHelper.GetAllComponents<UXComboDialog>(view.VisualTree))
+{
+	if (combo.Dialog != null && combo.ViewMap != null)
+	{
+		foreach (MappedProperty property in combo.ViewMap.MappedProperties)
+		{
+			if ((property.Target != null) && (property.Target != combo.MappedProperty))
+			{
+%>
+			if (e.PropertyName == "<%=property.Name%>")
+				currentItem.<%=combo.MappedProperty.Name%> = null;
+				
+<%
+			}
+		}
+	}
+}
+
+foreach (DataSource dataSource in view.DataSources)
+{
+	var usedProperties = new List<object>();
+		
+	foreach (MappedProperty property in dataSource.RequestMap.MappedProperties)
+	{
+		if (property.IsEnabled && view.ResponseMap.MappedProperties.Contains(property.Target) && !usedProperties.Contains(property.Target))
+		{
+			usedProperties.Add(property.Target);
+%>
+			if (e.PropertyName == "<%=property.Name%>")
+            {
+				// Update the datacontext for the components that is connected to the datasource. 
+				UpdateDataSource<%=dataSource.Name%>(currentItem);
+            }
+			
+<%
+		}
+	}
+}
+
+if (isSearchPanel)
+{
+%>
+			//Reset nonsearchable parameters after call from jump to or link.
+            if (currentItem.IsModified)
+            {
+
+				currentItem.PropertyChanged -= PropertyChangedEventHandler;
+
+<%
+	IList<UXComponent> components = ViewHelper.GetAllComponents<UXComponent>(view.VisualTree);
+		
+	foreach(MappedProperty property in view.RequestMap.MappedProperties)
+	{	
+		if (!property.IsSearchable)
+		{
+			string propertyName = property.Name;
+%>
+				currentItem.<%=propertyName%> = null;
+<%			
+		}
+	}
+%>		
+
+				InitializeRules(currentItem);
+
+				currentItem.IsModified = false;
+
+				currentItem.PropertyChanged += PropertyChangedEventHandler;
+			}
+<%
+}
+%>
+		}
+		
+<%
+
+foreach (View comboboxView in comboboxViews)
+{
+	// See if there is any datasource matching the exact servicemethod
+	// as is used as the service for the combobox.
+	foreach (DataSource dataSource in view.DataSources)
+	{
+		if (comboboxView.ServiceMethod == dataSource.ServiceMethod)
+		{
+			// Same servicemethod found. So we need to subscribe to the
+			// updateevent for the combobox so we can set the new datacontext for
+			// all components that is connected to the datasource in responsemap.
+			
+			string comboViewClassName = GetViewClassName(comboboxView);
+			string comboViewResultClassName = GetViewResultClassName(comboboxView);
+%>
+		// Catching update events for the comboboxes in the view to be able to update the components that
+		// has the same datasource connected or that is mapped to the views result.
+		[EventSubscription(EventTopicNames.<%=comboViewClassName%>UpdatedTopic)]
+        public virtual void <%=comboViewClassName%>UpdatedEventHandler(object sender, DataEventArgs<<%= comboViewResultClassName %>> eventArgs)
+		{
+			// Update the datacontext for the components that is connected to the datasource. 
+			SetComponentDataContextForDataSource(new Guid("<%=dataSource.Id%>"), eventArgs.Data);
+<%
+			bool anyUpdates = false;
+			
+			foreach (MappedProperty property in dataSource.ResponseMap.MappedProperties)
+			{
+				if (!property.IsEnabled)
+					continue;
+				
+				anyUpdates = true;
+				break;
+			}
+			
+			if (anyUpdates)
+			{
+%>
+			
+			// Set all mapped fields from datasource back to main view result.
+			if (currentItem != null)
+			{
+<%
+				CodeTemplate propertyMapTemplate = this.Create<PropertyMapTemplate>();
+				propertyMapTemplate.SetProperty("fromName", "eventArgs.Data");
+				propertyMapTemplate.SetProperty("toName", "currentItem");
+				propertyMapTemplate.SetProperty("propertyMap", dataSource.ResponseMap);
+				propertyMapTemplate.Render(this.Response);
+%>			
+			}
+<%
+			}
+%>
+		}
+		
+<%
+		}
+	}
+}
+%>
+   
+		[ServiceDependency]
+        public IActionCatalogService ActionCatalog
+        {
+            get;
+            set;
+        }
+		
+		[ServiceDependency]
+        public IUXSettingsService SettingsService
+        {
+            get;
+            set;
+        }
+		
+	<%if (hasServiceMethod)
+	{
+	%>
+        [WcfServiceDependency]
+        public IAlarmService AlarmService
+        {
+            get;
+            set;
+        }
+		
+		protected <%=viewServiceTranslatorClassName%> viewServiceTranslator;
+
+        [InjectionConstructor]
+        public <%=presenterBaseClassName%>([WcfServiceDependency] <%=serviceImplementationInterfaceName%> <%= ToCamelCase(serviceImplementationClassName) %>)
+            : base(<%= ToCamelCase(serviceImplementationClassName) %>)
+        {
+        }
+		
+	<%
+	}
+    else
+    {
+	%>
+		public <%=presenterBaseClassName%>()
+		{
+		
+		}
+		
+	<%
+	}
+	
+	foreach (Service service in services.Keys)
+	{
+		string serviceInterfaceName = GetServiceImplementationInterfaceName(service);
+		string serviceClassName = GetServiceImplementationClassName(service);
+		
+%>
+		[WcfServiceDependency]
+        public <%=serviceInterfaceName%> <%=serviceClassName%>
+        {
+            get;
+			set;
+        }
+		
+<%
+	}
+%>
+        public override void OnViewReady()
+        {
+<%	
+		if (view.Type != ViewType.Component)
+		{
+%>				
+			rulesEngine = WorkItem.Items.AddNew<<%=GetViewRulesEngineClassName(view)%>>();
+			rulesEngine.MessageBoxDelegate = ShowAlarmMessageBox;
+			WorkItem.Items.AddNew<<%=GetComponentEventAggregatorClassName(view)%>>();
+			
+<%
+		}
+			
+		if (hasServiceMethod)
+		{
+%>
+            viewServiceTranslator = WorkItem.Items.AddNew<<%=viewServiceTranslatorClassName%>>() as <%=viewServiceTranslatorClassName%>;
+            
+<%
+	}
+%>
+			if (WorkItem.Items.FindByType<<%=viewResultClassName%>>().Count > 0)
+				drillDownItem = WorkItem.Items.FindByType<<%=viewResultClassName%>>().Last();
+			
+        }
+		
+		public virtual MessageBoxResult ShowAlarmMessageBox(string almId, MessageBoxButton button, MessageBoxImage image)
+		{
+<%
+		if (hasServiceMethod)
+		{
+%>			
+			ShellInteractionService.ShowProgress();
+			
+			string message = null;
+			
+			try
+			{
+				FindAlarmTextRequest findAlarmTextRequest = new FindAlarmTextRequest();
+				findAlarmTextRequest.FindAlarmTextParams = new FindAlarmTextParams();
+				findAlarmTextRequest.FindAlarmTextParams.AlarmId = almId;
+				findAlarmTextRequest.FindAlarmTextParams.LanguageCode = UserSessionService.LanguageCode;
+					
+				message = AlarmService.FindAlarmText(findAlarmTextRequest).FindAlarmTextResult.AlarmText;
+			}
+			finally
+			{
+				ShellInteractionService.HideProgress();
+			}
+			
+			return ShellInteractionService.ShowMessageBox(View.Title, message, null, button, image);
+<%
+		}
+		else
+		{
+%>
+			return MessageBoxResult.Ok;
+<%
+		}
+%>
+		}
+						
+		public override void OnViewShow()
+        {
+			if ((View.RefreshDataOnShow) || (forceUpdate))
+			{
+				View.Refresh();
+			}
+
+			View.SetFocus();
+        }
+
+		public virtual void RefreshView()
+		{
+			UpdateView(viewParameters);
+		}
+		
+		public virtual void ApplySettings(object target)
+		{
+			try
+			{
+				SettingsService.ApplySettings(target);
+			}
+			catch
+			{
+			}
+		}
+
+<%
+foreach (UXHyperDialog hyperDialog in ViewHelper.GetAllComponents<UXHyperDialog>(view.VisualTree))
+{
+	if (hyperDialog.Dialog != null)
+	{
+		string controllerClassName = string.Format("{0}.{1}", GetDialogNamespace(hyperDialog.Dialog), GetControllerClassName(hyperDialog.Dialog));
+		string resultClassName = GetViewResultClassName(hyperDialog.Dialog.InterfaceView);
+		string parametersClassName = GetViewParametersClassName(hyperDialog.Dialog.InterfaceView);
+		string assemblyName = GetModuleNamespace(hyperDialog.Dialog.Module);
+		string applicationName = hyperDialog.Dialog.Module.Application.Name;
+%>
+		public virtual void <%=hyperDialog.Name%>Run()
+		{
+			<%=parametersClassName%> parameters = new <%=parametersClassName%>();
+
+<%
+			if (hyperDialog.ViewMap != null)
+			{
+				CodeTemplate propertyMapTemplate = this.Create<PropertyMapTemplate>();
+				propertyMapTemplate.SetProperty("fromName", "currentItem");
+				propertyMapTemplate.SetProperty("toName", "parameters");
+				propertyMapTemplate.SetProperty("propertyMap", hyperDialog.ViewMap);
+				propertyMapTemplate.Render(this.Response);
+			}
+%>				
+				
+			ShellInteractionService.ShowProgress();
+			
+			try
+			{
+				Assembly assembly = Assembly.Load("<%=assemblyName%>");
+				IModuleLoaderService moduleLoaderService = WorkItem.Services.Get<IModuleLoaderService>();
+				moduleLoaderService.Load(WorkItem.RootWorkItem.WorkItems["<%=applicationName%>"], assembly);
+
+				//Use reflection to invoke the controller's run method since we don't want module dependencies
+				Type workItemType = typeof(ControlledWorkItem<>).MakeGenericType(assembly.GetType("<%=controllerClassName%>"));
+				WorkItem workItem = WorkItem.WorkItems.AddNew(workItemType, "<%=hyperDialog.Name%>");
+				
+				workItem.Terminated += (s, e) =>
+				{
+					DialogResult dialogResult = DialogResult.None;
+			
+					if (workItem.Items.Get("DialogResult") != null) 
+			    		dialogResult = (DialogResult)workItem.Items.Get("DialogResult");
+					
+					if ((dialogResult == DialogResult.Ok) &&
+			    		(workItem.Items.FindByType<<%=resultClassName%>>().Count > 0))
+            		{
+                		<%=resultClassName%> result = workItem.Items.FindByType<<%=resultClassName%>>().Last();
+<%
+					if (hyperDialog.ResultMap != null)
+					{
+						CodeTemplate propertyMapTemplate = this.Create<PropertyMapTemplate>();
+						propertyMapTemplate.SetProperty("fromName", "result");
+						propertyMapTemplate.SetProperty("toName", "currentItem");
+						propertyMapTemplate.SetProperty("propertyMap", hyperDialog.ResultMap);
+						propertyMapTemplate.Render(this.Response);
+					}
+%>							
+					}
+				};
+				
+                object controller = workItem.GetType().GetProperty("Controller").GetValue(workItem, null);
+                controller.GetType().InvokeMember("Run", BindingFlags.InvokeMethod, null, controller, new object[] { parameters });
+			}
+			finally
+			{
+				ShellInteractionService.HideProgress();	
+			}
+		}
+<%
+	}
+}
+		
+foreach (UXComboDialog combo in ViewHelper.GetAllComponents<UXComboDialog>(view.VisualTree))
+{
+	if (combo.Dialog != null)
+	{
+		string controllerClassName = string.Format("{0}.{1}", GetDialogNamespace(combo.Dialog), GetControllerClassName(combo.Dialog));
+		string resultClassName = GetViewResultClassName(combo.Dialog.InterfaceView);
+		string parametersClassName = GetViewParametersClassName(combo.Dialog.InterfaceView);
+		string assemblyName = GetModuleNamespace(combo.Dialog.Module);
+		string applicationName = combo.Dialog.Module.Application.Name;
+
+        bool isCollection = true;
+		string dsServiceContractRequestClassName = GetServiceContractClassName(combo.Dialog.InterfaceView.ServiceMethod, true);
+		string dsServiceContractNamespace = GetFrontendServiceContractNamespace(view.Application, combo.Dialog.InterfaceView.ServiceMethod.Service);
+	    string dsServiceParametersClassName = GetDataContractClassName(combo.Dialog.InterfaceView.ServiceMethod, true);
+		string dsServiceDataContractNamespace = GetFrontendDataContractNamespace(view.Application, combo.Dialog.InterfaceView.ServiceMethod.Service);
+		string dsServiceContractResponseClassName = GetServiceContractClassName(combo.Dialog.InterfaceView.ServiceMethod, false);
+		string dsServiceResultClassName = GetServiceContractParamType(combo.Dialog.InterfaceView.ServiceMethod, false, isCollection);
+		string dsServiceMethodName = combo.Dialog.InterfaceView.ServiceMethod.Name;
+		string dsServiceClassName = "Service";
+        CodeTemplate propertyMapTemplate = null;
+
+		if ((!hasServiceMethod) || (view.ServiceMethod.Service != combo.Dialog.InterfaceView.ServiceMethod.Service))
+        {
+			dsServiceClassName = GetServiceImplementationClassName(combo.Dialog.InterfaceView.ServiceMethod.Service);
+        }
+%>
+
+        public virtual void <%=combo.Name%>FindKeyProperty()
+        {
+<%
+            if (combo.KeyMappedPropertyId != Guid.Empty && combo.MappedPropertyId != Guid.Empty)
+            { 
+%>
+            
+            bool isUpdating = updatingList.Contains("<%=combo.Name%>");
+			
+			if ((currentItem != null) && !isUpdating)
+			{
+            	updatingList.Add("<%=combo.Name%>");
+				
+				ShellInteractionService.ShowProgress();
+			
+			    try
+			    {
+				    <%=dsServiceContractNamespace%>.<%=dsServiceContractRequestClassName%> serviceRequest = new <%=dsServiceContractNamespace%>.<%=dsServiceContractRequestClassName%>();
+					serviceRequest.<%=dsServiceParametersClassName%> = new <%=dsServiceDataContractNamespace%>.<%=dsServiceParametersClassName%>();
+				
+                    <%=parametersClassName%> parameters = new <%=parametersClassName%>();
+
+<%
+
+				    propertyMapTemplate = this.Create<PropertyMapTemplate>();
+				    propertyMapTemplate.SetProperty("fromName", "currentItem");
+				    propertyMapTemplate.SetProperty("toName", "parameters");
+				    propertyMapTemplate.SetProperty("propertyMap", combo.ViewMap);
+				    propertyMapTemplate.Render(this.Response);
+
+					propertyMapTemplate = this.Create<PropertyMapTemplate>();
+					propertyMapTemplate.SetProperty("fromName", "parameters");
+					propertyMapTemplate.SetProperty("toName", string.Format("serviceRequest.{0}", dsServiceParametersClassName));
+					propertyMapTemplate.SetProperty("propertyMap", combo.Dialog.InterfaceView.RequestMap);
+					propertyMapTemplate.Render(this.Response);
+%>			
+                    <%=string.Format("serviceRequest.{0}", dsServiceParametersClassName)%>.<%=combo.KeyMappedProperty.Name%> = currentItem.<%=combo.MappedProperty.Name%>;
+
+					<%=dsServiceContractNamespace%>.<%=dsServiceContractResponseClassName%> serviceResponse = <%=dsServiceClassName%>.<%=dsServiceMethodName%>(serviceRequest);
+
+
+                    <%=resultClassName%> result = new <%=resultClassName%>();
+<%	
+                if (isCollection)
+				{
+%>
+					if (serviceResponse != null && 
+						serviceResponse.<%=dsServiceResultClassName%> != null &&
+						serviceResponse.<%=dsServiceResultClassName%>.Count > 0)
+<%
+				}
+				else
+				{
+%>
+					if (serviceResponse != null && 
+						serviceResponse.<%=dsServiceResultClassName%> != null)
+<%
+				}
+%>
+					{
+						// Merge result from the service to the viewresult for each mapped property that is
+						// mapped and is enabled.
+
+                        
+
+
+<%
+                        propertyMapTemplate = this.Create<PropertyMapTemplate>();
+                        if (isCollection)
+					        propertyMapTemplate.SetProperty("fromName", string.Format("serviceResponse.{0}[0]", dsServiceResultClassName));
+				        else
+					        propertyMapTemplate.SetProperty("fromName", string.Format("serviceResponse.{0}", dsServiceResultClassName));
+						
+				        propertyMapTemplate.SetProperty("toName", "result");
+				        propertyMapTemplate.SetProperty("propertyMap", combo.Dialog.InterfaceView.ResponseMap);
+				        propertyMapTemplate.Render(this.Response);  
+%>
+                    }
+<% 
+                    propertyMapTemplate = this.Create<PropertyMapTemplate>();
+				    propertyMapTemplate.SetProperty("fromName", "result");		
+				    propertyMapTemplate.SetProperty("toName", "currentItem");
+				    propertyMapTemplate.SetProperty("propertyMap", combo.ResultMap);
+				    propertyMapTemplate.Render(this.Response);
+%>
+                    
+			    }
+			    finally
+			    {
+				    ShellInteractionService.HideProgress();
+                    updatingList.Remove("<%=combo.Name%>");	
+			    }
+            }
+<%
+            }
+ %>
+        }
+
+		public virtual void <%=combo.Name%>Run(IWorkspace workspace)
+		{
+			if (WorkItem.WorkItems["<%=combo.Name%>"] != null)
+				WorkItem.WorkItems["<%=combo.Name%>"].Terminate();
+				
+			<%=parametersClassName%> parameters = new <%=parametersClassName%>();
+
+<%
+			if (combo.ViewMap != null)
+			{
+				propertyMapTemplate = this.Create<PropertyMapTemplate>();
+				propertyMapTemplate.SetProperty("fromName", "currentItem");
+				propertyMapTemplate.SetProperty("toName", "parameters");
+				propertyMapTemplate.SetProperty("propertyMap", combo.ViewMap);
+				propertyMapTemplate.Render(this.Response);
+			}
+%>				
+				
+			ShellInteractionService.ShowProgress();
+			
+			try
+			{
+				Assembly assembly = Assembly.Load("<%=assemblyName%>");
+				IModuleLoaderService moduleLoaderService = WorkItem.Services.Get<IModuleLoaderService>();
+				moduleLoaderService.Load(WorkItem.RootWorkItem.WorkItems["<%=applicationName%>"], assembly);
+
+				//Use reflection to invoke the controller's run method since we don't want module dependencies
+				Type workItemType = typeof(ControlledWorkItem<>).MakeGenericType(assembly.GetType("<%=controllerClassName%>"));
+				object workItem = WorkItem.WorkItems.AddNew(workItemType, "<%=combo.Name%>");
+                object controller = workItem.GetType().GetProperty("Controller").GetValue(workItem, null);
+                controller.GetType().InvokeMember("Run", BindingFlags.InvokeMethod, null, controller, new object[] { workspace, parameters });
+			}
+			finally
+			{
+				ShellInteractionService.HideProgress();	
+			}
+		}
+		
+		public virtual void <%=combo.Name%>SelectItem(object item)
+		{
+			<%=resultClassName%> result = item as <%=resultClassName%>;
+			
+<%
+			if (combo.ResultMap != null)
+			{
+				propertyMapTemplate = this.Create<PropertyMapTemplate>();
+				propertyMapTemplate.SetProperty("fromName", "result");
+				propertyMapTemplate.SetProperty("toName", "currentItem");
+				propertyMapTemplate.SetProperty("propertyMap", combo.ResultMap);
+				propertyMapTemplate.Render(this.Response);
+			}
+%>			
+		}
+		
+<%
+	}
+}
+		
+%>		
+			
+		public virtual void UpdateView(<%=viewParametersClassName%> viewParameters)
+		{
+			foreach (<%=viewParametersClassName%> item in WorkItem.Items.FindByType<<%=viewParametersClassName%>>())
+				WorkItem.Items.Remove(item);
+
+			if (viewParameters != null) 
+				WorkItem.Items.Add(viewParameters);
+			
+			this.viewParameters = viewParameters;
+												
+			if (View.IsVisible)
+			{
+				forceUpdate = false;
+<%
+				if (hasServiceMethod)
+				{
+%>			
+                ExecuteSearch(viewParameters);
+<%
+				}
+%>			}
+			else
+			{
+				forceUpdate = true;
+			}
+		}
+		
+<%
+	if (usePartitioning)
+	{
+%>		
+		protected virtual object FetchDataPartitionFromServer(PartitioningVariables searchSession, bool throwError = false)
+        {
+            object data = null;
+			try
+            {
+				<%=serviceInterfaceNamespace%>.<%=serviceContractResponseClassName%> serviceResponse = Service.<%=serviceMethodName%>((<%=serviceInterfaceNamespace%>.<%=serviceContractRequestClassName%>)searchSession.ServiceRequest);
+
+				if ((serviceResponse != null) && (serviceResponse.<%=serviceResultCollectionClassName%> != null))
+				{
+					data = viewServiceTranslator.TranslateFromServiceToView(serviceResponse.<%=serviceResultCollectionClassName%>);
+
+					searchSession.DataFetchInProgress = !serviceResponse.ComMetaResult.IsLastPartition;
+					if (serviceResponse.ComMetaResult.IsLastPartition)
+                    {
+						if (!searchSession.ServiceRequest.ComParameters.Abort && !searchSession.ExportSession)
+                        {
+							View.SetServerFeedStatus(StringResources.DataGridStatusBar_ServerFeedStatus_Finished);
+						}
+                    }
+
+					if (serviceResponse.<%=serviceResultCollectionClassName%>.Count == 0)
+					{
+						searchSession.DataFetchInProgress = false;
+					}
+
+					if (serviceResponse.ComMetaResult.InvalidSession)
+                    {
+                        searchSession.DataFetchInProgress = false;
+						if (!searchSession.ServiceRequest.ComParameters.Abort && !searchSession.ExportSession)
+                        {
+							View.SetServerFeedStatus(StringResources.DataGridStatusBar_ServerFeedStatus_Deleted);
+						}
+                    }
+
+					if (!searchSession.ServiceRequest.ComParameters.Abort)
+                    {
+						View.UpdateRowCount(null, serviceResponse.ComMetaResult.TotalCount, searchSession.ExportSession);
+					}
+				}
+				else
+				{
+					searchSession.DataFetchInProgress = false;
+					View.SetServerFeedStatus(StringResources.DataGridStatusBar_ServerFeedStatus_Error);
+				}
+			}
+            catch
+            {
+                searchSession.DataFetchInProgress = false;
+				View.SetServerFeedStatus(StringResources.DataGridStatusBar_ServerFeedStatus_Error);
+                if (throwError)
+                {
+                    throw;
+                }
+            }
+            return data;
+        }
+
+		protected override void AbortSearchDataFetch(bool wait = false)
+        {
+            PartitioningVariables searchSession = PartitioningSessionsHandler.GetSearchSession();
+
+            if (searchSession != null)
+            {
+                AbortDataFetch(searchSession, wait);
+            }
+        }
+
+		protected virtual void AbortDataFetch(PartitioningVariables searchSession, bool wait = false)
+        {
+			if (searchSession.ServiceRequest != null)
+			{
+				lock (searchSession)
+				{
+					if (searchSession.DataFetchInProgress)
+					{
+						searchSession.ServiceRequest.ComParameters.Abort = true;
+					}
+
+					searchSession.PartitionBuffer.Clear();
+				}
+
+				if (wait)
+				{
+					while (searchSession.DataFetchInProgress)
+					{
+						System.Threading.Thread.Sleep(20);
+					}
+				}
+
+				View.UpdateRowCount(0, 0);
+				View.SetServerFeedStatus(StringResources.DataGridStatusBar_ServerFeedStatus_NotStarted);
+			}
+        }
+
+		protected virtual void DataFetchWorkerThread(object state)
+        {
+			PartitioningVariables searchSession = (PartitioningVariables)state;
+			searchSession.ServiceRequest.ComParameters.SequentialRequest = true;
+			long totalFetchs = 0;
+            
+			while (searchSession.DataFetchInProgress)
+            {
+                if (searchSession.PartitionBuffer.Count < 5) //POTENTIAL CHANGE TO VARIABLE BUFFER SIZE
+                {
+					totalFetchs++;
+                    object partiton = null;
+
+                    lock (searchSession)
+                    {
+						//Force wait for row count before buffer is full the first time.
+                        searchSession.ServiceRequest.ComParameters.WaitForCount = (totalFetchs == 5);
+
+                        partiton = FetchDataPartitionFromServer(searchSession);
+
+                        if (partiton != null)
+                        {
+                            searchSession.PartitionBuffer.Add(partiton);
+                        }
+
+						if (!searchSession.DataFetchInProgress)
+						{
+							break;
+						}
+                    }
+                }
+
+				System.Threading.Thread.Sleep(1000);
+            }
+        }
+			
+        protected override object ExecuteSearchAsync(object parameters)
+        {
+			object data = null;
+
+            <%=viewParametersClassName%> viewParameters = parameters as <%=viewParametersClassName%>;
+
+			//Find free search session
+            PartitioningVariables searchSession = PartitioningSessionsHandler.GetSearchSession(true);
+			
+			if (searchSession != null)
+            {
+				if (viewParameters != null)
+				{
+					if (searchSession.DataFetchInProgress)
+					{
+						AbortDataFetch(searchSession, true);
+					}
+
+					lock (searchSession)
+                    {
+						searchSession.PartitionBuffer.Clear();
+						searchSession.DataFetchInProgress = true;
+					}
+
+					View.UpdateRowCount(0, -1);
+					View.SetServerFeedStatus(StringResources.DataGridStatusBar_ServerFeedStatus_Active);
+
+					<%=serviceInterfaceNamespace%>.<%=serviceContractRequestClassName%> serviceRequest = new <%=serviceInterfaceNamespace%>.<%=serviceContractRequestClassName%>();
+
+					serviceRequest.<%=serviceParametersClassName%> = viewServiceTranslator.TranslateFromViewToService(viewParameters);
+
+					serviceRequest.ComParameters = new CustomServiceComParameters();
+                
+					string id = viewParameters.GetType().Name + "_" + UserSessionService.DomainUser + "_" + UserSessionService.TerminalId + "_" + System.Threading.Thread.CurrentThread.ManagedThreadId.ToString() + "_" + DateTime.Now.ToLongTimeString();
+
+					serviceRequest.ComParameters.Id = id;
+
+<%
+		if(useServerSorting)
+		{	
+%>
+					serviceRequest.ComParameters.SortParameters = View.GetSortingParameters();
+<%
+		}
+%>
+
+					searchSession.ServiceRequest = serviceRequest;
+
+					PartitioningSessionsHandler.SortingOnServer = false;
+
+					data = FetchDataPartitionFromServer(searchSession, true);
+
+					View.UpdateRowCount(((List<<%=viewResultClassName%>>)data).LongCount(), null);
+
+					if (searchSession.DataFetchInProgress)
+					{
+						System.Threading.ThreadPool.QueueUserWorkItem(DataFetchWorkerThread, searchSession);
+					}
+				}
+				else
+				{
+					AbortDataFetch(searchSession);
+				}
+			}
+            return data;
+        }
+
+		public virtual void PresentNextPartition()
+        {
+			if (!PartitioningSessionsHandler.SortingOnServer)
+            {
+				PartitioningVariables searchSession = PartitioningSessionsHandler.GetSearchSession();
+
+				if (searchSession != null)
+				{
+					if (!searchSession.PreparingNextPartition)
+					{
+						searchSession.PreparingNextPartition = true;
+                
+						System.Threading.ThreadPool.QueueUserWorkItem(delegate
+							{
+								DateTime now = DateTime.Now;
+                                while (searchSession.DataFetchInProgress && searchSession.PartitionBuffer.Count == 0)
+                                {
+                                    System.Threading.Thread.Sleep(25);
+
+                                    if ((DateTime.Now - now).TotalSeconds > 20) { break; } //Time out
+                                }
+
+								if (searchSession.PartitionBuffer.Count > 0)
+								{
+									object topPartition = searchSession.PartitionBuffer[0];
+
+									lock (searchSession)
+                                    {
+                                        searchSession.PartitionBuffer.RemoveAt(0);
+                                    }
+
+									View.PresentNextPartition(topPartition);
+
+									searchSession.PreparingNextPartition = false;
+								}
+								else
+								{
+									searchSession.PreparingNextPartition = false;
+								}
+							});
+					}
+				}
+			}
+        }
+
+		public virtual bool TryPresentAllData()
+        {
+            PartitioningVariables searchSession = PartitioningSessionsHandler.GetSearchSession();
+
+            if (searchSession != null)
+            {
+                if (!searchSession.DataFetchInProgress)
+                {
+                    while (searchSession.PreparingNextPartition)
+                    {
+                        System.Threading.Thread.Sleep(10);
+                    }
+
+                    searchSession.PreparingNextPartition = true;
+
+                    while (searchSession.PartitionBuffer.Count > 0)
+                    {
+
+                        object topPartition = searchSession.PartitionBuffer[0];
+
+                        View.PresentNextPartition(topPartition);
+
+                        searchSession.PartitionBuffer.RemoveAt(0);
+
+                    }
+
+                    searchSession.PreparingNextPartition = false;
+
+                    return true;
+                }
+            }
+
+            return false;
+        }
+		
+		public virtual bool StartExport()
+        {
+            if (PartitioningSessionsHandler.TryStartExport())
+			{
+				View.SetServerFeedStatus(StringResources.DataGridStatusBar_ServerFeedStatus_Exported);
+				return true;
+			}
+			
+			return false;
+        }
+
+        public virtual void ExportFinished()
+        {
+            PartitioningSessionsHandler.RemoveExportSession();
+
+            if (PartitioningSessionsHandler.GetSearchSession() == null)
+            {
+                PresentData(null);
+				View.UpdateRowCount(0, 0);
+                View.SetServerFeedStatus(StringResources.DataGridStatusBar_ServerFeedStatus_NotStarted);
+            }
+        }
+
+		public virtual object ExportNextPartition()
+        {
+            PartitioningVariables exportSession = PartitioningSessionsHandler.GetExportSession();
+
+            if (exportSession != null)
+            {
+                while (exportSession.DataFetchInProgress && exportSession.PartitionBuffer.Count == 0)
+                {
+                    System.Threading.Thread.Sleep(25);
+                }
+
+                if (exportSession.PartitionBuffer.Count > 0)
+                {
+                    object topPartition = exportSession.PartitionBuffer[0];
+
+                    lock (exportSession)
+                    {
+                        exportSession.PartitionBuffer.RemoveAt(0);
+                    }
+
+                    return topPartition;
+                }
+            }
+
+            return null;
+        }
+
+		public override void OnTearingDown()
+        {
+            foreach (PartitioningVariables session in PartitioningSessionsHandler.GetAllSessions())
+            {
+                AbortDataFetch(session, true);
+            }
+
+            base.OnTearingDown();
+        }
+<%
+	}
+	else if (hasServiceMethod)
+	{
+%>
+		 protected override object ExecuteSearchAsync(object parameters)
+        {
+            object data = null;
+            
+			<%=viewParametersClassName%> viewParameters = parameters as <%=viewParametersClassName%>;
+
+            if (viewParameters != null)
+            {
+                <%=serviceInterfaceNamespace%>.<%=serviceContractRequestClassName%> serviceRequest = new <%=serviceInterfaceNamespace%>.<%=serviceContractRequestClassName%>();
+
+                serviceRequest.<%=serviceParametersClassName%> = viewServiceTranslator.TranslateFromViewToService(viewParameters);
+
+                <%=serviceInterfaceNamespace%>.<%=serviceContractResponseClassName%> serviceResponse = Service.<%=serviceMethodName%>(serviceRequest);
+
+                if ((serviceResponse != null) && (serviceResponse.<%=serviceResultCollectionClassName%> != null))
+				{
+                    data = viewServiceTranslator.TranslateFromServiceToView(serviceResponse.<%=serviceResultCollectionClassName%>);
+				}
+
+            }
+
+            return data;
+        }
+
+<%
+	}
+	
+		
+	if (isSearchPanel)
+	{
+%>
+		
+		public virtual void OnSearchExecuted(<%=viewResultClassName%> viewResult)
+		{
+            RaiseSearchExecuted(viewResult);
+		}
+		
+		public virtual void OnAddToFavorites(<%=viewResultClassName%> viewResult)
+		{
+            RaiseAddToFavorites(viewResult);
+		}
+						
+		public bool CanAddToFavorites
+		{
+			get
+			{
+				return WorkItem.EventTopics.Get(EventTopicNames.<%=viewClassName%>AddToFavoritesTopic).SubscriptionCount > 0;
+			}
+		}
+<%
+	}
+%>
+        
+		public virtual void InitializeRules(<%=viewResultClassName%> viewResult)
+		{
+<%
+		if (view.Type != ViewType.Component)
+		{
+%>
+			var results = WorkItem.Items.FindByType<IList<<%=viewResultClassName%>>>();
+			
+			if ((results != null) && (results.Count > 1))
+				rulesEngine.IsMultipleItemsSelected = true;
+			else
+				rulesEngine.IsMultipleItemsSelected = false;
+				
+			rulesEngine.Initialize(viewResult);
+<%
+		}
+%>
+		}
+		
+		public virtual void OnViewUpdated()
+        {
+            IList<<%=viewResultClassName%>> temp = new List<<%=viewResultClassName%>>();
+			
+			if (currentItem != null)
+				temp.Add(currentItem);
+				
+			OnViewUpdated(temp);
+        }
+		
+		public virtual void OnViewUpdated(<%=viewResultClassName%> viewResult)
+        {
+            IList<<%=viewResultClassName%>> temp = new List<<%=viewResultClassName%>>();
+			
+			if (viewResult != null)
+				temp.Add(viewResult);
+			
+			OnViewUpdated(temp);
+        }
+						
+        public virtual void OnViewUpdated(IList<<%=viewResultClassName%>> viewResults)
+        {
+            foreach (IList<<%=viewResultClassName%>> item in WorkItem.Items.FindByType<IList<<%=viewResultClassName%>>>())
+                WorkItem.Items.Remove(item);
+			
+			foreach (<%=viewResultClassName%> item in WorkItem.Items.FindByType<<%=viewResultClassName%>>())
+                WorkItem.Items.Remove(item);
+				
+            if (currentItem != null)
+				currentItem.PropertyChanged -= PropertyChangedEventHandler;
+
+			currentItem = null;
+			
+			if ((viewResults != null) && (viewResults.Count > 0))
+            {
+             	currentItem = viewResults.Last();
+				WorkItem.Items.Add(currentItem);
+				WorkItem.Items.Add(viewResults);
+            }
+				
+			InitializeRules(currentItem);
+			
+			if (currentItem != null)
+				currentItem.PropertyChanged += PropertyChangedEventHandler;
+				
+			foreach (<%=viewResultClassName%> result in viewResults.Where(r => !r.isPreviouslySelected))
+            {
+                UpdateDataSources(result);
+            }
+			
+			ActionProviderService.UpdateActions(View);
+			
+			if (ViewUpdated != null)
+                ViewUpdated(this, new DataEventArgs<<%=viewResultClassName%>>(currentItem));
+        }
+
+		protected virtual void UpdateDataSources(<%=viewResultClassName%> viewResult)
+        {
+<%	
+foreach (DataSource dataSource in view.DataSources)
+{
+%>
+			// Update the datacontext for the components that is connected to the datasource. 
+			UpdateDataSource<%=dataSource.Name%>(viewResult);
+<%
+}
+%>
+		}
+
+<%
+	if (hasServiceMethod)
+	{
+%>
+    	protected override void PresentData(object data)
+        {
+            View.PresentData(data);
+						
+			if (drillDownItem != null)
+            {
+                View.CurrentItem = drillDownItem;
+                drillDownItem = null;
+            }
+        }
+		
+<%
+	}
+%>
+	    public virtual void DrillDown(string actionId)
+        {
+            if (viewParameters != null)
+            {
+				ShellAction action = GetDrillDownAction(actionId);
+				if (action != null && action.IsAuthorized)
+				{
+					List<object> args = new List<object>();
+					args.Add(viewParameters);
+                	
+					if (currentItem != null)
+                		args.Add(currentItem);
+
+					ShellInteractionService.ShowProgress();
+			
+					try
+					{
+						ActionCatalog.Execute(actionId, this.WorkItem, this, args);
+					}
+					finally
+					{
+						ShellInteractionService.HideProgress();
+					}
+				}
+				else
+				{
+					ShellInteractionService.ShowNotAuhtorizedMessageBox();
+				}
+			}
+        }
+
+        public virtual void JumpTo(string actionId)
+        {
+			ShellAction action = GetDrillDownAction(actionId);
+
+			if (action != null && action.IsAuthorized)
+            {
+				List<object> args = new List<object>();
+
+				if (currentItem != null)
+            		args.Add(currentItem);
+            
+				ShellInteractionService.ShowProgress();
+			
+				try
+				{
+					ActionCatalog.Execute(actionId, this.WorkItem, this, args);
+				}
+				finally
+				{
+					ShellInteractionService.HideProgress();
+				}
+			}
+            else
+            {
+                ShellInteractionService.ShowNotAuhtorizedMessageBox();
+            }
+        }
+
+		public virtual void OpenFile(string fileContentFieldName, string fileExtensionFieldName)
+        {
+            if (View.CurrentItem != null)
+            {
+
+                byte[] fileContent = ((byte[])View.CurrentItem.GetType().GetProperty(fileContentFieldName).GetValue(View.CurrentItem, null));
+                string fileExtension = ((string)View.CurrentItem.GetType().GetProperty(fileExtensionFieldName).GetValue(View.CurrentItem, null));
+
+                if (fileContent != null)
+                {
+                    string tempFileName = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "Imi_SC_" + Guid.NewGuid().ToString() + "." + fileExtension.ToLower());
+
+                    System.IO.File.WriteAllBytes(tempFileName, fileContent);
+
+                    System.Diagnostics.Process proc = System.Diagnostics.Process.Start(tempFileName);
+                }
+            }
+        }
+		
+		public virtual void SetComponentDataContextForDataSource(Guid dataSourceId, object data)
+		{
+			// Find all components connected to the datasource specified and set each
+			// components DataContext to the object data.
+			if (ComponentDataSourceDictionary.ContainsValue(dataSourceId))
+			{
+				foreach (KeyValuePair<string, Guid> component in ComponentDataSourceDictionary)
+				{
+					if (component.Value == dataSourceId)
+					{
+						View.SetComponentDataContext(component.Key, data);
+					}
+				}
+			}
+		}
+
+<%
+	foreach (DataSource dataSource in view.DataSources)
+	{
+		bool isCollection = dataSource.ServiceMethod.ResponseMap.IsCollection;
+		string dsServiceContractRequestClassName = GetServiceContractClassName(dataSource.ServiceMethod, true);
+		string dsServiceContractNamespace = GetFrontendServiceContractNamespace(view.Application, dataSource.ServiceMethod.Service);
+	    string dsServiceParametersClassName = GetDataContractClassName(dataSource.ServiceMethod, true);
+		string dsServiceDataContractNamespace = GetFrontendDataContractNamespace(view.Application, dataSource.ServiceMethod.Service);
+		string dsServiceContractResponseClassName = GetServiceContractClassName(dataSource.ServiceMethod, false);
+		string dsServiceResultClassName = GetServiceContractParamType(dataSource.ServiceMethod, false, dataSource.ResponseMap.IsCollection);
+		string dsServiceMethodName = dataSource.ServiceMethod.Name;
+		string dsServiceClassName = "Service";
+		
+
+		bool dataSourceSameAsServiceComponent = (comboboxViews != null &&
+		                                         comboboxViews.Where(cb => cb.ServiceMethod.Id == dataSource.ServiceMethod.Id).Count() == 1);
+
+		if ((!hasServiceMethod) || (view.ServiceMethod.Service != dataSource.ServiceMethod.Service))
+			dsServiceClassName = GetServiceImplementationClassName(dataSource.ServiceMethod.Service);
+
+
+		bool onlyRunIfResultMappingsAreNull = dataSource.OnlyRunIfValuesAreNull;
+		string checkValuesNull = string.Empty;
+
+		if (dataSource.OnlyRunIfValuesAreNull)
+		{
+			foreach (MappedProperty property in dataSource.ResponseMap.MappedProperties)
+			{
+				if (property.IsEnabled)
+				{
+					if (!string.IsNullOrEmpty(checkValuesNull))
+					{
+						checkValuesNull += " || ";
+					}
+					checkValuesNull += "currentItem." + property.Source.Name + " == null";
+				}
+			}
+		}
+			
+%>
+		protected virtual void UpdateDataSource<%=dataSource.Name%>(<%=viewResultClassName%> viewResult)
+		{
+<%
+		if (!dataSourceSameAsServiceComponent)
+		{
+%>
+			bool isUpdating = updatingList.Contains("<%=dataSource.Name%>");
+			
+			if ((viewResult != null) && !isUpdating)
+			{
+<%
+			if (onlyRunIfResultMappingsAreNull && !string.IsNullOrEmpty(checkValuesNull))
+			{
+%>
+				if (<%=checkValuesNull%>)
+				{
+<%
+			}		
+%>
+            		updatingList.Add("<%=dataSource.Name%>");
+				
+					ShellInteractionService.ShowProgress();
+				
+					try
+					{
+						<%=dsServiceContractNamespace%>.<%=dsServiceContractRequestClassName%> serviceRequest = new <%=dsServiceContractNamespace%>.<%=dsServiceContractRequestClassName%>();
+						serviceRequest.<%=dsServiceParametersClassName%> = new <%=dsServiceDataContractNamespace%>.<%=dsServiceParametersClassName%>();
+				
+<%
+						CodeTemplate propertyMapTemplate = this.Create<PropertyMapTemplate>();
+						propertyMapTemplate.SetProperty("fromName", "viewResult");
+						propertyMapTemplate.SetProperty("toName", string.Format("serviceRequest.{0}", dsServiceParametersClassName));
+						propertyMapTemplate.SetProperty("propertyMap", dataSource.RequestMap);
+						propertyMapTemplate.Render(this.Response);
+%>			
+
+						<%=dsServiceContractNamespace%>.<%=dsServiceContractResponseClassName%> serviceResponse = <%=dsServiceClassName%>.<%=dsServiceMethodName%>(serviceRequest);
+	
+<%
+				if (isCollection)
+				{
+%>
+						if (serviceResponse != null && 
+							serviceResponse.<%=dsServiceResultClassName%> != null &&
+							serviceResponse.<%=dsServiceResultClassName%>.Count > 0)
+<%
+				}
+				else
+				{
+%>
+						if (serviceResponse != null && 
+							serviceResponse.<%=dsServiceResultClassName%> != null)
+<%
+				}
+%>
+					{
+							// Merge result from the service to the viewresult for each mapped property that is
+							// mapped and is enabled.
+<%
+					if (isCollection)
+						propertyMapTemplate.SetProperty("fromName", string.Format("serviceResponse.{0}[0]", dsServiceResultClassName));
+					else
+						propertyMapTemplate.SetProperty("fromName", string.Format("serviceResponse.{0}", dsServiceResultClassName));
+						
+					propertyMapTemplate.SetProperty("toName", "viewResult");
+					propertyMapTemplate.SetProperty("propertyMap", dataSource.ResponseMap);
+							propertyMapTemplate.Render(this.Response);
+%>			
+
+<%
+				if (isCollection)
+				{
+%>
+							// Update the datacontext for the components that is connected to the datasource. 
+							SetComponentDataContextForDataSource(new Guid("<%=dataSource.Id%>"), serviceResponse.<%=dsServiceResultClassName%>[0]);
+<%
+				}
+				else
+				{
+%>
+							// Update the datacontext for the components that is connected to the datasource. 
+							SetComponentDataContextForDataSource(new Guid("<%=dataSource.Id%>"), serviceResponse.<%=dsServiceResultClassName%>);
+<%
+				}
+%>
+					}
+					else
+					{
+							// Set all properties to default values if specified.
+							// If no defaultvalue is specified then set field to null.
+<%
+					foreach (MappedProperty property in dataSource.ResponseMap.MappedProperties)
+					{
+						string targetValue = null;
+						Type targetType = null;
+						
+						if (!property.IsEnabled)
+							continue;
+
+						if (property.DefaultSessionProperty != null)
+						{
+							targetValue = string.Format("{0}.{1}", "UserSessionService", property.DefaultSessionProperty.Name);	
+							targetType = property.DefaultSessionProperty.Type;
+						}
+						else if (!string.IsNullOrEmpty(property.DefaultValue))
+						{
+							targetValue = string.Format("\"{0}\"", property.DefaultValue);
+							targetType = typeof(string);
+						}
+						else
+						{
+%>
+							viewResult.<%=property.Source.Name%> = null;
+<%
+							continue;
+						}
+						
+						if (property.Type != targetType)
+						{
+%>
+							viewResult.<%=property.Source.Name%> = new Nullable<<%=GetShortTypeName(property.Type)%>>((<%=GetShortTypeName(property.Type)%>)Convert.ChangeType(<%=targetValue%>, typeof(<%=GetShortTypeName(property.Type)%>)));
+<%
+						}
+						else
+						{
+%>
+							viewResult.<%=property.Source.Name%> = <%=targetValue%>;
+<%
+						}
+					}
+%>
+
+							// Update the datacontext for the components that is connected to the datasource. 
+							SetComponentDataContextForDataSource(new Guid("<%=dataSource.Id%>"), null);
+						}
+           	 		}
+					finally
+					{
+						ShellInteractionService.HideProgress();
+						updatingList.Remove("<%=dataSource.Name%>");
+					}
+<%
+			if (onlyRunIfResultMappingsAreNull && !string.IsNullOrEmpty(checkValuesNull))
+			{
+%>
+				}
+<%
+			}
+%>
+			}
+			
+<%
+		}
+%>
+		}
+		
+<%
+	}
+%>	
+
+		[EventPublication(EventTopicNames.CreateHyperlinkTopic, PublicationScope.WorkItem)]
+        public event EventHandler<DataEventArgs<object>> CreateHyperlink;
+
+		protected void RaiseCreateHyperlink(DataEventArgs<object> args)
+        {
+            if (CreateHyperlink != null)
+            {
+                CreateHyperlink(this, args);
+            }
+        }
+		
+		public virtual ShellHyperlink GetHyperlink(object parameters)
+		{
+            if (parameters == null)
+			{
+				parameters = viewParameters;
+			}
+			
+			DataEventArgs<object> args = new DataEventArgs<object>(parameters);
+			RaiseCreateHyperlink(args);
+			
+			ShellHyperlink hyperlink = args.Data as ShellHyperlink;
+						
+			return hyperlink;
+		}
+		
+		public virtual void ShowEntityView(object data)
+        {
+            IEntityView entityView = WorkItem.SmartParts.AddNew<EntityView>();
+            entityView.PresentData(data);
+        }
+
+<%
+		if (view.Type != ViewType.Component)
+		{
+%>
+		public virtual void ShowImportView()
+        {
+            ShowImportViewArgs args = new ShowImportViewArgs();
+            
+            ImportView importView = WorkItem.SmartParts.AddNew<ImportView>();
+
+            importView.DataType = typeof(<%=viewResultClassName%>);
+            importView.Data = null;
+            importView.ShowOpenFile = true;
+            importView.FileExtension = "xls";
+
+            args.ImportView = importView;
+            args.ShowOnly = true;
+
+            this.View.RaiseShowImportView(args);
+        }
+<%
+		}
+%>
+
+		public virtual void CopyCurrentItem()
+        {
+			if (System.Windows.Clipboard.ContainsText())
+            {
+                System.Windows.Clipboard.Clear();
+            }
+
+			if (currentItem != null)
+			{
+				if (WorkItem.RootWorkItem.Items.Contains("IMISmartClientDataCopy"))
+				{
+					object del = WorkItem.RootWorkItem.Items["IMISmartClientDataCopy"];
+					WorkItem.RootWorkItem.Items.Remove(del);
+				}
+				WorkItem.RootWorkItem.Items.Add(currentItem, "IMISmartClientDataCopy");
+			}
+        }
+
+		public virtual bool PasteCopiedData(List<string> visibleProperties)
+        {
+			if (!System.Windows.Clipboard.ContainsText())
+            {
+				if (WorkItem.RootWorkItem.Items.Contains("IMISmartClientDataCopy"))
+				{
+					object copiedData = WorkItem.RootWorkItem.Items["IMISmartClientDataCopy"];
+
+					GenericMapper.MapNamedParameters(currentItem, copiedData, visibleProperties);
+				}
+				
+				return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+		#region MultiHelper
+
+        protected virtual void UpdateMultiCollection(string propertyName)
+        {
+			var multiList = WorkItem.Items.FindByType<IList<<%=viewResultClassName%>>>();
+			
+			if (multiList != null)
+			{
+				PropertyInfo prop = typeof(<%=viewResultClassName%>).GetProperty(propertyName);
+	
+				if (prop == null)
+					return;
+								
+				foreach (<%=viewResultClassName%> result in multiList.Last())
+				{
+					if (result == currentItem)
+						continue;
+	
+					prop.SetValue(result, prop.GetValue(currentItem, null) ,null);
+				}
+			}
+        }
+
+		#endregion
+    }
+}

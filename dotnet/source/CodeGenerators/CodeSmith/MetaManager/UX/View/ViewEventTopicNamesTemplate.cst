@@ -1,0 +1,63 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain.VisualModel" %>
+<%@ Property Name="views" Type="List<Cdc.MetaManager.DataAccess.Domain.View>" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isAdapted" Type="System.Boolean" Default="false" Optional="false" Category="" Description="" %>
+<%
+	string viewsConstantsNamespace = GetViewsConstantsNamespace(views[0]);
+	string viewsNamespace = GetViewsNamespace(views[0]);
+%>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace <%= viewsConstantsNamespace %>
+{
+<%
+if (!isAdapted)
+{
+%>
+	//Extract the following class to EventTopicNamesAdapted.cs in order to customize its behavior    
+	public class EventTopicNames : EventTopicNamesBase
+    {
+
+    }
+<%
+}
+%>
+	
+	public class EventTopicNamesBase
+    {
+		public const string CreateHyperlinkTopic = "event://<%=viewsNamespace%>/CreateHyperlink";
+		
+<%
+	foreach (View view in views)
+	{
+		string viewClassName = GetViewClassName(view);
+		bool isSearchPanel = view.VisualTree is UXSearchPanel;
+			
+		if (isSearchPanel)
+		{
+%>
+		public const string <%=viewClassName%>SearchExecutedTopic = "event://<%=viewsNamespace%>.<%=viewClassName%>/SearchExecuted";
+		public const string <%=viewClassName%>AddToFavoritesTopic = "event://<%=viewsNamespace%>.<%=viewClassName%>/AddToFavorites";
+<%
+		}
+%>
+		public const string <%=viewClassName%>UpdatedTopic = "event://<%=viewsNamespace%>.<%=viewClassName%>/ViewUpdated";
+
+<%
+	}
+%>
+    }
+}

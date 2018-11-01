@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionException_Text" xml:space="preserve">
+    <value>The action could not be performed.</value>
+  </data>
+  <data name="Application_Help_Title" xml:space="preserve">
+    <value>{0} Help</value>
+    <comment>{0} = Application Name</comment>
+  </data>
+  <data name="Authorization_Message" xml:space="preserve">
+    <value>You are not authorized to perform this action. If you require access to this action, please contact your system administrator.</value>
+  </data>
+  <data name="Authorization_NotAuhtorized" xml:space="preserve">
+    <value>Not Authorized</value>
+  </data>
+  <data name="BreadCrumb_Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="ChooseDefaultWarehouse_Client" xml:space="preserve">
+    <value>Client:</value>
+  </data>
+  <data name="ChooseDefaultWarehouse_LastLoggedOn" xml:space="preserve">
+    <value>Last logged on:</value>
+  </data>
+  <data name="ChooseDefaultWarehouse_Warehouse" xml:space="preserve">
+    <value>Warehouse:</value>
+  </data>
+  <data name="Close_Current_Window" xml:space="preserve">
+    <value>Are you sure you want to close the current window?</value>
+  </data>
+  <data name="Close_Current_Window_Warning" xml:space="preserve">
+    <value>Any unsaved changes will be lost.</value>
+  </data>
+  <data name="Copy_MenuItem_Caption" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="DataGridStatusBar_ExportStatus_Caption" xml:space="preserve">
+    <value>Export:</value>
+  </data>
+  <data name="DataGridStatusBar_ServerFeedStatus_Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="DataGridStatusBar_ServerFeedStatus_Caption" xml:space="preserve">
+    <value>Data Feed Status:</value>
+  </data>
+  <data name="DataGridStatusBar_ServerFeedStatus_Deleted" xml:space="preserve">
+    <value>Timed Out</value>
+  </data>
+  <data name="DataGridStatusBar_ServerFeedStatus_Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="DataGridStatusBar_ServerFeedStatus_Exported" xml:space="preserve">
+    <value>Exporting</value>
+  </data>
+  <data name="DataGridStatusBar_ServerFeedStatus_Finished" xml:space="preserve">
+    <value>Finished</value>
+  </data>
+  <data name="DataGridStatusBar_ServerFeedStatus_NotStarted" xml:space="preserve">
+    <value>Not Started</value>
+  </data>
+  <data name="DataGrid_DrillDown" xml:space="preserve">
+    <value>Show detail...</value>
+  </data>
+  <data name="DataGrid_GroupByContent" xml:space="preserve">
+    <value>Drag a column header here to group by that column.</value>
+  </data>
+  <data name="DataGrid_HideDetail" xml:space="preserve">
+    <value>Hide detail</value>
+  </data>
+  <data name="DataGrid_ShowDetail" xml:space="preserve">
+    <value>Show detail</value>
+  </data>
+  <data name="EntityView_Header" xml:space="preserve">
+    <value>Data Record</value>
+  </data>
+  <data name="EntityView_MenuItem_Caption" xml:space="preserve">
+    <value>Show Data Record</value>
+  </data>
+  <data name="HyperLink_Hint_Header" xml:space="preserve">
+    <value>Hyper Link:</value>
+  </data>
+  <data name="ImportView_Header" xml:space="preserve">
+    <value>Import Data</value>
+  </data>
+  <data name="ImportView_MenuItem_Caption" xml:space="preserve">
+    <value>Import Data</value>
+  </data>
+  <data name="ImportView_SelectFile_Caption" xml:space="preserve">
+    <value>Select File</value>
+  </data>
+  <data name="MessageBox_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="MessageBox_No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="MessageBox_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="MessageBox_Title" xml:space="preserve">
+    <value>IMI Supply Chain Smart Client</value>
+  </data>
+  <data name="MessageBox_Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="MessageHandlerBox_ErrorWarning_Headline" xml:space="preserve">
+    <value>Errors and Warnings</value>
+  </data>
+  <data name="MessageHandlerBox_Error_Headline" xml:space="preserve">
+    <value>Errors</value>
+  </data>
+  <data name="MessageHandlerBox_Information_Headline" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="MessageHandlerBox_Warning_Headline" xml:space="preserve">
+    <value>Warnings</value>
+  </data>
+  <data name="MessageHandlerBox_Warning_Question" xml:space="preserve">
+    <value>Do you want to continue and ignore the warnings?</value>
+  </data>
+  <data name="Paste_MenuItem_Caption" xml:space="preserve">
+    <value>Paste</value>
+  </data>
+  <data name="SearchPanel_AddCriteria" xml:space="preserve">
+    <value>Add Criteria</value>
+  </data>
+  <data name="SearchPanel_AddToFavorites" xml:space="preserve">
+    <value>Add to Favorites</value>
+  </data>
+  <data name="SearchPanel_Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="SearchPanel_CreateHyperlink" xml:space="preserve">
+    <value>Copy Shortcut</value>
+  </data>
+  <data name="SearchPanel_Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="SearchPanel_Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="SearchPanel_SearchRepeat" xml:space="preserve">
+    <value>Auto Search</value>
+  </data>
+  <data name="SearchPanel_SearchRepeat_10min" xml:space="preserve">
+    <value>10 Min</value>
+  </data>
+  <data name="SearchPanel_SearchRepeat_15min" xml:space="preserve">
+    <value>15 Min</value>
+  </data>
+  <data name="SearchPanel_SearchRepeat_20min" xml:space="preserve">
+    <value>20 Min</value>
+  </data>
+  <data name="SearchPanel_SearchRepeat_25min" xml:space="preserve">
+    <value>25 Min</value>
+  </data>
+  <data name="SearchPanel_SearchRepeat_30min" xml:space="preserve">
+    <value>30 Min</value>
+  </data>
+  <data name="SearchPanel_SearchRepeat_5min" xml:space="preserve">
+    <value>5 Min</value>
+  </data>
+  <data name="SearchPanel_SearchRepeat_Off" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="SearchProgress_Caption" xml:space="preserve">
+    <value>Performing search, please wait...</value>
+  </data>
+  <data name="Search_Error" xml:space="preserve">
+    <value>The search could not be performed.</value>
+  </data>
+  <data name="View_DateTimeValidation_Error" xml:space="preserve">
+    <value>The entered value is not a valid date and/or time, please check and try again.</value>
+  </data>
+  <data name="View_GenericNullValidation_Error" xml:space="preserve">
+    <value>One or more required fields are empty, please check and try again.</value>
+  </data>
+  <data name="View_GenericValidation_Error" xml:space="preserve">
+    <value>One or more fields contain an invalid value, please check and try again.</value>
+  </data>
+  <data name="View_NullValidation_Error" xml:space="preserve">
+    <value>This field can not be empty.</value>
+  </data>
+  <data name="View_UpdateError" xml:space="preserve">
+    <value>There was a problem updating this window.</value>
+  </data>
+  <data name="View_UpdateErrorAdditionalInfo" xml:space="preserve">
+    <value>Additional information...</value>
+  </data>
+  <data name="View_Validation_Error" xml:space="preserve">
+    <value>This field contains an invalid value, please check and try again.</value>
+  </data>
+  <data name="View_ValueNotFound" xml:space="preserve">
+    <value>The entered value could not be found.</value>
+  </data>
+</root>

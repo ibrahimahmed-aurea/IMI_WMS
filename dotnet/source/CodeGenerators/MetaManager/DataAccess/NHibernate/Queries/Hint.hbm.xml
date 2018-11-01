@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	
+	<query name="Hint.FindAll">
+		<![CDATA[
+     select h
+     from Hint h
+      where h.HintCollection.Application.Id = :applicationId
+    ]]>
+	</query>
+
+</hibernate-mapping>

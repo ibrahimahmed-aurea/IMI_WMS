@@ -1,0 +1,446 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="module" Type="Cdc.MetaManager.DataAccess.Domain.Module" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="action" Type="Cdc.MetaManager.DataAccess.Domain.UXAction" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isAdapted" Type="System.Boolean" Default="false" Optional="false" Category="" Description="" %>
+<%
+    string actionsNamespace = GetActionsNamespace(module);
+    bool isMulti = IsMultiEnabled(action);
+	bool isImportEnabled = IsImportEnabled(action);
+    bool isMessageHandlingEnabled = IsMessageHandlingEnabled(action);
+	string actionBaseClassName = GetActionBaseClassName(action);
+	string actionParametersClassName = GetActionParametersClassName(action,isMulti || isImportEnabled,true);
+	string actionParametersClassNameBase = GetActionParametersClassName(action,false,false);
+	string serviceClassName = null;
+	string serviceInterfaceName = null;
+	string serviceParametersClassName = null;
+	string serviceParametersClassNameBase = null;
+	string serviceResultsClassName = null;
+	string serviceContractRequestClassName = null;
+	string serviceContractResponseClassName = null;
+	string serviceInterfaceNamespace = null;
+   	string dataContractNamespace = null;
+	string alarmDataContractNamespace = null;
+	string alarmServiceContractNamespace = null;
+	
+	if (action.MappedToObject != null)
+	{
+		serviceClassName = GetServiceImplementationClassName(action.ServiceMethod.Service);
+		serviceInterfaceName = GetServiceImplementationInterfaceName(action.ServiceMethod.Service);
+		serviceParametersClassName = GetServiceContractParamType(action.ServiceMethod, true, isMulti || isImportEnabled);
+		serviceParametersClassNameBase = GetServiceContractParamType(action.ServiceMethod, true, false);
+		serviceResultsClassName = GetDataContractClassName(action.ServiceMethod, false);
+		serviceContractRequestClassName = GetServiceContractClassName(action.ServiceMethod, true);
+		serviceContractResponseClassName = GetServiceContractClassName(action.ServiceMethod, false);
+		serviceInterfaceNamespace = GetFrontendServiceContractNamespace(module.Application, action.ServiceMethod.Service);
+    	dataContractNamespace = GetFrontendDataContractNamespace(module.Application, action.ServiceMethod.Service);
+		alarmDataContractNamespace = GetAlarmDataContractNamespace(action.ServiceMethod.Service.Application);
+		alarmServiceContractNamespace = GetAlarmServiceContractNamespace(action.ServiceMethod.Service.Application);
+	}
+
+	string userSessionName = GetUserSessionName(module.Application);
+	string userSessionNamespace = GetUserSessionNamespace(module.Application);
+
+%>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.ServiceModel;
+using Microsoft.Practices.CompositeUI;
+using Microsoft.Practices.CompositeUI.EventBroker;
+using Microsoft.Practices.CompositeUI.Configuration;
+using Microsoft.Practices.CompositeUI.Services;
+using Microsoft.Practices.ObjectBuilder;
+<%
+if (isMessageHandlingEnabled)
+{
+%>
+using ActiproSoftware.Windows.Controls.Ribbon;
+<%
+}
+%>
+using Imi.Framework.UX;
+using Imi.Framework.UX.Services;
+using Imi.Framework.Services;
+using Imi.SupplyChain.UX;
+using Imi.SupplyChain.UX.Infrastructure;
+using Imi.SupplyChain.UX.Infrastructure.Services;
+using Imi.SupplyChain.UX.Services;
+using Imi.SupplyChain.UX.Views;
+<%
+if (!string.IsNullOrEmpty(action.AlarmId))
+{
+%>
+using <%=alarmDataContractNamespace%>;
+using <%=alarmServiceContractNamespace%>;
+<%
+}
+%>
+using <%= userSessionNamespace %>;
+using <%=serviceInterfaceNamespace%>;
+using <%=dataContractNamespace%>;
+
+namespace <%= actionsNamespace %>
+{
+<%
+if (!isAdapted)
+{
+%>
+	//Extract the following class to <%=GetActionClassName(action)%>Adapted.cs in order to customize its behavior    
+	public class <%=GetActionClassName(action)%> : <%=GetActionBaseClassName(action)%>
+    {
+			
+	}
+<%
+}
+%>
+
+	public class <%= actionBaseClassName %> : IBuilderAware
+    {
+	
+		[WcfServiceDependency]
+        public <%=serviceInterfaceName%> <%=serviceClassName%>
+        {
+            get;
+			set;
+        }
+		
+<%
+	if (!string.IsNullOrEmpty(action.AlarmId))
+	{
+%>		
+		[WcfServiceDependency]
+        public IAlarmService AlarmService
+        {
+            get;
+			set;
+        }
+		
+<%
+	}
+%>
+		[ServiceDependency]
+		public IShellInteractionService ShellInteractionService
+		{
+			get;
+			set;
+		}
+
+		[ServiceDependency]
+		public IActionCatalogService ActionCatalog
+		{
+			get;
+			set;
+		}
+		
+		[ServiceDependency]
+        public IUserSessionService UserSessionService
+        {
+            get;
+			set;
+        }
+		        
+        public virtual void On<%= action.Name %>(WorkItem context, object caller, object target)
+        {
+            if (context.Items.Contains("<%=GetWorkItemConstantIgnoreClose()%>"))
+                context.Items.Remove(context.Items["<%=GetWorkItemConstantIgnoreClose()%>"]);
+				
+			if (context.Items.Contains("DialogResult"))
+	           	context.Items.Remove(context.Items["DialogResult"]);
+			
+			<%=actionParametersClassName%> actionParameters = target as <%=actionParametersClassName%>;
+			
+<%	
+	if (!string.IsNullOrEmpty(action.AlarmId))
+	{
+%>			
+			bool showMessage = true;
+			
+<%
+		if (isMessageHandlingEnabled)
+		{
+			if (isMulti || isImportEnabled)
+			{
+%>				
+			if (actionParameters.Count > 0)
+            	showMessage = string.IsNullOrEmpty(actionParameters[0].MessageXML);
+				
+<%
+			}
+			else
+			{
+%>				
+			showMessage = string.IsNullOrEmpty(actionParameters.MessageXML);
+			
+<%					
+			}
+		}	
+%>			
+			if (showMessage)
+			{
+				FindAlarmTextRequest findAlarmTextRequest = new FindAlarmTextRequest();
+				findAlarmTextRequest.FindAlarmTextParams = new FindAlarmTextParams();
+				findAlarmTextRequest.FindAlarmTextParams.AlarmId = "<%=action.AlarmId%>";
+				findAlarmTextRequest.FindAlarmTextParams.LanguageCode = UserSessionService.LanguageCode;
+				
+				FindAlarmTextResponse findAlarmTextResponse = AlarmService.FindAlarmText(findAlarmTextRequest);
+				
+				if (ShellInteractionService.ShowMessageBox(string.Empty, findAlarmTextResponse.FindAlarmTextResult.AlarmText, null, MessageBoxButton.YesNo, MessageBoxImage.Warning) 
+					== MessageBoxResult.No)
+				{
+					context.Items.Add((object)true, "<%=GetWorkItemConstantIgnoreClose()%>");
+					return;
+				}
+			}
+<%			
+	}
+	else if (!string.IsNullOrEmpty(action.AskQuestionToRun))
+	{
+%>			
+            if (ShellInteractionService.ShowMessageBox(string.Empty, <%=GetResourceReference(action, "AskQuestionToRun")%>, null, MessageBoxButton.YesNo, MessageBoxImage.Warning) 
+				== MessageBoxResult.No)
+			{
+				context.Items.Add((object)true, "<%=GetWorkItemConstantIgnoreClose()%>");
+				return;
+			}
+<%
+	}
+%>
+			
+			
+			<%=serviceContractRequestClassName%> serviceRequest = new <%=serviceContractRequestClassName%>();
+            serviceRequest.<%=serviceParametersClassName%> = new <%=serviceParametersClassName%>();
+			
+<%
+			if(!isMulti && !isImportEnabled)
+			{
+				/* Use one-to-one mapping for Action->Service */
+				foreach (MappedProperty property in action.RequestMap.MappedProperties)
+				{
+					if (property.Source != null)
+					{
+%>
+			serviceRequest.<%=serviceParametersClassName%>.<%=property.Name%> = actionParameters.<%=property.Name%>;
+<%
+					}
+				}
+				
+				if (isMessageHandlingEnabled)
+				{
+%>
+			serviceRequest.<%=serviceParametersClassName%>.MessageXML = actionParameters.MessageXML;
+<%
+				}
+			}
+			else
+			{
+				if (isMessageHandlingEnabled)
+				{
+%>
+
+            if (actionParameters.Count > 0)
+                serviceRequest.MessageXML = actionParameters[0].MessageXML;
+<%
+				}
+%>
+
+            foreach (<%= actionParametersClassNameBase %> ap in actionParameters)
+            {
+                <%= serviceParametersClassNameBase %> sp = new <%= serviceParametersClassNameBase %>();
+<%				
+				/* Use one-to-one mapping for Action->Service */
+				foreach (MappedProperty property in action.RequestMap.MappedProperties)
+				{
+					if (property.Source != null)
+					{
+%>
+				sp.<%=property.Name%> = ap.<%=property.Name%>;
+  <%
+					}
+				}				
+%>			
+				serviceRequest.<%= serviceParametersClassName %>.Add(sp);
+			}	
+<%
+			}
+			
+			if (isMessageHandlingEnabled)
+			{
+%>
+
+			try
+			{
+				<%= serviceContractResponseClassName %> serviceResponse = <%=serviceClassName%>.<%=action.ServiceMethod.Name%>(serviceRequest);
+				
+				// Check for any informationmessages
+				if (!string.IsNullOrEmpty(serviceResponse.InformationXML))
+				{
+					IMessageHandlerBoxView informationMessageBoxView = context.SmartParts.AddNew<MessageHandlerBoxView>();
+	
+					informationMessageBoxView.Show(serviceResponse.InformationXML);
+				}
+
+<%
+			if (action.DialogResult == UXDialogResult.Cancel)
+			{
+%>
+				context.Items.Add(DialogResult.Cancel, "DialogResult");
+			
+<%
+			}
+			else if (action.DialogResult == UXDialogResult.Ok || action.DialogResult == UXDialogResult.Update)
+			{
+%>
+				context.Items.Add(DialogResult.Ok, "DialogResult");
+			
+<%
+			}
+			else
+			{
+%>
+				context.Items.Add(DialogResult.None, "DialogResult");
+			
+<%
+			}
+
+				if(action.ServiceMethod.MappedToAction.MappedToObject is StoredProcedure)
+				{
+					if(! string.IsNullOrEmpty(action.ServiceMethod.MappedToAction.RowTrackingId))
+					{
+%>
+				// postback in parent workitem
+				Bookmark bookmark = new Bookmark() { RowIdentity = serviceResponse.<%= serviceResultsClassName %>.RowIdentities.FirstOrDefault(), MultipleSelection = serviceResponse.<%= serviceResultsClassName %>.RowIdentities.Select(i => new Bookmark() { RowIdentity = i }).ToList() };
+				context.Parent.Items.Add(bookmark);
+			
+<%
+					}
+				}
+%>		
+			}
+			catch (FaultException<ValidationFault> ex)
+            {
+                if (ex.Detail.ValidationError == ValidationError.NullValue)
+                    throw new Imi.SupplyChain.UX.NullValidationException(ex.Detail.Message, ex.Detail.ParameterName);
+                else
+                    throw new Imi.SupplyChain.UX.ValidationException(ex.Detail.Message, ex.Detail.ParameterName);
+            }
+			catch (FaultException<MessageFault> ex)
+			{
+                IMessageHandlerBoxView messageHandlerBoxView = context.SmartParts.AddNew<MessageHandlerBoxView>();
+
+                if (messageHandlerBoxView.Show(ex.Detail.MessageXML) == MessageHandlerBoxResult.Yes)
+                {
+<%
+					if (isMulti || isImportEnabled)
+					{
+%>
+					if (actionParameters.Count > 0)
+						actionParameters[0].MessageXML = ex.Detail.MessageXML;
+<%
+					}
+					else
+					{
+%>
+                    // Add the MessageXML as the new inparameters
+                    actionParameters.MessageXML = ex.Detail.MessageXML;
+<%
+					}
+%>
+
+					// Rerun the same action again
+					On<%= action.Name %>(context, caller, actionParameters);
+                }
+                else
+                {
+                    context.Items.Add((object)true, "<%=GetWorkItemConstantIgnoreClose()%>");
+                }
+			}
+<%
+			}
+			else
+			{
+%>
+			try
+			{
+				<%= serviceContractResponseClassName %> serviceResponse = <%=serviceClassName%>.<%=action.ServiceMethod.Name%>(serviceRequest);
+				
+<%
+			
+				if (action.DialogResult == UXDialogResult.Cancel)
+				{
+%>
+				context.Items.Add(DialogResult.Cancel, "DialogResult");
+			
+<%
+				}
+				else if (action.DialogResult == UXDialogResult.Ok || action.DialogResult == UXDialogResult.Update)
+				{
+%>
+				context.Items.Add(DialogResult.Ok, "DialogResult");
+			
+<%
+				}
+				else
+				{
+%>
+				context.Items.Add(DialogResult.None, "DialogResult");
+			
+<%
+				}
+
+				if(action.ServiceMethod.MappedToAction.MappedToObject is StoredProcedure)
+				{
+					if(! string.IsNullOrEmpty(action.ServiceMethod.MappedToAction.RowTrackingId))
+					{
+%>
+				// postback in parent workitem
+				Bookmark bookmark = new Bookmark() { RowIdentity = serviceResponse.<%= serviceResultsClassName %>.RowIdentities.FirstOrDefault(), MultipleSelection = serviceResponse.<%= serviceResultsClassName %>.RowIdentities.Select(i => new Bookmark() { RowIdentity = i }).ToList() };
+				context.Parent.Items.Add(bookmark);
+			
+<%
+					}
+				}
+%>		
+			}
+			catch (FaultException<ValidationFault> ex)
+            {
+                if (ex.Detail.ValidationError == ValidationError.NullValue)
+                    throw new Imi.SupplyChain.UX.NullValidationException(ex.Detail.Message, ex.Detail.ParameterName);
+                else
+                    throw new Imi.SupplyChain.UX.ValidationException(ex.Detail.Message, ex.Detail.ParameterName);
+            }
+<%
+			}
+%>
+		}
+		
+		public virtual void OnBuiltUp(string id)
+        {
+			ActionCatalog.RegisterActionImplementation(ActionNames.<%= action.Name %>, On<%= action.Name %>); 
+        }
+
+        public virtual void OnTearingDown()
+        {
+            ActionCatalog.RemoveActionImplementation(ActionNames.<%= action.Name %>);
+        }
+	}
+}
+<script runat="template">
+
+	private string GetResourceReference(ILocalizable target, string propertyName)
+	{
+		return string.Format("{0}.{1}", GetResourceManagerClassName(module), GlobalizationHelper.GetResourceId(target, propertyName));	
+	}
+
+</script>

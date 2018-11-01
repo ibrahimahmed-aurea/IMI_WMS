@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:complexType name="CentiroPrintParcelType">
+        <xs:attribute name="parcelIdentifier" type="xs:string" />
+    </xs:complexType>
+    <xs:element name="CentiroPrintParcels">
+        <xs:complexType>
+           <xs:sequence>
+               <xs:element name="Parcels">
+                       <xs:complexType>
+                           <xs:sequence maxOccurs="unbounded">
+                               <xs:element name="Parcel" type="CentiroPrintParcelType"/>
+                           </xs:sequence>
+                       </xs:complexType>
+               </xs:element>
+           </xs:sequence>
+           <xs:attribute name="senderCode" type="xs:string" />
+           <xs:attribute name="shipmentIdentifier" type="xs:string" />
+           <xs:attribute name="returnSequenceNumbers" type="xs:string" />
+           <xs:attribute name="returnTrackingUrls" type="xs:string" />
+           <xs:attribute name="user" type="xs:string" />
+           <xs:attribute name="terminal" type="xs:string" />
+           <xs:attribute name="numberOfTags" type="xs:int" />
+           <xs:attribute name="printerIdentity" type="xs:string" use="optional" />
+           <xs:attribute name="url" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

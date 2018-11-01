@@ -1,0 +1,501 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="str_cc7a035a_1e77_4d8f_8e10_e733d3d9fc88_Caption" xml:space="preserve">
+    <value>Warehouse</value>
+  </data>
+  <data name="str_bbdba6ff_363f_44ec_be73_0823c7f053c6_Caption" xml:space="preserve">
+    <value>Inbound</value>
+  </data>
+  <data name="str_47ab8696_a834_41f3_8b72_1e473cfabcaf_Caption" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="str_6acd82ad_fefe_4578_ad8e_119bf6e2e9fd_Caption" xml:space="preserve">
+    <value>Receive Type</value>
+  </data>
+  <data name="str_69b85723_1c26_4154_bea0_bc7754dd3bf4_Caption" xml:space="preserve">
+    <value>Destination Rule</value>
+  </data>
+  <data name="str_8036ec45_d362_46a4_8ec7_df69d34de23c_Caption" xml:space="preserve">
+    <value>Purchase Order Type</value>
+  </data>
+  <data name="str_70cd31be_c32f_4847_bff9_42881f1927c2_Caption" xml:space="preserve">
+    <value>Reception Load Carrier</value>
+  </data>
+  <data name="str_e5de424d_4594_4211_9374_4bc2043c57bb_Caption" xml:space="preserve">
+    <value>Inbound Overview</value>
+  </data>
+  <data name="str_2559f6b7_df3d_45fd_bf0f_9e6bece9cc32_Caption" xml:space="preserve">
+    <value>Undestined Load Carriers</value>
+  </data>
+  <data name="str_87042984_b50a_4317_8468_aa794a232098_Caption" xml:space="preserve">
+    <value>Inbound Overview Not Notified</value>
+  </data>
+  <data name="str_7b22b960_1f4c_4ff3_9f38_e0178af75d86_Caption" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="str_96c46a2e_b94f_4628_a486_50617e87ce3f_Caption" xml:space="preserve">
+    <value>Inbound Overview History</value>
+  </data>
+  <data name="str_942b3b63_b929_46d3_9d8d_61e9e99f44be_Caption" xml:space="preserve">
+    <value>Receipt History</value>
+  </data>
+  <data name="str_59168e8d_9b97_4a1a_94ba_401cc9f8d807_Caption" xml:space="preserve">
+    <value>Change User Settings</value>
+  </data>
+  <data name="str_4cf4aa29_2e31_49f4_9171_4f58a768636e_Caption" xml:space="preserve">
+    <value>Slotting</value>
+  </data>
+  <data name="str_65405fc8_1f66_48fb_8c44_6bf6e0cddc20_Caption" xml:space="preserve">
+    <value>Slotting Output</value>
+  </data>
+  <data name="str_036ed5f2_ea0f_4595_bdf7_92397846a006_Caption" xml:space="preserve">
+    <value>Slotting Input</value>
+  </data>
+  <data name="str_9e710e29_ceb1_4aee_b375_512987d69d52_Caption" xml:space="preserve">
+    <value>Master Data</value>
+  </data>
+  <data name="str_1010d265_e93c_428a_a81b_02f4cac295e2_Caption" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="str_101bad4c_78fd_4967_822c_1693bac9196a_Caption" xml:space="preserve">
+    <value>Client</value>
+  </data>
+  <data name="str_233d84ad_770e_4d26_9998_198cf1c306dc_Caption" xml:space="preserve">
+    <value>Product Warehouse Rule</value>
+  </data>
+  <data name="str_840f06b7_ca74_4a9d_bd6e_2ff24bcbdad1_Caption" xml:space="preserve">
+    <value>Customer Profile</value>
+  </data>
+  <data name="str_64181436_60c9_4521_ae8e_414f231dcc70_Caption" xml:space="preserve">
+    <value>Client Code Conversion</value>
+  </data>
+  <data name="str_df493718_b69d_4578_a917_4779a966ad3b_Caption" xml:space="preserve">
+    <value>Client Code Filter</value>
+  </data>
+  <data name="str_d552f5f0_5c21_4429_ad33_4d83c18a33b8_Caption" xml:space="preserve">
+    <value>Product Bar Code</value>
+  </data>
+  <data name="str_7720488f_8dcc_4513_bd48_57c807b7e8a8_Caption" xml:space="preserve">
+    <value>Product Number</value>
+  </data>
+  <data name="str_513d7934_f1c4_4cf1_9207_8367c791a045_Caption" xml:space="preserve">
+    <value>Party</value>
+  </data>
+  <data name="str_11426b5f_1c5e_450c_96c1_b1cf30457097_Caption" xml:space="preserve">
+    <value>Product Stock Group</value>
+  </data>
+  <data name="str_e5a185fd_400a_4d32_807e_c2542516691a_Caption" xml:space="preserve">
+    <value>Vendor</value>
+  </data>
+  <data name="str_214858f4_d3da_431d_b259_c8e12686ce29_Caption" xml:space="preserve">
+    <value>Product Type</value>
+  </data>
+  <data name="str_591a2cef_6dc1_498f_810c_f32639a36fbe_Caption" xml:space="preserve">
+    <value>Product Utilization</value>
+  </data>
+  <data name="str_57ec71f5_5a45_4dbe_a066_70cc861a424d_Caption" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="str_c8ca2805_0187_4213_ad9b_034bae8f1d40_Caption" xml:space="preserve">
+    <value>Alarm</value>
+  </data>
+  <data name="str_f1b88b5a_668b_449d_98c1_094db5056e1d_Caption" xml:space="preserve">
+    <value>Alarm Group</value>
+  </data>
+  <data name="str_a482bd8b_d655_4db7_9416_0efd37be665c_Caption" xml:space="preserve">
+    <value>Identity Alias</value>
+  </data>
+  <data name="str_e2884381_70e1_4ea3_a464_12465fd93b03_Caption" xml:space="preserve">
+    <value>Bar Code Application Identifier</value>
+  </data>
+  <data name="str_cd3a112c_cb1f_4ca0_bea7_23c80683e656_Caption" xml:space="preserve">
+    <value>Terminal</value>
+  </data>
+  <data name="str_362e23a0_8574_4587_a5d6_583129f2afc2_Caption" xml:space="preserve">
+    <value>Configure System</value>
+  </data>
+  <data name="str_6c4ea97a_a5da_44a5_b4a7_8af7255514a5_Caption" xml:space="preserve">
+    <value>Conversion Units</value>
+  </data>
+  <data name="str_accb7ed8_c778_421c_915e_a0b2ee1ee212_Caption" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="str_04ce5ab7_ece8_4cec_8724_0b8298f5c1e0_Caption" xml:space="preserve">
+    <value>User Change History</value>
+  </data>
+  <data name="str_d868b23d_96c0_45ba_9ee5_1c7e320059ea_Caption" xml:space="preserve">
+    <value>Database Log</value>
+  </data>
+  <data name="str_a0970157_e616_4c62_a7ef_68014df5d82e_Caption" xml:space="preserve">
+    <value>Terminal History</value>
+  </data>
+  <data name="str_9e036564_8ebf_4cd1_8f3c_7b607659eb02_Caption" xml:space="preserve">
+    <value>User Logon History</value>
+  </data>
+  <data name="str_04f4e174_242c_473b_bcfb_a68b9d21932a_Caption" xml:space="preserve">
+    <value>Attribute</value>
+  </data>
+  <data name="str_e7020692_0f85_4989_a83b_a7e82e82c775_Caption" xml:space="preserve">
+    <value>Set of Conversion Units</value>
+  </data>
+  <data name="str_1768e807_509c_4b70_801b_cf1dcb2ab7e7_Caption" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="str_c1d38cb7_71d2_4403_8cea_78985b7bb6e1_Caption" xml:space="preserve">
+    <value>Movement</value>
+  </data>
+  <data name="str_a49ccb9e_b8a2_45a6_94f2_af72db403b4f_Caption" xml:space="preserve">
+    <value>Movement Task</value>
+  </data>
+  <data name="str_369f79da_d98d_4fa2_a0e5_b23c533c28bd_Caption" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="str_87d5b1a2_8569_4e2a_9a24_14e2c55d3993_Caption" xml:space="preserve">
+    <value>Movement Type</value>
+  </data>
+  <data name="str_440ae6a2_ad0f_41ce_bbc8_161dd46fd73d_Caption" xml:space="preserve">
+    <value>Pick Truck Type</value>
+  </data>
+  <data name="str_b99c5d0e_4dfc_49f8_8aa2_48b6dfbf5d33_Caption" xml:space="preserve">
+    <value>Movement Route</value>
+  </data>
+  <data name="str_d69ccb08_b947_46ac_ad5e_901573ca0139_Caption" xml:space="preserve">
+    <value>Lift Truck Type</value>
+  </data>
+  <data name="str_ca434f2f_197e_4d42_9c3b_b53f9e9fd7c5_Caption" xml:space="preserve">
+    <value>Lift Truck</value>
+  </data>
+  <data name="str_09f4a0c7_1409_46ac_9ba7_f994b34d8793_Caption" xml:space="preserve">
+    <value>Pick Truck</value>
+  </data>
+  <data name="str_11655214_4f86_448c_be03_becfc2cedcdf_Caption" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="str_d1d1b374_c1a5_4aeb_b089_1a66fbfd7bd5_Caption" xml:space="preserve">
+    <value>Movement Task History</value>
+  </data>
+  <data name="str_5b23c256_7488_476f_adce_1d5a2788e663_Caption" xml:space="preserve">
+    <value>Movement Order History</value>
+  </data>
+  <data name="str_b4542a06_0600_4a1e_805f_c05540ed2002_Caption" xml:space="preserve">
+    <value>Movement Order</value>
+  </data>
+  <data name="str_9615d884_259d_4ba9_bec0_7e25cc230f10_Caption" xml:space="preserve">
+    <value>Outbound</value>
+  </data>
+  <data name="str_723344ac_1bbd_49ce_99b5_2eb18d376210_Caption" xml:space="preserve">
+    <value>Pick Station</value>
+  </data>
+  <data name="str_278b380b_48c7_4aab_aaec_45e2d22ef3c5_Caption" xml:space="preserve">
+    <value>Pick Wave</value>
+  </data>
+  <data name="str_c6173df1_577b_4d0f_95d8_4e4fbac3c30f_Caption" xml:space="preserve">
+    <value>Pick Load Carrier to Recall</value>
+  </data>
+  <data name="str_078ffc1f_46cd_4ebb_a6dd_57ca3842625e_Caption" xml:space="preserve">
+    <value>Pick Replenishment Order</value>
+  </data>
+  <data name="str_37a4dbdd_0070_4231_8193_7b46a6e6662f_Caption" xml:space="preserve">
+    <value>Complete Replenishment from Item Load</value>
+  </data>
+  <data name="str_800609a9_3d74_493c_ad33_7dcffe2fd938_Caption" xml:space="preserve">
+    <value>Assembly Station</value>
+  </data>
+  <data name="str_9715bdd5_2863_4556_a22b_84f6a48262e7_Caption" xml:space="preserve">
+    <value>Pick Load Carrier</value>
+  </data>
+  <data name="str_75269207_ff6f_4e41_a59b_95c26e495ad1_Caption" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="str_0fba71c5_d33b_4ff3_b72e_034b9c9b19b4_Caption" xml:space="preserve">
+    <value>Pick Load Carrier History</value>
+  </data>
+  <data name="str_d6a0fb0c_b542_4c82_b4c4_0cb7ffd9da78_Caption" xml:space="preserve">
+    <value>Departure History</value>
+  </data>
+  <data name="str_c17d4dff_a0c7_4716_aace_0d0ce1eaf408_Caption" xml:space="preserve">
+    <value>Vendor Return Order Line History</value>
+  </data>
+  <data name="str_c16fa7b9_0f77_4a71_8c0b_2082b2027e30_Caption" xml:space="preserve">
+    <value>Assembly Order Line History</value>
+  </data>
+  <data name="str_ad7f5dd4_2b40_40cd_9843_5f5a62d0ed60_Caption" xml:space="preserve">
+    <value>Customer Order Line History</value>
+  </data>
+  <data name="str_7723ec33_c847_4a25_9e25_6a2442b62dc3_Caption" xml:space="preserve">
+    <value>Consignment History</value>
+  </data>
+  <data name="str_e3cc9314_7244_4f1b_abd0_6c9473455ecf_Caption" xml:space="preserve">
+    <value>Pick Replenishment Order History</value>
+  </data>
+  <data name="str_a0f8467b_2a31_4674_90d8_74c6ca781ab0_Caption" xml:space="preserve">
+    <value>Pick Order Line History</value>
+  </data>
+  <data name="str_59a8f0b2_759d_49a7_9849_99e92d3c6a76_Caption" xml:space="preserve">
+    <value>Pick Order History</value>
+  </data>
+  <data name="str_316ee39c_130a_4ad2_a9cc_da6e045833c4_Caption" xml:space="preserve">
+    <value>Pick Wave History</value>
+  </data>
+  <data name="str_6b73c727_06c4_4854_8bc0_d2e43df4751a_Caption" xml:space="preserve">
+    <value>Pick Order</value>
+  </data>
+  <data name="str_2632d2e0_b813_414e_b73a_d5dd17ba59e0_Caption" xml:space="preserve">
+    <value>Consignment</value>
+  </data>
+  <data name="str_de16eed4_566d_49d1_985f_d9667dc5b88b_Caption" xml:space="preserve">
+    <value>Vendor Return Order</value>
+  </data>
+  <data name="str_058208f8_f828_4f98_8a32_e1fe6c372c61_Caption" xml:space="preserve">
+    <value>Departure</value>
+  </data>
+  <data name="str_6834a494_478f_495a_ae2d_ee0a15a45d6f_Caption" xml:space="preserve">
+    <value>Pack Station</value>
+  </data>
+  <data name="str_dc53cabf_59b1_46bf_98c9_f2a7ccdf79f4_Caption" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="str_d992244f_b511_4f35_88b4_0fccb710ae8b_Caption" xml:space="preserve">
+    <value>Consignment Number</value>
+  </data>
+  <data name="str_324b0a21_cf08_491e_b651_2450fe15d598_Caption" xml:space="preserve">
+    <value>Customer Type</value>
+  </data>
+  <data name="str_4a696f00_592b_4674_b9a7_283d1d727485_Caption" xml:space="preserve">
+    <value>Customer Order Type</value>
+  </data>
+  <data name="str_54b8159c_3604_423d_8f47_8c62c8be1ee9_Caption" xml:space="preserve">
+    <value>Customer Order Status</value>
+  </data>
+  <data name="str_7b897761_ee5c_4c6f_b135_d5dfbe9111e8_Caption" xml:space="preserve">
+    <value>Method of Shipment</value>
+  </data>
+  <data name="str_75427ee4_2d48_4b29_b280_f9d2fa02682c_Caption" xml:space="preserve">
+    <value>Forwarder</value>
+  </data>
+  <data name="str_1ec23f74_b068_43e4_85ad_f4c843e8ad16_Caption" xml:space="preserve">
+    <value>Customer Order</value>
+  </data>
+  <data name="str_66b80c3f_d29e_49e4_9921_81de030bf282_Caption" xml:space="preserve">
+    <value>Warehouse Layout</value>
+  </data>
+  <data name="str_e610ea52_fb47_4a1c_8aef_0753165de965_Caption" xml:space="preserve">
+    <value>Moving Unit Zone</value>
+  </data>
+  <data name="str_06a70084_b48b_4afc_bf5c_2a1f0a14c790_Caption" xml:space="preserve">
+    <value>Pick Location</value>
+  </data>
+  <data name="str_6baacce9_c821_45e3_99a8_3db04526cb3a_Caption" xml:space="preserve">
+    <value>Aisle</value>
+  </data>
+  <data name="str_353ea57b_4cf4_478d_8086_879b4e2ac76f_Caption" xml:space="preserve">
+    <value>Location Outline</value>
+  </data>
+  <data name="str_ec5342df_847b_4d0f_8b6c_89aa229d2ada_Caption" xml:space="preserve">
+    <value>Pick Zone Group</value>
+  </data>
+  <data name="str_1f08e2fd_21ce_4d55_b300_8a03094572d9_Caption" xml:space="preserve">
+    <value>Area Pick</value>
+  </data>
+  <data name="str_f35f5e5f_7605_4824_ac1e_8b4790cc3f7a_Caption" xml:space="preserve">
+    <value>Warehouse</value>
+  </data>
+  <data name="str_9102548e_62ba_4394_a177_d904f67f7419_Caption" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="str_3055986f_83c4_4191_901f_dda9d4b40d88_Caption" xml:space="preserve">
+    <value>Area</value>
+  </data>
+  <data name="str_d0cac54c_4281_48d6_99df_e5c40d201aa4_Caption" xml:space="preserve">
+    <value>Pick Zone</value>
+  </data>
+  <data name="str_ab493fd4_01e9_4621_a359_e75b3df18036_Caption" xml:space="preserve">
+    <value>Area Storage</value>
+  </data>
+  <data name="str_954c276a_8029_41f2_857b_efc206d6bd3b_Caption" xml:space="preserve">
+    <value>Trace Pick Location</value>
+  </data>
+  <data name="str_e5399792_a2ab_45ef_9050_e00754fbcf77_Caption" xml:space="preserve">
+    <value>Inventory</value>
+  </data>
+  <data name="str_23011430_b394_49fc_be46_0f857f467752_Caption" xml:space="preserve">
+    <value>Trace Inventory Audit</value>
+  </data>
+  <data name="str_35abffc0_c43f_4c8e_a5c8_2937a77ae33e_Caption" xml:space="preserve">
+    <value>Inventory Audit</value>
+  </data>
+  <data name="str_9a063f8a_c150_4a31_94ef_738dd4fa6bc3_Caption" xml:space="preserve">
+    <value>Trace Item Load</value>
+  </data>
+  <data name="str_7009472f_06a0_4cef_a51b_83884fd3a0c7_Caption" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="str_6370ae5e_c8b2_428f_9692_09f6a98fcf6c_Caption" xml:space="preserve">
+    <value>Item Load Change Code</value>
+  </data>
+  <data name="str_67267945_12eb_42ee_a5b6_2b592d7ca0e9_Caption" xml:space="preserve">
+    <value>Hold Code</value>
+  </data>
+  <data name="str_6562b0e9_2118_4889_8fba_355f3fdf4b76_Caption" xml:space="preserve">
+    <value>Load Carrier Type</value>
+  </data>
+  <data name="str_4d62081a_f438_4fa9_813c_cfee1c73b025_Caption" xml:space="preserve">
+    <value>Load Carrier Group</value>
+  </data>
+  <data name="str_891adebd_06bf_4764_8989_d9ddf7a72d0f_Caption" xml:space="preserve">
+    <value>Action Code</value>
+  </data>
+  <data name="str_d9d09479_fbb2_4f32_af7f_e1fde028b288_Caption" xml:space="preserve">
+    <value>Discrepancy Code</value>
+  </data>
+  <data name="str_9d5395b7_2ac2_413b_8fdd_e9b06445ba24_Caption" xml:space="preserve">
+    <value>Item Load Type</value>
+  </data>
+  <data name="str_019e4419_bd2e_4741_b14e_876da7990c84_Caption" xml:space="preserve">
+    <value>Change Queue</value>
+  </data>
+  <data name="str_92f47497_31a3_40fd_b286_974614e18669_Caption" xml:space="preserve">
+    <value>Item Load</value>
+  </data>
+  <data name="str_306e3351_9b4f_4762_8fb8_9e13b4d53400_Caption" xml:space="preserve">
+    <value>Trace Packing Material</value>
+  </data>
+  <data name="str_a425c1bc_0b3a_4ab1_89b6_c6897211666e_Caption" xml:space="preserve">
+    <value>Load Carrier</value>
+  </data>
+  <data name="str_3d74997f_1047_4a2b_a612_d3bf0637e378_Caption" xml:space="preserve">
+    <value>Packing Material</value>
+  </data>
+  <data name="str_0c461be0_29f1_438b_a808_dacf37cfd34f_Caption" xml:space="preserve">
+    <value>Inventory Audit Order</value>
+  </data>
+  <data name="str_8dc9d7f4_c1a8_4dfd_9507_de48af07ab27_Caption" xml:space="preserve">
+    <value>Inventory Audit Template</value>
+  </data>
+  <data name="str_1fc32bd4_6111_4779_b4fe_e6ee00ba3380_Caption" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="str_4ec6c192_d8fa_4df8_b417_24b23875c64b_Caption" xml:space="preserve">
+    <value>Load Carrier History</value>
+  </data>
+  <data name="str_3f2f5631_0f74_48cd_a249_bfd400f04585_Caption" xml:space="preserve">
+    <value>Item Load History</value>
+  </data>
+</root>

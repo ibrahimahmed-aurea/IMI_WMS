@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <query name="Action.FindAll">
+    <![CDATA[
+     select  a
+       from  Action a,
+             BusinessEntity be
+       where be.Application.Id = :applicationId
+       and   a.BusinessEntity.Id = be.Id
+    ]]>
+  </query>
+  <query name="Action.FetchWithMaps">
+    <![CDATA[
+     from  Action a 
+     inner join fetch a.RequestMap
+     inner join fetch a.ResponseMap
+     where a.Id = :actionId
+    ]]>
+  </query>
+  <query name="Action.FindAllUnassigned">
+    <![CDATA[
+     select   a
+       from   Action a
+       where  a.BusinessEntity.Application.Id = :applicationId
+       and    a.Id not in ( select      sm.MappedToAction.Id 
+                              from      Service s
+                              inner join s.ServiceMethods sm
+                              where     s.Application.Id = :applicationId
+                          )
+    ]]>
+  </query>
+  <query name="Action.FindByEntityAndName">
+    <![CDATA[
+     from  Action a 
+     left outer join fetch a.StoredProcedure
+     left outer join fetch a.Query
+     where a.Name like :actionName
+     and   a.BusinessEntity.Name like :entityName
+     and   a.BusinessEntity.Application.Id = :applicationId
+    ]]>
+  </query>
+  <query name="Action.FindByQueryId">
+    <![CDATA[
+     from  Action a 
+     where a.Query.Id = :queryId
+    ]]>
+  </query>
+  <query name="Action.FindByStoredProcedureId">
+    <![CDATA[
+     from  Action a 
+     where a.StoredProcedure.Id = :storedProcedureId
+    ]]>
+  </query>
+  <query name="Action.FindByBusinessEntityId">
+    <![CDATA[
+     from  Action a 
+     where a.BusinessEntity.Id = :businessEntityId
+    ]]>
+  </query>
+  <query name="Action.FindByPropertyMapId">
+    <![CDATA[
+       from  Action a
+       where a.RequestMap.Id  = :propertyMapId
+       or    a.ResponseMap.Id = :propertyMapId
+    ]]>
+  </query>
+  <query name="Action.FindByServiceMethodId">
+    <![CDATA[
+      select a
+       from  ServiceMethod sm,
+             Action a
+       where sm.Id = :serviceMethodId
+       and   sm.MappedToAction.Id = a.Id
+    ]]>
+  </query>
+</hibernate-mapping>
+

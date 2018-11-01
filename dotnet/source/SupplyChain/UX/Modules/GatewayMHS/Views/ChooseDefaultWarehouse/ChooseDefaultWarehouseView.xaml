@@ -1,0 +1,121 @@
+<ribbon:RibbonWindow x:Class="Imi.SupplyChain.UX.Modules.GatewayMHS.Views.ChooseDefaultWarehouse.ChooseDefaultWarehouseView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:Imi.Framework.Wpf.Data.Converters;assembly=Imi.Framework.Wpf.Data"
+    xmlns:ribbon="http://schemas.actiprosoftware.com/winfx/xaml/ribbon"
+    xmlns:local="clr-namespace:Imi.SupplyChain.UX.Modules.GatewayMHS.Views.ChooseDefaultWarehouse"
+    xmlns:themes="http://schemas.actiprosoftware.com/winfx/xaml/themes"
+    xmlns:resources="clr-namespace:Imi.SupplyChain.UX;assembly=Imi.SupplyChain.UX"
+    xmlns:localResources="clr-namespace:Imi.SupplyChain.UX.Modules.GatewayMHS"
+	  DocumentName="{x:Static localResources:LocalResources.ChangeUserSettings_Title}"
+    Width="Auto"
+    Height="Auto"
+    MaxWidth="600"
+    MaxHeight="400"
+    MinWidth="400"
+    HorizontalAlignment="Center"
+    VerticalAlignment="Center"
+    ShowInTaskbar="False"
+    ResizeMode="NoResize"
+    SizeToContent="WidthAndHeight"
+    IsMaximizeButtonVisible="False"
+    IsMinimizeButtonVisible="False"
+    WindowStartupLocation="CenterOwner"
+    TextOptions.TextFormattingMode="Display">
+  <Window.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Resources/ChooseDefaultWarehouse.Graphics.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Imi.SupplyChain.UX;component/Resources/generic.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+
+      <converters:StringFormatConverter x:Key="stringFormatConverter" />
+
+      <DataTemplate x:Key="WarehouseListTemplate" DataType="Imi.SupplyChain.UX.Modules.Demo.Application.Contracts.Authentication.DataContracts.UserWarehouse">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" SharedSizeGroup="leftOne"/>
+            <ColumnDefinition Width="2"/>
+            <ColumnDefinition Width="*"/>
+          </Grid.ColumnDefinitions>
+          <TextBlock Text="{Binding Path=WarehouseIdentity}" Margin="2" />
+          <TextBlock Text="{Binding Path=WarehouseName}" TextTrimming="CharacterEllipsis" Grid.Column="2" Margin="2"/>
+        </Grid>
+      </DataTemplate>
+
+      <DataTemplate x:Key="CompanyListTemplate" DataType="Imi.SupplyChain.UX.Modules.Demo.Application.Contracts.Authentication.DataContracts.Company">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" SharedSizeGroup="leftOne"/>
+            <ColumnDefinition Width="2"/>
+            <ColumnDefinition Width="*"/>
+          </Grid.ColumnDefinitions>
+          <TextBlock Text="{Binding Path=CompanyIdentity}" Margin="2" />
+          <TextBlock Text="{Binding Path=CompanyName}" TextTrimming="CharacterEllipsis" Grid.Column="2" Margin="2"/>
+        </Grid>
+      </DataTemplate>
+
+      <DataTemplate x:Key="WarehouseSelectedTemplate" DataType="Imi.SupplyChain.UX.Modules.Demo.Application.Contracts.Authentication.DataContracts.UserWarehouse">
+        <TextBlock Text="{Binding Path=WarehouseName}" TextTrimming="CharacterEllipsis" Grid.Column="1"/>
+      </DataTemplate>
+
+      <DataTemplate x:Key="CompanySelectedTemplate" DataType="Imi.SupplyChain.UX.Modules.Demo.Application.Contracts.Authentication.DataContracts.Company">
+        <TextBlock Text="{Binding Path=CompanyName}" TextTrimming="CharacterEllipsis" Grid.Column="1"/>
+      </DataTemplate>
+
+      <local:ComboBoxItemTemplateSelector x:Key="WarehouseComboBoxTemplateSelector"
+                            ListTemplate="{StaticResource WarehouseListTemplate}"
+                            SelectedTemplate="{StaticResource WarehouseSelectedTemplate}"/>
+
+      <local:ComboBoxItemTemplateSelector x:Key="CompanyComboBoxTemplateSelector"
+                            ListTemplate="{StaticResource CompanyListTemplate}"
+                            SelectedTemplate="{StaticResource CompanySelectedTemplate}"/>
+
+
+    </ResourceDictionary>
+  </Window.Resources>
+
+
+  <Grid Focusable="False" Width="Auto" Height="Auto">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" MinHeight="0"/>
+      <RowDefinition Height="36"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="Auto" MinWidth="0"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+    <Border HorizontalAlignment="Stretch" Margin="0,0,0,0" Width="Auto" Grid.RowSpan="1" Grid.Row="1" CornerRadius="0,0,0,0" Background="{DynamicResource {x:Static themes:AssetResourceKeys.ContainerDarkBackgroundNormalBrushKey}}" BorderThickness="0,1,0,0" BorderBrush="{DynamicResource {x:Static themes:AssetResourceKeys.ContainerBorderNormalBrushKey}}" VerticalAlignment="Stretch" Grid.ColumnSpan="2"/>
+    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Margin="5,0,0,0">
+      <Button Width="Auto" Content="{x:Static resources:StringResources.MessageBox_OK}" x:Name="OkButton" MinWidth="80" IsDefault="True" IsCancel="False" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0" Click="OkButton_Click" />
+      <Button Width="Auto" Content="{x:Static resources:StringResources.MessageBox_Cancel}" x:Name="CancelButton" MinWidth="80" IsCancel="True" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0" Click="CancelButtonClick" />
+    </StackPanel>
+    <CheckBox Visibility="Collapsed" Width="Auto" Content="Show at startup" IsChecked="True" x:Name="ShowAtStartupCb" Grid.Row="1" VerticalAlignment="Center" Margin="8,0,0,0" Grid.ColumnSpan="2" HorizontalAlignment="Left" IsEnabled="False" />
+    <Grid x:Name="HeaderGrid" VerticalAlignment="Center" Margin="0,0,0,10" >
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="Auto" />
+      </Grid.ColumnDefinitions>
+      <Label Content="{x:Static localResources:LocalResources.ChangeUserSettings_LastLogon}" Width="Auto" Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" />
+      <Label Content="{x:Static localResources:LocalResources.ChangeUserSettings_Warehouse}" Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Center" Width="Auto" Grid.Row="2" Grid.Column="1" />
+      <!--  
+                      <Label Content="Client:" Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Center" Width="Auto" Grid.Row="3" Grid.Column="1" />
+                      -->
+      <TextBlock x:Name="LastLogonFld" Width="Auto" Height="Auto" Text="{Binding Path=LastLogonTime, Converter={StaticResource stringFormatConverter}, ConverterParameter=g}" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="1" Margin="4,0,4,0" TextTrimming="CharacterEllipsis" />
+      <TextBlock x:Name="UserNameFld" HorizontalAlignment="Left" VerticalAlignment="Center" Height="Auto" Text="{Binding Path=UserName}" FontSize="24" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,15,4,15" TextTrimming="CharacterEllipsis" />
+      <Rectangle VerticalAlignment="Center" Height="100" Grid.ColumnSpan="1" Grid.Row="0" Width="100" Grid.RowSpan="4" Margin="10,10,10,10" HorizontalAlignment="Center" Fill="{DynamicResource GenericDude}" />
+      <ComboBox x:Name="WarehouseCb" SelectedValuePath="WarehouseIdentity" Grid.IsSharedSizeScope="True" ItemTemplateSelector="{StaticResource WarehouseComboBoxTemplateSelector}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" IsSynchronizedWithCurrentItem="True" Grid.Row="2" Grid.Column="2" Margin="4,0,4,0" />
+      <!--
+                      <ComboBox x:Name="ClientCb" SelectedValuePath="CompanyIdentity" Grid.IsSharedSizeScope="True" ItemTemplateSelector="{StaticResource CompanyComboBoxTemplateSelector}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="Auto" Height="Auto" IsSynchronizedWithCurrentItem="True" Grid.Row="3" Grid.Column="2" MinWidth="200" Margin="4,0,4,0" />
+                      -->
+    </Grid>
+    <ProgressBar Visibility="Collapsed" HorizontalAlignment="Right" Margin="6" Style="{StaticResource dotProgressBarStyle}" Width="45" x:Name="progressBar" VerticalAlignment="Top" Height="45" />
+  </Grid>
+</ribbon:RibbonWindow>

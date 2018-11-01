@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:complexType name="CentiroRemoveParcelType">
+        <xs:attribute name="parcelIdentifier" type="xs:string" />
+    </xs:complexType>
+    <xs:element name="CentiroRemoveParcels">
+        <xs:complexType>
+           <xs:sequence>
+               <xs:element name="Parcels">
+                       <xs:complexType>
+                           <xs:sequence maxOccurs="unbounded">
+                               <xs:element name="Parcel" type="CentiroRemoveParcelType"/>
+                           </xs:sequence>
+                       </xs:complexType>
+               </xs:element>
+           </xs:sequence>
+           <xs:attribute name="senderCode" type="xs:string" />
+           <xs:attribute name="shipmentIdentifier" type="xs:string"/>
+           <xs:attribute name="aggregateParcels" type="xs:string"/>
+           <xs:attribute name="url" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{30578BB0-7E86-4BC0-98B8-2320229D05B4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cdc.MetaManager.BusinessLogic</RootNamespace>
+    <AssemblyName>Cdc.MetaManager.BusinessLogic</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\Cdc.MetaManager.BusinessLogic.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\Cdc.MetaManager.BusinessLogic.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Cdc.MetaManager.CodeGeneration.CodeSmithTemplates, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\CodeSmith\Cdc.MetaManager.CodeGeneration.CodeSmithTemplates.dll</HintPath>
+    </Reference>
+    <Reference Include="Imi.SupplyChain.UX.Rules">
+      <HintPath>..\..\..\..\references\Imi\Imi.SupplyChain.UX.Rules.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.Client, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\TeamFoundation\Microsoft.TeamFoundation.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.VersionControl.Client, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\TeamFoundation\Microsoft.TeamFoundation.VersionControl.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=2.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\NHibernate\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.DataAccess, Version=2.102.2.20, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\Oracle\Oracle.DataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Core, Version=1.1.2.20226, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\Spring.Net\Spring.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Data, Version=1.1.2.20226, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\references\Spring.Net\Spring.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Data.NHibernate21">
+      <HintPath>..\..\..\..\references\Spring.Net\Spring.Data.NHibernate21.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Workflow.Activities" />
+    <Reference Include="System.Workflow.ComponentModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AnalyzeErrors.cs" />
+    <Compile Include="AnalyzeService.cs" />
+    <Compile Include="ApplicationService.cs" />
+    <Compile Include="ClearCaseRepositoryService.cs" />
+    <Compile Include="ConfigurationManagementException.cs" />
+    <Compile Include="ConfigurationManagementService.cs" />
+    <Compile Include="TFSRepositoryService.cs" />
+    <Compile Include="DeployIssueManagementService.cs" />
+    <Compile Include="Helpers\ActionHelper.cs" />
+    <Compile Include="Helpers\ApplicationHelper.cs" />
+    <Compile Include="Helpers\BusinessEntityHelper.cs" />
+    <Compile Include="Helpers\CustomDialogHelper.cs" />
+    <Compile Include="Helpers\DataSourceHelper.cs" />
+    <Compile Include="Helpers\DialogHelper.cs" />
+    <Compile Include="Helpers\HintCollectionHelper.cs" />
+    <Compile Include="Helpers\HintHelper.cs" />
+    <Compile Include="Helpers\IActionHelper.cs" />
+    <Compile Include="Helpers\IApplicationHelper.cs" />
+    <Compile Include="Helpers\IBusinessEntityHelper.cs" />
+    <Compile Include="Helpers\IHintCollectionHelper.cs" />
+    <Compile Include="Helpers\IImportChangeHelper.cs" />
+    <Compile Include="Helpers\IMappedPropertyHelper.cs" />
+    <Compile Include="Helpers\IModuleHelper.cs" />
+    <Compile Include="Helpers\ImportChangeHelper.cs" />
+    <Compile Include="Helpers\IPropertyMapHelper.cs" />
+    <Compile Include="Helpers\IReportHelper.cs" />
+    <Compile Include="Helpers\IReportQueryHelper.cs" />
+    <Compile Include="Helpers\IServiceMethodHelper.cs" />
+    <Compile Include="Helpers\IssueHelper.cs" />
+    <Compile Include="Helpers\IUXActionHelper.cs" />
+    <Compile Include="Helpers\IViewHelper.cs" />
+    <Compile Include="Helpers\MappedPropertyHelper.cs" />
+    <Compile Include="Helpers\MenuHelper.cs" />
+    <Compile Include="Helpers\MenuItemHelper.cs" />
+    <Compile Include="Helpers\ModuleHelper.cs" />
+    <Compile Include="Helpers\PackageHelper.cs" />
+    <Compile Include="Helpers\ProcedurePropertyHelper.cs" />
+    <Compile Include="Helpers\PropertyCaptionHelper.cs" />
+    <Compile Include="Helpers\PropertyCodeHelper.cs" />
+    <Compile Include="Helpers\PropertyHelper.cs" />
+    <Compile Include="Helpers\PropertyMapHelper.cs" />
+    <Compile Include="Helpers\PropertyStorageInfoHelper.cs" />
+    <Compile Include="Helpers\QueryPropertyHelper.cs" />
+    <Compile Include="Helpers\ReportHelper.cs" />
+    <Compile Include="Helpers\ReportQueryHelper.cs" />
+    <Compile Include="Helpers\SchemaHelper.cs" />
+    <Compile Include="Helpers\ServiceHelper.cs" />
+    <Compile Include="Helpers\ServiceMethodHelper.cs" />
+    <Compile Include="Helpers\StoredProcedureHelper.cs" />
+    <Compile Include="Helpers\UXActionHelper.cs" />
+    <Compile Include="Helpers\UXSessionHelper.cs" />
+    <Compile Include="Helpers\UXSessionPropertyHelper.cs" />
+    <Compile Include="Helpers\ViewActionHelper.cs" />
+    <Compile Include="Helpers\ViewHelper.cs" />
+    <Compile Include="Helpers\ViewNodeHelper.cs" />
+    <Compile Include="Helpers\WorkflowDialogHelper.cs" />
+    <Compile Include="Helpers\WorkflowHelper.cs" />
+    <Compile Include="Helpers\WorkflowServiceMethodHelper.cs" />
+    <Compile Include="Helpers\WorkflowSubworkflowHelper.cs" />
+    <Compile Include="IConfigurationManagement.cs" />
+    <Compile Include="IIssueManagementService.cs" />
+    <Compile Include="IModelChangeNotificationService.cs" />
+    <Compile Include="ModelChangeNotificationService.cs" />
+    <Compile Include="ModelException.cs" />
+    <Compile Include="ModelService.cs" />
+    <Compile Include="IModelService.cs" />
+    <Compile Include="IRepositoryService.cs" />
+    <Compile Include="Helpers\QueryHelper.cs" />
+    <Compile Include="ReportSQLSource.cs" />
+    <Compile Include="WorkflowTypeFactory.cs" />
+    <Compile Include="GenericMapper.cs" />
+    <Compile Include="IAnalyzeService.cs" />
+    <Compile Include="IUXActionService.cs" />
+    <Compile Include="MappedPropertyComparer.cs" />
+    <Compile Include="MetaManagerServices.cs" />
+    <Compile Include="MetaManagerUtil.cs" />
+    <Compile Include="RuleContextFactory.cs" />
+    <Compile Include="UXActionService.cs" />
+    <Compile Include="IMenuService.cs" />
+    <Compile Include="MenuService.cs" />
+    <Compile Include="IApplicationService.cs" />
+    <Compile Include="IDialogService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DialogService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccess\MetaManager.DataAccess.csproj">
+      <Project>{519F484A-16C4-4589-AEB9-0D38D25CE2DD}</Project>
+      <Name>MetaManager.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\ExtensionMethods\Framework.ExtensionMethods.csproj">
+      <Project>{A6414C47-5CD7-4891-A78E-CF626FECADA9}</Project>
+      <Name>Framework.ExtensionMethods</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\Parsing\OracleSQLParsing\Framework.Parsing.OracleSQLParsing.csproj">
+      <Project>{0E869DA3-709C-4593-BA7A-DF7FB6BE5990}</Project>
+      <Name>Framework.Parsing.OracleSQLParsing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\Parsing\PLSQLPackageSpecification\Framework.Parsing.PLSQLPackageSpecification.csproj">
+      <Project>{B00CA713-5089-49B7-BF05-03DE647B3F9B}</Project>
+      <Name>Framework.Parsing.PLSQLPackageSpecification</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HbmGenerator\Attributes\HbmGenerator.Attributes.csproj">
+      <Project>{D0F506FB-426B-43F4-8CDF-F723977B065D}</Project>
+      <Name>HbmGenerator.Attributes</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

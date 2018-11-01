@@ -1,0 +1,58 @@
+#
+# makefile 17/12/2004
+# 
+# Copyright (c) 2004 - 2005 Industri-Matematik AB. All rights reserved.
+#
+BIN=.\bin
+XMLOUTDIR=.\tapios\xml
+XMLDIR=.\xml
+HTMLDIR=.\tapios\html
+
+RD=rd /s /q
+CONN="user id = rmuser; password = rmuser; data source = WHTRUNK"
+
+INXMLFILE1=$(XMLOUTDIR)\in1.xml
+INXMLFILE2=$(XMLOUTDIR)\in2.xml
+INMASTER=$(XMLDIR)\TAPIOSInboundMaster.xml
+
+# this refers to the in-side using its parameter names as dictionary for creating the out-side
+DICTIONARY=$(XMLDIR)\TAPIDictionary.xml
+
+
+ALLDIR= \
+    "$(XMLOUTDIR)" \
+    "$(HTMLDIR)"
+
+ALLHTML= \
+    "$(HTMLDIR)\index.html"
+
+ALLEXE= \
+    $(BIN)\Imi.CodeGenerators.WebServices.xml2hapihtml.exe
+
+# --------------------------------------------
+# Description Blocks
+# --------------------------------------------
+
+ALL: $(ALLDIR) $(INXMLFILE1) $(INXMLFILE2) $(ALLHTML)
+
+$(INXMLFILE1): 
+    $(BIN)\Imi.CodeGenerators.WebServices.spec2xml TAPI_OS $@ $(DICTIONARY) /OPTDICT 1 /CONN $(CONN)
+
+$(INXMLFILE2): $(INXMLFILE1)
+    $(BIN)\Imi.CodeGenerators.WebServices.ColumnInfo2XML $(INXMLFILE1) $@ /CONN $(CONN)
+
+$(HTMLDIR)\index.html: $(INXMLFILE2) $(INMASTER) $(ALLEXE)
+    $(BIN)\Imi.CodeGenerators.WebServices.xml2hapihtml $(INXMLFILE2) $(INMASTER) $(HTMLDIR)
+
+CLEAN :
+    -@$(RD) $(XMLOUTDIR)
+    -@$(RD) $(HTMLDIR)
+    @nmake /nologo ALL
+
+"$(XMLOUTDIR)" :
+    @if not exist "$(XMLOUTDIR)/$(NULL)" mkdir "$(XMLOUTDIR)"
+
+"$(HTMLDIR)" :
+    @if not exist "$(HTMLDIR)/$(NULL)" mkdir "$(HTMLDIR)"
+
+# end makefile#

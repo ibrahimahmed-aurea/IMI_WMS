@@ -1,0 +1,13 @@
+<folder caption="Gateway">
+  <item caption="EDI Message Queue" id="654956c6-e473-44ba-8ef4-8819283126c2" assemblyFile="Cdc.SupplyChain.Gateway.UX.Modules.EdiMessageQueue.dll" topicIdentity="event://Cdc.SupplyChain.Gateway.UX.Modules.EdiMessageQueue.EDIMessageQueue/ShowDialog"/>
+  <item caption="HAPI Inbound Message Queue" id="1e23b56e-fab5-4356-a592-b6411ee433bd" assemblyFile="Cdc.SupplyChain.Gateway.UX.Modules.HapiInboundMessageQueue.dll" topicIdentity="event://Cdc.SupplyChain.Gateway.UX.Modules.HapiInboundMessageQueue.HAPIInboundMessageQueue/ShowDialog"/>
+  <item caption="Hapi Outbound Message Queue" id="493c1cdf-ad74-4965-af2f-0703bad6126b" assemblyFile="Cdc.SupplyChain.Gateway.UX.Modules.HapiOutboundMessageQueue.dll" topicIdentity="event://Cdc.SupplyChain.Gateway.UX.Modules.HapiOutboundMessageQueue.HAPIOutboundMessageQueue/ShowDialog"/>
+  <item caption="TAPI Message Queue" id="06c15038-235c-4864-9fb5-ace724d27f4e" assemblyFile="Cdc.SupplyChain.Gateway.UX.Modules.TapiMessageQueue.dll" topicIdentity="event://Cdc.SupplyChain.Gateway.UX.Modules.TapiMessageQueue.TAPIMessageQueue/ShowDialog"/>
+  <item caption="Centiro Message Queue" id="907073d5-c7db-4a0c-acfb-eee39c6c08e4" assemblyFile="Cdc.SupplyChain.Gateway.UX.Modules.CentiroMessageQueue.dll" topicIdentity="event://Cdc.SupplyChain.Gateway.UX.Modules.CentiroMessageQueue.CentiroMessageQueue/ShowDialog"/>
+  <folder id="f4aaa7ae-7476-42c8-9219-18897411de36" caption="Configure">
+    <item caption="EDI Partner" id="51305968-efb1-421f-a417-fe4516ec7191" assemblyFile="Cdc.SupplyChain.Gateway.UX.Modules.EdiPartner.dll" topicIdentity="event://Cdc.SupplyChain.Gateway.UX.Modules.EdiPartner.EDIPartner/ShowDialog"/>
+    <item caption="EDI Message Settings" id="091aaa4d-8df0-4033-82ec-8f06955844f5" assemblyFile="Cdc.SupplyChain.Gateway.UX.Modules.EdiMessageSettings.dll" topicIdentity="event://Cdc.SupplyChain.Gateway.UX.Modules.EdiMessageSettings.EDIMessageSettings/ShowDialog"/>
+    <item caption="Web Services Profile" id="e634d1e3-953a-40b3-b884-52bebcb758e8" assemblyFile="Cdc.SupplyChain.Gateway.UX.Modules.WebServiceProfile.dll" topicIdentity="event://Cdc.SupplyChain.Gateway.UX.Modules.WebServiceProfile.ConfigureWebServicesProfile/ShowDialog"/>
+  </folder>
+  <item caption="Change User Settings" id="e47602cc-061e-461a-ba99-604b7525f867" assemblyFile="Cdc.SupplyChain.UX.Modules.Gateway.dll" topicIdentity="event://Cdc.SupplyChain.UX.Modules.Gateway.Views.ChooseDefaultWarehouse/ShowDialog"/>
+</folder>

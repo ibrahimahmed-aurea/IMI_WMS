@@ -1,0 +1,1259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AzAdminManager MajorVersion="1" MinorVersion="0" Guid="95a61e1b-c1e9-42c6-90c6-02a35debbb3c">
+	<AzApplication Guid="861d5042-2560-409e-809f-5bf99016bd2a" Name="Transportation" Description="Azman store for Transportation" ApplicationVersion="7.1.6">
+		<AzOperation Guid="87931618-ada8-4491-a8a9-f8f0165f00fc" Name="87931618-ada8-4491-a8a9-f8f0165f00fc" Description="Alarm.ConfigureAlarm - Change Translation">
+			<OperationID>1</OperationID>
+		</AzOperation>
+		<AzOperation Guid="195ae967-bc69-4cc3-a73b-fd5a7eca8850" Name="195ae967-bc69-4cc3-a73b-fd5a7eca8850" Description="Alarm.ConfigureAlarm - View Alarm Text">
+			<OperationID>2</OperationID>
+		</AzOperation>
+		<AzOperation Guid="11ee5a1a-9318-480d-9040-dfc52beb0539" Name="11ee5a1a-9318-480d-9040-dfc52beb0539" Description="Alarm.ConfigureAlarm - New Alarm">
+			<OperationID>3</OperationID>
+		</AzOperation>
+		<AzOperation Guid="d51c0d85-12fb-4816-8a80-f403ef7c2f94" Name="d51c0d85-12fb-4816-8a80-f403ef7c2f94" Description="Alarm.ConfigureAlarm - Change Alarm">
+			<OperationID>4</OperationID>
+		</AzOperation>
+		<AzOperation Guid="f7008c3c-8f7b-49a7-afff-f6ae4463b660" Name="f7008c3c-8f7b-49a7-afff-f6ae4463b660" Description="Alarm.ConfigureAlarm - Delete Alarm">
+			<OperationID>5</OperationID>
+		</AzOperation>
+		<AzOperation Guid="248a13d4-9abe-4ad4-a749-c27354f2a59e" Name="248a13d4-9abe-4ad4-a749-c27354f2a59e" Description="Alarm.CreateAlarm - OK">
+			<OperationID>6</OperationID>
+		</AzOperation>
+		<AzOperation Guid="de82be11-6049-433d-9758-c774475f599a" Name="de82be11-6049-433d-9758-c774475f599a" Description="Alarm.CreateAlarm - Cancel">
+			<OperationID>7</OperationID>
+		</AzOperation>
+		<AzOperation Guid="1937d031-1239-4130-8d3b-9123ccb431d2" Name="1937d031-1239-4130-8d3b-9123ccb431d2" Description="Alarm.ModifyAlarm - OK">
+			<OperationID>8</OperationID>
+		</AzOperation>
+		<AzOperation Guid="aff0b3a3-32d3-446d-8a33-ad28248b0fb5" Name="aff0b3a3-32d3-446d-8a33-ad28248b0fb5" Description="Alarm.ModifyAlarmTranslation - OK">
+			<OperationID>9</OperationID>
+		</AzOperation>
+		<AzOperation Guid="d35097a3-32ff-456f-b384-f35972e19b20" Name="d35097a3-32ff-456f-b384-f35972e19b20" Description="Alarm.ShowAlarmText - Close">
+			<OperationID>10</OperationID>
+		</AzOperation>
+		<AzOperation Guid="cc9cb769-6ad7-48c8-9af1-b3481b8587d7" Name="cc9cb769-6ad7-48c8-9af1-b3481b8587d7" Description="AlarmGroup.AlarmGroup - New Mail Receiver">
+			<OperationID>11</OperationID>
+		</AzOperation>
+		<AzOperation Guid="009ec59e-1839-41eb-9be5-1d9c53726b89" Name="009ec59e-1839-41eb-9be5-1d9c53726b89" Description="AlarmGroup.AlarmGroup - Delete Mail Receiver">
+			<OperationID>12</OperationID>
+		</AzOperation>
+		<AzOperation Guid="b1cab11d-9838-49a8-8509-5c47482953c3" Name="b1cab11d-9838-49a8-8509-5c47482953c3" Description="AlarmGroup.AlarmGroup - New Alarm Group">
+			<OperationID>13</OperationID>
+		</AzOperation>
+		<AzOperation Guid="a137d5d8-b466-43b8-84d2-2162a22aa18b" Name="a137d5d8-b466-43b8-84d2-2162a22aa18b" Description="AlarmGroup.AlarmGroup - Change Alarm Group">
+			<OperationID>14</OperationID>
+		</AzOperation>
+		<AzOperation Guid="f389b5ff-1bfd-4dfb-8d68-c18fb3186962" Name="f389b5ff-1bfd-4dfb-8d68-c18fb3186962" Description="AlarmGroup.AlarmGroup - Delete Alarm Group">
+			<OperationID>15</OperationID>
+		</AzOperation>
+		<AzOperation Guid="227f12e4-f686-4a04-a2bb-68accc36322b" Name="227f12e4-f686-4a04-a2bb-68accc36322b" Description="AlarmGroup.CreateAlarmGroup - OK">
+			<OperationID>16</OperationID>
+		</AzOperation>
+		<AzOperation Guid="9c376ba4-0c41-4582-806f-8f8366b3dd4a" Name="9c376ba4-0c41-4582-806f-8f8366b3dd4a" Description="AlarmGroup.CreateAlarmReceiver - OK">
+			<OperationID>17</OperationID>
+		</AzOperation>
+		<AzOperation Guid="be165bfd-7228-46fc-a73c-4d8363c1d861" Name="be165bfd-7228-46fc-a73c-4d8363c1d861" Description="AlarmGroup.ModifyAlarmGroup - OK">
+			<OperationID>18</OperationID>
+		</AzOperation>
+		<AzOperation Guid="12baaef4-880f-468a-ae17-97921ead71eb" Name="12baaef4-880f-468a-ae17-97921ead71eb" Description="Attribute.Attribute - New Attribute">
+			<OperationID>19</OperationID>
+		</AzOperation>
+		<AzOperation Guid="33ce742c-5342-4ff7-bc9b-533982890817" Name="33ce742c-5342-4ff7-bc9b-533982890817" Description="Attribute.Attribute - Change Attribute">
+			<OperationID>20</OperationID>
+		</AzOperation>
+		<AzOperation Guid="4fb21253-d25f-43d2-8e11-22b6f2c00249" Name="4fb21253-d25f-43d2-8e11-22b6f2c00249" Description="Attribute.Attribute - Delete Attribute">
+			<OperationID>21</OperationID>
+		</AzOperation>
+		<AzOperation Guid="23f80159-e7b9-4540-a426-d4a18f29488f" Name="23f80159-e7b9-4540-a426-d4a18f29488f" Description="Attribute.Attribute - New Attribute Code">
+			<OperationID>22</OperationID>
+		</AzOperation>
+		<AzOperation Guid="7b315534-f6b2-4af7-91fb-9679006c85b4" Name="7b315534-f6b2-4af7-91fb-9679006c85b4" Description="Attribute.Attribute - Change Attribute Code">
+			<OperationID>23</OperationID>
+		</AzOperation>
+		<AzOperation Guid="a791d0fe-76e3-43c7-8370-2906d7ee1df2" Name="a791d0fe-76e3-43c7-8370-2906d7ee1df2" Description="Attribute.Attribute - Delete Attribute Code">
+			<OperationID>24</OperationID>
+		</AzOperation>
+		<AzOperation Guid="c39b13a4-1273-477a-9e8c-455efa8474e4" Name="c39b13a4-1273-477a-9e8c-455efa8474e4" Description="Attribute.CreateAttribute - OK">
+			<OperationID>25</OperationID>
+		</AzOperation>
+		<AzOperation Guid="71b5a68b-990b-42e2-8bd0-6377acf49346" Name="71b5a68b-990b-42e2-8bd0-6377acf49346" Description="Attribute.CreateAttributeCode - OK">
+			<OperationID>26</OperationID>
+		</AzOperation>
+		<AzOperation Guid="f2752d81-93af-4bfa-8297-14f8b957a54c" Name="f2752d81-93af-4bfa-8297-14f8b957a54c" Description="Attribute.ModifyAttribute - OK">
+			<OperationID>27</OperationID>
+		</AzOperation>
+		<AzOperation Guid="8145a378-a03e-4010-8830-ec4e27400534" Name="8145a378-a03e-4010-8830-ec4e27400534" Description="Attribute.ModifyAttributeCode - OK">
+			<OperationID>28</OperationID>
+		</AzOperation>
+		<AzOperation Guid="fa398ee3-5e17-4a1a-b1bb-6f418efcfc2d" Name="fa398ee3-5e17-4a1a-b1bb-6f418efcfc2d" Description="Configuration.ModifyProcess - OK">
+			<OperationID>29</OperationID>
+		</AzOperation>
+		<AzOperation Guid="c8985ca0-9f2d-406d-a4e5-8fa911559b78" Name="c8985ca0-9f2d-406d-a4e5-8fa911559b78" Description="Configuration.ModifySystemConfiguration - OK">
+			<OperationID>30</OperationID>
+		</AzOperation>
+		<AzOperation Guid="92de0089-03d2-44a4-a321-e78ca78a6eed" Name="92de0089-03d2-44a4-a321-e78ca78a6eed" Description="Configuration.Process - Change Process">
+			<OperationID>31</OperationID>
+		</AzOperation>
+		<AzOperation Guid="3edc1bd7-de5c-4371-9967-b5d046fa688f" Name="3edc1bd7-de5c-4371-9967-b5d046fa688f" Description="Configuration.SystemConfiguration - Change System Configuration">
+			<OperationID>32</OperationID>
+		</AzOperation>
+		<AzOperation Guid="292c0611-1c1f-455e-bdfe-e240e20e6938" Name="292c0611-1c1f-455e-bdfe-e240e20e6938" Description="ConversionUnit.ConversionUnit - New Conversion Unit">
+			<OperationID>33</OperationID>
+		</AzOperation>
+		<AzOperation Guid="bb0c0247-aca9-4f2b-a749-03caa160ddd7" Name="bb0c0247-aca9-4f2b-a749-03caa160ddd7" Description="ConversionUnit.ConversionUnit - Change Conversion Unit">
+			<OperationID>34</OperationID>
+		</AzOperation>
+		<AzOperation Guid="e2b3d40d-b1cd-42f5-a33f-d0f6814cc367" Name="e2b3d40d-b1cd-42f5-a33f-d0f6814cc367" Description="ConversionUnit.ConversionUnit - Delete Conversion Unit">
+			<OperationID>35</OperationID>
+		</AzOperation>
+		<AzOperation Guid="726e38dd-c204-4235-bfd7-000f27a5c25c" Name="726e38dd-c204-4235-bfd7-000f27a5c25c" Description="ConversionUnit.ConversionUnitSet - New Set of Conversion Units">
+			<OperationID>36</OperationID>
+		</AzOperation>
+		<AzOperation Guid="b051139d-cd6b-4d24-934e-89070a3e964f" Name="b051139d-cd6b-4d24-934e-89070a3e964f" Description="ConversionUnit.ConversionUnitSet - Change Set of Conversion Units">
+			<OperationID>37</OperationID>
+		</AzOperation>
+		<AzOperation Guid="5b6938d0-f7ba-4b58-b49a-501fa2fae05a" Name="5b6938d0-f7ba-4b58-b49a-501fa2fae05a" Description="ConversionUnit.ConversionUnitSet - Delete Set of Conversion Units">
+			<OperationID>38</OperationID>
+		</AzOperation>
+		<AzOperation Guid="9251590d-32a0-42c0-9267-6deda771c148" Name="9251590d-32a0-42c0-9267-6deda771c148" Description="ConversionUnit.CreateConversionUnit - OK">
+			<OperationID>39</OperationID>
+		</AzOperation>
+		<AzOperation Guid="3435bd16-aeda-4601-82a7-60caf235e3dd" Name="3435bd16-aeda-4601-82a7-60caf235e3dd" Description="ConversionUnit.CreateConversionUnitSet - OK">
+			<OperationID>40</OperationID>
+		</AzOperation>
+		<AzOperation Guid="42a36c9e-5d23-448a-8d64-151d4664d916" Name="42a36c9e-5d23-448a-8d64-151d4664d916" Description="ConversionUnit.ModifyConversionUnit - OK">
+			<OperationID>41</OperationID>
+		</AzOperation>
+		<AzOperation Guid="a5be1678-51c2-4802-ad78-8eba7582dbb5" Name="a5be1678-51c2-4802-ad78-8eba7582dbb5" Description="ConversionUnit.ModifyConversionUnitSet - OK">
+			<OperationID>42</OperationID>
+		</AzOperation>
+		<AzOperation Guid="3b8a7fdb-623b-4924-886e-9c4b5e961a48" Name="3b8a7fdb-623b-4924-886e-9c4b5e961a48" Description="CustomerOrderType.CreateCustomerOrderType - OK">
+			<OperationID>43</OperationID>
+		</AzOperation>
+		<AzOperation Guid="ba8cd9b4-5bf3-4658-a352-e6d21218a256" Name="ba8cd9b4-5bf3-4658-a352-e6d21218a256" Description="CustomerOrderType.CustomerOrderType - Show Methods of Shipment for Client">
+			<OperationID>44</OperationID>
+		</AzOperation>
+		<AzOperation Guid="bb1c873e-bd9b-42fa-9765-709845978bc3" Name="bb1c873e-bd9b-42fa-9765-709845978bc3" Description="CustomerOrderType.CustomerOrderType - Change Customer Order Type">
+			<OperationID>45</OperationID>
+		</AzOperation>
+		<AzOperation Guid="00bc270c-7665-4f52-8f0c-4cd8c2b1dcbb" Name="00bc270c-7665-4f52-8f0c-4cd8c2b1dcbb" Description="CustomerOrderType.CustomerOrderType - Delete Customer Order Type">
+			<OperationID>46</OperationID>
+		</AzOperation>
+		<AzOperation Guid="be7345b7-a60d-4c14-be2a-669f66ad31a1" Name="be7345b7-a60d-4c14-be2a-669f66ad31a1" Description="CustomerOrderType.CustomerOrderType - New Customer Order Type">
+			<OperationID>47</OperationID>
+		</AzOperation>
+		<AzOperation Guid="49e54b52-6b5f-47cb-8f71-7087511fbdff" Name="49e54b52-6b5f-47cb-8f71-7087511fbdff" Description="CustomerOrderType.CustomerOrderTypeClient - Change Accessible Methods of Shipment">
+			<OperationID>48</OperationID>
+		</AzOperation>
+		<AzOperation Guid="c78ac82f-7e2f-4674-8782-968cb3e673fd" Name="c78ac82f-7e2f-4674-8782-968cb3e673fd" Description="CustomerOrderType.CustomerOrderTypeClient - Move Up">
+			<OperationID>49</OperationID>
+		</AzOperation>
+		<AzOperation Guid="255cffec-bd11-4456-87d5-368ccc61316a" Name="255cffec-bd11-4456-87d5-368ccc61316a" Description="CustomerOrderType.CustomerOrderTypeClient - Move Down">
+			<OperationID>50</OperationID>
+		</AzOperation>
+		<AzOperation Guid="66c23f45-9088-40a8-9d02-946c7349c0fb" Name="66c23f45-9088-40a8-9d02-946c7349c0fb" Description="CustomerOrderType.ModifyCustomerOrderType - OK">
+			<OperationID>51</OperationID>
+		</AzOperation>
+		<AzOperation Guid="6210b0ff-06c2-43fe-8ac0-1f5db51bbef1" Name="6210b0ff-06c2-43fe-8ac0-1f5db51bbef1" Description="Departure.CreateDeparture - OK">
+			<OperationID>52</OperationID>
+		</AzOperation>
+		<AzOperation Guid="09c1baca-f95e-4a8f-99b0-d0986465f5b4" Name="09c1baca-f95e-4a8f-99b0-d0986465f5b4" Description="Departure.CreateDepartureGenerate - OK">
+			<OperationID>53</OperationID>
+		</AzOperation>
+		<AzOperation Guid="b867a712-ff9d-4f49-8a00-e99d8e04bf2a" Name="b867a712-ff9d-4f49-8a00-e99d8e04bf2a" Description="Departure.CreateDepartureNode - OK">
+			<OperationID>54</OperationID>
+		</AzOperation>
+		<AzOperation Guid="2b324857-a81c-49ec-8f84-720f3eb8189d" Name="2b324857-a81c-49ec-8f84-720f3eb8189d" Description="Departure.CreateTransportCondition - OK">
+			<OperationID>55</OperationID>
+		</AzOperation>
+		<AzOperation Guid="5129008a-3f75-4f5c-9658-bc3e84f4b287" Name="5129008a-3f75-4f5c-9658-bc3e84f4b287" Description="Departure.Departure - Show Ship-to Node">
+			<OperationID>56</OperationID>
+		</AzOperation>
+		<AzOperation Guid="9251a67d-bbcc-4bef-a341-d9df2563c4b5" Name="9251a67d-bbcc-4bef-a341-d9df2563c4b5" Description="Departure.Departure - Show Transport Condition">
+			<OperationID>57</OperationID>
+		</AzOperation>
+		<AzOperation Guid="2a6d18f3-6669-418c-954b-7f71e9b69669" Name="2a6d18f3-6669-418c-954b-7f71e9b69669" Description="Departure.Departure - New Departure">
+			<OperationID>58</OperationID>
+		</AzOperation>
+		<AzOperation Guid="b4eb7e33-76a4-499c-99c5-dd04e001bb1d" Name="b4eb7e33-76a4-499c-99c5-dd04e001bb1d" Description="Departure.Departure - Change Departure">
+			<OperationID>59</OperationID>
+		</AzOperation>
+		<AzOperation Guid="5c64c522-fe33-44af-b6a1-d95ee869bbcb" Name="5c64c522-fe33-44af-b6a1-d95ee869bbcb" Description="Departure.Departure - Delete Departure">
+			<OperationID>60</OperationID>
+		</AzOperation>
+		<AzOperation Guid="3439ec04-1ad4-4d21-a656-fc377fd5c572" Name="3439ec04-1ad4-4d21-a656-fc377fd5c572" Description="Departure.Departure - Transfer">
+			<OperationID>61</OperationID>
+		</AzOperation>
+		<AzOperation Guid="065797a2-dc0a-4ae8-ac88-f682682e61b5" Name="065797a2-dc0a-4ae8-ac88-f682682e61b5" Description="Departure.Departure - Show Route">
+			<OperationID>62</OperationID>
+		</AzOperation>
+		<AzOperation Guid="17d74011-3840-49f1-8289-3fe727703909" Name="17d74011-3840-49f1-8289-3fe727703909" Description="Departure.Departure - Show Node">
+			<OperationID>63</OperationID>
+		</AzOperation>
+		<AzOperation Guid="137b0a19-45bb-4bea-88a8-fcf99a0fb35e" Name="137b0a19-45bb-4bea-88a8-fcf99a0fb35e" Description="Departure.Departure - Show Method of Shipment">
+			<OperationID>64</OperationID>
+		</AzOperation>
+		<AzOperation Guid="3746e9d6-df6d-48ba-96d7-204c3ff531e0" Name="3746e9d6-df6d-48ba-96d7-204c3ff531e0" Description="Departure.Departure - Generate Departure">
+			<OperationID>65</OperationID>
+		</AzOperation>
+		<AzOperation Guid="dcf385fe-d35e-473b-a526-1ba774e1aed3" Name="dcf385fe-d35e-473b-a526-1ba774e1aed3" Description="Departure.Departure - Show Vehicle Type">
+			<OperationID>66</OperationID>
+		</AzOperation>
+		<AzOperation Guid="cab39ac6-9d53-4965-adef-a5537facfff2" Name="cab39ac6-9d53-4965-adef-a5537facfff2" Description="Departure.Departure - Show Ship-from Node">
+			<OperationID>67</OperationID>
+		</AzOperation>
+		<AzOperation Guid="c617bfb2-68e2-4d1a-b855-2e9a90bbc44b" Name="c617bfb2-68e2-4d1a-b855-2e9a90bbc44b" Description="Departure.DepartureConnectLoad - OK">
+			<OperationID>68</OperationID>
+		</AzOperation>
+		<AzOperation Guid="aad74ce0-7d40-4bfa-a33e-4e19bc9f2eec" Name="aad74ce0-7d40-4bfa-a33e-4e19bc9f2eec" Description="Departure.DepartureConnectLoadForTransportCondition - OK">
+			<OperationID>69</OperationID>
+		</AzOperation>
+		<AzOperation Guid="e0010b92-68bf-4f17-9c50-133db01c145d" Name="e0010b92-68bf-4f17-9c50-133db01c145d" Description="Departure.DepartureConnectNode - OK">
+			<OperationID>70</OperationID>
+		</AzOperation>
+		<AzOperation Guid="bfb941a3-bc54-4663-a25e-c450b423f75a" Name="bfb941a3-bc54-4663-a25e-c450b423f75a" Description="Departure.DepartureConnectTransitNode - OK">
+			<OperationID>71</OperationID>
+		</AzOperation>
+		<AzOperation Guid="cd37f2fe-21f9-411d-9bc2-ae8327ef89f7" Name="cd37f2fe-21f9-411d-9bc2-ae8327ef89f7" Description="Departure.DepartureDisconnectNode - OK">
+			<OperationID>72</OperationID>
+		</AzOperation>
+		<AzOperation Guid="0a721670-f0d5-448c-927a-899e4f24cede" Name="0a721670-f0d5-448c-927a-899e4f24cede" Description="Departure.DepartureGenerate - Generate">
+			<OperationID>73</OperationID>
+		</AzOperation>
+		<AzOperation Guid="5fe6c576-2088-4aeb-955b-41b3ca39b00d" Name="5fe6c576-2088-4aeb-955b-41b3ca39b00d" Description="Departure.DepartureShiptoNode - Change Transport Condition">
+			<OperationID>74</OperationID>
+		</AzOperation>
+		<AzOperation Guid="77a08e7b-b3c2-49c6-b71a-7068f0ac23f3" Name="77a08e7b-b3c2-49c6-b71a-7068f0ac23f3" Description="Departure.DepartureShiptoNode - Disconnect">
+			<OperationID>75</OperationID>
+		</AzOperation>
+		<AzOperation Guid="e37b0f5f-fd81-4e9b-a987-ddec1dd6e1b8" Name="e37b0f5f-fd81-4e9b-a987-ddec1dd6e1b8" Description="Departure.DepartureShiptoNode - Connect">
+			<OperationID>76</OperationID>
+		</AzOperation>
+		<AzOperation Guid="93e8fb4f-6637-4bee-bc44-c92bf8d4db97" Name="93e8fb4f-6637-4bee-bc44-c92bf8d4db97" Description="Departure.DepartureShiptoNode - Delete Ship-to Node">
+			<OperationID>77</OperationID>
+		</AzOperation>
+		<AzOperation Guid="df14b8d1-8393-4e75-b73b-4ff01659f163" Name="df14b8d1-8393-4e75-b73b-4ff01659f163" Description="Departure.DepartureShiptoNode - Move Up">
+			<OperationID>78</OperationID>
+		</AzOperation>
+		<AzOperation Guid="a978d88e-2a86-419f-af24-5d0b87caddc6" Name="a978d88e-2a86-419f-af24-5d0b87caddc6" Description="Departure.DepartureShiptoNode - Move Down">
+			<OperationID>79</OperationID>
+		</AzOperation>
+		<AzOperation Guid="e3ea731a-2eeb-45a6-ae6a-366629309e40" Name="e3ea731a-2eeb-45a6-ae6a-366629309e40" Description="Departure.DepartureShiptoNode - Disconnect Ship-to Node">
+			<OperationID>80</OperationID>
+		</AzOperation>
+		<AzOperation Guid="91f6a243-e73f-4857-86d7-cfab02ab08a3" Name="91f6a243-e73f-4857-86d7-cfab02ab08a3" Description="Departure.DepartureShiptoNode - Connect Ship-to Node">
+			<OperationID>81</OperationID>
+		</AzOperation>
+		<AzOperation Guid="3d18a29c-0b6a-4f18-89a7-b356d8d64643" Name="3d18a29c-0b6a-4f18-89a7-b356d8d64643" Description="Departure.DepartureShiptoNode - New Ship-to Node">
+			<OperationID>82</OperationID>
+		</AzOperation>
+		<AzOperation Guid="4f2b1429-a0b4-480f-b725-a9241765c138" Name="4f2b1429-a0b4-480f-b725-a9241765c138" Description="Departure.DepartureShiptoNode - Change Ship-to Node">
+			<OperationID>83</OperationID>
+		</AzOperation>
+		<AzOperation Guid="085c1c8c-0174-4f40-a328-238efe819606" Name="085c1c8c-0174-4f40-a328-238efe819606" Description="Departure.DepartureShiptoNode - Connect Transit-to Node">
+			<OperationID>84</OperationID>
+		</AzOperation>
+		<AzOperation Guid="8a143c62-7725-4d16-b0d9-b82cc066d4a5" Name="8a143c62-7725-4d16-b0d9-b82cc066d4a5" Description="Departure.DepartureShiptoNode - Disconnect Transit-to Node">
+			<OperationID>85</OperationID>
+		</AzOperation>
+		<AzOperation Guid="0967cd64-4e4f-426f-a526-d7e72ac9d747" Name="0967cd64-4e4f-426f-a526-d7e72ac9d747" Description="Departure.DepartureShiptoNode - Disconnect">
+			<OperationID>86</OperationID>
+		</AzOperation>
+		<AzOperation Guid="e7719380-2b63-4955-b657-ac22466bcf49" Name="e7719380-2b63-4955-b657-ac22466bcf49" Description="Departure.DepartureShiptoNode - Connect">
+			<OperationID>87</OperationID>
+		</AzOperation>
+		<AzOperation Guid="e5dd611a-814e-46bb-9e54-1313c900b07e" Name="e5dd611a-814e-46bb-9e54-1313c900b07e" Description="Departure.DepartureShiptoNode - Show Ship-from Node">
+			<OperationID>88</OperationID>
+		</AzOperation>
+		<AzOperation Guid="5645c875-dab4-43b9-a9cc-e07e7414edc8" Name="5645c875-dab4-43b9-a9cc-e07e7414edc8" Description="Departure.DepartureTransportCondition - Change Transport Condition">
+			<OperationID>89</OperationID>
+		</AzOperation>
+		<AzOperation Guid="b896951c-4753-4225-b54b-47d81e2be90b" Name="b896951c-4753-4225-b54b-47d81e2be90b" Description="Departure.DepartureTransportCondition - Delete Transport Condition">
+			<OperationID>90</OperationID>
+		</AzOperation>
+		<AzOperation Guid="7631f66e-f7da-4d9f-90cc-efbd91ee0bb8" Name="7631f66e-f7da-4d9f-90cc-efbd91ee0bb8" Description="Departure.DepartureTransportCondition - New Transport Condition">
+			<OperationID>91</OperationID>
+		</AzOperation>
+		<AzOperation Guid="bcf663f9-7ead-40d5-ae1a-fd5e16dd6e34" Name="bcf663f9-7ead-40d5-ae1a-fd5e16dd6e34" Description="Departure.DepShipLocandDockDoor - Change">
+			<OperationID>92</OperationID>
+		</AzOperation>
+		<AzOperation Guid="d727cea5-ba92-4297-851f-a138a011fc38" Name="d727cea5-ba92-4297-851f-a138a011fc38" Description="Departure.DepShipLocandDockDoor - Download Shipping Locations">
+			<OperationID>93</OperationID>
+		</AzOperation>
+		<AzOperation Guid="e51fa195-d4d2-432d-9fd2-f5a48ce856de" Name="e51fa195-d4d2-432d-9fd2-f5a48ce856de" Description="Departure.ModifyDeparture - OK">
+			<OperationID>94</OperationID>
+		</AzOperation>
+		<AzOperation Guid="e87df952-571d-4ad9-b21d-692a86326198" Name="e87df952-571d-4ad9-b21d-692a86326198" Description="Departure.ModifyDepartureNode - OK">
+			<OperationID>95</OperationID>
+		</AzOperation>
+		<AzOperation Guid="19543b77-0566-4bf9-b46d-1e9aa31b5007" Name="19543b77-0566-4bf9-b46d-1e9aa31b5007" Description="Departure.ModifyDepShipandDockDoor - OK">
+			<OperationID>96</OperationID>
+		</AzOperation>
+		<AzOperation Guid="fd0a02ce-c606-4d8f-804d-d92ca599d5ed" Name="fd0a02ce-c606-4d8f-804d-d92ca599d5ed" Description="Departure.ModifyTransportConditionForNode - OK">
+			<OperationID>97</OperationID>
+		</AzOperation>
+		<AzOperation Guid="ecd11c09-1b91-456d-bdc4-4457e69a8839" Name="ecd11c09-1b91-456d-bdc4-4457e69a8839" Description="DepartureHistory.DepartureHistory - Show Ship-to Node">
+			<OperationID>98</OperationID>
+		</AzOperation>
+		<AzOperation Guid="e6bc0959-e5ca-4bff-9528-2010ca31295b" Name="e6bc0959-e5ca-4bff-9528-2010ca31295b" Description="Forwarder.CreateForwarder - OK">
+			<OperationID>99</OperationID>
+		</AzOperation>
+		<AzOperation Guid="ea51d0eb-2bab-4a65-bbd6-016deb95d57a" Name="ea51d0eb-2bab-4a65-bbd6-016deb95d57a" Description="Forwarder.Forwarder - New Forwarder">
+			<OperationID>100</OperationID>
+		</AzOperation>
+		<AzOperation Guid="1aa2293c-dbcc-4edc-b032-1b2c1b6cd907" Name="1aa2293c-dbcc-4edc-b032-1b2c1b6cd907" Description="Forwarder.Forwarder - Change Forwarder">
+			<OperationID>101</OperationID>
+		</AzOperation>
+		<AzOperation Guid="c85010e8-b85b-4545-89a4-9e49a769dea2" Name="c85010e8-b85b-4545-89a4-9e49a769dea2" Description="Forwarder.Forwarder - Delete Forwarder">
+			<OperationID>102</OperationID>
+		</AzOperation>
+		<AzOperation Guid="aa38b076-9fbe-4b95-822d-41ba67f4d8a8" Name="aa38b076-9fbe-4b95-822d-41ba67f4d8a8" Description="Forwarder.ModifyForwarder - OK">
+			<OperationID>103</OperationID>
+		</AzOperation>
+		<AzOperation Guid="817a8bf7-d486-4661-85ec-c5d92901914f" Name="817a8bf7-d486-4661-85ec-c5d92901914f" Description="MethodOfShipment.CreateMethodOfShipment - OK">
+			<OperationID>104</OperationID>
+		</AzOperation>
+		<AzOperation Guid="02eb8184-786f-48a0-ba3e-b3d60ea7804b" Name="02eb8184-786f-48a0-ba3e-b3d60ea7804b" Description="MethodOfShipment.MethodOfShipment - New Method of Shipment">
+			<OperationID>105</OperationID>
+		</AzOperation>
+		<AzOperation Guid="e24563de-658e-44f4-bc18-b9fdea520be3" Name="e24563de-658e-44f4-bc18-b9fdea520be3" Description="MethodOfShipment.MethodOfShipment - Change Method of Shipment">
+			<OperationID>106</OperationID>
+		</AzOperation>
+		<AzOperation Guid="111baef7-6f2c-47f7-a33b-11ce64bceb19" Name="111baef7-6f2c-47f7-a33b-11ce64bceb19" Description="MethodOfShipment.MethodOfShipment - Delete Method of Shipment">
+			<OperationID>107</OperationID>
+		</AzOperation>
+		<AzOperation Guid="5a2eb900-64d9-4f53-834b-b31e5abf51d9" Name="5a2eb900-64d9-4f53-834b-b31e5abf51d9" Description="MethodOfShipment.ModifyMethodOfShipment - OK">
+			<OperationID>108</OperationID>
+		</AzOperation>
+		<AzOperation Guid="9bc296c5-f065-4283-a333-a6702399d99e" Name="9bc296c5-f065-4283-a333-a6702399d99e" Description="Node.CreateNode - OK">
+			<OperationID>109</OperationID>
+		</AzOperation>
+		<AzOperation Guid="db2e9576-2e8e-4b40-af93-e08e78e2696f" Name="db2e9576-2e8e-4b40-af93-e08e78e2696f" Description="Node.ModifyNode - OK">
+			<OperationID>110</OperationID>
+		</AzOperation>
+		<AzOperation Guid="75619c26-395a-41b5-a9e3-02a6e7469a9e" Name="75619c26-395a-41b5-a9e3-02a6e7469a9e" Description="Node.ModifyNodeDeparturePlanningTimes - OK">
+			<OperationID>111</OperationID>
+		</AzOperation>
+		<AzOperation Guid="4fb5f860-eb3f-42f6-afb7-1cc646b794d9" Name="4fb5f860-eb3f-42f6-afb7-1cc646b794d9" Description="Node.Node - Change Departure Planning Times">
+			<OperationID>112</OperationID>
+		</AzOperation>
+		<AzOperation Guid="2cf3474f-ee1b-4c83-bc28-f427f21d364d" Name="2cf3474f-ee1b-4c83-bc28-f427f21d364d" Description="Node.Node - Change Node">
+			<OperationID>113</OperationID>
+		</AzOperation>
+		<AzOperation Guid="233146e0-da71-4326-8b11-35f7c48b578c" Name="233146e0-da71-4326-8b11-35f7c48b578c" Description="Node.Node - New Node">
+			<OperationID>114</OperationID>
+		</AzOperation>
+		<AzOperation Guid="2e788832-8f4e-4bbb-8ef6-63b83affa709" Name="2e788832-8f4e-4bbb-8ef6-63b83affa709" Description="Node.Node - Delete Node">
+			<OperationID>115</OperationID>
+		</AzOperation>
+		<AzOperation Guid="d9580d3d-d7e1-4995-b618-58e195eaf7f0" Name="d9580d3d-d7e1-4995-b618-58e195eaf7f0" Description="NodeConversion.CreateNodeConversion - OK">
+			<OperationID>116</OperationID>
+		</AzOperation>
+		<AzOperation Guid="74937fe1-4998-41de-8aaf-6daf91e2678a" Name="74937fe1-4998-41de-8aaf-6daf91e2678a" Description="NodeConversion.ModifyNodeConversion - OK">
+			<OperationID>117</OperationID>
+		</AzOperation>
+		<AzOperation Guid="bb1109ff-dd20-4cc5-87a3-bf05dce9d1f5" Name="bb1109ff-dd20-4cc5-87a3-bf05dce9d1f5" Description="NodeConversion.NodeConversion - New Node Conversion">
+			<OperationID>118</OperationID>
+		</AzOperation>
+		<AzOperation Guid="bc619a9a-8786-4a09-afff-0c893ca61989" Name="bc619a9a-8786-4a09-afff-0c893ca61989" Description="NodeConversion.NodeConversion - Change Node Conversion">
+			<OperationID>119</OperationID>
+		</AzOperation>
+		<AzOperation Guid="4e17705e-8df3-4375-86f6-76399e9947d6" Name="4e17705e-8df3-4375-86f6-76399e9947d6" Description="NodeConversion.NodeConversion - Delete Node Conversion">
+			<OperationID>120</OperationID>
+		</AzOperation>
+		<AzOperation Guid="d29994a6-619e-4bd4-9a79-fbd3054c600b" Name="d29994a6-619e-4bd4-9a79-fbd3054c600b" Description="Route.CreateNewRoute - OK">
+			<OperationID>121</OperationID>
+		</AzOperation>
+		<AzOperation Guid="859d012d-f504-41a8-8736-26c1f9bea5e3" Name="859d012d-f504-41a8-8736-26c1f9bea5e3" Description="Route.CreateShipToNode - OK">
+			<OperationID>122</OperationID>
+		</AzOperation>
+		<AzOperation Guid="b2588b24-ad98-4b49-8520-6b0a5f255f3a" Name="b2588b24-ad98-4b49-8520-6b0a5f255f3a" Description="Route.CreateTransportCondition - OK">
+			<OperationID>123</OperationID>
+		</AzOperation>
+		<AzOperation Guid="7932e161-8a7a-49f3-9ae9-02b31eb20ba6" Name="7932e161-8a7a-49f3-9ae9-02b31eb20ba6" Description="Route.ModifyRoute - OK">
+			<OperationID>124</OperationID>
+		</AzOperation>
+		<AzOperation Guid="0340e4d6-2dcd-43e3-853c-0eb6bc00a032" Name="0340e4d6-2dcd-43e3-853c-0eb6bc00a032" Description="Route.ModifyShipLocAndDockDoor - OK">
+			<OperationID>125</OperationID>
+		</AzOperation>
+		<AzOperation Guid="4911b8c8-b015-4f97-8362-55b3d2f64fb4" Name="4911b8c8-b015-4f97-8362-55b3d2f64fb4" Description="Route.ModifyShipToNode - OK">
+			<OperationID>126</OperationID>
+		</AzOperation>
+		<AzOperation Guid="dee779a7-257b-45a1-9904-28f423bd923c" Name="dee779a7-257b-45a1-9904-28f423bd923c" Description="Route.ModifyTransportConditionForNode - OK">
+			<OperationID>127</OperationID>
+		</AzOperation>
+		<AzOperation Guid="1c6ee0c0-3ed9-4951-a0a4-f3e85192b599" Name="1c6ee0c0-3ed9-4951-a0a4-f3e85192b599" Description="Route.Route - Show Transport Condition">
+			<OperationID>128</OperationID>
+		</AzOperation>
+		<AzOperation Guid="cb51cfe3-5916-4faa-bcff-896ca487c3ed" Name="cb51cfe3-5916-4faa-bcff-896ca487c3ed" Description="Route.Route - New Route">
+			<OperationID>129</OperationID>
+		</AzOperation>
+		<AzOperation Guid="5f75d231-46c3-4de6-a55f-e977a76bc808" Name="5f75d231-46c3-4de6-a55f-e977a76bc808" Description="Route.Route - Change Route">
+			<OperationID>130</OperationID>
+		</AzOperation>
+		<AzOperation Guid="8d7b7230-a5d4-44fb-9655-871747888c39" Name="8d7b7230-a5d4-44fb-9655-871747888c39" Description="Route.Route - Delete Route">
+			<OperationID>131</OperationID>
+		</AzOperation>
+		<AzOperation Guid="549a8e31-3a14-4b49-bc8b-f5558757808c" Name="549a8e31-3a14-4b49-bc8b-f5558757808c" Description="Route.Route - Show Ship-to Node">
+			<OperationID>132</OperationID>
+		</AzOperation>
+		<AzOperation Guid="8706043f-ca82-4f54-ba52-23846c344228" Name="8706043f-ca82-4f54-ba52-23846c344228" Description="Route.RouteConnectTransitNode - OK">
+			<OperationID>133</OperationID>
+		</AzOperation>
+		<AzOperation Guid="c50a4dbf-7e23-4486-88b8-6f9657f1271a" Name="c50a4dbf-7e23-4486-88b8-6f9657f1271a" Description="Route.RouteShiptoNode - New Ship-to Node">
+			<OperationID>134</OperationID>
+		</AzOperation>
+		<AzOperation Guid="a42b76ab-f25e-4685-a575-bf9f3ced2ab2" Name="a42b76ab-f25e-4685-a575-bf9f3ced2ab2" Description="Route.RouteShiptoNode - Delete Ship-to Node">
+			<OperationID>135</OperationID>
+		</AzOperation>
+		<AzOperation Guid="aaba4d52-75da-4434-9f2f-2ccf10e1ce45" Name="aaba4d52-75da-4434-9f2f-2ccf10e1ce45" Description="Route.RouteShiptoNode - Change Ship-to Node">
+			<OperationID>136</OperationID>
+		</AzOperation>
+		<AzOperation Guid="2703c946-62c5-46b5-8aa8-13be60796316" Name="2703c946-62c5-46b5-8aa8-13be60796316" Description="Route.RouteShiptoNode - Move Up">
+			<OperationID>137</OperationID>
+		</AzOperation>
+		<AzOperation Guid="369b98a4-5e30-4c7c-9788-fec2b3ca3fea" Name="369b98a4-5e30-4c7c-9788-fec2b3ca3fea" Description="Route.RouteShiptoNode - Move Down">
+			<OperationID>138</OperationID>
+		</AzOperation>
+		<AzOperation Guid="c185ddb3-bdfe-49f7-8a48-cd30b256311b" Name="c185ddb3-bdfe-49f7-8a48-cd30b256311b" Description="Route.RouteShiptoNode - Change Transport Condition">
+			<OperationID>139</OperationID>
+		</AzOperation>
+		<AzOperation Guid="cacb33c2-b93f-4372-8de9-0f1ee238bbfb" Name="cacb33c2-b93f-4372-8de9-0f1ee238bbfb" Description="Route.RouteShiptoNode - Connect Transit-to Node">
+			<OperationID>140</OperationID>
+		</AzOperation>
+		<AzOperation Guid="ccb14158-c9c3-4fe9-95de-e7e534057c88" Name="ccb14158-c9c3-4fe9-95de-e7e534057c88" Description="Route.RouteShiptoNode - Disconnect Transit-to Node">
+			<OperationID>141</OperationID>
+		</AzOperation>
+		<AzOperation Guid="de4300fe-49bf-459f-9e9f-a04b4675b62b" Name="de4300fe-49bf-459f-9e9f-a04b4675b62b" Description="Route.RouteTransportCondition - New Transport Condition">
+			<OperationID>142</OperationID>
+		</AzOperation>
+		<AzOperation Guid="6b802de7-32ac-4079-906e-5a39a3469fd8" Name="6b802de7-32ac-4079-906e-5a39a3469fd8" Description="Route.RouteTransportCondition - Change Transport Condition">
+			<OperationID>143</OperationID>
+		</AzOperation>
+		<AzOperation Guid="54a82b72-c878-429e-9879-2916161fcfd2" Name="54a82b72-c878-429e-9879-2916161fcfd2" Description="Route.RouteTransportCondition - Delete Transport Condition">
+			<OperationID>144</OperationID>
+		</AzOperation>
+		<AzOperation Guid="8a6e2604-0231-46b9-8626-44df65273fce" Name="8a6e2604-0231-46b9-8626-44df65273fce" Description="Route.ShipLocationandDockDoor - Change">
+			<OperationID>145</OperationID>
+		</AzOperation>
+		<AzOperation Guid="b4a32271-652b-474a-85a0-da92b7bd2f95" Name="b4a32271-652b-474a-85a0-da92b7bd2f95" Description="TransportCondition.CreateTransportCondition - OK">
+			<OperationID>146</OperationID>
+		</AzOperation>
+		<AzOperation Guid="0a6babf2-f648-4927-b6c3-ae671b9c84f9" Name="0a6babf2-f648-4927-b6c3-ae671b9c84f9" Description="TransportCondition.ModifyTransportCondition - OK">
+			<OperationID>147</OperationID>
+		</AzOperation>
+		<AzOperation Guid="b457827d-2eff-41ca-b908-06563c0f0323" Name="b457827d-2eff-41ca-b908-06563c0f0323" Description="TransportCondition.TransportCondition - New Transport Condition">
+			<OperationID>148</OperationID>
+		</AzOperation>
+		<AzOperation Guid="726930f1-7350-4ac0-8a0c-9d41afcab2ac" Name="726930f1-7350-4ac0-8a0c-9d41afcab2ac" Description="TransportCondition.TransportCondition - Change Transport Condition">
+			<OperationID>149</OperationID>
+		</AzOperation>
+		<AzOperation Guid="05351580-3440-42f6-854d-9e820ad6fc72" Name="05351580-3440-42f6-854d-9e820ad6fc72" Description="TransportCondition.TransportCondition - Delete Transport Condition">
+			<OperationID>150</OperationID>
+		</AzOperation>
+		<AzOperation Guid="028237bf-c149-48a7-aabf-78ff92a95ea7" Name="028237bf-c149-48a7-aabf-78ff92a95ea7" Description="TransportLoad.TransportLoad - Connect">
+			<OperationID>151</OperationID>
+		</AzOperation>
+		<AzOperation Guid="89963e6d-2074-4068-835e-cff022c786df" Name="89963e6d-2074-4068-835e-cff022c786df" Description="TransportLoad.TransportLoad - To Departure">
+			<OperationID>152</OperationID>
+		</AzOperation>
+		<AzOperation Guid="8e720494-a177-46f4-bfbd-8007f81fb655" Name="8e720494-a177-46f4-bfbd-8007f81fb655" Description="User.CreateUser - OK">
+			<OperationID>153</OperationID>
+		</AzOperation>
+		<AzOperation Guid="1b386984-5adb-4de3-a921-9a332a3ee14e" Name="1b386984-5adb-4de3-a921-9a332a3ee14e" Description="User.ModifyUser - OK">
+			<OperationID>154</OperationID>
+		</AzOperation>
+		<AzOperation Guid="ec343b14-df71-4d13-9280-60faecdf122b" Name="ec343b14-df71-4d13-9280-60faecdf122b" Description="User.User - New User">
+			<OperationID>155</OperationID>
+		</AzOperation>
+		<AzOperation Guid="fc8ee461-9ee0-4f1a-92f4-921fbcbbbbff" Name="fc8ee461-9ee0-4f1a-92f4-921fbcbbbbff" Description="User.User - Change User">
+			<OperationID>156</OperationID>
+		</AzOperation>
+		<AzOperation Guid="3e83daaa-a94d-477b-ac22-d31c6960620a" Name="3e83daaa-a94d-477b-ac22-d31c6960620a" Description="User.User - Delete User">
+			<OperationID>157</OperationID>
+		</AzOperation>
+		<AzOperation Guid="1b89f6af-40a2-4efc-b618-17037555042a" Name="1b89f6af-40a2-4efc-b618-17037555042a" Description="User.User - Change Accessible Nodes">
+			<OperationID>158</OperationID>
+		</AzOperation>
+		<AzOperation Guid="7b70320d-5bf4-46e0-8f39-a49cb4fae945" Name="7b70320d-5bf4-46e0-8f39-a49cb4fae945" Description="WeekTemplate.CreateRouteForWeekTemplate - OK">
+			<OperationID>159</OperationID>
+		</AzOperation>
+		<AzOperation Guid="dd4ebf82-7471-41fb-aee1-940ae9de7b1c" Name="dd4ebf82-7471-41fb-aee1-940ae9de7b1c" Description="WeekTemplate.CreateWeekTemplate - OK">
+			<OperationID>160</OperationID>
+		</AzOperation>
+		<AzOperation Guid="38de3296-b5d6-4b14-89e2-366838e0adb0" Name="38de3296-b5d6-4b14-89e2-366838e0adb0" Description="WeekTemplate.ModifyRouteForWeekTemplate - OK">
+			<OperationID>161</OperationID>
+		</AzOperation>
+		<AzOperation Guid="523b9092-9a09-44e3-84df-50c3ec7f8f6c" Name="523b9092-9a09-44e3-84df-50c3ec7f8f6c" Description="WeekTemplate.ModifyWeekTemplate - OK">
+			<OperationID>162</OperationID>
+		</AzOperation>
+		<AzOperation Guid="9bba196d-06be-457c-8366-d96e24fd3dd8" Name="9bba196d-06be-457c-8366-d96e24fd3dd8" Description="WeekTemplate.WeekTemplate - New Week Template">
+			<OperationID>163</OperationID>
+		</AzOperation>
+		<AzOperation Guid="1c40f82f-9b94-475c-a254-add24532c30b" Name="1c40f82f-9b94-475c-a254-add24532c30b" Description="WeekTemplate.WeekTemplate - Change Week Template">
+			<OperationID>164</OperationID>
+		</AzOperation>
+		<AzOperation Guid="fd03652b-d82d-4b77-8ff3-3885570d0e78" Name="fd03652b-d82d-4b77-8ff3-3885570d0e78" Description="WeekTemplate.WeekTemplate - Delete Week Template">
+			<OperationID>165</OperationID>
+		</AzOperation>
+		<AzOperation Guid="ee4d5f84-da85-458b-b415-fe1e1d0fefee" Name="ee4d5f84-da85-458b-b415-fe1e1d0fefee" Description="WeekTemplate.WeekTemplate - New Route">
+			<OperationID>166</OperationID>
+		</AzOperation>
+		<AzOperation Guid="a39b6cdb-3fa6-431a-87c0-d54977899055" Name="a39b6cdb-3fa6-431a-87c0-d54977899055" Description="WeekTemplate.WeekTemplate - Change Route">
+			<OperationID>167</OperationID>
+		</AzOperation>
+		<AzOperation Guid="9f607b6b-82db-4646-a498-2dfb3f760de9" Name="9f607b6b-82db-4646-a498-2dfb3f760de9" Description="WeekTemplate.WeekTemplate - Delete Route">
+			<OperationID>168</OperationID>
+		</AzOperation>
+		<AzOperation Guid="4cfd5586-7b36-4e65-885a-2662ff508391" Name="4cfd5586-7b36-4e65-885a-2662ff508391" Description="VehicleType.CreateVehicleLoad - OK">
+			<OperationID>169</OperationID>
+		</AzOperation>
+		<AzOperation Guid="2489992d-eff5-4e39-9729-d0684208c859" Name="2489992d-eff5-4e39-9729-d0684208c859" Description="VehicleType.ModifyVehicleLoad - OK">
+			<OperationID>170</OperationID>
+		</AzOperation>
+		<AzOperation Guid="f11b44d5-1525-4fb5-9dfd-9909ad7fbb4e" Name="f11b44d5-1525-4fb5-9dfd-9909ad7fbb4e" Description="VehicleType.VehicleType - New Capacity per Transport Condition">
+			<OperationID>171</OperationID>
+		</AzOperation>
+		<AzOperation Guid="b6107b80-6a5d-437c-9db4-72ae91083d29" Name="b6107b80-6a5d-437c-9db4-72ae91083d29" Description="VehicleType.VehicleType - Change Capacity per Transport Condition">
+			<OperationID>172</OperationID>
+		</AzOperation>
+		<AzOperation Guid="9bc6a8d3-19eb-46a9-bb30-e95b9602bb19" Name="9bc6a8d3-19eb-46a9-bb30-e95b9602bb19" Description="VehicleType.VehicleType - Delete Capacity per Transport Condition">
+			<OperationID>173</OperationID>
+		</AzOperation>
+		<AzOperation Guid="65930ff4-6f22-4dda-9440-ffd421efa84a" Name="65930ff4-6f22-4dda-9440-ffd421efa84a" Description="VehicleType.VehicleType - New Vehicle Type">
+			<OperationID>174</OperationID>
+		</AzOperation>
+		<AzOperation Guid="86e2721c-785b-4107-99ba-9daf1dc8e21f" Name="86e2721c-785b-4107-99ba-9daf1dc8e21f" Description="VehicleType.VehicleType - Change Vehicle Type">
+			<OperationID>175</OperationID>
+		</AzOperation>
+		<AzOperation Guid="c188f899-3025-446f-82e7-25b9e51905bc" Name="c188f899-3025-446f-82e7-25b9e51905bc" Description="VehicleType.VehicleType - Delete Vehicle Type">
+			<OperationID>176</OperationID>
+		</AzOperation>
+		<AzOperation Guid="5ad0d615-be44-4fca-b711-af4b2afee5bb" Name="5ad0d615-be44-4fca-b711-af4b2afee5bb" Description="VehicleType.VehicleTypeChange - OK">
+			<OperationID>177</OperationID>
+		</AzOperation>
+		<AzOperation Guid="060fa704-ea66-4526-832c-24c3ed33a202" Name="060fa704-ea66-4526-832c-24c3ed33a202" Description="VehicleType.VehicleTypeNew - OK">
+			<OperationID>178</OperationID>
+		</AzOperation>
+		<AzOperation Guid="a3f5f40d-9a6a-4282-9f73-2d7ec0bbe602" Name="a3f5f40d-9a6a-4282-9f73-2d7ec0bbe602" Description="Start Party">
+			<OperationID>179</OperationID>
+		</AzOperation>
+		<AzOperation Guid="67e22321-be50-42e7-8eea-574bdf8f974d" Name="67e22321-be50-42e7-8eea-574bdf8f974d" Description="Start Customer Order Type">
+			<OperationID>180</OperationID>
+		</AzOperation>
+		<AzOperation Guid="f2e585ce-1b5b-456d-866c-690df46f0ba7" Name="f2e585ce-1b5b-456d-866c-690df46f0ba7" Description="Start Vehicle Type">
+			<OperationID>181</OperationID>
+		</AzOperation>
+		<AzOperation Guid="b4efb58f-c8eb-46f8-807c-f8e5e6b28033" Name="b4efb58f-c8eb-46f8-807c-f8e5e6b28033" Description="Start Week Template">
+			<OperationID>182</OperationID>
+		</AzOperation>
+		<AzOperation Guid="ef445630-c255-4bd8-86ba-d7c63e009790" Name="ef445630-c255-4bd8-86ba-d7c63e009790" Description="Start Node Conversion">
+			<OperationID>183</OperationID>
+		</AzOperation>
+		<AzOperation Guid="2ac3d48a-a66a-4bfc-9012-c71d821535dc" Name="2ac3d48a-a66a-4bfc-9012-c71d821535dc" Description="Start Route Shipping Location/Dock Door">
+			<OperationID>184</OperationID>
+		</AzOperation>
+		<AzOperation Guid="edac1987-1640-44ef-8c58-ce06f2fdc690" Name="edac1987-1640-44ef-8c58-ce06f2fdc690" Description="Start Forwarder">
+			<OperationID>185</OperationID>
+		</AzOperation>
+		<AzOperation Guid="72f68bbf-592b-4c6e-aa23-03ac1b1364a0" Name="72f68bbf-592b-4c6e-aa23-03ac1b1364a0" Description="Start Route">
+			<OperationID>186</OperationID>
+		</AzOperation>
+		<AzOperation Guid="169b566c-ac0c-4de5-a117-277741f13e7d" Name="169b566c-ac0c-4de5-a117-277741f13e7d" Description="Start Transport Condition">
+			<OperationID>187</OperationID>
+		</AzOperation>
+		<AzOperation Guid="fe360861-a069-4a30-89c0-826784763884" Name="fe360861-a069-4a30-89c0-826784763884" Description="Start Method of Shipment">
+			<OperationID>188</OperationID>
+		</AzOperation>
+		<AzOperation Guid="9ebb2e50-e5e4-479d-abc4-e58f8f04a564" Name="9ebb2e50-e5e4-479d-abc4-e58f8f04a564" Description="Start Departure Shipping Location/Dock Door">
+			<OperationID>189</OperationID>
+		</AzOperation>
+		<AzOperation Guid="f833c22d-f4cc-4207-82dc-89f30d2edb70" Name="f833c22d-f4cc-4207-82dc-89f30d2edb70" Description="Start Change User Settings">
+			<OperationID>190</OperationID>
+		</AzOperation>
+		<AzOperation Guid="8e519945-e9ae-440b-b4ce-69ac92099e3e" Name="8e519945-e9ae-440b-b4ce-69ac92099e3e" Description="Start Node">
+			<OperationID>191</OperationID>
+		</AzOperation>
+		<AzOperation Guid="ce2b4675-3140-4365-9e36-c7b9680f6265" Name="ce2b4675-3140-4365-9e36-c7b9680f6265" Description="Start User Change History">
+			<OperationID>192</OperationID>
+		</AzOperation>
+		<AzOperation Guid="e42f424e-2a68-4ce1-9a72-b41c97769adc" Name="e42f424e-2a68-4ce1-9a72-b41c97769adc" Description="Start User Logon History">
+			<OperationID>193</OperationID>
+		</AzOperation>
+		<AzOperation Guid="687cc9a2-1be3-457d-81d5-08afdc914dcc" Name="687cc9a2-1be3-457d-81d5-08afdc914dcc" Description="Start Departure History">
+			<OperationID>194</OperationID>
+		</AzOperation>
+		<AzOperation Guid="1f7856ec-3f2f-4a2f-b1f5-10ddb9506d82" Name="1f7856ec-3f2f-4a2f-b1f5-10ddb9506d82" Description="Start Alarm">
+			<OperationID>195</OperationID>
+		</AzOperation>
+		<AzOperation Guid="399d0791-c7ed-4f1f-a96f-f773b6c625f3" Name="399d0791-c7ed-4f1f-a96f-f773b6c625f3" Description="Start Set of Conversion Units">
+			<OperationID>196</OperationID>
+		</AzOperation>
+		<AzOperation Guid="9d5d613a-6763-443d-8179-1e5287726131" Name="9d5d613a-6763-443d-8179-1e5287726131" Description="Start Configure System">
+			<OperationID>197</OperationID>
+		</AzOperation>
+		<AzOperation Guid="abfe7fd3-ec2d-4b09-8352-32992c9872c8" Name="abfe7fd3-ec2d-4b09-8352-32992c9872c8" Description="Start Alarm Group">
+			<OperationID>198</OperationID>
+		</AzOperation>
+		<AzOperation Guid="f3c7b95a-1042-4080-af11-48e0f0c30406" Name="f3c7b95a-1042-4080-af11-48e0f0c30406" Description="Start Attribute">
+			<OperationID>199</OperationID>
+		</AzOperation>
+		<AzOperation Guid="04dd5060-10e9-4a4d-b302-0960c6002568" Name="04dd5060-10e9-4a4d-b302-0960c6002568" Description="Start User">
+			<OperationID>200</OperationID>
+		</AzOperation>
+		<AzOperation Guid="727b2860-a2c0-4684-b39f-32a46cb405e0" Name="727b2860-a2c0-4684-b39f-32a46cb405e0" Description="Start Conversion Units">
+			<OperationID>201</OperationID>
+		</AzOperation>
+		<AzOperation Guid="5873f1d4-8cfd-40c8-8ae8-3c25133e879d" Name="5873f1d4-8cfd-40c8-8ae8-3c25133e879d" Description="Start Transport Load">
+			<OperationID>202</OperationID>
+		</AzOperation>
+		<AzOperation Guid="159f2f37-df8c-498d-9605-089a7ed068ff" Name="159f2f37-df8c-498d-9605-089a7ed068ff" Description="Start Departure">
+			<OperationID>203</OperationID>
+		</AzOperation>
+		<AzTask Guid="0e523e95-ef02-4cc4-9749-9fc4ce6e5782" Name="Alarm.ConfigureAlarm" Description="Configure Alarm" BizRuleImportedPath="">
+			<OperationLink>f7008c3c-8f7b-49a7-afff-f6ae4463b660</OperationLink>
+			<OperationLink>1f7856ec-3f2f-4a2f-b1f5-10ddb9506d82</OperationLink>
+		</AzTask>
+		<AzTask Guid="1fd94275-8533-4a04-b0ac-be7b993835bd" Name="Alarm.CreateAlarm" Description="New Alarm" BizRuleImportedPath="">
+			<OperationLink>11ee5a1a-9318-480d-9040-dfc52beb0539</OperationLink>
+			<OperationLink>248a13d4-9abe-4ad4-a749-c27354f2a59e</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+		</AzTask>
+		<AzTask Guid="f76c644f-28dd-4d2d-9747-cb3ceb252a67" Name="Alarm.ModifyAlarm" Description="Change Alarm" BizRuleImportedPath="">
+			<OperationLink>d51c0d85-12fb-4816-8a80-f403ef7c2f94</OperationLink>
+			<OperationLink>1937d031-1239-4130-8d3b-9123ccb431d2</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+		</AzTask>
+		<AzTask Guid="bec121d1-9e88-48be-89c8-ca80b08f77f1" Name="Alarm.ModifyAlarmTranslation" Description="Change Translation of Alarm Text" BizRuleImportedPath="">
+			<OperationLink>87931618-ada8-4491-a8a9-f8f0165f00fc</OperationLink>
+			<OperationLink>aff0b3a3-32d3-446d-8a33-ad28248b0fb5</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+		</AzTask>
+		<AzTask Guid="1860b73d-b5a8-4afa-be99-96adb0d54963" Name="Alarm.ShowAlarmText" Description="View Alarm Text" BizRuleImportedPath="">
+			<OperationLink>195ae967-bc69-4cc3-a73b-fd5a7eca8850</OperationLink>
+			<OperationLink>d35097a3-32ff-456f-b384-f35972e19b20</OperationLink>
+		</AzTask>
+		<AzTask Guid="03b61d65-4816-4f07-adbc-43036207544b" Name="Alarm" Description="Alarm Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>0e523e95-ef02-4cc4-9749-9fc4ce6e5782</TaskLink>
+			<TaskLink>1fd94275-8533-4a04-b0ac-be7b993835bd</TaskLink>
+			<TaskLink>f76c644f-28dd-4d2d-9747-cb3ceb252a67</TaskLink>
+			<TaskLink>bec121d1-9e88-48be-89c8-ca80b08f77f1</TaskLink>
+			<TaskLink>1860b73d-b5a8-4afa-be99-96adb0d54963</TaskLink>
+		</AzTask>
+		<AzTask Guid="699ed1ab-a0f8-432c-83c7-1a5137652c78" Name="AlarmGroup.AlarmGroup" Description="Configure Alarm Group" BizRuleImportedPath="">
+			<OperationLink>009ec59e-1839-41eb-9be5-1d9c53726b89</OperationLink>
+			<OperationLink>f389b5ff-1bfd-4dfb-8d68-c18fb3186962</OperationLink>
+			<OperationLink>abfe7fd3-ec2d-4b09-8352-32992c9872c8</OperationLink>
+		</AzTask>
+		<AzTask Guid="0c06dd9d-7148-431f-8285-618f0e80861e" Name="AlarmGroup.CreateAlarmGroup" Description="New Alarm Group" BizRuleImportedPath="">
+			<OperationLink>b1cab11d-9838-49a8-8509-5c47482953c3</OperationLink>
+			<OperationLink>227f12e4-f686-4a04-a2bb-68accc36322b</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+		</AzTask>
+		<AzTask Guid="b30d020b-c717-433a-a43a-55693dcba629" Name="AlarmGroup.CreateAlarmReceiver" Description="New Mail Receiver" BizRuleImportedPath="">
+			<OperationLink>cc9cb769-6ad7-48c8-9af1-b3481b8587d7</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>9c376ba4-0c41-4582-806f-8f8366b3dd4a</OperationLink>
+		</AzTask>
+		<AzTask Guid="01d73b2d-9187-4094-86e9-b373caec5e66" Name="AlarmGroup.ModifyAlarmGroup" Description="Change Alarm Group" BizRuleImportedPath="">
+			<OperationLink>a137d5d8-b466-43b8-84d2-2162a22aa18b</OperationLink>
+			<OperationLink>be165bfd-7228-46fc-a73c-4d8363c1d861</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+		</AzTask>
+		<AzTask Guid="ca37e069-b868-42ef-a373-c8856d2544e2" Name="AlarmGroup" Description="AlarmGroup Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>699ed1ab-a0f8-432c-83c7-1a5137652c78</TaskLink>
+			<TaskLink>0c06dd9d-7148-431f-8285-618f0e80861e</TaskLink>
+			<TaskLink>b30d020b-c717-433a-a43a-55693dcba629</TaskLink>
+			<TaskLink>01d73b2d-9187-4094-86e9-b373caec5e66</TaskLink>
+		</AzTask>
+		<AzTask Guid="edb91e5c-10e5-45e5-98de-cde70c9e0ac1" Name="Attribute.Attribute" Description="Attribute" BizRuleImportedPath="">
+			<OperationLink>4fb21253-d25f-43d2-8e11-22b6f2c00249</OperationLink>
+			<OperationLink>a791d0fe-76e3-43c7-8370-2906d7ee1df2</OperationLink>
+			<OperationLink>f3c7b95a-1042-4080-af11-48e0f0c30406</OperationLink>
+		</AzTask>
+		<AzTask Guid="8a6c66ca-abcd-4cbc-afce-faa5c69508be" Name="Attribute.CreateAttribute" Description="New Attribute" BizRuleImportedPath="">
+			<OperationLink>12baaef4-880f-468a-ae17-97921ead71eb</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>c39b13a4-1273-477a-9e8c-455efa8474e4</OperationLink>
+		</AzTask>
+		<AzTask Guid="2b9cca8e-a3db-45e0-b57b-3210ceb6c58b" Name="Attribute.CreateAttributeCode" Description="New Code" BizRuleImportedPath="">
+			<OperationLink>23f80159-e7b9-4540-a426-d4a18f29488f</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>71b5a68b-990b-42e2-8bd0-6377acf49346</OperationLink>
+		</AzTask>
+		<AzTask Guid="e9e3ba1f-9049-407b-8689-315c2bbdfb2d" Name="Attribute.ModifyAttribute" Description="Change Attribute" BizRuleImportedPath="">
+			<OperationLink>33ce742c-5342-4ff7-bc9b-533982890817</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>f2752d81-93af-4bfa-8297-14f8b957a54c</OperationLink>
+		</AzTask>
+		<AzTask Guid="96408cf6-f63b-494a-9e93-8a1dc09a13ce" Name="Attribute.ModifyAttributeCode" Description="Change Code" BizRuleImportedPath="">
+			<OperationLink>7b315534-f6b2-4af7-91fb-9679006c85b4</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>8145a378-a03e-4010-8830-ec4e27400534</OperationLink>
+		</AzTask>
+		<AzTask Guid="cf819dff-1f04-4198-8c1b-4fc988e5bc32" Name="Attribute" Description="Attribute Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>edb91e5c-10e5-45e5-98de-cde70c9e0ac1</TaskLink>
+			<TaskLink>8a6c66ca-abcd-4cbc-afce-faa5c69508be</TaskLink>
+			<TaskLink>2b9cca8e-a3db-45e0-b57b-3210ceb6c58b</TaskLink>
+			<TaskLink>e9e3ba1f-9049-407b-8689-315c2bbdfb2d</TaskLink>
+			<TaskLink>96408cf6-f63b-494a-9e93-8a1dc09a13ce</TaskLink>
+		</AzTask>
+		<AzTask Guid="0534570a-6db8-4202-9206-99f9bd56d77d" Name="Configuration.ModifyProcess" Description="Change UNIX Process" BizRuleImportedPath="">
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>fa398ee3-5e17-4a1a-b1bb-6f418efcfc2d</OperationLink>
+			<OperationLink>92de0089-03d2-44a4-a321-e78ca78a6eed</OperationLink>
+		</AzTask>
+		<AzTask Guid="505c4f8a-a7d6-483f-9000-90b98fc45223" Name="Configuration.ModifySystemConfiguration" Description="Change System Configuration" BizRuleImportedPath="">
+			<OperationLink>c8985ca0-9f2d-406d-a4e5-8fa911559b78</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>3edc1bd7-de5c-4371-9967-b5d046fa688f</OperationLink>
+		</AzTask>
+		<AzTask Guid="8f58f41e-5fa2-4e21-b682-d5856c3014d1" Name="Configuration.Process" Description="Configure Process" BizRuleImportedPath="">
+		</AzTask>
+		<AzTask Guid="5c2f395e-65ec-4187-a49b-079bf9c29e83" Name="Configuration.SystemConfiguration" Description="Configure System" BizRuleImportedPath="">
+			<OperationLink>9d5d613a-6763-443d-8179-1e5287726131</OperationLink>
+		</AzTask>
+		<AzTask Guid="1bfd7b88-62a4-499b-ba56-bbfae328e775" Name="Configuration" Description="Configuration Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>0534570a-6db8-4202-9206-99f9bd56d77d</TaskLink>
+			<TaskLink>505c4f8a-a7d6-483f-9000-90b98fc45223</TaskLink>
+			<TaskLink>8f58f41e-5fa2-4e21-b682-d5856c3014d1</TaskLink>
+			<TaskLink>5c2f395e-65ec-4187-a49b-079bf9c29e83</TaskLink>
+		</AzTask>
+		<AzTask Guid="81e41289-f4e1-45d2-a12f-b3a5ed3e5066" Name="ConversionUnit.ConversionUnit" Description="Conversion Units" BizRuleImportedPath="">
+			<OperationLink>e2b3d40d-b1cd-42f5-a33f-d0f6814cc367</OperationLink>
+			<OperationLink>727b2860-a2c0-4684-b39f-32a46cb405e0</OperationLink>
+		</AzTask>
+		<AzTask Guid="465ef7ca-d0cb-47bb-997c-491dd0609802" Name="ConversionUnit.ConversionUnitSet" Description="Set of Conversion Units" BizRuleImportedPath="">
+			<OperationLink>5b6938d0-f7ba-4b58-b49a-501fa2fae05a</OperationLink>
+			<OperationLink>399d0791-c7ed-4f1f-a96f-f773b6c625f3</OperationLink>
+		</AzTask>
+		<AzTask Guid="3dbc7e3c-dfda-477d-a469-55f536bf29f2" Name="ConversionUnit.CreateConversionUnit" Description="New Conversion Unit" BizRuleImportedPath="">
+			<OperationLink>292c0611-1c1f-455e-bdfe-e240e20e6938</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>9251590d-32a0-42c0-9267-6deda771c148</OperationLink>
+		</AzTask>
+		<AzTask Guid="901c30f9-6b6a-491e-a0e0-98113eee53fb" Name="ConversionUnit.CreateConversionUnitSet" Description="New Set of Conversion Units" BizRuleImportedPath="">
+			<OperationLink>726e38dd-c204-4235-bfd7-000f27a5c25c</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>3435bd16-aeda-4601-82a7-60caf235e3dd</OperationLink>
+		</AzTask>
+		<AzTask Guid="d63b6cbf-f96d-400d-8bd0-735303603296" Name="ConversionUnit.ModifyConversionUnit" Description="Change Conversion Unit" BizRuleImportedPath="">
+			<OperationLink>bb0c0247-aca9-4f2b-a749-03caa160ddd7</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>42a36c9e-5d23-448a-8d64-151d4664d916</OperationLink>
+		</AzTask>
+		<AzTask Guid="541883d4-b4e0-409d-8eab-2a004eab4bdc" Name="ConversionUnit.ModifyConversionUnitSet" Description="Change Set of Conversion Units" BizRuleImportedPath="">
+			<OperationLink>b051139d-cd6b-4d24-934e-89070a3e964f</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>a5be1678-51c2-4802-ad78-8eba7582dbb5</OperationLink>
+		</AzTask>
+		<AzTask Guid="11049617-2dbc-4cea-8c1c-54c1fd2d2ecd" Name="ConversionUnit" Description="ConversionUnit Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>81e41289-f4e1-45d2-a12f-b3a5ed3e5066</TaskLink>
+			<TaskLink>465ef7ca-d0cb-47bb-997c-491dd0609802</TaskLink>
+			<TaskLink>3dbc7e3c-dfda-477d-a469-55f536bf29f2</TaskLink>
+			<TaskLink>901c30f9-6b6a-491e-a0e0-98113eee53fb</TaskLink>
+			<TaskLink>d63b6cbf-f96d-400d-8bd0-735303603296</TaskLink>
+			<TaskLink>541883d4-b4e0-409d-8eab-2a004eab4bdc</TaskLink>
+		</AzTask>
+		<AzTask Guid="70b2396d-da89-4f7b-85cf-f046f337decb" Name="CustomerOrderType.ConfigureMoSForCustomerOrderType" Description="Configure Accessible Methods of Shipment" BizRuleImportedPath="">
+			<OperationLink>d35097a3-32ff-456f-b384-f35972e19b20</OperationLink>
+			<OperationLink>49e54b52-6b5f-47cb-8f71-7087511fbdff</OperationLink>
+		</AzTask>
+		<AzTask Guid="5178af6e-5b81-4538-9b18-b2ed7774d328" Name="CustomerOrderType.CreateCustomerOrderType" Description="New Customer Order Type" BizRuleImportedPath="">
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>3b8a7fdb-623b-4924-886e-9c4b5e961a48</OperationLink>
+			<OperationLink>be7345b7-a60d-4c14-be2a-669f66ad31a1</OperationLink>
+		</AzTask>
+		<AzTask Guid="6a43de5d-43c9-4341-8b46-a02aa4b9c9ce" Name="CustomerOrderType.CustomerOrderType" Description="Customer Order Type" BizRuleImportedPath="">
+			<OperationLink>00bc270c-7665-4f52-8f0c-4cd8c2b1dcbb</OperationLink>
+			<OperationLink>67e22321-be50-42e7-8eea-574bdf8f974d</OperationLink>
+		</AzTask>
+		<AzTask Guid="1da3cc02-1e8f-42ac-8738-cc5fd4db435d" Name="CustomerOrderType.CustomerOrderTypeClient" Description="Methods of Shipment for Client" BizRuleImportedPath="">
+			<OperationLink>ba8cd9b4-5bf3-4658-a352-e6d21218a256</OperationLink>
+			<OperationLink>c78ac82f-7e2f-4674-8782-968cb3e673fd</OperationLink>
+			<OperationLink>255cffec-bd11-4456-87d5-368ccc61316a</OperationLink>
+		</AzTask>
+		<AzTask Guid="d26fe5f7-e9d5-4e63-b481-f1a3a69ef479" Name="CustomerOrderType.ModifyCustomerOrderType" Description="Change Customer Order Type" BizRuleImportedPath="">
+			<OperationLink>bb1c873e-bd9b-42fa-9765-709845978bc3</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>66c23f45-9088-40a8-9d02-946c7349c0fb</OperationLink>
+		</AzTask>
+		<AzTask Guid="f01c2ac5-4d43-4af0-9b37-1cf35b26a65f" Name="CustomerOrderType" Description="CustomerOrderType Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>70b2396d-da89-4f7b-85cf-f046f337decb</TaskLink>
+			<TaskLink>5178af6e-5b81-4538-9b18-b2ed7774d328</TaskLink>
+			<TaskLink>6a43de5d-43c9-4341-8b46-a02aa4b9c9ce</TaskLink>
+			<TaskLink>1da3cc02-1e8f-42ac-8738-cc5fd4db435d</TaskLink>
+			<TaskLink>d26fe5f7-e9d5-4e63-b481-f1a3a69ef479</TaskLink>
+		</AzTask>
+		<AzTask Guid="83d31b4a-3265-4199-a5b2-6b90cacd3a89" Name="Departure.CreateDeparture" Description="New Departure" BizRuleImportedPath="">
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>6210b0ff-06c2-43fe-8ac0-1f5db51bbef1</OperationLink>
+			<OperationLink>2a6d18f3-6669-418c-954b-7f71e9b69669</OperationLink>
+		</AzTask>
+		<AzTask Guid="5c9b465f-e1dc-4a76-8931-770dc8b002c5" Name="Departure.CreateDepartureGenerate" Description="Generate Departure" BizRuleImportedPath="">
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>09c1baca-f95e-4a8f-99b0-d0986465f5b4</OperationLink>
+		</AzTask>
+		<AzTask Guid="14fa07cd-8de8-4636-8ce6-9a3c5c60abcf" Name="Departure.CreateDepartureNode" Description="New Ship-to Node" BizRuleImportedPath="">
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>b867a712-ff9d-4f49-8a00-e99d8e04bf2a</OperationLink>
+			<OperationLink>3d18a29c-0b6a-4f18-89a7-b356d8d64643</OperationLink>
+		</AzTask>
+		<AzTask Guid="7ba37ce5-1ac0-47ab-bdb3-6d725858f210" Name="Departure.CreateTransportCondition" Description="New Transport Condition" BizRuleImportedPath="">
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>2b324857-a81c-49ec-8f84-720f3eb8189d</OperationLink>
+			<OperationLink>7631f66e-f7da-4d9f-90cc-efbd91ee0bb8</OperationLink>
+		</AzTask>
+		<AzTask Guid="3f7175b0-6238-4017-8af2-88a27d441023" Name="Departure.Departure" Description="Departure" BizRuleImportedPath="">
+			<OperationLink>5c64c522-fe33-44af-b6a1-d95ee869bbcb</OperationLink>
+			<OperationLink>3439ec04-1ad4-4d21-a656-fc377fd5c572</OperationLink>
+			<OperationLink>3746e9d6-df6d-48ba-96d7-204c3ff531e0</OperationLink>
+			<OperationLink>89963e6d-2074-4068-835e-cff022c786df</OperationLink>
+			<OperationLink>159f2f37-df8c-498d-9605-089a7ed068ff</OperationLink>
+		</AzTask>
+		<AzTask Guid="8c8dfe94-1359-4a01-8592-8afda4109ca4" Name="Departure.DepartureConnectLoad" Description="Connect Transport Load" BizRuleImportedPath="">
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>c617bfb2-68e2-4d1a-b855-2e9a90bbc44b</OperationLink>
+			<OperationLink>e7719380-2b63-4955-b657-ac22466bcf49</OperationLink>
+		</AzTask>
+		<AzTask Guid="60d8377c-181d-4616-b070-7581ef7c8fa9" Name="Departure.DepartureConnectLoadForTransportCondition" Description="Connect Transport Load for Transport Condition" BizRuleImportedPath="">
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>aad74ce0-7d40-4bfa-a33e-4e19bc9f2eec</OperationLink>
+			<OperationLink>e37b0f5f-fd81-4e9b-a987-ddec1dd6e1b8</OperationLink>
+		</AzTask>
+		<AzTask Guid="0a62b261-c368-4b52-94f3-6406d08d29d5" Name="Departure.DepartureConnectNode" Description="Connect Ship-to Node" BizRuleImportedPath="">
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>e0010b92-68bf-4f17-9c50-133db01c145d</OperationLink>
+			<OperationLink>91f6a243-e73f-4857-86d7-cfab02ab08a3</OperationLink>
+		</AzTask>
+		<AzTask Guid="c1163d95-669a-43cd-8c1b-08147b531ee6" Name="Departure.DepartureConnectTransitNode" Description="Connect Transit-to Node" BizRuleImportedPath="">
+			<OperationLink>bfb941a3-bc54-4663-a25e-c450b423f75a</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>085c1c8c-0174-4f40-a328-238efe819606</OperationLink>
+		</AzTask>
+		<AzTask Guid="0abc8784-c9ad-42a6-b954-e1ebda8ff749" Name="Departure.DepartureDisconnectNode" Description="Disconnect Ship-to Node" BizRuleImportedPath="">
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>cd37f2fe-21f9-411d-9bc2-ae8327ef89f7</OperationLink>
+			<OperationLink>e3ea731a-2eeb-45a6-ae6a-366629309e40</OperationLink>
+		</AzTask>
+		<AzTask Guid="f1febf10-a264-4345-91a8-610293f56241" Name="Departure.DepartureGenerate" Description="Departure Preview" BizRuleImportedPath="">
+			<OperationLink>0a721670-f0d5-448c-927a-899e4f24cede</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+		</AzTask>
+		<AzTask Guid="b4edc850-d1e0-4f90-b848-f9369c281943" Name="Departure.DepartureShipfromNode" Description="Ship-from Node" BizRuleImportedPath="">
+			<OperationLink>cab39ac6-9d53-4965-adef-a5537facfff2</OperationLink>
+		</AzTask>
+		<AzTask Guid="753096ff-fca8-43a0-8469-d5935fbbcb5a" Name="Departure.DepartureShiptoNode" Description="Ship-to Node" BizRuleImportedPath="">
+			<OperationLink>5129008a-3f75-4f5c-9658-bc3e84f4b287</OperationLink>
+			<OperationLink>77a08e7b-b3c2-49c6-b71a-7068f0ac23f3</OperationLink>
+			<OperationLink>93e8fb4f-6637-4bee-bc44-c92bf8d4db97</OperationLink>
+			<OperationLink>df14b8d1-8393-4e75-b73b-4ff01659f163</OperationLink>
+			<OperationLink>a978d88e-2a86-419f-af24-5d0b87caddc6</OperationLink>
+			<OperationLink>8a143c62-7725-4d16-b0d9-b82cc066d4a5</OperationLink>
+			<OperationLink>0967cd64-4e4f-426f-a526-d7e72ac9d747</OperationLink>
+		</AzTask>
+		<AzTask Guid="88076f72-29db-46f8-88bf-0d7d164713dc" Name="Departure.DepartureShiptoNodeShipfromNode" Description="Ship-from Node" BizRuleImportedPath="">
+			<OperationLink>e5dd611a-814e-46bb-9e54-1313c900b07e</OperationLink>
+		</AzTask>
+		<AzTask Guid="cf9db746-488d-4ab6-b2fa-2121d8aef5af" Name="Departure.DepartureTransportCondition" Description="Transport Condition" BizRuleImportedPath="">
+			<OperationLink>9251a67d-bbcc-4bef-a341-d9df2563c4b5</OperationLink>
+			<OperationLink>b896951c-4753-4225-b54b-47d81e2be90b</OperationLink>
+		</AzTask>
+		<AzTask Guid="302acac8-68f8-4185-858b-544a998940ec" Name="Departure.DepShipLocandDockDoor" Description="Departure Shipping Location and Dock Door" BizRuleImportedPath="">
+			<OperationLink>d727cea5-ba92-4297-851f-a138a011fc38</OperationLink>
+			<OperationLink>9ebb2e50-e5e4-479d-abc4-e58f8f04a564</OperationLink>
+		</AzTask>
+		<AzTask Guid="176d8296-0775-42e2-802d-777c29beb660" Name="Departure.FindDeparture" Description="Find Departure" BizRuleImportedPath="">
+		</AzTask>
+		<AzTask Guid="8b3a11ab-59b0-4c01-a8e3-7eaa9aa24110" Name="Departure.ModifyDeparture" Description="Change Departure" BizRuleImportedPath="">
+			<OperationLink>b4eb7e33-76a4-499c-99c5-dd04e001bb1d</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>e51fa195-d4d2-432d-9fd2-f5a48ce856de</OperationLink>
+		</AzTask>
+		<AzTask Guid="27c2cece-4271-4960-b94e-e15f0d36892e" Name="Departure.ModifyDepartureNode" Description="Change Ship-to Node" BizRuleImportedPath="">
+			<OperationLink>4f2b1429-a0b4-480f-b725-a9241765c138</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>e87df952-571d-4ad9-b21d-692a86326198</OperationLink>
+		</AzTask>
+		<AzTask Guid="c33e34db-301b-4963-a24b-91173196954d" Name="Departure.ModifyDepShipandDockDoor" Description="Change Shipping Location and Dock Door" BizRuleImportedPath="">
+			<OperationLink>bcf663f9-7ead-40d5-ae1a-fd5e16dd6e34</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>19543b77-0566-4bf9-b46d-1e9aa31b5007</OperationLink>
+		</AzTask>
+		<AzTask Guid="7fbc93c8-b740-4ade-8e0b-46c42fd43c88" Name="Departure.ModifyTransportCondition" Description="Change Transport Condition" BizRuleImportedPath="">
+			<OperationLink>5645c875-dab4-43b9-a9cc-e07e7414edc8</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>19543b77-0566-4bf9-b46d-1e9aa31b5007</OperationLink>
+		</AzTask>
+		<AzTask Guid="868a599f-9326-4359-abb4-c831f87999ac" Name="Departure.ModifyTransportConditionForNode" Description="Change Transport Condition for Node" BizRuleImportedPath="">
+			<OperationLink>5fe6c576-2088-4aeb-955b-41b3ca39b00d</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>fd0a02ce-c606-4d8f-804d-d92ca599d5ed</OperationLink>
+		</AzTask>
+		<AzTask Guid="72456b3d-be57-4e0f-ba7c-0340b1dfb0dc" Name="Departure" Description="Departure Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>83d31b4a-3265-4199-a5b2-6b90cacd3a89</TaskLink>
+			<TaskLink>5c9b465f-e1dc-4a76-8931-770dc8b002c5</TaskLink>
+			<TaskLink>14fa07cd-8de8-4636-8ce6-9a3c5c60abcf</TaskLink>
+			<TaskLink>7ba37ce5-1ac0-47ab-bdb3-6d725858f210</TaskLink>
+			<TaskLink>3f7175b0-6238-4017-8af2-88a27d441023</TaskLink>
+			<TaskLink>8c8dfe94-1359-4a01-8592-8afda4109ca4</TaskLink>
+			<TaskLink>60d8377c-181d-4616-b070-7581ef7c8fa9</TaskLink>
+			<TaskLink>0a62b261-c368-4b52-94f3-6406d08d29d5</TaskLink>
+			<TaskLink>c1163d95-669a-43cd-8c1b-08147b531ee6</TaskLink>
+			<TaskLink>0abc8784-c9ad-42a6-b954-e1ebda8ff749</TaskLink>
+			<TaskLink>f1febf10-a264-4345-91a8-610293f56241</TaskLink>
+			<TaskLink>b4edc850-d1e0-4f90-b848-f9369c281943</TaskLink>
+			<TaskLink>753096ff-fca8-43a0-8469-d5935fbbcb5a</TaskLink>
+			<TaskLink>88076f72-29db-46f8-88bf-0d7d164713dc</TaskLink>
+			<TaskLink>cf9db746-488d-4ab6-b2fa-2121d8aef5af</TaskLink>
+			<TaskLink>302acac8-68f8-4185-858b-544a998940ec</TaskLink>
+			<TaskLink>176d8296-0775-42e2-802d-777c29beb660</TaskLink>
+			<TaskLink>8b3a11ab-59b0-4c01-a8e3-7eaa9aa24110</TaskLink>
+			<TaskLink>27c2cece-4271-4960-b94e-e15f0d36892e</TaskLink>
+			<TaskLink>c33e34db-301b-4963-a24b-91173196954d</TaskLink>
+			<TaskLink>7fbc93c8-b740-4ade-8e0b-46c42fd43c88</TaskLink>
+			<TaskLink>868a599f-9326-4359-abb4-c831f87999ac</TaskLink>
+		</AzTask>
+		<AzTask Guid="2e3ba60e-4921-4252-afbf-458c7184af93" Name="DepartureHistory.DepartureHistory" Description="Departure History" BizRuleImportedPath="">
+			<OperationLink>687cc9a2-1be3-457d-81d5-08afdc914dcc</OperationLink>
+		</AzTask>
+		<AzTask Guid="71c9bf15-2541-4db8-8981-e8e245da0e70" Name="DepartureHistory.DepartureHistoryShiptoNode" Description="Ship-to Node" BizRuleImportedPath="">
+			<OperationLink>ecd11c09-1b91-456d-bdc4-4457e69a8839</OperationLink>
+		</AzTask>
+		<AzTask Guid="6f3ec3af-a1e4-4bf0-837c-cef0ab921fa7" Name="DepartureHistory" Description="DepartureHistory Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>2e3ba60e-4921-4252-afbf-458c7184af93</TaskLink>
+			<TaskLink>71c9bf15-2541-4db8-8981-e8e245da0e70</TaskLink>
+		</AzTask>
+		<AzTask Guid="9e360335-b60e-400e-b059-325797aafe5d" Name="Forwarder.CreateForwarder" Description="New Forwarder" BizRuleImportedPath="">
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>e6bc0959-e5ca-4bff-9528-2010ca31295b</OperationLink>
+			<OperationLink>ea51d0eb-2bab-4a65-bbd6-016deb95d57a</OperationLink>
+		</AzTask>
+		<AzTask Guid="06f84ca9-f309-4f35-b578-5a45e0f90b82" Name="Forwarder.Forwarder" Description="Forwarder" BizRuleImportedPath="">
+			<OperationLink>c85010e8-b85b-4545-89a4-9e49a769dea2</OperationLink>
+			<OperationLink>edac1987-1640-44ef-8c58-ce06f2fdc690</OperationLink>
+		</AzTask>
+		<AzTask Guid="9659cf3b-3b97-4f4d-832f-c00e86e86549" Name="Forwarder.ModifyForwarder" Description="Change Forwarder" BizRuleImportedPath="">
+			<OperationLink>1aa2293c-dbcc-4edc-b032-1b2c1b6cd907</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>aa38b076-9fbe-4b95-822d-41ba67f4d8a8</OperationLink>
+		</AzTask>
+		<AzTask Guid="c47a8214-5cc2-4365-8e0d-0d085767acfc" Name="Forwarder" Description="Forwarder Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>9e360335-b60e-400e-b059-325797aafe5d</TaskLink>
+			<TaskLink>06f84ca9-f309-4f35-b578-5a45e0f90b82</TaskLink>
+			<TaskLink>9659cf3b-3b97-4f4d-832f-c00e86e86549</TaskLink>
+		</AzTask>
+		<AzTask Guid="98754403-718c-4161-ac86-62f657b0b634" Name="MethodOfShipment.CreateMethodOfShipment" Description="New Method of Shipment" BizRuleImportedPath="">
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>817a8bf7-d486-4661-85ec-c5d92901914f</OperationLink>
+			<OperationLink>02eb8184-786f-48a0-ba3e-b3d60ea7804b</OperationLink>
+		</AzTask>
+		<AzTask Guid="3e859a44-7ce0-43fb-8340-dbeaaff661a6" Name="MethodOfShipment.MethodOfShipment" Description="Method of Shipment" BizRuleImportedPath="">
+			<OperationLink>137b0a19-45bb-4bea-88a8-fcf99a0fb35e</OperationLink>
+			<OperationLink>111baef7-6f2c-47f7-a33b-11ce64bceb19</OperationLink>
+			<OperationLink>fe360861-a069-4a30-89c0-826784763884</OperationLink>
+		</AzTask>
+		<AzTask Guid="b7a894db-5471-48ba-a398-158afadf1431" Name="MethodOfShipment.ModifyMethodOfShipment" Description="Change Method of Shipment" BizRuleImportedPath="">
+			<OperationLink>e24563de-658e-44f4-bc18-b9fdea520be3</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>5a2eb900-64d9-4f53-834b-b31e5abf51d9</OperationLink>
+		</AzTask>
+		<AzTask Guid="af54633c-8b63-44c4-9561-4aad76db585c" Name="MethodOfShipment" Description="MethodOfShipment Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>98754403-718c-4161-ac86-62f657b0b634</TaskLink>
+			<TaskLink>3e859a44-7ce0-43fb-8340-dbeaaff661a6</TaskLink>
+			<TaskLink>b7a894db-5471-48ba-a398-158afadf1431</TaskLink>
+		</AzTask>
+		<AzTask Guid="1fe307f9-56cc-4c4d-b3c3-887302cdbe5a" Name="Node.CreateNode" Description="New Node" BizRuleImportedPath="">
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>9bc296c5-f065-4283-a333-a6702399d99e</OperationLink>
+			<OperationLink>233146e0-da71-4326-8b11-35f7c48b578c</OperationLink>
+		</AzTask>
+		<AzTask Guid="5975bd0d-22d4-4628-bd73-95d1c3907ea5" Name="Node.FindNode" Description="Find Node" BizRuleImportedPath="">
+		</AzTask>
+		<AzTask Guid="2e5b0c26-c174-4687-8162-3502d28e9c5f" Name="Node.ModifyNode" Description="Change Node" BizRuleImportedPath="">
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>db2e9576-2e8e-4b40-af93-e08e78e2696f</OperationLink>
+			<OperationLink>2cf3474f-ee1b-4c83-bc28-f427f21d364d</OperationLink>
+		</AzTask>
+		<AzTask Guid="2a5344a4-86d6-41b6-9ce6-7c8376a2ce1c" Name="Node.ModifyNodeDeparturePlanningTimes" Description="Change Departure Planning Times" BizRuleImportedPath="">
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>75619c26-395a-41b5-a9e3-02a6e7469a9e</OperationLink>
+			<OperationLink>4fb5f860-eb3f-42f6-afb7-1cc646b794d9</OperationLink>
+		</AzTask>
+		<AzTask Guid="84869bfb-2530-4b98-ae0a-9b294c7c6124" Name="Node.Node" Description="Node" BizRuleImportedPath="">
+			<OperationLink>17d74011-3840-49f1-8289-3fe727703909</OperationLink>
+			<OperationLink>2e788832-8f4e-4bbb-8ef6-63b83affa709</OperationLink>
+			<OperationLink>17d74011-3840-49f1-8289-3fe727703909</OperationLink>
+			<OperationLink>17d74011-3840-49f1-8289-3fe727703909</OperationLink>
+			<OperationLink>8e519945-e9ae-440b-b4ce-69ac92099e3e</OperationLink>
+		</AzTask>
+		<AzTask Guid="5cfeac2b-a4ca-4e92-8fb9-64c034c6666a" Name="Node" Description="Node Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>1fe307f9-56cc-4c4d-b3c3-887302cdbe5a</TaskLink>
+			<TaskLink>5975bd0d-22d4-4628-bd73-95d1c3907ea5</TaskLink>
+			<TaskLink>2e5b0c26-c174-4687-8162-3502d28e9c5f</TaskLink>
+			<TaskLink>2a5344a4-86d6-41b6-9ce6-7c8376a2ce1c</TaskLink>
+			<TaskLink>84869bfb-2530-4b98-ae0a-9b294c7c6124</TaskLink>
+		</AzTask>
+		<AzTask Guid="d635d0a3-235f-4f71-be51-1ef4f2329d2c" Name="NodeConversion.CreateNodeConversion" Description="New Node Conversion" BizRuleImportedPath="">
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>d9580d3d-d7e1-4995-b618-58e195eaf7f0</OperationLink>
+			<OperationLink>bb1109ff-dd20-4cc5-87a3-bf05dce9d1f5</OperationLink>
+		</AzTask>
+		<AzTask Guid="071acd60-b956-4784-b167-c30a01b29385" Name="NodeConversion.ModifyNodeConversion" Description="Change Node Conversion" BizRuleImportedPath="">
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>74937fe1-4998-41de-8aaf-6daf91e2678a</OperationLink>
+			<OperationLink>bc619a9a-8786-4a09-afff-0c893ca61989</OperationLink>
+		</AzTask>
+		<AzTask Guid="eb2d1efd-c23a-4669-bf70-94a4cbb9f99e" Name="NodeConversion.NodeConversion" Description="Node Conversion" BizRuleImportedPath="">
+			<OperationLink>4e17705e-8df3-4375-86f6-76399e9947d6</OperationLink>
+			<OperationLink>ef445630-c255-4bd8-86ba-d7c63e009790</OperationLink>
+		</AzTask>
+		<AzTask Guid="0b1d079e-ba44-4c71-97d4-f02f29b005f3" Name="NodeConversion" Description="NodeConversion Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>d635d0a3-235f-4f71-be51-1ef4f2329d2c</TaskLink>
+			<TaskLink>071acd60-b956-4784-b167-c30a01b29385</TaskLink>
+			<TaskLink>eb2d1efd-c23a-4669-bf70-94a4cbb9f99e</TaskLink>
+		</AzTask>
+		<AzTask Guid="70d9e713-5ff6-4c29-9b39-ce9349234ea9" Name="Party.Party" Description="Party" BizRuleImportedPath="">
+			<OperationLink>a3f5f40d-9a6a-4282-9f73-2d7ec0bbe602</OperationLink>
+		</AzTask>
+		<AzTask Guid="1c726d58-b89b-4d80-a3c6-6cc3ff79ffcb" Name="Party" Description="Party Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>70d9e713-5ff6-4c29-9b39-ce9349234ea9</TaskLink>
+		</AzTask>
+		<AzTask Guid="7dc59233-9e75-42b8-8374-0c58642140de" Name="Route.CreateNewRoute" Description="Create Route" BizRuleImportedPath="">
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>d29994a6-619e-4bd4-9a79-fbd3054c600b</OperationLink>
+			<OperationLink>cb51cfe3-5916-4faa-bcff-896ca487c3ed</OperationLink>
+		</AzTask>
+		<AzTask Guid="175811e9-ec5d-468b-91c8-92c4b76d4477" Name="Route.CreateShipToNode" Description="Create Ship-to Node" BizRuleImportedPath="">
+			<OperationLink>859d012d-f504-41a8-8736-26c1f9bea5e3</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>c50a4dbf-7e23-4486-88b8-6f9657f1271a</OperationLink>
+		</AzTask>
+		<AzTask Guid="208c4aa1-abe9-44fc-b498-8ef934341f5d" Name="Route.CreateTransportCondition" Description="Create Transport Condition" BizRuleImportedPath="">
+			<OperationLink>b2588b24-ad98-4b49-8520-6b0a5f255f3a</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>de4300fe-49bf-459f-9e9f-a04b4675b62b</OperationLink>
+		</AzTask>
+		<AzTask Guid="ad28550d-2bc8-4bec-9b8a-3e5f35cf203b" Name="Route.FindRoute" Description="Find Route" BizRuleImportedPath="">
+		</AzTask>
+		<AzTask Guid="eddfee67-e4a1-4407-a4d2-cc6173eaffa9" Name="Route.ModifyRoute" Description="Change Route" BizRuleImportedPath="">
+			<OperationLink>7932e161-8a7a-49f3-9ae9-02b31eb20ba6</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>5f75d231-46c3-4de6-a55f-e977a76bc808</OperationLink>
+		</AzTask>
+		<AzTask Guid="3743c263-53bc-48b8-88ee-4252c928f466" Name="Route.ModifyShipLocAndDockDoor" Description="Change Shipping Location and Dock Door" BizRuleImportedPath="">
+			<OperationLink>0340e4d6-2dcd-43e3-853c-0eb6bc00a032</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>8a6e2604-0231-46b9-8626-44df65273fce</OperationLink>
+		</AzTask>
+		<AzTask Guid="d3e8e880-66ec-43ff-9b88-f055df924ef2" Name="Route.ModifyShipToNode" Description="Change Ship-to Node" BizRuleImportedPath="">
+			<OperationLink>4911b8c8-b015-4f97-8362-55b3d2f64fb4</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>aaba4d52-75da-4434-9f2f-2ccf10e1ce45</OperationLink>
+		</AzTask>
+		<AzTask Guid="99c4e09a-2898-455d-89f4-55bbe981b141" Name="Route.ModifyTransportCondition" Description="Change Transport Condition" BizRuleImportedPath="">
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>0340e4d6-2dcd-43e3-853c-0eb6bc00a032</OperationLink>
+			<OperationLink>6b802de7-32ac-4079-906e-5a39a3469fd8</OperationLink>
+		</AzTask>
+		<AzTask Guid="20eeb095-e203-491f-805a-88a08b927576" Name="Route.ModifyTransportConditionForNode" Description="Change Transport Condition for Node" BizRuleImportedPath="">
+			<OperationLink>dee779a7-257b-45a1-9904-28f423bd923c</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>c185ddb3-bdfe-49f7-8a48-cd30b256311b</OperationLink>
+		</AzTask>
+		<AzTask Guid="640a393c-4774-421f-8fb9-6528715b56d3" Name="Route.Route" Description="Route" BizRuleImportedPath="">
+			<OperationLink>065797a2-dc0a-4ae8-ac88-f682682e61b5</OperationLink>
+			<OperationLink>8d7b7230-a5d4-44fb-9655-871747888c39</OperationLink>
+			<OperationLink>72f68bbf-592b-4c6e-aa23-03ac1b1364a0</OperationLink>
+		</AzTask>
+		<AzTask Guid="4376e750-2f59-48df-96a4-5d17efdeaeb0" Name="Route.RouteConnectTransitNode" Description="Connect Transit-to Node" BizRuleImportedPath="">
+			<OperationLink>8706043f-ca82-4f54-ba52-23846c344228</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>cacb33c2-b93f-4372-8de9-0f1ee238bbfb</OperationLink>
+		</AzTask>
+		<AzTask Guid="1a91f2a3-a3e5-4b6c-847a-0886806b569b" Name="Route.RouteShiptoNode" Description="Ship-to Node" BizRuleImportedPath="">
+			<OperationLink>549a8e31-3a14-4b49-bc8b-f5558757808c</OperationLink>
+			<OperationLink>a42b76ab-f25e-4685-a575-bf9f3ced2ab2</OperationLink>
+			<OperationLink>2703c946-62c5-46b5-8aa8-13be60796316</OperationLink>
+			<OperationLink>369b98a4-5e30-4c7c-9788-fec2b3ca3fea</OperationLink>
+			<OperationLink>ccb14158-c9c3-4fe9-95de-e7e534057c88</OperationLink>
+		</AzTask>
+		<AzTask Guid="71a0119e-6437-4f6f-92d3-51f6b7c41196" Name="Route.RouteTransportCondition" Description="Transport Condition" BizRuleImportedPath="">
+			<OperationLink>1c6ee0c0-3ed9-4951-a0a4-f3e85192b599</OperationLink>
+			<OperationLink>54a82b72-c878-429e-9879-2916161fcfd2</OperationLink>
+		</AzTask>
+		<AzTask Guid="f10bc161-0121-42b5-a43a-e73b65a7c709" Name="Route.ShipLocationandDockDoor" Description="Route Shipping Location and Dock Door" BizRuleImportedPath="">
+			<OperationLink>d727cea5-ba92-4297-851f-a138a011fc38</OperationLink>
+			<OperationLink>2ac3d48a-a66a-4bfc-9012-c71d821535dc</OperationLink>
+		</AzTask>
+		<AzTask Guid="bb3fe699-58bb-4b97-a950-58b35232daf1" Name="Route" Description="Route Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>7dc59233-9e75-42b8-8374-0c58642140de</TaskLink>
+			<TaskLink>175811e9-ec5d-468b-91c8-92c4b76d4477</TaskLink>
+			<TaskLink>208c4aa1-abe9-44fc-b498-8ef934341f5d</TaskLink>
+			<TaskLink>ad28550d-2bc8-4bec-9b8a-3e5f35cf203b</TaskLink>
+			<TaskLink>eddfee67-e4a1-4407-a4d2-cc6173eaffa9</TaskLink>
+			<TaskLink>3743c263-53bc-48b8-88ee-4252c928f466</TaskLink>
+			<TaskLink>d3e8e880-66ec-43ff-9b88-f055df924ef2</TaskLink>
+			<TaskLink>99c4e09a-2898-455d-89f4-55bbe981b141</TaskLink>
+			<TaskLink>20eeb095-e203-491f-805a-88a08b927576</TaskLink>
+			<TaskLink>640a393c-4774-421f-8fb9-6528715b56d3</TaskLink>
+			<TaskLink>4376e750-2f59-48df-96a4-5d17efdeaeb0</TaskLink>
+			<TaskLink>1a91f2a3-a3e5-4b6c-847a-0886806b569b</TaskLink>
+			<TaskLink>71a0119e-6437-4f6f-92d3-51f6b7c41196</TaskLink>
+			<TaskLink>f10bc161-0121-42b5-a43a-e73b65a7c709</TaskLink>
+		</AzTask>
+		<AzTask Guid="7ae81b2c-f006-4412-8228-ad862e843519" Name="TransportCondition.CreateTransportCondition" Description="New Transport Condition" BizRuleImportedPath="">
+			<OperationLink>b4a32271-652b-474a-85a0-da92b7bd2f95</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>b457827d-2eff-41ca-b908-06563c0f0323</OperationLink>
+		</AzTask>
+		<AzTask Guid="efa0fa48-5e34-4688-af91-7fd1e2168db1" Name="TransportCondition.ModifyTransportCondition" Description="Change Transport Condition" BizRuleImportedPath="">
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>0a6babf2-f648-4927-b6c3-ae671b9c84f9</OperationLink>
+			<OperationLink>726930f1-7350-4ac0-8a0c-9d41afcab2ac</OperationLink>
+		</AzTask>
+		<AzTask Guid="ce28f283-d6ef-45fc-92e4-c426ad14cdce" Name="TransportCondition.TransportCondition" Description="Transport Condition" BizRuleImportedPath="">
+			<OperationLink>05351580-3440-42f6-854d-9e820ad6fc72</OperationLink>
+			<OperationLink>169b566c-ac0c-4de5-a117-277741f13e7d</OperationLink>
+		</AzTask>
+		<AzTask Guid="b23b9541-a464-46d9-a7ad-c1532962084a" Name="TransportCondition" Description="TransportCondition Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>7ae81b2c-f006-4412-8228-ad862e843519</TaskLink>
+			<TaskLink>efa0fa48-5e34-4688-af91-7fd1e2168db1</TaskLink>
+			<TaskLink>ce28f283-d6ef-45fc-92e4-c426ad14cdce</TaskLink>
+		</AzTask>
+		<AzTask Guid="3d32458a-9a41-4bfb-adc8-7e05798c94c5" Name="TransportLoad.TransportLoad" Description="Transport Load" BizRuleImportedPath="">
+			<OperationLink>0967cd64-4e4f-426f-a526-d7e72ac9d747</OperationLink>
+			<OperationLink>5873f1d4-8cfd-40c8-8ae8-3c25133e879d</OperationLink>
+		</AzTask>
+		<AzTask Guid="2646ff1f-03ef-494c-bb11-6c2f51c2afe4" Name="TransportLoad.TransportLoadConnect" Description="Connect Transport Load" BizRuleImportedPath="">
+			<OperationLink>028237bf-c149-48a7-aabf-78ff92a95ea7</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>c617bfb2-68e2-4d1a-b855-2e9a90bbc44b</OperationLink>
+		</AzTask>
+		<AzTask Guid="6b6fbd14-7e4a-4071-bd25-f2988bbf38d1" Name="TransportLoad" Description="TransportLoad Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>3d32458a-9a41-4bfb-adc8-7e05798c94c5</TaskLink>
+			<TaskLink>2646ff1f-03ef-494c-bb11-6c2f51c2afe4</TaskLink>
+		</AzTask>
+		<AzTask Guid="f678e0cc-1fa1-4e8a-945e-8c971b0b4c4b" Name="User.CreateUser" Description="New User" BizRuleImportedPath="">
+			<OperationLink>8e720494-a177-46f4-bfbd-8007f81fb655</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>ec343b14-df71-4d13-9280-60faecdf122b</OperationLink>
+		</AzTask>
+		<AzTask Guid="788cd58b-8963-4d7c-b1c4-9b0ff18a752e" Name="User.ModifyUser" Description="Change User" BizRuleImportedPath="">
+			<OperationLink>1b386984-5adb-4de3-a921-9a332a3ee14e</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>fc8ee461-9ee0-4f1a-92f4-921fbcbbbbff</OperationLink>
+		</AzTask>
+		<AzTask Guid="96fabc0d-a65a-4ed0-9dc4-615e8ad16828" Name="User.User" Description="User" BizRuleImportedPath="">
+			<OperationLink>3e83daaa-a94d-477b-ac22-d31c6960620a</OperationLink>
+			<OperationLink>04dd5060-10e9-4a4d-b302-0960c6002568</OperationLink>
+		</AzTask>
+		<AzTask Guid="d2a3163d-1788-447f-bf25-7f7f00bafad4" Name="User.UserChangeHistory" Description="User Change History" BizRuleImportedPath="">
+			<OperationLink>ce2b4675-3140-4365-9e36-c7b9680f6265</OperationLink>
+		</AzTask>
+		<AzTask Guid="1a39b3e3-0d93-451c-8568-baf5c7d84765" Name="User.UserLogonHistory" Description="User Logon History" BizRuleImportedPath="">
+			<OperationLink>e42f424e-2a68-4ce1-9a72-b41c97769adc</OperationLink>
+		</AzTask>
+		<AzTask Guid="db96d87f-fbb5-413a-adaf-9f13c21df94e" Name="User.UserNode" Description="Change Accessible Nodes for User" BizRuleImportedPath="">
+			<OperationLink>1b89f6af-40a2-4efc-b618-17037555042a</OperationLink>
+			<OperationLink>d35097a3-32ff-456f-b384-f35972e19b20</OperationLink>
+		</AzTask>
+		<AzTask Guid="97b6e5a7-b67b-4cb5-a12f-79fe1ed3582c" Name="User" Description="User Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>f678e0cc-1fa1-4e8a-945e-8c971b0b4c4b</TaskLink>
+			<TaskLink>788cd58b-8963-4d7c-b1c4-9b0ff18a752e</TaskLink>
+			<TaskLink>96fabc0d-a65a-4ed0-9dc4-615e8ad16828</TaskLink>
+			<TaskLink>d2a3163d-1788-447f-bf25-7f7f00bafad4</TaskLink>
+			<TaskLink>1a39b3e3-0d93-451c-8568-baf5c7d84765</TaskLink>
+			<TaskLink>db96d87f-fbb5-413a-adaf-9f13c21df94e</TaskLink>
+		</AzTask>
+		<AzTask Guid="0a2a5216-7ce9-4125-9da8-c8f2e9355311" Name="WeekTemplate.CreateRouteForWeekTemplate" Description="New Route" BizRuleImportedPath="">
+			<OperationLink>7b70320d-5bf4-46e0-8f39-a49cb4fae945</OperationLink>
+			<OperationLink>d35097a3-32ff-456f-b384-f35972e19b20</OperationLink>
+			<OperationLink>ee4d5f84-da85-458b-b415-fe1e1d0fefee</OperationLink>
+		</AzTask>
+		<AzTask Guid="45e64284-163e-44d8-adfe-ccadad791f7f" Name="WeekTemplate.CreateWeekTemplate" Description="New Week Template" BizRuleImportedPath="">
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>dd4ebf82-7471-41fb-aee1-940ae9de7b1c</OperationLink>
+			<OperationLink>9bba196d-06be-457c-8366-d96e24fd3dd8</OperationLink>
+		</AzTask>
+		<AzTask Guid="3cf46d15-6cb4-4eac-8511-2b2c9ba84c9a" Name="WeekTemplate.ModifyRouteForWeekTemplate" Description="Change Route" BizRuleImportedPath="">
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>38de3296-b5d6-4b14-89e2-366838e0adb0</OperationLink>
+			<OperationLink>a39b6cdb-3fa6-431a-87c0-d54977899055</OperationLink>
+		</AzTask>
+		<AzTask Guid="dc69a43d-cf81-48bb-8f31-b55edcb36e79" Name="WeekTemplate.ModifyWeekTemplate" Description="Change Week Template" BizRuleImportedPath="">
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>523b9092-9a09-44e3-84df-50c3ec7f8f6c</OperationLink>
+			<OperationLink>1c40f82f-9b94-475c-a254-add24532c30b</OperationLink>
+		</AzTask>
+		<AzTask Guid="79ab90a0-c116-44ec-9571-84ecb4dd96a8" Name="WeekTemplate.WeekTemplate" Description="Week Template" BizRuleImportedPath="">
+			<OperationLink>fd03652b-d82d-4b77-8ff3-3885570d0e78</OperationLink>
+			<OperationLink>9f607b6b-82db-4646-a498-2dfb3f760de9</OperationLink>
+			<OperationLink>b4efb58f-c8eb-46f8-807c-f8e5e6b28033</OperationLink>
+		</AzTask>
+		<AzTask Guid="012f4cfc-5dac-4851-84cf-e3c7defa1071" Name="WeekTemplate" Description="WeekTemplate Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>0a2a5216-7ce9-4125-9da8-c8f2e9355311</TaskLink>
+			<TaskLink>45e64284-163e-44d8-adfe-ccadad791f7f</TaskLink>
+			<TaskLink>3cf46d15-6cb4-4eac-8511-2b2c9ba84c9a</TaskLink>
+			<TaskLink>dc69a43d-cf81-48bb-8f31-b55edcb36e79</TaskLink>
+			<TaskLink>79ab90a0-c116-44ec-9571-84ecb4dd96a8</TaskLink>
+		</AzTask>
+		<AzTask Guid="329d10a4-fc7e-451e-a8cf-28c976972dac" Name="VehicleType.CreateVehicleLoad" Description="New Capacity per Transport Condition" BizRuleImportedPath="">
+			<OperationLink>4cfd5586-7b36-4e65-885a-2662ff508391</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>f11b44d5-1525-4fb5-9dfd-9909ad7fbb4e</OperationLink>
+		</AzTask>
+		<AzTask Guid="6b54c773-2832-44a8-8685-eefd9c1b65a7" Name="VehicleType.ModifyVehicleLoad" Description="Change Capacity per Transport Condition" BizRuleImportedPath="">
+			<OperationLink>2489992d-eff5-4e39-9729-d0684208c859</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+			<OperationLink>b6107b80-6a5d-437c-9db4-72ae91083d29</OperationLink>
+		</AzTask>
+		<AzTask Guid="9d9e5989-80fe-4b50-b9d0-01709b61df30" Name="VehicleType.VehicleType" Description="Vehicle Type" BizRuleImportedPath="">
+			<OperationLink>dcf385fe-d35e-473b-a526-1ba774e1aed3</OperationLink>
+			<OperationLink>9bc6a8d3-19eb-46a9-bb30-e95b9602bb19</OperationLink>
+			<OperationLink>c188f899-3025-446f-82e7-25b9e51905bc</OperationLink>
+			<OperationLink>f2e585ce-1b5b-456d-866c-690df46f0ba7</OperationLink>
+		</AzTask>
+		<AzTask Guid="16535868-e38c-4d89-b5a4-479d3a807e18" Name="VehicleType.VehicleTypeChange" Description="Change Vehicle Type" BizRuleImportedPath="">
+			<OperationLink>86e2721c-785b-4107-99ba-9daf1dc8e21f</OperationLink>
+			<OperationLink>5ad0d615-be44-4fca-b711-af4b2afee5bb</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+		</AzTask>
+		<AzTask Guid="133d44e1-93ea-4387-8176-d6597db5e7d0" Name="VehicleType.VehicleTypeNew" Description="New Vehicle Type" BizRuleImportedPath="">
+			<OperationLink>65930ff4-6f22-4dda-9440-ffd421efa84a</OperationLink>
+			<OperationLink>060fa704-ea66-4526-832c-24c3ed33a202</OperationLink>
+			<OperationLink>de82be11-6049-433d-9758-c774475f599a</OperationLink>
+		</AzTask>
+		<AzTask Guid="1b38cf36-41ff-442c-b4d3-65b4b7a0b331" Name="VehicleType" Description="VehicleType Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>329d10a4-fc7e-451e-a8cf-28c976972dac</TaskLink>
+			<TaskLink>6b54c773-2832-44a8-8685-eefd9c1b65a7</TaskLink>
+			<TaskLink>9d9e5989-80fe-4b50-b9d0-01709b61df30</TaskLink>
+			<TaskLink>16535868-e38c-4d89-b5a4-479d3a807e18</TaskLink>
+			<TaskLink>133d44e1-93ea-4387-8176-d6597db5e7d0</TaskLink>
+		</AzTask>
+		<AzTask Guid="8c95bdee-06fb-40b1-87e4-d09adbfd1f6d" Name="Administrator" Description="Administrator Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>03b61d65-4816-4f07-adbc-43036207544b</TaskLink>
+			<TaskLink>ca37e069-b868-42ef-a373-c8856d2544e2</TaskLink>
+			<TaskLink>cf819dff-1f04-4198-8c1b-4fc988e5bc32</TaskLink>
+			<TaskLink>1bfd7b88-62a4-499b-ba56-bbfae328e775</TaskLink>
+			<TaskLink>11049617-2dbc-4cea-8c1c-54c1fd2d2ecd</TaskLink>
+			<TaskLink>f01c2ac5-4d43-4af0-9b37-1cf35b26a65f</TaskLink>
+			<TaskLink>72456b3d-be57-4e0f-ba7c-0340b1dfb0dc</TaskLink>
+			<TaskLink>6f3ec3af-a1e4-4bf0-837c-cef0ab921fa7</TaskLink>
+			<TaskLink>c47a8214-5cc2-4365-8e0d-0d085767acfc</TaskLink>
+			<TaskLink>af54633c-8b63-44c4-9561-4aad76db585c</TaskLink>
+			<TaskLink>5cfeac2b-a4ca-4e92-8fb9-64c034c6666a</TaskLink>
+			<TaskLink>0b1d079e-ba44-4c71-97d4-f02f29b005f3</TaskLink>
+			<TaskLink>1c726d58-b89b-4d80-a3c6-6cc3ff79ffcb</TaskLink>
+			<TaskLink>bb3fe699-58bb-4b97-a950-58b35232daf1</TaskLink>
+			<TaskLink>b23b9541-a464-46d9-a7ad-c1532962084a</TaskLink>
+			<TaskLink>6b6fbd14-7e4a-4071-bd25-f2988bbf38d1</TaskLink>
+			<TaskLink>97b6e5a7-b67b-4cb5-a12f-79fe1ed3582c</TaskLink>
+			<TaskLink>012f4cfc-5dac-4851-84cf-e3c7defa1071</TaskLink>
+			<TaskLink>1b38cf36-41ff-442c-b4d3-65b4b7a0b331</TaskLink>
+		</AzTask>
+		<AzTask Guid="68119ce9-aaaa-4330-991f-d63e618f3577" Name="Guest" Description="Guest Role" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>8c95bdee-06fb-40b1-87e4-d09adbfd1f6d</TaskLink>
+		</AzTask>
+	</AzApplication>
+</AzAdminManager>

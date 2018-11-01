@@ -1,0 +1,30 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Segment VehicleType</title>
+<link href="StructureDescription.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>Segment VehicleType</h1>
+<h3>Description:</h3>
+Incoming Message Vehicle Type<h3>Attributes:</h3>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000"><tbody>
+<tr class="tableHeader"><th class="tableHeaderColumn">Tag</th><th class="tableHeaderColumn">Method</th><th class="tableHeaderColumn">Type</th><th class="tableHeaderColumn">Oracle Type</th><th class="tableHeaderColumn">Mandatory</th><th class="tableHeaderColumn">Note</th></tr>
+<tr class="tableRow"><td class="tableRowColumn">OPCODE</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Operation Code<br/>0 - No Operation<br/>1 - New<br/>2 - Change<br/>3 - Remove<br/>Note! An operation code is only useful if at least one tag supports the method</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">VehicleTypeIdentity</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(12)</td><td class="tableRowColumn">R</td><td class="tableRowColumn">Vehicle Type Identity<br/>The identity of the Type of Vehicle.<br/>1 = Vehicle<br/>2 = Train<br/>3 = Boat</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">VehicleTypeDescription</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Vehicle Type Description<br/>The description / name of the Vehicle Type.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">TotalWeightCapacity</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(16,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Total Weight Capacity<br/>Total Weight capacity of the vehicle type.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">TotalVolumeCapacity</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(16,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Total Volume<br/>Total Volume capacity of the vehicle type.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">TotalSpaceCapacity</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(16,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Space Capacity<br/>Total Space Capacity of the vehicle type.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Instructions</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(400)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Instructions<br/>Free text or Vehicle Type Note.</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

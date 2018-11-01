@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited witah XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Mats Nordgren (IMI) -->
+<MessageDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="C:\project\views\togr_trunk_ss\users\togr\xml\xsd\StructureDescription.xsd" name="OutBound">
+	<interfaces>
+		<interface name="DeliveryReceipt" structure="DeliveryReceipt" HAPIObjectName="DR" direction="Out"/>
+		<interface name="PickReceipt" structure="PickReceipt" HAPIObjectName="PR" direction="Out"/>
+		<interface name="VendorReturnReceipt" structure="VendorReturnReceipt" HAPIObjectName="RR" direction="Out"/>
+		<interface name="InspectionReceipt" structure="InspectionReceipt" HAPIObjectName="IR" direction="Out"/>
+		<interface name="InboundOrderCompleted" structure="InboundOrderCompleted" HAPIObjectName="IOC" direction="Out"/>
+		<interface name="ReturnedPackingMaterial" structure="ReturnedPackingMaterial" HAPIObjectName="PM" direction="Out"/>
+		<interface name="InventoryChange" structure="InventoryChange" HAPIObjectName="IC" direction="Out"/>
+		<interface name="BalanceAnswer" structure="BalanceAnswer" HAPIObjectName="BA" direction="Out"/>
+	</interfaces>
+	<structures>
+		<!-- DELIVERY RECEIPT -->
+		<!-- DELIVERY RECEIPT -->
+		<!-- DELIVERY RECEIPT -->
+		<structure name="DeliveryReceipt" insertSP="" updateSP="" deleteSP="" queueTable="" baseTable="">
+			<comment>
+				<line>Delivery Receipt</line>
+				<line>Wrapper for Delivery Receiptobjects.</line>
+			</comment>
+			<children>
+				<child name="DeliveryReceiptHead" minOccurrs="1" maxOccurrs="*"/>
+				<child name="DeliveryReceiptHeadText" minOccurrs="0" maxOccurrs="*"/>
+				<child name="DeliveryReceiptLine" minOccurrs="0" maxOccurrs="*"/>
+				<child name="DeliveryReceiptLineText" minOccurrs="0" maxOccurrs="*"/>
+				<child name="DeliveryReceiptPackingMaterial" minOccurrs="0" maxOccurrs="*"/>
+			</children>
+		</structure>
+		<structure name="DeliveryReceiptHead" queueTable="HAPI_DLVRY_RECEIPT_HEAD" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_DLVRY_RECEIPT_HEAD">
+			<comment>
+				<line>Delivery Receipt Head</line>
+				<line>Is sent when a Receipt has been finished.</line>
+			</comment>
+		</structure>
+		<structure name="DeliveryReceiptHeadText" queueTable="HAPI_DLVRY_RECEIPT_HEAD_TEXT" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_DLVRY_RECEIPT_HEAD_TEXT">
+			<comment>
+				<line>Delivery Receipt Head Text</line>
+			</comment>
+		</structure>		
+		<structure name="DeliveryReceiptLine" queueTable="HAPI_DLVRY_RECEIPT_LINE" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_DLVRY_RECEIPT_LINE">
+			<comment>
+				<line>Delivery Receipt Line</line>
+			</comment>
+		</structure>
+		<structure name="DeliveryReceiptLineText" queueTable="HAPI_DLVRY_RECEIPT_LINE_TEXT" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_DLVRY_RECEIPT_LINE_TEXT">
+			<comment>
+				<line>Delivery Receipt Line Text</line>
+			</comment>
+		</structure>		
+		<structure name="DeliveryReceiptPackingMaterial" queueTable="HAPI_DLVRY_RECEIPT_PM" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_DLVRY_RECEIPT_PM">
+			<comment>
+				<line>Delivery Receipt Packing Material</line>
+			</comment>
+		</structure>
+		<!-- PICK RECEIPT -->
+		<!-- PICK RECEIPT -->
+		<!-- PICK RECEIPT -->
+		<structure name="PickReceipt" insertSP="" updateSP="" deleteSP="" queueTable="" baseTable="">
+			<comment>
+				<line>Pick Receipt</line>
+				<line>Wrapper for Pick Receipt objects.</line>
+			</comment>
+			<children>
+				<child name="PickReceiptHead" minOccurrs="1" maxOccurrs="*"/>
+				<child name="PickReceiptText" minOccurrs="0" maxOccurrs="*"/>
+				<child name="PickReceiptService" minOccurrs="0" maxOccurrs="*"/>
+				<child name="PickReceiptLine" minOccurrs="0" maxOccurrs="*"/>
+				<child name="PickReceiptLineText" minOccurrs="0" maxOccurrs="*"/>
+				<child name="PickReceiptHeadPackingMaterial" minOccurrs="0" maxOccurrs="*"/>
+				<child name="PickReceiptLinePackingMaterial" minOccurrs="0" maxOccurrs="*"/>
+			</children>
+		</structure>
+		<structure name="PickReceiptHead" queueTable="HAPI_PICK_RECEIPT_HEAD" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_PICK_RECEIPT_HEAD">
+			<comment>
+				<line>Pick Receipt Head</line>
+			</comment>
+		</structure>
+		<structure name="PickReceiptText" queueTable="HAPI_PICK_RECEIPT_TEXT" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_PICK_RECEIPT_TEXT">
+			<comment>
+				<line>Pick Receipt Text</line>
+			</comment>
+		</structure>
+		<structure name="PickReceiptService" queueTable="HAPI_PICK_RECEIPT_SERVICE" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_PICK_RECEIPT_SERVICE">
+			<comment>
+				<line>Pick Receipt Service</line>
+			</comment>
+		</structure>
+		<structure name="PickReceiptLine" queueTable="HAPI_PICK_RECEIPT_LINE" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_PICK_RECEIPT_LINE">
+			<comment>
+				<line>Pick Receipt Line</line>
+			</comment>
+		</structure>
+		<structure name="PickReceiptLineText" queueTable="HAPI_PICK_RECEIPT_LINE_TEXT" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_PICK_RECEIPT_LINE_TEXT">
+			<comment>
+				<line>Pick Receipt Line Text</line>
+			</comment>
+		</structure>    		
+		<structure name="PickReceiptHeadPackingMaterial" queueTable="HAPI_PICK_RECEIPT_HEAD_PM" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_PICK_RECEIPT_HEAD_PM">
+			<comment>
+				<line>Pick Receipt Head Packing Material</line>
+			</comment>
+		</structure>
+		<structure name="PickReceiptLinePackingMaterial" queueTable="HAPI_PICK_RECEIPT_LINE_PM" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_PICK_RECEIPT_LINE_PM">
+			<comment>
+				<line>Pick Receipt Line Packing Material</line>
+			</comment>
+		</structure>
+		<!-- VENDOR RETURN RECEIPT -->
+		<!-- VENDOR RETURN RECEIPT -->
+		<!-- VENDOR RETURN RECEIPT -->
+		<structure name="VendorReturnReceipt" insertSP="" updateSP="" deleteSP="" queueTable="" baseTable="">
+			<comment>
+				<line>Vendor Return Receipt</line>
+				<line>Wrapper for Vendor Return Receipt objects.</line>
+			</comment>
+			<children>
+				<child name="ReturnReceiptHead" minOccurrs="1" maxOccurrs="*"/>
+				<child name="ReturnReceiptHeadPackingMaterial" minOccurrs="0" maxOccurrs="*"/>
+				<child name="ReturnReceiptLine" minOccurrs="0" maxOccurrs="*"/>
+			</children>
+		</structure>
+		<structure name="ReturnReceiptHead" queueTable="HAPI_RETURN_RECEIPT_HEAD" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_RETURN_RECEIPT_HEAD">
+			<comment>
+				<line>Vendor Return Receipt Head</line>
+			</comment>
+		</structure>
+		<structure name="ReturnReceiptHeadPackingMaterial" queueTable="HAPI_RETURN_RECEIPT_HEAD_PM" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_RETURN_RECEIPT_HEAD_PM">
+			<comment>
+				<line>Vendor Return Receipt Head Packing Material</line>
+			</comment>
+		</structure>
+		<structure name="ReturnReceiptLine" queueTable="HAPI_RETURN_RECEIPT_LINE" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_RETURN_RECEIPT_LINE">
+			<comment>
+				<line>Vendor Return Receipt Line</line>
+			</comment>
+		</structure>
+		<!-- INSPECTION RECEIPT -->
+		<!-- INSPECTION RECEIPT -->
+		<!-- INSPECTION RECEIPT -->
+		<structure name="InspectionReceipt" insertSP="" updateSP="" deleteSP="" queueTable="" baseTable="">
+			<comment>
+				<line>Inspection Receipt</line>
+				<line>Wrapper for Inspection Receipt objects.</line>
+			</comment>
+			<children>
+				<child name="InspectionReceiptHead" minOccurrs="1" maxOccurrs="*"/>
+				<child name="InspectionReceiptLine" minOccurrs="0" maxOccurrs="*"/>
+				<child name="InspectionReceiptLinePackingMaterial" minOccurrs="0" maxOccurrs="*"/>
+			</children>
+		</structure>
+		<structure name="InspectionReceiptHead" queueTable="HAPI_INSPECTION_RECEIPT_HEAD" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_INSPECTION_RECEIPT_HEAD">
+			<comment>
+				<line>Inspection Receipt Head</line>
+			</comment>
+		</structure>
+		<structure name="InspectionReceiptLine" queueTable="HAPI_INSPECTION_RECEIPT_LINE" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_INSPECTION_RECEIPT_LINE">
+			<comment>
+				<line>Inspection Receipt Line</line>
+			</comment>
+		</structure>
+		<structure name="InspectionReceiptLinePackingMaterial" queueTable="HAPI_INSPECTION_RECEIPT_LINEPM" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_INSPECTION_RECEIPT_LINEPM">
+			<comment>
+				<line>Inspection Receipt Line Packing Material</line>
+			</comment>
+		</structure>
+		<!-- INBOUND ORDER COMPLETED -->
+		<!-- INBOUND ORDER COMPLETED -->
+		<!-- INBOUND ORDER COMPLETED -->
+		<structure name="InboundOrderCompleted" queueTable="HAPI_INB_ORDER_COMPLETED" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_INBOUND_ORDER_COMPLETED">
+			<comment>
+				<line>Inbound Order Completed</line>
+				<line>Is sent when an Inbound Order is registered as completed.</line>
+			</comment>
+		</structure>
+		<!-- RETURNED PACKING MATERIAL -->
+		<!-- RETURNED PACKING MATERIAL -->
+		<!-- RETURNED PACKING MATERIAL -->
+		<structure name="ReturnedPackingMaterial" insertSP="" updateSP="" deleteSP="" queueTable="" baseTable="">
+			<comment>
+				<line>Returned Packing Material</line>
+				<line>Wrapper for Returned Packing Material objects.</line>
+			</comment>
+			<children>
+				<child name="ReturnedPackingMaterialHead" minOccurrs="1" maxOccurrs="*"/>
+				<child name="ReturnedPackingMaterialLine" minOccurrs="0" maxOccurrs="*"/>
+			</children>
+		</structure>
+		<structure name="ReturnedPackingMaterialHead" queueTable="HAPI_RETURNED_PM_HEAD" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_RETURNED_PM_HEAD">
+			<comment>
+				<line>Returned Packing Material Head</line>
+			</comment>
+		</structure>
+		<structure name="ReturnedPackingMaterialLine" queueTable="HAPI_RETURNED_PM_LINE" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_RETURNED_PM_LINE">
+			<comment>
+				<line>Returned Packing Material Line</line>
+			</comment>
+		</structure>
+		<!-- INVENTORY CHANGE -->
+		<!-- INVENTORY CHANGE -->
+		<!-- INVENTORY CHANGE -->
+		<structure name="InventoryChange" queueTable="HAPI_INVENTORY_CHANGE" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_INVENTORY_CHANGE">
+			<comment>
+				<line>Inventory Change</line>
+				<line>Attributes with suffix '2' are not used when Operation code is New and Remove.</line>
+				<line>Attributes with suffix '2' represent new value and without suffix old value when Operation code is Modify.</line>
+			</comment>
+		</structure>
+		<!-- BALANCE ANSWER -->
+		<!-- BALANCE ANSWER -->
+		<!-- BALANCE ANSWER -->
+		<structure name="BalanceAnswer" queueTable="HAPI_BALANCE_ANSWER" insertSP="" updateSP="" deleteSP="" baseTable="OWUSER.HAPI_BALANCE_ANSWER">
+			<comment>
+				<line>Balance Answer</line>
+			</comment>
+		</structure>
+	</structures>
+</MessageDefinition>

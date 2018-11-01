@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Cdc.MetaManager.DataAccess.Domain.MappedProperty, Cdc.MetaManager.DataAccess" table="MappedProperty">
+    <id name="Id" type="System.Guid">
+      <column name="Id" not-null="true"/>
+      <generator class="assigned"/>
+    </id>
+    <many-to-one name="PropertyMap" class="Cdc.MetaManager.DataAccess.Domain.PropertyMap, Cdc.MetaManager.DataAccess" foreign-key="FK_MapProp_PropMap">
+      <column name="PropertyMapId" not-null="true"/>
+    </many-to-one>
+    <property name="Sequence" type="Int32">
+      <column name="Sequence" not-null="true"/>
+    </property>
+    <many-to-one name="MapProperty" lazy="false" class="Cdc.MetaManager.DataAccess.Domain.MappedProperty, Cdc.MetaManager.DataAccess" foreign-key="FK_MapProp_MapProp" cascade="none">
+      <column name="MappedPropertyId" not-null="false"/>
+    </many-to-one>
+    <many-to-one name="ProcedureProperty" lazy="false" class="Cdc.MetaManager.DataAccess.Domain.ProcedureProperty, Cdc.MetaManager.DataAccess" foreign-key="FK_MapProp_ProcProp" cascade="none">
+      <column name="ProcedurePropertyId" not-null="false"/>
+    </many-to-one>
+    <many-to-one name="QueryProperty" lazy="false" class="Cdc.MetaManager.DataAccess.Domain.QueryProperty, Cdc.MetaManager.DataAccess" foreign-key="FK_MapProp_QryProp" cascade="none">
+      <column name="QueryPropertyId" not-null="false"/>
+    </many-to-one>
+    <many-to-one name="RequestMappedProperty" lazy="false" class="Cdc.MetaManager.DataAccess.Domain.MappedProperty, Cdc.MetaManager.DataAccess" foreign-key="FK_MapProp_ReqMapProp">
+      <column name="RequestMappedPropertyId" not-null="false"/>
+    </many-to-one>
+    <property name="DefaultValue" type="String">
+      <column name="DefaultValue" length="255" not-null="false"/>
+    </property>
+    <property name="IsMandatory" type="Boolean">
+      <column name="IsMandatory" not-null="true"/>
+    </property>
+    <property name="IsEnabled" type="Boolean">
+      <column name="IsEnabled" not-null="true"/>
+    </property>
+    <property name="IsCustom" type="Boolean">
+      <column name="IsCustom" not-null="true"/>
+    </property>
+    <property name="Name" type="String">
+      <column name="Name" length="50" not-null="false"/>
+    </property>
+    <property name="ValueConverterTypeName" type="String">
+      <column name="ValueConverterTypeName" length="255" not-null="false"/>
+    </property>
+    <property name="ValueCalculatorTypeName" type="String">
+      <column name="ValueCalculatorTypeName" length="255" not-null="false"/>
+    </property>
+    <many-to-one name="TargetMappedProperty" lazy="false" class="Cdc.MetaManager.DataAccess.Domain.MappedProperty, Cdc.MetaManager.DataAccess" foreign-key="FK_MapProp_TgtMapProp" cascade="none">
+      <column name="TargetMappedPropertyId" not-null="false"/>
+    </many-to-one>
+    <many-to-one name="TargetProperty" lazy="false" class="Cdc.MetaManager.DataAccess.Domain.Property, Cdc.MetaManager.DataAccess" foreign-key="FK_MapProp_TgtProp" cascade="none">
+      <column name="TargetPropertyId" not-null="false"/>
+    </many-to-one>
+    <many-to-one name="DefaultSessionProperty" lazy="false" class="Cdc.MetaManager.DataAccess.Domain.UXSessionProperty, Cdc.MetaManager.DataAccess" foreign-key="FK_MapProp_UXSessProp" cascade="none">
+      <column name="DefaultSessionPropertyId" not-null="false"/>
+    </many-to-one>
+    <property name="DisplayFormat" type="String">
+      <column name="DisplayFormat" length="255" not-null="false"/>
+    </property>
+    <property name="IsSearchable" type="Boolean">
+      <column name="IsSearchable" not-null="true"/>
+    </property>
+  </class>
+</hibernate-mapping>

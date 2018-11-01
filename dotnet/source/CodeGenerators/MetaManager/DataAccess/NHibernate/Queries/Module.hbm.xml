@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<query name="Module.FindAll">
+		<![CDATA[
+     select  m
+       from  Module m
+       where m.Application.Id = :applicationId
+    ]]>
+	</query>
+</hibernate-mapping>
+

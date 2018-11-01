@@ -1,0 +1,396 @@
+<ResourceDictionary
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:controls="clr-namespace:Imi.Framework.Wpf.Controls;assembly=Imi.Framework.Wpf.Controls"
+ xmlns:actipro="http://schemas.actiprosoftware.com/winfx/xaml/shared"
+ xmlns:local="clr-namespace:Imi.SupplyChain.UX"
+ xmlns:themes="http://schemas.actiprosoftware.com/winfx/xaml/themes"
+ xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+ xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
+
+    <DrawingImage x:Key="lookingglass2plus_design" PresentationOptions:Freeze="True">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Geometry="F1 M 428.797,253.374C 436.916,255.019 442.215,262.69 440.631,270.509C 439.047,278.328 431.181,283.333 423.062,281.688C 414.942,280.043 409.644,272.372 411.228,264.553C 412.812,256.734 420.677,251.729 428.797,253.374 Z ">
+                    <GeometryDrawing.Pen>
+                        <Pen Thickness="5" LineJoin="Round" Brush="#FF2A60CB"/>
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Brush="#FF2A60CB" Geometry="F1 M 411.23,278.38C 408.722,280.804 403.821,285.685 401.272,288.696C 398.722,291.706 398.523,292.846 398.698,293.838C 398.873,294.83 399.423,295.673 400.094,296.131C 400.764,296.588 401.556,296.66 402.304,296.597C 403.053,296.534 403.757,296.337 404.41,295.937C 405.063,295.537 405.664,294.934 408.052,292.374C 410.439,289.814 414.614,285.296 416.743,283.054C 418.873,280.811 418.957,280.844 418.705,280.684C 418.454,280.523 417.865,280.169 417.337,279.78C 416.809,279.392 416.341,278.969 415.897,278.56C 415.454,278.151 415.036,277.754 414.719,277.333C 414.401,276.912 414.186,276.466 414.02,276.227C 413.854,275.988 413.738,275.955 411.23,278.38 Z "/>
+                <GeometryDrawing Brush="#FF80A0F1" Geometry="F1 M 430.49,291.444L 438.304,291.444L 438.262,283.313L 445.588,283.354L 445.669,291.038L 452.913,291.078L 452.954,298.437L 445.995,298.315L 445.995,305.673L 438.141,305.673L 438.222,298.355L 430.53,298.355L 430.49,291.444 Z ">
+                    <GeometryDrawing.Pen>
+                        <Pen LineJoin="Round" Brush="#FF1654CD"/>
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <Geometry x:Key="Checkmark">M 0,5.1 L 1.7,5.2 L 3.4,7.1 L 8,0.4 L 9.2,0 L 3.3,10.8 Z</Geometry>
+    <Geometry x:Key="DownArrowGeometry">M 0 0 L 3.5 4 L 7 0 Z</Geometry>
+
+    <DataTemplate x:Key="regularTemplate">
+        <TextBlock Text="{Binding Caption}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="removeTemplate">
+        <TextBlock Text="{x:Static local:StringResources.SearchPanel_Remove}"/>
+    </DataTemplate>
+
+    <BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
+
+    <controls:ComboBoxTemplateSelector x:Key="comboBoxTemplateSelector"
+                                  ItemTemplate="{StaticResource regularTemplate}"
+                                  RemoveTemplate="{StaticResource removeTemplate}"/>
+
+    <Style x:Key="SearchComboBoxItemStyle" TargetType="{x:Type ComboBoxItem}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                    <Grid SnapsToDevicePixels="true">
+                        <Rectangle Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="1" RadiusX="1" RadiusY="1" x:Name="Bg"/>
+                        <Rectangle RadiusX="1" RadiusY="1" Margin="1" x:Name="InnerBorder"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition MinWidth="24" Width="Auto" SharedSizeGroup="MenuItemIconColumnGroup"/>
+                                <ColumnDefinition Width="4"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto" SharedSizeGroup="MenuItemIGTColumnGroup"/>
+                                <ColumnDefinition Width="17"/>
+                            </Grid.ColumnDefinitions>
+                            <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Margin="{TemplateBinding Padding}" Grid.Column="2" ContentSource="Content" RecognizesAccessKey="True" VerticalAlignment="Center"/>
+                            <Border Visibility="Hidden" Margin="1" x:Name="GlyphPanel" Width="22" Height="22" Background="#E6EFF4" BorderBrush="#CDD3E6" BorderThickness="1" CornerRadius="3">
+                                <Path Fill="#0C12A1" FlowDirection="LeftToRight" x:Name="Glyph" Width="9" Height="11" Data="{StaticResource Checkmark}"/>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsHighlighted" Value="true">
+                            <Setter Property="Fill" TargetName="Bg" Value="{DynamicResource {x:Static themes:AssetResourceKeys.MenuItemBackgroundHighlightedBrushKey}}"/>
+                            <Setter Property="Stroke" TargetName="Bg" Value="{DynamicResource {x:Static themes:AssetResourceKeys.MenuItemBorderHighlightedBrushKey}}"/>
+                            <Setter Property="Stroke" TargetName="InnerBorder" Value="{DynamicResource {x:Static themes:AssetResourceKeys.MenuItemInnerBorderHighlightedBrushKey}}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type ComboBoxItem}" x:Key="SearchComboBoxSeparatorStyle">
+        <Setter Property="Focusable" Value="false"/>
+        <Setter Property="IsTabStop" Value="false"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition MinWidth="24" Width="Auto" SharedSizeGroup="MenuItemIconColumnGroup"/>
+                            <ColumnDefinition Width="4"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Separator Grid.Column="2" Margin="2,1,0,1" HorizontalAlignment="Stretch" IsEnabled="false" Background="{DynamicResource {x:Static themes:AssetResourceKeys.MenuSeparatorBackgroundNormalBrushKey}}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <controls:SeparatorStyleSelector x:Key="separatorStyleSelector"
+                                SeparatorStyle="{StaticResource SearchComboBoxSeparatorStyle}"
+                                ItemStyle="{StaticResource SearchComboBoxItemStyle}"/>
+
+    <Style x:Key="ButtonFocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle SnapsToDevicePixels="true" Stroke="Black" StrokeDashArray="1 2" StrokeThickness="1" Margin="2"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="CriteriaToggleButtonStyle" TargetType="{x:Type ToggleButton}">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Background" Value="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonBackgroundNormalBrushKey}}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonBorderNormalBrushKey}}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource {x:Static themes:AssetResourceKeys.DropDownBorderNormalThicknessKey}}" />
+        <Setter Property="themes:ThemeProperties.CornerRadius" Value="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonBorderNormalCornerRadiusKey}}" />
+        <Setter Property="themes:ThemeProperties.IsAnimationEnabled" Value="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonIsAnimationEnabledBooleanKey}}" />
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static themes:AssetResourceKeys.ControlForegroundNormalBrushKey}}"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="14"/>
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+                        <actipro:ElementChrome x:Name="Chrome"
+					Background="{TemplateBinding Background}"
+					BackgroundDefaulted="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonBackgroundDefaultedBrushKey}}"
+					BackgroundDisabled="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonBackgroundDisabledBrushKey}}"
+					BackgroundHover="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonBackgroundHoverBrushKey}}"
+					BackgroundPressed="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonBackgroundPressedBrushKey}}"
+					BorderBrush="{TemplateBinding BorderBrush}"
+					BorderBrushDefaulted="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonBorderDefaultedBrushKey}}"
+					BorderBrushDisabled="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonBorderDisabledBrushKey}}"
+					BorderBrushHover="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonBorderHoverBrushKey}}"
+					BorderBrushPressed="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonBorderPressedBrushKey}}"
+					BorderThickness="{TemplateBinding BorderThickness}"
+					Highlight="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonHighlightNormalBrushKey}}"
+					HighlightDefaulted="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonHighlightDefaultedBrushKey}}"
+					HighlightDisabled="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonHighlightDisabledBrushKey}}"
+					HighlightHover="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonHighlightHoverBrushKey}}"
+					HighlightPressed="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonHighlightPressedBrushKey}}"
+					InnerBorderBrush="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonInnerBorderNormalBrushKey}}"
+					InnerBorderBrushDefaulted="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonInnerBorderDefaultedBrushKey}}"
+					InnerBorderBrushDisabled="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonInnerBorderDisabledBrushKey}}"
+					InnerBorderBrushHover="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonInnerBorderHoverBrushKey}}"
+					InnerBorderBrushPressed="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonInnerBorderPressedBrushKey}}"
+					InnerBorderThickness="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonInnerBorderNormalThicknessKey}}"
+					IsAnimationEnabled="{TemplateBinding themes:ThemeProperties.IsAnimationEnabled}"
+                    Opacity="0"
+					BorderStyle="{DynamicResource {x:Static themes:AssetResourceKeys.ButtonElementChromeBorderStyleKey}}"
+					SnapsToDevicePixels="True" CornerRadius="{TemplateBinding themes:ThemeProperties.CornerRadius}" Focusable="False" Grid.ColumnSpan="3">
+
+                        <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" RecognizesAccessKey="True"/>
+                        </actipro:ElementChrome>
+                        <Path x:Name="Arrow" Fill="{DynamicResource {x:Static themes:AssetResourceKeys.ControlForegroundNormalBrushKey}}" Stretch="Fill" Stroke="{DynamicResource {x:Static themes:AssetResourceKeys.ControlForegroundNormalBrushKey}}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="5" Height="4" Grid.Column="1" Data="{StaticResource DownArrowGeometry}"/>
+
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="Chrome" Property="State" Value="Hover" />
+                            <Setter Property="Opacity" TargetName="Chrome" Value="1"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter TargetName="Chrome" Property="State" Value="Pressed" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter TargetName="Chrome" Property="State" Value="Pressed" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter TargetName="Chrome" Property="State" Value="Disabled" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <ControlTemplate x:Key="{ComponentResourceKey ResourceId=SubmenuContent, TypeInTargetAssembly={x:Type FrameworkElement}}" TargetType="{x:Type ContentControl}">
+        <Border Background="{DynamicResource {x:Static themes:AssetResourceKeys.MenuPopupBackgroundNormalBrushKey}}" BorderBrush="{DynamicResource {x:Static themes:AssetResourceKeys.MenuPopupBorderNormalBrushKey}}" BorderThickness="1">
+            <Grid>
+                <Rectangle Fill="{DynamicResource {x:Static themes:AssetResourceKeys.MenuItemIconColumnBackgroundNormalBrushKey}}" RadiusX="2" RadiusY="2" HorizontalAlignment="Left" Margin="2" Width="28"/>
+                <Rectangle Fill="{DynamicResource {x:Static themes:AssetResourceKeys.MenuItemIconColumnBorderNormalBrushKey}}" HorizontalAlignment="Left" Margin="30,2,0,2" Width="1"/>
+                <Rectangle Fill="Transparent" HorizontalAlignment="Left" Margin="31,2,0,2" Width="1"/>
+                <ContentPresenter Margin="1,0" Grid.ColumnSpan="2"/>
+            </Grid>
+        </Border>
+    </ControlTemplate>
+
+    <Style x:Key="SearchComboBoxStyle" TargetType="{x:Type controls:SearchComboBox}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Focusable" Value="false"/>
+        <Setter Property="IsTabStop" Value="false"/>
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static themes:AssetResourceKeys.ControlForegroundNormalBrushKey}}"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="IsEditable" Value="false"/>
+        <Setter Property="ItemContainerStyleSelector" Value="{StaticResource separatorStyleSelector}"/>
+        <Setter Property="ToolTip" Value="{Binding Caption, RelativeSource={RelativeSource Self}}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:SearchComboBox}">
+                    <Grid SnapsToDevicePixels="true" x:Name="MainGrid">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="14"/>
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+                        <Popup Focusable="false" AllowsTransparency="true" HorizontalOffset="0" IsOpen="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}" Placement="Bottom" PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}" VerticalOffset="1" x:Name="PART_Popup">
+                            <Microsoft_Windows_Themes:SystemDropShadowChrome x:Name="Shdw" Color="Transparent">
+                                <ContentControl x:Name="SubMenuBorder" IsTabStop="false" Template="{StaticResource {ComponentResourceKey ResourceId=SubmenuContent, TypeInTargetAssembly={x:Type FrameworkElement}}}">
+                                    <ScrollViewer CanContentScroll="true">
+                                        <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Margin="2" Grid.IsSharedSizeScope="true" KeyboardNavigation.DirectionalNavigation="Cycle" KeyboardNavigation.TabNavigation="Cycle"/>
+                                    </ScrollViewer>
+                                </ContentControl>
+                            </Microsoft_Windows_Themes:SystemDropShadowChrome>
+                        </Popup>
+                        <ToggleButton x:Name="Toggler"
+                          Style="{StaticResource CriteriaToggleButtonStyle}"
+                          Grid.ColumnSpan="5"
+                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                        <Image x:Name="Image" Grid.Column="1" Visibility="Visible" Width="14" Height="14" Source="{Binding ImageSource, RelativeSource={RelativeSource TemplatedParent}}" Margin="0,0,3,0"/>
+                        <TextBlock x:Name="ButtonText" Grid.Column="2" Text="{Binding Caption, RelativeSource={RelativeSource TemplatedParent}}" TextTrimming="CharacterEllipsis" HorizontalAlignment="Right" VerticalAlignment="Center" IsHitTestVisible="False"/>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="ImageSource" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Collapsed" TargetName="Image"/>
+                        </Trigger>
+                        <Trigger Property="HasItems" Value="false">
+                            <Setter Property="IsEnabled" Value="false" TargetName="Toggler"/>
+                            <Setter Property="Foreground" Value="{DynamicResource {x:Static themes:AssetResourceKeys.ControlForegroundDisabledBrushKey}}" TargetName="ButtonText"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="DefaultItemContainerStyle" TargetType="{x:Type controls:SearchPanelItemContainer}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Focusable" Value="false"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:SearchPanelItemContainer}">
+                    <Grid Width="Auto" Margin="0,3,3,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="{Binding CaptionWidth, RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <controls:SearchComboBox Style="{StaticResource SearchComboBoxStyle}"
+                                  Caption="{Binding CurrentItem.Caption, RelativeSource={RelativeSource TemplatedParent}}"
+                                  ItemsSource="{Binding AvailableItemsPlusRemove, RelativeSource={RelativeSource AncestorType={x:Type controls:SearchPanel}}}"
+                                  ItemTemplateSelector="{StaticResource comboBoxTemplateSelector}"
+                                  Height="23"
+                                  Grid.Column="1"
+                                  x:Name="PART_SearchItemSelector"
+                                  />
+                        <ContentPresenter Content="{Binding CurrentItem.Content, RelativeSource={RelativeSource TemplatedParent}}" Grid.Column="2" Margin="2,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+                        <Border x:Name="leftBorder" Visibility="Collapsed" Grid.Column="0" Background="{DynamicResource {x:Static themes:AssetResourceKeys.EditSelectionBackgroundFocusedBrushKey}}" BorderBrush="Silver" BorderThickness="0" Width="7"/>
+                        <Border x:Name="rightBorder" Visibility="Collapsed" Grid.Column="3" Background="{DynamicResource {x:Static themes:AssetResourceKeys.EditSelectionBackgroundFocusedBrushKey}}" BorderBrush="Silver" BorderThickness="0" Width="7"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDraggingBefore" Value="True">
+                            <Setter Property="Visibility" TargetName="leftBorder" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="IsDraggingAfter" Value="True">
+                            <Setter Property="Visibility" TargetName="rightBorder" Value="Visible"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="FixedItemContainerStyle" TargetType="{x:Type controls:SearchPanelItemContainer}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Focusable" Value="false"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:SearchPanelItemContainer}">
+                    <Grid Width="Auto" Margin="0,3,3,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="{Binding CaptionWidth, RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Margin="0,0,14,0" TextTrimming="CharacterEllipsis" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Text="{Binding CurrentItem.Caption, RelativeSource={RelativeSource TemplatedParent}}"/>
+                        <ContentPresenter Content="{Binding CurrentItem.Content, RelativeSource={RelativeSource TemplatedParent}}" Grid.Column="2" Margin="2,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+                        <Border x:Name="leftBorder" Visibility="Collapsed" Grid.Column="0" Background="{DynamicResource {x:Static themes:AssetResourceKeys.EditSelectionBackgroundFocusedBrushKey}}" BorderBrush="Silver" BorderThickness="0" Width="7"/>
+                        <Border x:Name="rightBorder" Visibility="Collapsed" Grid.Column="3" Background="{DynamicResource {x:Static themes:AssetResourceKeys.EditSelectionBackgroundFocusedBrushKey}}" BorderBrush="Silver" BorderThickness="0" Width="7"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDraggingBefore" Value="True">
+                            <Setter Property="Visibility" TargetName="leftBorder" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="IsDraggingAfter" Value="True">
+                            <Setter Property="Visibility" TargetName="rightBorder" Value="Visible"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <controls:SearchPanelItemContainerStyleSelector x:Key="ItemContainerStyleSelector"
+                                     DefaultStyle="{StaticResource DefaultItemContainerStyle}"
+                                     IsFixedStyle="{StaticResource FixedItemContainerStyle}"/>
+
+    <Style x:Key="SearchPanelItemStyle" TargetType="{x:Type controls:SearchPanelItem}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="IsTabStop" Value="false"/>
+        <Setter Property="Focusable" Value="false"/>
+        <Setter Property="Template" Value="{StaticResource SearchPanelItemTemplate}"/>
+    </Style>
+
+    <Style TargetType="{x:Type controls:SearchPanel}">
+        <Setter Property="SearchItemCaptionWidth" Value="120"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="ItemContainerStyle" Value="{x:Null}"/>
+        <Setter Property="ItemContainerStyleSelector" Value="{StaticResource ItemContainerStyleSelector}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:SearchPanel}">
+                    <Grid VerticalAlignment="Top">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <WrapPanel x:Name="PART_SearchItemHostPanel" IsItemsHost="true" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="4" />
+                            <actipro:PopupButton IsTabStop="False" Grid.Column="1" Margin="0,8,8,4" MinWidth="80" HorizontalAlignment="Right" VerticalAlignment="Top" Width="Auto" Command="{Binding SearchCommand, RelativeSource={RelativeSource TemplatedParent}}">
+                                <actipro:PopupButton.PopupMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="{x:Static local:StringResources.SearchPanel_Clear}" Command="{Binding ClearCommand, RelativeSource={RelativeSource TemplatedParent}}" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+                                        <MenuItem Header="{x:Static local:StringResources.SearchPanel_SearchRepeat}">
+                                            <MenuItem.Items>
+                                                <MenuItem local:MenuItemExtensions.GroupName="SearchRepeat" IsCheckable="True" IsChecked="True" Header="{x:Static local:StringResources.SearchPanel_SearchRepeat_Off}" Command="{Binding SearchRepeatCommand, RelativeSource={RelativeSource TemplatedParent}}" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}" CommandParameter="0"/>
+                                                <MenuItem local:MenuItemExtensions.GroupName="SearchRepeat" IsCheckable="True" Header="{x:Static local:StringResources.SearchPanel_SearchRepeat_5min}" Command="{Binding SearchRepeatCommand, RelativeSource={RelativeSource TemplatedParent}}" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}" CommandParameter="5"/>
+                                                <MenuItem local:MenuItemExtensions.GroupName="SearchRepeat" IsCheckable="True" Header="{x:Static local:StringResources.SearchPanel_SearchRepeat_10min}" Command="{Binding SearchRepeatCommand, RelativeSource={RelativeSource TemplatedParent}}" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}" CommandParameter="10"/>
+                                                <MenuItem local:MenuItemExtensions.GroupName="SearchRepeat" IsCheckable="True" Header="{x:Static local:StringResources.SearchPanel_SearchRepeat_15min}" Command="{Binding SearchRepeatCommand, RelativeSource={RelativeSource TemplatedParent}}" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}" CommandParameter="15"/>
+                                                <MenuItem local:MenuItemExtensions.GroupName="SearchRepeat" IsCheckable="True" Header="{x:Static local:StringResources.SearchPanel_SearchRepeat_20min}" Command="{Binding SearchRepeatCommand, RelativeSource={RelativeSource TemplatedParent}}" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}" CommandParameter="20"/>
+                                                <MenuItem local:MenuItemExtensions.GroupName="SearchRepeat" IsCheckable="True" Header="{x:Static local:StringResources.SearchPanel_SearchRepeat_25min}" Command="{Binding SearchRepeatCommand, RelativeSource={RelativeSource TemplatedParent}}" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}" CommandParameter="25"/>
+                                                <MenuItem local:MenuItemExtensions.GroupName="SearchRepeat" IsCheckable="True" Header="{x:Static local:StringResources.SearchPanel_SearchRepeat_30min}" Command="{Binding SearchRepeatCommand, RelativeSource={RelativeSource TemplatedParent}}" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}" CommandParameter="30"/>
+                                            </MenuItem.Items>
+                                        </MenuItem>
+                                        <MenuItem Header="{x:Static local:StringResources.SearchPanel_AddToFavorites}" Command="{x:Static local:UXCommands.AddToFavoritesCommand}" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+                                        <MenuItem Header="{x:Static local:StringResources.SearchPanel_CreateHyperlink}" Command="{x:Static local:UXCommands.CreateHyperlinkCommand}" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+                                    </ContextMenu>
+                                </actipro:PopupButton.PopupMenu>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Height="16" Width="16" Margin="0,0,4,0" VerticalAlignment="Center" x:Name="RepetedSearchIcon" Visibility="Collapsed" Source="pack://application:,,,/Imi.SupplyChain.UX;component/Resources/Images/RepeatHS.png" SnapsToDevicePixels="False"/>
+                                    <TextBlock VerticalAlignment="Center" Text="{x:Static local:StringResources.SearchPanel_Search}"/>
+                                </StackPanel>
+                            </actipro:PopupButton>
+                            <!--
+              <controls:DropDownButton IsTabStop="False" Style="{StaticResource DropDownButtonStyle}" Grid.Column="1" Margin="0,4,8,4" Header="{x:Static local:StringResources.SearchPanel_Search}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="Auto" Height="Auto" Command="{Binding SearchCommand, RelativeSource={RelativeSource TemplatedParent}}">
+                <MenuItem Header="{x:Static local:StringResources.SearchPanel_Clear}" Command="{Binding ClearCommand, RelativeSource={RelativeSource TemplatedParent}}"/>
+              </controls:DropDownButton>
+              -->
+                        </Grid>
+                        <controls:SearchComboBox x:Name="PART_CriteriaCreator"
+			                            HorizontalAlignment="Left"
+					                        Caption="{x:Static local:StringResources.SearchPanel_AddCriteria}"
+					                        Margin="8,4,0,4"
+					                        Grid.Row="1"
+                                  Height="23"
+                                  ItemsSource="{Binding AvailableItems, RelativeSource={RelativeSource TemplatedParent}}"
+                                  ImageSource="{StaticResource lookingglass2plus_design}"
+					                        Style="{StaticResource SearchComboBoxStyle}"
+					                        ItemTemplateSelector="{StaticResource comboBoxTemplateSelector}"
+                                  Visibility="{Binding CanAddItems, Converter={StaticResource BoolToVisConverter}, RelativeSource={RelativeSource AncestorType={x:Type controls:SearchPanel}}}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

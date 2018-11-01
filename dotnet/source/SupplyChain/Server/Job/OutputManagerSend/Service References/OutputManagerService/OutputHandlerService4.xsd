@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://Imi.SupplyChain.OM.Services.OutputHandler.DataContracts/2016/11" elementFormDefault="qualified" targetNamespace="http://Imi.SupplyChain.OM.Services.OutputHandler.DataContracts/2016/11" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://se0133d:18801/OutputManager/OutputHandlerService?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:complexType name="CreateOutputParametersCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CreateOutputParameters" nillable="true" type="tns:CreateOutputParameters" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CreateOutputParametersCollection" nillable="true" type="tns:CreateOutputParametersCollection" />
+  <xs:complexType name="CreateOutputParameters">
+    <xs:sequence>
+      <xs:element name="OutputJobIdentity" nillable="true" type="xs:string" />
+      <xs:element name="OutputJobSequenceNumber" type="xs:int" />
+      <xs:element name="OutputXML" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CreateOutputParameters" nillable="true" type="tns:CreateOutputParameters" />
+  <xs:complexType name="CreateOutputResultCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CreateOutputResult" nillable="true" type="tns:CreateOutputResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CreateOutputResultCollection" nillable="true" type="tns:CreateOutputResultCollection" />
+  <xs:complexType name="CreateOutputResult">
+    <xs:sequence>
+      <xs:element name="OutputJobIdentity" nillable="true" type="xs:string" />
+      <xs:element name="OutputJobSequenceNumber" type="xs:int" />
+      <xs:element minOccurs="0" name="ErrorDescription" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ResultProperties" nillable="true" type="tns:ArrayOfCreateOutputResultProperty" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CreateOutputResult" nillable="true" type="tns:CreateOutputResult" />
+  <xs:complexType name="ArrayOfCreateOutputResultProperty">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CreateOutputResultProperty" nillable="true" type="tns:CreateOutputResultProperty" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCreateOutputResultProperty" nillable="true" type="tns:ArrayOfCreateOutputResultProperty" />
+  <xs:complexType name="CreateOutputResultProperty">
+    <xs:sequence>
+      <xs:element name="PropertyName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PropertyValue" nillable="true" type="xs:anyType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CreateOutputResultProperty" nillable="true" type="tns:CreateOutputResultProperty" />
+  <xs:complexType name="FindPrinterInfoParameters">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="FindPrinterInfoParameters" nillable="true" type="tns:FindPrinterInfoParameters" />
+  <xs:complexType name="FindPrinterInfoResult">
+    <xs:sequence>
+      <xs:element name="PrinterAssociations" nillable="true" type="tns:ArrayOfPrinterAssociation" />
+      <xs:element name="Printers" nillable="true" type="tns:ArrayOfPrinter" />
+      <xs:element name="TerminalGroups" nillable="true" type="tns:ArrayOfTerminalGroup" />
+      <xs:element name="ReportGroups" nillable="true" type="tns:ArrayOfReportGroup" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="FindPrinterInfoResult" nillable="true" type="tns:FindPrinterInfoResult" />
+  <xs:complexType name="ArrayOfPrinterAssociation">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PrinterAssociation" nillable="true" type="tns:PrinterAssociation" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPrinterAssociation" nillable="true" type="tns:ArrayOfPrinterAssociation" />
+  <xs:complexType name="PrinterAssociation">
+    <xs:sequence>
+      <xs:element name="TerminalGroupID" nillable="true" type="xs:string" />
+      <xs:element name="ReportGroupID" nillable="true" type="xs:string" />
+      <xs:element name="PrinterID" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PrinterAssociation" nillable="true" type="tns:PrinterAssociation" />
+  <xs:complexType name="ArrayOfPrinter">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Printer" nillable="true" type="tns:Printer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPrinter" nillable="true" type="tns:ArrayOfPrinter" />
+  <xs:complexType name="Printer">
+    <xs:sequence>
+      <xs:element name="PrinterID" nillable="true" type="xs:string" />
+      <xs:element name="PrinterType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PrinterDeviceName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Printer" nillable="true" type="tns:Printer" />
+  <xs:complexType name="ArrayOfTerminalGroup">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TerminalGroup" nillable="true" type="tns:TerminalGroup" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTerminalGroup" nillable="true" type="tns:ArrayOfTerminalGroup" />
+  <xs:complexType name="TerminalGroup">
+    <xs:sequence>
+      <xs:element name="TerminalGroupID" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Terminals" nillable="true" type="q1:ArrayOfstring" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TerminalGroup" nillable="true" type="tns:TerminalGroup" />
+  <xs:complexType name="ArrayOfReportGroup">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ReportGroup" nillable="true" type="tns:ReportGroup" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfReportGroup" nillable="true" type="tns:ArrayOfReportGroup" />
+  <xs:complexType name="ReportGroup">
+    <xs:sequence>
+      <xs:element name="ReportGroupID" nillable="true" type="xs:string" />
+      <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="DocumentTypesWithSubDocType" nillable="true" type="q2:ArrayOfstring" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ReportGroup" nillable="true" type="tns:ReportGroup" />
+</xs:schema>

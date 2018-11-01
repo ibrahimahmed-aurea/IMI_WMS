@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="WebServiceTester.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="WebServiceTester_WarehouseService_WarehouseWebService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost:1095/Wms.WebServices.SyncWS.WebSite/Interface.c3PL.Warehouse.asmx</Value>
+    </Setting>
+    <Setting Name="WebServiceTester_CustomerService_CustomerWebService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost:1095/Wms.WebServices.SyncWS.WebSite/Interface.c3PL.Customer.asmx</Value>
+    </Setting>
+    <Setting Name="WebServiceTester_ProductSearchService_ProductSearchWebService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost:1095/Wms.WebServices.SyncWS.WebSite/Interface.c3PL.ProductSearch.asmx</Value>
+    </Setting>
+    <Setting Name="WebServiceTester_OrderService_OrderWebService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost:1095/Wms.WebServices.SyncWS.WebSite/Interface.c3PL.Order.asmx</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

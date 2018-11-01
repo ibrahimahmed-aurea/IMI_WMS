@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8CD9F8FC-1C24-4EB3-A7D6-DF288BCBBADB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BuildAdapters</RootNamespace>
+    <AssemblyName>BuildAdapters</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Crystal\SupplyChain.OM.OutputHandler.Adapters.CrystalAdapter.csproj">
+      <Project>{30C7B940-F66E-4AA9-BFEA-A802913C039D}</Project>
+      <Name>SupplyChain.OM.OutputHandler.Adapters.CrystalAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Label\SupplyChain.OM.OutputHandler.Adapters.LabelAdapter.csproj">
+      <Project>{5F066D0F-63C6-40FD-84CE-9857C9230C90}</Project>
+      <Name>SupplyChain.OM.OutputHandler.Adapters.LabelAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PDF\SupplyChain.OM.OutputHandler.Adapters.PDFAdapter.csproj">
+      <Project>{6D8CB862-7FC1-4EBF-AB5F-F67B56BE885C}</Project>
+      <Name>SupplyChain.OM.OutputHandler.Adapters.PDFAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RDF\SupplyChain.OM.OutputHandler.Adapters.RDFAdapter.csproj">
+      <Project>{3DD2182C-0353-4D95-8651-E84B328FFABF}</Project>
+      <Name>SupplyChain.OM.OutputHandler.Adapters.RDFAdapter</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>set RuntimeDir=$(ProjectDir)..\..\..\..\..\..\..\SupplyChain\Server\Console\$(OutDir)
+set Zip=$(SolutionDir)..\..\..\install\utility\zipit.exe
+del $(TargetDir)BuildAdapters.* /q
+xcopy $(TargetDir)*.* %25RuntimeDir%25 /d /y
+if $(ConfigurationName) == Debug goto End
+del $(TargetDir)*.pdb /q
+attrib -r $(ProjectDir)OMAdaptersBinaries.zip
+del $(ProjectDir)OMAdaptersBinaries.zip /q
+%25Zip%25 $(ProjectDir)OMAdaptersBinaries.zip $(TargetDir)
+:End
+</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

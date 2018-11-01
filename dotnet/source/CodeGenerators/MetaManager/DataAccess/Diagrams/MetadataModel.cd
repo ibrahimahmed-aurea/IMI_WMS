@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.Module" Collapsed="true">
+    <Position X="1.75" Y="2.5" Width="1.5" />
+    <AssociationLine Name="Application" Type="Cdc.MetaManager.DataAccess.Domain.Application">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="1.298" Y="0.893" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Dialogs" Type="Cdc.MetaManager.DataAccess.Domain.Dialog">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="1.287" Y="1.852" Height="0.16" Width="0.5" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACIQAAACAAgAAEAAAAAAQAAAAAAAgAAAAIAAAAAAA=</HashCode>
+      <FileName>Domain\Module.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Application" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Dialogs" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.Dialog" Collapsed="true">
+    <Position X="1.75" Y="3.5" Width="1.5" />
+    <AssociationLine Name="RootViewNode" Type="Cdc.MetaManager.DataAccess.Domain.ViewNode">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.683" Y="4.175" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>CAACAAiEAAEAAEAEAAAAAAQAQAAAEEABAQAACAEQAAA=</HashCode>
+      <FileName>Domain\Dialog.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="RootViewNode" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.View" Collapsed="true">
+    <Position X="3.5" Y="5.5" Width="1.5" />
+    <AssociationLine Name="RequestMap" Type="Cdc.MetaManager.DataAccess.Domain.PropertyMap" FixedToPoint="true">
+      <Path>
+        <Point X="4.25" Y="5.5" />
+        <Point X="4.25" Y="4.812" />
+        <Point X="5.5" Y="4.812" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="3.579" Y="5.029" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAUAAAIFwEQEBAIAEAUAwAAAAEAQBQACAAAABIA=</HashCode>
+      <FileName>Domain\View.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="RequestMap" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.ViewNode" Collapsed="true">
+    <Position X="1.75" Y="4.5" Width="1.5" />
+    <AssociationLine Name="View" Type="Cdc.MetaManager.DataAccess.Domain.View">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="2.248" Y="4.975" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Parent" Type="Cdc.MetaManager.DataAccess.Domain.ViewNode" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="1.75" Y="4.688" />
+        <Point X="1.5" Y="4.688" />
+        <Point X="1.5" Y="4.875" />
+        <Point X="1.75" Y="4.875" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.268" Y="4.672" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AGACAAAAAAIgAEQEAAAGQAAAQgABAEAAEAgAAAEIAgA=</HashCode>
+      <FileName>Domain\ViewNode.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="View" />
+      <Property Name="Parent" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.ServiceMethod" Collapsed="true">
+    <Position X="5.5" Y="3.5" Width="1.5" />
+    <AssociationLine Name="RequestMap" Type="Cdc.MetaManager.DataAccess.Domain.PropertyMap">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="3.933" Y="4.237" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAQAAEAAAAAAQAgBAAUAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\ServiceMethod.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="RequestMap" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.Service" Collapsed="true">
+    <Position X="5.5" Y="2.5" Width="1.5" />
+    <AssociationLine Name="Application" Type="Cdc.MetaManager.DataAccess.Domain.Application">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-4.838" Y="1.518" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="ServiceMethods" Type="Cdc.MetaManager.DataAccess.Domain.ServiceMethod">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="4.6" Y="2.893" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAgAAAAAgAAAQAAAAAAAAAAAABAAAAAQA=</HashCode>
+      <FileName>Domain\Service.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Application" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="ServiceMethods" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.Application" Collapsed="true">
+    <Position X="3.5" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAQAAIAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Application.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.Application" Collapsed="true">
+    <Position X="3.5" Y="1.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>IAACEAAAABAAAAAAAAAAAAQGAACAgAAEAAAgBAAAQCA=</HashCode>
+      <FileName>Domain\Application.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.PropertyMap" Collapsed="true">
+    <Position X="5.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACBAAAAAQAAAAEAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\PropertyMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

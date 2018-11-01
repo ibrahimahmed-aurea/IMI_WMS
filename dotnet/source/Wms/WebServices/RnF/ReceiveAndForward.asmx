@@ -1,0 +1,1 @@
+<%@ WebService Language="C#" CodeBehind="Wms.WebServices.OutboundMapper.ReceiveAndForward" Class="Wms.WebServices.OutboundMapper.ReceiveAndForward.ReceiveInterface" %>

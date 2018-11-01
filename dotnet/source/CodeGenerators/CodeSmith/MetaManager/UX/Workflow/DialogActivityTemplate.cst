@@ -1,0 +1,251 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text"  Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="false" Description="Template description here." %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="workflowDialog" Type="Cdc.MetaManager.DataAccess.Domain.WorkflowDialog" Default="" Optional="false" Category="" Description="" OnChanged="" Editor="" EditorBase="" Serializer="" %>
+<%@ Property Name="isDesignTime" Type="System.Boolean" Default="false" Optional="false" Category="" Description="" OnChanged="" Editor="" EditorBase="" Serializer="" %>
+<%
+	string dialogName = workflowDialog.Dialog.Name;
+	View mainView = workflowDialog.Dialog.InterfaceView;
+	string activityClassName = GetDialogActivityClassName(workflowDialog.Dialog);
+	string applicationName = workflowDialog.Dialog.Module.Application.Name;
+	
+%>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.ComponentModel;
+using System.Reflection;
+using System.Threading;
+using System.Workflow.ComponentModel;
+using System.Workflow.ComponentModel.Compiler;
+using System.Workflow.Activities;
+<%
+if (!isDesignTime)
+{
+%>	
+using <%= GetViewsNamespace(mainView) %>;
+using Microsoft.Practices.CompositeUI;
+using Microsoft.Practices.CompositeUI.Configuration;
+using Microsoft.Practices.CompositeUI.Services;
+using Imi.Framework.UX;
+using Imi.SupplyChain.UX;
+using <%=GetDialogNamespace(workflowDialog.Dialog)%>;
+using <%=GetViewsConstantsNamespace(mainView)%>;
+<%
+}
+else
+{
+%>
+using System.Workflow.ComponentModel.Design;
+using <%=GetWorkflowNamespace(workflowDialog.Workflow)%>;
+<%
+}
+%>
+
+namespace <%=GetWorkflowNamespace(workflowDialog.Workflow)%>.Activities
+{
+<%	
+if (isDesignTime)
+{
+%>	
+	[Designer(typeof(DialogActivityDesigner))]
+<%
+}
+%>
+	public class <%=activityClassName%> : Activity 
+    {
+		public Guid DialogId
+        {
+            get { return (Guid)GetValue(DialogIdProperty); }
+            set { SetValue(DialogIdProperty, value); }
+        }
+                
+        public static readonly DependencyProperty DialogIdProperty =
+            DependencyProperty.Register("DialogId", typeof(Guid), typeof(<%=activityClassName%>), new PropertyMetadata(new Guid("<%=workflowDialog.Dialog.Id%>")));	
+		
+		
+		public bool IsCancelled
+        {
+            get { return (bool)GetValue(IsCancelledProperty); }
+            set { SetValue(IsCancelledProperty, value); }
+        }
+                
+        public static readonly DependencyProperty IsCancelledProperty =
+            DependencyProperty.Register("IsCancelled", typeof(bool), typeof(<%=activityClassName%>), new PropertyMetadata(false));	
+		
+		public bool TerminateOnCancel
+        {
+            get { return (bool)GetValue(TerminateOnCancelProperty); }
+            set { SetValue(TerminateOnCancelProperty, value); }
+        }
+                
+        public static readonly DependencyProperty TerminateOnCancelProperty =
+            DependencyProperty.Register("TerminateOnCancel", typeof(bool), typeof(<%=activityClassName%>), new PropertyMetadata(true));	
+			
+<%
+	foreach (MappedProperty property in mainView.RequestMap.MappedProperties)
+	{
+		string typeName = GetShortTypeName(property.Type, true);
+		
+%>			
+		[Category("Request")]
+		public <%=typeName%> Request_<%=property.Name%>
+        {
+            get { return (<%=typeName%>)GetValue(Request_<%=property.Name%>Property); }
+            set { SetValue(Request_<%=property.Name%>Property, value); }
+        }
+                
+        public static readonly DependencyProperty Request_<%=property.Name%>Property =
+            DependencyProperty.Register("Request_<%=property.Name%>", typeof(<%=typeName%>), typeof(<%=activityClassName%>), new PropertyMetadata(null));
+			
+<%			
+	}
+
+	foreach (MappedProperty property in mainView.ResponseMap.MappedProperties)
+	{
+		string typeName = GetShortTypeName(property.Type, true);
+		
+%>		
+		[Category("Response")]
+		public <%=typeName%> Response_<%=property.Name%>
+        {
+            get { return (<%=typeName%>)GetValue(Response_<%=property.Name%>Property); }
+            set { SetValue(Response_<%=property.Name%>Property, value); }
+        }
+                
+        public static readonly DependencyProperty Response_<%=property.Name%>Property =
+            DependencyProperty.Register("Response_<%=property.Name%>", typeof(<%=typeName%>), typeof(<%=activityClassName%>), new PropertyMetadata(null));
+			
+<%			
+	}
+	
+	string viewParametersClassName = GetViewParametersClassName(mainView, false, false);
+	string viewResultClassName = GetViewResultClassName(mainView);
+	string controllerClassName = GetControllerClassName(workflowDialog.Dialog);
+	
+	if (!isDesignTime)
+	{
+%>
+		protected override ActivityExecutionStatus Execute(ActivityExecutionContext executionContext)
+        {
+            using (EventWaitHandle waitHandle = new EventWaitHandle(false, EventResetMode.AutoReset))
+			{
+				<%=viewResultClassName%> viewResult = null;
+				
+				SynchronizationContext.Send(delegate(object data)
+				{
+					ModuleInfo info = new ModuleInfo(typeof(<%=controllerClassName%>).Assembly);
+					IModuleLoaderService loader = WorkItem.Services.Get<IModuleLoaderService>();
+					loader.Load(WorkItem.RootWorkItem.WorkItems["<%=applicationName%>"], info);
+					
+					<%=viewParametersClassName%> viewParameters = new <%=viewParametersClassName%>();
+
+<%						
+				foreach (MappedProperty property in mainView.RequestMap.MappedProperties)
+				{
+%>
+					viewParameters.<%=property.Name%> = Request_<%=property.Name%>;
+<%
+				}
+%>			
+
+					ControlledWorkItem<<%=controllerClassName%>> workItem = WorkItem.WorkItems.AddNew<ControlledWorkItem<<%=controllerClassName%>>>();
+								
+					workItem.Terminating += (s, e) =>
+						{
+							if (workItem.Items.FindByType<<%=viewResultClassName%>>().Count > 0)
+								viewResult = workItem.Items.FindByType<<%=viewResultClassName%>>().Last();  
+								
+							DialogResult result = DialogResult.None;
+			
+							if (workItem.Items.Get("DialogResult") != null) 
+			    				result = (DialogResult)workItem.Items.Get("DialogResult");
+		
+							IsCancelled = (result != DialogResult.Ok);
+						};
+						
+					workItem.Terminated += (s, e) =>
+						{
+							waitHandle.Set();
+						};
+						
+<%
+				if (workflowDialog.Dialog.Type == DialogType.Overview)
+				{
+%>					
+					workItem.Controller.Run(viewParameters, true);
+<%
+				}
+				else
+				{
+%>			
+					workItem.Controller.Run(viewParameters);
+<%
+				}
+%>				
+					
+				}, null);
+			
+				waitHandle.WaitOne();
+				
+				if (IsCancelled && TerminateOnCancel)
+					throw new WorkflowTerminatedException();
+				
+				if (viewResult != null)
+				{
+<%						
+				foreach (MappedProperty property in mainView.ResponseMap.MappedProperties)
+				{
+%>
+					Response_<%=property.Name%> = viewResult.<%=property.Name%>;
+<%
+				}
+%>				
+				}
+			}
+			
+			return base.Execute(executionContext);
+        }
+		
+		private WorkItem WorkItem
+        {
+            get
+            {
+                Activity activity = this;
+
+                while (activity.Parent != null)
+                {
+                    activity = activity.Parent;    
+                }
+
+                PropertyInfo propertyInfo = activity.GetType().GetProperty("WorkItem");
+                return propertyInfo.GetValue(activity, null) as WorkItem;
+            }
+        }
+		
+		private SynchronizationContext SynchronizationContext
+        {
+            get
+            {
+                Activity activity = this;
+
+                while (activity.Parent != null)
+                {
+                    activity = activity.Parent;
+                }
+
+                PropertyInfo propertyInfo = activity.GetType().GetProperty("SynchronizationContext");
+                return propertyInfo.GetValue(activity, null) as SynchronizationContext;
+            }
+        }
+<%
+	}
+%>
+	}
+}

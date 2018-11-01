@@ -1,0 +1,30 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="CoreTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Register Name="MenuItemTemplate" Template="MenuItemTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Property Name="menu" Type="Cdc.MetaManager.DataAccess.Domain.Menu" Default="" Optional="False" Category="" Description="" %>
+<%@ Property Name="dialogs" Type="List<Dialog>" Default="" Optional="false" Category="" Description="" %>
+<%
+	string rootMenuCaption = menu == null ? string.Empty : GetMenuCaption(menu);
+	string id = menu == null ? string.Empty : menu.TopMenuItem.AuthorizationId;
+%>
+<folder caption="<%=rootMenuCaption%>" id="<%=id%>">
+<%
+	if (menu != null)
+	{
+		MenuItemTemplate menuItemTemplate = this.Create<MenuItemTemplate>();
+		menuItemTemplate.SetProperty("menuItem", menu.TopMenuItem);
+		menuItemTemplate.SetProperty("tabLevel", 1);
+		menuItemTemplate.SetProperty("dialogs", dialogs);
+		menuItemTemplate.Render(this.Response);
+	}
+%>
+</folder>

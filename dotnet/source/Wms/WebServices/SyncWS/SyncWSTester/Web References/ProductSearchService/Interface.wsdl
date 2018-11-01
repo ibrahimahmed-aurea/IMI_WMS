@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://im.se/webservices/c3pl" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://im.se/webservices/c3pl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://im.se/webservices/c3pl">
+      <s:element name="findProductsByPartNo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="productSearchParameters" type="tns:productSearchParameters" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="productSearchParameters">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:baseParameters">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="searchString" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="baseParameters">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="clientId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="returnDetails" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="firstResult" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="maxResult" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="stockNo" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="findProductsByPartNoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="return" type="tns:productSearchResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="productSearchResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:searchResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="unbounded" form="unqualified" name="list" type="tns:product" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="searchResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="totalHits" nillable="true" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="product">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="partNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="partDescr1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="partDescr2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="unit" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="unitDescr" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="numbDec" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="vendPartNo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="availability" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="unbounded" form="unqualified" name="barcodes" nillable="true" type="tns:barcode" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="barcode">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="type" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="value" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="findProductsByDescription">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="productSearchParameters" type="tns:productSearchParameters" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="findProductsByDescriptionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="return" type="tns:productSearchResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="findProductsByPartNoSoapIn">
+    <wsdl:part name="parameters" element="tns:findProductsByPartNo" />
+  </wsdl:message>
+  <wsdl:message name="findProductsByPartNoSoapOut">
+    <wsdl:part name="parameters" element="tns:findProductsByPartNoResponse" />
+  </wsdl:message>
+  <wsdl:message name="findProductsByDescriptionSoapIn">
+    <wsdl:part name="parameters" element="tns:findProductsByDescription" />
+  </wsdl:message>
+  <wsdl:message name="findProductsByDescriptionSoapOut">
+    <wsdl:part name="parameters" element="tns:findProductsByDescriptionResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ProductSearchServiceBinding">
+    <wsdl:operation name="findProductsByPartNo">
+      <wsdl:input message="tns:findProductsByPartNoSoapIn" />
+      <wsdl:output message="tns:findProductsByPartNoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="findProductsByDescription">
+      <wsdl:input message="tns:findProductsByDescriptionSoapIn" />
+      <wsdl:output message="tns:findProductsByDescriptionSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ProductSearchServiceBinding" type="tns:ProductSearchServiceBinding">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="findProductsByPartNo">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findProductsByDescription">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ProductSearchServiceBinding1" type="tns:ProductSearchServiceBinding">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="findProductsByPartNo">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findProductsByDescription">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ProductSearchWebService">
+    <wsdl:port name="ProductSearchServiceBinding" binding="tns:ProductSearchServiceBinding">
+      <soap:address location="http://localhost:1095/Wms.WebServices.SyncWS.WebSite/Interface.c3PL.ProductSearch.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ProductSearchServiceBinding1" binding="tns:ProductSearchServiceBinding1">
+      <soap12:address location="http://localhost:1095/Wms.WebServices.SyncWS.WebSite/Interface.c3PL.ProductSearch.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

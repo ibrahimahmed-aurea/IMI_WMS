@@ -1,0 +1,184 @@
+﻿<UserControl 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid" 
+    xmlns:controls="clr-namespace:Imi.Framework.Wpf.Controls;assembly=Imi.Framework.Wpf.Controls" 
+    xmlns:resources="clr-namespace:Imi.SupplyChain.UX;assembly=Imi.SupplyChain.UX" 
+    xmlns:workspaces="clr-namespace:Imi.Framework.UX.Wpf.Workspaces;assembly=Imi.Framework.UX.Wpf" 
+    xmlns:settings="clr-namespace:Imi.Framework.UX.Wpf.BuilderStrategies;assembly=Imi.Framework.UX.Wpf" 
+    xmlns:editors="http://schemas.actiprosoftware.com/winfx/xaml/editors" 
+    xmlns:providers="clr-namespace:Imi.SupplyChain.UX.Settings;assembly=Imi.SupplyChain.UX" 
+    xmlns:converters="clr-namespace:Imi.Framework.Wpf.Data.Converters;assembly=Imi.Framework.Wpf.Data" 
+    xmlns:local="clr-namespace:Imi.SupplyChain.ActivityMonitor.UX.Views.ActivityMonitor"
+    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" 
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    x:Class="Imi.SupplyChain.ActivityMonitor.UX.Views.ActivityMonitor.MovementMonitorOverviewView" 
+    x:Name="MovementMonitorOverviewViewUc" 
+    Width="Auto" 
+    Height="Auto" 
+    Focusable="True">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Imi.SupplyChain.UX;component/Resources/generic.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Imi.SupplyChain.UX.Modules.ActivityMonitor;component/Resources/ChartGraphics.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converters:StringFormatConverter x:Key="stringFormatConverter" />
+            <converters:InvertNullableBoolConverter x:Key="invertNullableBoolConverter" />
+            <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+            <DataTemplate x:Key="DrillDownDataTemplate">
+                <controls:HyperLink Content="{Binding Mode=OneWay}" Tag="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type xcdg:DataCell}}, Path=FieldName}" ToolTip="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type xcdg:DataCell}}, Mode=OneWay, Path=ParentColumn.(ToolTipService.ToolTip)}" />
+            </DataTemplate>
+
+            <Style x:Key="capacitySeriesStyle" TargetType="Border">
+                <Setter Property="Border.Background" Value="{StaticResource ChartSerie3Brush}" />
+            </Style>
+
+
+            <DataTemplate x:Key="trackBallInfoTemplateOnTime">
+                <StackPanel Background="{StaticResource TrackBallInfoBackground}">
+                    <Border Background="{StaticResource TrackBallInfoHeaderBackground}">
+                        <TextBlock Text="{Binding Path=DataPoint.Category, StringFormat={StaticResource TrackBallDateTimeFormat}}" Style="{StaticResource TrackBallHeaderStyle}"/>
+                    </Border>
+                    <StackPanel Background="{StaticResource TrackBallInfoBackground}" Orientation="Horizontal" Style="{StaticResource TrackBallItemStyle}">
+                        <TextBlock Text="{Binding Source={x:Static local:ResourceManager.str_onTime_Caption}, StringFormat='{}{0}: '}"/>
+                        <TextBlock Text="{Binding Path=DataPoint.Value, Converter={StaticResource stringFormatConverter}, ConverterParameter=\0.##}"/>
+                    </StackPanel>
+                </StackPanel>
+            </DataTemplate>
+            <DataTemplate x:Key="trackBallInfoTemplateNotOnTime">
+                <StackPanel Orientation="Horizontal" Style="{StaticResource TrackBallItemStyle}">
+                    <TextBlock Text="{Binding Source={x:Static local:ResourceManager.str_notOnTime_Caption}, StringFormat='{}{0}: '}"/>
+                    <TextBlock Text="{Binding Path=DataPoint.Value, Converter={StaticResource stringFormatConverter}, ConverterParameter=\0.##}"/>
+                </StackPanel>
+            </DataTemplate>
+            <DataTemplate x:Key="trackBallInfoTemplateCapacity">
+                <StackPanel Background="{StaticResource TrackBallInfoBackground}" Orientation="Horizontal" Style="{StaticResource TrackBallItemStyle}">
+                    <TextBlock Text="{Binding Source={x:Static local:ResourceManager.str_capacity_Caption}, StringFormat='{}{0}: '}"/>
+                    <TextBlock Text="{Binding Path=DataPoint.Value, Converter={StaticResource stringFormatConverter}, ConverterParameter=\0.##}"/>
+                </StackPanel>
+            </DataTemplate>
+            <DataTemplate x:Key="trackBallInfoTemplateLagging">
+                <StackPanel Background="{StaticResource TrackBallInfoBackground}" Orientation="Horizontal" Style="{StaticResource TrackBallItemStyle}">
+                    <TextBlock Text="{Binding Source={x:Static local:ResourceManager.str_lagging_Caption}, StringFormat='{}{0}: '}"/>
+                    <TextBlock Text="{Binding Path=DataPoint.Value, Converter={StaticResource stringFormatConverter}, ConverterParameter=\0.##}"/>
+                </StackPanel>
+            </DataTemplate>
+            <DataTemplate x:Key="trackBallInfoTemplateBurnDown">
+                <StackPanel Background="{StaticResource TrackBallInfoBackground}" Orientation="Horizontal" Style="{StaticResource TrackBallItemStyle}">
+                </StackPanel>
+            </DataTemplate>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <UserControl.ContextMenu>
+        <ContextMenu x:Name="contextMenu" />
+    </UserControl.ContextMenu>
+    <Grid controls:HyperLink.Clicked="HyperLinkClicked">
+        <Popup x:Name="balloonPopup" AllowsTransparency="True" StaysOpen="False" Placement="Right" VerticalOffset="-25">
+            <ContentControl x:Name="balloonPopupContent" ContentTemplate="{StaticResource LeftBalloonContentTemplate}" />
+        </Popup>
+        <Border  Style="{StaticResource ChartBorderStyle}">
+            <Grid Visibility="Visible">
+                <telerik:RadCartesianChart x:Name="theChart" 
+                                           Initialized="theChart_Initialized"
+                                           TrackBallLineStyle="{StaticResource TrackBallLineStyle}">
+                    <telerik:RadCartesianChart.Behaviors>
+                        <telerik:ChartPanAndZoomBehavior PanMode="Horizontal" ZoomMode="Horizontal"/>
+                        <telerik:ChartSelectionBehavior />
+                        <telerik:ChartTrackBallBehavior x:Name="trackBall"/>
+                    </telerik:RadCartesianChart.Behaviors>
+                    <telerik:RadCartesianChart.Grid>
+                        <telerik:CartesianChartGrid StripLinesVisibility="Y">
+                            <telerik:CartesianChartGrid.YStripeBrushes>
+                                <SolidColorBrush Color="#FFD7D7D7" Opacity="0.3" />
+                                <SolidColorBrush Color="Transparent" />
+                            </telerik:CartesianChartGrid.YStripeBrushes>
+                        </telerik:CartesianChartGrid>
+                    </telerik:RadCartesianChart.Grid>
+                    <telerik:RadCartesianChart.VerticalAxis>
+                        <telerik:LinearAxis Minimum="0"/>
+                    </telerik:RadCartesianChart.VerticalAxis>
+                    <telerik:RadCartesianChart.HorizontalAxis>
+                        <telerik:CategoricalAxis x:Name="HAxis">
+                            <telerik:CategoricalAxis.LabelTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding}" HorizontalAlignment="Center" FontSize="9" TextAlignment="Center" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </telerik:CategoricalAxis.LabelTemplate>
+                        </telerik:CategoricalAxis>
+                    </telerik:RadCartesianChart.HorizontalAxis>
+                    <telerik:BarSeries x:Name="workloadSerie" CombineMode="Stack"  CategoryBinding="TimeSpanText" ValueBinding="NoTrpAssInc" TrackBallInfoTemplate="{StaticResource trackBallInfoTemplateOnTime}">
+                        <telerik:BarSeries.DefaultVisualStyle>
+                            <Style TargetType="Border">
+                                <Setter Property="Border.Background" Value="{StaticResource ChartSerie2Brush}" />
+                            </Style>
+                        </telerik:BarSeries.DefaultVisualStyle>
+                    </telerik:BarSeries>
+                    <telerik:BarSeries x:Name="workloadLateSerie" CombineMode="Stack"  CategoryBinding="TimeSpanText" ValueBinding="NoTrpAssLateInc" TrackBallInfoTemplate="{StaticResource trackBallInfoTemplateNotOnTime}">
+                        <telerik:BarSeries.DefaultVisualStyle>
+                            <Style TargetType="Border">
+                                <Setter Property="Border.Background" Value="{StaticResource ChartSerie1Brush}" />
+                            </Style>
+                        </telerik:BarSeries.DefaultVisualStyle>
+                    </telerik:BarSeries>
+                    <telerik:BarSeries x:Name="_capacitySerie" CombineMode="Cluster" CategoryBinding="TimeSpanText" ValueBinding="NoLiftTruksCapacityInc" TrackBallInfoTemplate="{StaticResource trackBallInfoTemplateCapacity}" DefaultVisualStyle="{StaticResource capacitySeriesStyle}"/>
+                    <telerik:BarSeries x:Name="laggingSerie" CombineMode="None"  CategoryBinding="TimeSpanText" ValueBinding="NoTrpAssLateInc" TrackBallInfoTemplate="{StaticResource trackBallInfoTemplateLagging}">
+                        <telerik:BarSeries.DefaultVisualStyle>
+                            <Style TargetType="Border">
+                                <Setter Property="Border.Background" Value="{StaticResource ChartSerie4Brush}" />
+                            </Style>
+                        </telerik:BarSeries.DefaultVisualStyle>
+                    </telerik:BarSeries>
+                </telerik:RadCartesianChart>
+                <Grid VerticalAlignment="Top" HorizontalAlignment="Right">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <Button Grid.Row="0" Grid.Column="1" Opacity="0.5" Margin="0,12,0,0" Width="5" Height="Auto" Click="LegendExpanderButton_Click"/>
+                    <StackPanel x:Name="LegendStackPanel" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,12,0,0" Width="130">
+                        <StackPanel.Background>
+                            <SolidColorBrush Color="LightGray" Opacity="0.3"/>
+                        </StackPanel.Background>
+                        <TextBlock Style="{StaticResource OnGraphLableStyle}" Margin="6,6,0,0" Text="{x:Static local:ResourceManager.str_lastUpdated_Caption}" />
+                        <TextBlock x:Name="LastUpdatedText" Margin="6,2,0,0" />
+                        <TextBlock Style="{StaticResource OnGraphLableStyle}" Margin="6,6,0,0" Text="{x:Static local:ResourceManager.str_timeResolution_Caption}" />
+                        <ComboBox x:Name="DurationCombo" Margin="6,2,0,0" HorizontalAlignment="Left" Width="120" Initialized="DurationCombo_Initialized" SelectionChanged="DurationCombo_SelectionChanged"/>
+                        <StackPanel x:Name="BarLegend" Margin="6,6,0,6">
+                            <StackPanel Orientation="Horizontal">
+                                <Rectangle Fill="{StaticResource ChartSerie1Brush}" Style="{StaticResource LegendRectangleStyle}"/>
+                                <TextBlock Text="{x:Static local:ResourceManager.str_notOnTime_Caption}" Style="{StaticResource LegendLableStyle}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Rectangle Fill="{StaticResource ChartSerie2Brush}" Style="{StaticResource LegendRectangleStyle}"/>
+                                <TextBlock Text="{x:Static local:ResourceManager.str_onTime_Caption}" Style="{StaticResource LegendLableStyle}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Rectangle Fill="{StaticResource ChartSerie3Brush}" Style="{StaticResource LegendRectangleStyle}"/>
+                                <TextBlock Text="{x:Static local:ResourceManager.str_capacity_Caption}" Style="{StaticResource LegendLableStyle}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Rectangle Fill="{StaticResource ChartSerie4Brush}" Style="{StaticResource LegendRectangleStyle}"/>
+                                <TextBlock Text="{x:Static local:ResourceManager.str_lagging_Caption}" Style="{StaticResource LegendLableStyle}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Border>
+        <Grid Visibility="Visible">
+            <controls:HyperLink x:Name="GenericDrilldownLink" Margin="10,54,0,0" Visibility="Collapsed" />
+            <ProgressBar Visibility="Hidden" HorizontalAlignment="Center" Margin="0,0,0,0" Style="{StaticResource dotProgressBarStyle}" Width="45" x:Name="progressBar" VerticalAlignment="Center" Height="45" />
+            <StackPanel Visibility="Collapsed" HorizontalAlignment="Center" Width="Auto" x:Name="errorPanel" VerticalAlignment="Center">
+                <Label Content="{x:Static resources:StringResources.View_UpdateError}" Background="#006C6C6C" Foreground="#FF1312AD" FontFamily="Segoe UI" FontSize="16" FontWeight="Normal" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="0,5,5,5" />
+                <Button Content="{x:Static resources:StringResources.View_UpdateErrorAdditionalInfo}" HorizontalAlignment="Center" x:Name="errorInfoButton" VerticalAlignment="Top" Click="ErrorInfoButtonClickEventHandler" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

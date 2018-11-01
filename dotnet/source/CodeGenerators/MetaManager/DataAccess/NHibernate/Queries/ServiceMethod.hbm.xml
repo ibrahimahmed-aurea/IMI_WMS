@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<query name="ServiceMethod.FindAllQueriesByApplicationId">
+		<![CDATA[
+     from  ServiceMethod s 
+     where s.Service.Application.Id = :applicationId
+     and   s.MappedToAction.Query is not null
+    ]]>
+	</query>
+	<query name="ServiceMethod.FindAllRefCursorProcsByApplicationId">
+		<![CDATA[
+     from  ServiceMethod s 
+     where s.Service.Application.Id = :applicationId
+     and   s.MappedToAction.StoredProcedure is not null
+     and   s.MappedToAction.StoredProcedure.IsReturningRefCursor = 1
+    ]]>
+	</query>
+	<query name="ServiceMethod.FindAllByApplicationId">
+		<![CDATA[
+     from  ServiceMethod s 
+     where s.Service.Application.Id = :applicationId
+    ]]>
+	</query>
+	<query name="ServiceMethod.FindAllByService">
+		<![CDATA[
+     from  ServiceMethod s 
+     where s.Service.Id = :serviceId
+    ]]>
+	</query>
+	<query name="ServiceMethod.FindByApplicationIdNameAndService">
+		<![CDATA[
+     from  ServiceMethod s 
+     where s.Service.Name like :serviceName
+     and s.Name like :name
+     and s.Service.Application.Id = :applicationId
+    ]]>
+	</query>
+	<query name="ServiceMethod.FindByPropertyMapId">
+		<![CDATA[
+       from  ServiceMethod sm
+       where sm.RequestMap.Id  = :propertyMapId
+       or    sm.ResponseMap.Id = :propertyMapId
+    ]]>
+	</query>
+</hibernate-mapping>
+

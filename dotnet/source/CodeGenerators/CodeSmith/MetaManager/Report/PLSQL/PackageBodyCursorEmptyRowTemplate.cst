@@ -1,0 +1,121 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="ReportCoreTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Assembly Name="Cdc.MetaManager.BusinessLogic" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.BusinessLogic" %>
+<%@ Import Namespace="Cdc.MetaManager.BusinessLogic.Helpers" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Register Name="PackageBodyCursorEmptyRowTemplate" Template=".\PackageBodyCursorEmptyRowTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Property Name="reportQuery" Type="Cdc.MetaManager.DataAccess.Domain.ReportQuery" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="indent" Type="System.Int32" Default="" Optional="false" Category="" Description="" %>
+<%
+// Indent string
+string inS = string.Empty.PadRight(indent);
+
+string xmlVar    = string.Format("{0}_XML", reportQuery.Query.Name);
+string xmlBranch = string.Format("{0}_BX", reportQuery.Query.Name);
+
+IList<string> xmlAttributeList = GetEmptyQueryXMLAttributes(reportQuery);
+
+string xmlAttributes = xmlAttributeList.Aggregate((current, next) => current + "," + Environment.NewLine + string.Empty.PadRight(11 + indent) + next);
+
+// Does the report query have any children
+if (reportQuery.Children.Count > 0)
+{
+	foreach(ReportQuery childReportQuery in reportQuery.Children.OrderBy(r => r.Sequence))
+	{
+		string childXmlVar = string.Format("{0}_XML", childReportQuery.Query.Name);
+		
+		PackageBodyCursorEmptyRowTemplate packageBodyCursorEmptyRowTemplate = this.Create<PackageBodyCursorEmptyRowTemplate>();
+		packageBodyCursorEmptyRowTemplate.SetProperty("reportQuery", childReportQuery);
+		packageBodyCursorEmptyRowTemplate.SetProperty("indent", indent);
+		packageBodyCursorEmptyRowTemplate.Render(this.Response);
+%>
+
+<%=inS%>select XMLConcat
+<%=inS%>       (
+<%=inS%>         <%=xmlBranch%>,
+<%=inS%>         <%=childXmlVar%>
+<%=inS%>       )
+<%=inS%>  into <%=xmlBranch%>
+<%=inS%>  from dual;
+
+<%
+	}
+%>
+<%=inS%>select XMLConcat
+<%=inS%>       (
+<%=inS%>         <%=xmlVar%>,
+<%=inS%>         XMLElement
+<%=inS%>         (
+<%=inS%>           "<%=reportQuery.Query.Name%>",
+<%=inS%>           XMLAttributes
+<%=inS%>           (
+<%=inS%>             <%=xmlAttributes%>
+<%=inS%>           ),
+<%=inS%>           <%=xmlBranch%>
+<%=inS%>         )
+<%=inS%>       )
+<%=inS%>  into <%=xmlVar%>
+<%=inS%>  from dual;
+<%
+}
+else
+{
+%>
+<%=inS%>select XMLElement
+<%=inS%>       (
+<%=inS%>         "<%=reportQuery.Query.Name%>",
+<%=inS%>         XMLAttributes
+<%=inS%>         (
+<%=inS%>           <%=xmlAttributes%>
+<%=inS%>         )
+<%=inS%>       )
+<%=inS%>  into <%=xmlVar%>
+<%=inS%>  from dual;
+<%
+}
+%>
+<script runat="template">
+
+	private IList<string> GetEmptyQueryXMLAttributes(ReportQuery reportQuery)
+	{
+		IApplicationService applicationService = MetaManagerServices.GetApplicationService();
+		
+		List<string> attributeList = new List<string>();
+		
+		foreach(QueryProperty prop in reportQuery.Query.Properties.Where(p => p.PropertyType == DbPropertyType.Out).OrderBy(p => p.Sequence))
+		{
+			string propName = prop.Name;
+			string propValue = string.Empty;
+			
+			Property foundProperty = null;
+			
+			if (!string.IsNullOrEmpty(prop.OriginalColumn) &&
+				!string.IsNullOrEmpty(prop.OriginalTable))
+			{
+				foundProperty = applicationService.GetPropertyByTableAndColumn(prop.OriginalTable, prop.OriginalColumn, ReportQueryHelper.GetReport(reportQuery).Application.Id);
+				
+				if (foundProperty != null && prop.OriginalColumn == prop.Name)
+					propName = foundProperty.Name;
+			}
+			
+			propValue = GetEmptyValue(prop, foundProperty);
+			
+			// Add to list
+			attributeList.Add(string.Format("{0} as \"{1}\"", 
+										    propValue,
+										    propName));
+		}
+		
+		return attributeList;
+	}
+</script>

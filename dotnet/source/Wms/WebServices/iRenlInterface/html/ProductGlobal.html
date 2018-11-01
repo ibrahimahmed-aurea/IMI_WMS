@@ -1,0 +1,68 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Segment ProductGlobal</title>
+<link href="StructureDescription.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>Segment ProductGlobal</h1>
+<h3>Description:</h3>
+Product<br/>Register basic data about a product.<h3>Attributes:</h3>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000"><tbody>
+<tr class="tableHeader"><th class="tableHeaderColumn">Tag</th><th class="tableHeaderColumn">Method</th><th class="tableHeaderColumn">Type</th><th class="tableHeaderColumn">Oracle Type</th><th class="tableHeaderColumn">Mandatory</th><th class="tableHeaderColumn">Note</th></tr>
+<tr class="tableRow"><td class="tableRowColumn">OPCODE</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Operation Code<br/>0 - No Operation<br/>1 - New<br/>2 - Change<br/>3 - Remove<br/>Note! An operation code is only useful if at least one tag supports the method</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductNumber</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">R</td><td class="tableRowColumn">Product Number</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductDescription1</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Product Description 1</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductDescription2</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Product Description 2</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductStockGroupIdentity</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(12)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Product Stock Group</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductType</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(2)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Product Type Identity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductDateType</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Product Date Type<br/>+ = Expiry Date<br/>- = Manufacturing Date<br/>= = Arrival Date<br/>0 = No Date</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductShipDateLeadTime</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(4)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Lead Time for Ship Date</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductDeliveryDateLeadTime</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(4)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Lead Time for Arrival Date</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductManufacturDateLeadTime</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(4)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Lead Time for Manufacturing Date</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductionLotHandling</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Manufacturing Lot at Outbound<br/>Controls (1=Yes,0=No) if Manufacturing Lot is used when generating Pick Order Lines.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">MarketingLotHandling</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(255)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">StorageLotHandling</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Storage Lot at Outbound<br/>Controls (1=Yes,0=No) if Storage Lot is used when generating Pick Order Lines.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">SerialNumberHandling</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Serial Number<br/>Use Serial Number at pick (1=Yes,0=No).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">FIFOAllowedDiscrepancy</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(4)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Number of days (FIFO)<br/>If FIFOPLUS = 0 then picking occurs strictly according to FIFO.<br/>If FIFOPLUS = 20 then FIFO can differ with 20 days from oldest day on Item Load.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Instructions</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(800)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Instructions<br/>Free text.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductSaleable</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Stocked Product Number<br/>If the Packing Material Types also can exist as a saleable product it has a Product Number as stocked product. Otherwise this is &lt;null&gt;.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductionLotHandling_In</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Manufacturing Lot at Inbound<br/>Controls (1=Yes,0=No) if Manufacturing Lot has to be registered at Reception.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">MarketingLotHandling_In</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Marketing Lot at Inbound<br/>Controls (1=Yes,0=No) if Marketing Lot has to be registered at Reception.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">StorageLotHandling_In</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Storage Lot at Inbound<br/>Controls (1=Yes,0=No) if Storage Lot has to be registered at Reception.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductionLotVerify</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Lotted Product has to be verified</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductTransportIdentity</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(5)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Product Transport Type Identity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CatchMeasure</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Catch Measure<br/>Controls (true/false) if the Products shall go through Catch Measure (Quantity check).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CatchMeasureQualifier</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(4)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Catch Measure Unit<br/>Only valid if MEASURE is set.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CatchMeasureRcv</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">If received Products should go through Catch Measure (Quantity check).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CatchMeasureQualifierRcv</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(4)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Catch Measure Unit for Received Goods<br/>Only valid if MEASURE_RCV is set.</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

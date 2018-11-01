@@ -1,0 +1,174 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Assembly Name="System.Workflow.Activities" %>
+<%@ Assembly Name="System.Workflow.ComponentModel" %>
+<%@ Import Namespace="Cdc.CodeGeneration.Caching" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Import Namespace="System.Workflow.Activities" %>
+<%@ Import Namespace="System.Workflow.ComponentModel.Serialization" %>
+<%@ Register Name="ViewEventTranslatorTemplate" Template="ViewEventTranslatorTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Property Name="viewNode" Type="Cdc.MetaManager.DataAccess.Domain.ViewNode" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="dialog" Type="Cdc.MetaManager.DataAccess.Domain.Dialog" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="dialogDirectory" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%
+	List<ViewNode> childList = new List<ViewNode>();
+	
+	if (viewNode.View.ResponseMap != null)
+		FindMappedChildren(viewNode, childList);
+	
+	string dialogNamespace = GetDialogNamespace(dialog);
+	
+%>
+<% 	if (childList.Count > 0)
+	{
+        string viewResultClassName = GetViewResultClassName(viewNode.View);
+		string viewClassName = GetViewClassName(viewNode.View);
+
+%>
+		
+		[EventSubscription(EventTopicNames.<%=viewClassName%>UpdatedTopic)]
+        public virtual void <%=viewClassName%>UpdatedEventHandler(object sender, DataEventArgs<<%= viewResultClassName %>> eventArgs)
+        {
+<%
+		if (dialog.InterfaceView == viewNode.View)
+		{
+			string viewInterfaceClassName = GetViewInterfaceName(viewNode.View);
+%>
+			<%=viewInterfaceClassName%> <%=ToCamelCase(viewClassName)%> = WorkItem.SmartParts.FindByType<<%=viewInterfaceClassName%>>().Last();
+
+            if (<%=ToCamelCase(viewClassName)%>.CurrentItem != null)
+                <%=ToCamelCase(viewClassName)%>.SetFocus();
+				
+<%
+		}
+		
+		foreach (ViewNode childNode in childList)
+		{
+			string fileName = string.Format(@"{0}\Translators\{1}.cs", dialogDirectory, GetViewTranslatorClassName(viewNode.View, childNode.View));
+			ViewEventTranslatorTemplate translatorTemplate = this.Create<ViewEventTranslatorTemplate>();  
+			translatorTemplate.SetProperty("fromView", viewNode.View);
+			translatorTemplate.SetProperty("toView", childNode.View);
+			translatorTemplate.SetProperty("isAdapted", CacheAdaptedFile(fileName));
+			translatorTemplate.SetProperty("translatorNamespace", GetViewTranslatorNamespace(dialog));
+						
+			string translatorClassName = GetViewTranslatorClassName(viewNode.View, childNode.View);
+			string childViewInterfaceName = GetViewInterfaceName(childNode.View);
+			string childViewClassName = GetViewClassName(childNode.View);
+			string childViewFullName = string.Format("{0}.{1}", GetViewsNamespace(childNode.View), GetViewInterfaceName(childNode.View));
+			string userSessionName = GetUserSessionName(viewNode.View.Application);
+			
+			if (childNode.RuleSet != null)
+			{
+%>			
+			
+			/* <%=childViewClassName%> */
+			if (<%=ToCamelCase(childNode.View.Name)%>Rule == null)
+			{
+				<%=ToCamelCase(childNode.View.Name)%>Rule = new RuleSetManager();
+				<%=ToCamelCase(childNode.View.Name)%>Rule.Load(Assembly.GetExecutingAssembly().GetManifestResourceStream("<%=dialogNamespace%>.Rules.<%=childNode.View.Name%>.xml"));
+			}
+<%
+			}
+%>
+			
+			IDataView <%=ToCamelCase(childViewClassName)%> = WorkItem.Items.Get("<%=childViewFullName%>") as IDataView;
+			
+			if (<%=ToCamelCase(childViewClassName)%> != null)
+			{
+				<%=translatorClassName%> <%=ToCamelCase(translatorClassName)%> = null;
+				
+				if (WorkItem.Items.FindByType<<%=translatorClassName%>>().Count > 0)
+					<%=ToCamelCase(translatorClassName)%> = WorkItem.Items.FindByType<<%=translatorClassName%>>().Last();
+				else
+					<%=ToCamelCase(translatorClassName)%> = WorkItem.Items.AddNew<<%=translatorClassName%>>();
+				
+<%
+				if (childNode.RuleSet != null)
+				{
+%>
+				<%=viewResultClassName%> <%=ToCamelCase(viewResultClassName)%> = eventArgs.Data;
+				
+				if (<%=ToCamelCase(viewResultClassName)%> == null)
+					<%=ToCamelCase(viewResultClassName)%> = new <%=viewResultClassName%>();
+				
+				ViewRuleContext<<%=viewResultClassName%>, <%= userSessionName %>> context = new ViewRuleContext<<%=viewResultClassName%>, <%= userSessionName %>>(<%=ToCamelCase(viewResultClassName)%>, UserSessionService);
+				<%=ToCamelCase(childNode.View.Name)%>Rule.Context = context;
+				<%=ToCamelCase(childNode.View.Name)%>Rule.Execute();
+				<%=ToCamelCase(childViewClassName)%>.IsEnabled = context.IsEnabled;
+				<%=ToCamelCase(childViewClassName)%>.IsVisible = context.IsVisible;
+								
+<%
+				}
+%>
+				if (<%=ToCamelCase(childViewClassName)%>.IsEnabled)
+				{
+<%
+				if (childNode.View.ServiceMethod == viewNode.View.ServiceMethod)
+				{
+					translatorTemplate.SetProperty("generateResultTranslator", true);
+					translatorTemplate.SetProperty("propertyMap", childNode.View.ResponseMap);
+										
+%>
+					<%=ToCamelCase(childViewClassName)%>.RefreshDataOnShow = false;
+					<%=ToCamelCase(childViewClassName)%>.PresentData(<%=ToCamelCase(translatorClassName)%>.TranslateFromResultToResult(eventArgs.Data));
+<%			
+				}
+				else
+				{
+					translatorTemplate.SetProperty("generateResultTranslator", false);
+					translatorTemplate.SetProperty("propertyMap", childNode.ViewMap);
+				
+					string viewParametersClassName = GetViewParametersClassName(childNode.View);
+%>
+					<%=viewParametersClassName%> <%=ToCamelCase(viewParametersClassName)%> = <%=ToCamelCase(translatorClassName)%>.TranslateFromResultToParameters(eventArgs.Data);
+					<%=ToCamelCase(childViewClassName)%>.Update(<%=ToCamelCase(viewParametersClassName)%>);
+<%
+				}
+%>
+				}
+				else
+				{
+					<%=ToCamelCase(childViewClassName)%>.Update(null);
+				}
+			}
+<%
+			translatorTemplate.RenderToFile(fileName, true);
+		}
+%>
+        }
+<%
+	}
+	
+	CodeTemplate nodeTemplate = Activator.CreateInstance(this.GetType()) as CodeTemplate;
+
+	foreach (ViewNode childNode in viewNode.Children)
+	{
+		nodeTemplate.SetProperty("viewNode", childNode);
+		nodeTemplate.SetProperty("dialog", dialog);
+		nodeTemplate.SetProperty("dialogDirectory", dialogDirectory);
+		nodeTemplate.Render(this.Response);
+	}
+	
+%>
+<script runat="template">
+
+	public void FindMappedChildren(ViewNode node, IList<ViewNode> childList)
+	{
+		foreach (ViewNode childNode in node.Children)
+		{
+			if ((childNode.ViewMap != null) || (node.View.ServiceMethod == childNode.View.ServiceMethod))
+				childList.Add(childNode);
+			else
+				FindMappedChildren(childNode, childList);
+		}
+	}
+	
+</script>

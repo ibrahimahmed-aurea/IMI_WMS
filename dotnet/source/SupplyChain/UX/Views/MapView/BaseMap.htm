@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+
+        <script type='text/javascript' src='http://www.bing.com/api/maps/mapcontrol'></script>
+        <script type='text/javascript'>
+
+            var map = null;
+            var firstPoint = null;
+            var linePoints = new Array();
+            var stopPoints = new Array();
+            var directionsManager = null;
+            var searchManager = null;
+
+            function loadMap() {
+                map = new Microsoft.Maps.Map(document.getElementById('myMap'), {
+                    credentials: 'ArpT2VHEzxQHLw-3WU5D62HZjxEinDpVp1EjoZxLqK9jexihf4z60rO1FPU_2XBK',
+                    showMapTypeSelector: false
+                },
+                { mapTypeId: Microsoft.Maps.MapTypeId.road 
+                });
+
+                Microsoft.Maps.loadModule('Microsoft.Maps.Search', { callback: searchModuleLoaded });
+                Microsoft.Maps.loadModule('Microsoft.Maps.Directions', directionsModuleLoaded);
+            }
+
+            function InitMap() {
+
+                linePoints = new Array();
+                stopPoints = new Array();
+
+                firstPoint = null;
+
+                if (map != null) {
+                    map.entities.clear();
+                    if (directionsManager != null) {
+                        directionsManager.clearAll();
+                    }
+                }
+                else {
+                    loadMap();
+                }
+            }
+
+            function searchModuleLoaded() {
+                searchManager = new Microsoft.Maps.Search.SearchManager(map);
+            }
+
+            function directionsModuleLoaded() {
+                directionsManager = new Microsoft.Maps.Directions.DirectionsManager(map);
+            }
+
+            function AddLinePoint(lat, lng) {
+
+                var latLong = new Microsoft.Maps.Location(lat, lng);
+
+                linePoints.push(latLong);
+
+                if (firstPoint == null) {
+                    firstPoint = latLong;
+                }
+            }
+
+            function AddStopPoint(lat, lng) {
+                var latLong = new Microsoft.Maps.Location(lat, lng);
+                stopPoints.push(latLong);
+            }
+
+
+            function ShowPolyline(id) {
+
+                map.entities.clear();
+
+                var poly = new Microsoft.Maps.Polyline(linePoints, { strokeColor: 'blue', strokeThickness: 5 });
+
+                map.entities.push(poly);
+
+                map.setView({ center: firstPoint });
+            }
+
+            function SetMapView(id) {
+                if (linePoints.length > 0) {
+                    map.setView({ center: linePoints[0] });
+                }
+                else {
+                    if (stopPoints.length > 0) {
+                        map.setView({ center: stopPoints[0] });
+                    }
+                    else if (firstPoint != null) {
+                        map.setView({ center: firstPoint });
+                    }
+                    
+                }
+            }
+
+            function ShowPushPinBase(id, latLong, title, description) {
+                var pin = new Microsoft.Maps.Pushpin(latLong, { title: title, subTitle: description });
+
+                map.entities.push(pin);
+            }
+
+            function ShowPushPin(id, lat, lng, title, description) {
+                var latLong = new Microsoft.Maps.Location(lat, lng);
+                ShowPushPinBase(id, latLong, title, description);
+
+                if (linePoints.length == 0) {
+                    firstPoint = latLong;    
+                }
+            }
+
+            function SetCenterAndZoom(latLong, zoomLevel) {
+                map.setView({ center: latLong, zoom: zoomLevel });
+            }
+
+            function DefaultMap(lat, lng) {
+                InitMap();
+                var latLong = new Microsoft.Maps.Location(lat, lng);
+                map.setView({ center: latLong, zoom: 6 });
+            }
+
+            function GeocodeCallback(results, userData) {
+                var aPlace = results[0];
+                ShowPushPinBase(1, aPlace.location, "Found it", aPlace.name);
+                map.setView({ zoom: 16 });
+            }
+
+            function FindAddress(address) {
+                if (searchManager != null) {
+                    try {
+                        InitMap();
+
+                        searchManager.geocode({ where: address, callback: GeocodeCallback });
+                    }
+                    catch (e) {
+                        alert(e.message);
+                    }
+                }
+            }
+
+            function AddStop(where) {
+                stopPoints.push(where);
+            }
+
+            function GetDirections() {
+
+                if (directionsManager != null) {
+
+                    directionsManager.setRequestOptions({ routeMode: Microsoft.Maps.Directions.RouteMode.driving });
+
+
+                    for (var i = 0; i < stopPoints.length; i++) {
+
+                        var waypoint = new Microsoft.Maps.Directions.Waypoint({ location: stopPoints[i] });
+
+                        directionsManager.addWaypoint(waypoint);
+                    }
+
+
+                    directionsManager.setRenderOptions({ itineraryContainer: document.getElementById('outputDiv') });
+
+                    directionsManager.calculateDirections();
+                }
+            }
+
+        </script>
+    </head>
+    <body>
+        <div id='printoutPanel'></div>
+        
+        <div id='myMap' style='width: 100vw; height: 100vh;'></div>
+    </body>
+</html>

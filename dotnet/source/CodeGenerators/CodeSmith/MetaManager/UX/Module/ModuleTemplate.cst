@@ -1,0 +1,52 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="module" Type="Cdc.MetaManager.DataAccess.Domain.Module" Default="" Optional="false" Category="" Description="" %>
+<%
+	string moduleNamespace = GetModuleNamespace(module);
+%>
+using System;
+using System.Xml;
+using System.ServiceModel;
+using Microsoft.Practices.CompositeUI;
+using Microsoft.Practices.ObjectBuilder;
+using Microsoft.Practices.CompositeUI.Commands;
+using Microsoft.Practices.CompositeUI.EventBroker;
+using Imi.SupplyChain.UX;
+using Imi.Framework.UX;
+
+namespace <%= moduleNamespace %>
+{
+    public class Module : ModuleInit
+    {
+        private WorkItem rootWorkItem;
+
+        [InjectionConstructor]
+        public Module([ServiceDependency] WorkItem rootWorkItem)
+        {
+            this.rootWorkItem = rootWorkItem;
+        }
+
+        public override void AddServices()
+        {
+            base.AddServices();
+        }
+        
+        public override void Load()
+        {
+            base.Load();
+            
+            ControlledWorkItem<ModuleController> workItem = 
+                rootWorkItem.WorkItems.AddNew<ControlledWorkItem<ModuleController>>();
+            workItem.Controller.Run();
+        }
+    }
+}
+

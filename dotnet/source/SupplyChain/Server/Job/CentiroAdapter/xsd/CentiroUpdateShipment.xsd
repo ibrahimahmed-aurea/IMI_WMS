@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:complexType name="ReceiverType">
+    <xs:attribute name="name" type="xs:string" />
+    <xs:attribute name="address1" type="xs:string" use="optional" />
+    <xs:attribute name="address2" type="xs:string" use="optional" />
+    <xs:attribute name="address3" type="xs:string" use="optional" />
+    <xs:attribute name="zipcode" type="xs:string" use="optional" />
+    <xs:attribute name="city" type="xs:string" use="optional" />
+    <xs:attribute name="state" type="xs:string" use="optional" />
+    <xs:attribute name="iSOCountry" type="xs:string" use="optional" />
+    <xs:attribute name="phone" type="xs:string" use="optional" />
+    <xs:attribute name="cellphone" type="xs:string" use="optional" />
+    <xs:attribute name="email" type="xs:string" use="optional" />
+    <xs:attribute name="contact" type="xs:string" use="optional" />
+    <xs:attribute name="custNo" type="xs:string" use="optional" />
+    <xs:attribute name="vatNo" type="xs:string" use="optional" />
+    <xs:attribute name="palletRegNo" type="xs:string" use="optional" />
+  </xs:complexType>
+  <xs:complexType name="AddressType">
+    <xs:attribute name="code" type="xs:string" />
+    <xs:attribute name="name" type="xs:string" use="optional" />
+    <xs:attribute name="address1" type="xs:string" use="optional" />
+    <xs:attribute name="address2" type="xs:string" use="optional" />
+    <xs:attribute name="address3" type="xs:string" use="optional" />
+    <xs:attribute name="zipcode" type="xs:string" use="optional" />
+    <xs:attribute name="city" type="xs:string" use="optional" />
+    <xs:attribute name="state" type="xs:string" use="optional" />
+    <xs:attribute name="iSOCountry" type="xs:string" use="optional" />
+    <xs:attribute name="phone" type="xs:string" use="optional" />
+    <xs:attribute name="cellphone" type="xs:string" use="optional" />
+    <xs:attribute name="email" type="xs:string" use="optional" />
+    <xs:attribute name="contact" type="xs:string" use="optional" />
+    <xs:attribute name="custNo" type="xs:string" use="optional" />
+    <xs:attribute name="vatNo" type="xs:string" use="optional" />
+  </xs:complexType>
+  <xs:complexType name="tsrType">
+    <xs:attribute name="code" type="xs:string" />
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:element name="CentiroUpdateShipment">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element name="senderAddress" type="AddressType" />
+            <xs:element name="receiver" type="ReceiverType" />
+            <xs:element name="tsrList">  
+              <xs:complexType>
+                <xs:sequence maxOccurs="unbounded">
+                  <xs:element name="tsr" type="tsrType" />
+                </xs:sequence>
+              </xs:complexType>
+ 			  </xs:element>
+        </xs:sequence>
+        <xs:attribute name="carrier" type="xs:string" />
+        <xs:attribute name="methodOfShipment" type="xs:string" />
+        <xs:attribute name="shipmentIdentity" type="xs:string" />
+        <xs:attribute name="senderCode" type="xs:string" />
+        <xs:attribute name="url" type="xs:string" />
+        <xs:attribute name="reference" type="xs:string" use="optional" />
+        <xs:attribute name="routeNo" type="xs:string" />
+        <xs:attribute name="tripNo" type="xs:string" />
+        <xs:attribute name="shipDate" type="xs:dateTime" use="optional" />
+        <xs:attribute name="weight" type="xs:string" use="optional" />
+        <xs:attribute name="volume" type="xs:string" use="optional" />
+        <xs:attribute name="loadingMeasure" type="xs:string" use="optional" />
+        <xs:attribute name="transportPayer" type="xs:string" />
+        <xs:attribute name="transportPayerCustNo" type="xs:string" use="optional" />
+        <xs:attribute name="deliveryInstruction" type="xs:string" use="optional" />
+        <xs:attribute name="cODAmount" type="xs:string" use="optional" />
+        <xs:attribute name="cODCurrency" type="xs:string" use="optional" />
+        <xs:attribute name="cODReference" type="xs:string" use="optional" />
+        <xs:attribute name="numberOfEURPallets" type="xs:int" />
+        <xs:attribute name="freightPrice" type="xs:string" use="optional" />
+        <xs:attribute name="freightCost" type="xs:string" use="optional" />
+        <xs:attribute name="freightCurrency" type="xs:string" use="optional" />
+        <xs:attribute name="lastModifiedBy" type="xs:string" use="optional" />
+        <xs:attribute name="sequenceNo" type="xs:string" use="optional" />
+        <xs:attribute name="sequenceNo2" type="xs:string" use="optional" />
+        <xs:attribute name="orderNo" type="xs:string" use="optional" />
+        <xs:attribute name="insuranceAmount" type="xs:string" use="optional" />
+        <xs:attribute name="termsOfDelivery" type="xs:string" use="optional" />
+        <xs:attribute name="memoField" type="xs:string" use="optional" />
+        <xs:attribute name="aggregateParcels" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,124 @@
+#
+# makefile 17/12/2004
+# 
+# Copyright (c) 2004 - 2005 Industri-Matematik AB. All rights reserved.
+#
+MAPINO=04
+BIN=.\bin
+CSDIR=.\geninmapi_$(MAPINO)\src
+XMLOUTDIR=.\geninmapi_$(MAPINO)\xml
+XMLDIR=.\xml
+SQLDIR=.\geninmapi_$(MAPINO)\sql
+RD=rd /s /q
+HTMLDIR=.\geninmapi_$(MAPINO)\html
+#CONN="user id = owuser; password = owuser1; data source = WH51NGMR"
+#CONN="user id = owuser; password = owuser; data source = NGSL2"
+CONN="user id = owuser; password = owuser; data source = WH80M"
+
+INXMLFILE1=$(XMLOUTDIR)\in1.xml
+INXMLFILE2=$(XMLOUTDIR)\in2.xml
+INMASTER=$(XMLDIR)\WSMAPIInboundMaster_$(MAPINO).xml
+DICTIONARY=$(XMLDIR)\MAPIDictionary.xml
+
+
+ALLDIR= \
+    "$(CSDIR)" \
+    "$(SQLDIR)" \
+    "$(XMLOUTDIR)" \
+    "$(HTMLDIR)"
+
+ALLSQL= \
+    "$(SQLDIR)\MAPIIn_$(MAPINO)_Column.def" \
+    "$(SQLDIR)\MAPIIn_$(MAPINO)_Comment.def" \
+    "$(SQLDIR)\MAPIIn_$(MAPINO)_PK.def" \
+    "$(SQLDIR)\MAPIIn_$(MAPINO)_FK.def" \
+    "$(SQLDIR)\MAPIIn_$(MAPINO)_Trace.trigger" \
+    "$(SQLDIR)\MAPIIn_$(MAPINO)_View.def" \
+    "$(SQLDIR)\MAPIIn_$(MAPINO)_Drop.def" \
+    "$(SQLDIR)\MAPIIn_$(MAPINO)_Object.spec" \
+    "$(SQLDIR)\MAPIIn_$(MAPINO)_Clean.body" \
+    "$(SQLDIR)\MAPIIn_$(MAPINO)_Object.body"
+
+ALLCS= \
+    "$(CSDIR)\ExternalClass.cs" \
+    "$(CSDIR)\InsertHandler.cs" \
+    "$(CSDIR)\ExternalInterface.asmx.cs"
+
+ALLHTML= \
+    "$(HTMLDIR)\index.html"
+
+
+# --------------------------------------------
+# Description Blocks
+# --------------------------------------------
+
+ALL: $(ALLDIR) $(INXMLFILE1) $(INXMLFILE2) $(ALLCS) $(ALLSQL) $(ALLHTML)
+
+$(INXMLFILE1): 
+    $(BIN)\Imi.CodeGenerators.WebServices.spec2xml MAPIIn_$(MAPINO)_API $@ /OPTDICT 1 /CONN $(CONN)
+
+$(INXMLFILE2): $(INXMLFILE1)
+    $(BIN)\Imi.CodeGenerators.WebServices.ColumnInfo2XML $(INXMLFILE1) $@ /CONN $(CONN)
+
+$(SQLDIR)\MAPIIn_$(MAPINO)_Column.def: $(INXMLFILE2) $(INMASTER)
+    $(BIN)\Imi.CodeGenerators.WebServices.xml2createtable $(INXMLFILE2) $(INMASTER) $@ COLUMN
+
+$(SQLDIR)\MAPIIn_$(MAPINO)_PK.def: $(INXMLFILE2) $(INMASTER)
+    $(BIN)\Imi.CodeGenerators.WebServices.xml2createtable $(INXMLFILE2) $(INMASTER) $@ PK /MAPI
+
+$(SQLDIR)\MAPIIn_$(MAPINO)_FK.def: $(INXMLFILE2) $(INMASTER)
+    $(BIN)\Imi.CodeGenerators.WebServices.xml2createtable $(INXMLFILE2) $(INMASTER) $@ FK /MAPI
+
+$(SQLDIR)\MAPIIn_$(MAPINO)_Comment.def: $(INXMLFILE2) $(INMASTER)
+    $(BIN)\Imi.CodeGenerators.WebServices.xml2createtable $(INXMLFILE2) $(INMASTER) $@ COMMENT
+
+$(SQLDIR)\MAPIIn_$(MAPINO)_Trace.trigger: $(INXMLFILE2) $(INMASTER)
+    $(BIN)\Imi.CodeGenerators.WebServices.xml2createtable $(INXMLFILE2) $(INMASTER) $@ TRIGGER
+
+$(SQLDIR)\MAPIIn_$(MAPINO)_View.def: $(INXMLFILE2) $(INMASTER)
+    $(BIN)\Imi.CodeGenerators.WebServices.xml2createtable $(INXMLFILE2) $(INMASTER) $@ VIEW /MAPI
+
+$(SQLDIR)\MAPIIn_$(MAPINO)_Drop.def: $(INXMLFILE2) $(INMASTER)
+    $(BIN)\Imi.CodeGenerators.WebServices.xml2createtable $(INXMLFILE2) $(INMASTER) $@ DROP
+
+$(SQLDIR)\MAPIIn_$(MAPINO)_Clean.body: $(INXMLFILE2) $(INMASTER)
+    $(BIN)\Imi.CodeGenerators.WebServices.xml2createtable $(INXMLFILE2) $(INMASTER) $@ CLEAN /MAPI $(MAPINO)_
+
+$(SQLDIR)\MAPIIn_$(MAPINO)_Object.body: $(INXMLFILE2) $(INMASTER)
+    $(BIN)\Imi.CodeGenerators.WebServices.xml2intoproc $(INXMLFILE2) $(INMASTER) $@ /MAPI $(MAPINO)_
+
+$(SQLDIR)\MAPIIn_$(MAPINO)_Object.spec: $(INXMLFILE2) $(INMASTER)
+    $(BIN)\Imi.CodeGenerators.WebServices.xml2intoproc $(INXMLFILE2) $(INMASTER) $@ SPEC /MAPI $(MAPINO)_
+
+$(CSDIR)\ExternalClass.cs: $(INXMLFILE2) $(INMASTER)
+    $(BIN)\Imi.CodeGenerators.WebServices.xml2struct $(INXMLFILE2) $(INMASTER) $@ /MAPI /NS Imi.Wms.WebServices.MAPIIn
+
+$(CSDIR)\InsertHandler.cs: $(INXMLFILE2) $(INMASTER)
+    $(BIN)\Imi.CodeGenerators.WebServices.xml2insert $(INXMLFILE2) $(INMASTER) $@ /MAPI /NS Imi.Wms.WebServices.MAPIIn
+
+$(CSDIR)\ExternalInterface.asmx.cs: $(INXMLFILE2) $(INMASTER)
+    $(BIN)\Imi.CodeGenerators.WebServices.xml2wsinbound $(INXMLFILE2) $(INMASTER) $@ RECEIVER /MAPI /NS Imi.Wms.WebServices.MAPIIn
+
+$(HTMLDIR)\index.html: $(INXMLFILE2) $(INMASTER)
+    $(BIN)\Imi.CodeGenerators.WebServices.xml2html $(INXMLFILE2) $(INMASTER) $(HTMLDIR)
+
+CLEAN :
+    -@$(RD) $(CSDIR)
+    -@$(RD) $(SQLDIR)
+    -@$(RD) $(XMLOUTDIR)
+    -@$(RD) $(HTMLDIR)
+    @nmake /nologo ALL
+
+"$(CSDIR)" :
+    @if not exist "$(CSDIR)/$(NULL)" mkdir "$(CSDIR)"
+
+"$(SQLDIR)" :
+    @if not exist "$(SQLDIR)/$(NULL)" mkdir "$(SQLDIR)"
+
+"$(XMLOUTDIR)" :
+    @if not exist "$(XMLOUTDIR)/$(NULL)" mkdir "$(XMLOUTDIR)"
+
+"$(HTMLDIR)" :
+    @if not exist "$(HTMLDIR)/$(NULL)" mkdir "$(HTMLDIR)"
+
+# end makefile

@@ -1,0 +1,99 @@
+#
+# makefile 17/12/2004
+# 
+# Copyright (c) 2004 - 2005 Industri-Matematik AB. All rights reserved.
+#
+MAPINO=04
+BIN=.\bin
+XMLDIR=.\xml
+RD=rd /s /q
+OUTHTMLDIR=.\genoutmapi_$(MAPINO)\html
+OUTCSDIR=.\genoutmapi_$(MAPINO)\src
+OUTXMLDIR=.\genoutmapi_$(MAPINO)\xml
+OUTTESTDIR=.\genoutmapi_$(MAPINO)\testsrc
+#CONN="user id = owuser; password = owuser1; data source = WH51NGMR"
+#CONN="user id = owuser; password = owuser; data source = NGSL2"
+CONN="user id = owuser; password = owuser; data source = WH80M"
+
+OUTXMLFILE=$(OUTXMLDIR)\out.xml
+OUTMASTER=$(XMLDIR)\WSMAPIOutboundMaster_$(MAPINO).xml
+DICTIONARY=$(XMLDIR)\MAPIDictionary.xml
+
+ALLDIR= \
+    "$(OUTCSDIR)" \
+    "$(OUTXMLDIR)" \
+    "$(OUTHTMLDIR)" \
+    "$(OUTTESTDIR)"
+
+ALLCS= \
+    "$(OUTCSDIR)\ExternalClass.cs" \
+    "$(OUTCSDIR)\SelectHandler.cs" \
+    "$(OUTCSDIR)\WebServiceSender.cs"
+
+ALLTEST= \
+    "$(OUTTESTDIR)\ExternalClass.cs" \
+    "$(OUTTESTDIR)\InsertHandler.cs" \
+    "$(OUTTESTDIR)\ExternalInterface.asmx.cs" \
+    "$(OUTTESTDIR)\create_test_tables.sql"
+
+ALLHTML= \
+    "$(OUTHTMLDIR)\index.html"
+
+
+# --------------------------------------------
+# Description Blocks
+# --------------------------------------------
+
+ALL: $(ALLDIR) $(OUTXMLFILE) $(OUTMASTER) $(ALLCS) $(ALLHTML) $(ALLTEST)
+
+$(OUTXMLFILE): $(OUTMASTER) $(OUTXMLDIR)
+    $(BIN)\Imi.CodeGenerators.WebServices.XML2WSOutTest $(OUTMASTER) $@ $(DICTIONARY) /CONN $(CONN)
+
+$(OUTCSDIR)\ExternalClass.cs: $(OUTXMLFILE) $(OUTMASTER) $(OUTCSDIR)
+    $(BIN)\Imi.CodeGenerators.WebServices.xml2struct $(OUTXMLFILE) $(OUTMASTER) $@ /MAPI /NS Imi.Wms.Server.Job.WebServiceSendMAPI
+
+$(OUTCSDIR)\SelectHandler.cs: $(OUTXMLFILE) $(OUTMASTER) $(OUTCSDIR)
+    $(BIN)\Imi.CodeGenerators.WebServices.XML2Select $(OUTXMLFILE) $(OUTMASTER) $@ /MAPI /NS Imi.Wms.Server.Job.WebServiceSendMAPI
+
+$(OUTCSDIR)\WebServiceSender.cs: $(OUTXMLFILE) $(OUTMASTER) $(OUTCSDIR)
+    $(BIN)\Imi.CodeGenerators.WebServices.XML2Sender $(OUTXMLFILE) $(OUTMASTER) $@ /MAPI /NS Imi.Wms.Server.Job.WebServiceSendMAPI
+
+$(OUTHTMLDIR)\index.html: $(OUTXMLFILE) $(OUTMASTER) $(OUTHTMLDIR)
+    $(BIN)\Imi.CodeGenerators.WebServices.xml2html $(OUTXMLFILE) $(OUTMASTER) $(OUTHTMLDIR)
+
+# --- Test code for testing outgoing web service calls by building a "fake" webservice
+
+$(OUTTESTDIR)\create_test_tables.sql: $(OUTXMLFILE) $(OUTMASTER) $(OUTTESTDIR)
+    $(BIN)\Imi.CodeGenerators.WebServices.xml2createtable $(OUTXMLFILE) $(OUTMASTER) $@ COLUMN_NOTBSP
+
+$(OUTTESTDIR)\ExternalClass.cs: $(OUTXMLFILE) $(OUTMASTER) $(OUTTESTDIR)
+    $(BIN)\Imi.CodeGenerators.WebServices.xml2struct $(OUTXMLFILE) $(OUTMASTER) $@ /MAPI /NS Imi.Wms.WebServices.OutboundTesterMAPI
+
+$(OUTTESTDIR)\InsertHandler.cs: $(OUTXMLFILE) $(OUTMASTER) $(OUTTESTDIR)
+    $(BIN)\Imi.CodeGenerators.WebServices.xml2insert $(OUTXMLFILE) $(OUTMASTER) $@ /MAPI /NS Imi.Wms.WebServices.OutboundTesterMAPI
+
+$(OUTTESTDIR)\ExternalInterface.asmx.cs: $(OUTXMLFILE) $(OUTMASTER) $(OUTTESTDIR)
+    $(BIN)\Imi.CodeGenerators.WebServices.xml2wsinbound $(OUTXMLFILE) $(OUTMASTER) $@ SENDER /MAPI /NS Imi.Wms.WebServices.OutboundTesterMAPI
+
+# ---
+
+CLEAN :
+    -@$(RD) $(OUTCSDIR)
+    -@$(RD) $(OUTXMLDIR)
+    -@$(RD) $(OUTHTMLDIR)
+    -@$(RD) $(OUTTESTDIR)
+    @nmake /nologo ALL
+
+"$(OUTCSDIR)" :
+    @if not exist "$(OUTCSDIR)/$(NULL)" mkdir "$(OUTCSDIR)"
+
+"$(OUTXMLDIR)" :
+    @if not exist "$(OUTXMLDIR)/$(NULL)" mkdir "$(OUTXMLDIR)"
+
+"$(OUTHTMLDIR)" :
+    @if not exist "$(OUTHTMLDIR)/$(NULL)" mkdir "$(OUTHTMLDIR)"
+
+"$(OUTTESTDIR)" :
+    @if not exist "$(OUTTESTDIR)/$(NULL)" mkdir "$(OUTTESTDIR)"
+
+# end makefile

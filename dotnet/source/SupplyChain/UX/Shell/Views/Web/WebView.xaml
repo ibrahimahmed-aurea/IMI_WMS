@@ -1,0 +1,26 @@
+<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+  	xmlns:d="http://schemas.microsoft.com/expression/interactivedesigner/2006" 
+	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:Imi.SupplyChain.UX.Shell"
+	  mc:Ignorable="d" x:Class="Imi.SupplyChain.UX.Shell.Views.WebView"
+    >
+  <Grid x:Name="LayoutRoot">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <Grid Margin="4" Grid.Row="0">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+      <Button x:Name="backButton" Grid.Column="0" Content="{x:Static local:StringResources.WebView_Back}" Margin="0,0,4,0" Click="BackButtonClickEventHandler" />
+      <Button x:Name="forwardButton" Grid.Column="1" Content="{x:Static local:StringResources.WebView_Forward}" Margin="0,0,4,0" Click="ForwardButtonClickEventHandler" />
+      <TextBox Grid.Column="2" x:Name="addressTextBox" HorizontalAlignment="Stretch" Width="Auto" KeyDown="addressTextBox_KeyDown" />
+    </Grid>
+    <WebBrowser x:Name="browser" Grid.Row="1"/>
+  </Grid>
+</UserControl>

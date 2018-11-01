@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Cdc.MetaManager.DataAccess.Domain.WorkflowDialog, Cdc.MetaManager.DataAccess" table="WorkflowDialog">
+    <id name="Id" type="System.Guid">
+      <column name="Id" not-null="true"/>
+      <generator class="assigned"/>
+    </id>
+    <many-to-one name="Dialog" class="Cdc.MetaManager.DataAccess.Domain.Dialog, Cdc.MetaManager.DataAccess" foreign-key="FK_WorkflowDlg_Dialog">
+      <column name="DialogId" not-null="true"/>
+    </many-to-one>
+    <many-to-one name="Workflow" class="Cdc.MetaManager.DataAccess.Domain.Workflow, Cdc.MetaManager.DataAccess" foreign-key="FK_WorkflowDlg_Workflow">
+      <column name="WorkflowId" not-null="true"/>
+    </many-to-one>
+  </class>
+</hibernate-mapping>

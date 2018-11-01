@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<query name="Workflow.FindWorkflows">
+		<![CDATA[
+     select  w
+       from  Workflow w
+       where w.Module.Application.Id = :applicationId
+       and   w.Module.Name like :moduleName
+       and   w.Name like :workflowName
+       order by w.Name
+    ]]>
+	</query>
+	<query name="Workflow.FindAllByModule">
+		<![CDATA[
+     select  w
+       from  Workflow w
+       where w.Module.Id = :moduleId
+       order by w.Name
+    ]]>
+	</query>
+	<query name="Workflow.FindAll">
+		<![CDATA[
+     select  w
+       from  Workflow w
+       where w.Module.Application.Id = :applicationId
+       order by w.Name
+    ]]>
+	</query>
+</hibernate-mapping>

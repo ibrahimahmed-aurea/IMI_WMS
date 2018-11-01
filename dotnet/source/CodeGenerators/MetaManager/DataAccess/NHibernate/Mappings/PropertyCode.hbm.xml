@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Cdc.MetaManager.DataAccess.Domain.PropertyCode, Cdc.MetaManager.DataAccess" table="PropertyCode">
+    <id name="Id" type="System.Guid">
+      <column name="Id" not-null="true"/>
+      <generator class="assigned"/>
+    </id>
+    <property name="Value" type="String">
+      <column name="Value" length="255" not-null="true"/>
+    </property>
+    <property name="Code" type="String">
+      <column name="Code" length="50" not-null="true"/>
+    </property>
+    <many-to-one name="Property" class="Cdc.MetaManager.DataAccess.Domain.Property, Cdc.MetaManager.DataAccess" foreign-key="FK_PropCode_Prop">
+      <column name="PropertyId" not-null="true"/>
+    </many-to-one>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Mats Nordgren (IMI) -->
+<MessageDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="C:\project\views\togr_trunk_ss\users\togr\xml\xsd\StructureDescription.xsd" name="OutBound">
+	<interfaces>
+		<interface name="Departure" structure="Departure" HAPIObjectName="1" direction="Out"/>
+		<interface name="DepartureTransport" structure="DepartureTransport" HAPIObjectName="2" direction="Out"/>
+		<interface name="DepartureNode" structure="DepartureNode" HAPIObjectName="3" direction="Out"/>
+		<interface name="DepartureLoad" structure="DepartureLoad" HAPIObjectName="4" direction="Out"/>
+		<interface name="Place_Order_In_Departure" structure="Place_Order_In_Departure" HAPIObjectName="5" direction="Out"/>
+		<interface name="Place_SupOrder_In_Departure" structure="Place_SupOrder_In_Departure" HAPIObjectName="6" direction="Out"/>
+		<interface name="Place_LoadCar_In_Departure" structure="Place_LoadCar_In_Departure" HAPIObjectName="7" direction="Out"/>
+		<interface name="DEPLOAD_For_LoadCar" structure="DEPLOAD_For_LoadCar" HAPIObjectName="8" direction="Out"/>
+		<interface name="DEPLOAD_For_Order" structure="DEPLOAD_For_Order" HAPIObjectName="9" direction="Out"/>
+		<interface name="DEPLOAD_For_SupOrder" structure="DEPLOAD_For_SupOrder" HAPIObjectName="10" direction="Out"/>
+		<interface name="DepNodeTrp" structure="DepNodeTrp" HAPIObjectName="11" direction="Out"/>
+		<interface name="Get_Shipping_Address" structure="Get_Shipping_Address" HAPIObjectName="12" direction="Out"/>
+		<interface name="Move_Car_Request" structure="Move_Car_Request" HAPIObjectName="13" direction="Out"/>
+		<interface name="Modify_System_Config" structure="Modify_System_Config" HAPIObjectName="14" direction="Out"/>
+	</interfaces>
+	<structures>
+		<structure name="Departure" queueTable="" insertSP="TAPI.New_Modify_Departure" updateSP="TAPI.New_Modify_Departure" deleteSP="TAPI.Remove_Departure" baseTable="">
+			<comment>
+				<line>Departure</line>
+			</comment>
+		</structure>
+		<structure name="DepartureTransport" queueTable="" insertSP="TAPI.New_Modify_DepartureTransport" updateSP="TAPI.New_Modify_DepartureTransport" deleteSP="TAPI.Remove_DepartureTransport" baseTable="">
+			<comment>
+				<line>Departure Transport</line>
+			</comment>
+		</structure>
+		<structure name="DepartureNode" queueTable="" insertSP="TAPI.New_Modify_DepartureNode" updateSP="TAPI.New_Modify_DepartureNode" deleteSP="TAPI.Remove_DepartureNode" baseTable="">
+			<comment>
+				<line>Departure Node</line>
+			</comment>
+		</structure>
+		<structure name="DepartureLoad" queueTable="" insertSP="TAPI.New_Modify_DepartureLoad" updateSP="TAPI.New_Modify_DepartureLoad" deleteSP="TAPI.Remove_DepartureLoad" baseTable="">
+			<comment>
+				<line>Departure Load</line>
+			</comment>
+		</structure>
+		<structure name="Place_Order_In_Departure" queueTable="" insertSP="TAPI.Place_Order_In_Departure" updateSP="" deleteSP="" baseTable="">
+			<comment>
+				<line>Place Order In Departure</line>
+			</comment>
+		</structure>
+		<structure name="Place_SupOrder_In_Departure" queueTable="" insertSP="TAPI.Place_SupOrder_In_Departure" updateSP="" deleteSP="" baseTable="">
+			<comment>
+				<line>Place SupOrder In Departure</line>
+			</comment>
+		</structure>
+		<structure name="Place_LoadCar_In_Departure" queueTable="" insertSP="TAPI.Place_LoadCar_In_Departure" updateSP="" deleteSP="" baseTable="">
+			<comment>
+				<line>Place LoadCar In Departure</line>
+			</comment>
+		</structure>
+		<structure name="DEPLOAD_For_LoadCar" queueTable="" insertSP="TAPI.DEPLOAD_For_LoadCar" updateSP="" deleteSP="" baseTable="">
+			<comment>
+				<line>DEPLOAD For LoadCar</line>
+			</comment>
+		</structure>
+		<structure name="DEPLOAD_For_Order" queueTable="" insertSP="TAPI.DEPLOAD_For_Order" updateSP="" deleteSP="" baseTable="">
+			<comment>
+				<line>DEPLOAD For Order</line>
+			</comment>
+		</structure>
+		<structure name="DEPLOAD_For_SupOrder" queueTable="" insertSP="TAPI.DEPLOAD_For_SupOrder" updateSP="" deleteSP="" baseTable="">
+			<comment>
+				<line>DEPLOAD For SupOrder</line>
+			</comment>
+		</structure>
+		<structure name="DepNodeTrp" queueTable="" insertSP="TAPI.New_Modify_DepNodeTrp" updateSP="TAPI.New_Modify_DepNodeTrp" deleteSP="TAPI.Remove_DepNodeTrp" baseTable="">
+			<comment>
+				<line>Dep Node Trp</line>
+			</comment>
+		</structure>
+		<structure name="Get_Shipping_Address" queueTable="" insertSP="TAPI.Get_Shipping_Address" updateSP="" deleteSP="" baseTable="">
+			<comment>
+				<line>Get Shipping Address</line>
+			</comment>
+		</structure>
+		<structure name="Move_Car_Request" queueTable="" insertSP="TAPI.Move_Car_Request" updateSP="" deleteSP="" baseTable="">
+			<comment>
+				<line>Move Car Request</line>
+			</comment>
+		</structure>
+		<structure name="Modify_System_Config" queueTable="" insertSP="TAPI.Modify_System_Config" updateSP="" deleteSP="" baseTable="">
+			<comment>
+				<line>Modify System Config</line>
+			</comment>
+		</structure>
+	</structures>
+</MessageDefinition>

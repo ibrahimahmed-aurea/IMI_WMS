@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:sch="http://aws.im.se/otp" xmlns:tns="http://aws.im.se/otp" targetNamespace="http://aws.im.se/otp" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://aws.im.se/otp" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="OtpRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="loginId" type="xs:string" />
+            <xs:element name="userId" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="OtpResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="otp" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="OtpResponse">
+    <wsdl:part name="OtpResponse" element="tns:OtpResponse" />
+  </wsdl:message>
+  <wsdl:message name="OtpRequest">
+    <wsdl:part name="OtpRequest" element="tns:OtpRequest" />
+  </wsdl:message>
+  <wsdl:portType name="OtpPortType">
+    <wsdl:operation name="Otp">
+      <wsdl:input name="OtpRequest" message="tns:OtpRequest" />
+      <wsdl:output name="OtpResponse" message="tns:OtpResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="OtpPortTypeSoap11" type="tns:OtpPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Otp">
+      <soap:operation soapAction="" />
+      <wsdl:input name="OtpRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="OtpResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="OtpPortTypeService">
+    <wsdl:port name="OtpPortTypeSoap11" binding="tns:OtpPortTypeSoap11">
+      <soap:address location="http://localhost/services/otp" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

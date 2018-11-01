@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="Imi.SupplyChain.UX.Shell.Views.ShellView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Imi.SupplyChain.UX.Shell.Views"
+    xmlns:ribbon="http://schemas.actiprosoftware.com/winfx/xaml/ribbon"
+    xmlns:shared="http://schemas.actiprosoftware.com/winfx/xaml/shared"
+    xmlns:themes="http://schemas.actiprosoftware.com/winfx/xaml/themes"
+    Height="Auto"
+    Width="Auto"
+    DataContext="{x:Null}"
+    Background="{DynamicResource {x:Static themes:AssetResourceKeys.WorkspaceLightBackgroundNormalBrushKey}}">
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Imi.SupplyChain.UX;component/Resources/generic.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </UserControl.Resources>
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="Auto" MaxWidth="250" />
+      <ColumnDefinition Width="*" MinWidth="200"/>
+    </Grid.ColumnDefinitions>
+    <local:NavigationBarView x:Name="navigationBarView" Grid.Column="0"/>
+    <local:StartView Grid.Column="2"
+                     x:Name="startView"/>
+    <ContentPresenter Grid.Column="2"
+                      x:Name="workspacePresenter"
+                      ContentSource="SelectedContent"/>
+    <GridSplitter Grid.Column="1" ResizeDirection="Columns" ResizeBehavior="PreviousAndCurrent" Background="Transparent" Width="7" HorizontalAlignment="Left" FocusVisualStyle="{x:Null}" />
+  </Grid>
+</UserControl>

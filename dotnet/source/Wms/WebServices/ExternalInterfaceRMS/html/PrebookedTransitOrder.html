@@ -1,0 +1,48 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Segment PrebookedTransitOrder</title>
+<link href="StructureDescription.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>Segment PrebookedTransitOrder</h1>
+<h3>Description:</h3>
+Incoming Message Prebooked Transit Order<h3>Attributes:</h3>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000"><tbody>
+<tr class="tableHeader"><th class="tableHeaderColumn">Tag</th><th class="tableHeaderColumn">Method</th><th class="tableHeaderColumn">Type</th><th class="tableHeaderColumn">Oracle Type</th><th class="tableHeaderColumn">Mandatory</th><th class="tableHeaderColumn">Note</th></tr>
+<tr class="tableRow"><td class="tableRowColumn">OPCODE</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Operation Code<br/>0 - No Operation<br/>1 - New<br/>2 - Change<br/>3 - Remove<br/>Note! An operation code is only useful if at least one tag supports the method</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PreBookedTransitOrderNumber</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">Customer Order Number or Vendor Return Order Number<br/>The identity of the Customer Order or the Vendor Return Order.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PreBookedTransitOrderRef</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(100)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Pre-booked Transit Order<br/>The reference to the Transport Load that an ASN Transport Load Carrier is prebooked for.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">FromNodeIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">From Node Identity<br/>The Node identity for the Ship-from Party in the Route.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ToNodeIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">N</td><td class="tableRowColumn">Ship-to Node Identity<br/>The identity of the Ship-to Node. In this case the Node is the drop location in the Route (To Node).<br/>This can be a customer / another warehouse.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductTransportIdentity</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(5)</td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">Transport Condition Identity<br/>Gives the conditions (normal, freeze, cold, dry, non-vibrating etc.)<br/>for the vehicle that transports the goods / product.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PlannedWeight</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(16,6)</td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">Planned Weight<br/>The weight for the goods that are planned to be included in the Departure.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PlannedVolume</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(16,6)</td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">Planned Volume<br/>The volume of the goods that are planned to be included in the Departure.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PlannedSpace</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">Nullable<double></td><td class="tableRowColumn">NUMBER(16,6)</td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">Planned Space<br/>The space needed for the goods that are to be included.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ZipCode</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(12)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Post/Zip Code<br/>The Post/Zip Code of the address for the party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CountryCode</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Country Code<br/>The Country Code of the address for the party.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DeliveryMethod</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Method of Shipment<br/>The identity of the method that will be used when shipping the goods from the node.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">AcknowledgedShipDtm</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">n/a</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">SearchReference</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Search Field<br/>A free search field that can contain any value.<br/>It will be possible to search on this field in the Transport Load dialog.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OriginNodeIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Origin Node Identity<br/>The Node Identity for the Party that originally shipped the goods to the warehouse.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">OriginNodeName</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Origin Node Description<br/>The Node Description for the Party that originally shipped the goods to the warehouse.</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

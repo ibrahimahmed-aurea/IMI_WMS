@@ -1,0 +1,43 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text"  Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="false" Description="Template description here." %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.IO" %>
+<%@ Import Namespace="System.Text" %>
+<%@ Import Namespace="System.Xml" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain.VisualModel" %>
+<%@ Register Name="UserControlTemplate" Template="..\Wpf\UserControlTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Property Name="view" Type="Cdc.MetaManager.DataAccess.Domain.View" Default="" Optional="false" Category="" Description="" OnChanged="" Editor="" EditorBase="" Serializer="" %>
+<%@ Property Name="debugOutput" Type="System.Boolean" Default="false" Optional="false" Category="" Description="" OnChanged="" Editor="" EditorBase="" Serializer="" %>
+<%
+		UserControlTemplate ucTemplate = this.Create<UserControlTemplate>();
+		ucTemplate.SetProperty("view", view);
+		ucTemplate.SetProperty("debugOutput", debugOutput);
+		string xamlCode = ucTemplate.RenderToString();
+		xamlCode = BeautifyXml(xamlCode);
+%>
+<%= xamlCode %>
+<%
+%>
+<script runat="template">
+
+	private string BeautifyXml(string xmlText)
+	{
+		XmlDocument document = new XmlDocument();
+		document.LoadXml(xmlText);
+		StringBuilder result = new StringBuilder();
+		XmlTextWriter writer = new XmlTextWriter(new StringWriter(result));
+		
+		writer.Formatting = Formatting.Indented;
+		writer.Indentation = 4;
+		writer.IndentChar = ' ';
+		
+		document.WriteTo(writer);
+		return result.ToString();
+	}
+</script>

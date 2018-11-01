@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="baee6199-b9cd-43ba-9591-c449bed98977" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://FabrikamEnterprises:18802/System/SessionService/get" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="get.xsd" MetadataType="Schema" ID="180c18d5-ead3-4f71-addb-c7defb2e3eb2" SourceId="1" SourceUrl="http://fabrikamenterprises:18802/System/SessionService/get?xsd=xsd2" />
+    <MetadataFile FileName="get1.xsd" MetadataType="Schema" ID="b179fb9f-ae09-47ee-a0d9-455774041e74" SourceId="1" SourceUrl="http://fabrikamenterprises:18802/System/SessionService/get?xsd=xsd3" />
+    <MetadataFile FileName="get2.xsd" MetadataType="Schema" ID="63862815-7604-4fa7-8659-df7a59f9e1a8" SourceId="1" SourceUrl="http://fabrikamenterprises:18802/System/SessionService/get?xsd=xsd0" />
+    <MetadataFile FileName="SessionService.wsdl" MetadataType="Wsdl" ID="5dcf179d-8d5b-416f-ad55-bf914cb49a71" SourceId="1" SourceUrl="http://fabrikamenterprises:18802/System/SessionService/get" />
+    <MetadataFile FileName="get3.xsd" MetadataType="Schema" ID="69a67177-c66b-4421-a959-e95718e7de71" SourceId="1" SourceUrl="http://fabrikamenterprises:18802/System/SessionService/get?xsd=xsd1" />
+    <MetadataFile FileName="get4.xsd" MetadataType="Schema" ID="2cc5224c-5abc-4244-897f-7f3fbcd4d1d4" SourceId="1" SourceUrl="http://fabrikamenterprises:18802/System/SessionService/get?xsd=xsd5" />
+    <MetadataFile FileName="get.wsdl" MetadataType="Wsdl" ID="3bbe42fd-a1ed-49dc-ac6a-aa4b3716dc06" SourceId="1" SourceUrl="http://fabrikamenterprises:18802/System/SessionService/get?wsdl=wsdl1" />
+    <MetadataFile FileName="get5.xsd" MetadataType="Schema" ID="47f29434-5d40-43dc-99df-e93ee880531f" SourceId="1" SourceUrl="http://fabrikamenterprises:18802/System/SessionService/get?xsd=xsd4" />
+    <MetadataFile FileName="get1.wsdl" MetadataType="Wsdl" ID="888eedf8-d84e-43bd-be74-7ad1452768bd" SourceId="1" SourceUrl="http://fabrikamenterprises:18802/System/SessionService/get?wsdl=wsdl0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

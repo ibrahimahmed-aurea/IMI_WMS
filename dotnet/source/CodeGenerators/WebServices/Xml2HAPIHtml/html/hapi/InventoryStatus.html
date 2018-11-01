@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Inventory Status</title>
+		<link href="./css/emx_nav_left.css" rel="stylesheet" type="text/css" media="screen" />
+		<link href="./css/emx_nav_left_print.css" rel="stylesheet" type="text/css" media="print" />
+	</head>
+	<body>
+		<div id="pagecell1">
+			<!--pagecell1-->
+			<div id="breadCrumb">
+				<a href="index.html">Index</a>
+			</div>
+			<div id="pageName">
+				<h2 class="in">Inventory Status (In)</h2>
+			</div>
+			<div id="pageNav">
+				<div id="sectionLinks">
+					<a href="#InventoryStatus">Inventory Status</a>
+				</div>
+			</div>
+			<div id="content">
+				<div class="description">
+					<!--description InventoryStatus-->
+					<a name="InventoryStatus" />
+					<h3>Inventory Status</h3>
+					<p>Inventory Status<br/>Setup of available Hold Codes in IMI Warehouse</p>
+					<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000">
+						<tr>
+							<th class="colColumn">Column</th>
+							<th class="colMethod">Method</th>
+							<th class="colType">Type</th>
+							<th class="colMandatory">Mand.</th>
+							<th class="colNote">Note</th>
+						</tr>
+						<tr>
+							<td class="colColumn">InventoryStatusCode</td>
+							<td class="colMethod">N, C, R</td>
+							<td class="colType">c8</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">A Hold Code may be applied on an Item Load or a Pick Location to temporarily exclude it from further processing. System defined values (BLOCKTYPE = N):<br/>00 = Not on Hold<br/>P1 = Package Change<br/>E1 = Held by a Lift Truck<br/>E2 = Item Load Missing<br/>You can add more in user defined Type.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">InventoryStatusName</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">N</td>
+							<td class="colNote">The description/name of the Hold Code.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">InventoryStatusAutoReset</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">N</td>
+							<td class="colNote">The hold will be removed from the Item Load/Pick Location when the registered Alarm Date for the hold has passed.</td>
+						</tr>
+					</table>
+				</div>
+				<!--end description InventoryStatus-->
+			</div>
+			<!--end content-->
+			<div id="siteInfo">Version 5.0i.28 generated on 2005-12-20 10:16:20<br />&copy;2005 Industri-Matematik AB</div>
+		</div>
+		<!--end pagecell1-->
+	</body>
+</html>

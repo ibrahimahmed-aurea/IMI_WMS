@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by CDCS (Industri-Matematik AB) -->
+<!-- =========================================================== 
+     THIS FILE IS GENERATED AUTOMATICALLY BY THE REPORT MANAGER! 
+     PLEASE REFRAIN FROM EDITING SINCE IT WILL BE OVERWRITTEN!   
+     =========================================================== -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:element name="GenericReport">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="MetaData" type="MetaDataType"/>
+				<xs:element name="Data" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="MetaDataType">
+		<xs:attribute name="documentType" use="required"/>
+		<xs:attribute name="documentSubType" use="required"/>
+		<xs:attribute name="applicationIdentity" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="35"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="terminalIdentity" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="35"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="printerIdentity" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="35"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="userIdentity" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="8"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="numberOfCopies" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:byte">
+					<xs:totalDigits value="5"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="isCopy" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:boolean"/>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>

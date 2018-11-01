@@ -1,0 +1,196 @@
+<wap-provisioningdoc>
+<characteristic type="Install">
+<parm name="InstallPhase" value="install" />
+<parm name="OSVersionMin" value="5.0" />
+<parm name="OSVersionMax" value="6.99" />
+<parm name="BuildNumberMin" value="0" />
+<parm name="BuildNumberMax" value="-536870912" />
+<parm name="AppName" value="CDC Software CDC Ranger" />
+<parm name="InstallDir" value="%CE1%\CDC Ranger" translation="install" />
+<parm name="NumDirs" value="3" />
+<parm name="NumFiles" value="33" />
+<parm name="NumRegKeys" value="0" />
+<parm name="NumRegVals" value="0" />
+<parm name="NumShortcuts" value="1" />
+</characteristic>
+<characteristic type="FileOperation">
+<characteristic type="%InstallDir%" translation="install">
+<characteristic type="MakeDir" />
+<characteristic type="Microsoft.WindowsCE.Forms.dll" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="MICROS~2.001" />
+</characteristic>
+</characteristic>
+<characteristic type="System.Web.Services.dll" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="SYC6B2~1.002" />
+</characteristic>
+</characteristic>
+<characteristic type="Microsoft.Practices.Mobile.Configuration.dll" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="MICROS~1.003" />
+</characteristic>
+</characteristic>
+<characteristic type="Microsoft.Practices.Mobile.ConnectionMonitor.dll" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="MI80DE~1.004" />
+</characteristic>
+</characteristic>
+<characteristic type="Microsoft.Practices.Mobile.ContainerModel.dll" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="MICROS~2.005" />
+</characteristic>
+</characteristic>
+<characteristic type="Microsoft.Practices.Mobile.DataAccess.dll" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="MI49FB~1.006" />
+</characteristic>
+</characteristic>
+<characteristic type="Microsoft.Practices.Mobile.DisconnectedAgent.dll" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="MID3B9~1.007" />
+</characteristic>
+</characteristic>
+<characteristic type="Microsoft.Practices.Mobile.EndpointCatalog.dll" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="MIB1BA~1.008" />
+</characteristic>
+</characteristic>
+<characteristic type="Microsoft.Practices.Mobile.PasswordAuthentication.dll" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="MICROS~2.009" />
+</characteristic>
+</characteristic>
+<characteristic type="Microsoft.WindowsMobile.Status.dll" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="MI4263~1.010" />
+</characteristic>
+</characteristic>
+<characteristic type="Fluid.dll" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="000Fluid.011" />
+</characteristic>
+</characteristic>
+<characteristic type="Intermec.DataCollection.CF3.5.DLL" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="INTERM~1.012" />
+</characteristic>
+</characteristic>
+<characteristic type="intermec.dll" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="intermec.013" />
+</characteristic>
+</characteristic>
+<characteristic type="PtxSdkCommon.dll" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="PTXSDK~1.014" />
+</characteristic>
+</characteristic>
+<characteristic type="psion.dll" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="000psion.015" />
+</characteristic>
+</characteristic>
+<characteristic type="Cdc.Framework.Mobile.DataAccess.dll" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="CDCFRA~1.016" />
+</characteristic>
+</characteristic>
+<characteristic type="Cdc.Framework.Mobile.Services.dll" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="CDCFRA~1.017" />
+</characteristic>
+</characteristic>
+<characteristic type="Cdc.Framework.Mobile.Tools.dll" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="CDCFRA~1.018" />
+</characteristic>
+</characteristic>
+<characteristic type="Cdc.Framework.Mobile.UX.Fluid.dll" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="CDCFRA~2.019" />
+</characteristic>
+</characteristic>
+<characteristic type="Cdc.Framework.Mobile.dll" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="CDCFRA~1.020" />
+</characteristic>
+</characteristic>
+<characteristic type="Microsoft.WindowsMobile.Forms.dll" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="MICROS~3.021" />
+</characteristic>
+</characteristic>
+<characteristic type="Microsoft.WindowsMobile.PocketOutlook.dll" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="MIB96C~1.022" />
+</characteristic>
+</characteristic>
+<characteristic type="Microsoft.WindowsMobile.Telephony.dll" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="MICROS~4.023" />
+</characteristic>
+</characteristic>
+<characteristic type="Microsoft.WindowsMobile.dll" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="MI65CB~1.024" />
+</characteristic>
+</characteristic>
+<characteristic type="Cdc.SupplyChain.Ranger.Mobile.ServiceClient.dll" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="CDCSUP~2.025" />
+</characteristic>
+</characteristic>
+<characteristic type="Cdc.SupplyChain.Ranger.Mobile.UX.exe.config" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="000APP~1.026" />
+</characteristic>
+</characteristic>
+<characteristic type="Cdc.SupplyChain.Ranger.Mobile.UX.BusinessEntities.dll" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="CDCSUP~1.027" />
+</characteristic>
+</characteristic>
+<characteristic type="Cdc.SupplyChain.Ranger.Mobile.UX.DataAccess.dll" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="CDCSUP~3.028" />
+</characteristic>
+</characteristic>
+<characteristic type="Cdc.SupplyChain.Ranger.Mobile.UX.Modules.Delivery.dll" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="CDCSUP~4.029" />
+</characteristic>
+</characteristic>
+<characteristic type="Cdc.SupplyChain.Ranger.Mobile.UX.Modules.Intermec.dll" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="CDCSUP~1.030" />
+</characteristic>
+</characteristic>
+<characteristic type="Cdc.SupplyChain.Ranger.Mobile.UX.Modules.Psion.dll" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="CDCSUP~1.031" />
+</characteristic>
+</characteristic>
+<characteristic type="PsionTeklogixNet.dll" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="PSIONT~1.032" />
+</characteristic>
+</characteristic>
+<characteristic type="Cdc.SupplyChain.Ranger.Mobile.UX.exe" translation="install">
+<characteristic type="Extract">
+<parm name="Source" value="CDCSUP~1.033" />
+</characteristic>
+</characteristic>
+</characteristic>
+<characteristic type="%CE11%" translation="install">
+<characteristic type="MakeDir" />
+<characteristic type="CDC Ranger.lnk" translation="install">
+<characteristic type="Shortcut">
+<parm name="Source" value="%InstallDir%\Cdc.SupplyChain.Ranger.Mobile.UX.exe" translation="install" />
+</characteristic>
+</characteristic>
+</characteristic>
+</characteristic>
+<characteristic type="Registry">
+</characteristic>
+</wap-provisioningdoc>

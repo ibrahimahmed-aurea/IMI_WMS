@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://www.im.se/framework/services" elementFormDefault="qualified" targetNamespace="http://www.im.se/framework/services" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="SessionId" nillable="true" type="xs:string" />
+  <xs:element name="TransactionId" nillable="true" type="xs:string" />
+</xs:schema>

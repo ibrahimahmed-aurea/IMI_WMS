@@ -1,0 +1,352 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Party</title>
+		<link href="./css/emx_nav_left.css" rel="stylesheet" type="text/css" media="screen" />
+		<link href="./css/emx_nav_left_print.css" rel="stylesheet" type="text/css" media="print" />
+	</head>
+	<body>
+		<div id="pagecell1">
+			<!--pagecell1-->
+			<div id="breadCrumb">
+				<a href="index.html">Index</a>
+			</div>
+			<div id="pageName">
+				<h2 class="in">Party (In)</h2>
+			</div>
+			<div id="pageNav">
+				<div id="sectionLinks">
+					<a href="#Vendor">Vendor</a>
+					<a href="#Customer">Customer</a>
+					<a href="#PartyAddress">Party Address</a>
+				</div>
+			</div>
+			<div id="content">
+				<div class="description">
+					<!--description Vendor-->
+					<a name="Vendor" />
+					<h3>Vendor</h3>
+					<p>Vendor<br/>Updates data that is specific for a party of type = Vendor</p>
+					<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000">
+						<tr>
+							<th class="colColumn">Column</th>
+							<th class="colMethod">Method</th>
+							<th class="colType">Type</th>
+							<th class="colMandatory">Mand.</th>
+							<th class="colNote">Note</th>
+						</tr>
+						<tr>
+							<td class="colColumn">ClientIdentity</td>
+							<td class="colMethod">N, C, R</td>
+							<td class="colType">c17</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Client.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">VendorNumber</td>
+							<td class="colMethod">N, C, R</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Vendor.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">VendorName</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">N</td>
+							<td class="colNote">Vendor Name.</td>
+						</tr>
+					</table>
+				</div>
+				<!--end description Vendor-->
+				<div class="description">
+					<!--description Customer-->
+					<a name="Customer" />
+					<h3>Customer</h3>
+					<p>Customer<br/>Updates data that is specific for a party of type = Customer</p>
+					<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000">
+						<tr>
+							<th class="colColumn">Column</th>
+							<th class="colMethod">Method</th>
+							<th class="colType">Type</th>
+							<th class="colMandatory">Mand.</th>
+							<th class="colNote">Note</th>
+						</tr>
+						<tr>
+							<td class="colColumn">ClientIdentity</td>
+							<td class="colMethod">N, C, R</td>
+							<td class="colType">c17</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Client.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">CustomerNumber</td>
+							<td class="colMethod">N, C, R</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">Unique identification of a Customer Profile.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">CustomerName1</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">N</td>
+							<td class="colNote">Customer Name</td>
+						</tr>
+						<tr>
+							<td class="colColumn">CustomerName2</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Customer Name</td>
+						</tr>
+					</table>
+				</div>
+				<!--end description Customer-->
+				<div class="description">
+					<!--description PartyAddress-->
+					<a name="PartyAddress" />
+					<h3>Party Address</h3>
+					<p>Party Address<br/>Updates data for a Party Address.</p>
+					<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000">
+						<tr>
+							<th class="colColumn">Column</th>
+							<th class="colMethod">Method</th>
+							<th class="colType">Type</th>
+							<th class="colMandatory">Mand.</th>
+							<th class="colNote">Note</th>
+						</tr>
+						<tr>
+							<td class="colColumn">ClientIdentity</td>
+							<td class="colMethod">N, C, R</td>
+							<td class="colType">c17</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Client.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">PartyQualifier</td>
+							<td class="colMethod">N, C, R</td>
+							<td class="colType">c3</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The type of the Party:<br/>CA = Forwarder (NOT Client dependent)<br/>CL = Client (NOT Client dependent)<br/>CU = Customer (Client dependent)<br/>GO = Owner (Client dependent)<br/>OT = Other (NOT Client dependent)<br/>PV = Provider (NOT Client dependent)<br/>SU = Vendor (Client dependent)<br/>WH = Warehouse (NOT Client dependent)</td>
+						</tr>
+						<tr>
+							<td class="colColumn">PartyIdentity</td>
+							<td class="colMethod">N, C, R</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">*</td>
+							<td class="colNote">The identity of the Party.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">PartyProfile</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">If the Party Type is client dependent then this is a foreign key to the table Partyqualifer = Table.Column accordingly:<br/>Owner = OWN.OWNID<br/>Customer = CUS.CUSID<br/>Vendor = SUP.SUPID</td>
+						</tr>
+						<tr>
+							<td class="colColumn">PartyStatus</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The status of the Party:<br/>N = Normal<br/>T = Temporary</td>
+						</tr>
+						<tr>
+							<td class="colColumn">PartyName1</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Line 1 of the name/description for the party.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">PartyName2</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Line 2 of the name/description for the party.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">PartyName3</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Line 3 of the name/description for the party.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">PartyName4</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Line 4 of the name/description for the party.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">PartyName5</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Line 5 of the name/description for the party.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">PartyAddress1</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Line 1 of the Address to the party.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">PartyAddress2</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Line 2 of the Address to the party.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">PartyAddress3</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Line 3 of the Address to the party.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">PartyAddress4</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Line 4 of the Address to the party.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">ZipCode</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c12</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The Post/Zip Code of the address for the party.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">City</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The City part of the address for the party.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">Region</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c2</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The State part of the address for the party.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">CountryCode</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c6</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The Country Code of the address for the party.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">Country</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The Country part of the address for the party.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">GeographicalCode</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Is used to find the correct Identity in a dispatch route, which is used to transport Item Loads to/from, the Party</td>
+						</tr>
+						<tr>
+							<td class="colColumn">Phone</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The Phone number for the party.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">Fax</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The Fax number for the party.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">Telex</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The Telex number for the party.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">Email</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c50</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The E-mail address for the party.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">PostalGiroAccount</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c17</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The identity/number of the Postal Giro account for the party.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">BankGiroAccount</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c17</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The identity/number of the Bank Giro account for the party.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">VATNumber</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">The VAT registration number for the party.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">OrganizationNumber</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c35</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Is used in some countries for fiscal purposes (VAT accounting, etc).</td>
+						</tr>
+						<tr>
+							<td class="colColumn">Language</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c3</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Code (2 characters) for the language to use when communicating with the Party.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">SendASN</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c1</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Indicates (1=Yes,0=No) if an Outbound ASN has to be created when goods is shipped to the Party.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">RcvCheckType</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c3</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Indicates if ASN or Order are selected for Party Check. Allowed values ASN = ASN, PO = Order.</td>
+						</tr>
+						<tr>
+							<td class="colColumn">Division</td>
+							<td class="colMethod">N, C</td>
+							<td class="colType">c17</td>
+							<td class="colMandatory">-</td>
+							<td class="colNote">Division, department, section, workshop or similar subordinate unit of a company/organisation.</td>
+						</tr>
+					</table>
+				</div>
+				<!--end description PartyAddress-->
+			</div>
+			<!--end content-->
+			<div id="siteInfo">Version 5.0i.28 generated on 2005-12-20 10:16:20<br />&copy;2005 Industri-Matematik AB</div>
+		</div>
+		<!--end pagecell1-->
+	</body>
+</html>

@@ -1,0 +1,2318 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text"  Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="false" Description="Template description here." %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Assembly Name="Cdc.MetaManager.BusinessLogic" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="Cdc.MetaManager.BusinessLogic.Helpers" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain.VisualModel" %>
+<%@ Import Namespace="Cdc.CodeGeneration.Caching" %>
+<%@ Property Name="view" Type="Cdc.MetaManager.DataAccess.Domain.View" Default="" Optional="false" Category="" Description="" OnChanged="" Editor="" EditorBase="" Serializer="" %>
+<%@ Property Name="title" Type="String" Default="" Optional="false" Category="" Description="" OnChanged="" Editor="" EditorBase="" Serializer="" %>
+<%@ Property Name="dialogType" Type="Cdc.MetaManager.DataAccess.Domain.DialogType" Default="" Optional="false" Category="" Description="" OnChanged="" Editor="" EditorBase="" Serializer="" %>
+<%@ Property Name="componentViewCurrentComponent" Type="UXComponent" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="viewDirectory" Type="String" Default="" Optional="false" Category="" Description="" OnChanged="" Editor="" EditorBase="" Serializer="" %>
+<%
+	string viewsNamespace = GetViewsNamespace(view);
+	string viewParametersClassName = GetViewParametersClassName(view);
+	string viewResultClassName = GetViewResultClassName(view);
+	string viewClassName = GetViewClassName(view);
+	string viewInterfaceName = GetViewInterfaceName(view);
+	bool isComponent = view.Type == ViewType.Component;
+	
+	if (!isComponent)
+	{
+		viewInterfaceName = string.Format("{0}, IActionProvider", viewInterfaceName);
+	}
+	
+	string presenterClassName = GetPresenterClassName(view);				
+			
+	UXComponent grid = GetFirstGridComponent(view.VisualTree);
+	
+	bool isSearchPanel = view.VisualTree is UXSearchPanel;
+
+	bool adaptedFileExists = false;
+	string adaptedFileText = string.Empty;
+	string adaptedFileName = string.Format(@"{0}\{1}Adapted.cs", viewDirectory, GetViewClassName(view));
+	
+	if (System.IO.File.Exists(adaptedFileName))
+	{
+		adaptedFileExists = true;
+		adaptedFileText = System.IO.File.ReadAllText(adaptedFileName);
+
+		FileCacheManager.AddExistingFileToCache(adaptedFileName);
+	}
+
+	bool hasComboDialogs = false;
+
+	if (ViewHelper.GetAllComponents<UXComboDialog>(view.VisualTree).Count > 0)
+	{
+		hasComboDialogs = true;
+	}
+
+	bool usePartitioning = false;
+	
+	if (grid != null  && !isSearchPanel && !isComponent && view.ServiceMethod != null)
+	{
+		usePartitioning = true;
+	}
+
+	bool useServerSorting = false;
+
+	if (usePartitioning)
+	{
+		if ((view.ServiceMethod.MappedToAction != null) && 
+									(view.ServiceMethod.MappedToAction.MappedToObject != null) && 
+									(view.ServiceMethod.MappedToAction.MappedToObject is Query))
+		{
+			useServerSorting = true;
+		}
+	}
+%>
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Text;
+using System.Linq;
+using System.ComponentModel;
+using System.Threading;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Markup;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using System.Windows.Controls.Primitives;
+using System.Windows.Threading;
+using System.Reflection;
+using Microsoft.Practices.ObjectBuilder;
+using Microsoft.Practices.CompositeUI.EventBroker;
+using Microsoft.Practices.CompositeUI.SmartParts;
+using Validation = Microsoft.Practices.EnterpriseLibrary.Validation;
+using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
+using Xceed.Wpf.DataGrid;
+using Imi.Framework.Wpf.Controls;
+using Imi.Framework.Wpf.Data.Converters;
+using Imi.SupplyChain.UX;
+using Imi.SupplyChain.UX.Infrastructure;
+using Imi.SupplyChain.UX.Views;
+using Imi.Framework.UX.Wpf;
+
+namespace <%= viewsNamespace %>
+{
+	[SmartPart]
+	public partial class <%= viewClassName %> : UserControl, <%= viewInterfaceName %>, ISmartPartInfoProvider, IBuilderAware
+	{
+
+<%
+	if (adaptedFileExists)
+	{
+%>
+		//Adapted parts of the code is found in <%=viewClassName%>Adapted.cs
+<%
+	}
+%>
+
+        private Exception error;
+        private bool isDetailView;
+        private bool isMultiEnabled;
+		private string title;
+        private Bookmark bookmark = null;
+		private <%=presenterClassName%> presenter;
+		private IDictionary<string, IList<string>> mappedComponents;
+
+<%
+	if (hasComboDialogs)
+	{
+%>
+		private List<string> ComboDialogNoMatchFoundList = new List<string>();
+<%
+	}
+%>
+		
+		[CreateNew]
+        public <%=presenterClassName%> Presenter
+        {
+            get { return presenter; }
+            set 
+            { 
+                presenter = value;
+                presenter.View = this;
+            }
+        }
+		
+<%
+	if (isComponent)
+	{
+%>
+		public IEnumerable ComponentItemsSource
+        {
+            get { return (IEnumerable)GetValue(ComponentItemsSourceProperty); }
+            set { SetValue(ComponentItemsSourceProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ComponentItemsSource.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ComponentItemsSourceProperty =
+            DependencyProperty.Register("ComponentItemsSource", typeof(IEnumerable), typeof(<%=GetViewClassName(view)%>), new UIPropertyMetadata(null));
+<%
+	}
+
+
+	if (!adaptedFileExists || !adaptedFileText.Contains(string.Format("public {0}()", viewClassName))) 
+	{
+%>
+		
+        public <%= viewClassName %>()
+        {
+			//Set Language explicitly to prevent fallback to default value when view is unloaded from visual tree
+			this.Language = XmlLanguage.GetLanguage(Thread.CurrentThread.CurrentCulture.IetfLanguageTag);
+
+			this.InitializeComponent();
+			this.IsVisibleChanged += IsVisibleChangedEventHandler;			
+			
+			isDetailView = true;
+			mappedComponents = new Dictionary<string, IList<string>>();
+			
+<%	
+	IList<UXComponent> components = ViewHelper.GetAllComponents<UXComponent>(view.VisualTree);
+		
+	foreach(UXComponent component in components)
+	{
+		IBindable bindable = component as IBindable;
+		
+		if ((bindable != null) && (bindable.MappedProperty != null) && !component.IsReadOnly)
+		{
+			string propertyName = bindable.MappedProperty.Name;
+%>
+			if (!mappedComponents.ContainsKey("<%=propertyName%>"))
+				mappedComponents.Add("<%=propertyName%>", new List<string>());
+				
+			mappedComponents["<%=propertyName%>"].Add("<%=component.Name%>");
+<%			
+		}
+	}
+
+		if (isComponent)
+		{
+%>			
+			RefreshDataOnShow = false;
+<%
+		}
+		else
+		{
+%>
+			RefreshDataOnShow = true;
+            			
+			this.contextMenu.Opened += (s, e) =>
+            {
+                contextMenu.Items.Clear();
+				bool hasItems = false;
+				
+                foreach (ShellAction action in GetActions())
+                { 
+                    MenuItem item = new MenuItem();
+                    item.Header = action.Caption;
+                    item.IsEnabled = action.IsEnabled && action.IsAuthorized;
+                    item.Tag = action.Id;
+
+                    item.Click += (sender, a) =>
+                    {
+                        System.Windows.Controls.TextBox textBox = FocusManager.GetFocusedElement(Application.Current.MainWindow) as System.Windows.Controls.TextBox;
+
+                        if (textBox != null)
+                        {
+                            BindingExpression expression = textBox.GetBindingExpression(System.Windows.Controls.TextBox.TextProperty);
+
+                            if (expression != null)
+                            {
+                                expression.UpdateSource();
+                            }
+                        }
+
+						Presenter.ActionCatalog.Execute((string)((MenuItem)sender).Tag, Presenter.WorkItem, this, null);
+                    };
+
+                    contextMenu.Items.Add(item);
+					hasItems = true;
+                }
+
+				if (hasItems)
+				{
+					contextMenu.Items.Add(new Separator());
+				}
+
+				MenuItem dataRecordMenuItem = new MenuItem();
+
+				dataRecordMenuItem.Header = StringResources.EntityView_MenuItem_Caption;
+				dataRecordMenuItem.IsEnabled = (DataContext != null);
+
+				dataRecordMenuItem.Click += (sender, a) =>
+				{
+					Presenter.ShowEntityView(DataContext);
+				};
+
+				contextMenu.Items.Add(dataRecordMenuItem);
+				
+				if (IsImportEnabled)
+				{
+					MenuItem importDataMenuItem = new MenuItem();
+
+					importDataMenuItem.Header = StringResources.ImportView_MenuItem_Caption;
+					importDataMenuItem.IsEnabled = (DataContext != null);
+
+					importDataMenuItem.Click += (sender, a) =>
+					{
+						Presenter.ShowImportView();
+					};
+
+					contextMenu.Items.Add(importDataMenuItem);
+				}
+<%
+			if (dialogType == Cdc.MetaManager.DataAccess.Domain.DialogType.Overview || dialogType == Cdc.MetaManager.DataAccess.Domain.DialogType.Drilldown)
+			{
+%>
+
+				MenuItem copyMenuItem = new MenuItem();
+                copyMenuItem.Header = StringResources.Copy_MenuItem_Caption;
+                copyMenuItem.IsEnabled = (DataContext != null);
+
+                copyMenuItem.Click += (sender, a) =>
+                {
+                    Presenter.CopyCurrentItem();
+                };
+
+                contextMenu.Items.Add(copyMenuItem);
+<%
+			}
+			else if (dialogType == Cdc.MetaManager.DataAccess.Domain.DialogType.Create)
+			{
+%>
+
+				MenuItem pasteMenuItem = new MenuItem();
+
+                pasteMenuItem.Header = StringResources.Paste_MenuItem_Caption;
+                pasteMenuItem.IsEnabled = true;
+
+                pasteMenuItem.Click += (sender, a) =>
+                {
+                    Presenter.PasteCopiedData(mappedComponents.Keys.ToList());
+                };
+
+                contextMenu.Items.Add(pasteMenuItem);
+<%
+			}
+%>
+				
+            };
+			
+			bool loaded = false;
+									
+			this.Loaded += (s, e) =>
+            {
+				if (!loaded)
+				{
+					loaded = true;
+					Presenter.ActionProviderService.UpdateActions(this);
+<%
+				if (grid != null)
+				{
+%>
+					Presenter.ApplySettings(<%=grid.Name%>);
+<%
+				}
+%>
+					this.PreviewKeyDown += PreviewKeyDownEventHandler;
+				}
+			};
+<%
+		}
+%>
+		}
+<%
+	}
+
+	if (!adaptedFileExists || !adaptedFileText.Contains("protected override void OnGotFocus(RoutedEventArgs e)")) 
+	{
+%>
+
+        protected override void OnGotFocus(RoutedEventArgs e)
+        {
+            var fields = (from n in mappedComponents.Values
+                          from l in n
+                          select l).ToList();
+						
+			if (FocusHelper.SetFocus(this, new List<string>(fields)))
+            {
+                e.Handled = true;
+            }
+            else
+                base.OnGotFocus(e);
+        }
+<%		
+	}
+
+	if (isComponent)
+	{
+		if (componentViewCurrentComponent is UXComboBox)
+		{
+			UXComboBox comboBox = componentViewCurrentComponent as UXComboBox;
+
+			if (!adaptedFileExists || !adaptedFileText.Contains(string.Format("private void {0}_SelectionChanged(object sender, SelectionChangedEventArgs e)", comboBox.Name))) 
+			{
+%>
+
+        private void <%=comboBox.Name%>_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+			// Combobox for update of the <%=comboBox.KeyPropertyName%>
+            presenter.OnViewUpdated(((NullableComboBox)sender).SelectedItem as <%=viewResultClassName%>);
+        }
+<%
+			}
+		}
+	}
+
+	if (!adaptedFileExists || !adaptedFileText.Contains("public void Update(object parameters)")) 
+	{
+%>		
+		
+		public void Update(object parameters)
+		{
+			presenter.UpdateView(parameters as <%=viewParametersClassName%>);
+		}
+<%
+	}
+
+	if (!adaptedFileExists || !adaptedFileText.Contains("public void OnViewUpdated()")) 
+	{
+%>
+		
+		public void OnViewUpdated()
+		{
+			presenter.OnViewUpdated();
+		}
+<%
+	}
+
+	if (!adaptedFileExists || !adaptedFileText.Contains("public void Refresh()")) 
+	{
+%>
+
+		public void Refresh()
+		{
+            SetBookmark(CurrentRowIdentity);
+			presenter.RefreshView();
+		}
+<%
+	}
+		if(ViewIsRowTracker(view))
+		{
+			if (!adaptedFileExists || !adaptedFileText.Contains("public void Refresh(string rowIdentity)")) 
+			{
+%>
+
+        public void Refresh(string rowIdentity)
+        {
+            SetBookmark(rowIdentity);
+            presenter.RefreshView();
+        }
+<%
+			}
+		}
+
+	if (!adaptedFileExists || !adaptedFileText.Contains("private void IsVisibleChangedEventHandler(object sender, DependencyPropertyChangedEventArgs e)")) 
+	{
+%>		
+
+        private void IsVisibleChangedEventHandler(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if ((bool)e.NewValue)
+            {
+                if (presenter != null)
+                {
+                    Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        presenter.OnViewShow();
+                    }), DispatcherPriority.Background);
+                }
+            }
+        }
+<%
+	}
+
+	if (isSearchPanel)
+	{
+		string searchPanelName = (view.VisualTree as UXSearchPanel).Name;
+
+		if (!adaptedFileExists || !adaptedFileText.Contains("private void SearchExecutedEventHandler(object sender, SearchExecutedEventArgs e)")) 
+		{
+%>
+
+		private void SearchExecutedEventHandler(object sender, SearchExecutedEventArgs e)
+        {
+			e.Handled = true;
+			
+			if (e.Action == SearchAction.Search)
+				presenter.OnSearchExecuted(DataContext as <%=viewResultClassName%>);
+			else
+				presenter.OnSearchExecuted(null);
+        }
+<%
+		}
+		
+		if (!adaptedFileExists || !adaptedFileText.Contains("public void DashboardRefreshEventHandler(object sender, EventArgs e)")) 
+		{
+%>
+		[EventSubscription(UXEventTopicNames.DashboardRefreshTopic)]
+        public void DashboardRefreshEventHandler(object sender, EventArgs e)
+		{
+			if (Presenter.WorkItem.Items.Get<string>("ModuleId") == "Dashboard")
+			{
+				presenter.OnSearchExecuted(DataContext as <%=viewResultClassName%>);
+			}
+		}
+		
+<%
+		}
+
+		if (!adaptedFileExists || !adaptedFileText.Contains("public void ClearItems()")) 
+		{
+%>		
+				
+		public void ClearItems()
+		{
+			<%=searchPanelName%>.ClearItems();
+		}
+<%
+		}
+		
+		if (!adaptedFileExists || !adaptedFileText.Contains("private void AddToFavoritesExecutedEventHandler(object sender, ExecutedRoutedEventArgs e)")) 
+		{
+%>
+		
+		private void AddToFavoritesExecutedEventHandler(object sender, ExecutedRoutedEventArgs e)
+        {
+			e.Handled = true;
+			((UIElement)e.Source).Focus();
+			presenter.OnAddToFavorites(DataContext as <%=viewResultClassName%>);
+        }
+<%
+		}
+		
+		if (!adaptedFileExists || !adaptedFileText.Contains("private void CreateHyperlinkExecutedEventHandler(object sender, ExecutedRoutedEventArgs e)")) 
+		{
+%>
+		
+		private void CreateHyperlinkExecutedEventHandler(object sender, ExecutedRoutedEventArgs e)
+        {
+			e.Handled = true;
+			((UIElement)e.Source).Focus();
+			ShellHyperlink hyperlink = presenter.GetHyperlink(DataContext);
+			Clipboard.SetText(hyperlink.Link);
+        }
+<%
+		}
+		
+		if (!adaptedFileExists || !adaptedFileText.Contains("AddToFavoritesCanExecuteEventHandler(object sender, CanExecuteRoutedEventArgs e)")) 
+		{
+%>
+		
+		private void AddToFavoritesCanExecuteEventHandler(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.Handled = true;
+			e.CanExecute = presenter.CanAddToFavorites;
+		}
+<%		}
+	}
+
+	if (!adaptedFileExists || !adaptedFileText.Contains("public bool RefreshDataOnShow")) 
+	{
+%>
+
+		public bool RefreshDataOnShow
+		{
+			get;
+			set;
+		}
+<%
+	}
+
+	if (!adaptedFileExists || !adaptedFileText.Contains("public string Title")) 
+	{
+%>
+		
+		public string Title
+		{
+			get
+			{
+				return title;
+			}
+			set
+			{
+				title = value;
+<%
+				if (grid != null)
+				{
+%>
+				<%=grid.Name%>.Title = title;
+<%
+				}
+%>
+			}
+		}
+<%
+	}
+
+	if ((!adaptedFileExists || !adaptedFileText.Contains("private void DrillDownCommandExecutedEventHandler(object sender, ExecutedRoutedEventArgs e)")) && !isComponent) 
+	{
+%>
+		
+		private void DrillDownCommandExecutedEventHandler(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (drillDownArgs != null)
+            {
+                Button b = e.OriginalSource as Button;
+				
+				if (b != null)
+                	b.IsEnabled = false;
+					
+                Presenter.DrillDown(drillDownArgs.ActionId);
+            }
+        }
+<%
+	}
+
+	if ((!adaptedFileExists || !adaptedFileText.Contains("private void ToggleDetailCommandExecutedEventHandler(object sender, ExecutedRoutedEventArgs e)")) && !isComponent) 
+	{
+%>
+		
+        private void ToggleDetailCommandExecutedEventHandler(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (!IsDetailView)
+				presenter.ShowDetail(null);
+        }
+<%
+	}
+
+	if ((!adaptedFileExists || !adaptedFileText.Contains("public bool Validate()")) && !isComponent) 
+	{
+%>
+		
+		public bool Validate()
+		{
+			if (CurrentItem == null)
+				return true;
+
+<%
+	if (hasComboDialogs)
+	{
+%>
+            if (ComboDialogNoMatchFoundList.Count > 0)
+            {
+                ComboDialogNoMatchFoundList.Clear();
+                return false;
+            }
+<%
+	}
+%>
+				
+			Validation.ValidationResults results = Validation.Validation.ValidateFromAttributes<<%=viewResultClassName%>>(CurrentItem);
+			IList<Validation.ValidationResult> removeList = new List<Validation.ValidationResult>();
+			
+			foreach (KeyValuePair<string, IList<string>> item in mappedComponents)
+			{
+                PropertyInfo info = CurrentItem.GetType().GetProperty(item.Key);
+				
+				if ((info != null) && (info.PropertyType == typeof(DateTime?)))
+                {
+                    foreach (string elementName in item.Value)
+                    {
+                        Imi.Framework.Wpf.Controls.TextBox element = this.FindName(elementName) as Imi.Framework.Wpf.Controls.TextBox;
+
+                        if (element != null && element.IsEnabled && element.Visibility == Visibility.Visible)
+                        {
+                            if (!string.IsNullOrEmpty(element.Text))
+                            { 
+                                DateTime temp;
+
+                                if (!DateTime.TryParse(element.Text, out temp))
+                                    results.AddResult(new Validation.ValidationResult(null, null, item.Key, null, new DateTimeRangeValidator(DateTime.MaxValue)));
+                            }
+                        }
+                    }
+                }
+			}
+			
+			if (!results.IsValid)
+			{
+				foreach (Validation.ValidationResult result in results)
+				{
+					if (result.Key != null)
+					{
+						foreach (string elementName in mappedComponents[result.Key])
+						{
+							FrameworkElement element = this.FindName(elementName) as FrameworkElement;
+							
+							if (element != null)
+							{
+								if (!(element.IsEnabled && element.Visibility == Visibility.Visible))
+								{
+									removeList.Add(result);
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			Validation.ValidationResults newResults = new Validation.ValidationResults();
+            newResults.AddAllResults(results.Except(removeList));
+
+            if (newResults.IsValid)
+			{
+				return true;
+			}
+			else
+			{
+                HandleValidationResult(newResults.First());
+				return false;
+			}
+		}
+<%
+	}
+
+	if ((!adaptedFileExists || !adaptedFileText.Contains("public void HandleValidationResult(Validation.ValidationResult result)")) && !isComponent) 
+	{
+%>
+		
+		public void HandleValidationResult(Validation.ValidationResult result)
+		{
+			if ((result.Key != null) && (mappedComponents.ContainsKey(result.Key)))
+            {
+				foreach (string elementName in mappedComponents[result.Key])
+				{
+					FrameworkElement element = this.FindName(elementName) as FrameworkElement;
+					
+					if (element != null)
+					{
+						if ((element.IsEnabled) && (element.IsVisible))
+						{
+                            string msg = null;
+							if (result.Validator is NotNullValidator)
+								msg = StringResources.View_NullValidation_Error;
+							else if (result.Validator is DateTimeRangeValidator)
+								msg = StringResources.View_DateTimeValidation_Error;
+							else
+								msg = StringResources.View_Validation_Error;
+							
+							ShowBalloonPopup(element, msg);
+																												
+							return;
+						}
+					}
+				}
+            }
+			
+			string message = StringResources.View_GenericValidation_Error;
+				
+			if (result.Validator is NotNullValidator)
+				message = StringResources.View_GenericNullValidation_Error;
+				
+        	Presenter.ShellInteractionService.ShowMessageBox(StringResources.ActionException_Text, message, result.Message, Imi.SupplyChain.UX.Infrastructure.MessageBoxButton.Ok, Imi.SupplyChain.UX.Infrastructure.MessageBoxImage.Error);
+		}
+<%
+	}
+
+	if ((!adaptedFileExists || !adaptedFileText.Contains("private void ShowBalloonPopup(FrameworkElement element, string message)")) && !isComponent) 
+	{
+%>
+
+        private void ShowBalloonPopup(FrameworkElement element, string message)
+        {
+			//To place the balloon correct for comboboxes, they are wrapped in a separate view.
+            if (typeof(IDataView).IsAssignableFrom(element.GetType()))
+            {
+                object comboboxElement = element.FindName(element.Name);
+                if (comboboxElement != null)
+                {
+                    element = (FrameworkElement)comboboxElement;
+                }
+                
+            }
+
+            (balloonPopup.Child as ContentControl).Content = message;
+
+			balloonPopup.PlacementTarget = element;
+														
+			Dispatcher.BeginInvoke(new Action(() =>
+            {
+				if (this.IsVisible)
+                {
+					element.BringIntoView();
+				}
+            }), DispatcherPriority.Background);
+                                                        
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+				if (this.IsVisible)
+                {
+					balloonPopup.IsOpen = true;
+							
+					if (balloonPopupContent.PointToScreen(new Point(0, 0)).X >= element.PointToScreen(new Point(element.ActualWidth, 0)).X)
+						balloonPopupContent.ContentTemplate = Resources["LeftBalloonContentTemplate"] as DataTemplate;
+					else
+						balloonPopupContent.ContentTemplate = Resources["RightBalloonContentTemplate"] as DataTemplate;
+                 }                                               
+            }), DispatcherPriority.Background);
+        }
+<%
+	}
+
+	if ((!adaptedFileExists || !adaptedFileText.Contains("public bool HandleError(Exception error)")) && !isComponent) 
+	{
+%>
+
+        public bool HandleError(Exception error)
+        {
+			this.error = error;
+<%
+		if(grid != null)
+		{
+%>
+            <%= grid.Name %>.Visibility = Visibility.Hidden;
+<%
+   	    }
+%>
+       	    errorPanel.Visibility = Visibility.Visible;
+			
+			return true;
+        }
+<%
+	}
+
+	if ((!adaptedFileExists || !adaptedFileText.Contains("private void PreviewKeyDownEventHandler(object sender, KeyEventArgs e)")) && !isComponent) 
+	{
+%>
+		
+		private void PreviewKeyDownEventHandler(object sender, KeyEventArgs e)
+        {
+<%
+		if (dialogType == Cdc.MetaManager.DataAccess.Domain.DialogType.Overview)
+		{
+%>
+			if (e.KeyboardDevice.Modifiers == ModifierKeys.Control && e.Key == Key.C)
+            {
+				Presenter.CopyCurrentItem();				
+<%
+			if (grid == null)
+			{
+%>
+				ApplicationCommands.Copy.Execute(null, this);
+<%
+			}
+%>
+            }
+
+<%
+		}
+		else if (dialogType == Cdc.MetaManager.DataAccess.Domain.DialogType.Create)
+		{
+%>
+			if (e.KeyboardDevice.Modifiers == ModifierKeys.Control && e.Key == Key.V)
+            {
+				if (Presenter.PasteCopiedData(mappedComponents.Keys.ToList()))
+                {
+                    e.Handled = true;
+                }
+            }
+
+<%
+		}
+%>            
+			if (balloonPopup != null && balloonPopup.IsOpen)
+            {
+                balloonPopup.IsOpen = false;
+            }
+        }
+<%
+	}
+
+	if ((!adaptedFileExists || !adaptedFileText.Contains("private void ErrorInfoButtonClickEventHandler(object sender, RoutedEventArgs e)")) && !isComponent) 
+	{
+%>
+										
+        private void ErrorInfoButtonClickEventHandler(object sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
+
+            Presenter.ShellInteractionService.ShowMessageBox(StringResources.View_UpdateError, error.Message, error.StackTrace, Imi.SupplyChain.UX.Infrastructure.MessageBoxButton.Ok, Imi.SupplyChain.UX.Infrastructure.MessageBoxImage.Error);
+        }
+<%
+	}
+
+	if ((!adaptedFileExists || !adaptedFileText.Contains("private void HyperLinkClicked(object sender, RoutedEventArgs e)")) && !isComponent) 
+	{
+%>
+		
+        private void HyperLinkClicked(object sender, RoutedEventArgs e)
+        {
+			bool isOpenFile = false;
+            bool isJumpTo = false;
+
+			string fieldName = null;
+				
+			if (e.Source is Imi.Framework.Wpf.Controls.TextBox)
+			{
+				// (e.Source as TextBox).Tag contains fieldname when textbox is hyperlink
+				fieldName = (e.Source as Imi.Framework.Wpf.Controls.TextBox).Tag as string;
+			}
+			else if(e.OriginalSource is Imi.Framework.Wpf.Controls.HyperLink)
+			{
+				// (e.OriginalSource as HyperLink).Tag contains fieldname when grid column is hyperlink
+				fieldName = (e.OriginalSource as Imi.Framework.Wpf.Controls.HyperLink).Tag as string;
+			}
+
+
+			if (openFileDrillDownList != null)
+			{
+				if(!string.IsNullOrEmpty(fieldName))
+				{
+					string fileContentFieldName = DrillDownHelper.GetFileContentFieldName(fieldName, openFileDrillDownList);
+					if (!string.IsNullOrEmpty(fileContentFieldName))
+					{
+						isOpenFile = true;
+
+						Presenter.OpenFile(fileContentFieldName, fieldName);
+					}
+				}
+			}
+
+			if (!isOpenFile)
+			{
+				if (jumpToList != null)
+				{
+					if(!string.IsNullOrEmpty(fieldName))
+					{
+						string actionId = DrillDownHelper.GetActionId(fieldName, jumpToList);
+						if (!string.IsNullOrEmpty(actionId))
+						{
+							isJumpTo = true;
+							Presenter.JumpTo(actionId);
+						}
+					}
+				}
+			
+    			if ((!isJumpTo) && (drillDownArgs != null))
+				{
+					Presenter.DrillDown(drillDownArgs.ActionId);
+				}
+			}
+
+		}
+<%
+	}
+
+	if ((!adaptedFileExists || !adaptedFileText.Contains(string.Format("public void ApplyUIAttentionLevel(string name, UIAttentionLevel level, {0} viewResult)", viewResultClassName))) && !isComponent) 
+	{
+%>
+		
+		public void ApplyUIAttentionLevel(string name, UIAttentionLevel level, <%=viewResultClassName%> viewResult)
+		{
+<%
+		if (grid != null)
+		{
+%>		
+			DataRow row = <%=grid.Name%>.GetContainerFromItem(viewResult) as DataRow;
+
+            if (row != null)
+                row.Tag = level;
+<%
+		}
+%>
+		}
+<%
+	}
+
+	if ((!adaptedFileExists || !adaptedFileText.Contains("public override void OnApplyTemplate()")) && !isComponent) 
+	{
+%>
+		
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+	
+			List<DrillDownArgs> allHyperLinks = new List<DrillDownArgs>();
+            if (jumpToList != null) { allHyperLinks.AddRange(jumpToList); }
+            if (openFileDrillDownList != null) { allHyperLinks.AddRange(openFileDrillDownList); }		
+<%
+        if(grid != null)
+        {
+%>
+            DataTemplate dataTemplate = this.FindResource("DrillDownDataTemplate") as DataTemplate;
+			
+
+
+			if (allHyperLinks.Count > 0)
+            {
+				foreach(DrillDownArgs args in allHyperLinks)
+				{
+	                ToolTipService.SetToolTip(<%= grid.Name %>.Columns[args.FieldName], args.Caption);
+					<%= grid.Name %>.Columns[args.FieldName].CellContentTemplate = dataTemplate;
+				}
+			}
+<%
+        }
+		else
+		{
+%>			
+            if (allHyperLinks.Count > 0)
+            {
+                Style style = this.FindResource("HyperlinkTextBox") as Style;
+                DrillDownHelper.SetTextBoxStyle(this, allHyperLinks, style);
+            }
+<%
+		}			
+%>
+		}
+<%
+	}
+
+	if ((!adaptedFileExists || !adaptedFileText.Contains("private void EnableGenericDrilldown(object data)")) && !isComponent) 
+	{
+%>
+
+        private void EnableGenericDrilldown(object data)
+        {
+            if ((drillDownArgs != null) && (data != null) && (data is IList) && ((data as IList).Count == 0))
+            {
+                GenericDrilldownLink.Content = drillDownArgs.Caption;
+				GenericDrilldownLink.ToolTip = drillDownArgs.Caption;
+                GenericDrilldownLink.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                GenericDrilldownLink.Visibility = Visibility.Collapsed;
+            }
+		}
+<%
+	}
+
+	if (!adaptedFileExists || !adaptedFileText.Contains("public int CurrentPosition")) 
+	{
+%>
+		
+		
+		// TODO move to base class
+        public int CurrentPosition
+        {
+            get
+            {
+<%
+	if (isComponent)
+	{
+%>
+                ICollectionView collectionView = CollectionViewSource.GetDefaultView(ComponentItemsSource);
+				
+				if (collectionView != null)
+                    return collectionView.CurrentPosition;
+				else
+					return 0;
+<%
+	}
+	else if (grid != null)
+	{
+%>		
+                return <%=grid.Name%>.SelectedIndex;
+<%
+	}
+	else
+	{
+%>
+                return 0;
+<%
+	}
+%>
+            }
+            set
+            {
+<%
+	if (isComponent)
+	{
+%>
+                ICollectionView collectionView = CollectionViewSource.GetDefaultView(ComponentItemsSource);
+				
+				if ((collectionView != null) && (!collectionView.IsEmpty))
+                {
+                    if (!collectionView.MoveCurrentToPosition(value))
+                        collectionView.MoveCurrentToLast();
+				}
+<%
+	}
+	else if (grid != null)
+	{
+%>		
+                <%=grid.Name%>.SelectedIndex = value;
+				<%=grid.Name%>.CurrentItem = <%=grid.Name%>.SelectedItem;
+				BringCurrentItemIntoView();
+<%
+	}
+%>
+            }
+        }
+<%
+	}
+
+	if (!adaptedFileExists || !adaptedFileText.Contains(string.Format("private {0} GetRowByIdentity(string rowIdentity)",viewResultClassName))) 
+	{
+%>
+		
+        private <%=viewResultClassName%> GetRowByIdentity(string rowIdentity)
+        {
+            <%=viewResultClassName%> row = null;
+
+<%
+		if(ViewIsRowTracker(view))
+        {
+%>
+            if (DataContext != null)
+			{
+				IEnumerable<<%=viewResultClassName%>> result = from <%=viewResultClassName%> line in (DataContext as IEnumerable<<%=viewResultClassName%>>)
+																			where line.RowIdentity == rowIdentity
+																			select line;
+				if (result.Count() > 0)
+				{
+					row = result.First();
+				}
+			}
+<%
+		}
+%>
+
+            return row;
+        }
+<%
+	}
+
+	if (!adaptedFileExists || !adaptedFileText.Contains("public string CurrentRowIdentity")) 
+	{
+%>
+		
+        public string CurrentRowIdentity
+        {
+            get
+            {
+<%
+		if(ViewIsRowTracker(view))
+        {
+%>
+                if (CurrentItem != null)
+                {
+                    return CurrentItem.RowIdentity;
+                }
+<%
+		}
+%>
+                return null;
+            }
+            set
+            {
+<%
+		if(ViewIsRowTracker(view))
+        {
+%>
+                <%=viewResultClassName%> row = GetRowByIdentity(value);
+
+                if(row != null)
+                {
+                    CurrentItem = row;
+				}
+<%
+		}
+%>
+            }
+        }
+<%
+	}
+%>
+
+        #region <%= viewInterfaceName %> Members
+
+<%
+	if (!adaptedFileExists || !adaptedFileText.Contains("public void EnableComponent(string name, bool isEnabled)")) 
+	{
+%>
+		
+		public void EnableComponent(string name, bool isEnabled)
+		{
+			UIElement element = FindName(name) as UIElement;
+			
+            if (element != null)
+            {
+                element.IsEnabled = isEnabled;
+
+                if ((element.IsFocused || element.IsKeyboardFocusWithin) && !isEnabled)
+                {
+                    SetFocus();
+                }
+            }
+		}
+<%
+	}
+
+	if (!adaptedFileExists || !adaptedFileText.Contains("public void ShowComponent(string name, UXVisibility visibility)")) 
+	{
+%>
+		
+		public void ShowComponent(string name, UXVisibility visibility)
+		{
+			UIElement element = FindName(name) as UIElement;
+			
+            if (element != null)
+            {
+                switch (visibility)
+				{
+					case UXVisibility.Visible:
+						element.Visibility = Visibility.Visible;
+						break;
+					case UXVisibility.Hidden:
+						element.Visibility = Visibility.Hidden;
+						break;						
+					case UXVisibility.Collapsed:
+						element.Visibility = Visibility.Collapsed;
+						break;	
+				}
+				
+                if ((element.IsFocused || element.IsKeyboardFocusWithin) && (visibility != UXVisibility.Visible))
+                {
+                    SetFocus();
+                }
+            }
+		}
+<%
+	}
+
+	if (!adaptedFileExists || !adaptedFileText.Contains("public void SetComponentDataContext(string componentName, object data)")) 
+	{
+%>
+				
+		public void SetComponentDataContext(string componentName, object data)
+		{
+			Control control = FindName(componentName) as Control;
+
+			if (control != null)
+			{
+				control.DataContext = data;
+			}
+		}
+<%
+	}
+
+	if (!adaptedFileExists || !adaptedFileText.Contains("public void PresentData(object data)")) 
+	{
+%>
+		
+		public void PresentData(object data)
+        {
+<%		
+		if (grid != null)
+		{
+%>		
+			<%=grid.Name %>.SelectionChanged -= DataGridSelectionChangedEventHandler;
+			this.DataContext = data;
+<%
+			if (!usePartitioning && !isComponent)
+			{
+%>
+			
+			<%=grid.Name %>StatusBar.SetRowCountInforamtion(<%=grid.Name %>.Items.Count, <%=grid.Name %>.Items.Count);
+<%
+			}
+		}
+		else
+		{
+			if (isComponent)
+			{
+%>				
+			ComponentItemsSource = data as IEnumerable;
+<%
+				if (componentViewCurrentComponent is UXComboBox)
+				{
+					UXComboBox comboBox = componentViewCurrentComponent as UXComboBox;
+
+					if (comboBox.SelectSingelItem)
+					{
+%>
+			if (<%=comboBox.Name%>.Items.Count == 1)
+            {
+                <%=comboBox.Name%>.SelectedIndex = 0;
+            }
+            else if(<%=comboBox.Name%>.Items.Count > 1 && <%=comboBox.Name%>.SelectedIndex > -1)
+            {
+                <%=comboBox.Name%>.SelectedIndex = -1;
+            }
+
+<%
+					}
+				}
+			}
+			else
+			{
+%>			
+			if (data == null)
+			{
+				//Make an empty dataset to present. Setting all boolean values to false to make checkboxes look empty.
+				<%=viewResultClassName%> emptyData = new <%=viewResultClassName%>();
+
+				foreach (PropertyInfo pI in typeof(<%=viewResultClassName%>).GetProperties().Where(p => p.PropertyType == typeof(Nullable<Boolean>)))
+				{
+					pI.SetValue(emptyData, false, null);
+				}
+
+				this.DataContext = emptyData;
+			}	
+			else if (data is IList<<%=viewResultClassName%>>)
+			{
+				this.DataContext = (data as IList<<%=viewResultClassName%>>).LastOrDefault();
+			}
+			else
+			{
+				this.DataContext = data;
+			}
+				
+<%
+			}
+		}
+
+		if (grid != null)
+		{
+%>
+			if (<%=grid.Name %>.Items.Count > 0)
+			{
+				CurrentItem = <%=grid.Name %>.Items[0] as <%=viewResultClassName%>;
+			}
+				
+            if (isMultiEnabled)
+			{
+                <%=grid.Name %>.SelectionMode = SelectionMode.Extended;
+			}
+            else
+			{
+                <%=grid.Name %>.SelectionMode = SelectionMode.Single;
+			}
+
+			GotoBookmark();
+			
+			<%=grid.Name %>.SelectionChanged += DataGridSelectionChangedEventHandler;
+
+			EnableGenericDrilldown(data);
+			presenter.OnViewUpdated(<%=grid.Name %>.SelectedItems.Cast<<%=viewResultClassName%>>().ToList());
+<%
+		}
+		else
+		{
+			if (!isComponent)
+			{
+%>
+			if (data is IList<<%=viewResultClassName%>>)
+			{
+	            presenter.OnViewUpdated(data as IList<<%=viewResultClassName%>>);
+			}
+			else
+			{
+	            presenter.OnViewUpdated(data as <%=viewResultClassName%>);
+			}
+<%
+			}
+		}
+%>
+        }
+<%
+	}
+
+	if (!adaptedFileExists || !adaptedFileText.Contains("public new bool IsVisible")) 
+	{
+%>
+		        
+		public new bool IsVisible
+		{
+			get
+			{
+				return base.IsVisible;
+			}
+			set
+			{
+				if (value)
+					Visibility = Visibility.Visible;
+				else
+					Visibility = Visibility.Collapsed;
+			}
+		}
+<%
+	}
+
+	if (!adaptedFileExists || !adaptedFileText.Contains("public void SetFocus()")) 
+	{
+%>
+        
+		public void SetFocus()
+		{
+			SetFocus(false);
+		}
+<%
+	}
+
+	if (!adaptedFileExists || !adaptedFileText.Contains("private void SetFocus(bool force)")) 
+	{
+%>
+		
+		private void SetFocus(bool force)
+        {
+<%
+		if (!isComponent)
+		{
+			if (grid != null)
+			{
+%>
+				<%=grid.Name%>.Focus();
+<%
+			}
+			else
+			{
+%>					
+				var fields = (from n in mappedComponents.Values
+                          	  from l in n
+                          	  select l).ToList();
+						
+				this.Dispatcher.BeginInvoke(new Action(() => 
+					{
+						FocusHelper.SetFocus(this, new List<string>(fields));
+					}), DispatcherPriority.Background, null);
+<%
+			}
+		}
+		else
+		{
+%>
+			base.Focus();
+<%
+		}
+%>
+        }
+		
+<%
+	}
+
+	if (grid != null)
+	{
+
+		if (!adaptedFileExists || !adaptedFileText.Contains("public object InlineDetailView")) 
+		{
+%>
+        public object InlineDetailView 
+		{ 
+			get
+			{
+				return <%=grid.Name%>.InlineElement;
+			}
+			set
+			{
+				<%=grid.Name%>.InlineElement = value as UIElement;
+			}
+		}
+<%
+		}
+
+		if (!adaptedFileExists || !adaptedFileText.Contains("private void DataGridSelectionChangedEventHandler(object sender, DataGridSelectionChangedEventArgs e)")) 
+		{
+%>
+		private List<<%=viewResultClassName%>> _lastSelection = new List<<%=viewResultClassName%>>();
+
+		private void DataGridSelectionChangedEventHandler(object sender, DataGridSelectionChangedEventArgs e)
+        {
+            if ((e.OriginalSource == <%= grid.Name %>) && (<%= grid.Name %>.SelectedItems != null) && (<%= grid.Name %>.SelectedItems.Count > 0))
+            {
+                List< <%=viewResultClassName%>> selection = new List< <%=viewResultClassName%>>();
+                selection.AddRange(<%= grid.Name %>.SelectedItems.Cast< <%=viewResultClassName%>>());
+
+				foreach (<%=viewResultClassName%> result in _lastSelection.Except(selection))
+                {
+                    result.isPreviouslySelected = false;
+                }
+
+                presenter.OnViewUpdated(selection);
+
+				foreach (<%=viewResultClassName%> result in selection.Where(r => !r.isPreviouslySelected))
+                {
+                    result.isPreviouslySelected = true;
+                }
+
+                _lastSelection = selection;
+            }
+        }
+		
+<%
+		}
+	}
+
+	if (!adaptedFileExists || !adaptedFileText.Contains("private void SetBookmark(string rowIdentity)")) 
+	{
+%>
+        private void SetBookmark(string rowIdentity)
+		{
+			if (bookmark == null || bookmark.RowIdentity != rowIdentity || bookmark.RowNumber != CurrentPosition)
+            {
+				bookmark = new Bookmark() { RowIdentity = rowIdentity, RowNumber = CurrentPosition };
+<%
+		if (grid != null)
+		{
+			string rowIdentityField = "null";
+
+			if(ViewIsRowTracker(view))
+			{
+				rowIdentityField = "row.RowIdentity";
+			}
+%>
+				if (<%= grid.Name %>.SelectedItems.Count > 1)
+                {
+                    bookmark.MultipleSelection = new List<Bookmark>();
+
+                    foreach (<%=viewResultClassName%> row in <%= grid.Name %>.SelectedItems)
+                    {
+                        bookmark.MultipleSelection.Add(new Bookmark() { RowIdentity = <%= rowIdentityField %>, RowNumber = <%= grid.Name %>.Items.IndexOf(row), MultipleSelection = null });
+                    }
+                }
+<%
+		}
+%>
+			}
+		}
+<%
+	}
+
+	if ((!adaptedFileExists || !adaptedFileText.Contains("private void GotoBookmark()")) && !isComponent) 
+	{
+%>
+		
+        private void GotoBookmark()
+		{
+			try
+			{
+            	if (bookmark == null)
+            		return;
+				
+		    	if(!string.IsNullOrEmpty(bookmark.RowIdentity) && (GetRowByIdentity(bookmark.RowIdentity) != null)) 
+		    	{
+            		CurrentRowIdentity = bookmark.RowIdentity;
+		    	}
+		    	else if (bookmark.RowNumber > -1)
+		    	{
+            		CurrentPosition = bookmark.RowNumber;
+            	}
+<%
+		if (grid != null)
+		{
+%>
+
+				if (bookmark.MultipleSelection != null)
+                {
+                    foreach (Bookmark multiSelectBM in bookmark.MultipleSelection)
+                    {
+                        if (!string.IsNullOrEmpty(multiSelectBM.RowIdentity) && (GetRowByIdentity(multiSelectBM.RowIdentity) != null))
+                        {
+                            <%= grid.Name %>.SelectedItems.Add(GetRowByIdentity(multiSelectBM.RowIdentity));
+                        }
+                        else if (multiSelectBM.RowNumber > -1 && multiSelectBM.RowNumber < <%= grid.Name %>.Items.Count)
+                        {
+                            <%= grid.Name %>.SelectedItems.Add(<%= grid.Name %>.Items[multiSelectBM.RowNumber]);
+                        }
+                    }
+                }
+<%
+		}
+%>
+			}
+			finally
+			{
+		   		bookmark = null;
+			}
+		}
+<%
+	}
+
+	if (!adaptedFileExists || !adaptedFileText.Contains("public void UpdateProgress(int progressPercentage)")) 
+	{
+%>
+		
+        public void UpdateProgress(int progressPercentage)
+        {
+<%
+		if (!isComponent)
+		{
+%>
+			errorPanel.Visibility = Visibility.Collapsed;
+<%
+			if (grid != null)
+			{
+%>
+            <%= grid.Name %>.Visibility = Visibility.Visible;
+<%
+        	}
+%>
+
+            if (progressPercentage < 100)
+				progressBar.Visibility = Visibility.Visible;
+            else
+				progressBar.Visibility = Visibility.Hidden;
+<%
+		}
+%>
+        }
+<%
+	}
+
+	if (!adaptedFileExists || !adaptedFileText.Contains(string.Format("public {0} CurrentItem", viewResultClassName))) 
+	{
+%>
+
+        // TODO move to base class
+        public <%= viewResultClassName %> CurrentItem
+        {
+            get
+            {
+<%
+	if (grid != null)
+	{
+%>
+                if (<%= grid.Name %>.SelectedItems.Count >= 1)
+                {
+                    return <%= grid.Name %>.SelectedItems[0] as <%= viewResultClassName %>;
+                }
+				else
+				    return null;
+<%
+	}
+	else
+	{
+		if (isComponent)
+		{
+%>
+                ICollectionView collectionView = CollectionViewSource.GetDefaultView(ComponentItemsSource);
+<%
+		}
+		else
+		{
+%>		
+                ICollectionView collectionView = CollectionViewSource.GetDefaultView(DataContext);
+<%
+		}
+%>
+
+				if (collectionView != null)
+                {
+                    return collectionView.CurrentItem as <%= viewResultClassName %>;
+                }
+                else
+                {
+                    return DataContext as <%= viewResultClassName %>;
+                }
+<%
+	}
+%>
+            }
+            set
+            {
+<%
+	if (isComponent)
+	{
+%>
+                ICollectionView collectionView = CollectionViewSource.GetDefaultView(ComponentItemsSource);
+<%
+	}
+	else
+	{
+%>		
+                ICollectionView collectionView = CollectionViewSource.GetDefaultView(DataContext);
+<%
+	}
+%>
+                if (collectionView != null)
+                {
+<%
+			if (grid != null)
+			{
+%>
+					<%= viewResultClassName %> valueToSet = value;
+
+                    //In drilldown the selected value object is not in the grid.
+                    //We need to find the object in the grid with the samme values.
+                    if (!<%= grid.Name %>.Items.Contains(value))
+                    {
+                        foreach (object item in <%= grid.Name %>.Items)
+                        {
+                            if (value.EqualsByValues(item))
+                            {
+                                valueToSet = (<%= viewResultClassName %>)item;
+                            }
+                        }
+                    }
+
+                    <%= grid.Name %>.CurrentItem = valueToSet;
+                    <%= grid.Name %>.SelectedItem = valueToSet;
+					BringCurrentItemIntoView();
+<%
+			}
+			else
+			{
+%>
+                    collectionView.MoveCurrentTo(value);
+<%
+			}
+%>					
+                }
+                else
+                {
+                    DataContext = value;
+                    presenter.OnViewUpdated(value);
+                }
+            }
+        }
+		
+<%
+	}
+
+
+	foreach (UXHyperDialog hyperDialog in ViewHelper.GetAllComponents<UXHyperDialog>(view.VisualTree))
+	{
+		if ((!adaptedFileExists || !adaptedFileText.Contains(string.Format("private void {0}ClickEventHandler(object sender, RoutedEventArgs e)", hyperDialog.Name))) && !isComponent) 
+		{
+%>
+		private void <%=hyperDialog.Name%>ClickEventHandler(object sender, RoutedEventArgs e)
+		{
+			e.Handled = true;
+			Presenter.<%=hyperDialog.Name%>Run();
+		}
+
+<%
+		}
+	}
+	
+	foreach (UXComboDialog combo in ViewHelper.GetAllComponents<UXComboDialog>(view.VisualTree))
+	{
+		if (!adaptedFileExists || !adaptedFileText.Contains(string.Format("private void {0}LostKeyboardFocusEventHandler(object sender, RoutedEventArgs e)", combo.Name))) 
+		{
+%>
+        private void <%=combo.Name%>LostKeyboardFocusEventHandler(object sender, RoutedEventArgs e)
+        {
+            string oldValue = <%=combo.Name%>.Text;
+            e.Handled = true;
+			if (CurrentItem != null)
+			{
+				if (CurrentItem.<%=combo.MappedProperty.Name%> != <%=combo.Name%>.Text && !(string.IsNullOrEmpty(CurrentItem.<%=combo.MappedProperty.Name%>) & string.IsNullOrEmpty(<%=combo.Name%>.Text)))
+				{
+					CurrentItem.<%=combo.MappedProperty.Name%> = <%=combo.Name%>.Text;
+
+					if (ComboDialogNoMatchFoundList.Contains("<%=combo.Name%>"))
+                    {
+                        ComboDialogNoMatchFoundList.Remove("<%=combo.Name%>");
+                    }
+
+					Presenter.<%=combo.Name%>FindKeyProperty();
+					if (string.IsNullOrEmpty(CurrentItem.<%=combo.MappedProperty.Name%>) && !string.IsNullOrEmpty(oldValue))
+					{
+						ComboDialogNoMatchFoundList.Add("<%=combo.Name%>");
+						ShowBalloonPopup(<%=combo.Name%>, StringResources.View_ValueNotFound);
+					}
+				}
+			}
+        }
+<%
+		}
+
+		if (!adaptedFileExists || !adaptedFileText.Contains(string.Format("private void {0}ButtonClickEventHandler(object sender, RoutedEventArgs e)", combo.Name))) 
+		{
+%>
+
+		private void <%=combo.Name%>ButtonClickEventHandler(object sender, RoutedEventArgs e)
+		{
+			e.Handled = true;
+			Presenter.<%=combo.Name%>Run(<%=combo.Name%>.DropDownContent as IWorkspace);
+		}
+<%
+		}
+
+		if (!adaptedFileExists || !adaptedFileText.Contains(string.Format("private void {0}ItemSelectedEventHandler(object sender, SelectionChangedEventArgs e)", combo.Name))) 
+		{
+%>
+		
+		private void <%=combo.Name%>ItemSelectedEventHandler(object sender, SelectionChangedEventArgs e)
+		{
+			e.Handled = true;
+			<%=combo.Name%>.IsDialogOpen = false;
+            <%=combo.Name%>.Focus();
+			Presenter.<%=combo.Name%>SelectItem(e.AddedItems[0]);
+		}
+		
+<%
+		}
+	}
+	
+	if ((!adaptedFileExists || !adaptedFileText.Contains("public void SetMultiSelect(bool isEnabled)")) && !isComponent) 
+	{
+%>
+		public void SetMultiSelect(bool isEnabled)
+		{
+			isMultiEnabled = isEnabled;
+		}
+<%
+	}
+
+	if (usePartitioning)
+	{
+
+		if ((!adaptedFileExists || !adaptedFileText.Contains("private void ScrollChangedEventHandler(object sender, ScrollChangedEventArgs e)"))) 
+		{
+%>
+		
+		private void ScrollChangedEventHandler(object sender, ScrollChangedEventArgs e)
+        {
+			if (e.OriginalSource is Xceed.Wpf.DataGrid.Views.TableViewScrollViewer)
+            {
+				// Check if the scroll change reached bottom
+				if (e.VerticalOffset + e.ViewportHeight == e.ExtentHeight)
+				{
+					if (this.DataContext != null)
+					{
+						presenter.PresentNextPartition();
+					}
+				}
+				else
+				{
+					presenter.ShellInteractionService.HideProgress();
+				}
+			}
+        }
+
+<%
+		}
+
+		if ((!adaptedFileExists || !adaptedFileText.Contains("public void PresentNextPartition(object data)"))) 
+		{
+%>
+		public void PresentNextPartition(object data)
+        {
+            <%=grid.Name%>.SelectionChanged -= DataGridSelectionChangedEventHandler;
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                double oldVerticalOffset = <%=grid.Name%>.ScrollViewer.VerticalOffset;
+
+                presenter.ShellInteractionService.ShowProgress();
+                int oldRowNumber = <%=grid.Name%>.SelectedIndex;
+                object oldSelectedItem = <%=grid.Name%>.SelectedItem;
+
+                IEnumerable<<%=viewResultClassName%>> currentData = (IEnumerable<<%=viewResultClassName%>>)this.DataContext;
+
+				if (currentData != null)
+				{
+					List<<%=viewResultClassName%>> newData = currentData.Concat((IEnumerable<<%=viewResultClassName%>>)data).ToList();
+
+					UpdateRowCount(newData.LongCount(), null);
+
+					this.DataContext = newData;
+
+					<%=grid.Name%>.SelectedIndex = oldRowNumber;
+					<%=grid.Name%>.SelectedItem = oldSelectedItem;
+
+					<%=grid.Name%>.ScrollViewer.ScrollToVerticalOffset(oldVerticalOffset); 
+				}
+            }));
+            <%=grid.Name%>.SelectionChanged += DataGridSelectionChangedEventHandler;
+        }
+<%
+		}
+
+		if ((!adaptedFileExists || !adaptedFileText.Contains("public void UpdateRowCount(long? rowsInGrid, long? totalRows)"))) 
+		{
+%>
+
+		public void UpdateRowCount(long? rowsInGrid, long? totalRows, bool isExport = false)
+        {
+			if (!isExport)
+			{
+				this.Dispatcher.Invoke((Action)(() =>
+				{
+					<%=grid.Name%>StatusBar.SetRowCountInforamtion(rowsInGrid, totalRows);
+				}));
+			}
+			else
+			{
+				this.Dispatcher.Invoke((Action)(() =>
+				{
+					<%=grid.Name%>StatusBar.SetExportRowCount(totalRows.Value);
+				}));
+			}
+        }
+<%
+		}
+
+		if ((!adaptedFileExists || !adaptedFileText.Contains("public void SetServerFeedStatus(string status)"))) 
+		{
+%>
+		public void SetServerFeedStatus(string status)
+        {
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                <%=grid.Name%>StatusBar.ServerFeedStatusTextText = status;
+            }));
+        }
+<%
+		}
+
+		if ((!adaptedFileExists || !adaptedFileText.Contains("private void Grid_DataExport(object sender, DataExportEventArgs e)"))) 
+		{ 
+%>
+		private void Grid_DataExport(object sender, DataExportEventArgs e)
+        {
+			if (<%=grid.Name%>.DataContext != null && presenter.StartExport())
+            {
+				List<object> data = ((List<<%=viewResultClassName%>>)<%=grid.Name%>.DataContext).ToList<object>();
+				<%=grid.Name%>StatusBar.SetExportInformation(data.LongCount(), true);
+				<%=grid.Name%>.AppendDataForExport(data);
+
+				System.Threading.ThreadPool.QueueUserWorkItem(delegate
+				{
+					object tmp = new object();
+
+					while (tmp != null)
+					{
+						tmp = presenter.ExportNextPartition();
+						if (tmp != null)
+						{
+
+							data = ((List<<%=viewResultClassName%>>)tmp).ToList<object>();
+
+							if (data != null)
+							{
+								<%=grid.Name%>.AppendDataForExport(data);
+								<%=grid.Name%>StatusBar.SetExportInformation(data.LongCount());
+							}
+						}
+					}
+
+					<%=grid.Name%>.DoExport();
+					this.Dispatcher.Invoke((Action)(() =>
+                    {
+						presenter.ExportFinished();
+						<%=grid.Name%>StatusBar.SetExportInformation(null, false, true);
+					}));
+				});
+			}
+        }
+<%
+		}
+
+		if(useServerSorting)
+		{
+			if ((!adaptedFileExists || !adaptedFileText.Contains("public List<Framework.Services.SortParameter> GetSortingParameters()"))) 
+			{
+%>
+		public List<Framework.Services.SortParameter> GetSortingParameters()
+		{
+			List<Framework.Services.SortParameter> sortParameters = new List<Framework.Services.SortParameter>();
+
+			int sorts = <%=grid.Name%>.Items.SortDescriptions.Count;
+			<%=grid.Name%>.SavedSortDescriptions.Clear();
+
+			foreach (SortDescription sortDescription in <%=grid.Name%>.Items.SortDescriptions)
+			{
+				if (sortDescription.PropertyName != "SortIndex_GUI")
+				{
+					Framework.Services.SortParameter newSortParameter = new Framework.Services.SortParameter() { PropertyName = sortDescription.PropertyName };
+
+					if (sortDescription.Direction == ListSortDirection.Ascending)
+					{
+						newSortParameter.SortDirection = Framework.Services.SortDirections.Ascending;
+					}
+					else
+					{
+						newSortParameter.SortDirection = Framework.Services.SortDirections.Descending;
+					}
+
+					sortParameters.Add(newSortParameter);
+
+					<%=grid.Name%>.SavedSortDescriptions.Add(sortDescription);
+				}
+			}
+
+            
+			this.Dispatcher.Invoke((Action)(() =>
+			{
+				<%=grid.Name%>.Items.SortDescriptions.Clear();
+			}));
+            
+			return sortParameters;
+		}
+<%
+			}
+
+			if ((!adaptedFileExists || !adaptedFileText.Contains("private void Grid_SortDirectionChanging(object sender, ColumnSortDirectionChangingEventArgs e)"))) 
+			{
+%>
+		private void Grid_SortDirectionChanging(object sender, ColumnSortDirectionChangingEventArgs e)
+        {
+			if (!presenter.PartitioningSessionsHandler.SortingOnServer)
+			{
+				bool doServerSort = true;
+				if (presenter.TryPresentAllData())
+				{
+					if (<%=grid.Name%>.Items.SortDescriptions.FirstOrDefault().PropertyName == "SortIndex_GUI")
+					{
+						<%=grid.Name%>.Items.SortDescriptions.RemoveAt(0);
+					}
+					doServerSort = false;
+				}
+
+				if (doServerSort)
+				{
+					if (this.DataContext != null)
+					{
+						presenter.PartitioningSessionsHandler.SortingOnServer = true;
+						presenter.RefreshView();
+					}
+				}
+			}
+        }
+<%
+			}
+		}
+		else
+		{
+			if ((!adaptedFileExists || !adaptedFileText.Contains("private void Grid_SortDirectionChanging(object sender, ColumnSortDirectionChangingEventArgs e)"))) 
+			{
+%>
+		private void Grid_SortDirectionChanging(object sender, ColumnSortDirectionChangingEventArgs e)
+        {
+			presenter.TryPresentAllData();
+            //Server side sorting not supported for this view.
+        }
+<%
+			}
+		}
+	}
+	else
+	{
+		if (grid != null)
+		{
+			if ((!adaptedFileExists || !adaptedFileText.Contains("private void Grid_SortDirectionChanging(object sender, ColumnSortDirectionChangingEventArgs e)"))) 
+			{
+%>
+		
+		private void Grid_SortDirectionChanging(object sender, ColumnSortDirectionChangingEventArgs e)
+        {
+            //Not used without partitioning
+        }
+
+<%
+			}
+
+			if ((!adaptedFileExists || !adaptedFileText.Contains("private void ScrollChangedEventHandler(object sender, ScrollChangedEventArgs e)"))) 
+			{
+%>
+		private void ScrollChangedEventHandler(object sender, ScrollChangedEventArgs e)
+        {
+			//Not used without partitioning
+		}
+<%
+			}
+
+			if ((!adaptedFileExists || !adaptedFileText.Contains("private void Grid_DataExport(object sender, DataExportEventArgs e)"))) 
+			{
+%>
+		private void Grid_DataExport(object sender, DataExportEventArgs e)
+        {
+<%
+				if (!isComponent)
+				{
+%>
+			if (NoName.DataContext != null)
+            {
+                List<object> data = ((List<<%=viewResultClassName%>>)<%=grid.Name%>.DataContext).ToList<object>();
+                <%=grid.Name %>StatusBar.SetExportInformation(data.LongCount(), true);
+                <%=grid.Name %>.AppendDataForExport(data);
+                <%=grid.Name %>.DoExport();
+                <%=grid.Name %>StatusBar.SetExportInformation(null, false, true);
+            }
+<%
+				}
+				else
+				{
+%>
+			//Not used without partitioning
+<%
+				}
+%>
+		}
+<%
+			}
+		}
+	}
+%>
+		
+				
+		#endregion
+
+<%
+	if (!adaptedFileExists || !adaptedFileText.Contains("public ISmartPartInfo GetSmartPartInfo(Type smartPartInfoType)")) 
+	{
+%>
+        #region ISmartPartInfoProvider Members
+
+        public ISmartPartInfo GetSmartPartInfo(Type smartPartInfoType)
+        {
+            ShellHyperlink hyperlink = presenter.GetHyperlink(null);
+			
+			if (string.IsNullOrEmpty(Title))
+				return new ShellSmartPartInfo("<%= title %>", "", hyperlink);
+			else
+				return new ShellSmartPartInfo(Title, "", hyperlink);
+        }
+
+        #endregion
+<%
+	}
+
+	if ((!adaptedFileExists || !adaptedFileText.Contains("public ICollection<ShellAction> GetActions()")) && !isComponent) 
+	{
+%>
+		
+		#region IActionProvider Members
+
+        public ICollection<ShellAction> GetActions()
+        {
+            return Presenter.GetActions();
+        }
+
+        #endregion
+<%
+	}
+%>
+
+        #region IDetailViewToggled Members
+<%
+	if ((!adaptedFileExists || !adaptedFileText.Contains("public void BringCurrentItemIntoView()")) && !isComponent) 
+	{
+%>
+
+        public void BringCurrentItemIntoView()
+        {
+<%
+        if (grid != null)
+        {
+%>
+            ScrollViewer sv = <%= grid.Name %>.Template.FindName("PART_ScrollViewer", <%= grid.Name %>) as ScrollViewer;
+
+            int selectedIndex = <%= grid.Name %>.SelectedIndex;
+			
+            if (sv != null)
+            {
+                if (selectedIndex > sv.ScrollableHeight)
+                {
+                    sv.ScrollToVerticalOffset(sv.ScrollableHeight);
+                }
+                else
+                {
+                    sv.ScrollToVerticalOffset(selectedIndex);
+                }
+            }
+<%
+        }
+%>
+        }
+<%
+	}
+
+	if ((!adaptedFileExists || !adaptedFileText.Contains("public bool IsInlineView")) && !isComponent) 
+	{
+%>
+		
+		public bool IsInlineView { get; set; }
+<%
+	}
+
+	if (!adaptedFileExists || !adaptedFileText.Contains("public bool IsDetailView")) 
+	{
+%>
+
+        public bool IsDetailView
+        {
+            get
+            {
+                return isDetailView;
+            }
+            set
+            {
+                isDetailView = value;
+<%
+        if(grid != null)
+        {
+%>
+                
+				if (isDetailView)
+					<%= grid.Name %>.CommandBindings.Clear();
+<%
+        }
+%>
+            }
+        }
+<%
+	}
+%>
+
+        #endregion
+		
+		#region IBuilderAware Members
+<%
+	if (!adaptedFileExists || !adaptedFileText.Contains("public void OnBuiltUp(string id)")) 
+	{
+%>
+
+        public void OnBuiltUp(string id)
+        {
+<%
+		if (grid != null)
+		{
+%>
+			<%=grid.Name%>.ItemVirtualized += (s, e) =>
+			{
+				presenter.InitializeRules(e.Item as <%=viewResultClassName%>);
+			};
+<%
+		}
+%>
+			
+			presenter.OnViewReady();
+        }
+<%
+	}
+
+	if (!adaptedFileExists || !adaptedFileText.Contains("public void OnTearingDown()")) 
+	{
+%>
+        		
+		public void OnTearingDown()
+        {
+        }
+<%
+	}
+%>
+
+        #endregion
+        
+<%
+	if (!isComponent)
+	{
+%>
+        private DrillDownArgs drillDownArgs = null;
+        private IList<DrillDownArgs> jumpToList = null;
+		private IList<DrillDownArgs> openFileDrillDownList = null;
+<%
+
+		if (!adaptedFileExists || !adaptedFileText.Contains("public void EnableDrillDown(DrillDownArgs args)")) 
+		{
+%>
+
+        public void EnableDrillDown(DrillDownArgs args)
+        {
+            if (args.Type == DrillDownType.JumpTo)
+            {
+                if (jumpToList == null)
+                {
+                    jumpToList = new List<DrillDownArgs>();
+                }
+				
+                jumpToList.Add(args);
+            }
+			else if (args.Type == DrillDownType.OpenFile)
+			{
+				if (openFileDrillDownList == null)
+                {
+                    openFileDrillDownList = new List<DrillDownArgs>();
+                }
+				
+                openFileDrillDownList.Add(args);
+			}
+            else
+            {
+                drillDownArgs = args;
+            }
+        }
+<%
+		}
+
+		if (!adaptedFileExists || !adaptedFileText.Contains("public bool IsDrillDownEnabled")) 
+		{
+%>
+		
+		public bool IsDrillDownEnabled
+		{
+			get
+			{
+				return drillDownArgs != null;
+			}
+		}
+
+        
+
+    
+<%
+		}
+%>
+
+		#region IImportEnabledView Members
+
+        public event EventHandler<ShowImportViewArgs> ShowImportView;
+
+<%
+		if (!adaptedFileExists || !adaptedFileText.Contains("public bool IsImportEnabled")) 
+		{
+%>
+		
+		public bool IsImportEnabled
+		{
+			get;
+			set;
+		}
+				
+<%
+		}
+		if (!adaptedFileExists || !adaptedFileText.Contains("public void RaiseShowImportView")) 
+		{
+%>
+        public void RaiseShowImportView(ShowImportViewArgs args)
+        {
+            if (ShowImportView != null)
+            {
+                ShowImportView(this, args);
+            }
+        }
+<%
+		}
+%>
+		
+		#endregion
+<%
+
+	}
+%>
+	}
+}

@@ -1,0 +1,141 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="ReportCoreTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Assembly Name="System.Collections.Generic" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Register Name="PackageBodyGetXmlFunctionHeaderTemplate" Template=".\PackageBodyGetXmlFunctionHeaderTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="PackageBodyCursorDefinitionTemplate" Template=".\PackageBodyCursorDefinitionTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="PackageBodyCursorImplementationTemplate" Template=".\PackageBodyCursorImplementationTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Property Name="report" Type="Cdc.MetaManager.DataAccess.Domain.Report" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="doPreCompile" Type="System.Boolean" Default="" Optional="false" Category="" Description="" %>
+<%
+PackageBodyGetXmlFunctionHeaderTemplate packageBodyGetXmlFunctionHeaderTemplate = this.Create<PackageBodyGetXmlFunctionHeaderTemplate>();
+packageBodyGetXmlFunctionHeaderTemplate.SetProperty("report", report);
+packageBodyGetXmlFunctionHeaderTemplate.SetProperty("isSpec", false);
+packageBodyGetXmlFunctionHeaderTemplate.Render(this.Response);
+
+// If we are precompiling directly
+string documentType = doPreCompile ? string.Format("'{0}'", report.DocumentType) : "Def." + report.DocumentTypeDefinition;
+string applicationIdentity = doPreCompile ? string.Format("'{0}'", report.Application.Name) : "Def.Application_Identity";
+
+%>
+is
+<%
+foreach(ReportQuery reportQuery in report.ReportQueries.OrderBy(r => r.Sequence))
+{
+	PackageBodyCursorDefinitionTemplate packageBodyCursorDefinitionTemplate = this.Create<PackageBodyCursorDefinitionTemplate>();
+	packageBodyCursorDefinitionTemplate.SetProperty("reportQuery", reportQuery);
+	packageBodyCursorDefinitionTemplate.Render(this.Response);
+}
+%>
+  XML_W        XMLType;
+  XMLDATA_W    XMLType;
+begin
+
+  if Debug_W then
+    logg_output.put_line('>>> <%=report.PackageName%>.GetXml');
+  end if;
+
+<%
+foreach(ReportQuery reportQuery in report.ReportQueries.OrderBy(r => r.Sequence))
+{
+	PackageBodyCursorImplementationTemplate packageBodyCursorImplementationTemplate = this.Create<PackageBodyCursorImplementationTemplate>();
+	packageBodyCursorImplementationTemplate.SetProperty("reportQuery", reportQuery);
+	packageBodyCursorImplementationTemplate.SetProperty("indent", 2);
+	packageBodyCursorImplementationTemplate.Render(this.Response);
+%>
+  select
+    XMLConcat(
+               XMLDATA_W,
+               <%=reportQuery.Query.Name%>_XML
+             )
+    into XMLDATA_W
+    from dual;
+<%
+}
+
+int maxLength = Math.Max(documentType.Length, applicationIdentity.Length);
+maxLength = Math.Max(maxLength, 27);
+
+char[] charToTrimAtEnd = {'L'};
+string reportName = report.Name.TrimEnd(charToTrimAtEnd);
+
+%>
+
+  select 
+    XMLElement(
+                "<%=reportName%>", 
+                XMLDATA_W
+              )
+    into XMLDATA_W
+    from dual;
+<%
+
+if (report.DataDuplicates > 1)
+{
+	string indentString = string.Empty.PadRight(15);
+	string concatString = "XMLDATA_W";
+	
+	for(int i = 0; i < report.DataDuplicates - 1; i++)
+	{
+		concatString += "," + Environment.NewLine + indentString + "XMLDATA_W";
+	}
+%>
+
+  select
+    XMLConcat(
+               <%=concatString%>
+             )
+    into XMLDATA_W
+    from dual;
+<%
+}
+
+%>
+
+  select XMLType
+         (
+           '<?xml version="1.0" encoding="UTF-8"?>' ||
+           XMLElement
+           (
+             "<%=reportName%>Report",
+             XMLElement
+             (
+               "MetaData",
+               XMLAttributes
+               (
+                 <%=documentType.PadRight(maxLength)%> as "documentType",
+                 <%="nvl(META_DOCSUBTYPE_I, ' ')".PadRight(maxLength)%> as "documentSubType",
+                 <%=applicationIdentity.PadRight(maxLength)%> as "applicationIdentity",
+                 <%="nvl(META_TERID_I, ' ')".PadRight(maxLength)%> as "terminalIdentity",
+                 <%="nvl(META_PRTID_I, ' ')".PadRight(maxLength)%> as "printerIdentity",
+                 <%="nvl(META_EMPID_I, ' ')".PadRight(maxLength)%> as "userIdentity",
+                 <%="nvl(META_NO_COPIES_I, 1)".PadRight(maxLength)%> as "numberOfCopies",
+                 <%="'false'".PadRight(maxLength)%> as "isCopy"
+               )
+             ),
+             XMLElement
+             (
+               "Data",
+               XMLDATA_W
+             )
+           ).getClobVal()
+         )
+    into XML_W
+    from dual;
+
+  if Debug_W then
+    logg_output.put_line('<<< <%=report.PackageName%>.GetXml');
+  end if;
+
+  return XML_W;
+
+end GetXml;

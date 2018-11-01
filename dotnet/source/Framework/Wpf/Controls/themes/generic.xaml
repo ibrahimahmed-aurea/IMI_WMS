@@ -1,0 +1,15 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Imi.Framework.Wpf.Controls;component/DrillDownMenu/themes/DrillDownMenu.generic.xaml"/>
+        <ResourceDictionary Source="/Imi.Framework.Wpf.Controls;component/SearchPanel/themes/SearchPanel.generic.xaml"/>
+        <ResourceDictionary Source="/Imi.Framework.Wpf.Controls;component/BreadCrumb/themes/BreadCrumb.generic.xaml"/>
+        <ResourceDictionary Source="/Imi.Framework.Wpf.Controls;component/InfoTextBox/themes/InfoTextBox.generic.xaml"/>
+        <ResourceDictionary Source="/Imi.Framework.Wpf.Controls;component/InfoPasswordBox/themes/InfoPasswordBox.generic.xaml"/>
+        <ResourceDictionary Source="/Imi.Framework.Wpf.Controls;component/HyperLink/themes/HyperLink.generic.xaml"/>
+        <ResourceDictionary Source="/Imi.Framework.Wpf.Controls;component/TextBox/themes/TextBox.generic.xaml"/>
+        <ResourceDictionary Source="/Imi.Framework.Wpf.Controls;component/NullableComboBox/themes/NullableComboBox.generic.xaml"/>
+        <ResourceDictionary Source="/Imi.Framework.Wpf.Controls;component/ComboDialog/themes/ComboDialog.generic.xaml"/>
+        <ResourceDictionary Source="/Imi.Framework.Wpf.Controls;component/FileSelector/themes/FileSelector.generic.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

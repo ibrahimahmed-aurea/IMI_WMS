@@ -1,0 +1,104 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="action" Type="Cdc.MetaManager.DataAccess.Domain.UXAction" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="module" Type="Cdc.MetaManager.DataAccess.Domain.Module" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isDrillDownAction" Type="System.Boolean" Default="" Optional="false" Category="" Description="" %>
+<%
+	string actionsNamespace = GetActionsNamespace(module);
+    string actionParametersClassName = GetActionParametersClassName(action);
+%>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace <%= actionsNamespace %>
+{
+    public class <%= actionParametersClassName %>
+    {
+	<%
+    
+    if(action.RequestMap != null)
+    {
+	    foreach (MappedProperty property in action.RequestMap.MappedProperties)
+	    {
+		
+	%>
+		public <%=GetShortTypeName(property.Type, true)%> <%=property.Name%>
+		{
+			get;
+			set;
+		}
+	<%	
+	    }
+		
+		// If this action is kicking a servicemethod connected to an action tagged
+		// as IsWarningEnables and that is starting a stored procedure.
+		if ((action.ServiceMethod != null) &&
+			(action.ServiceMethod.MappedToAction != null) &&
+			(action.ServiceMethod.MappedToAction.MappedToObject is StoredProcedure) &&
+			(action.ServiceMethod.MappedToAction.IsMessageHandlingEnabled == true))
+		{
+%>
+		
+		public string MessageXML
+		{
+			get;
+			set;
+		}
+<%
+		}
+		
+        // If this action is kicking a dialog that uses rowidentity
+ 	    if (action.Dialog != null && action.Dialog.InterfaceView != null)
+		{
+		  	View view = action.Dialog.InterfaceView;
+								
+		  	if ((view != null) && (ViewIsRowTracker(view)))
+		  	{
+	%>
+
+		public List<string> RowIdentities
+        {
+            get;
+            set;
+        }
+	<%
+			}
+		}
+    }
+    
+    if(isDrillDownAction)
+    {
+	%>
+
+		public object CurrentRecord
+        {
+            get;
+            set;
+        }
+	<%	
+    }
+	%>
+
+		public bool IsItemSelected
+		{
+			get;
+			set;
+		}
+
+		public bool IsMultipleItemsSelected
+		{
+			get;
+			set;
+		}
+    }
+}	

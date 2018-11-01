@@ -1,0 +1,194 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	  xmlns:d="http://schemas.microsoft.com/expression/blend/2006" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+    xmlns:local="clr-namespace:Imi.Framework.Wpf.Controls"
+    xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
+
+    <!-- Graphical resources -->
+    <!-- Move geometry here as well -->
+    <LinearGradientBrush x:Key="GreyMacGradient" EndPoint="0.5,-0.097" StartPoint="0.5,1.097" PresentationOptions:Freeze="True">
+        <GradientStop Color="#FFF7F7F7" Offset="1"/>
+        <GradientStop Color="#FFECECEC" Offset="0"/>
+        <GradientStop Color="#FFEBEBEB" Offset="0.2"/>
+        <GradientStop Color="#FFEFEFEF" Offset="0.8"/>
+        <GradientStop Color="#FFF1F1F1" Offset="0.492"/>
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="PathHighlightColor" Color="#FF4499E1" PresentationOptions:Freeze="True"/>
+    <SolidColorBrush x:Key="PathColor" Color="#FF525252" PresentationOptions:Freeze="True"/>
+
+    <Style x:Key="CloseButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid Background="Transparent">
+                        <Path Width="10" Margin="2,2,2,2" Height="10" Stretch="Fill" StrokeLineJoin="Miter" Stroke="#FF000000" Fill="#FFFFFFFF" Data="F1 M 288,224L 384,128L 448,192L 320,320L 448,448L 384,512L 252.061,380.061L 124,508.121L 63.9394,448.061L 192,320L 64,192L 128,128L 256,256L 288,224 Z " StrokeThickness="1" x:Name="path"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Fill" Value="Silver" TargetName="path"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Fill" Value="Black" TargetName="path"/>
+                            <Setter Property="Stroke" Value="Silver" TargetName="path"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <DrawingBrush x:Key="MacHouse" Stretch="Uniform" PresentationOptions:Freeze="True">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#FF000000" Geometry="F1 M 71,360L 71,376L 83,376L 83,360L 95,360L 95,376L 107,376L 107,360L 115,360L 115,358L 91,334L 87,334L 63,358L 63,360L 71,360 Z ">
+                        <GeometryDrawing.Pen>
+                            <Pen LineJoin="Round" Brush="#FF000000"/>
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+
+    <DrawingBrush x:Key="LeftArrow" Stretch="Uniform" PresentationOptions:Freeze="True">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Geometry="F1 M 129,425.204L 169,365.204L 129,305.204">
+                        <GeometryDrawing.Pen>
+                            <Pen Thickness="3" LineJoin="Round" Brush="#FF666666"/>
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Geometry="F1 M 131.572,425L 171.572,365L 131.572,305">
+                        <GeometryDrawing.Pen>
+                            <Pen Thickness="3" LineJoin="Round" Brush="#8DFFFFFF"/>
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+
+    <!-- Templates -->
+    <Style x:Key="HouseButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Rectangle Width="14" Height="14" Fill="{StaticResource MacHouse}">
+                            <Rectangle.Effect>
+                                <DropShadowEffect Direction="314" Opacity="0.675" ShadowDepth="2"/>
+                            </Rectangle.Effect>
+                        </Rectangle>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="PathButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <TextBlock Text="{TemplateBinding Content}"/>
+				</ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type local:BreadCrumbItem}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="HorizontalContentAlignment" Value="{Binding Path=HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+        <Setter Property="VerticalContentAlignment" Value="{Binding Path=VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:BreadCrumbItem}">
+                    <ControlTemplate.Resources>
+                        <local:MarginLeftAnimation x:Key="PART_AddAnimation" Direction="Right" Duration="0:0:0.4"/>
+                        <local:MarginLeftAnimation x:Key="PART_CloseAnimation" Direction="Left" Duration="0:0:0.4"/>
+                    </ControlTemplate.Resources>
+                    <Grid ClipToBounds="True" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <StackPanel x:Name="PART_Animator" Orientation="Horizontal" Width="Auto" Margin="0,2,0,2" Background="Transparent" HorizontalAlignment="Left">
+                            <Button x:Name="PathButton" 
+                                    Style="{StaticResource PathButtonStyle}" 
+                                    Width="Auto" Height="Auto"  
+                                    VerticalAlignment="Center" HorizontalAlignment="Left" 
+                                    Content="{TemplateBinding Header}" 
+                                    Command="{Binding BreadCrumbItemClickCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                    Margin="6,0,0,0" FontSize="11" FontFamily="Segoe UI" 
+                                    Foreground="{StaticResource PathColor}" Background="{x:Null}"/>
+                            <Rectangle x:Name="Arrow" Width="12" Height="30" Fill="{StaticResource LeftArrow}" VerticalAlignment="Center" Margin="6,0,0,0"/>
+                        </StackPanel>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsCurrentItem" Value="True">
+                            <Setter Property="Visibility" TargetName="Arrow" Value="Collapsed"/>
+                            <Setter Property="IsEnabled" TargetName="PathButton" Value="False"/>
+                        </Trigger>
+                        <Trigger Property="IsClosing" Value="True">
+                            <Setter Property="FontWeight" Value="Bold" TargetName="PathButton"/>
+                            <Setter Property="FontSize" Value="12" TargetName="PathButton"/>
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="true"/>
+                                <Condition Property="IsCurrentItem" Value="false"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Foreground" TargetName="PathButton" Value="{StaticResource PathHighlightColor}"/>
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <ItemsPanelTemplate x:Key="BreadCrumbItemsPanelTemplate">
+        <VirtualizingStackPanel IsItemsHost="True" Orientation="Horizontal"/>
+    </ItemsPanelTemplate>
+
+    <Style TargetType="{x:Type local:BreadCrumb}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="ItemsPanel" Value="{StaticResource BreadCrumbItemsPanelTemplate}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:BreadCrumb}">
+                    <Grid x:Name="MainGrid" SnapsToDevicePixels="True" Width="Auto" Height="Auto" ClipToBounds="True" Background="{StaticResource GreyMacGradient}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid HorizontalAlignment="Left" Width="Auto" VerticalAlignment="Center">
+                            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Width="Auto" Height="Auto" Orientation="Horizontal">
+                                <Button x:Name="HomeButton" 
+                                    Style="{StaticResource HouseButtonStyle}" 
+                                    VerticalAlignment="Center" HorizontalAlignment="Left" 
+                                    IsTabStop="False"
+                                    Command="{Binding BreadCrumbHomeCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                    Margin="8,0,0,0"/>
+                                <Rectangle Width="12" Height="30" Fill="{StaticResource LeftArrow}" Margin="2,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                        <ItemsPresenter Grid.Column="1"/>
+                        <Button x:Name="CloseButton" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,8,0"
+                                Style="{StaticResource CloseButtonStyle}" Grid.Column="2" IsTabStop="False"
+                                Command="{Binding BreadCrumbCloseCommand, RelativeSource={RelativeSource TemplatedParent}}"/>
+                        <Border BorderBrush="#FFF7F7F7" BorderThickness="0,1,0,0" CornerRadius="2,2,2,2" Margin="1,1,1,0" x:Name="Highlight" VerticalAlignment="Top" Height="1" Grid.ColumnSpan="3"/>
+                        <Border HorizontalAlignment="Left" BorderBrush="#FFC0C0C0" Width="{Binding Path=ActualWidth, ElementName=MainGrid, Mode=Default}" Height="{Binding Path=ActualHeight, ElementName=MainGrid, Mode=Default}" BorderThickness="1,1,1,1" CornerRadius="2,2,2,2" x:Name="ControlBorder" Grid.ColumnSpan="3"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsAtHomeDirectory" Value="true">
+                          <Setter Property="Visibility" TargetName="CloseButton" Value="Hidden"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

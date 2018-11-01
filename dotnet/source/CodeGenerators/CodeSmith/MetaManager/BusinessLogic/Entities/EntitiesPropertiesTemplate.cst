@@ -1,0 +1,63 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DomainTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="propertyMap" Type="Cdc.MetaManager.DataAccess.Domain.PropertyMap" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isRequest" Type="System.Boolean" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isQuery" Type="System.Boolean" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="rowIdAction" Type="System.Boolean" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isSortable" Type="System.Boolean" Default="" Optional="false" Category="" Description="" %>
+<%
+  if(propertyMap == null)
+    return;
+
+  if(propertyMap.MappedProperties == null)
+    return;
+
+  foreach(MappedProperty mapProp in propertyMap.MappedProperties)
+  {
+	string dataType = GetShortTypeName(mapProp);
+	
+	string publicName = mapProp.Name;
+	if(string.IsNullOrEmpty(publicName ))
+	  publicName = mapProp.Target.Name;
+%>
+
+        public <%= dataType %> <%= publicName %> { get; set; }
+<%
+  }
+
+  // Stored procedure resultSet or
+  // Query parameters & results
+  if(rowIdAction)
+  {
+	if (!isRequest && isQuery)
+	{
+%>
+
+        public string RowIdentity { get; set; }
+<%
+	}
+	else
+	{
+%>
+
+		public List<string> RowIdentities { get; set; }
+<%
+	}
+  }
+
+  if (isSortable)
+  {
+%>
+
+		public long SortIndex_GUI { get; set; }
+<%
+  }
+%>

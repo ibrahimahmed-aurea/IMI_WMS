@@ -1,0 +1,216 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="dialog" Type="Cdc.MetaManager.DataAccess.Domain.Dialog" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isAdapted" Type="System.Boolean" Default="false" Optional="false" Category="" Description="" %>
+<%
+	string dialogNamespace = GetDialogNamespace(dialog);
+	string actionsNamespace = GetActionsNamespace(dialog.Module);
+	string translatorsNamespace = GetActionTranslatorNamespace(dialog);
+%>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Microsoft.Practices.CompositeUI;
+using Imi.Framework.UX;
+using Imi.Framework.UX.Services;
+using Imi.SupplyChain.UX;
+using <%=actionsNamespace%>;
+<%
+if (NeedsActionTranslators(dialog))
+{
+%>
+using <%=translatorsNamespace%>;
+<%
+}
+
+foreach (View view in GetUniqueViews(dialog))
+{
+%>
+using <%=GetViewsNamespace(view)%>;
+<%
+}
+%>
+
+namespace <%= dialogNamespace %>
+{
+<%
+if (!isAdapted)
+{
+%>
+	//Extract the following class to <%=GetDialogActionsClassName(dialog)%>Adapted.cs in order to customize its behavior    	
+	public class DialogActionConditionsAdapted : DialogActionConditionsBase
+    {
+	
+	}
+<%
+}
+
+foreach (ViewNode viewNode in dialog.ViewNodes)
+{
+	foreach (ViewAction viewAction in viewNode.ViewActions)
+	{
+		if(viewAction.Type == ViewActionType.Drilldown)
+			continue; // skip
+			
+        bool isMulti = IsMultiEnabled(viewAction.Action);
+		bool isImportEnabled = IsImportEnabled(viewAction.Action);
+		
+		string proxyActionName = string.Format("{0}{1}", viewNode.View.Name, viewAction.Action.Name);
+		string actionName = viewAction.Action.Name;
+		string viewParametersClassName = GetViewParametersClassName(viewNode.View);
+		string translatorClassName = GetActionTranslatorClassName(viewAction);
+		string actionParametersClassName = GetActionParametersClassName(viewAction.Action, isMulti || isImportEnabled, true);
+		string actionParametersClassNameBase = GetActionParametersClassName(viewAction.Action);
+		string viewResultClassName = GetViewResultClassName(viewNode.View, isMulti || isImportEnabled, true);
+		string viewResultClassNameBase = GetViewResultClassName(viewNode.View);
+%>
+
+	/* Proxy condition for <%=proxyActionName%> */
+	public class <%=proxyActionName%>Condition : IActionCondition
+    {
+		public bool CanExecute(string action, WorkItem context, object caller, object target)
+		{
+			DialogActionConditionsAdapted dialogActionConditionsAdapted = new DialogActionConditionsAdapted();
+			return dialogActionConditionsAdapted.<%=proxyActionName%>Condition_CanExecute(action, context, caller, target);
+		}
+	}
+<%
+	}
+}
+%>
+	
+	public class DialogActionConditionsBase
+	{ 
+<%
+foreach (ViewNode viewNode in dialog.ViewNodes)
+{
+	foreach (ViewAction viewAction in viewNode.ViewActions)
+	{
+		if(viewAction.Type == ViewActionType.Drilldown)
+			continue; // skip
+			
+        bool isMulti = IsMultiEnabled(viewAction.Action);
+		bool isImportEnabled = IsImportEnabled(viewAction.Action);
+		
+		string proxyActionName = string.Format("{0}{1}", viewNode.View.Name, viewAction.Action.Name);
+		string actionName = viewAction.Action.Name;
+		string viewParametersClassName = GetViewParametersClassName(viewNode.View);
+		string translatorClassName = GetActionTranslatorClassName(viewAction);
+		string actionParametersClassName = GetActionParametersClassName(viewAction.Action, isMulti || isImportEnabled, true);
+		string actionParametersClassNameBase = GetActionParametersClassName(viewAction.Action);
+		string viewResultClassName = GetViewResultClassName(viewNode.View, isMulti || isImportEnabled, true);
+		string viewResultClassNameBase = GetViewResultClassName(viewNode.View);
+%>
+		public virtual bool <%=proxyActionName%>Condition_CanExecute(string action, WorkItem context, object caller, object target)
+		{
+<%
+			if((!isMulti) && (!isImportEnabled) && (!IsCreateDialog(viewAction.Action)) && (!(viewAction.Action.MappedToObject == null)))
+			{
+%>				
+            // Multi select is not supported
+            if (context.Items.FindByType<IList<<%= viewResultClassNameBase %>>>().Count > 0)
+            {
+                if (context.Items.FindByType<IList<<%= viewResultClassNameBase %>>>().Last().Count > 1)
+                    return false;
+            }
+			
+<%				
+			}
+%>	
+			IActionCatalogService actionCatalog = context.Services.Get<IActionCatalogService>(true);
+			
+			<%=viewResultClassName%> viewResult = null;
+			<%=actionParametersClassName%> actionParameters = null;
+			bool isItemSelected = false;
+			
+			if (context.Items.FindByType<<%=viewResultClassName%>>().Count > 0)
+			{
+				viewResult = context.Items.FindByType<<%=viewResultClassName%>>().Last();
+				isItemSelected = true;
+			}
+			else
+			{
+				<%=viewResultClassNameBase%> vr = new <%=viewResultClassNameBase%>();
+				
+				if (context.Items.FindByType<<%=viewParametersClassName%>>().Count() > 0)
+				{
+					<%=viewParametersClassName%> viewParameters = context.Items.FindByType<<%=viewParametersClassName%>>().Last();
+								
+<%
+			foreach (MappedProperty mappedProperty in viewNode.View.ResponseMap.MappedProperties)
+			{
+				if (mappedProperty.RequestMappedProperty != null)
+				{
+%>
+					vr.<%=mappedProperty.Name%> = viewParameters.<%=mappedProperty.RequestMappedProperty.Name%>;
+<%
+				}
+			}
+%>
+				}
+<%
+			
+			if(isMulti || isImportEnabled)
+			{
+%>
+				viewResult = new List<<%= viewResultClassNameBase %>>();
+				viewResult.Add(vr);
+<%
+			}
+			else
+			{
+%>
+				viewResult = vr;
+<%
+
+			}
+%>
+			}
+						
+			<%=translatorClassName%> translator = null;
+			
+			if (context.Items.FindByType<<%=translatorClassName%>>().Count > 0)
+				translator = context.Items.FindByType<<%=translatorClassName%>>().Last();
+			else
+				translator = context.Items.AddNew<<%=translatorClassName%>>();
+				
+			actionParameters = translator.Translate(viewResult);
+<%
+			if(!isMulti && !isImportEnabled)
+			{
+%>
+			actionParameters.IsItemSelected = isItemSelected;
+			actionParameters.IsMultipleItemsSelected = false;
+<%
+			}
+			else
+			{
+%>
+			bool multi = actionParameters.Count() > 1;
+			
+            foreach (<%= actionParametersClassNameBase %> ap in actionParameters)
+            {
+                ap.IsItemSelected = isItemSelected;
+				ap.IsMultipleItemsSelected = multi;
+            }
+<%
+			}
+%>
+			return actionCatalog.CanExecute(ActionNames.<%=actionName%>, context, caller, actionParameters); 
+		}
+<%
+	}
+}
+%>
+	}	
+}

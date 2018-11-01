@@ -1,0 +1,507 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Imi.Framework.Wpf.Controls"
+    xmlns:shared="http://schemas.actiprosoftware.com/winfx/xaml/shared"
+    xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+    xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
+
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="DrillDownMenu.Graphics.xaml"/>
+  </ResourceDictionary.MergedDictionaries>
+  
+  <shared:SlideTransition x:Key="SlideTransition" IsFromContentPushed="True" />
+    
+  <Style x:Key="KeyTipBorderStyle" TargetType="{x:Type Border}">
+    <Setter Property="HorizontalAlignment" Value="Right"/>
+    <Setter Property="BorderBrush" Value="#FF767676"/>
+    <Setter Property="BorderThickness" Value="1"/>
+    <Setter Property="VerticalAlignment" Value="Center"/>
+    <Setter Property="Margin" Value="0,0,8,0"/>
+    <Setter Property="Height" Value="18"/>
+    <Setter Property="CornerRadius" Value="1"/>
+    <Setter Property="Padding" Value="2,1"/>
+    <Setter Property="Background">
+      <Setter.Value>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" PresentationOptions:Freeze="True">
+          <GradientStop Color="#FFFCFCFE" Offset="0"/>
+          <GradientStop Color="#FFE8E8F2" Offset="1"/>
+        </LinearGradientBrush>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style x:Key="KeyTipStyle" TargetType="{x:Type TextBox}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type TextBox}">
+          <Border Style="{StaticResource KeyTipBorderStyle}">
+            <TextBlock Text="{TemplateBinding Text}" FontFamily="Segoe UI"/>
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  
+  <LinearGradientBrush x:Key="TextBoxBorder" MappingMode="Absolute" EndPoint="0,20" StartPoint="0,0" PresentationOptions:Freeze="True">
+    <GradientStop Color="#ABADB3" Offset="0.05"/>
+    <GradientStop Color="#E2E3EA" Offset="0.07"/>
+    <GradientStop Color="#E3E9EF" Offset="1"/>
+  </LinearGradientBrush>
+
+  <Style TargetType="{x:Type local:MenuTextBox}" BasedOn="{x:Null}">
+    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+    <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+    <Setter Property="BorderBrush" Value="{StaticResource TextBoxBorder}"/>
+    <Setter Property="BorderThickness" Value="1"/>
+    <Setter Property="Padding" Value="1"/>
+    <Setter Property="AllowDrop" Value="true"/>
+    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type TextBox}">
+          <Microsoft_Windows_Themes:ListBoxChrome x:Name="Bd" SnapsToDevicePixels="true" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" RenderFocused="{TemplateBinding IsKeyboardFocusWithin}" RenderMouseOver="{TemplateBinding IsMouseOver}">
+            <ScrollViewer x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+          </Microsoft_Windows_Themes:ListBoxChrome>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+              <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+              <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style x:Key="searchButtonStyle" TargetType="{x:Type Button}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Button}">
+          <Grid Background="Transparent">
+            <Image x:Name="Image" Grid.Column="1" Visibility="Visible" Width="12" Height="12" Source="{StaticResource lookingglass_design}" Margin="0,0,3,0"/>
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style x:Key="closeButtonStyle" TargetType="{x:Type Button}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Button}">
+          <Grid Background="Transparent">
+            <Path Width="10" Margin="2,2,2,2" Height="10" Stretch="Fill" StrokeLineJoin="Miter" Stroke="#FF000000" Fill="#FFFFFFFF" Data="F1 M 288,224L 384,128L 448,192L 320,320L 448,448L 384,512L 252.061,380.061L 124,508.121L 63.9394,448.061L 192,320L 64,192L 128,128L 256,256L 288,224 Z " StrokeThickness="1" x:Name="path"/>
+          </Grid>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter Property="Fill" Value="Silver" TargetName="path"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+              <Setter Property="Fill" Value="Black" TargetName="path"/>
+              <Setter Property="Stroke" Value="Silver" TargetName="path"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style x:Key="infoTextBoxStyle" TargetType="{x:Type local:InfoTextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type local:InfoTextBox}">
+          <ControlTemplate.Resources>
+
+            <Storyboard x:Key="enterGotFocus" >
+              <DoubleAnimation Duration="0:0:0.2" To=".33"
+			  	Storyboard.TargetProperty="Opacity" Storyboard.TargetName="Message"/>
+            </Storyboard>
+            <Storyboard x:Key="exitGotFocus" >
+              <DoubleAnimation Duration="0:0:0.4"
+			  	Storyboard.TargetProperty="Opacity" Storyboard.TargetName="Message"/>
+            </Storyboard>
+
+            <Storyboard x:Key="enterHasText" >
+              <DoubleAnimation Duration="0:0:0.2" From=".33" To="0"
+			  	Storyboard.TargetProperty="Opacity" Storyboard.TargetName="Message"/>
+            </Storyboard>
+            <Storyboard x:Key="exitHasText" >
+              <DoubleAnimation Duration="0:0:0.4"
+			  	Storyboard.TargetProperty="Opacity" Storyboard.TargetName="Message"/>
+            </Storyboard>
+
+          </ControlTemplate.Resources>
+          <Border Name="Bd"
+    Background="{TemplateBinding Background}"
+    BorderBrush="{TemplateBinding BorderBrush}"
+    BorderThickness="{TemplateBinding BorderThickness}">
+            <Grid>
+              <Decorator x:Name="PART_ContentHost" VerticalAlignment="Center" Margin="3"/>
+              <TextBlock Text="{TemplateBinding TextBoxInfo}" x:Name="Message"
+  Foreground="Navy" IsHitTestVisible="False"
+  FontStyle="Italic" Opacity="0.67" HorizontalAlignment="Left" VerticalAlignment="Center"
+  Margin="6,0,0,0"/>
+            </Grid>
+          </Border>
+          <ControlTemplate.Triggers>
+
+
+            <MultiTrigger>
+              <MultiTrigger.Conditions>
+                <Condition Property="HasText" Value="False"/>
+                <Condition Property="IsFocused" Value="True"/>
+
+              </MultiTrigger.Conditions>
+              <MultiTrigger.EnterActions>
+                <BeginStoryboard Storyboard="{StaticResource enterGotFocus}"/>
+              </MultiTrigger.EnterActions>
+              <MultiTrigger.ExitActions>
+                <BeginStoryboard Storyboard="{StaticResource exitGotFocus}"/>
+              </MultiTrigger.ExitActions>
+            </MultiTrigger>
+
+            <Trigger Property="HasText" Value="True">
+              <Trigger.EnterActions>
+                <BeginStoryboard Storyboard="{StaticResource enterHasText}"/>
+              </Trigger.EnterActions>
+              <Trigger.ExitActions>
+                <BeginStoryboard Storyboard="{StaticResource exitHasText}"/>
+              </Trigger.ExitActions>
+            </Trigger>
+
+            <Trigger Property="IsEnabled"
+     Value="false">
+              <Setter TargetName="Bd"
+    Property="Background"
+    Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+              <Setter Property="Foreground"
+    Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+            </Trigger>
+
+            <!-- Width -->
+            <Trigger Property="Width"
+     Value="Auto">
+              <Setter Property="MinWidth"
+    Value="100"/>
+            </Trigger>
+            <!-- Height -->
+            <Trigger Property="Height"
+     Value="Auto">
+              <Setter Property="MinHeight"
+    Value="20"/>
+            </Trigger>
+
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <DataTemplate x:Key="folderTemplate" >
+    <Border x:Name="grid" FocusVisualStyle="{x:Null}" Width="Auto" Height="20" CornerRadius="4,4,4,4" Margin="0,0,0,0" Background="#16000000" BorderThickness="0,0,0,0">
+      <Grid Background="{x:Null}">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid x:Name="padlockGrid" Height="12" Width="12" Margin="5,0,0,0" Background="{StaticResource BlockBrush}" Visibility="Collapsed" />
+
+        <TextBlock x:Name="Caption" Grid.Column="1" Text="{Binding Path=Caption}" Width="Auto" Height="Auto" FontSize="12" FontFamily="Segoe UI" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="#FF3E3E3E" TextTrimming="CharacterEllipsis"/>
+        <local:MenuTextBox x:Name="PART_CaptionEdit" Grid.Column="1" Visibility="Collapsed" Text="{Binding Path=Caption, Mode=TwoWay}" EditComplete="{Binding Path=IsReadOnly, Mode=TwoWay}" Width="Auto" Height="Auto" FontSize="12" FontFamily="Segoe UI" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="#FF2A2A2A"/>
+
+        <Path x:Name="arrow" Grid.Column="2" Stretch="Fill" Stroke="#FF000000" Width="7.777" Height="10" Data="M12.5,6.5 L12.5,14 19.305204,10.046559 z" StrokeThickness="0" HorizontalAlignment="Right" Margin="0,0,5.223,0" VerticalAlignment="Center" OpacityMask="#6C000000">
+          <Path.Fill>
+            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5" PresentationOptions:Freeze="True">
+              <GradientStop Color="#FF464545" Offset="0"/>
+              <GradientStop Color="#FF817F7F" Offset="1"/>
+            </LinearGradientBrush>
+          </Path.Fill>
+        </Path>
+
+        <TextBox x:Name="keyTip" Grid.Column="1" Grid.ColumnSpan="2" Visibility="Collapsed" Text="{Binding Path=KeyTipAccessText}" Style="{StaticResource KeyTipStyle}"/>
+      </Grid>
+    </Border>
+    <DataTemplate.Triggers>
+      <Trigger Property="IsMouseOver" Value="True">
+        <Setter Property="Background" TargetName="grid" Value="#30000000"/>
+      </Trigger>
+      <Trigger Property="IsStylusOver" Value="False"/>
+      <Trigger Property="MinWidth" Value="0"/>
+      <DataTrigger Binding="{Binding IsAuthorized}" Value="false">
+        <Setter TargetName="Caption" Property="Opacity" Value="0.5"/>
+        <Setter TargetName="padlockGrid" Property="Visibility" Value="Visible"/>
+        <Setter TargetName="Caption" Property="Margin" Value="5,0,0,0"/>
+      </DataTrigger>
+      <DataTrigger Binding="{Binding IsEnabled}" Value="false">
+        <Setter TargetName="Caption" Property="Opacity" Value="0.5"/>
+      </DataTrigger>
+      <DataTrigger Binding="{Binding IsKeyTipModeActive}" Value="true">
+        <Setter TargetName="keyTip" Property="Visibility" Value="Visible"/>
+      </DataTrigger>
+      <DataTrigger Binding="{Binding IsReadOnly}" Value="false">
+        <Setter TargetName="Caption" Property="Visibility" Value="Collapsed"/>
+        <Setter TargetName="PART_CaptionEdit" Property="Visibility" Value="Visible"/>
+      </DataTrigger>
+    </DataTemplate.Triggers>
+  </DataTemplate>
+
+  <DataTemplate x:Key="backItemTemplate">
+    <Border Width="Auto" Height="20" Background="#16000000" CornerRadius="4,4,4,4" x:Name="border">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="20"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Path Fill="#FF000000" Stretch="Fill" Width="8" Height="10" Data="M12.5,6.5 L12.5,14 19.5,10 z" StrokeThickness="0" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Margin="0,0,5,0" VerticalAlignment="Center" x:Name="path" Grid.Column="0" OpacityMask="#6C000000">
+          <Path.RenderTransform>
+            <TransformGroup>
+              <ScaleTransform ScaleX="-1" ScaleY="1"/>
+              <SkewTransform AngleX="0" AngleY="0"/>
+              <RotateTransform Angle="0"/>
+              <TranslateTransform X="0" Y="0"/>
+            </TransformGroup>
+          </Path.RenderTransform>
+        </Path>
+        <TextBlock x:Name="Caption" Grid.Column="1" Text="{Binding Path=Caption}" Width="Auto" Height="Auto" FontSize="12" FontFamily="Segoe UI" FontWeight="Bold" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="#FF3E3E3E" TextTrimming="CharacterEllipsis"/>
+        <TextBox x:Name="keyTip" Grid.Column="1" Visibility="Collapsed" Text="{Binding Path=KeyTipAccessText}" Style="{StaticResource KeyTipStyle}"/>
+      </Grid>
+    </Border>
+    <DataTemplate.Triggers>
+      <Trigger Property="IsMouseOver" Value="True">
+        <Setter Property="Background" TargetName="border" Value="#30000000"/>
+      </Trigger>
+      <DataTrigger Binding="{Binding IsKeyTipModeActive}" Value="true">
+        <Setter TargetName="keyTip" Property="Visibility" Value="Visible"/>
+      </DataTrigger>
+    </DataTemplate.Triggers>
+
+  </DataTemplate>
+
+  <DataTemplate x:Key="menuItemTemplate">
+    <Border x:Name="grid" Width="Auto" Height="20" Background="#16000000" CornerRadius="4,4,4,4" FocusVisualStyle="{x:Null}">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid x:Name="padlockGrid" Height="12" Width="12" Margin="5,0,0,0" Background="{StaticResource BlockBrush}" Visibility="Collapsed" />
+        <TextBlock x:Name="Caption" Grid.Column="1" Text="{Binding Path=Caption}" Width="Auto" Height="Auto" FontSize="12" FontFamily="Segoe UI" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="#FF2A2A2A" TextTrimming="CharacterEllipsis"/>
+        <local:MenuTextBox x:Name="PART_CaptionEdit" Grid.Column="1" Visibility="Collapsed" Text="{Binding Path=Caption, Mode=TwoWay}"  EditComplete="{Binding Path=IsReadOnly, Mode=TwoWay}" Width="Auto" Height="Auto" FontSize="12" FontFamily="Segoe UI" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="#FF2A2A2A"/>
+        <TextBox x:Name="keyTip" Grid.Column="1" Grid.ColumnSpan="2" Visibility="Collapsed" Text="{Binding Path=KeyTipAccessText}" Style="{StaticResource KeyTipStyle}"/>
+      </Grid>
+    </Border>
+    <DataTemplate.Triggers>
+      <Trigger Property="IsMouseOver" Value="True">
+        <Setter Property="Background" TargetName="grid" Value="#30000000"/>
+      </Trigger>
+      <Trigger Property="MinWidth" Value="0"/>
+      <DataTrigger Binding="{Binding IsAuthorized}" Value="false">
+        <Setter TargetName="Caption" Property="Opacity" Value="0.5"/>
+        <Setter TargetName="padlockGrid" Property="Visibility" Value="Visible"/>
+        <Setter TargetName="Caption" Property="Margin" Value="5,0,0,0"/>
+      </DataTrigger>
+      <DataTrigger Binding="{Binding IsEnabled}" Value="false">
+        <Setter TargetName="Caption" Property="Opacity" Value="0.5"/>
+      </DataTrigger>
+      <DataTrigger Binding="{Binding IsKeyTipModeActive}" Value="true">
+        <Setter TargetName="keyTip" Property="Visibility" Value="Visible"/>
+      </DataTrigger>
+      <DataTrigger Binding="{Binding IsReadOnly}" Value="false">
+        <Setter TargetName="Caption" Property="Visibility" Value="Collapsed"/>
+        <Setter TargetName="PART_CaptionEdit" Property="Visibility" Value="Visible"/>
+      </DataTrigger>
+    </DataTemplate.Triggers>
+  </DataTemplate>
+
+  <local:DrillDownMenuItemTemplateSelector x:Key="menuItemTemplateSelector"
+                                           MenuItemTemplate="{StaticResource menuItemTemplate}"
+                                           FolderTemplate="{StaticResource folderTemplate}"
+                                           BackButtonTemplate="{StaticResource backItemTemplate}"/>
+
+  <ControlTemplate x:Key="ListBoxTemplate" TargetType="{x:Type ListBox}">
+    <Border SnapsToDevicePixels="True" BorderThickness="0,0,0,0" Padding="0,0,0,0" Background="{x:Null}">
+      <ScrollViewer Focusable="False" Padding="{TemplateBinding Padding}" HorizontalScrollBarVisibility="Hidden">
+        <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+      </ScrollViewer>
+    </Border>
+    <ControlTemplate.Triggers>
+      <Trigger Property="IsGrouping" Value="True">
+        <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+      </Trigger>
+    </ControlTemplate.Triggers>
+  </ControlTemplate>
+
+  <Style x:Key="ListBoxItemStyle" TargetType="{x:Type ListBoxItem}">
+    <Setter Property="SnapsToDevicePixels" Value="true"/>
+    <Setter Property="OverridesDefaultStyle" Value="true"/>
+    <Setter Property="FontFamily" Value="Segoe UI" />
+    <Setter Property="Margin" Value="0,0,0,2" />
+    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+          <Grid x:Name="x" ContextMenu="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:DrillDownMenu}},Path=ItemsContextMenu}">
+            <Border FocusVisualStyle="{x:Null}" CornerRadius="4,4,4,4" Margin="0,0,0,0" Background="{TemplateBinding Background}">
+              <ContentPresenter Height="20" />
+            </Border>
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+    <Style.Triggers>
+      <Trigger Property="Selector.IsSelected" Value="True">
+        <Setter Property="Background" Value="#30000000"/>
+      </Trigger>
+    </Style.Triggers>
+  </Style>
+
+  <Style x:Key="BackButtonStyle" TargetType="{x:Type Button}">
+    <Setter Property="Foreground" Value="#FF3E3E3E"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Button}">
+          <Border Width="Auto" Height="Auto" Background="#16000000" CornerRadius="4,4,4,4" x:Name="border">
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="*"/>
+              </Grid.ColumnDefinitions>
+              <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" RecognizesAccessKey="True" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Column="1" Grid.ColumnSpan="1" x:Name="contentPresenter"/>
+              <Path Fill="#FF000000" Stretch="Fill" Width="8" Height="10" Data="M12.5,6.5 L12.5,14 19.5,10 z" StrokeThickness="0" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Margin="0,0,5,0" VerticalAlignment="Center" x:Name="path" Grid.Column="0" OpacityMask="#6C000000">
+                <Path.RenderTransform>
+                  <TransformGroup>
+                    <ScaleTransform ScaleX="-1" ScaleY="1"/>
+                    <SkewTransform AngleX="0" AngleY="0"/>
+                    <RotateTransform Angle="0"/>
+                    <TranslateTransform X="0" Y="0"/>
+                  </TransformGroup>
+                </Path.RenderTransform>
+              </Path>
+            </Grid>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter Property="Background" TargetName="border" Value="#30000000"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter Property="Opacity" TargetName="path" Value="0.5"/>
+              <Setter Property="Opacity" TargetName="contentPresenter" Value="0.5"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style x:Key="HeaderLabelStyle" TargetType="{x:Type Label}">
+    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+    <Setter Property="Background" Value="Transparent"/>
+    <Setter Property="Height" Value="20"/>
+    <Setter Property="Padding" Value="5"/>
+    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+    <Setter Property="VerticalContentAlignment" Value="Top"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Label}">
+          <Border SnapsToDevicePixels="true" Background="#FFFDFDFD" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="4,4,4,4" Padding="{TemplateBinding Padding}">
+            <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" RecognizesAccessKey="True"/>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+              <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <ItemsPanelTemplate x:Key="ItemsPanelTemplate1">
+    <StackPanel IsItemsHost="True"/>
+  </ItemsPanelTemplate>
+
+  <Style TargetType="{x:Type local:DrillDownMenu}">
+    <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+    <Setter Property="BorderBrush" Value="#FF7F9DB9"/>
+    <Setter Property="BorderThickness" Value="1,1,1,1"/>
+    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
+    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+    <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+    <Setter Property="VerticalContentAlignment" Value="Center"/>
+    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+    <Setter Property="ItemContainerStyle" Value="{StaticResource ListBoxItemStyle}"/>
+    <Setter Property="ItemsContainerTemplate" Value="{StaticResource ListBoxTemplate}"/>
+    <Setter Property="ItemTemplateSelector" Value="{StaticResource menuItemTemplateSelector}"/>
+    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+    <Setter Property="ItemsPanel" Value="{StaticResource ItemsPanelTemplate1}"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type local:DrillDownMenu}">
+          <ControlTemplate.Resources>
+            <Storyboard x:Key="enterHasText" >
+              <DoubleAnimation Duration="0:0:0.2" From="1.0" To="0"
+    Storyboard.TargetProperty="Opacity" Storyboard.TargetName="SearchButton"/>
+              <DoubleAnimation Duration="0:0:0.4" From="0" To="1.0"
+    Storyboard.TargetProperty="Opacity" Storyboard.TargetName="ClearButton"/>
+            </Storyboard>
+            <Storyboard x:Key="exitHasText" >
+              <DoubleAnimation Duration="0:0:0.2" From="1.0" To="0"
+    Storyboard.TargetProperty="Opacity" Storyboard.TargetName="ClearButton"/>
+              <DoubleAnimation Duration="0:0:0.4" From="0" To="1.0"
+    Storyboard.TargetProperty="Opacity" Storyboard.TargetName="SearchButton"/>
+            </Storyboard>
+          </ControlTemplate.Resources>
+          <Border SnapsToDevicePixels="True" x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0,0,0,0" Padding="0,0,0,0">
+            <Grid>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="22"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="1*"/>
+              </Grid.RowDefinitions>
+              <shared:TransitionPresenter x:Name="PART_TransitionPresenter" Grid.Row="3" Grid.RowSpan="1" Transition="{StaticResource SlideTransition}"/>
+              <Button x:Name="BackButton" Grid.Row="2" Visibility="Collapsed"/>
+              <Label HorizontalAlignment="Stretch" Grid.Row="1" x:Name="Header" Style="{StaticResource HeaderLabelStyle}" VerticalAlignment="Top" Content="" FontWeight="Bold" HorizontalContentAlignment="Center" Padding="0,0,5,5" VerticalContentAlignment="Center"/>
+              <Border Name="SearchBd" Background="White" BorderBrush="LightGray"  BorderThickness="1" Margin="1">
+                <Grid HorizontalAlignment="Stretch" Width="Auto">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                  </Grid.ColumnDefinitions>
+                  <local:InfoTextBox x:Name="SearchTextBox" TextBoxInfo="{Binding Path=SearchInfoText, RelativeSource={RelativeSource TemplatedParent}}" BorderThickness="0" VerticalAlignment="Top" Height="20" Grid.ColumnSpan="1"/>
+                  <Button x:Name="SearchButton" Opacity="1.0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Button" Grid.Column="1" Style="{StaticResource searchButtonStyle}"/>
+                  <Button x:Name="ClearButton" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Button" Grid.Column="1" Style="{StaticResource closeButtonStyle}"/>
+                </Grid>
+              </Border>
+            </Grid>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger SourceName="SearchTextBox" Property="HasText" Value="true">
+              <Trigger.EnterActions>
+                <BeginStoryboard Storyboard="{StaticResource enterHasText}"/>
+              </Trigger.EnterActions>
+              <Trigger.ExitActions>
+                <BeginStoryboard Storyboard="{StaticResource exitHasText}"/>
+              </Trigger.ExitActions>
+            </Trigger>
+            <Trigger Property="IsAtTop" Value="true">
+              <Setter Property="IsEnabled" TargetName="BackButton" Value="false"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+            </Trigger>
+            <Trigger Property="IsGrouping" Value="True">
+              <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+</ResourceDictionary>

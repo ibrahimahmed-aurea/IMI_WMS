@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="TextBox">
+    <xs:complexType>
+      <xs:attribute name="Width" type="xs:int" use="required"/>
+      <xs:attribute name="Visible" type="xs:boolean" use="required"/>
+      <xs:attribute name="Top" type="xs:int" use="required"/>
+      <xs:attribute name="Text" type="xs:string" use="required"/>
+      <xs:attribute name="TabIndex" type="xs:int" use="required"/>
+      <xs:attribute name="Left" type="xs:int" use="required"/>
+      <xs:attribute name="Id" type="xs:string" use="required"/>
+      <xs:attribute name="Height" type="xs:int" use="required"/>
+      <xs:attribute name="Focused" type="xs:boolean" use="required"/>
+      <xs:attribute name="Enabled" type="xs:boolean" use="required"/>
+      <xs:attribute name="FontName" type="xs:string" use="required"/>
+      <xs:attribute name="FontSize" type="xs:int" use="required"/>
+      <xs:attribute name="FontStyle" type="xs:string" use="required"/>
+      <xs:attribute name="PassChar" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="StateResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="HashCode" type="xs:string"/>
+        <xs:element ref="Form"/>
+        <xs:element name="Beep" type="xs:int"/>
+        <xs:element name="UserId" type="xs:string"/>
+        <xs:element name="TraceLevel" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ListBox">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Items"/>
+      </xs:sequence>
+      <xs:attribute name="Width" type="xs:int" use="required"/>
+      <xs:attribute name="Visible" type="xs:boolean" use="required"/>
+      <xs:attribute name="Top" type="xs:int" use="required"/>
+      <xs:attribute name="SelectedIndex" type="xs:int" use="required"/>
+      <xs:attribute name="TabIndex" type="xs:int" use="required"/>
+      <xs:attribute name="Left" type="xs:int" use="required"/>
+      <xs:attribute name="Id" type="xs:string" use="required"/>
+      <xs:attribute name="Height" type="xs:int" use="required"/>
+      <xs:attribute name="Focused" type="xs:boolean" use="required"/>
+      <xs:attribute name="Enabled" type="xs:boolean" use="required"/>
+      <xs:attribute name="FontName" type="xs:string" use="required"/>
+      <xs:attribute name="FontSize" type="xs:int" use="required"/>
+      <xs:attribute name="FontStyle" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Label">
+    <xs:complexType>
+      <xs:attribute name="Width" type="xs:int" use="required"/>
+      <xs:attribute name="Visible" type="xs:boolean" use="required"/>
+      <xs:attribute name="Top" type="xs:int" use="required"/>
+      <xs:attribute name="Text" type="xs:string" use="required"/>
+      <xs:attribute name="Left" type="xs:int" use="required"/>
+      <xs:attribute name="Id" type="xs:string" use="required"/>
+      <xs:attribute name="Height" type="xs:int" use="required"/>
+      <xs:attribute name="Enabled" type="xs:boolean" use="required"/>
+      <xs:attribute name="FontName" type="xs:string" use="required"/>
+      <xs:attribute name="FontSize" type="xs:int" use="required"/>
+      <xs:attribute name="FontStyle" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Items">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Item" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Item">
+    <xs:complexType>
+      <xs:attribute name="Text" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Form">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Controls"/>
+      </xs:sequence>
+      <xs:attribute name="Width" type="xs:int" use="required"/>
+      <xs:attribute name="Text" type="xs:string" use="required"/>
+      <xs:attribute name="Height" type="xs:int" use="required"/>
+      <xs:attribute name="Id" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Controls">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Label" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="TextBox" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="CheckBox" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="ListBox" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="Button" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CheckBox">
+    <xs:complexType>
+      <xs:attribute name="Width" type="xs:int" use="required"/>
+      <xs:attribute name="Visible" type="xs:boolean" use="required"/>
+      <xs:attribute name="Top" type="xs:int" use="required"/>
+      <xs:attribute name="Text" type="xs:string" use="required"/>
+      <xs:attribute name="TabIndex" type="xs:int" use="required"/>
+      <xs:attribute name="Checked" type="xs:boolean" use="required"/>
+      <xs:attribute name="Left" type="xs:int" use="required"/>
+      <xs:attribute name="Id" type="xs:string" use="required"/>
+      <xs:attribute name="Height" type="xs:int" use="required"/>
+      <xs:attribute name="Focused" type="xs:boolean" use="required"/>
+      <xs:attribute name="Enabled" type="xs:boolean" use="required"/>
+      <xs:attribute name="FontName" type="xs:string" use="required"/>
+      <xs:attribute name="FontSize" type="xs:int" use="required"/>
+      <xs:attribute name="FontStyle" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Button">
+    <xs:complexType>
+      <xs:attribute name="Focused" type="xs:boolean" use="required"/>
+      <xs:attribute name="Width" type="xs:int" use="required"/>
+      <xs:attribute name="Visible" type="xs:boolean" use="required"/>
+      <xs:attribute name="Top" type="xs:int" use="required"/>
+      <xs:attribute name="Text" type="xs:string" use="required"/>
+      <xs:attribute name="TabIndex" type="xs:int" use="required"/>
+      <xs:attribute name="Left" type="xs:int" use="required"/>
+      <xs:attribute name="Id" type="xs:string" use="required"/>
+      <xs:attribute name="Height" type="xs:int" use="required"/>
+      <xs:attribute name="Enabled" type="xs:boolean" use="required"/>
+      <xs:attribute name="FontName" type="xs:string" use="required"/>
+      <xs:attribute name="FontSize" type="xs:int" use="required"/>
+      <xs:attribute name="FontStyle" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

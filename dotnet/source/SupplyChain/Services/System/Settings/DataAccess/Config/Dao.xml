@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<objects xmlns="http://www.springframework.net" xmlns:db="http://www.springframework.net/database">
+
+	<!-- Referenced by main application context configuration file -->
+	<description>
+		The HibernateConsole object definitions for the Data Access Objects.
+	</description>
+
+	<!-- Database and NHibernate Configuration -->
+	<db:provider id="DbProvider" provider="${db.provider}" connectionString="${db.connectionstring}"/>
+
+	<object id="SessionFactory" type="Spring.Data.NHibernate.LocalSessionFactoryObject, Spring.Data.NHibernate21">
+		<property name="DbProvider" ref="DbProvider"/>
+		<property name="MappingAssemblies">
+			<list>
+				<value>Imi.SupplyChain.Settings.DataAccess.NHibernate</value>
+			</list>
+		</property>
+		<property name="HibernateProperties">
+			<dictionary>
+				<!--To let Hibernate create and update database objects, use line below-->
+				<!--<entry key="hbm2ddl.auto" value="update" />-->
+				<entry key="connection.provider" value="NHibernate.Connection.DriverConnectionProvider"/>
+				<!--<entry key="connection.provider" value="Imi.SupplyChain.Settings.DataAccess.NHibernate.DynamicConnectionProvider, Imi.SupplyChain.Settings.DataAccess.NHibernate"/>-->
+				<entry key="dialect" value="${hibernate.dialect}"/>
+				<entry key="connection.driver_class" value="${hibernate.connection.driver_class}"/>
+				<entry key="proxyfactory.factory_class" value ="NHibernate.ByteCode.Castle.ProxyFactoryFactory, NHibernate.ByteCode.Castle"/>
+			</dictionary>
+		</property>
+
+	</object>
+
+	<object id="HibernateTransactionManager" type="Spring.Data.NHibernate.HibernateTransactionManager, Spring.Data.NHibernate21">
+		<property name="DbProvider" ref="DbProvider"/>
+		<property name="SessionFactory" ref="SessionFactory"/>
+	</object>
+
+	<object id="HibernateTemplate" type="Spring.Data.NHibernate.Generic.HibernateTemplate">
+		<property name="SessionFactory" ref="SessionFactory"/>
+		<property name="TemplateFlushMode" value="Auto"/>
+		<property name="CacheQueries" value="true"/>
+	</object>
+
+	<!-- To make the db. parameters propagate to this file -->
+	<object name="appConfigPropertyHolder" type="Spring.Objects.Factory.Config.PropertyPlaceholderConfigurer, Spring.Core">
+		<property name="configSections">
+			<value>databaseSettings</value>
+		</property>
+	</object>
+
+	<!-- TransactionScope -->
+	<object id="ITransactionScope" type="Imi.SupplyChain.Settings.DataAccess.NHibernate.HibernateTransactionScope, Imi.SupplyChain.Settings.DataAccess.NHibernate" singleton="false">
+		<constructor-arg name="transactionManager" ref="HibernateTransactionManager"/>
+	</object>
+
+	<!-- DatabaseCreator -->
+	<object id="IDatabaseCreator" type="Imi.SupplyChain.Settings.DataAccess.NHibernate.DatabaseCreator, Imi.SupplyChain.Settings.DataAccess.NHibernate" singleton="true">
+	</object>
+
+	<!-- Data Access Objects -->
+	<object id="IBlobDao" type="Imi.SupplyChain.Settings.DataAccess.NHibernate.Dao.HibernateBlobDao, Imi.SupplyChain.Settings.DataAccess.NHibernate" singleton="false">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+
+	<object id="IContainerDao" type="Imi.SupplyChain.Settings.DataAccess.NHibernate.Dao.HibernateContainerDao, Imi.SupplyChain.Settings.DataAccess.NHibernate" singleton="false">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+
+</objects>

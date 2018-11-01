@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Cdc.MetaManager.DataAccess.Domain.ReportQuery, Cdc.MetaManager.DataAccess" table="ReportQuery">
+    <id name="Id" type="System.Guid">
+      <column name="Id" not-null="true"/>
+      <generator class="assigned"/>
+    </id>
+    <property name="Sequence" type="Int32">
+      <column name="Sequence" not-null="true"/>
+    </property>
+    <many-to-one name="Parent" class="Cdc.MetaManager.DataAccess.Domain.ReportQuery, Cdc.MetaManager.DataAccess" foreign-key="FK_ReportQuery_ReportQuery">
+      <column name="ParentId" not-null="false"/>
+    </many-to-one>
+    <many-to-one name="Report" class="Cdc.MetaManager.DataAccess.Domain.Report, Cdc.MetaManager.DataAccess" foreign-key="FK_ReportQuery_Report">
+      <column name="ReportId" not-null="false"/>
+    </many-to-one>
+    <many-to-one name="Query" class="Cdc.MetaManager.DataAccess.Domain.Query, Cdc.MetaManager.DataAccess" foreign-key="FK_ReportQuery_Query" cascade="all">
+      <column name="QueryId" not-null="true"/>
+    </many-to-one>
+    <bag name="Children" inverse="true" lazy="true" cascade="all-delete-orphan">
+      <key column="ParentId"/>
+      <one-to-many class="Cdc.MetaManager.DataAccess.Domain.ReportQuery, Cdc.MetaManager.DataAccess"/>
+    </bag>
+  </class>
+</hibernate-mapping>

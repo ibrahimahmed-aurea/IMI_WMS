@@ -1,0 +1,149 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Register Name="ViewEventTranslatorTemplate" Template="..\Dialog\ViewEventTranslatorTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Import Namespace="Cdc.CodeGeneration.Caching" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain.VisualModel" %>
+<%@ Property Name="mainView" Type="Cdc.MetaManager.DataAccess.Domain.View" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="viewDictionary" Type="IDictionary<View, Cdc.MetaManager.DataAccess.Domain.PropertyMap>" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="viewDirectory" Type="String" Default="" Optional="false" Category="" Description="" %>
+<%
+    string viewsNamespace = GetViewsNamespace(mainView);
+	string eventAggregatorClassName = GetComponentEventAggregatorClassName(mainView);
+	string viewClassName = GetViewClassName(mainView);
+	string viewResultClassName = GetViewResultClassName(mainView);
+%>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.ComponentModel;
+using Microsoft.Practices.CompositeUI.EventBroker;
+using Microsoft.Practices.CompositeUI;
+using Imi.Framework.UX;
+using <%=GetViewsConstantsNamespace(mainView)%>;
+
+namespace <%=viewsNamespace%>
+{
+    public class <%= eventAggregatorClassName %>
+    {                        
+		[ServiceDependency]
+		public WorkItem WorkItem
+		{
+			get;
+			set;
+		}
+		
+		private <%=viewResultClassName%> viewResult;
+		
+		private void Initialize()
+		{
+<%	
+		foreach (KeyValuePair<View, PropertyMap> item in viewDictionary)
+		{			
+			string childViewClassName = GetViewClassName(item.Key);
+%>
+			Update<%=childViewClassName%>();
+<%
+		}
+%>		
+		}
+		
+		private void PropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
+        {
+<%	
+foreach (KeyValuePair<View, PropertyMap> item in viewDictionary)
+{
+   	PropertyMap map = item.Value;
+	string childViewClassName = GetViewClassName(item.Key);
+		
+	foreach (MappedProperty property in map.MappedProperties)
+	{
+		if (property.Source != null &&
+        	property.Source.Name.StartsWith(GetDataSourceParameterPrefix()))
+			continue;
+		
+		MappedProperty target = property.Target as MappedProperty;
+			
+		if (target != null && property.IsEnabled)
+		{
+			if (mainView.ResponseMap.MappedProperties.Contains(target))
+			{
+%>
+			if (e.PropertyName == "<%=property.Target.Name%>")
+            {
+                Update<%=childViewClassName%>();
+            }
+			
+<%
+			}
+		}
+	}
+}
+%>		
+		}
+		
+		[EventSubscription(EventTopicNames.<%=viewClassName%>UpdatedTopic)]
+        public void <%=viewClassName%>UpdatedEventHandler(object sender, DataEventArgs<<%= viewResultClassName %>> eventArgs)
+        {
+			if (eventArgs.Data != viewResult)
+			{
+				if (viewResult != null)
+					viewResult.PropertyChanged -= PropertyChangedEventHandler;
+				
+				if (eventArgs.Data != null)
+				{		
+					viewResult = eventArgs.Data;
+					viewResult.PropertyChanged += PropertyChangedEventHandler;
+					
+					Initialize();
+				}
+			}
+		}
+		
+<%	foreach (KeyValuePair<View, PropertyMap> item in viewDictionary)
+	{
+		string translatorClassName = GetViewTranslatorClassName(mainView, item.Key);
+
+		string fileName = string.Format("{0}\\{1}.cs", viewDirectory, GetViewTranslatorClassName(mainView, item.Key));
+		ViewEventTranslatorTemplate translatorTemplate = this.Create<ViewEventTranslatorTemplate>();  
+		translatorTemplate.SetProperty("fromView", mainView);
+		translatorTemplate.SetProperty("toView", item.Key);
+		translatorTemplate.SetProperty("propertyMap", item.Value);
+		translatorTemplate.SetProperty("translatorNamespace", viewsNamespace);
+		translatorTemplate.SetProperty("generateResultTranslator", false);
+    	translatorTemplate.SetProperty("isAdapted", CacheAdaptedFile(fileName));
+		translatorTemplate.RenderToFile(fileName, true);
+		
+		string viewParametersClassName = GetViewParametersClassName(item.Key);
+		string childViewClassName = GetViewClassName(item.Key);
+		string childViewInterfaceName = GetViewInterfaceName(item.Key);
+%>
+		private void Update<%=childViewClassName%>()
+		{
+			<%=childViewInterfaceName%> <%=ToCamelCase(childViewClassName)%> = WorkItem.SmartParts.FindByType<<%=childViewInterfaceName%>>().Last();
+			
+			<%=translatorClassName%> <%=ToCamelCase(translatorClassName)%> = null;
+				
+			if (WorkItem.Items.FindByType<<%=translatorClassName%>>().Count > 0)
+				<%=ToCamelCase(translatorClassName)%> = WorkItem.Items.FindByType<<%=translatorClassName%>>().Last();
+			else
+				<%=ToCamelCase(translatorClassName)%> = WorkItem.Items.AddNew<<%=translatorClassName%>>();
+					
+			<%=viewParametersClassName%> <%=ToCamelCase(viewParametersClassName)%> = <%=ToCamelCase(translatorClassName)%>.TranslateFromResultToParameters(viewResult);
+			<%=ToCamelCase(childViewClassName)%>.Update(<%=ToCamelCase(viewParametersClassName)%>);
+		}
+		
+<%
+	}
+%>
+    }
+}

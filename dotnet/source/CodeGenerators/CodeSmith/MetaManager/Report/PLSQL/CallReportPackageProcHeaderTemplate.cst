@@ -1,0 +1,34 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="ReportCoreTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Assembly Name="Cdc.CodeGeneration.Caching" %>
+<%@ Assembly Name="System.Collections.Generic" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Import Namespace="Cdc.CodeGeneration.Caching" %>
+<%@ Property Name="report" Type="Cdc.MetaManager.DataAccess.Domain.Report" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="isSpec" Type="System.Boolean" Default="" Optional="false" Category="" Description="" %>
+<%
+bool isDefinedWarehouseReport = report.Application.Name == "Warehouse" &&
+								(report.WarehouseReportType == WarehouseReportType.WarehouseReport ||
+	 							 report.WarehouseReportType == WarehouseReportType.DeliveryReport ||
+								 report.WarehouseReportType == WarehouseReportType.FreighterReport);
+
+string procedureText = string.Format("function Print_{0}( ", report.Name);
+
+int indent = procedureText.Length;
+
+IList<string> parameterList = report.GetReportInterfaceList().GetNameAndTypePadded();
+
+string parameterText = parameterList.Aggregate((current, next) => current + "," + Environment.NewLine + string.Empty.PadRight(indent) + next);
+
+procedureText = string.Format("{0}{1} ) return boolean{2}", procedureText, parameterText, isSpec ? ";" : string.Empty); 
+%>
+<%=procedureText%>

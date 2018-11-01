@@ -1,0 +1,193 @@
+﻿<UserControl 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid" 
+    xmlns:controls="clr-namespace:Imi.Framework.Wpf.Controls;assembly=Imi.Framework.Wpf.Controls" 
+    xmlns:resources="clr-namespace:Imi.SupplyChain.UX;assembly=Imi.SupplyChain.UX" 
+    xmlns:workspaces="clr-namespace:Imi.Framework.UX.Wpf.Workspaces;assembly=Imi.Framework.UX.Wpf" 
+    xmlns:settings="clr-namespace:Imi.Framework.UX.Wpf.BuilderStrategies;assembly=Imi.Framework.UX.Wpf" 
+    xmlns:editors="http://schemas.actiprosoftware.com/winfx/xaml/editors" 
+    xmlns:providers="clr-namespace:Imi.SupplyChain.UX.Settings;assembly=Imi.SupplyChain.UX" 
+    xmlns:converters="clr-namespace:Imi.Framework.Wpf.Data.Converters;assembly=Imi.Framework.Wpf.Data" 
+    xmlns:local="clr-namespace:Imi.SupplyChain.ActivityMonitor.UX.Views.ActivityMonitor"
+    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" 
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    x:Class="Imi.SupplyChain.ActivityMonitor.UX.Views.ActivityMonitor.PickPaceMonitorOverviewView" 
+    x:Name="PickPaceMonitorOverviewViewUc" 
+    Width="Auto" 
+    Height="Auto" 
+    Focusable="True">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Imi.SupplyChain.UX;component/Resources/generic.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Imi.SupplyChain.UX.Modules.ActivityMonitor;component/Resources/ChartGraphics.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <DataTemplate x:Key="DrillDownDataTemplate">
+                <controls:HyperLink Content="{Binding Mode=OneWay}" Tag="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type xcdg:DataCell}}, Path=FieldName}" ToolTip="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type xcdg:DataCell}}, Mode=OneWay, Path=ParentColumn.(ToolTipService.ToolTip)}" />
+            </DataTemplate>
+
+            <converters:StringFormatConverter x:Key="stringFormatConverter" />
+            <converters:InvertNullableBoolConverter x:Key="invertNullableBoolConverter" />
+            <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+
+            <DataTemplate x:Key="trackBallInfoTemplatePace">
+                <StackPanel Background="{StaticResource TrackBallInfoBackground}">
+                    <Border Background="{StaticResource TrackBallInfoHeaderBackground}">
+                        <TextBlock Text="{Binding Path=DataPoint.Category, StringFormat={StaticResource TrackBallDateTimeFormat}}" Style="{StaticResource TrackBallHeaderStyle}"/>
+                    </Border>
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource TrackBallItemStyle}">
+                        <TextBlock Text="{Binding Source={x:Static local:ResourceManager.str_currentPace_Caption}, StringFormat='{}{0}: '}"/>
+                        <TextBlock Text="{Binding Path=DataPoint.Value, Converter={StaticResource stringFormatConverter}, ConverterParameter=\0.##}"/>
+                    </StackPanel>
+                </StackPanel>
+            </DataTemplate>
+            <DataTemplate x:Key="trackBallInfoTemplateLongAVGPace">
+                <StackPanel Background="{StaticResource TrackBallInfoBackground}" Orientation="Horizontal" Style="{StaticResource TrackBallItemStyle}">
+                    <TextBlock Text="{Binding Source={x:Static local:ResourceManager.str_meanPace_Caption}, StringFormat='{}{0}: '}"/>
+                    <TextBlock Text="{Binding Path=DataPoint.Value, Converter={StaticResource stringFormatConverter}, ConverterParameter=\0.##}"/>
+                </StackPanel>
+            </DataTemplate>
+            <DataTemplate x:Key="trackBallInfoTemplateAVGPace">
+                <StackPanel Orientation="Horizontal" Style="{StaticResource TrackBallItemStyle}">
+                    <TextBlock Text="{Binding Source={x:Static local:ResourceManager.str_averagePace_Caption}, StringFormat='{}{0}: '}"/>
+                    <TextBlock Text="{Binding Path=DataPoint.Value, Converter={StaticResource stringFormatConverter}, ConverterParameter=\0.##}"/>
+                </StackPanel>
+            </DataTemplate>
+            
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <UserControl.ContextMenu>
+        <ContextMenu x:Name="contextMenu" />
+    </UserControl.ContextMenu>
+    <Grid controls:HyperLink.Clicked="HyperLinkClicked">
+        <Popup x:Name="balloonPopup" AllowsTransparency="True" StaysOpen="False" Placement="Right" VerticalOffset="-25">
+            <ContentControl x:Name="balloonPopupContent" ContentTemplate="{StaticResource LeftBalloonContentTemplate}" />
+        </Popup>
+        <Border  Style="{StaticResource ChartBorderStyle}">
+            <Grid Visibility="Visible">
+                <telerik:RadCartesianChart x:Name="theChart" 
+                                           TrackBallLineStyle="{StaticResource TrackBallLineStyle}">
+                    <telerik:RadCartesianChart.Behaviors>
+                        <telerik:ChartPanAndZoomBehavior PanMode="Horizontal" ZoomMode="Horizontal"/>
+                        <telerik:ChartSelectionBehavior />
+                        <telerik:ChartTrackBallBehavior x:Name="trackBall"/>
+                    </telerik:RadCartesianChart.Behaviors>
+                    <telerik:RadCartesianChart.Grid>
+                        <telerik:CartesianChartGrid StripLinesVisibility="Y">
+                            <telerik:CartesianChartGrid.YStripeBrushes>
+                                <SolidColorBrush Color="#FFD7D7D7" Opacity="0.3" />
+                                <SolidColorBrush Color="Transparent" />
+                            </telerik:CartesianChartGrid.YStripeBrushes>
+                        </telerik:CartesianChartGrid>
+                    </telerik:RadCartesianChart.Grid>
+                    <telerik:RadCartesianChart.VerticalAxis>
+                        <telerik:LinearAxis Minimum="0"/>
+                    </telerik:RadCartesianChart.VerticalAxis>
+                    <telerik:RadCartesianChart.HorizontalAxis>
+                        <telerik:CategoricalAxis x:Name="HAxis">
+                            <telerik:CategoricalAxis.LabelTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding}" HorizontalAlignment="Center" FontSize="9" TextAlignment="Center" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </telerik:CategoricalAxis.LabelTemplate>
+                        </telerik:CategoricalAxis>
+                    </telerik:RadCartesianChart.HorizontalAxis>
+                    <telerik:SplineAreaSeries x:Name="pickPaceSerie" CategoryBinding="TimeSpanText" ValueBinding="PickedQuantity" TrackBallInfoTemplate="{StaticResource trackBallInfoTemplatePace}" >
+                        <telerik:SplineAreaSeries.StrokeShapeStyle>
+                            <Style TargetType="Path">
+                                <Setter Property="Stroke" Value="{StaticResource ChartSerie3Brush}" />
+                                <Setter Property="StrokeThickness" Value="3"/>
+                            </Style>
+                        </telerik:SplineAreaSeries.StrokeShapeStyle>
+                        <telerik:SplineAreaSeries.AreaShapeStyle>
+                            <Style TargetType="Path">
+                                <Setter Property="Fill" Value="{StaticResource ChartSerie3Brush}" />
+                            </Style>
+                        </telerik:SplineAreaSeries.AreaShapeStyle>
+                    </telerik:SplineAreaSeries>
+                    <telerik:SplineSeries x:Name="avgPickPaceSerie" CategoryBinding="TimeSpanText" ValueBinding="AveragePickedQuantity" TrackBallInfoTemplate="{StaticResource trackBallInfoTemplateAVGPace}">
+                        <telerik:SplineSeries.StrokeShapeStyle>
+                            <Style TargetType="Path">
+                                <Setter Property="Stroke" Value="{StaticResource ChartSerie2Brush}" />
+                                <Setter Property="StrokeThickness" Value="2"/>
+                            </Style>
+                        </telerik:SplineSeries.StrokeShapeStyle>
+                    </telerik:SplineSeries>
+                    <telerik:SplineSeries x:Name="longTimeAvgpickPaceSerie" CategoryBinding="TimeSpanText" ValueBinding="LongTimeAvgPickedQuantity" TrackBallInfoTemplate="{StaticResource trackBallInfoTemplateLongAVGPace}" >
+                        <telerik:SplineSeries.StrokeShapeStyle>
+                            <Style TargetType="Path">
+                                <Setter Property="Stroke" Value="{StaticResource ChartSerie1Brush}" />
+                                <Setter Property="StrokeThickness" Value="1"/>
+                            </Style>
+                        </telerik:SplineSeries.StrokeShapeStyle>
+                    </telerik:SplineSeries>
+                </telerik:RadCartesianChart>
+                <Grid VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <StackPanel x:Name="RemainingStackPanel" Orientation="Horizontal" Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,12,0,12" Width="400" Visibility="Collapsed">
+                        <StackPanel.Background>
+                            <SolidColorBrush Color="LightGray" Opacity="0.3"/>
+                        </StackPanel.Background>
+                        <TextBlock Style="{StaticResource OnGraphLableStyleLarge}" Margin="6,6,0,6" Text="{x:Static local:ResourceManager.str_remaining_Caption}" />
+                        <TextBlock x:Name="RemainingText" Margin="6,6,0,6" Width="80" Style="{StaticResource OnGraphTextStyleLarge}"/>
+                        <TextBlock Style="{StaticResource OnGraphLableStyleLarge}" Margin="6,6,0,6" Text="{x:Static local:ResourceManager.str_ESTFinish_Caption}" />
+                        <TextBlock x:Name="RemainingTimeText" Margin="6,6,0,6" Width="100" Style="{StaticResource OnGraphTextStyleLarge}"/>
+                    </StackPanel>
+                </Grid>
+                <Grid VerticalAlignment="Top" HorizontalAlignment="Right">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <Button Grid.Row="0" Grid.Column="1" Opacity="0.5" Margin="0,12,0,0" Width="5" Height="Auto" Click="LegendExpanderButton_Click"/>
+                    <StackPanel x:Name="LegendStackPanel" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,12,0,0" Width="130">
+                        <StackPanel.Background>
+                            <SolidColorBrush Color="LightGray" Opacity="0.3"/>
+                        </StackPanel.Background>
+                        <TextBlock Style="{StaticResource OnGraphLableStyle}" Margin="6,6,0,0" Text="{x:Static local:ResourceManager.str_lastUpdated_Caption}" />
+                        <TextBlock x:Name="LastUpdatedText" Margin="6,2,0,0" />
+                        <TextBlock Style="{StaticResource OnGraphLableStyle}" Margin="6,6,0,0" Text="{x:Static local:ResourceManager.str_timeResolution_Caption}" />
+                        <ComboBox x:Name="DurationCombo" Margin="6,2,0,0" HorizontalAlignment="Left" Width="120" Initialized="DurationCombo_Initialized" SelectionChanged="DurationCombo_SelectionChanged"/>
+                        <TextBlock Style="{StaticResource OnGraphLableStyle}" Margin="6,6,0,0"  Text="{x:Static local:ResourceManager.str_measurePerHour_Caption}" />
+                        <ComboBox x:Name="typeCombo" Margin="6,2,0,0" HorizontalAlignment="Left" Width="120" Initialized="typeCombo_Initialized"  SelectionChanged="typeCombo_SelectionChanged"/>
+                        <StackPanel x:Name="BarLegend" Margin="6,6,0,6">
+                            <StackPanel Orientation="Horizontal">
+                                <Rectangle Fill="{StaticResource ChartSerie1Brush}" Style="{StaticResource LegendRectangleStyle}"/>
+                                <TextBlock Text="{x:Static local:ResourceManager.str_meanPace_Caption}" Style="{StaticResource LegendLableStyle}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Rectangle Fill="{StaticResource ChartSerie2Brush}" Style="{StaticResource LegendRectangleStyle}"/>
+                                <TextBlock Text="{x:Static local:ResourceManager.str_averagePace_Caption}" Style="{StaticResource LegendLableStyle}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Rectangle Fill="{StaticResource ChartSerie3Brush}" Style="{StaticResource LegendRectangleStyle}"/>
+                                <TextBlock Text="{x:Static local:ResourceManager.str_currentPace_Caption}" Style="{StaticResource LegendLableStyle}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Border>
+        <Grid Visibility="Visible">
+            <controls:HyperLink x:Name="GenericDrilldownLink" Margin="10,54,0,0" Visibility="Collapsed" />
+            <ProgressBar Visibility="Hidden" HorizontalAlignment="Center" Margin="0,0,0,0" Style="{StaticResource dotProgressBarStyle}" Width="45" x:Name="progressBar" VerticalAlignment="Center" Height="45" />
+            <StackPanel Visibility="Collapsed" HorizontalAlignment="Center" Width="Auto" x:Name="errorPanel" VerticalAlignment="Center">
+                <Label Content="{x:Static resources:StringResources.View_UpdateError}" Background="#006C6C6C" Foreground="#FF1312AD" FontFamily="Segoe UI" FontSize="16" FontWeight="Normal" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="0,5,5,5" />
+                <Button Content="{x:Static resources:StringResources.View_UpdateErrorAdditionalInfo}" HorizontalAlignment="Center" x:Name="errorInfoButton" VerticalAlignment="Top" Click="ErrorInfoButtonClickEventHandler" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Cdc.MetaManager.DataAccess.Domain.PropertyMap, Cdc.MetaManager.DataAccess" table="PropertyMap">
+    <id name="Id" type="System.Guid">
+      <column name="Id" not-null="true"/>
+      <generator class="assigned"/>
+    </id>
+    <property name="IsCollection" type="Boolean">
+      <column name="IsCollection" not-null="true"/>
+    </property>
+    <bag name="MappedProperties" inverse="true" lazy="true" cascade="all-delete-orphan">
+      <key column="PropertyMapId"/>
+      <one-to-many class="Cdc.MetaManager.DataAccess.Domain.MappedProperty, Cdc.MetaManager.DataAccess"/>
+    </bag>
+  </class>
+</hibernate-mapping>

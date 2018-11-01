@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AzAdminManager MajorVersion="1" MinorVersion="0" Guid="95a61e1b-c1e9-42c6-90c6-02a35debbb3c">
+	<AzApplication Guid="861d5042-2560-409e-809f-5bf99016bd2a" Name="XAM" Description="Azman store for XAM" ApplicationVersion="7.0.0">
+		<AzOperation Guid="33742F05-E843-4ec2-B3D4-34467B9CA740" Name="/reports/CasesAndCapacityPerPickZone" Description="">
+			<OperationID>1</OperationID>
+		</AzOperation>
+		<AzOperation Guid="0A4593B2-BC88-4568-9B68-C3A551843565" Name="/reports/WorkloadPerNetwork" Description="">
+			<OperationID>2</OperationID>
+		</AzOperation>
+		<AzOperation Guid="50583FB2-D95E-418C-97EA-4B3605C86A64" Name="/reports/WorkloadPerPickZoneXAM" Description="">
+			<OperationID>3</OperationID>
+		</AzOperation>
+		<AzOperation Guid="8A76F0D6-72B0-4D14-AC97-00EB6F72A288" Name="/reports/WorkloadPerWarehouseXAM" Description="">
+			<OperationID>4</OperationID>
+		</AzOperation>
+		<AzOperation Guid="C6309517-A132-4D04-890A-2BF04568A8B7" Name="/reports/WorkloadVsCapacityPerNetwork" Description="">
+			<OperationID>5</OperationID>
+		</AzOperation>
+		<AzOperation Guid="2E6D0544-9917-42D9-A14D-8DD6212B312E" Name="/reports/WorkloadVsCapacityPerPickZone" Description="">
+			<OperationID>6</OperationID>
+		</AzOperation>
+		<AzOperation Guid="F7EBE367-7B25-4837-891E-7704310FC07A" Name="/reports/WorkloadVsCapacityPerWarehouse" Description="">
+			<OperationID>7</OperationID>
+		</AzOperation>
+		<AzOperation Guid="A6FA8FAD-3141-4931-8A12-C4D8F354D3B2" Name="/reports/ResourceWorkload" Description="">
+			<OperationID>8</OperationID>
+		</AzOperation>
+		<AzOperation Guid="8F71B156-0D24-4957-85E3-26FB6F26CB75" Name="8F71B156-0D24-4957-85E3-26FB6F26CB75" Description="Start Configure System">
+			<OperationID>9</OperationID>
+		</AzOperation>
+		<AzTask Guid="127cc3cd-6d06-4492-8caa-d3e2caebbe36" Name="All Reports" Description="" BizRuleImportedPath="" RoleDefinition="True">
+			<TaskLink>23092703-695f-4f87-886e-5a6ddf18ad6c</TaskLink><TaskLink>316867a7-9923-4000-a69d-f0b81d3b1424</TaskLink><TaskLink>bb3d75d5-55b0-485c-a9b5-bb1c1da86d3a</TaskLink><TaskLink>d04f99af-d0ee-4ab1-8150-895a039a6837</TaskLink><TaskLink>d342ee5a-38d2-49a2-b2d1-2f12735d87c9</TaskLink><TaskLink>db0372b8-2edc-43b4-93c8-945ec5492302</TaskLink><TaskLink>e93b88d5-4ded-43bb-8adb-bde09e9988d8</TaskLink><TaskLink>f203dd7b-0cc7-4d29-a948-bd850cadc161</TaskLink></AzTask>
+		<AzTask Guid="23092703-695f-4f87-886e-5a6ddf18ad6c" Name="Start Cases and Capacity per Pick Zone Report" Description="" BizRuleImportedPath=""><OperationLink>33742f05-e843-4ec2-b3d4-34467b9ca740</OperationLink></AzTask><AzTask Guid="e93b88d5-4ded-43bb-8adb-bde09e9988d8" Name="Start Workload per Network Report" Description="" BizRuleImportedPath=""><OperationLink>0a4593b2-bc88-4568-9b68-c3a551843565</OperationLink></AzTask><AzTask Guid="db0372b8-2edc-43b4-93c8-945ec5492302" Name="Start Workload per Pick Zone Report" Description="" BizRuleImportedPath=""><OperationLink>50583fb2-d95e-418c-97ea-4b3605c86a64</OperationLink></AzTask><AzTask Guid="316867a7-9923-4000-a69d-f0b81d3b1424" Name="Start Workload per Warehouse Report" Description="" BizRuleImportedPath=""><OperationLink>8a76f0d6-72b0-4d14-ac97-00eb6f72a288</OperationLink></AzTask><AzTask Guid="d04f99af-d0ee-4ab1-8150-895a039a6837" Name="Start Workload vs Capacity per Network Report" Description="" BizRuleImportedPath=""><OperationLink>c6309517-a132-4d04-890a-2bf04568a8b7</OperationLink></AzTask><AzTask Guid="65cfacdb-3c62-402a-b022-9ed42de0426e" Name="Start Configure System" Description="" BizRuleImportedPath=""><OperationLink>8f71b156-0d24-4957-85e3-26fb6f26cb75</OperationLink></AzTask><AzTask Guid="6ebd312a-be11-41d7-aae1-d118491f4f18" Name="Administrator" Description="" BizRuleImportedPath="" RoleDefinition="True"><TaskLink>127cc3cd-6d06-4492-8caa-d3e2caebbe36</TaskLink><TaskLink>65cfacdb-3c62-402a-b022-9ed42de0426e</TaskLink></AzTask><AzTask Guid="bb3d75d5-55b0-485c-a9b5-bb1c1da86d3a" Name="Start Workload vs Capacity per Pick Zone Report" Description="" BizRuleImportedPath=""><OperationLink>2e6d0544-9917-42d9-a14d-8dd6212b312e</OperationLink></AzTask><AzTask Guid="f203dd7b-0cc7-4d29-a948-bd850cadc161" Name="Start Workload vs Capacity Trend Report" Description="" BizRuleImportedPath=""><OperationLink>a6fa8fad-3141-4931-8a12-c4d8f354d3b2</OperationLink></AzTask><AzTask Guid="d342ee5a-38d2-49a2-b2d1-2f12735d87c9" Name="Start Workload vs Capacity per Warehouse Report" Description="" BizRuleImportedPath=""><OperationLink>f7ebe367-7b25-4837-891e-7704310fc07a</OperationLink></AzTask></AzApplication>
+</AzAdminManager>

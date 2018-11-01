@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="Imi.SupplyChain.UX.Shell.Views.NavigationBarView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:navigation="http://schemas.actiprosoftware.com/winfx/xaml/navigation"
+    xmlns:settings="clr-namespace:Imi.Framework.UX.Wpf.BuilderStrategies;assembly=Imi.Framework.UX.Wpf"
+    xmlns:localSettings="clr-namespace:Imi.SupplyChain.UX.Shell.Settings"
+    xmlns:local="clr-namespace:Imi.SupplyChain.UX.Shell"
+    xmlns:themes="http://schemas.actiprosoftware.com/winfx/xaml/themes">
+  <UserControl.Resources>
+  </UserControl.Resources>
+    <navigation:NavigationBar IsSynchronizedWithCurrentItem="False" settings:FrameworkElementStrategySettings.SettingsProviderType="{x:Type localSettings:NavigationBarSettingsProvider}" x:Name="navigationBar" ContentWidth="220" HorizontalAlignment="Stretch" Title="{x:Static local:StringResources.Title}" SelectionChanged="NavigationBarSelectionChangedEventHandler" Minimized="NavigationBarisMinimizedChangedEventHandler" Expanded="NavigationBarisMinimizedChangedEventHandler"/>
+</UserControl>

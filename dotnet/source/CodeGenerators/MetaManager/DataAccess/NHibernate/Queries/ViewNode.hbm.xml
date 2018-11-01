@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<query name="ViewNode.FindAll">
+		<![CDATA[
+		select v
+     from  ViewNode v 
+     where v.Dialog.Module.Application.Id = :applicationId
+    ]]>
+	</query>
+	<query name="ViewNode.FindAllByViewId">
+    <![CDATA[
+     from  ViewNode v 
+     where v.View.Id = :viewId
+    ]]>
+  </query>
+  <query name="ViewNode.FindAllByDialogId">
+    <![CDATA[
+     from  ViewNode v 
+     where v.Dialog.Id = :dialogId
+    ]]>
+  </query>
+  <query name="ViewNode.CountByViewId">
+    <![CDATA[
+     select count(*)
+     from  ViewNode v
+     where v.View.Id = :viewId
+    ]]>
+  </query>
+  <query name="ViewNode.FindByPropertyMapId">
+    <![CDATA[
+     from  ViewNode v
+     where v.ViewMap.Id = :propertyMapId
+    ]]>
+  </query>
+</hibernate-mapping>
+

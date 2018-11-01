@@ -1,0 +1,42 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Segment Departure</title>
+<link href="StructureDescription.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>Segment Departure</h1>
+<h3>Description:</h3>
+Departure<h3>Attributes:</h3>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000"><tbody>
+<tr class="tableHeader"><th class="tableHeaderColumn">Tag</th><th class="tableHeaderColumn">Method</th><th class="tableHeaderColumn">Type</th><th class="tableHeaderColumn">Oracle Type</th><th class="tableHeaderColumn">Mandatory</th><th class="tableHeaderColumn">Note</th></tr>
+<tr class="tableRow"><td class="tableRowColumn">OPCODE</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Operation Code<br/>1 - New</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DepartureIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Departure Identity<br/>The identity of the Departure.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DepartureIdentityReference</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">External Identity<br/>A reference for the Departure Identity.<br/>Can be the identity of the Departure in an external Host system, etc.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">FromNodeIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Node Identity<br/>The identity of the Node. In this case the Node is the start location of the Departure.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">DeliveryMethod</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Method of Shipment<br/>The identity of the method that will be used when shipping the goods from the node.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">RouteIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Route Identity<br/>The identity of the dispatch Route.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">RouteDescription</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Route Description<br/>The description / name of the Route.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderReleaseDateTime</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Order Release Time<br/>The recommended date and time to release Customer Orders from the Order system.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CustomerOrderStopDateTime</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Order Stop Time<br/>The date and time when no more Customer Orders may be registered on the Departure.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">TransitStopDateTime</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Stop Time Transit Goods<br/>The date and time when no more Transit Load Carriers may be registered on the Departure.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PlannedDepartureDateTime</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">Nullable<DateTime></td><td class="tableRowColumn">DATE</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Planned Departure Time<br/>The date and time when the departure is planned to occur.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CheckProductTransportType</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Check Transport Condition<br/>Indicates (1=Yes,0=No) if the Transport Condition of the Load must be checked against<br/>the Transport Condition of the Departure. This attribute is inherited from Route.<br/>If this is the case then the Transport Condition of the Load must correspond<br/>to a Transport Condition in the Departure.<br/>Otherwise any Transport Condition of the Load can be placed in the Departure.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">VehicleIdentity</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Vehicle<br/>The identity of the vehicle that transports the goods to / from the warehouse / node.<br/>The identity can be the registration number, license plate or similar.</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

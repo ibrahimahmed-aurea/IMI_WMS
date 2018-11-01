@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Cdc.MetaManager.DataAccess.Domain.QueryProperty, Cdc.MetaManager.DataAccess" table="DbQryProperty">
+    <id name="Id" type="System.Guid">
+      <column name="Id" not-null="true"/>
+      <generator class="assigned"/>
+    </id>
+    <property name="Name" type="String">
+      <column name="Name" length="50" not-null="true"/>
+    </property>
+    <property name="Sequence" type="Int32">
+      <column name="Sequence" not-null="true"/>
+    </property>
+    <property name="DbDatatype" type="String">
+      <column name="DbDatatype" length="50" not-null="false"/>
+    </property>
+    <property name="Length" type="Int32">
+      <column name="Length" not-null="false"/>
+    </property>
+    <property name="Precision" type="Int32">
+      <column name="Precision" not-null="false"/>
+    </property>
+    <property name="Scale" type="Int32">
+      <column name="Scale" not-null="false"/>
+    </property>
+    <property name="OriginalTable" type="String">
+      <column name="OriginalTable" length="100" not-null="false"/>
+    </property>
+    <property name="OriginalColumn" type="String">
+      <column name="OriginalColumn" length="100" not-null="false"/>
+    </property>
+    <property name="PropertyType" type="Int32">
+      <column name="PropertyType" not-null="true"/>
+    </property>
+    <property name="Text" type="String">
+      <column name="Text" length="2048" not-null="false"/>
+    </property>
+    <property name="IsMandatory" type="Boolean">
+      <column name="IsMandatory" not-null="false"/>
+    </property>
+    <many-to-one name="Query" class="Cdc.MetaManager.DataAccess.Domain.Query, Cdc.MetaManager.DataAccess" foreign-key="FK_QryProp_Qry" cascade="none">
+      <column name="QueryId" not-null="true"/>
+    </many-to-one>
+  </class>
+</hibernate-mapping>

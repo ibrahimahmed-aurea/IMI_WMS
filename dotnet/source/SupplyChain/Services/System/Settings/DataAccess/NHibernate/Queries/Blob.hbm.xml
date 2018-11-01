@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <query name="Blob.FindContainerBlob">
+    <![CDATA[
+      select b
+       from  Blob b
+       inner join fetch b.Container
+       where b.Container.Name = :containerName
+         and b.Name like :blobName
+       order by b.Name, b.Id
+    ]]>
+  </query>
+</hibernate-mapping>
+

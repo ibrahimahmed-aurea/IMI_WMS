@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://im.se/wms/webservices/" xmlns:s1="http://im.se/wms/webservices/orderportal" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://im.se/wms/webservices/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://im.se/wms/webservices/">
+      <s:import namespace="http://im.se/wms/webservices/orderportal" />
+      <s:element name="WhoAmI">
+        <s:complexType />
+      </s:element>
+      <s:element name="WhoAmIResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="WhoAmIResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCustomerOrderHeadInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PartnerName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LanguageId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ClientIdentity" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OrderNumber" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="OrderSequence" nillable="true" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCustomerOrderHeadInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCustomerOrderHeadInfoResult" type="s1:CustomerOrderHeadInfoDoc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCustomerOrderInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PartnerName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LanguageId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ClientIdentity" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OrderNumber" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="OrderSequence" nillable="true" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCustomerOrderInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCustomerOrderInfoResult" type="s1:CustomerOrderInfoDoc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCustomerOrderLineRange">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PartnerName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LanguageId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ClientIdentity" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OrderNumber" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="OrderSequence" nillable="true" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FirstLinePosition" nillable="true" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="LastLinePosition" nillable="true" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCustomerOrderLineRangeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCustomerOrderLineRangeResult" type="s1:CustomerOrderLineRangeDoc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://im.se/wms/webservices/orderportal">
+      <s:complexType name="CustomerOrderHeadInfoDoc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="aCustomerOrderList" nillable="true" type="s1:CustomerOrder" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="aCustomerWorkOrderList" nillable="true" type="s1:CustomerWorkOrder" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="aDepartureList" nillable="true" type="s1:Departure" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="aOrderQuantitiesList" nillable="true" type="s1:OrderQuantities" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CustomerOrder">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ClientIdentity" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderNumber" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderSequence" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderStatusCode" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderStatusText" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CustomerWorkOrder">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ClientIdentity" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderNumber" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderSequence" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SubSequence" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderStatusCode" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderStatusText" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Departure">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ClientIdentity" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderNumber" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderSequence" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SubSequence" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DepartureIdentity" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PickStatusCode" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PickStatusText" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="LoadStatusCode" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="LoadStatusText" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DepartureTime" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="MethodOfShipmentId" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="MethodOfShipmentName" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ForwarderId" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ForwarderName" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DispatchRoute" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="VehicleId" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OrderQuantities">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ClientIdentity" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderNumber" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderSequence" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SubSequence" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalNoOfLines" nillable="true" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PickedNoOfLines" nillable="true" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="EstimatedWeight" nillable="true" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="EstimatedVolume" nillable="true" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PlannedNoOfPallets" nillable="true" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PlannedNoOfLowestUM" nillable="true" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PlannedVolume" nillable="true" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PlannedWeight" nillable="true" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PickedNoOfPallets" nillable="true" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PickedNoOfLowestUM" nillable="true" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PickedVolume" nillable="true" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PickedWeight" nillable="true" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CustomerOrderInfoDoc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="aCustomerOrderList" nillable="true" type="s1:CustomerOrder" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="aCustomerWorkOrderList" nillable="true" type="s1:CustomerWorkOrder" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="aDepartureList" nillable="true" type="s1:Departure" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="aOrderQuantitiesList" nillable="true" type="s1:OrderQuantities" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="aCustomerOrderRowList" nillable="true" type="s1:CustomerOrderRow" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CustomerOrderRow">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ClientIdentity" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderNumber" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderSequence" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SubSequence" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="LinePosition" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="LineSequence" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="LineKitPosition" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="LineStatus" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderedQuantity" nillable="true" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PickedQuantity" nillable="true" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="DiscrepancyQuantity" nillable="true" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="DiscrepancyCode" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DiscrepancyText" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ExternalDiscrepancyCode" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CustomerOrderLineRangeDoc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="aCustomerOrderList" nillable="true" type="s1:CustomerOrder" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="aCustomerWorkOrderList" nillable="true" type="s1:CustomerWorkOrder" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="aDepartureList" nillable="true" type="s1:Departure" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="aOrderQuantitiesList" nillable="true" type="s1:OrderQuantities" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="aCustomerOrderRowList" nillable="true" type="s1:CustomerOrderRow" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="WhoAmISoapIn">
+    <wsdl:part name="parameters" element="tns:WhoAmI" />
+  </wsdl:message>
+  <wsdl:message name="WhoAmISoapOut">
+    <wsdl:part name="parameters" element="tns:WhoAmIResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerOrderHeadInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCustomerOrderHeadInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerOrderHeadInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCustomerOrderHeadInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerOrderInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCustomerOrderInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerOrderInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCustomerOrderInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerOrderLineRangeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCustomerOrderLineRange" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerOrderLineRangeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCustomerOrderLineRangeResponse" />
+  </wsdl:message>
+  <wsdl:portType name="OrderPortalServiceSoap">
+    <wsdl:operation name="WhoAmI">
+      <wsdl:input message="tns:WhoAmISoapIn" />
+      <wsdl:output message="tns:WhoAmISoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerOrderHeadInfo">
+      <wsdl:input message="tns:GetCustomerOrderHeadInfoSoapIn" />
+      <wsdl:output message="tns:GetCustomerOrderHeadInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerOrderInfo">
+      <wsdl:input message="tns:GetCustomerOrderInfoSoapIn" />
+      <wsdl:output message="tns:GetCustomerOrderInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerOrderLineRange">
+      <wsdl:input message="tns:GetCustomerOrderLineRangeSoapIn" />
+      <wsdl:output message="tns:GetCustomerOrderLineRangeSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="OrderPortalServiceSoap" type="tns:OrderPortalServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="WhoAmI">
+      <soap:operation soapAction="http://im.se/wms/webservices/WhoAmI" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerOrderHeadInfo">
+      <soap:operation soapAction="http://im.se/wms/webservices/GetCustomerOrderHeadInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerOrderInfo">
+      <soap:operation soapAction="http://im.se/wms/webservices/GetCustomerOrderInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerOrderLineRange">
+      <soap:operation soapAction="http://im.se/wms/webservices/GetCustomerOrderLineRange" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="OrderPortalServiceSoap12" type="tns:OrderPortalServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="WhoAmI">
+      <soap12:operation soapAction="http://im.se/wms/webservices/WhoAmI" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerOrderHeadInfo">
+      <soap12:operation soapAction="http://im.se/wms/webservices/GetCustomerOrderHeadInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerOrderInfo">
+      <soap12:operation soapAction="http://im.se/wms/webservices/GetCustomerOrderInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerOrderLineRange">
+      <soap12:operation soapAction="http://im.se/wms/webservices/GetCustomerOrderLineRange" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="OrderPortalService">
+    <wsdl:port name="OrderPortalServiceSoap" binding="tns:OrderPortalServiceSoap">
+      <soap:address location="http://localhost:4110/ThreePLPortalWebSite/OrderPortalService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="OrderPortalServiceSoap12" binding="tns:OrderPortalServiceSoap12">
+      <soap12:address location="http://localhost:4110/ThreePLPortalWebSite/OrderPortalService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,53 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="ReportCoreTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Assembly Name="Cdc.CodeGeneration.Caching" %>
+<%@ Assembly Name="System.Collections.Generic" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Import Namespace="Cdc.CodeGeneration.Caching" %>
+<%@ Property Name="reports" Type="IList<Report>" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="packageName" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+/*
+** File         : <%=packageName%>.body 
+**
+** Description  : PLEASE NOTE !!!!
+**                This package is generated and should not be manually edited!
+**                All changes to this package is handled in the Meta Manager.
+**
+********************************************************************************
+*/
+
+create or replace package body <%=packageName%> as 
+
+/* ------------ Local definitions ------------------------------------------- */
+
+DEADLOCK_DETECTED exception;
+pragma exception_init( DEADLOCK_DETECTED, -60 );
+
+PROCEDURE_NOT_FOUND exception;
+pragma exception_init( PROCEDURE_NOT_FOUND, -6576 );
+
+PROCEDURE_HAS_CHANGED exception;
+pragma exception_init( PROCEDURE_HAS_CHANGED, -6553 );
+
+/* ------------ Specification of functions/procedures ----------------------- */
+<%
+foreach(Report report in reports)
+{
+	CallReportPackageProcTemplate callReportPackageProcTemplate = this.Create<CallReportPackageProcTemplate>();
+	callReportPackageProcTemplate.SetProperty("report", report);
+	callReportPackageProcTemplate.SetProperty("packageName", packageName);
+	callReportPackageProcTemplate.Render(this.Response);
+}
+%>
+
+end <%=packageName%>;
+/

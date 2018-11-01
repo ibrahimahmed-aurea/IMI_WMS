@@ -1,0 +1,18 @@
+﻿<UserControl
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2006" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+  xmlns:workspaces="clr-namespace:Imi.Framework.UX.Wpf.Workspaces;assembly=Imi.Framework.UX.Wpf"
+  xmlns:controls="clr-namespace:Imi.Framework.Wpf.Controls;assembly=Imi.Framework.Wpf.Controls"
+  x:Class="Imi.SupplyChain.UX.Views.FindDialogView"
+  x:Name="LayoutRoot"
+  Width="Auto" Height="Auto">
+    <Grid HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" Height="Auto" MinHeight="100" MinWidth="200">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" x:Name="searchPanelRowRow"/>
+            <RowDefinition Height="*" x:Name="masterRow" MinHeight="100"/>
+        </Grid.RowDefinitions>
+        <workspaces:DeckWorkspace x:Name="searchWorkspace" Margin="0,0,0,6" Grid.Row="0" Height="Auto" Width="Auto" Visibility="Collapsed"/>
+        <workspaces:DeckWorkspace x:Name="masterWorkspace" Margin="0,0,0,6" Grid.Row="1"/>
+    </Grid>
+</UserControl>

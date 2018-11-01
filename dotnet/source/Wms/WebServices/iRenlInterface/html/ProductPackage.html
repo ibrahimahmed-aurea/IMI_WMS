@@ -1,0 +1,62 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Segment ProductPackage</title>
+<link href="StructureDescription.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>Segment ProductPackage</h1>
+<h3>Description:</h3>
+Product Package<h3>Attributes:</h3>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000"><tbody>
+<tr class="tableHeader"><th class="tableHeaderColumn">Tag</th><th class="tableHeaderColumn">Method</th><th class="tableHeaderColumn">Type</th><th class="tableHeaderColumn">Oracle Type</th><th class="tableHeaderColumn">Mandatory</th><th class="tableHeaderColumn">Note</th></tr>
+<tr class="tableRow"><td class="tableRowColumn">OPCODE</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Operation Code<br/>0 - No Operation<br/>1 - New<br/>2 - Change<br/>3 - Remove<br/>Note! An operation code is only useful if at least one tag supports the method</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">ProductNumber</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">R</td><td class="tableRowColumn">Product Number</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PackageIdentity</td></td><td class="tableRowColumn">N, C, R</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">R</td><td class="tableRowColumn">Package Identity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PackageName</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Package Description</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">BasePackageIdentity</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(17)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Lowest Unit of Measurement Identity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">NumberofBasePackages</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Lowest Unit of Measure Quantity<br/>Number of Lowest Unit of Measurement</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">NumberofConsumerPackages</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(20,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">No of Consumer Packages</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Weight</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(16,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Weight</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Height</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(9,4)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Height</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Length</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(9,4)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Length</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Width</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(9,4)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Width</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Volume</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">double</td><td class="tableRowColumn">NUMBER(16,6)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Volume</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PMTYPID_IN</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Packing Material Type at Inbound<br/>Packing Material Type that is always connected to the Product Package when receiving. Can be &lt;null&gt;.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PMTYPID_OUT</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(35)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Packing Material Type at Outbound<br/>Packing Material Type that is always connected to the Product Package when picking/shipping. Can be &lt;null&gt;.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">LayerPackage</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Layer Pallet Package<br/>If the Package is a layer package in a pallet (1=Yes,0=No). Used for calculating the number of and height of Item Load, e.g. when receiving goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">VolumeFillPercent</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Case Pick Volume %<br/>The fill factor for case pick load carrier, default &lt;null&gt; has the same effect as 100%.<br/>For example balls will take up more volume in the pick load carrier (Case Pick Volume % is greater than 100) while flower pots that can be piled one onto the other take up less volume (Case Pick Volume % is less than 100).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">BarCode</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(20)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Bar Code<br/>Bar Code used in outgoing ASN. </td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">BarCodeType</td></td><td class="tableRowColumn">N</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(7)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Bar Code Type<br/>DUN = Dispatch Unit Number<br/>EAN = European Article Number<br/>SCC = Shipping Container Code<br/>UPC = Universal Product Code</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PalPak</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Full Pallet Package<br/>Used for calculating the number of Item Load, e.g. when receiving goods (1=Yes,0=No).<br/>If the Package is a full pallet package (1=Yes,0=No). Used for calculating the number of and height of Item Load, e.g. when receiving goods.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">PalPick</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(1)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Pallet Pick allowed<br/>If the Package or unit can be picked as a pallet (1=Yes,0=No).</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">Cartypid</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Load Carrier Type<br/>Item Load's Load Carrier Type displays which Type of Load Carrier that the Package normally exists on.</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">CarCartypid</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">string</td><td class="tableRowColumn">VARCHAR2(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Movement Load Carrier Type Identity</td>
+</tr>
+<tr class="tableRow"><td class="tableRowColumn">NoPaksCarCar</td></td><td class="tableRowColumn">N, C</td><td class="tableRowColumn">int</td><td class="tableRowColumn">NUMBER(3)</td><td class="tableRowColumn">&nbsp;</td><td class="tableRowColumn">Number of Load Carriers<br/>States how many of the Item Load's Load Carriers will fit on the movement.</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

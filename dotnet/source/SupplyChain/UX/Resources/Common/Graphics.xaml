@@ -1,0 +1,38 @@
+﻿<ResourceDictionary
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
+  
+  <DrawingImage x:Key="supplyChainLogo" PresentationOptions:Freeze="True">
+    <DrawingImage.Drawing>
+      <DrawingGroup>
+        <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M 311,482L 392,482C 395.866,482 399,485.134 399,489L 399,571C 399,574.866 395.866,578 392,578L 311,578C 307.134,578 304,574.866 304,571L 304,489C 304,485.134 307.134,482 311,482 Z ">
+          <GeometryDrawing.Pen>
+            <Pen Thickness="7" LineJoin="Round" Brush="#FF003266"/>
+          </GeometryDrawing.Pen>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M 311,484L 392,484C 394.761,484 397,486.238 397,489L 397,571C 397,573.761 394.761,576 392,576L 311,576C 308.239,576 306,573.761 306,571L 306,489C 306,486.238 308.239,484 311,484 Z ">
+          <GeometryDrawing.Pen>
+            <Pen Thickness="2" LineJoin="Round" Brush="#FF000000"/>
+          </GeometryDrawing.Pen>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF009DDC" Geometry="F1 M 326,497.222L 378,497L 378,518L 326,518L 326,497.222 Z ">
+          <GeometryDrawing.Pen>
+            <Pen LineJoin="Round" Brush="#FF000000"/>
+          </GeometryDrawing.Pen>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF003266" Geometry="F1 M 326,522L 378,522L 378,550L 326,550L 326,522 Z ">
+          <GeometryDrawing.Pen>
+            <Pen LineJoin="Round" Brush="#FF000000"/>
+          </GeometryDrawing.Pen>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF003266" Geometry="F1 M 351,560L 334,560L 334,565L 328.514,565L 328.514,560L 322,560L 322,554L 351,554L 383,554L 383,560L 375.486,560L 375.486,565L 370,565L 370,560L 351,560">
+          <GeometryDrawing.Pen>
+            <Pen LineJoin="Round" Brush="#FF000000"/>
+          </GeometryDrawing.Pen>
+        </GeometryDrawing>
+      </DrawingGroup>
+    </DrawingImage.Drawing>
+  </DrawingImage>
+
+</ResourceDictionary>

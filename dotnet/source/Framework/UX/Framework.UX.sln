@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.UX", "Framework.UX.csproj", "{82823387-6AB6-45E4-9DB1-61F2A6A2F37F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.UX.Wpf", "Wpf\Framework.UX.Wpf.csproj", "{8961EFC8-65F3-498F-9D92-25E88DD88ECA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Wpf.Transitions", "..\Wpf\Transitions\Framework.Wpf.Transitions.csproj", "{52CB1CC6-9487-4084-9A40-6C6B7B631292}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{82823387-6AB6-45E4-9DB1-61F2A6A2F37F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82823387-6AB6-45E4-9DB1-61F2A6A2F37F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82823387-6AB6-45E4-9DB1-61F2A6A2F37F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82823387-6AB6-45E4-9DB1-61F2A6A2F37F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8961EFC8-65F3-498F-9D92-25E88DD88ECA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8961EFC8-65F3-498F-9D92-25E88DD88ECA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8961EFC8-65F3-498F-9D92-25E88DD88ECA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8961EFC8-65F3-498F-9D92-25E88DD88ECA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52CB1CC6-9487-4084-9A40-6C6B7B631292}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52CB1CC6-9487-4084-9A40-6C6B7B631292}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52CB1CC6-9487-4084-9A40-6C6B7B631292}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52CB1CC6-9487-4084-9A40-6C6B7B631292}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

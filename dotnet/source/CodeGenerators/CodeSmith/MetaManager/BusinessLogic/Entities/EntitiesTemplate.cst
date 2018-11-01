@@ -1,0 +1,41 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DomainTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Register Name="EntitiesClassTemplate" Template="EntitiesClassTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="EntitiesCollectionTemplate" Template="EntitiesClassTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Property Name="entity" Type="Cdc.MetaManager.DataAccess.Domain.BusinessEntity" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="businessEntitiesDirectory" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%
+  EntitiesClassTemplate classTemplate = this.Create<EntitiesClassTemplate>();
+  EntitiesCollectionTemplate collectionTemplate = this.Create<EntitiesCollectionTemplate>();
+
+  foreach(Cdc.MetaManager.DataAccess.Domain.Action action in entity.Actions) 
+  {
+	string fileNameReq = string.Format(@"{0}\{1}.cs", businessEntitiesDirectory, GetEntityClassName(action, true));
+	classTemplate.SetProperty("action", action);
+	classTemplate.SetProperty("propertyMap", action.RequestMap);
+	classTemplate.SetProperty("isRequest", true);
+	classTemplate.RenderToFile(fileNameReq ,true);
+
+	string fileNameResp = string.Format(@"{0}\{1}.cs", businessEntitiesDirectory, GetEntityClassName(action, false));
+	classTemplate.SetProperty("action", action);
+	classTemplate.SetProperty("propertyMap", action.ResponseMap);
+	classTemplate.SetProperty("isRequest", false);
+	classTemplate.RenderToFile(fileNameResp ,true);
+
+    if(action.IsMultiEnabled == true || action.IsImportEnabled == true)
+	{
+      string collectionFileNameResp = string.Format(@"{0}\{1}Collection.cs", businessEntitiesDirectory, GetEntityClassName(action, true));
+  	  collectionTemplate.SetProperty("action", action);
+	  collectionTemplate.SetProperty("isRequest", true);
+	  collectionTemplate.RenderToFile(collectionFileNameResp ,true);
+	}
+  }
+%>

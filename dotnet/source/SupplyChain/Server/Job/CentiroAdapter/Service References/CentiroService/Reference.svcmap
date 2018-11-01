@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="ebe6d593-7432-4564-9871-50c67e754d01" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>false</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="https://test.centiro.com/Universe.Services/Adapted/CDC/1/1/CDCInterface.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="CDCInterface.xsd" MetadataType="Schema" ID="6dda01f2-4491-4e3e-b6a1-f9e93a298de9" SourceId="1" SourceUrl="http://test.centiro.com/Universe.Services/Adapted/CDC/1/1/CDCInterface.svc?xsd=xsd0" />
+    <MetadataFile FileName="CDCInterface.wsdl" MetadataType="Wsdl" ID="284a6e1d-11a3-46e1-8f16-d1949a743505" SourceId="1" SourceUrl="http://test.centiro.com/Universe.Services/Adapted/CDC/1/1/CDCInterface.svc?wsdl=wsdl0" />
+    <MetadataFile FileName="CDCInterface1.xsd" MetadataType="Schema" ID="7ebb3cc3-2f1a-49ea-a5f7-58dbfd11b793" SourceId="1" SourceUrl="http://test.centiro.com/Universe.Services/Adapted/CDC/1/1/CDCInterface.svc?xsd=xsd1" />
+    <MetadataFile FileName="CDCInterface2.xsd" MetadataType="Schema" ID="d6847b7a-b052-4e17-8dac-77f079e58bbc" SourceId="1" SourceUrl="http://test.centiro.com/Universe.Services/Adapted/CDC/1/1/CDCInterface.svc?xsd=xsd2" />
+    <MetadataFile FileName="CDCInterface1.wsdl" MetadataType="Wsdl" ID="cae4d635-cb45-4f84-b09d-8440ad28ac5e" SourceId="1" SourceUrl="http://test.centiro.com/Universe.Services/Adapted/CDC/1/1/CDCInterface.svc?wsdl" />
+    <MetadataFile FileName="CDCInterface.disco" MetadataType="Disco" ID="793a16f7-1d08-4551-b0ac-eeb5b61af5bd" SourceId="1" SourceUrl="http://test.centiro.com/Universe.Services/Adapted/CDC/1/1/CDCInterface.svc?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

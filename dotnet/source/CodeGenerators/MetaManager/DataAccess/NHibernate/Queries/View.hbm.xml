@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<query name="View.FindAll">
+		<![CDATA[
+     select  a
+       from  View a,
+             BusinessEntity be
+       where be.Application.Id = :applicationId
+       and   a.BusinessEntity.Id = be.Id
+    ]]>
+	</query>
+	<query name="View.FindByEntityAndName">
+		<![CDATA[
+     from  View a
+     where a.Name like :viewName
+     and   a.BusinessEntity.Name like :entityName
+     and   a.Application.Id = :applicationId
+    ]]>
+	</query>
+	<query name="View.FindAllUniqueCustomDLLNames">
+		<![CDATA[
+     select distinct a.CustomDLLName
+     from  View a
+     where a.Application.Id = :applicationId
+    ]]>
+	</query>
+	<query name="View.FindView">
+		<![CDATA[
+     from  View a
+     where a.Name like :viewName
+     and   a.BusinessEntity.Name like :entityName
+     and   a.Title like :title
+     and   a.Application.Id = :applicationId
+    ]]>
+	</query>
+	<query name="View.FindViewCustom">
+		<![CDATA[
+     from  View a
+     where a.Name like :viewName
+     and   a.BusinessEntity.Name like :entityName
+     and   a.Title like :title
+     and   a.Application.Id = :applicationId
+     and   a.Type = 1
+    ]]>
+	</query>
+	<query name="View.FindViewOverviews">
+		<![CDATA[
+     from  View a
+     where a.Name like :viewName
+     and   a.BusinessEntity.Name like :entityName
+     and   a.Title like :title
+     and   a.Application.Id = :applicationId
+     and   exists
+           (
+              select  1
+                from  Dialog d
+                where d.InterfaceView.Id = a.Id
+                and   d.Type = :dialogType
+           )
+    ]]>
+	</query>
+	<query name="View.FindByPropertyMapId">
+		<![CDATA[
+       from  View v
+       where v.RequestMap.Id  = :propertyMapId
+       or    v.ResponseMap.Id = :propertyMapId
+    ]]>
+	</query>
+	<query name="View.FindAllByServiceMethodId">
+		<![CDATA[
+       from  View v
+       where v.ServiceMethod.Id = :serviceMethodId
+    ]]>
+	</query>
+	<query name="View.FindByBusinessEntityId">
+		<![CDATA[
+       from  View v
+       where v.BusinessEntity.Id = :businessEntityId
+    ]]>
+	</query>
+	<query name="View.FindByNameAndApplicationId">
+		<![CDATA[
+       from  View v
+       where v.Application.Id = :applicationId
+       and   v.Name                  = :viewName
+    ]]>
+	</query>
+	<query name="View.FindAllByApplication">
+		<![CDATA[
+		select  v
+       from  View v
+       where v.Application.Id = :applicationId
+    ]]>
+	</query>
+</hibernate-mapping>
+

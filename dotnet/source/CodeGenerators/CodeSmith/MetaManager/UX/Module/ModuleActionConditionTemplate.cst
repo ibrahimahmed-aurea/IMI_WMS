@@ -1,0 +1,159 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Assembly Name="System.Workflow.Activities" %>
+<%@ Assembly Name="System.Workflow.ComponentModel" %>
+<%@ Assembly Name="Cdc.CodeGeneration.Caching" %>
+<%@ Import Namespace="Cdc.CodeGeneration.Caching" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.IO" %>
+<%@ Import Namespace="System.Xml" %>
+<%@ Import Namespace="System.Text" %>
+<%@ Import Namespace="System.Workflow.Activities" %>
+<%@ Import Namespace="System.Workflow.ComponentModel.Serialization" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="action" Type="Cdc.MetaManager.DataAccess.Domain.UXAction" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="module" Type="Cdc.MetaManager.DataAccess.Domain.Module" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="moduleActionsDirectory" Type="String" Default="" Optional="false" Category="" Description="" %>
+<%
+	string actionConditionClassName = GetActionConditionClassName(action);
+	string actionsNamespace = GetActionsNamespace(module);
+	bool isMulti = IsMultiEnabled(action);
+	string actionParametersClassName = GetActionParametersClassName(action, isMulti, true);
+	string actionParametersClassNameBase = GetActionParametersClassName(action);
+	string userSessionName = GetUserSessionName(module.Application);
+	string userSessionNamespace = GetUserSessionNamespace(module.Application);
+	
+	WriteRuleXml();
+%>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Reflection;
+using Microsoft.Practices.CompositeUI;
+using Imi.Framework.UX;
+using Imi.Framework.UX.Services;
+using Imi.SupplyChain.UX;
+using Imi.SupplyChain.UX.Rules;
+using <%= userSessionNamespace %>;
+
+namespace <%=actionsNamespace%>
+{
+	public class <%=actionConditionClassName%> : IActionCondition
+    {
+<%			
+		if (action.RuleSet != null)
+		{
+%>
+		private RuleSetManager manager;
+<%
+		}
+%>		
+		public bool CanExecute(string action, WorkItem context, object caller, object target)
+		{
+			<%=actionParametersClassName%> actionParameters = target as <%=actionParametersClassName%>;
+<%			
+		if (action.RuleSet != null)
+		{
+			if(!isMulti)
+			{
+%>			
+			<%= userSessionName %> sessionService = context.Services.Get<<%= userSessionName %>>(true);
+			
+			ActionRuleContext<<%=actionParametersClassName%>, <%= userSessionName %>> ruleContext = new ActionRuleContext<<%=actionParametersClassName%>, <%= userSessionName %>>(actionParameters, sessionService);
+			
+			/* Load <%=action.Name%> rule */
+			if (manager == null)
+			{
+				manager = new RuleSetManager();
+				manager.Load(Assembly.GetExecutingAssembly().GetManifestResourceStream("<%=actionsNamespace%>.<%=action.Name%>.xml"));
+			}
+			
+			manager.Context = ruleContext;
+			
+			manager.Execute();
+			
+			return ruleContext.IsEnabled;
+<%
+			}
+			else
+			{
+%>			
+            if((actionParameters == null) || (actionParameters.Count == 0))
+            {
+                if (actionParameters == null)
+                {
+                    actionParameters = new List<<%= actionParametersClassNameBase %>>();
+                }
+
+                actionParameters.Add(new <%= actionParametersClassNameBase %>() { IsItemSelected = false });
+            }
+
+			<%= userSessionName %> sessionService = context.Services.Get<<%= userSessionName %>>(true);
+			
+			/* Load <%=action.Name%> rule */
+			if (manager == null)
+			{
+				manager = new RuleSetManager();
+				manager.Load(Assembly.GetExecutingAssembly().GetManifestResourceStream("<%=actionsNamespace%>.<%=action.Name%>.xml"));
+			}
+			
+            foreach (<%= actionParametersClassNameBase %> parameters in actionParameters)
+            {
+                ActionRuleContext<<%=actionParametersClassNameBase %>, <%= userSessionName %>> ruleContext = new ActionRuleContext<<%=actionParametersClassNameBase %>, <%= userSessionName %>>(parameters, sessionService);
+
+                manager.Context = ruleContext;
+
+                manager.Execute();
+
+                if (!ruleContext.IsEnabled)
+                    return false;
+            }
+			
+			return true;			
+<%			}
+		}
+		else
+		{
+%>
+			
+			return true;
+<%
+		}
+%>
+		}
+	}
+}
+<script runat="template">
+
+	public void WriteRuleXml()
+	{
+		if (action.RuleSet != null)
+		{
+			string filename = Path.Combine(moduleActionsDirectory, string.Format("{0}.xml", action.Name));
+			StringWriter strWriter = new StringWriter();
+			
+			XmlWriter writer = XmlWriter.Create(strWriter, new XmlWriterSettings() { Encoding = Encoding.UTF8, OmitXmlDeclaration = true });
+
+			try
+			{
+				WorkflowMarkupSerializer serializer = new WorkflowMarkupSerializer();
+            	serializer.Serialize(writer, action.RuleSet);
+				string content = strWriter.ToString();
+				FileCacheManager.WriteFile(filename, content, FileMode.Create, Encoding.UTF8);				
+			}
+			finally
+			{
+				writer.Close();
+			}
+		}
+	}
+	
+</script>

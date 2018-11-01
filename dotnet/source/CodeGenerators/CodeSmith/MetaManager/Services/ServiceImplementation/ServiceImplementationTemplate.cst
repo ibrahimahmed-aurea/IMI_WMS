@@ -1,0 +1,37 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="ServiceTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Register Name="ServiceImplementationServiceTemplate" Template="ServiceImplementationServiceTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="ServiceImplementationAdapterTemplate" Template="ServiceImplementationAdapterTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="ServiceImplementationTranslatorTemplate" Template="ServiceImplementationTranslatorTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Property Name="service" Type="Cdc.MetaManager.DataAccess.Domain.Service" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="serviceImplementationDirectory" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%
+  ServiceImplementationTranslatorTemplate translatorTemplate = this.Create<ServiceImplementationTranslatorTemplate>();
+
+  foreach(ServiceMethod serviceMethod in service.ServiceMethods) 
+  {
+	string fileName = string.Format(@"{0}\Translators\{1}Translator.cs", serviceImplementationDirectory, serviceMethod.Name);
+	translatorTemplate.SetProperty("service", service);
+	translatorTemplate.SetProperty("serviceMethod", serviceMethod);
+	translatorTemplate.RenderToFile(fileName, true);
+  }
+
+  string serviceFileName = string.Format(@"{0}\{1}.cs", serviceImplementationDirectory, GetServiceImplementationClassName(service));
+  ServiceImplementationServiceTemplate serviceImplementationServiceTemplate = this.Create<ServiceImplementationServiceTemplate>();
+  serviceImplementationServiceTemplate.SetProperty("service", service);
+  serviceImplementationServiceTemplate.RenderToFile(serviceFileName, true);
+
+  string serviceAdapterFileName = string.Format(@"{0}\{1}Adapter.cs", serviceImplementationDirectory, GetServiceImplementationClassName(service));
+  ServiceImplementationAdapterTemplate serviceImplementationAdapterTemplate = this.Create<ServiceImplementationAdapterTemplate>();
+  serviceImplementationAdapterTemplate.SetProperty("service", service);
+  serviceImplementationAdapterTemplate.RenderToFile(serviceAdapterFileName, true);
+
+%>

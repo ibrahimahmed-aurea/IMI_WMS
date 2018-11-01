@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+
+	<query name="MappedProperty.FindSourcesById">
+		<![CDATA[
+     select p
+     from MappedProperty p 
+    where p.MapProperty.Id = :mappedPropertyId
+    or p.TargetMappedProperty.Id = :mappedPropertyId
+    ]]>
+	</query>
+
+	<query name="MappedProperty.FindByQueryPropertyId">
+		<![CDATA[
+     select p
+     from MappedProperty p 
+    where p.QueryProperty.Id = :queryPropertyId
+    ]]>
+	</query>
+
+	<query name="MappedProperty.FindAllDisplayFormatsUsed">
+		<![CDATA[
+     select mp.DisplayFormat
+     from   MappedProperty mp
+     where  mp.DisplayFormat is not null
+     and    mp.DisplayFormat != ''
+     and    mp.TargetProperty.TypeName like :displayFormatDataType
+     group by mp.DisplayFormat
+    ]]>
+	</query>
+
+	<query name="MappedProperty.FindByProcedurePropertyId">
+		<![CDATA[
+     select p
+     from MappedProperty p 
+    where p.ProcedureProperty.Id = :procedurePropertyId
+    ]]>
+	</query>
+
+	<query name="MappedProperty.FindByPropertyId">
+		<![CDATA[
+     select p
+     from   MappedProperty p 
+     where  p.TargetProperty.Id = :propertyId
+    ]]>
+	</query>
+
+	<query name="MappedProperty.FindOwnerView">
+		<![CDATA[
+     select v
+     from View v
+    where v.RequestMap.Id = :propertyMapId
+    or v.ResponseMap.Id = :propertyMapId
+    ]]>
+	</query>
+
+	<query name="MappedProperty.FindOwnerViewNode">
+		<![CDATA[
+     select v
+     from ViewNode v
+    where v.ViewMap.Id = :propertyMapId
+    ]]>
+	</query>
+
+	<query name="MappedProperty.FindOwnerViewAction">
+		<![CDATA[
+     select v
+     from ViewAction v
+    where v.ViewToActionMap.Id = :propertyMapId
+    ]]>
+	</query>
+
+	<query name="MappedProperty.FindOwnerAction">
+		<![CDATA[
+     select a
+     from Action a
+    where a.RequestMap.Id = :propertyMapId
+    or a.ResponseMap.Id = :propertyMapId
+    ]]>
+	</query>
+
+	<query name="MappedProperty.FindOwnerServiceMethod">
+		<![CDATA[
+     select s
+     from ServiceMethod s
+    where s.RequestMap.Id = :propertyMapId
+    or s.ResponseMap.Id = :propertyMapId
+    ]]>
+	</query>
+
+	<query name="MappedProperty.FindOwnerUXAction">
+		<![CDATA[
+     select u
+     from UXAction u
+    where u.RequestMap.Id = :propertyMapId
+    ]]>
+	</query>
+
+	<query name="MappedProperty.FindOwnerDataSource">
+		<![CDATA[
+     select d
+     from DataSource d
+    where d.RequestMap.Id = :propertyMapId
+    or d.ResponseMap.Id = :propertyMapId
+    ]]>
+	</query>
+
+	<query name="MappedProperty.FindOwnerVisualTree">
+		<![CDATA[
+     select v
+     from View v
+    where v.VisualTreeXml like :propertyMapId
+    ]]>
+	</query>
+
+</hibernate-mapping>

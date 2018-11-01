@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+
+  <!-- Referenced by main application context configuration file -->
+
+  <description>
+    The service layer definitions
+  </description>
+
+  <!-- Property placeholder configurer for database settings -->
+  <!--<object id="ApplicationService" type="Imi.MetaManager.BusinessLogic.ApplicationService, Imi.MetaManager.BusinessLogic">
+    <property name="UXApplicationDao" ref="UXApplicationDao"/>
+    <property name="ApplicationDao" ref="ApplicationDao"/>
+    <property name="SchemaDao" ref="SchemaDao"/>
+    <property name="PackageDao" ref="PackageDao"/>
+    <property name="ViewComponentDao" ref="ViewComponentDao"/>
+    <property name="ActionDao" ref="ActionDao"/>
+    <property name="PropertyMapDao" ref="PropertyMapDao"/>
+    <property name="MappedPropertyDao" ref="MappedPropertyDao"/>
+    <property name="ServiceDao" ref="ServiceDao"/>
+    <property name="UXSessionDao" ref="UXSessionDao"/>
+    <property name="ServiceMethodDao" ref="ServiceMethodDao"/>
+    <property name="QueryDao" ref="QueryDao"/>
+    <property name="StoredProcedureDao" ref="StoredProcedureDao"/>
+    <property name="StoredProcedurePropertyDao" ref="StoredProcedurePropertyDao"/>
+    <property name="DeploymentGroupDao" ref="DeploymentGroupDao"/>
+    <property name="PropertyDao" ref="PropertyDao"/>
+  </object>-->
+
+
+  <import resource="assembly://Imi.SupplyChain.Settings.DataAccess.Config/Imi.SupplyChain.Settings.DataAccess.Config/DeclarativeServicesAttributeDriven.xml"/>
+
+</objects>

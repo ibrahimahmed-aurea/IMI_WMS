@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="No reference to businessobject is needed or have one master object *for global">
+    <Position X="0.5" Y="5.135" Height="1.052" Width="1.596" />
+  </Comment>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.Property">
+    <Position X="6" Y="1.5" Width="1.5" />
+    <AssociationLine Name="Hint" Type="Cdc.MetaManager.DataAccess.Domain.PropertyHint">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.196" Y="-0.41" Height="0.182" Width="0.701" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Codes" Type="Cdc.MetaManager.DataAccess.Domain.PropertyCode">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.133" Y="0.099" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="CaptionVariations" Type="Cdc.MetaManager.DataAccess.Domain.PropertyCaption" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6" Y="5.625" />
+        <Point X="5" Y="5.625" />
+        <Point X="5" Y="5.625" />
+        <Point X="4" Y="5.625" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.266" Y="0.101" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="StorageInfo" Type="Cdc.MetaManager.DataAccess.Domain.PropertyStorageInfo">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.641" Y="0.091" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAIAABIiAAAEAQAgAAUAAAABCBYAAQAGABIAAAA=</HashCode>
+      <FileName>Domain\Property.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Hint" />
+      <Property Name="StorageInfo" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Codes" />
+      <Property Name="CaptionVariations" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.PropertyCaption">
+    <Position X="2.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAQAAAAAAAAAEAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Domain\PropertyCaption.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.PropertyHint">
+    <Position X="6" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Domain\PropertyHint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.PropertyCode">
+    <Position X="9.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAgAQAAAAA=</HashCode>
+      <FileName>Domain\PropertyCode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cdc.MetaManager.DataAccess.Domain.PropertyStorageInfo">
+    <Position X="1.75" Y="2" Width="2" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAQAAAAAAEAAJAAABEAAAAAAAAAAAAAQAAEAA=</HashCode>
+      <FileName>Domain\PropertyStorageInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,521 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DomainTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Assembly Name="Cdc.CodeGeneration.Caching" %>
+<%@ Import Namespace="Cdc.CodeGeneration.Caching" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.IO" %>
+<%@ Import Namespace="System.Text" %>
+<%@ Import Namespace="System.Text.RegularExpressions" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="entity" Type="Cdc.MetaManager.DataAccess.Domain.BusinessEntity" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="dataAccessDirectory" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%
+	string schemaName = "";
+	
+	if (entity.Actions.Count > 0)
+	{
+		Cdc.MetaManager.DataAccess.Domain.Action a = entity.Actions[0];
+		
+		if (a.MappedToObject is StoredProcedure)
+			schemaName = (a.MappedToObject as StoredProcedure).Package.Schema.Name;
+		else	
+			schemaName = (a.MappedToObject as Query).Schema.Name;
+	}
+%>
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Data;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using Oracle.DataAccess.Client;
+using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
+using Microsoft.Practices.Unity.InterceptionExtension;
+using Microsoft.IdentityModel.Claims;
+using Imi.Framework.DataAccess;
+using <%=GetEntitiesNamespace(entity)%>;
+
+namespace <%=GetIbatisNamespace(entity)%>
+{
+    [Tag("<%=schemaName%>")]
+	public class <%=entity.Name%>Dao : DataAccessObject, I<%=entity.Name%>Dao
+    {
+		public <%=entity.Name%>Dao(string connectionString)
+			: base(connectionString)
+		{
+		}
+<%        
+	foreach (Cdc.MetaManager.DataAccess.Domain.Action action in entity.Actions)
+  	{
+		bool isCollection = action.ResponseMap.IsCollection;
+		bool isRefCursor = ((action.MappedToObject.ObjectType == ActionMapTarget.StoredProcedure) && 
+		                    (((StoredProcedure)action.MappedToObject).IsReturningRefCursor == true));
+				
+		string resultClassName  = GetEntityClassName(action, false);
+		string parametersClassName  = GetEntityClassName(action, true);
+		string actionName = action.Name;
+						
+		bool isQuery = false;
+			
+		if (action.MappedToObject is Query)
+		{
+			isQuery = true;
+			WriteQuery(action);
+		}
+
+		if (isQuery)
+		{
+%>
+		public void <%=actionName%>(DataPartitioningContainer partitioningContainer, bool doCount = false)
+		{
+			<%=parametersClassName%> parameters = (<%=parametersClassName%>)partitioningContainer.SearchParameters;
+
+			try
+			{
+				using (TransactionScope scope = new TransactionScope())
+				{
+					using (IDbConnection connection = new DbConnection(ConnectionString))
+					{
+						connection.Open();
+						
+						using (IDbCommand command = connection.CreateCommand())
+						{
+							command.CommandText = StatementCache.Instance.GetCachedStatement("<%=GetIbatisNamespace(entity)%>.Queries.<%=actionName%>.sql");
+
+							if (doCount)
+							{
+								command.CommandText = string.Format("select count(1) TOTALCOUNT from\n({0})", command.CommandText);
+							}
+							else 
+                            {
+                                string sortString = <%=actionName%>Translator.GetSortExpression(partitioningContainer.SortParameters);
+
+                                if (!string.IsNullOrEmpty(sortString))
+                                {
+                                    command.CommandText = string.Format("select * from\n({0})\norder by {1}", command.CommandText, sortString);
+                                }
+                            }
+	
+							((OracleCommand)command).BindByName = true;
+							
+							foreach (IDbDataParameter parameter in <%=actionName%>Translator.TranslateParameters(parameters))
+								command.Parameters.Add(parameter);
+							
+							LogDbCommand(command);
+							
+							command.Prepare();
+	
+							using (IDataReader reader = command.ExecuteReader())
+							{						
+								if (((OracleCommand)command).RowSize > 0)
+								{
+									((OracleDataReader)reader).FetchSize = ((OracleCommand)command).RowSize * 1000;
+								}
+								else
+								{
+									((OracleDataReader)reader).FetchSize = 1048576;
+								}
+
+								if (doCount)
+								{
+									if (reader.Read())
+									{
+										if (!reader.IsDBNull(0))
+										{
+											partitioningContainer.TotalDataRowsCount = DbTypeConvertor.Convert<int>(reader.GetValue(0));
+										}
+										else
+										{
+											partitioningContainer.TotalDataRowsCount = 0;
+										}
+									}
+									else
+									{
+										partitioningContainer.TotalDataRowsCount = 0;
+									}
+								}
+								else
+								{
+									<%=action.Name%>Translator.TranslateResultSet(reader, partitioningContainer);
+								}
+
+							}
+						}
+					}
+					
+					scope.Complete();
+				}
+			}
+			catch (Exception ex)
+            {
+                Exception exceptionToThrow;
+
+                if (ExceptionPolicy.HandleException(ex, "DataAccessLayerPolicy", out exceptionToThrow))
+				{
+					if(exceptionToThrow == null)
+						throw;
+					else
+						throw exceptionToThrow;
+				}
+            }
+		}
+<%
+		}
+		else 
+		{
+			// This is stored procedure
+			StoredProcedure procedure = action.MappedToObject as StoredProcedure;
+			bool refCursorHasAlarm = false;
+			string resultBaseClassName = GetEntityClassName(action, false);
+
+			if (isRefCursor)
+			{
+				foreach (MappedProperty property in action.ResponseMap.MappedProperties)
+				{
+					if (property.Name == "AlarmId")
+					{
+						refCursorHasAlarm = true;
+					}
+				}
+			}
+			
+			if (isRefCursor)
+			{
+%>
+		public void <%=actionName%>(DataPartitioningContainer partitioningContainer)
+		{
+			<%=parametersClassName%> parameters = (<%=parametersClassName%>)partitioningContainer.SearchParameters;
+<%
+			}
+			else
+			{
+%>
+		public <%=resultClassName%> <%=actionName%>(<%=parametersClassName%> parameters)
+		{
+			<%=resultClassName%> result = null;
+<%
+			}
+%>
+			
+			try
+			{
+				using (TransactionScope scope = new TransactionScope())
+				{
+					using (IDbConnection connection = new DbConnection(ConnectionString))
+					{
+						connection.Open();
+							
+<%
+						if (!isRefCursor)
+						{
+%>
+						//This using section is for setting proid to the client user for the session.
+						using (IDbCommand command = connection.CreateCommand())
+                        {
+                            IClaimsIdentity identity = (IClaimsIdentity)System.Threading.Thread.CurrentPrincipal.Identity;
+                            string upn = identity.Claims.FindAll(c => { return c.ClaimType == ClaimTypes.Upn; }).First().Value;
+
+                            if (upn.Length > 35)
+                            {
+                                upn = upn.Split('@')[0];
+                                if (upn.Length > 35) { upn = upn.Substring(0, 35); }
+                            }
+
+                            command.CommandText = "process.Id_Write";
+                            ((OracleCommand)command).BindByName = true;
+
+                            IDbDataParameter dbParameter;
+
+                            dbParameter = new OracleParameter();
+                            dbParameter.ParameterName = "ID_I";
+                            dbParameter.DbType = DbTypeConvertor.ConvertToDbType(typeof(string));
+                            dbParameter.Direction = ParameterDirection.Input;
+                            dbParameter.Value = upn;
+
+                            command.Parameters.Add(dbParameter);
+
+                            LogDbCommand(command);
+
+                            command.Prepare();
+                            command.CommandType = CommandType.StoredProcedure;
+                            command.ExecuteNonQuery();
+                        }
+
+<%
+						}
+%>											
+						using (IDbCommand command = connection.CreateCommand())
+						{
+							command.CommandText = "<%=procedure.Package.Name%>.<%=procedure.ProcedureName%>";
+	
+							((OracleCommand)command).BindByName = true;
+							
+							foreach (IDbDataParameter parameter in <%=actionName%>Translator.TranslateParameters(parameters))
+								command.Parameters.Add(parameter);
+							
+							LogDbCommand(command);
+							
+							command.Prepare();
+							command.CommandType = CommandType.StoredProcedure;
+<%
+						if (isRefCursor)
+						{
+%>
+							bool readCursor = true;
+
+							
+								using (IDataReader reader = command.ExecuteReader())
+								{	
+<%
+							if (refCursorHasAlarm)
+							{
+%>
+									object alarmdata;
+									alarmdata = ((IDbDataParameter)command.Parameters["ALMID_O"]).Value;
+            						
+									if (alarmdata != DBNull.Value)
+									{
+										
+										List<<%=resultBaseClassName%>> alarmResult = new List<<%=resultBaseClassName%>>();
+										alarmResult.Add(new <%=resultBaseClassName%>());
+										alarmResult[0].AlarmId = DbTypeConvertor.Convert<string>(alarmdata);
+										partitioningContainer.PushPartition(alarmResult, true);
+										readCursor = false;
+									}
+<%
+							}
+%>
+									if (readCursor)
+									{				
+										if (((OracleCommand)command).RowSize > 0)
+										{
+											((OracleDataReader)reader).FetchSize = ((OracleCommand)command).RowSize * 1000;
+										}
+										else
+										{
+											((OracleDataReader)reader).FetchSize = 1048576;
+										}
+																				
+										<%=action.Name%>Translator.TranslateResultSet(reader, partitioningContainer);
+									}
+								}
+<%
+						}
+						else
+						{
+%>
+							command.ExecuteNonQuery();
+							result = <%=action.Name%>Translator.TranslateResult(command.Parameters);
+<%
+						}
+%>
+						}
+					}
+				
+<%
+					if (!isRefCursor || 
+						(isRefCursor && ((action.IsRefCursorCommit ?? false) == true)))
+					{
+%>
+					scope.Complete();
+<%
+					}
+%>
+				}
+			}
+			catch (Exception ex)
+            {
+                Exception exceptionToThrow;
+
+                if (ExceptionPolicy.HandleException(ex, "DataAccessLayerPolicy", out exceptionToThrow))
+                {
+                    if (exceptionToThrow == null)
+                    {
+                        throw;
+                    }
+                    else if (exceptionToThrow is CheckConstraintException)
+                    {
+                        CheckConstraintException checkConstraintException = (CheckConstraintException)exceptionToThrow;
+                        checkConstraintException.PropertyName = <%=action.Name%>Translator.GetPropertyName(checkConstraintException.TableName, checkConstraintException.ColumnName);
+                    }
+                                                    
+                    throw exceptionToThrow;
+                }
+            }
+<%
+					if (!isRefCursor)
+					{
+%>
+			return result;	
+<%
+					}
+%>
+		}
+		
+<%
+        }
+		
+		if ((!string.IsNullOrEmpty(action.RowTrackingId)) && isQuery)
+		{
+%>		
+		public void <%=actionName%>ByRowIdentity(DataPartitioningContainer partitioningContainer)
+		{
+			<%=parametersClassName%> parameters = (<%=parametersClassName%>)partitioningContainer.SearchParameters;
+			
+			try
+			{
+				using (TransactionScope scope = new TransactionScope())
+				{
+					using (IDbConnection connection = new DbConnection(ConnectionString))
+					{
+						connection.Open();
+						
+						using (IDbCommand command = connection.CreateCommand())
+						{
+							command.CommandText = StatementCache.Instance.GetCachedStatement("<%=GetIbatisNamespace(entity)%>.Queries.<%=actionName%>ByRowIdentity.sql");
+							((OracleCommand)command).BindByName = true;
+					
+							foreach (IDbDataParameter parameter in <%=actionName%>Translator.TranslateParameters(parameters))
+								command.Parameters.Add(parameter);
+							
+							string rowIds = string.Join(";", parameters.RowIdentities) + ";";
+
+							IDbDataParameter dbParameter = new OracleParameter();
+							dbParameter.ParameterName = "RowIdentity";
+							dbParameter.DbType = DbType.String;
+							dbParameter.Direction = ParameterDirection.Input;
+							dbParameter.Value = rowIds;
+							command.Parameters.Add(dbParameter);
+							
+							LogDbCommand(command);
+							
+							command.Prepare();
+	
+							using (IDataReader reader = command.ExecuteReader())
+							{
+								<%=action.Name%>Translator.TranslateResultSet(reader, partitioningContainer);
+							}
+						}
+					}
+	
+					scope.Complete();
+				}
+			}
+			catch (Exception ex)
+            {
+                Exception exceptionToThrow;
+
+                if (ExceptionPolicy.HandleException(ex, "DataAccessLayerPolicy", out exceptionToThrow))
+				{
+					if(exceptionToThrow == null)
+						throw;
+					else
+						throw exceptionToThrow;
+				}
+            }
+		}
+<%	
+		}
+	}
+%>
+	}
+}
+
+<script runat="template">
+
+	public void WriteQuery(Cdc.MetaManager.DataAccess.Domain.Action action)
+	{
+		string filename = null;
+		
+		Query query = action.MappedToObject as Query;
+		
+		Directory.CreateDirectory(string.Format(@"{0}\Queries", dataAccessDirectory));
+				
+		string statement = query.SqlStatement.TrimEnd();
+		filename = string.Format(@"{0}\Queries\{1}.sql", dataAccessDirectory, action.Name);
+		
+		// Handle RowIdentity
+		if (!string.IsNullOrEmpty(action.RowTrackingId))
+		{
+			statement = InjectRowIdentity(statement, action.RowTrackingId);
+			
+			FileCacheManager.WriteFile(filename, statement, FileMode.Create, Encoding.UTF8);				
+			
+			statement = string.Format("select * from\n({0})\nwhere RowIdentity in (SELECT chartorowid(REGEXP_SUBSTR (:RowIdentity, '[^;]+', 1, LEVEL))\nFROM dual\nCONNECT BY LEVEL <= LENGTH(regexp_replace(:RowIdentity,'[^;]+'))+1)", statement);
+			
+			filename = string.Format(@"{0}\Queries\{1}ByRowIdentity.sql", dataAccessDirectory, action.Name);
+			
+			FileCacheManager.WriteFile(filename, statement, FileMode.Create, Encoding.UTF8);				
+		}
+		else
+		{
+			FileCacheManager.WriteFile(filename, statement, FileMode.Create, Encoding.UTF8);				
+		}
+	}
+  
+	private string InjectRowIdentity(string sqlStatement, string marker)
+	{
+		sqlStatement = sqlStatement.Replace("\t"," ");
+		string[] tableNames = marker.Split(new char[] {','});
+		string tableName;
+		int tableNameIdx = 0;
+		int pos = NextSelectInsertPosition(sqlStatement, 0);
+
+      	while (pos != -1)
+      	{
+          	if (tableNameIdx < tableNames.Length)
+            	tableName = tableNames[tableNameIdx++];
+          	else
+            	tableName = tableNames[0];
+
+          	string insertString = string.Format(" {0}.ROWID RowIdentity,", tableName);
+          	sqlStatement = sqlStatement.Insert(pos, insertString);
+
+          	pos = NextSearchPosition(sqlStatement, pos);
+
+          	if (pos != -1)
+          	{
+            	pos = NextSelectInsertPosition(sqlStatement, pos);
+          	}
+      	}
+
+  	 	 return sqlStatement;
+    }
+
+    private static int NextSelectInsertPosition(string sqlStatement, int pos)
+    {
+        Regex rex = new Regex(@"(SELECT)\b");
+
+        MatchCollection matches = rex.Matches(sqlStatement.ToUpper(), pos);
+
+        if (matches.Count > 0)
+        {
+            Match m = matches[0];
+            return (m.Captures[0].Index + m.Captures[0].Length + 1);
+        }
+        else
+            return -1;
+    }
+
+    private static int NextSearchPosition(string sqlStatement, int pos)
+    {
+        Regex rex = new Regex(@"(UNION|INTERSECT|MINUS)\b");
+
+        MatchCollection matches = rex.Matches(sqlStatement.ToUpper(), pos);
+
+        if (matches.Count > 0)
+        {
+            Match m = matches[0];
+            return (m.Captures[0].Index + m.Captures[0].Length);
+        }
+        else
+            return -1;
+    }
+</script>

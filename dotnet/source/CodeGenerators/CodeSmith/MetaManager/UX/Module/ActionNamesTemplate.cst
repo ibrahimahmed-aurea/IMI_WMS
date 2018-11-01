@@ -1,0 +1,48 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="False" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="module" Type="Cdc.MetaManager.DataAccess.Domain.Module" Default="" Optional="false" Category="" Description="" %>
+<%
+    string actionsNamespace = GetActionsNamespace(module);
+	string moduleNamespace = GetModuleNamespace(module);
+	IList<UXAction> actionList = new List<UXAction>();
+%>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace <%= actionsNamespace %>
+{
+    public class ActionNames
+    {
+	<%
+	foreach (Dialog dialog in module.Dialogs)
+	{
+		foreach (ViewNode viewNode in dialog.ViewNodes)
+		{
+			foreach (ViewAction viewAction in viewNode.ViewActions)
+			{
+				if (!actionList.Contains(viewAction.Action))
+				{
+					actionList.Add(viewAction.Action);
+
+					string actionId = string.Format("action://{0}/{1}", moduleNamespace, viewAction.Action.Name);
+
+	%>
+		public const string <%= viewAction.Action.Name %> = "<%= actionId %>";
+	<%	
+				}
+			}
+		}
+	}
+	%>
+    }
+}

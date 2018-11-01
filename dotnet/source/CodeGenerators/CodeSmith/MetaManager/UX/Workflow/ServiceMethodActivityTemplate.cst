@@ -1,0 +1,276 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text"  Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="false" Description="Template description here." %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Property Name="workflowServiceMethod" Type="Cdc.MetaManager.DataAccess.Domain.WorkflowServiceMethod" Default="" Optional="false" Category="" Description="" OnChanged="" Editor="" EditorBase="" Serializer="" %>
+<%@ Property Name="isDesignTime" Type="System.Boolean" Default="false" Optional="false" Category="" Description="" OnChanged="" Editor="" EditorBase="" Serializer="" %>
+<%
+	string activityClassName = GetServiceMethodActivityClassName(workflowServiceMethod.ServiceMethod);
+	ServiceMethod serviceMethod = workflowServiceMethod.ServiceMethod;
+	
+	string serviceClassName = GetServiceImplementationClassName(serviceMethod.Service);
+	string serviceInterfaceName = GetServiceImplementationInterfaceName(serviceMethod.Service);
+	string serviceParametersClassName = GetServiceContractParamType(serviceMethod, true, false);
+	string serviceParametersClassNameBase = GetServiceContractParamType(serviceMethod, true, false);
+	string serviceResultsClassName = GetServiceContractParamType(serviceMethod, false, serviceMethod.ResponseMap.IsCollection);
+	string serviceContractRequestClassName = GetServiceContractClassName(serviceMethod, true);
+	string serviceContractResponseClassName = GetServiceContractClassName(serviceMethod, false);
+	string serviceInterfaceNamespace = GetFrontendServiceContractNamespace(workflowServiceMethod.Workflow.Module.Application, serviceMethod.Service);
+	string dataContractNamespace = GetFrontendDataContractNamespace(workflowServiceMethod.Workflow.Module.Application, serviceMethod.Service);
+	
+	bool isMessageHandlingEnabled = IsMessageHandlingEnabled(workflowServiceMethod.ServiceMethod);
+	
+%>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.ComponentModel;
+using System.Reflection;
+using System.Threading;
+using System.Workflow.ComponentModel;
+using System.Workflow.ComponentModel.Compiler;
+using System.Workflow.Activities;
+<%
+if (!isDesignTime)
+{
+%>	
+using Microsoft.Practices.CompositeUI;
+using Microsoft.Practices.CompositeUI.Configuration;
+using Microsoft.Practices.CompositeUI.Services;
+using Imi.Framework.Services;
+using Imi.Framework.UX;
+using Imi.Framework.UX.Services;
+using Imi.SupplyChain.UX;
+using Imi.SupplyChain.UX.Infrastructure;
+using Imi.SupplyChain.UX.Infrastructure.Services;
+using Imi.SupplyChain.UX.Views;
+using System.ServiceModel;
+using <%=serviceInterfaceNamespace%>;
+using <%=dataContractNamespace%>;
+<%
+}
+else
+{
+%>
+using System.Workflow.ComponentModel.Design;
+using <%=GetWorkflowNamespace(workflowServiceMethod.Workflow)%>;
+<%
+}
+%>
+
+namespace <%=GetWorkflowNamespace(workflowServiceMethod.Workflow)%>.Activities
+{
+<%	
+if (isDesignTime)
+{
+%>		
+	[Designer(typeof(ServiceMethodActivityDesigner))]
+<%
+}
+%>
+	public class <%=GetServiceMethodActivityClassName(serviceMethod)%> : Activity 
+    {
+		public Guid ServiceMethodId
+        {
+            get { return (Guid)GetValue(ServiceMethodIdProperty); }
+            set { SetValue(ServiceMethodIdProperty, value); }
+        }
+                
+        public static readonly DependencyProperty ServiceMethodIdProperty =
+            DependencyProperty.Register("ServiceMethodId", typeof(Guid), typeof(<%=activityClassName%>), new PropertyMetadata(new Guid("<%=workflowServiceMethod.ServiceMethod.Id%>")));	
+		
+<%
+	foreach (MappedProperty property in serviceMethod.RequestMap.MappedProperties)
+	{
+		string typeName = GetShortTypeName(property.Type, true);
+		
+%>			
+		[Category("Request")]
+		public <%=typeName%> Request_<%=property.Name%>
+        {
+            get { return (<%=typeName%>)GetValue(Request_<%=property.Name%>Property); }
+            set { SetValue(Request_<%=property.Name%>Property, value); }
+        }
+                
+        public static readonly DependencyProperty Request_<%=property.Name%>Property =
+            DependencyProperty.Register("Request_<%=property.Name%>", typeof(<%=typeName%>), typeof(<%=activityClassName%>), new PropertyMetadata(null));
+			
+<%			
+	}
+
+	foreach (MappedProperty property in serviceMethod.ResponseMap.MappedProperties)
+	{
+		string typeName = GetShortTypeName(property.Type, true);
+		
+%>		
+		[Category("Response")]
+		public <%=typeName%> Response_<%=property.Name%>
+        {
+            get { return (<%=typeName%>)GetValue(Response_<%=property.Name%>Property); }
+            set { SetValue(Response_<%=property.Name%>Property, value); }
+        }
+                
+        public static readonly DependencyProperty Response_<%=property.Name%>Property =
+            DependencyProperty.Register("Response_<%=property.Name%>", typeof(<%=typeName%>), typeof(<%=activityClassName%>), new PropertyMetadata(null));
+			
+<%			
+	}
+		
+	if (!isDesignTime)
+	{
+%>
+		protected override ActivityExecutionStatus Execute(ActivityExecutionContext executionContext)
+        {
+			Exception exception = null;
+			
+			SynchronizationContext.Send(delegate(object data)
+			{
+				exception = ExecuteServiceMethod(null);
+				
+			}, null);
+			
+			if (exception != null)
+				throw exception;
+			
+			return base.Execute(executionContext);
+        }
+		
+		private Exception ExecuteServiceMethod(string messageXML)
+		{
+			IShellInteractionService shellInteractionService = WorkItem.Services.Get<IShellInteractionService>(true);
+			shellInteractionService.ShowProgress();
+				
+			try
+			{
+				IChannelFactoryService channelFactory = WorkItem.Services.Get<IChannelFactoryService>(true);
+
+				<%=serviceInterfaceName%> <%=ToCamelCase(serviceClassName)%> = channelFactory.CreateChannel(typeof(<%=serviceInterfaceName%>)) as <%=serviceInterfaceName%>;
+				
+				<%=serviceContractRequestClassName%> serviceRequest = new <%=serviceContractRequestClassName%>();
+				serviceRequest.<%=serviceParametersClassName%> = new <%=serviceParametersClassName%>();
+<%						
+			foreach (MappedProperty property in serviceMethod.RequestMap.MappedProperties)
+			{
+%>
+				serviceRequest.<%=serviceParametersClassName%>.<%=property.Name%> = Request_<%=property.Name%>;
+<%
+			}
+			
+			if (isMessageHandlingEnabled)
+			{
+%>
+				serviceRequest.<%=serviceParametersClassName%>.MessageXML = messageXML;
+<%
+			}
+%>
+					
+				<%= serviceContractResponseClassName %> serviceResponse = <%=ToCamelCase(serviceClassName)%>.<%=serviceMethod.Name%>(serviceRequest);
+					
+<%
+		
+			if (isMessageHandlingEnabled)
+			{
+%>
+				// Check for any informationmessages
+				if (!string.IsNullOrEmpty(serviceResponse.InformationXML))
+				{
+					IMessageHandlerBoxView informationMessageBoxView = WorkItem.SmartParts.AddNew<MessageHandlerBoxView>();
+					informationMessageBoxView.Show(serviceResponse.InformationXML);
+				}
+						
+<%
+			}
+				
+			string collectionIndex = "";
+			
+			if (serviceMethod.ResponseMap.IsCollection)
+			{
+				collectionIndex = "[0]";
+%>			
+				if ((serviceResponse.<%=serviceResultsClassName%> != null) && (serviceResponse.<%=serviceResultsClassName%>.Count > 0))
+				{
+<%			
+			}
+			else
+			{
+%>
+				if (serviceResponse.<%=serviceResultsClassName%> != null)
+				{
+<%						
+			}
+	
+			foreach (MappedProperty property in serviceMethod.ResponseMap.MappedProperties)
+			{
+%>
+					Response_<%=property.Name%> = serviceResponse.<%=serviceResultsClassName%><%=collectionIndex%>.<%=property.Name%>;
+<%
+			}
+%>				
+				}
+			}
+			catch (FaultException<MessageFault> ex)
+			{
+				shellInteractionService.HideProgress();	
+				
+				IMessageHandlerBoxView messageHandlerBoxView = WorkItem.SmartParts.AddNew<MessageHandlerBoxView>();
+
+            	if (messageHandlerBoxView.Show(ex.Detail.MessageXML) == MessageHandlerBoxResult.Yes)
+				{
+					return ExecuteServiceMethod(ex.Detail.MessageXML);
+				}					
+			}
+			catch (Exception ex)
+			{
+            	shellInteractionService.ShowMessageBox(StringResources.ActionException_Text, ex.Message, ex.ToString(), MessageBoxButton.Ok, MessageBoxImage.Error);
+                
+				return new WorkflowTerminatedException();
+			}
+			finally
+			{
+				shellInteractionService.HideProgress();	
+			}
+			
+			return null;
+		}
+		
+		private WorkItem WorkItem
+        {
+            get
+            {
+                Activity activity = this;
+
+                while (activity.Parent != null)
+                {
+                    activity = activity.Parent;    
+                }
+
+                PropertyInfo propertyInfo = activity.GetType().GetProperty("WorkItem");
+                return propertyInfo.GetValue(activity, null) as WorkItem;
+            }
+        }
+		
+		private SynchronizationContext SynchronizationContext
+        {
+            get
+            {
+                Activity activity = this;
+
+                while (activity.Parent != null)
+                {
+                    activity = activity.Parent;
+                }
+
+                PropertyInfo propertyInfo = activity.GetType().GetProperty("SynchronizationContext");
+                return propertyInfo.GetValue(activity, null) as SynchronizationContext;
+            }
+        }
+<%
+	}
+%>
+	}
+}

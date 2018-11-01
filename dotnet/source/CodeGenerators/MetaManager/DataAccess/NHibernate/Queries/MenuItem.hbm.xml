@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<query name="MenuItem.FindAll">
+		<![CDATA[
+		select mi
+     from  MenuItem mi
+     where mi.Menu.Application.Id = :applicationId
+    ]]>
+	</query>
+	<query name="MenuItem.FindAllByActionId">
+		<![CDATA[
+     from  MenuItem mi
+     where mi.Action.Id = :actionId
+    ]]>
+	</query>
+</hibernate-mapping>
+

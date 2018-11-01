@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2A6599D6-9DB6-4EB2-ABCD-A82050E9624A}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BuildDeploymentKit</RootNamespace>
+    <AssemblyName>BuildDeploymentKit</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="imi.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Product.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Framework\Versioning\Framework.Versioning.csproj">
+      <Project>{3536BFF6-DA06-4D96-A7D6-5146A235430B}</Project>
+      <Name>Framework.Versioning</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>$(TargetPath)
+call $(TargetDir)setversion.bat
+set Password=
+set CertificateFile=$(ProjectDir)imi.pfx
+set Mage=mage.exe
+set DeployDir=$(TargetDir)
+set FilesDir=%25DeployDir%25%25VersionNumber%25\
+set SourceDir=$(ProjectDir)..\SmartClient\$(OutDir)
+set TargetFileName=Imi.SupplyChain.UX.SmartClient.exe
+if not %25Password%25X == X set Password=-Password %25Password%25
+call "$(DevEnvDir)..\..\VC\vcvarsall.bat" x86
+rem -----------------------------------------------------------------------------
+echo SourceDir=%25SourceDir%25
+echo DeployDir=%25DeployDir%25
+echo FilesDir=%25FilesDir%25
+rem -----------------------------------------------------------------------------
+echo Creating folder structure...
+mkdir %25FilesDir%25
+rem -----------------------------------------------------------------------------
+echo Cleaning files...
+rmdir %25FilesDir%25 /s /q
+rem -----------------------------------------------------------------------------
+echo Copying files...
+xcopy %25SourceDir%25*.* %25FilesDir%25 /d /y /e /q
+xcopy $(ProjectDir)Product.xml %25DeployDir%25 /d /y /q
+if errorlevel 1 goto End
+rem -----------------------------------------------------------------------------
+echo Cleaning files...
+del %25FilesDir%25*.vshost.* /f /q
+if $(ConfigurationName) == Release del %25FilesDir%25*.pdb /f /q
+if errorlevel 1 goto End
+rem -----------------------------------------------------------------------------
+echo Creating msi content zip file...
+if exist %25DeployDir%25\SmartClient_msi.zip del %25DeployDir%25\SmartClient_msi.zip /f /q
+cd %25DeployDir%25%25VersionNumber%25
+$(SolutionDir)..\..\install\utility\zip -r -q -9 %25DeployDir%25\SmartClient_msi.zip .\*.*
+rem -----------------------------------------------------------------------------
+echo Creating manifest...
+%25Mage%25 -New Application -ToFile %25FilesDir%25%25TargetFileName%25.manifest -FromDirectory %25FilesDir%25 -Name "Imi.SupplyChain.UX.SmartClient" -Version %25VersionNumber%25 -UseManifestForTrust true -Publisher "Aptean" -p X86
+if errorlevel 1 goto End
+rem -----------------------------------------------------------------------------
+echo Signing manifest...
+mage -Sign %25FilesDir%25%25TargetFileName%25.manifest -CertFile %25CertificateFile%25 %25Password%25
+if errorlevel 1 goto End
+rem -----------------------------------------------------------------------------
+echo Renaming all files to .deploy...
+for /f "tokens=*" %25%25a in ('dir "%25FilesDir%25*.*" /A:-D /S /B') do ren "%25%25a" "%25%25~nxa.deploy"
+if errorlevel 1 goto End
+rem -----------------------------------------------------------------------------
+echo Renaming manifest...
+ren %25FilesDir%25%25TargetFileName%25.manifest.deploy %25TargetFileName%25.manifest
+rem -----------------------------------------------------------------------------
+echo Creating zip file...
+cd %25DeployDir%25
+if exist SmartClient_Latest.zip del SmartClient_Latest.zip /f /q
+$(SolutionDir)..\..\install\utility\zip -r -q -9 SmartClient_Latest.zip .\Product.xml .\%25VersionNumber%25
+echo Done.
+:End</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

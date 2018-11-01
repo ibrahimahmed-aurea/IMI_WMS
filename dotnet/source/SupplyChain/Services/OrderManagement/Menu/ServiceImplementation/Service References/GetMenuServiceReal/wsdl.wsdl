@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ocpns="http://webservices.im.se/ocp/context" xmlns:tns="http://webservices.im.se/ocp/GetMenu" xmlns:xs="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://webservices.im.se/ocp/GetMenu" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://webservices.im.se/ocp/GetMenu" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="GetMenu">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="unbounded" name="USER">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element minOccurs="1" maxOccurs="1" name="LoginId" type="xs:string" />
+                  <xs:element minOccurs="1" maxOccurs="1" name="Language" type="xs:string" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Response">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:choice minOccurs="1" maxOccurs="unbounded">
+              <xs:element minOccurs="1" maxOccurs="unbounded" name="Success">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="1" maxOccurs="1" name="RoutineId" type="xs:string" />
+                    <xs:element minOccurs="1" maxOccurs="1" name="Description" type="xs:string" />
+                    <xs:element minOccurs="1" maxOccurs="1" name="MenuLineType" type="xs:string" />
+                    <xs:element minOccurs="1" maxOccurs="1" name="MenuId" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="1" maxOccurs="unbounded" name="Failure">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="1" maxOccurs="1" name="ErrorText" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:choice>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ERR">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Unrecoverable error</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="value" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="VALERR">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Validation error</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:choice minOccurs="1" maxOccurs="unbounded">
+              <xs:element minOccurs="1" maxOccurs="unbounded" name="ROW">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="1" name="RowType" type="xs:string" />
+                    <xs:element minOccurs="0" maxOccurs="1" name="RowClass" type="xs:string" />
+                    <xs:element minOccurs="1" maxOccurs="1" name="RowNumber" type="xs:integer">
+                      <xs:annotation>
+                        <xs:documentation xml:lang="en">Row number in incoming OCP message</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="1" maxOccurs="1" name="ErrorText" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="1" maxOccurs="unbounded" name="ELEMENT">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="1" name="RowType" type="xs:string" />
+                    <xs:element minOccurs="0" maxOccurs="1" name="RowClass" type="xs:string" />
+                    <xs:element minOccurs="1" maxOccurs="1" name="RowNumber" type="xs:integer">
+                      <xs:annotation>
+                        <xs:documentation xml:lang="en">Row number in incoming OCP message</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="1" maxOccurs="1" name="ElementName" type="xs:string" />
+                    <xs:element minOccurs="0" maxOccurs="1" name="Value" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation xml:lang="en">Incoming value causing the error</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="1" maxOccurs="1" name="ErrorText" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:choice>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://webservices.im.se/ocp/context" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="OCPContext">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="MessageId" type="xs:string" />
+            <xs:element minOccurs="0" maxOccurs="1" name="UserId" type="xs:string" />
+            <xs:element minOccurs="0" maxOccurs="1" name="Password" type="xs:string" />
+            <xs:element minOccurs="0" maxOccurs="1" name="WebSystem" type="xs:string" />
+            <xs:element minOccurs="0" maxOccurs="1" name="UserType" type="xs:integer" />
+            <xs:element minOccurs="0" maxOccurs="1" name="UserRef" type="xs:string" />
+            <xs:element minOccurs="0" maxOccurs="1" name="Language" type="xs:string" />
+            <xs:element minOccurs="0" maxOccurs="1" name="Version" type="xs:integer" />
+            <xs:element minOccurs="0" maxOccurs="1" name="TimeZone" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </types>
+  <message name="GetMenu">
+    <part name="parameters" element="tns:GetMenu" />
+  </message>
+  <message name="GetMenuResponse">
+    <part name="parameters" element="tns:Response" />
+  </message>
+  <message name="OCPContext">
+    <part name="OCPContext" element="ocpns:OCPContext" />
+  </message>
+  <message name="ERR">
+    <part name="ERR" element="tns:ERR" />
+  </message>
+  <message name="VALERR">
+    <part name="VALERR" element="tns:VALERR" />
+  </message>
+  <portType name="GetMenuService">
+    <operation name="GetMenu">
+      <input message="tns:GetMenu" />
+      <output message="tns:GetMenuResponse" />
+    </operation>
+  </portType>
+  <binding name="GetMenuBinding" type="tns:GetMenuService">
+    <xs:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="GetMenu">
+      <xs:operation soapAction="genericOperation" />
+      <input>
+        <xs:body use="literal" />
+      </input>
+      <output>
+        <xs:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="GetMenuWebService">
+    <port name="GetMenuService" binding="tns:GetMenuBinding">
+      <xs:address location="http://ptv1.im.se:9080/csf-omswebservices/genericPort?service=GetMenu" />
+    </port>
+  </service>
+</definitions>

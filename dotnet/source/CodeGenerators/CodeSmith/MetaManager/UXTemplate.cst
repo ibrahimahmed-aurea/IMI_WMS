@@ -1,0 +1,1144 @@
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src=".\Library\Core.cst" Inherits="DialogTemplate" Debug="false" Description="Template description here." %>
+<%@ Assembly Name="System.Data" %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Assembly Name="Cdc.Framework.Parsing.CSharpParsing" %>
+<%@ Assembly Name="Cdc.CodeGeneration.Caching" %>
+<%@ Import Namespace="Cdc.CodeGeneration.Caching" %>
+<%@ Import Namespace="Cdc.Framework.Parsing.CSharpParsing" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain.VisualModel" %>
+<%@ Import Namespace="System.IO" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Text" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="System.Xml" %>
+<%@ Import Namespace="System.Diagnostics" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="Cdc.MetaManager.BusinessLogic.Helpers" %>
+<%@ Register Name="ModuleTemplate" Template=".\UX\Module\ModuleTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="ModuleControllerTemplate" Template=".\UX\Module\ModuleControllerTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="PresenterTemplate" Template=".\UX\View\PresenterTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="ViewCodeBehindTemplate" Template=".\UX\View\ViewCodeBehindTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="ViewXamlTemplate" Template=".\UX\View\ViewXamlTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="ViewInterfaceTemplate" Template=".\UX\View\ViewInterfaceTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="ActionNamesTemplate" Template=".\UX\Module\ActionNamesTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="ModuleActionTemplate" Template=".\UX\Module\ModuleActionTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="ModuleActionConditionTemplate" Template=".\UX\Module\ModuleActionConditionTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="WorkItemControllerTemplate" Template=".\UX\Dialog\WorkItemControllerTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="WorkItemSubControllerTemplate" Template=".\UX\Dialog\WorkItemSubControllerTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="ProjectTemplate" Template=".\VisualStudio\ProjectTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="WpfSolutionTemplate" Template=".\VisualStudio\WpfSolutionTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="ViewEventAggregatorTemplate" Template=".\UX\Dialog\ViewEventAggregatorTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="ParameterClassTemplate" Template=".\UX\View\ParameterClassTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="ViewEventTopicNamesTemplate" Template=".\UX\View\ViewEventTopicNamesTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="ModuleEventTopicNamesTemplate" Template=".\UX\Module\ModuleEventTopicNamesTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="ActionParametersTemplate" Template=".\UX\Module\ActionParametersTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="ActionTranslatorTemplate" Template=".\UX\Module\ActionTranslatorTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="DialogActionsTemplate" Template=".\UX\Dialog\DialogActionsTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="DialogActionConditionsTemplate" Template=".\UX\Dialog\DialogActionConditionsTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="ViewServiceTranslatorTemplate" Template=".\UX\View\ViewServiceTranslatorTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="ComponentEventAggregatorTemplate" Template=".\UX\View\ComponentEventAggregatorTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="RulesEngineTemplate" Template=".\UX\View\RulesEngineTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="DataContractTemplate" Template=".\Services\DataContracts\DataContractTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="ServiceContractTemplate" Template=".\Services\ServiceContracts\ServiceContractTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="MenuTemplate" Template=".\UX\Menu\MenuTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="AzManStoreTemplate" Template=".\UX\AzMan\AzManStoreTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="TwoWayListBoxPresenterTemplate" Template=".\UX\View\TwoWayListBox\TwoWayListBoxPresenterTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="TwoWayListBoxInterfaceTemplate" Template=".\UX\View\TwoWayListBox\TwoWayListBoxInterfaceTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="TwoWayListBoxXamlTemplate" Template=".\UX\View\TwoWayListBox\TwoWayListBoxXamlTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="TwoWayListBoxCodeBehindTemplate" Template=".\UX\View\TwoWayListBox\TwoWayListBoxCodeBehindTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="ResourceManagerTemplate" Template=".\UX\ResourceManagerTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="ResourceManagerBaseTemplate" Template=".\UX\ResourceManagerBaseTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="WorkflowTemplate" Template=".\UX\Workflow\WorkflowTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="WorkflowControllerTemplate" Template=".\UX\Workflow\WorkflowControllerTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="DialogActivityTemplate" Template=".\UX\Workflow\DialogActivityTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="SubworkflowActivityTemplate" Template=".\UX\Workflow\SubworkflowActivityTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="AlarmActivityTemplate" Template=".\UX\Workflow\AlarmActivityTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="ServiceMethodActivityTemplate" Template=".\UX\Workflow\ServiceMethodActivityTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="FindDialogControllerTemplate" Template=".\UX\Dialog\FindDialogControllerTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="ResXTemplate" Template=".\UX\ResXTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="ResXBaseTemplate" Template=".\UX\ResXBaseTemplate.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Property Name="solutionFileName" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="referenceDirectory" Type="System.String" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="modules" Type="List<Module>" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="services" Type="List<Service>" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="menu" Type="Cdc.MetaManager.DataAccess.Domain.Menu" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="templateCallback" Type="Cdc.MetaManager.DataAccess.CodeSmithTemplateCallback" Default="" Optional="false" Category="" Description="" %>
+<%
+	ProjectTemplate projectTemplate = this.Create<ProjectTemplate>();
+	WpfSolutionTemplate solutionTemplate = this.Create<WpfSolutionTemplate>();
+	
+	List<ProjectInfo> projects = new List<ProjectInfo>();
+
+	int callbackCnt;
+	int numberOfSteps = 8;
+	
+	string assemblyVersion = "1.0.0.*";
+	Application frontendApplication = null;
+	Application backendApplication = null;
+	
+	if((modules != null) && (modules.Count > 0))
+	{
+		frontendApplication = modules[0].Application;
+		assemblyVersion= GetVersionString(modules[0].Application);
+	}	
+	
+	if((services != null) && (services.Count > 0))
+	{
+		backendApplication = services[0].Application;
+	}	
+		
+	string solutionDirectory = new FileInfo(solutionFileName).DirectoryName;
+	string modulesDirectory = Path.Combine(solutionDirectory,"Modules");
+  	string viewsBaseDirectory = Path.Combine(solutionDirectory,"Views");
+  	string contractBaseDirectory = Path.Combine(solutionDirectory,"Contracts");
+	referenceDirectory = new DirectoryInfo(referenceDirectory).FullName;
+	
+    FileCacheManager.Open(solutionDirectory);
+
+	if (frontendApplication != null)
+	{
+		// Callback
+		templateCallback("Generating Menu", 0);
+		
+		// Create a list of all dialogs in the modules
+		List<Dialog> dialogs = modules.SelectMany(m => m.Dialogs).ToList();
+		
+		// Create the menu
+		string menuFileName = string.Format(@"{0}\Menu.xml", solutionDirectory);
+		
+		MenuTemplate menuTemplate = this.Create<MenuTemplate>();
+		menuTemplate.SetProperty("menu", menu);
+		menuTemplate.SetProperty("dialogs", dialogs);
+		menuTemplate.RenderToFile(menuFileName, true);
+		
+		IDictionary<string, string> menuResources = new Dictionary<string, string>();
+		
+		ExtractMenuResources(menu.TopMenuItem, menuResources);
+				
+		//
+		// Resources.resx
+		//
+		string menuResourcesFileName = string.Format(@"{0}\Resources.resx", solutionDirectory);
+        ResXBaseTemplate resXBaseTemplate = this.Create<ResXBaseTemplate>();
+        resXBaseTemplate.SetProperty("resources", menuResources);
+        resXBaseTemplate.RenderToFile(menuResourcesFileName, true);
+				
+		callbackCnt = 1;
+		
+		foreach(Service service in services)
+		{
+			// Callback
+			templateCallback(string.Format("Generating Contract from Service ({0}/{1}) - {2}"
+			                	,callbackCnt.ToString()
+								,services.Count.ToString()
+								,service.Name)
+							,CurrentPercentage(1, numberOfSteps, callbackCnt-1, services.Count));
+			
+			callbackCnt++;
+			
+			//
+			// Setup directory paths
+			//
+			string dataContractDirectory = GetDataContractDirectory(service, contractBaseDirectory);
+			string serviceContractDirectory = GetServiceContractDirectory(service, contractBaseDirectory);
+									
+			//
+			// Datacontract
+			// 
+			DataContractTemplate dataContractTemplate = this.Create<DataContractTemplate>();
+			dataContractTemplate.SetProperty("service", service);
+			dataContractTemplate.SetProperty("dataContractDirectory", dataContractDirectory);
+			dataContractTemplate.SetProperty("frontendApplication", frontendApplication);
+			dataContractTemplate.Render(this.Response);
+			
+			//
+			// Service Contract
+			//
+			ServiceContractTemplate serviceContractTemplate = this.Create<ServiceContractTemplate>();
+			serviceContractTemplate.SetProperty("service", service);
+			serviceContractTemplate.SetProperty("serviceContractDirectory", serviceContractDirectory);
+			serviceContractTemplate.SetProperty("frontendApplication", frontendApplication);
+			serviceContractTemplate.Render(this.Response);
+			
+			// Create project info
+			string projectDirectory = Path.Combine(contractBaseDirectory, service.Name);
+			string projectNamespace = GetFrontendContractNamespace(frontendApplication, service);
+			
+			ProjectInfo projectInfo = new ProjectInfo();
+			projectInfo.ProjectFile = GetProjectFilename(projectDirectory, projectNamespace);
+			projectInfo.Namespace = projectNamespace;
+			projectInfo.ProjectGuid = FileCacheManager.GetGuidForFile(projectInfo.ProjectFile);
+			
+			projects.Add(projectInfo);
+		}
+	}
+	
+	List<UXAction> actionList = new List<UXAction>();
+	Dictionary<BusinessEntity, List<View>> viewDictionary = new Dictionary<BusinessEntity, List<View>>();
+
+	callbackCnt = 1;
+
+	//
+	// AuthStore.xml
+	// 
+    templateCallback("Generating AuthStore", 2);
+	
+	string appName = string.Empty;
+	
+	if(frontendApplication != null)
+	{
+	    appName = frontendApplication.Name;
+	}
+
+	string fileName = string.Format(@"{0}\{1}AuthStore.xml", solutionDirectory, appName);
+
+	AzManStoreTemplate azManStoreTemplate = this.Create<AzManStoreTemplate>();
+	azManStoreTemplate.SetProperty("modules", modules);
+	azManStoreTemplate.SetProperty("topMenuItem", menu.TopMenuItem);
+	azManStoreTemplate.RenderToFile(fileName, true);
+	
+	foreach(Module module in modules)
+ 	{
+		IDictionary<string, string> moduleResources = new Dictionary<string, string>();
+		
+		// Callback
+		int currentPercentage = CurrentPercentage(3, numberOfSteps, callbackCnt-1, modules.Count);
+		string callbackText = string.Format("Generating Module ({0}/{1}) - {2}"
+								,callbackCnt.ToString()
+								,modules.Count.ToString()
+								,module.Name);
+		
+		templateCallback(callbackText
+						,currentPercentage);
+						
+		actionList.Clear();
+		
+		//
+		// Setup directory paths
+		//
+		string moduleDirectory = GetModuleDirectory(module, modulesDirectory);
+		string moduleActionsDirectory = Path.Combine(moduleDirectory, "Actions");
+		string moduleConstantsDirectory = Path.Combine(moduleDirectory, "Constants");
+				
+		//
+		// Module.cs
+		// 
+		fileName = string.Format(@"{0}\Module.cs", moduleDirectory);
+		ModuleTemplate moduleTemplate = this.Create<ModuleTemplate>();
+		moduleTemplate.SetProperty("module", module);
+		moduleTemplate.RenderToFile(fileName, true);
+
+		//
+		// ModuleController.cs
+		// 
+		fileName = string.Format(@"{0}\ModuleController.cs", moduleDirectory);
+		ModuleControllerTemplate moduleControllerTemplate = this.Create<ModuleControllerTemplate>();
+		moduleControllerTemplate.SetProperty("isAdapted", CacheAdaptedFile(fileName));
+		moduleControllerTemplate.SetProperty("module", module);
+		moduleControllerTemplate.RenderToFile(fileName, true);
+								
+		//
+		// ActionNames.cs
+		// 
+		fileName = string.Format(@"{0}\ActionNames.cs", moduleActionsDirectory);
+		ActionNamesTemplate actionNamesTemplate = this.Create<ActionNamesTemplate>();
+		actionNamesTemplate.SetProperty("module", module);
+		actionNamesTemplate.RenderToFile(fileName, true);
+
+		//
+		// EventTopicNames.cs
+		// 
+		fileName = string.Format(@"{0}\EventTopicNames.cs", moduleConstantsDirectory);
+		ModuleEventTopicNamesTemplate eventTopicNamesTemplate = this.Create<ModuleEventTopicNamesTemplate>();
+		eventTopicNamesTemplate.SetProperty("module", module);
+		eventTopicNamesTemplate.RenderToFile(fileName, true);
+		
+		
+        foreach(Dialog dialog in module.Dialogs)
+        {
+			GlobalizationHelper.ExtractResources(dialog, moduleResources);
+			
+			// Callback to update information
+			templateCallback(string.Format("{0} - Dialog: {1}"
+								,callbackText
+								,dialog.Title)
+							,currentPercentage);
+			
+			string dialogDirectory = Path.Combine(moduleDirectory, dialog.Name);
+            						
+			//
+			// View Nodes
+			//
+            foreach(ViewNode viewNode in dialog.ViewNodes)
+            {
+                GlobalizationHelper.ExtractResources(viewNode, moduleResources);
+					
+				if ((viewNode.View.VisualTree == null) && (viewNode.View.Type == ViewType.Standard))
+					continue;
+								
+				//
+				// Genetate View
+				//
+				string viewDirectory = string.Format(@"{0}\{1}", GetViewsDirectory(viewNode.View, viewsBaseDirectory), viewNode.View.Name);
+				GenerateView(viewNode.View, GetViewTitle(viewNode), viewDirectory, viewDictionary, viewNode.Dialog.Type);
+								
+				foreach (ViewAction viewAction in viewNode.ViewActions)
+				{
+					
+					GlobalizationHelper.ExtractResources(viewAction.Action, moduleResources);
+					
+					if (!actionList.Contains(viewAction.Action))
+					{
+						//If action points to an overview dialog then treat as jump-to
+						if ((viewAction.Action.Dialog != null) && (viewAction.Action.Dialog.Type == DialogType.Overview))
+							viewAction.Type = ViewActionType.JumpTo;
+						
+						actionList.Add(viewAction.Action);
+						
+						bool isDrillDownAction = (viewAction.Type == ViewActionType.Drilldown);
+						bool isJumpToAction = (viewAction.Type == ViewActionType.JumpTo);
+						
+						//
+						// ModuleActions.cs
+						// 
+						fileName = string.Format(@"{0}\{1}.cs", moduleActionsDirectory, GetActionClassName(viewAction.Action));
+						ModuleActionTemplate moduleActionTemplate = this.Create<ModuleActionTemplate>();
+						moduleActionTemplate.SetProperty("action", viewAction.Action);
+						moduleActionTemplate.SetProperty("module", module);
+						moduleActionTemplate.SetProperty("backendApplication", backendApplication);
+						moduleActionTemplate.SetProperty("isDrillDownAction", isDrillDownAction);
+						moduleActionTemplate.SetProperty("isJumpToAction", isJumpToAction);
+     					moduleActionTemplate.SetProperty("isAdapted", CacheAdaptedFile(fileName));
+						moduleActionTemplate.RenderToFile(fileName, true);
+
+						//
+						// ActionParameters.cs
+						// 
+						fileName = string.Format(@"{0}\{1}.cs", moduleActionsDirectory, GetActionParametersClassName(viewAction.Action));
+						ActionParametersTemplate actionParametersTemplate = this.Create<ActionParametersTemplate>();
+						actionParametersTemplate.SetProperty("action", viewAction.Action);
+						actionParametersTemplate.SetProperty("module", module);
+						actionParametersTemplate.SetProperty("isDrillDownAction", isDrillDownAction);
+						actionParametersTemplate.RenderToFile(fileName, true);
+						
+						//
+						// ActionCondition.cs
+						// 
+						fileName = string.Format(@"{0}\{1}.cs", moduleActionsDirectory, GetActionConditionClassName(viewAction.Action));
+						ModuleActionConditionTemplate moduleActionConditionTemplate = this.Create<ModuleActionConditionTemplate>();
+						moduleActionConditionTemplate.SetProperty("action", viewAction.Action);
+						moduleActionConditionTemplate.SetProperty("moduleActionsDirectory", moduleActionsDirectory);
+						moduleActionConditionTemplate.SetProperty("module", module);
+						moduleActionConditionTemplate.RenderToFile(fileName, true);
+					}
+					
+					//
+					// ActionTranslator.cs
+					// 
+
+					fileName = string.Format(@"{0}\Translators\{1}.cs", dialogDirectory, GetActionTranslatorClassName(viewAction));
+					ActionTranslatorTemplate actionTranslatorTemplate = this.Create<ActionTranslatorTemplate>();
+					actionTranslatorTemplate.SetProperty("viewAction", viewAction);
+					actionTranslatorTemplate.SetProperty("isAdapted", CacheAdaptedFile(fileName));
+					actionTranslatorTemplate.RenderToFile(fileName, true);
+				}
+            }
+			
+			fileName = string.Format(@"{0}\{1}.cs", dialogDirectory, GetControllerClassName(dialog));
+			
+			if ((dialog.Type == DialogType.Overview) || (dialog.Type == DialogType.Drilldown))
+            {
+                //
+                // WorkItemController.cs
+                // 
+				fileName = string.Format(@"{0}\{1}.cs", dialogDirectory, GetControllerClassName(dialog));
+                WorkItemControllerTemplate workItemControllerTemplate = this.Create<WorkItemControllerTemplate>();
+                workItemControllerTemplate.SetProperty("dialog", dialog);
+			    workItemControllerTemplate.SetProperty("isAdapted", CacheAdaptedFile(fileName));
+                workItemControllerTemplate.RenderToFile(fileName, true);
+            }
+			else if ((dialog.Type == DialogType.Find))
+            {
+                //
+                // FindDialogController.cs
+                // 
+                FindDialogControllerTemplate findDialogControllerTemplate = this.Create<FindDialogControllerTemplate>();
+                findDialogControllerTemplate.SetProperty("dialog", dialog);
+                findDialogControllerTemplate.RenderToFile(fileName, true);
+            }
+            else  // New & Modify
+            {
+                //
+                // WorkItemSubController.cs
+                // 
+                WorkItemSubControllerTemplate workItemSubControllerTemplate = this.Create<WorkItemSubControllerTemplate>();
+                workItemSubControllerTemplate.SetProperty("dialog", dialog);
+                workItemSubControllerTemplate.RenderToFile(fileName, true);
+            }
+			
+			//
+			// Search Panel
+			//
+			if ((dialog.SearchPanelView != null) && (dialog.SearchPanelView.VisualTree != null))
+			{
+                var modifiedProperties = new Dictionary<MappedProperty, string>();
+				
+				//Temporarily clear default values
+				foreach (MappedProperty mappedProperty in dialog.SearchPanelView.ResponseMap.MappedProperties)
+				{
+					if (mappedProperty.DefaultValue != null)
+					{
+						if ((mappedProperty.DefaultValue.Trim() == "%") || (mappedProperty.Type == typeof(DateTime)))
+						{
+							modifiedProperties.Add(mappedProperty, mappedProperty.DefaultValue);
+							mappedProperty.DefaultValue = null;
+						}
+					}
+				}
+					
+				dialog.SearchPanelView.ServiceMethod = null;
+				string viewDirectory = string.Format(@"{0}\{1}", GetViewsDirectory(dialog.SearchPanelView, viewsBaseDirectory), dialog.SearchPanelView.Name);
+				GenerateView(dialog.SearchPanelView, dialog.SearchPanelView.Title, viewDirectory, viewDictionary, dialog.Type);
+				
+				//Reapply default values
+				foreach (KeyValuePair<MappedProperty, string> entry in modifiedProperties)
+				{
+					entry.Key.DefaultValue = entry.Value;
+				}
+			}
+			
+			//
+			// DialogActions.cs
+			// 
+			fileName = string.Format(@"{0}\{1}.cs", dialogDirectory, GetDialogActionsClassName(dialog));
+			DialogActionsTemplate dialogActionsTemplate = this.Create<DialogActionsTemplate>();
+			dialogActionsTemplate.SetProperty("dialog", dialog);
+		    dialogActionsTemplate.SetProperty("isAdapted", CacheAdaptedFile(fileName));
+			dialogActionsTemplate.RenderToFile(fileName, true);
+
+			//
+			// DialogActionConditions.cs
+			// 
+         	fileName = string.Format(@"{0}\{1}ActionConditions.cs", dialogDirectory, dialog.Name);
+        	DialogActionConditionsTemplate dialogActionConditionsTemplate = this.Create<DialogActionConditionsTemplate>();
+        	dialogActionConditionsTemplate.SetProperty("dialog", dialog);
+		    dialogActionConditionsTemplate.SetProperty("isAdapted", CacheAdaptedFile(fileName));
+        	dialogActionConditionsTemplate.RenderToFile(fileName, true);
+
+			//
+            // ViewEventAggregator.cs
+            //
+   		    fileName = string.Format(@"{0}\{1}.cs", dialogDirectory, GetEventAggregatorClassName(dialog));
+            ViewEventAggregatorTemplate viewEventAggregatorTemplate = this.Create<ViewEventAggregatorTemplate>();
+            viewEventAggregatorTemplate.SetProperty("dialog", dialog);
+            viewEventAggregatorTemplate.SetProperty("dialogDirectory", dialogDirectory);
+		    viewEventAggregatorTemplate.SetProperty("isAdapted", CacheAdaptedFile(fileName));
+            viewEventAggregatorTemplate.RenderToFile(fileName, true);
+        }
+				
+		bool hasWorkflow = false;
+		
+		IList<object> activityList = new List<object>();
+		
+		IList<Workflow> generateWorkflows = new List<Workflow>();
+		
+		foreach (Workflow workflow in module.Workflows)
+		{
+				generateWorkflows.Add(workflow);
+		}
+		
+		foreach (Workflow workflow in generateWorkflows)
+		{
+			// Callback to update information
+			templateCallback(string.Format("{0} - Workflow: {1}"
+								,callbackText
+								,workflow.Name)
+							,currentPercentage);
+			
+			hasWorkflow = true;
+			
+			//
+            // WorkflowController.cs
+            //
+			fileName = string.Format(@"{0}\Workflow\{1}.cs", moduleDirectory, GetWorkflowControllerClassName(workflow));
+            WorkflowControllerTemplate workflowControllerTemplate = this.Create<WorkflowControllerTemplate>();
+            workflowControllerTemplate.SetProperty("workflow", workflow);
+            workflowControllerTemplate.RenderToFile(fileName, true);
+			
+			//
+            // WorkflowParameters.cs
+            //
+			fileName = string.Format(@"{0}\Workflow\{1}.cs", moduleDirectory, GetWorkflowParametersClassName(workflow));
+			ParameterClassTemplate parameterClassTemplate = this.Create<ParameterClassTemplate>();  
+			parameterClassTemplate.SetProperty("propertyMap", workflow.RequestMap);
+			parameterClassTemplate.SetProperty("parameterClassName", GetWorkflowParametersClassName(workflow));
+			parameterClassTemplate.SetProperty("parameterClassNamespace", GetWorkflowNamespace(workflow));
+			parameterClassTemplate.SetProperty("addRowIdentity", false);
+			parameterClassTemplate.SetProperty("addSortIndex", false);
+			parameterClassTemplate.RenderToFile(fileName, true);
+
+			//
+            // Workflow.xoml.cs
+            //
+			fileName = string.Format(@"{0}\Workflow\{1}.xoml.cs", moduleDirectory, GetWorkflowClassName(workflow));
+            WorkflowTemplate workflowTemplate = this.Create<WorkflowTemplate>();
+            workflowTemplate.SetProperty("workflow", workflow);
+            workflowTemplate.RenderToFile(fileName, true);
+			
+			//
+            // Workflow.xoml
+            //
+			
+			workflow.WorkflowXoml = ReplaceAssemblyReferences(workflow.WorkflowXoml);
+			
+			XmlDocument xmlDocument = new XmlDocument();
+            xmlDocument.LoadXml(workflow.WorkflowXoml);
+			StringBuilder sb = new StringBuilder();
+			
+			using (XmlWriter writer = XmlWriter.Create(sb, new XmlWriterSettings() { Encoding = Encoding.UTF8, OmitXmlDeclaration = true }))
+			{
+            	xmlDocument.Save(writer);
+			}
+			
+			fileName = string.Format(@"{0}\Workflow\{1}.xoml", moduleDirectory, GetWorkflowClassName(workflow));
+			FileCacheManager.WriteFile(fileName, sb.ToString(), FileMode.Create, Encoding.UTF8);				
+			            
+			//
+            // Workflow.rules
+            //
+			fileName = string.Format(@"{0}\Workflow\{1}.rules", moduleDirectory, GetWorkflowClassName(workflow));
+			FileCacheManager.WriteFile(fileName, workflow.RuleSetXml, FileMode.Create, Encoding.UTF8);				
+															
+			//
+            // DialogActivity.cs
+            //
+			
+            DialogActivityTemplate dialogActivityTemplate = this.Create<DialogActivityTemplate>();
+            			
+			foreach (WorkflowDialog workflowDialog in workflow.Dialogs)
+			{
+				if (!activityList.Contains(workflowDialog.Dialog))
+				{
+					fileName = string.Format(@"{0}\Workflow\Activities\{1}.cs", moduleDirectory, GetDialogActivityClassName(workflowDialog.Dialog));
+					dialogActivityTemplate.SetProperty("workflowDialog", workflowDialog);
+					dialogActivityTemplate.SetProperty("isDesignTime", false);
+					dialogActivityTemplate.RenderToFile(fileName, true);
+					
+					activityList.Add(workflowDialog.Dialog);
+				}
+			}
+
+			//
+            // SubworkflowActivity.cs
+            //
+			
+            SubworkflowActivityTemplate subworkflowActivityTemplate = this.Create<SubworkflowActivityTemplate>();
+            			
+			foreach (WorkflowSubworkflow workflowSubworkflow in workflow.Subworkflows)
+			{
+				if (!activityList.Contains(workflowSubworkflow.SubWorkflow))
+				{
+					fileName = string.Format(@"{0}\Workflow\Activities\{1}.cs", moduleDirectory, GetWorkflowActivityClassName(workflowSubworkflow.SubWorkflow));
+					subworkflowActivityTemplate.SetProperty("workflowSubworkflow", workflowSubworkflow);
+					subworkflowActivityTemplate.SetProperty("isDesignTime", false);
+					subworkflowActivityTemplate.RenderToFile(fileName, true);
+					
+					activityList.Add(workflowSubworkflow.SubWorkflow);
+				}
+			}
+			
+			//
+            // ServiceMethodActivity.cs
+            //
+			
+            ServiceMethodActivityTemplate serviceMethodActivityTemplate = this.Create<ServiceMethodActivityTemplate>();
+            			
+			foreach (WorkflowServiceMethod workflowServiceMethod in workflow.ServiceMethods)
+			{
+				if (!activityList.Contains(workflowServiceMethod.ServiceMethod))
+				{
+					fileName = string.Format(@"{0}\Workflow\Activities\{1}.cs", moduleDirectory, GetServiceMethodActivityClassName(workflowServiceMethod.ServiceMethod));
+					serviceMethodActivityTemplate.SetProperty("workflowServiceMethod", workflowServiceMethod);
+					serviceMethodActivityTemplate.SetProperty("isDesignTime", false);
+					serviceMethodActivityTemplate.RenderToFile(fileName, true);	
+					
+					activityList.Add(workflowServiceMethod.ServiceMethod);
+				}	
+			}
+		}
+		
+		//
+        // AlarmActivity.cs
+        //
+        if (hasWorkflow)
+		{
+			AlarmActivityTemplate alarmActivityTemplate = this.Create<AlarmActivityTemplate>();
+					
+			fileName = string.Format(@"{0}\Workflow\Activities\{1}.cs", moduleDirectory, "AlarmActivity");
+			alarmActivityTemplate.SetProperty("module", module);
+			alarmActivityTemplate.SetProperty("backendApplication", backendApplication);
+			alarmActivityTemplate.SetProperty("isDesignTime", false);
+			alarmActivityTemplate.RenderToFile(fileName, true);	
+		}
+		
+
+		//
+		// ResourceManagerBase.cs & ResourceManager.cs
+		//
+		fileName = string.Format(@"{0}\{1}.cs", moduleDirectory, GetResourceManagerBaseClassName());
+        ResourceManagerBaseTemplate resourceManagerBaseTemplate = this.Create<ResourceManagerBaseTemplate>();
+        resourceManagerBaseTemplate.SetProperty("namespaceName", GetModuleNamespace(module));
+        resourceManagerBaseTemplate.SetProperty("resources", moduleResources);
+        resourceManagerBaseTemplate.RenderToFile(fileName, true);
+
+		fileName = string.Format(@"{0}\{1}.cs", moduleDirectory, GetResourceManagerClassName());
+		string adaptedFileName = string.Format(@"{0}\{1}Adapted.cs", moduleDirectory, GetResourceManagerClassName());
+
+		if (!System.IO.File.Exists(adaptedFileName))
+		{
+			ResourceManagerTemplate resourceManagerTemplate = this.Create<ResourceManagerTemplate>();
+			resourceManagerTemplate.SetProperty("namespaceName", GetModuleNamespace(module));
+			resourceManagerTemplate.RenderToFile(fileName, true);
+		}
+		else
+		{
+			FileCacheManager.AddExistingFileToCache(adaptedFileName);
+		}
+		
+		//
+		// ResourcesBase.resx & Resources.resx
+		//
+		fileName = string.Format(@"{0}\ResourcesBase.resx", moduleDirectory);
+        ResXBaseTemplate resXBaseTemplate = this.Create<ResXBaseTemplate>();
+        resXBaseTemplate.SetProperty("resources", moduleResources);
+        resXBaseTemplate.RenderToFile(fileName, true);
+
+		fileName = string.Format(@"{0}\Resources.resx", moduleDirectory);
+
+		if (!System.IO.File.Exists(fileName))
+		{
+			ResXTemplate resXTemplate = this.Create<ResXTemplate>();
+			resXTemplate.RenderToFile(fileName, true);
+		}
+		else
+		{
+			FileCacheManager.AddExistingFileToCache(fileName);
+		}
+
+				
+		//
+		// Create project info modules
+		//
+		string projectDirectory = moduleDirectory;
+		string projectNamespace = GetModuleNamespace(module);
+	
+		ProjectInfo projectInfo = new ProjectInfo();
+		projectInfo.ProjectFile = GetProjectFilename(projectDirectory, projectNamespace);
+		projectInfo.Namespace = projectNamespace;
+		projectInfo.ProjectGuid = FileCacheManager.GetGuidForFile(projectInfo.ProjectFile);
+		
+		if (hasWorkflow)
+			projectInfo.ProjectType = ProjectInfoType.Workflow;
+		else
+			projectInfo.ProjectType = ProjectInfoType.Default;
+		
+		projects.Add(projectInfo);
+
+		callbackCnt++;
+	}
+		
+	//
+	// Create project info for all view projects (one project for per BusinessEntity)
+	//
+	callbackCnt = 1;
+	
+	foreach (KeyValuePair<BusinessEntity, List<View>> item in viewDictionary)
+	{
+		// Callback
+		templateCallback(string.Format("Adding Projects for Generation ({0}/{1})"
+							,callbackCnt.ToString()
+							,viewDictionary.Count.ToString())
+						,CurrentPercentage(5, numberOfSteps, callbackCnt-1, viewDictionary.Count));
+		callbackCnt++;
+		
+		string viewsDirectory = GetViewsDirectory(item.Value[0], viewsBaseDirectory);
+		string viewsConstantsDirectory = Path.Combine(viewsDirectory, "Constants");
+				
+		IDictionary<string, string> viewResources = new Dictionary<string, string>();
+		
+		foreach (View view in item.Value)
+		{
+			if(view.Type != ViewType.Component)
+			  GlobalizationHelper.ExtractResources(view, viewResources);
+			
+			if (view.VisualTree != null)
+			{
+				IList<UXComponent> components = ViewHelper.GetAllComponents<UXComponent>(view.VisualTree);
+				
+				foreach (UXComponent component in components)
+				{
+					if (component is ILocalizable)
+					{
+						if (component is UXRadioGroup)
+						{
+							UXRadioGroup group = component as UXRadioGroup;
+							
+							foreach (KeyValuePair<string, string> key in group.KeyValues)
+							{
+								viewResources.Add(GlobalizationHelper.FormatResourceId(group, ConvertToHex(key.Key)), key.Value);	
+							}
+						}
+						else
+							GlobalizationHelper.ExtractResources(component as ILocalizable, viewResources);
+					}
+					
+					if (component.Hint != null)
+					{
+						string hintId = GlobalizationHelper.GetHintResourceId(component);
+						
+						if (!viewResources.ContainsKey(hintId))
+							viewResources.Add(hintId, component.Hint.Text);
+					}
+				}
+			}
+		}
+		
+		//
+		// ResourceManagerBase.cs & ResourceManager.cs
+		//
+		fileName = string.Format(@"{0}\{1}.cs", viewsDirectory, GetResourceManagerBaseClassName());
+        ResourceManagerBaseTemplate resourceManagerBaseTemplate = this.Create<ResourceManagerBaseTemplate>();
+        resourceManagerBaseTemplate.SetProperty("namespaceName", GetViewsNamespace(item.Value[0]));
+        resourceManagerBaseTemplate.SetProperty("resources", viewResources);
+        resourceManagerBaseTemplate.RenderToFile(fileName, true);
+
+		fileName = string.Format(@"{0}\{1}.cs", viewsDirectory, GetResourceManagerClassName());
+		string adaptedFileName = string.Format(@"{0}\{1}Adapted.cs", viewsDirectory, GetResourceManagerClassName());
+
+		if (!System.IO.File.Exists(adaptedFileName))
+		{
+			ResourceManagerTemplate resourceManagerTemplate = this.Create<ResourceManagerTemplate>();
+			resourceManagerTemplate.SetProperty("namespaceName", GetViewsNamespace(item.Value[0]));
+			resourceManagerTemplate.RenderToFile(fileName, true);
+		}
+		else
+		{
+			FileCacheManager.AddExistingFileToCache(adaptedFileName);
+		}
+
+
+		//
+		// ResourcesBase.resx & Resources.resx
+		//
+		fileName = string.Format(@"{0}\ResourcesBase.resx", viewsDirectory);
+        ResXBaseTemplate resXBaseTemplate = this.Create<ResXBaseTemplate>();
+        resXBaseTemplate.SetProperty("resources", viewResources);
+        resXBaseTemplate.RenderToFile(fileName, true);
+
+		fileName = string.Format(@"{0}\Resources.resx", viewsDirectory);
+
+		if (!System.IO.File.Exists(fileName))
+		{
+			ResXTemplate resXTemplate = this.Create<ResXTemplate>();
+			resXTemplate.RenderToFile(fileName, true);
+		}
+		else
+		{
+			FileCacheManager.AddExistingFileToCache(fileName);
+		}
+						
+		//
+		// EventTopicNames.cs
+		// 
+		fileName = string.Format(@"{0}\EventTopicNames.cs", viewsConstantsDirectory);
+		ViewEventTopicNamesTemplate eventTopicNamesTemplate = this.Create<ViewEventTopicNamesTemplate>();
+		eventTopicNamesTemplate.SetProperty("views", item.Value);
+		eventTopicNamesTemplate.SetProperty("isAdapted", CacheAdaptedFile(fileName));
+		eventTopicNamesTemplate.RenderToFile(fileName, true);
+				
+		string projectDirectory = viewsDirectory;
+		string projectNamespace = GetViewsNamespace(item.Value[0]);
+	
+		ProjectInfo projectInfo = new ProjectInfo();
+		projectInfo.ProjectFile = GetProjectFilename(projectDirectory, projectNamespace);
+		projectInfo.Namespace = projectNamespace;
+		projectInfo.ProjectGuid = FileCacheManager.GetGuidForFile(projectInfo.ProjectFile);
+		projectInfo.ProjectType = ProjectInfoType.Wpf;
+		projects.Add(projectInfo);
+	}
+
+	callbackCnt = 1;
+	
+ 	foreach(ProjectInfo pi in projects)
+ 	{
+		// Callback
+		templateCallback(string.Format("Generating Project Files ({0}/{1})"
+							,callbackCnt.ToString()
+							,projects.Count.ToString())
+						,CurrentPercentage(6, numberOfSteps, callbackCnt-1, projects.Count));
+		callbackCnt++;
+		
+		projectTemplate.SetProperty("project", pi);
+		projectTemplate.SetProperty("referenceList", projects);
+		projectTemplate.SetProperty("referenceDirectory", referenceDirectory);
+		projectTemplate.SetProperty("assemblyVersion", assemblyVersion);
+		projectTemplate.SetProperty("solutionDirectory", solutionDirectory);
+		projectTemplate.Render(this.Response);
+	}
+
+	templateCallback("Generating Solution File"
+			,CurrentPercentage(7, numberOfSteps));
+		
+	solutionTemplate.SetProperty("projects", projects);
+	solutionTemplate.SetProperty("solutionDirectory", solutionDirectory);
+	solutionTemplate.RenderToFile(solutionFileName, true);
+
+	templateCallback("Done"
+			,CurrentPercentage(8, numberOfSteps));
+
+	FileCacheManager.Commit();
+	
+%>
+<script runat="template">
+
+	private IList<View> GenerateViewForUXTwoWayListBox(View mainView, string viewDirectory, DialogType dialogType)
+	{
+		IList<UXTwoWayListBox> components = ViewHelper.GetAllComponents<UXTwoWayListBox>(mainView.VisualTree);
+		IList<View> childViews = new List<View>();
+		
+		foreach (UXTwoWayListBox component in components)
+		{
+			UXViewBox viewBox = new UXViewBox();
+				
+			ViewHelper.ReplaceComponentInVisualTree(component, viewBox);
+				
+			View view = CreateViewForTwoWayListBox(component, mainView);
+			viewBox.View = view;
+			viewBox.Name = view.Name;
+			
+			childViews.Add(view);
+			
+			string fileName = string.Format(@"{0}\{1}.cs", viewDirectory, GetPresenterClassName(view));
+			TwoWayListBoxPresenterTemplate twoWayListBoxPresenterTemplate = this.Create<TwoWayListBoxPresenterTemplate>();
+			twoWayListBoxPresenterTemplate.SetProperty("listBox", component);
+			twoWayListBoxPresenterTemplate.SetProperty("mainView", mainView);
+			twoWayListBoxPresenterTemplate.SetProperty("view", view);
+			twoWayListBoxPresenterTemplate.RenderToFile(fileName, true);
+			
+			fileName = string.Format(@"{0}\{1}.cs", viewDirectory, GetViewInterfaceName(view));
+			TwoWayListBoxInterfaceTemplate twoWayListBoxInterfaceTemplate = this.Create<TwoWayListBoxInterfaceTemplate>();
+			twoWayListBoxInterfaceTemplate.SetProperty("view", view);
+			twoWayListBoxInterfaceTemplate.RenderToFile(fileName, true);
+			
+			fileName = string.Format(@"{0}\{1}.xaml", viewDirectory, GetViewClassName(view));
+			TwoWayListBoxXamlTemplate twoWayListBoxXamlTemplate = this.Create<TwoWayListBoxXamlTemplate>();
+			twoWayListBoxXamlTemplate.SetProperty("view", view);
+			twoWayListBoxXamlTemplate.SetProperty("listBox", component);
+			twoWayListBoxXamlTemplate.RenderToFile(fileName, true);
+			
+			fileName = string.Format(@"{0}\{1}.xaml.cs", viewDirectory, GetViewClassName(view));
+			TwoWayListBoxCodeBehindTemplate twoWayListBoxCodeBehindTemplate = this.Create<TwoWayListBoxCodeBehindTemplate>();
+			twoWayListBoxCodeBehindTemplate.SetProperty("view", view);
+			twoWayListBoxCodeBehindTemplate.RenderToFile(fileName, true);
+		}
+		
+		return childViews;
+	}
+	
+	private IDictionary<View, PropertyMap> GenerateViewForUXServiceComponent(View mainView, string viewDirectory, DialogType dialogType)
+	{
+		IDictionary<View, PropertyMap> childViewDictionary = new Dictionary<View, PropertyMap>();
+		
+		IList<UXServiceComponent> components = ViewHelper.GetAllComponents<UXServiceComponent>(mainView.VisualTree);
+		
+		foreach (UXServiceComponent component in components)
+		{
+			if ((component.ServiceMethod != null) && (component.ComponentMap != null))
+			{
+				UXViewBox viewBox = new UXViewBox();
+				
+				ViewHelper.ReplaceComponentInVisualTree(component, viewBox);
+								
+				View componentView = CreateViewForServiceComponent(component, mainView);
+				viewBox.View = componentView;
+				viewBox.Name = component.Name;
+								
+				childViewDictionary.Add(componentView, component.ComponentMap);
+
+				GenerateViewClassFiles(componentView, componentView.Name, viewDirectory, dialogType, component);
+			}
+		}
+		
+		return childViewDictionary;
+	}
+	
+	private View CreateViewForTwoWayListBox(UXTwoWayListBox listBox, View parentView)
+	{
+		View view = new View();
+				
+		string name = listBox.Name;
+		        
+		view.Name = string.Format("{0}{1}", parentView.Name, name);
+		view.Application = parentView.Application;
+		view.BusinessEntity = parentView.BusinessEntity;
+		view.Type = ViewType.Standard;
+		view.VisualTree = new UXDockPanel();
+		view.VisualTree.Children.Add(listBox);
+		
+		return view;
+	}
+	
+	private View CreateViewForServiceComponent(UXServiceComponent component, View parentView)
+	{
+		View view = new View();
+		view.Application = parentView.Application;
+		view.RequestMap = component.ServiceMethod.RequestMap;
+		view.ResponseMap = component.ServiceMethod.ResponseMap;
+		view.BusinessEntity = parentView.BusinessEntity;
+		view.ServiceMethod = component.ServiceMethod;
+		
+		string name = component.Name;
+
+		if(component is IBindable)  
+		{
+			IBindable bindableComponent = component as IBindable;
+			
+			if(bindableComponent.MappedProperty != null)
+			{
+			  	name = bindableComponent.MappedProperty.Name;
+			}
+		}
+
+		/* FallBack */
+		if(string.IsNullOrEmpty(name))
+		  name = component.Name;
+
+        /* Fallback */
+		if(string.IsNullOrEmpty(name))
+		  name = component.ServiceMethod.Name;
+
+		view.Name = string.Format("{0}{1}", parentView.Name, name);
+		
+		view.Type = ViewType.Component;
+		view.VisualTree = new UXDockPanel();
+		view.VisualTree.Children.Add(component);
+		
+		return view;
+	}
+	
+	private void GenerateView(View view, string viewName, string viewDirectory, Dictionary<BusinessEntity, List<View>> viewDictionary, DialogType dialogType)
+	{
+		/* Make sure view is generated only once */
+		if (!viewDictionary.ContainsKey(view.BusinessEntity))
+			viewDictionary[view.BusinessEntity] = new List<View>();
+					
+		List<View> viewList = viewDictionary[view.BusinessEntity];
+						
+		foreach (View generatedView in viewList)
+		{
+			if (generatedView == view)
+			{
+				return;
+			}
+		}
+		
+		viewList.Add(view);
+				
+		if (view.Type == ViewType.Standard)
+		{
+			//
+			// ViewRulesEngine.cs
+			// 
+			string rulesDirectory = string.Format(@"{0}\{1}", viewDirectory, "Rules");
+			
+			string fileName = string.Format(@"{0}\{1}.cs", rulesDirectory, GetViewRulesEngineClassName(view));
+			RulesEngineTemplate rulesEngineTemplate = this.Create<RulesEngineTemplate>();  
+			rulesEngineTemplate.SetProperty("rulesDirectory", rulesDirectory);
+			rulesEngineTemplate.SetProperty("view", view);
+			rulesEngineTemplate.RenderToFile(fileName, true);
+						
+			string componentViewDirectory = Path.Combine(viewDirectory, "Components");
+			
+			IDictionary<View, PropertyMap> childViewDictionary = GenerateViewForUXServiceComponent(view, componentViewDirectory, dialogType);
+			
+			foreach (View childView in childViewDictionary.Keys)
+				viewList.Add(childView);
+				
+			IList<View> childViews = GenerateViewForUXTwoWayListBox(view, componentViewDirectory, dialogType);
+							
+			viewList.AddRange(childViews);
+												
+			//
+			// ComponentEventAggregator.cs
+			// 
+			fileName = string.Format(@"{0}\{1}.cs", viewDirectory, GetComponentEventAggregatorClassName(view));
+			ComponentEventAggregatorTemplate componentEventAggregatorTemplate = this.Create<ComponentEventAggregatorTemplate>();  
+			componentEventAggregatorTemplate.SetProperty("viewDirectory", viewDirectory);
+			componentEventAggregatorTemplate.SetProperty("viewDictionary", childViewDictionary);
+			componentEventAggregatorTemplate.SetProperty("mainView", view);
+			componentEventAggregatorTemplate.RenderToFile(fileName, true);
+			
+			
+			//Manually added components
+			if (view.LayoutManualyAdapted)
+			{
+				string adaptedComponentViewDirectory = Path.Combine(viewDirectory, "ComponentsAdapted");
+
+				if (System.IO.Directory.Exists(adaptedComponentViewDirectory))
+				{
+					foreach (string componentFileName in System.IO.Directory.GetFiles(adaptedComponentViewDirectory))
+					{
+						FileCacheManager.AddExistingFileToCache(componentFileName);
+					}
+				}
+			}	
+		}
+		
+		//
+		// Generate view class files
+		// 
+		GenerateViewClassFiles(view, viewName, viewDirectory, dialogType, null);
+	}
+		
+	private void GenerateViewClassFiles(View view, string viewTitle, string viewDirectory, DialogType dialogType, UXComponent currentComponent)
+	{
+		string fileName = null;
+		
+		if ((view.Type == ViewType.Standard) || (view.Type == ViewType.Component))
+        {
+			//
+			// Presenter.cs
+			// 
+			fileName = string.Format(@"{0}\{1}.cs", viewDirectory, GetPresenterClassName(view));
+			PresenterTemplate presenterTemplate = this.Create<PresenterTemplate>();
+			presenterTemplate.SetProperty("view", view);
+			presenterTemplate.SetProperty("isAdapted", CacheAdaptedFile(fileName));
+			presenterTemplate.RenderToFile(fileName, true);
+						
+			//
+			// View.xaml.cs (Code Behind)
+			// 
+			fileName = string.Format(@"{0}\{1}.xaml.cs", viewDirectory, GetViewClassName(view));
+			ViewCodeBehindTemplate viewCodeBehindTemplate = this.Create<ViewCodeBehindTemplate>();
+			viewCodeBehindTemplate.SetProperty("view", view);
+			viewCodeBehindTemplate.SetProperty("title", viewTitle);
+			viewCodeBehindTemplate.SetProperty("dialogType", dialogType);
+			viewCodeBehindTemplate.SetProperty("componentViewCurrentComponent", currentComponent);
+			viewCodeBehindTemplate.SetProperty("viewDirectory", viewDirectory);
+			viewCodeBehindTemplate.RenderToFile(fileName, true);
+			
+
+			//
+			// View.xaml (xaml)
+			// 
+			fileName = string.Format(@"{0}\{1}.xaml", viewDirectory, GetViewClassName(view));
+			if (!view.LayoutManualyAdapted || !System.IO.File.Exists(fileName))
+			{
+				ViewXamlTemplate viewXamlTemplate = this.Create<ViewXamlTemplate>();
+				viewXamlTemplate.SetProperty("view", view);
+				viewXamlTemplate.RenderToFile(fileName, true);
+			}
+			else
+			{
+				FileCacheManager.AddExistingFileToCache(fileName);
+			}
+
+			//
+			// ViewServiceTranslator.cs
+			// 
+			if (view.ServiceMethod != null)
+			{
+				fileName = string.Format(@"{0}\{1}.cs", viewDirectory, GetViewServiceTranslatorClassName(view));
+				ViewServiceTranslatorTemplate viewServiceTranslatorTemplate = this.Create<ViewServiceTranslatorTemplate>();
+				viewServiceTranslatorTemplate.SetProperty("view", view);
+				viewServiceTranslatorTemplate.SetProperty("serviceMethod", view.ServiceMethod);
+				viewServiceTranslatorTemplate.SetProperty("requestMap", view.RequestMap);
+				viewServiceTranslatorTemplate.SetProperty("responseMap", view.ResponseMap);
+				viewServiceTranslatorTemplate.RenderToFile(fileName, true);
+			}
+		}
+		
+		//
+		// ViewParameters.cs
+		// 
+		bool addRowIdentity = (
+                                  (view.ServiceMethod != null) && 
+                                  (view.ServiceMethod.MappedToAction != null) && 
+                                  (view.ServiceMethod.MappedToAction.MappedToObject != null) && 
+                                  (view.ServiceMethod.MappedToAction.MappedToObject is Query) && 
+                                  (! string.IsNullOrEmpty(view.ServiceMethod.MappedToAction.RowTrackingId))
+			                  );
+							
+		fileName = string.Format(@"{0}\{1}.cs", viewDirectory, GetViewParametersClassName(view));
+		ParameterClassTemplate parameterClassTemplate = this.Create<ParameterClassTemplate>();  
+		parameterClassTemplate.SetProperty("propertyMap", view.RequestMap);
+		parameterClassTemplate.SetProperty("parameterClassName", GetViewParametersClassName(view));
+		parameterClassTemplate.SetProperty("parameterClassNamespace", GetViewsNamespace(view));
+		parameterClassTemplate.SetProperty("addRowIdentity", addRowIdentity);
+		parameterClassTemplate.SetProperty("addSortIndex", false);
+		parameterClassTemplate.SetProperty("useRowIdentityList", true);
+		parameterClassTemplate.RenderToFile(fileName, true);
+		
+		//
+		// ViewResult.cs
+		//
+		bool isSortable = false;
+		if ((view.ServiceMethod != null) && 
+                                  (view.ServiceMethod.MappedToAction != null) && 
+                                  (view.ServiceMethod.MappedToAction.MappedToObject != null) && 
+                                  (view.ServiceMethod.MappedToAction.MappedToObject is Query))
+		{
+			isSortable = true;
+		}
+		 
+		fileName = string.Format(@"{0}\{1}.cs", viewDirectory, GetViewResultClassName(view));
+		parameterClassTemplate.SetProperty("propertyMap", view.ResponseMap);
+		parameterClassTemplate.SetProperty("parameterClassName", GetViewResultClassName(view));
+		parameterClassTemplate.SetProperty("parameterClassNamespace", GetViewsNamespace(view));
+		parameterClassTemplate.SetProperty("validationRules", BuildViewValidationRules(view));
+		parameterClassTemplate.SetProperty("addRowIdentity", addRowIdentity);
+		parameterClassTemplate.SetProperty("addSortIndex", isSortable);
+		parameterClassTemplate.SetProperty("useRowIdentityList", false);
+		parameterClassTemplate.RenderToFile(fileName, true);
+		
+		//
+		// ViewInterface.cs
+		// 
+		fileName = string.Format(@"{0}\{1}.cs", viewDirectory, GetViewInterfaceName(view));
+		ViewInterfaceTemplate viewInterfaceTemplate = this.Create<ViewInterfaceTemplate>();
+		viewInterfaceTemplate.SetProperty("view", view);
+		viewInterfaceTemplate.SetProperty("isAdapted", CacheAdaptedFile(fileName));
+		viewInterfaceTemplate.RenderToFile(fileName, true);
+	}
+			
+	private void ExtractMenuResources(MenuItem item, IDictionary<string, string> menuResources)
+	{
+		GlobalizationHelper.ExtractResources(item, menuResources);
+		
+		foreach (MenuItem child in item.Children)
+		{
+			ExtractMenuResources(child, menuResources);
+		}
+		
+	}
+	
+	private string ReplaceAssemblyReferences(string xoml)
+    {
+        int start = 0;
+        int end = 0;
+
+        while (start >= 0)
+        {
+            start = xoml.IndexOf(";Assembly=Workflow_", start + 1);
+            
+            if (start < 0)
+                break;
+
+            end = xoml.IndexOf('"', start + 1);
+			xoml = xoml.Remove(start, end - start);
+        }
+						
+		return xoml;
+    }
+</script>

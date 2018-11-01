@@ -1,0 +1,93 @@
+<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" Src="..\..\Library\Core.cst" Inherits="DialogTemplate" Debug="True" Description="Template description here." %>
+<%@ Assembly Name="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess" %>
+<%@ Import Namespace="Cdc.MetaManager.DataAccess.Domain.VisualModel" %>
+<%@ Property Name="layoutGrid" Type="UXLayoutGrid" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="attachedProperty" Type="String" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="componentTemplateType" Type="Type" Default="" Optional="false" Category="" Description="" %>
+<%@ Property Name="debugOutput" Type="System.Boolean" Default="" Optional="false" Category="" Description="" OnChanged="" Editor="" EditorBase="" Serializer="" %>
+<%
+	CodeTemplate componentTemplate = null;
+
+    if(!string.IsNullOrEmpty(attachedProperty) && (! attachedProperty.EndsWith(" ")))
+	  attachedProperty += " ";
+
+	string showGridLines = "";
+	
+	if(debugOutput)
+	{
+		showGridLines=" ShowGridLines=\"true\"";
+	}
+
+	//
+	// LayoutGrid
+	//
+%>
+ 		<Grid <%= attachedProperty %><%=GetXName(layoutGrid)%>Height="Auto" Margin="0,0,0,0"<%= showGridLines %>>
+          <Grid.ColumnDefinitions>
+
+<%
+	for( int i = 1; i <= layoutGrid.ColumnCount; i++) 
+	{
+		if(i < layoutGrid.ColumnCount)
+		{
+%>
+            <ColumnDefinition Width="Auto"/>
+<%
+		}
+		else
+		{
+%>
+            <ColumnDefinition Width="*"/>
+<%
+		}
+	}	
+%>
+
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+<%
+	for( int i = 1; i < layoutGrid.RowCount; i++) 
+	{
+%>
+            <RowDefinition Height="Auto"/>
+
+<%
+	}
+%>
+          </Grid.RowDefinitions>
+<%		
+	componentTemplate = Activator.CreateInstance(componentTemplateType) as CodeTemplate;
+
+	if(layoutGrid.Cells.Length > 0)
+	{
+		foreach(UXLayoutGridCell cell in layoutGrid.Cells) 
+		{
+			string rowColumnProperty = string.Format("Grid.Row=\"{0}\" Grid.Column=\"{1}\" Grid.ColumnSpan=\"{2}\"", cell.Row, cell.Column, cell.ColumnSpan);
+			componentTemplate.SetProperty("component", cell.Component);
+			componentTemplate.SetProperty("attachedProperty", rowColumnProperty);
+			componentTemplate.SetProperty("debugOutput", debugOutput);
+			componentTemplate.SetProperty("layoutScope", layoutGrid);
+			componentTemplate.Render(this.Response);
+		}
+	}
+	else {
+		// Recursively call componenttemplate
+		foreach(UXComponent child in layoutGrid.Children)
+		{
+			componentTemplate.SetProperty("component", child);
+			componentTemplate.SetProperty("attachedProperty", "Grid.Column=\"0\" Grid.Row=\"0\"");
+			componentTemplate.SetProperty("debugOutput", debugOutput);
+			componentTemplate.SetProperty("layoutScope", layoutGrid);
+			componentTemplate.Render(this.Response);
+		}
+	}
+%>		
+ 		</Grid>

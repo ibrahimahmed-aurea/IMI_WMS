@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SolutionProfile xmlns="http://schemas.microsoft.com/pag/cab-profile" >
+  <Modules>
+    <ModuleInfo AssemblyFile="Cdc.SupplyChain.UX.Modules.License.dll" />
+    <ModuleInfo AssemblyFile="Cdc.SupplyChain.UX.Modules.ApplicationX.dll" />
+    <ModuleInfo AssemblyFile="Cdc.SupplyChain.UX.Modules.OrderManagement.dll" />
+    <ModuleInfo AssemblyFile="Cdc.SupplyChain.UX.Modules.Abc.dll" />
+    <ModuleInfo AssemblyFile="Cdc.SupplyChain.UX.Modules.Dock.dll" />
+    <ModuleInfo AssemblyFile="Cdc.SupplyChain.UX.Modules.Transportation.dll" />
+    <ModuleInfo AssemblyFile="Cdc.SupplyChain.UX.Modules.ProofOfDelivery.dll" />
+    <ModuleInfo AssemblyFile="Cdc.SupplyChain.UX.Modules.Gateway.dll" />
+    <ModuleInfo AssemblyFile="Cdc.SupplyChain.UX.Modules.Warehouse.dll" />
+  </Modules>
+</SolutionProfile>

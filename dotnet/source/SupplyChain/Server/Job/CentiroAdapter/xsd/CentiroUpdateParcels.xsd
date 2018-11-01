@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:complexType name="CentiroUpdateParcelType">
+        <xs:attribute name="parcelIdentifier" type="xs:string" />
+        <xs:attribute name="loadingMeasure" type="xs:string" use="optional" />
+        <xs:attribute name="volume" type="xs:string" use="optional" />
+        <xs:attribute name="weight" type="xs:string" use="optional" />
+        <xs:attribute name="height" type="xs:string" use="optional" />
+        <xs:attribute name="width" type="xs:string" use="optional" />
+        <xs:attribute name="length" type="xs:string" use="optional" />
+        <xs:attribute name="netWeight" type="xs:string" use="optional" />
+        <xs:attribute name="sequenceNo" type="xs:string" use="optional" />
+        <xs:attribute name="sequenceNo2" type="xs:string"  use="optional" />
+        <xs:attribute name="sequenceNoSSCC" type="xs:string"  use="optional" />
+        <xs:attribute name="deliveryInstructions" type="xs:string"  use="optional" />
+        <xs:attribute name="typeOfGoods" type="xs:string"  use="optional" />
+        <xs:attribute name="typeOfPackage" type="xs:string" use="optional" />
+        <xs:attribute name="value" type="xs:string" use="optional"/>
+        <xs:attribute name="lastModifiedBy" type="xs:string" use="optional"/>
+        <xs:attribute name="shippingLocation" type="xs:string" use="optional"/>
+        <xs:attribute name="transportInstructions" type="xs:string" use="optional"/>
+    </xs:complexType>
+    <xs:element name="CentiroUpdateParcels">
+        <xs:complexType>
+           <xs:sequence>
+               <xs:element name="Parcels">
+                       <xs:complexType>
+                           <xs:sequence maxOccurs="unbounded">
+                               <xs:element name="Parcel" type="CentiroUpdateParcelType"/>
+                           </xs:sequence>
+                       </xs:complexType>
+               </xs:element>
+           </xs:sequence>
+           <xs:attribute name="senderCode" type="xs:string"/>
+           <xs:attribute name="shipmentIdentifier" type="xs:string"/>
+           <xs:attribute name="aggregateParcels" type="xs:string"/>
+           <xs:attribute name="url" type="xs:string" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

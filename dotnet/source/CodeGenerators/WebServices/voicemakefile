@@ -1,0 +1,61 @@
+#
+# makefile 17/12/2004
+# 
+# Copyright (c) 2004 - 2005 Industri-Matematik AB. All rights reserved.
+#
+BIN=.\bin
+CSDIR=.\genin\src
+XMLOUTDIR=.\genin\xml
+XMLDIR=.\xml
+SQLDIR=.\genin\sql
+RD=rd /s /q
+HTMLDIR=.\genin\html
+CONN="user id = owuser; password = owuser; data source = WHTRUNK"
+# CONN="user id = websuser; password = websuser; data source = WHTRUNK"
+
+INXMLFILE1=$(XMLOUTDIR)\in1.xml
+INXMLFILE2=$(XMLOUTDIR)\in2.xml
+INMASTER=$(XMLDIR)\VoiceMaster.xml
+
+ALLDIR= \
+    "$(HTMLDIR)"
+
+ALLHTML= \
+    "$(HTMLDIR)\index.html"
+
+
+# --------------------------------------------
+# Description Blocks
+# --------------------------------------------
+
+ALL: $(ALLDIR) $(INXMLFILE1) $(INXMLFILE2) $(ALLHTML)
+
+$(INXMLFILE1): 
+    $(BIN)\Imi.CodeGenerators.WebServices.spec2xml WLVoicePick $@ /OPTDICT 1 /CONN $(CONN)
+
+$(INXMLFILE2): $(INXMLFILE1)
+    $(BIN)\Imi.CodeGenerators.WebServices.ColumnInfo2XML $(INXMLFILE1) $@ /CONN $(CONN)
+
+$(HTMLDIR)\index.html: $(INXMLFILE2) $(INMASTER)
+    $(BIN)\Imi.CodeGenerators.WebServices.xml2html $(INXMLFILE2) $(INMASTER) $(HTMLDIR)
+
+CLEAN :
+    -@$(RD) $(CSDIR)
+    -@$(RD) $(SQLDIR)
+    -@$(RD) $(XMLOUTDIR)
+    -@$(RD) $(HTMLDIR)
+    @nmake /nologo ALL
+
+"$(CSDIR)" :
+    @if not exist "$(CSDIR)/$(NULL)" mkdir "$(CSDIR)"
+
+"$(SQLDIR)" :
+    @if not exist "$(SQLDIR)/$(NULL)" mkdir "$(SQLDIR)"
+
+"$(XMLOUTDIR)" :
+    @if not exist "$(XMLOUTDIR)/$(NULL)" mkdir "$(XMLOUTDIR)"
+
+"$(HTMLDIR)" :
+    @if not exist "$(HTMLDIR)/$(NULL)" mkdir "$(HTMLDIR)"
+
+# end makefile

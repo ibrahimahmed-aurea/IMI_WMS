@@ -1,19 +1,19 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Test_WindowsForms;
 
 namespace UnitTestProject
 {
-    [TestClass]
+    [TestFixture]
     public class MathOperationTests
     {
-        [TestMethod]
+        [Test]
         public void Add_Positive_ReturnSum()
         {
             int reuslt = MathOperations.Add(5, 6);
             Assert.AreEqual(reuslt, 11);
         }
 
-        [TestMethod]
+        [Test]
         public void Add_Negative_ReturnSum()
         {
             int reuslt = MathOperations.Add(-5, -6);

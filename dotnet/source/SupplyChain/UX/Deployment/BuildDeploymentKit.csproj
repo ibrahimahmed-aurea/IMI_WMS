@@ -67,6 +67,9 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="imi.pfx" />
+    <None Include="Imi.SupplyChain.UX.SmartClient.exe.manifest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Product.xml">

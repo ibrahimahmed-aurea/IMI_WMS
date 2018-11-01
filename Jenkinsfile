@@ -1,7 +1,7 @@
 node {
    stage('Preparation') {
       echo 'Pulling code from repo...'
-      git 'https://github.com/ibrahimahmed-aurea/IMI_WMS.git'
+      echo git 'https://github.com/ibrahimahmed-aurea/IMI_WMS.git'
       echo 'Code fetched.'
    }
    

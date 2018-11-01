@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomsAccountReport>
+  <MetaData documentType="CUSTACCREP" documentSubType=" " applicationIdentity="Warehouse" terminalIdentity="SE0120D" printerIdentity=" " userIdentity="jopl" numberOfCopies="1" isCopy="false" />
+  <Data>
+    <CustomsAccount>
+      <CustomAccount WarehouseIdentity="910" WarehouseName="910 - Central Warehouse" ClientIdentity="IMISTD" ClientName="IMI Standard" CustomsNumber="3" IncomingGoodsNumber="3" ReceiptId="0" ProductNumber=" " ProductDescription=" " ChangeDate="1900-01-01T00:00:00" PickOrderLineNumber=" " QuantityChange="0" CustomerOrder=" " CustomerOrderSequence="0" LowestUnitOfMeasure=" " Weight="0" ShipToParty=" " ShipToPartyName1=" " ShipToPartyName2=" " ShipToPartyAddress1=" " ShipToPartyPostCode=" " ShipToPartyCity=" " CustomsDeclarationId=" " CustomsDeclarationType=" " CustomsDeclarationTypeText=" " />
+    </CustomsAccount>
+  </Data>
+</CustomsAccountReport>

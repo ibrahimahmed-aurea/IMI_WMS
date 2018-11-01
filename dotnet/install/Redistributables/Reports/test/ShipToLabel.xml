@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ShipToLabelReport>
+  <MetaData documentType="SL" documentSubType=" " applicationIdentity="Warehouse" terminalIdentity=" " printerIdentity=" " userIdentity=" " numberOfCopies="1" isCopy="false" />
+  <Data>
+    <ShipToLabel>
+      <LoadCarrier LoadCarrierId="2021172" TotalWeight="19.7" ClientName="IMI Warehouse Std" CustomerOrderNumber="UA_CO071109_01" Name="Customer 50050" Name2=" " Address="Way 50" ZipCode="500 50" City="Best Town" Country=" " SenderName="910 - Central Warehouse" SenderAddress="Central way 1" SenderZipCode="111 11" SenderCity="Center" SenderPhone=" " SubAddress="ShiptoCusSudAdr" LoadCarrierCode=" " />
+    </ShipToLabel>
+  </Data>
+</ShipToLabelReport>

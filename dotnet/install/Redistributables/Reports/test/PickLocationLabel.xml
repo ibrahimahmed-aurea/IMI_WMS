@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PickLocationLabelReport>
+  <MetaData documentType="PPLBL" documentSubType=" " applicationIdentity="Warehouse" terminalIdentity="IMIPC1295" printerIdentity=" " userIdentity="togr" numberOfCopies="1" isCopy="false" />
+  <Data>
+    <PickLocationLabel>
+      <PickLocation PickLocationId="984" ProductNumber="721004" ClientId="IMISTD" WarehouseId="910">
+        <WarehouseProduct ProductDescription="Zoéga's Medium Roasted 250 gr" PickLocationId="984" LowestUnitOfMeasure="EH" AreaId="FL8" LocationAddress="P10" Quantity="0" VendorProductNumber="A721004" ProductNumber="721004" />
+        <WarehouseProduct ProductDescription="Zoéga's Medium Roasted 250 gr" PickLocationId="984" LowestUnitOfMeasure="EH" AreaId="FL8" LocationAddress="P10" Quantity="0" VendorProductNumber="B721004" ProductNumber="721004" />
+        <GlobalProduct ProductNumber="721004" ProductDescription="Zoéga's Medium Roasted 250 gr" PickLocationId="984" LowestUnitOfMeasure="EH" AreaId="FL8" LocationAddress="P10" Quantity="0" VendorProductNumber="A721004" />
+        <GlobalProduct ProductNumber="721004" ProductDescription="Zoéga's Medium Roasted 250 gr" PickLocationId="984" LowestUnitOfMeasure="EH" AreaId="FL8" LocationAddress="P10" Quantity="0" VendorProductNumber="B721004" />
+      </PickLocation>
+    </PickLocationLabel>
+  </Data>
+</PickLocationLabelReport>

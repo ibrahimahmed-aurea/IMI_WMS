@@ -1,0 +1,42 @@
+<%
+  string barcodeArea;
+  string barcodeText;
+  string carId = Data(@"LoadCarrier/@LoadCarrierId");
+
+  if (carId.Length != 18)
+  {
+    barcodeArea = "!F T S 180 930 C 30 0 23 \"NO SSCC NUMBER\"\\r\\n";
+    barcodeText = "(00) " + carId + " is no SSCC";
+  }
+  else 
+  {
+    barcodeArea = "!F C S 180 930 C 335 6 43 \"00" + carId + "\"\\r\\n";
+    barcodeText = "(00) " + carId;
+  }
+
+  SetVariable("BarcodeArea", barcodeArea);
+  SetVariable("BarcodeText", barcodeText);
+%>
+!C!C\r\n
+!Y45 1\r\n
+!Y100 0\r\n
+!Y24 40\r\n
+!Y35 10\r\n
+!Y9 0\r\n
+!F T S 10 1570 L 8 0 31 "%y-%N-%D %H:%M"\r\n
+!F T S 10 1060 L 8 0 31 "www.aptean.com"\r\n
+!F B S 1860 1590 L 10 1300\r\n
+!F B S 1660 1585 L 5 1290\r\n
+!F T S 1820 1580 L 10 0 23 "SSCC"\r\n
+!F T S 10 450 L 8 0 31 "CARLBLPRE"\r\n
+!F B S 80 1590 L 1780 1300 5\r\n
+!F T S 1700 1580 L 30 0 23 "<%=LoadCarrier/@LoadCarrierId%>"\r\n
+!F T S 1890 1580 L 20 0 23 "Preprinted Label"\r\n
+!Y42 0\r\n
+<%=BarcodeArea%>
+!F T S 130 940 C 15 0 23 60 "<%=BarcodeText%>"\r\n
+!F B S 550 1585 L 5 1290\r\n
+!R\r\n
+!r\r\n
+!P <%=@numberOfCopies%>\r\n
+!C!C\r\n

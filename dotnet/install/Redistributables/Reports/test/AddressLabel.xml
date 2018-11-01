@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AddressLabelReport>
+  <MetaData documentType="AL" documentSubType=" " applicationIdentity="Warehouse" terminalIdentity=" " printerIdentity=" " userIdentity=" " numberOfCopies="1" isCopy="false" />
+  <Data>
+    <AddressLabel>
+      <Address ClientName="IMI Warehouse Std" Name="910 - Central Warehouse" Address="Central way 1" City="Center" Phone=" " ZipCode="111 11" PartyType="WH" ShipToName="Customer 50050" ShipToName2=" " ShipToZipCode="500 50" ShipToCity="Best Town" ShipToCountry=" " ShipToAddress="Way 50" PlannedDepartureTime="2007-11-30T19:00:00" />
+    </AddressLabel>
+  </Data>
+</AddressLabelReport>

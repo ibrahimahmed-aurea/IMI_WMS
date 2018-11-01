@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VehicleContentListReport>
+  <MetaData documentType="VLUCL" documentSubType=" " applicationIdentity="Warehouse" terminalIdentity="IMIPC1295" printerIdentity=" " userIdentity="togr" numberOfCopies="1" isCopy="false" />
+  <Data>
+    <VehicleContentList>
+      <Content ProductNumber="721520" ProductDescription="Bird Seed" MinRefuseTemp="0" MaxRefuseTemp="37" VehicleId="609" VehicleLicensePlate="BIL 5" RegistrationNumber="BIL 5-1" />
+      <Content ProductNumber="721515" ProductDescription="Quorn Filé" MinRefuseTemp="0" MaxRefuseTemp="37" VehicleId="609" VehicleLicensePlate="BIL 5" RegistrationNumber="BIL 5-1" />
+      <Content ProductNumber="721521" ProductDescription="Best Pony Oats" MinRefuseTemp="0" MaxRefuseTemp="37" VehicleId="609" VehicleLicensePlate="BIL 5" RegistrationNumber="BIL 5-1" />
+      <Content ProductNumber="721512" ProductDescription="Vitamin C" MinRefuseTemp="0" MaxRefuseTemp="37" VehicleId="609" VehicleLicensePlate="BIL 5" RegistrationNumber="BIL 5-1" />
+      <Content ProductNumber="721517" ProductDescription="Friskies, kattmat" MinRefuseTemp="0" MaxRefuseTemp="37" VehicleId="609" VehicleLicensePlate="BIL 5" RegistrationNumber="BIL 5-1" />
+      <Content ProductNumber="721302" ProductDescription="Chinese Mushrooms 250 gr" MinRefuseTemp="0" MaxRefuseTemp="37" VehicleId="609" VehicleLicensePlate="BIL 5" RegistrationNumber="BIL 5-1" />
+      <Content ProductNumber="721302" ProductDescription="Chinese Mushrooms 250 gr" MinRefuseTemp="0" MaxRefuseTemp="37" VehicleId="609" VehicleLicensePlate="BIL 5" RegistrationNumber="BIL 5-1" />
+      <Content ProductNumber="721518" ProductDescription="Best Cat, kattsand" MinRefuseTemp="0" MaxRefuseTemp="37" VehicleId="609" VehicleLicensePlate="BIL 5" RegistrationNumber="BIL 5-1" />
+      <Content ProductNumber="721500" ProductDescription="Felix Ketchup 800 ml" MinRefuseTemp="0" MaxRefuseTemp="37" VehicleId="609" VehicleLicensePlate="BIL 5" RegistrationNumber="BIL 5-1" />
+      <Content ProductNumber="721520" ProductDescription="Bird Seed" MinRefuseTemp="0" MaxRefuseTemp="37" VehicleId="609" VehicleLicensePlate="BIL 5" RegistrationNumber="BIL 5-1" />
+      <Content ProductNumber="721301" ProductDescription="Chinese Mushrooms 125 gr" MinRefuseTemp="0" MaxRefuseTemp="37" VehicleId="609" VehicleLicensePlate="BIL 5" RegistrationNumber="BIL 5-1" />
+      <Content ProductNumber="721004" ProductDescription="Zoéga's Medium Roasted 250 gr" MinRefuseTemp="0" MaxRefuseTemp="37" VehicleId="609" VehicleLicensePlate="BIL 5" RegistrationNumber="BIL 5-1" />
+      <Content ProductNumber="721809" ProductDescription="Coca Cola" MinRefuseTemp="0" MaxRefuseTemp="37" VehicleId="609" VehicleLicensePlate="BIL 5" RegistrationNumber="BIL 5-1" />
+      <Content ProductNumber="721301" ProductDescription="Chinese Mushrooms 125 gr" MinRefuseTemp="0" MaxRefuseTemp="37" VehicleId="609" VehicleLicensePlate="BIL 5" RegistrationNumber="BIL 5-1" />
+      <Content ProductNumber="721519" ProductDescription="Dog schampoo" MinRefuseTemp="0" MaxRefuseTemp="37" VehicleId="609" VehicleLicensePlate="BIL 5" RegistrationNumber="BIL 5-1" />
+      <Content ProductNumber="721011" ProductDescription="Zoéga's Colombia 500 gr" MinRefuseTemp="0" MaxRefuseTemp="37" VehicleId="609" VehicleLicensePlate="BIL 5" RegistrationNumber="BIL 5-1" />
+      <Content ProductNumber="721512" ProductDescription="Vitamin C" MinRefuseTemp="0" MaxRefuseTemp="37" VehicleId="609" VehicleLicensePlate="BIL 5" RegistrationNumber="BIL 5-1" />
+      <Content ProductNumber="721517" ProductDescription="Friskies, kattmat" MinRefuseTemp="0" MaxRefuseTemp="37" VehicleId="609" VehicleLicensePlate="BIL 5" RegistrationNumber="BIL 5-1" />
+      <Content ProductNumber="721518" ProductDescription="Best Cat, kattsand" MinRefuseTemp="0" MaxRefuseTemp="37" VehicleId="609" VehicleLicensePlate="BIL 5" RegistrationNumber="BIL 5-1" />
+      <Content ProductNumber="721005" ProductDescription="Zoéga's Colombia 500 gr" MinRefuseTemp="0" MaxRefuseTemp="37" VehicleId="609" VehicleLicensePlate="BIL 5" RegistrationNumber="BIL 5-1" />
+      <Content ProductNumber="721009" ProductDescription="Zoega's Medium Roasted 500 gr" MinRefuseTemp="0" MaxRefuseTemp="37" VehicleId="609" VehicleLicensePlate="BIL 5" RegistrationNumber="BIL 5-1" />
+    </VehicleContentList>
+  </Data>
+</VehicleContentListReport>

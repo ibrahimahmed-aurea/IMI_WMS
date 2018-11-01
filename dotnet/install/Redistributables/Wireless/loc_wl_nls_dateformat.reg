@@ -1,0 +1,12 @@
+REGEDIT4
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Aptean\IMI Warehouse\7.1\NLS]
+"DecimalSeparator"=","
+"DateSeparator"="-"
+"ShortDateFormat"="yyyy-mm-dd"
+"TimeSeparator"=":"
+"TimeAMString"=""
+"TimePMString"=""
+"ShortTimeFormat"="hh:mm"
+"LongTimeFormat"="hh:mm:ss"
+

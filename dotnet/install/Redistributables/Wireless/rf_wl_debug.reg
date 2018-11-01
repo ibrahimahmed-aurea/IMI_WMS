@@ -1,0 +1,7 @@
+REGEDIT4
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Aptean\IMI Warehouse\7.1\RF]
+"ForceAllDebugOn"="0"
+"ForceAllDebugOff"="0"
+"DebugPath"="c:\\temp\\wireless"
+

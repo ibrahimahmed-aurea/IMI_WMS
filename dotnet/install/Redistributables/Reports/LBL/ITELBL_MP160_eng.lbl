@@ -1,0 +1,183 @@
+<%
+  DateTime expiryDate = GetDateTime(Data(@"ItemLoad/@ExpiryDate"));
+
+  string lastConsumingDate1 = "N/A";
+  string lastConsumingDate2 = "N/A";
+  string aiPtr1 = "(15) BEST BEFORE N/A  ";
+  string aiPtr2 = "(10) SKU-LOT-No N/A";
+  
+  if (expiryDate != DateTime.MinValue)
+  {
+    lastConsumingDate1 = expiryDate.ToString("MM\\/dd\\/yy");
+    lastConsumingDate2 = expiryDate.ToString("yyMMdd");
+    aiPtr1 = "(15)";
+  }
+
+  string prodLot = Data(@"ItemLoad/@ManufacturingLot");
+
+  if (!string.IsNullOrEmpty(prodLot))
+  {
+    aiPtr2 = "(10)";
+  }
+
+  string lastDateAndLotText = aiPtr1 + " " + 
+                              lastConsumingDate2 + " " +
+                              aiPtr2 + " " +
+                              prodLot;
+
+  aiPtr1 = string.Empty;
+  aiPtr2 = string.Empty;
+
+  if (expiryDate != DateTime.MinValue)
+  {
+    aiPtr1 = "15";
+  }
+
+  if (!string.IsNullOrEmpty(prodLot))
+  {
+    aiPtr2 = "10";
+  }
+
+  string lastDateAndLotBar = aiPtr1 +  
+                             lastConsumingDate2 + 
+                             aiPtr2 +
+                             prodLot;
+
+  string eanDun = Data(@"ItemLoad/@BarCodeNumber");
+  string eanDunDisp;
+
+  if (string.IsNullOrEmpty(eanDun))
+    eanDunDisp = "N/A";
+  else
+    eanDunDisp = eanDun.PadLeft(14, '0');
+
+  string iteId = Data(@"ItemLoad/@ItemLoadId");
+
+  if (iteId.Length != 18)
+  {
+    aiPtr1 = "(00) " + iteId + " is no SSCC";
+  }
+  else
+  {
+    aiPtr1 = "(00) " + iteId;
+  }
+
+  if (eanDun.Length != 14)
+  {
+    aiPtr2 = "(02) EAN N/A";
+  }
+  else
+  {
+    aiPtr2 = "(02) " + eanDun;
+  }
+
+  string ssccEanQuantityText = aiPtr1 + " " +
+                               aiPtr2 + " (37) " +
+                               Data(@"ItemLoad/@Quantity");
+
+  if (iteId.Length != 18)
+  {
+    aiPtr1 = "";
+  }
+  else
+  {
+    aiPtr1 = "00" + iteId;
+  }
+
+  if (eanDun.Length != 14)
+  {
+    aiPtr2 = "";
+  }
+  else
+  {
+    aiPtr2 = "02" + eanDun;
+  }
+
+  string ssccEanQuantityBar = aiPtr1 +
+                              aiPtr2 + "37" +
+                              Data(@"ItemLoad/@Quantity");
+  
+  string barcodeArea = "!F C S 180 930 C 200 2 43 \"" + ssccEanQuantityBar + "\"\\r\\n";
+
+  if (iteId.Length != 18)
+  {
+    if (eanDun.Length != 14)
+    {
+      barcodeArea = "!F T S 300 1530 L 20 0 23 \"NO SSCC\"\\r\\n" +
+                    "!F T S 220 1520 L 20 0 23 \"NUMBER\"\\r\\n" +
+                    "!F T S 300 1130 L 20 0 23 \"EAN\"\\r\\n" +
+                    "!F T S 220 1110 L 20 0 23 \"N/A\"\\r\\n" +
+                    "!F C S 180 630 C 200 2 43 \"" +
+                    ssccEanQuantityBar +
+                    "\"\\r\\n";
+    }
+    else
+    {
+      barcodeArea = "!F T S 300 1530 L 20 0 23 \"NO SSCC\"\\r\\n" +
+                    "!F T S 220 1520 L 20 0 23 \"NUMBER\"\\r\\n" +
+                    "!F C S 180 730 C 200 2 43 \"" + 
+                    ssccEanQuantityBar +
+                    "\"\\r\\n";
+    }
+  }
+  else
+  {
+    if (eanDun.Length != 14)
+    {
+      barcodeArea = "!F T S 300 1530 L 20 0 23 \"EAN\"\\r\\n" +
+                    "!F T S 220 1520 L 20 0 23 \"N/A\"\\r\\n" +
+                    "!F C S 180 930 C 200 2 43 \"" +
+                    ssccEanQuantityBar +
+                    "\"\\r\\n";
+    }
+  }
+
+  // Set all variables to be used in template
+  SetVariable("EanDunDisp", eanDunDisp);
+  SetVariable("ProdLot", string.IsNullOrEmpty(prodLot) ? "N/A" : prodLot);
+  SetVariable("LastConsumingDate1", lastConsumingDate1);
+  SetVariable("LastConsumingDateAndLotText", lastDateAndLotText);
+  SetVariable("LastConsumingDateAndLotBar", lastDateAndLotBar);
+  SetVariable("SSCCEanQuantityText", ssccEanQuantityText);
+  SetVariable("BarcodeArea", barcodeArea);
+%>
+!C!C\r\n
+!Y45 1\r\n
+!Y100 0\r\n
+!Y24 40\r\n
+!Y35 10\r\n
+!Y9 0\r\n
+!F T S 10 1570 L 8 0 31 "%y-%N-%D %H:%M"\r\n
+!F T S 10 1060 L 8 0 31 "www.aptean.com"\r\n
+!F B S 1860 1590 L 10 1300\r\n
+!F B S 1660 1585 L 5 1290\r\n
+!F B S 1460 1585 L 5 1290\r\n
+!F B S 1260 1585 L 5 1290\r\n
+!F B S 960 1585 L 5 1290\r\n
+!F T S 1820 1580 L 10 0 23 "SSCC"\r\n
+!F T S 1620 1580 L 10 0 23 "EAN"\r\n
+!F T S 10 390 L 8 0 31 "ITELBL"\r\n
+!F T S 1220 1580 L 10 0 23 "PRODUCT NUMBER"\r\n
+!F B S 80 1590 L 1780 1300 5\r\n
+!F B S 800 1585 L 5 1290\r\n
+!F T S 890 1570 L 10 0 23 "BEST BEFORE"\r\n
+!F T S 840 1560 L 10 0 23 "(MM/DD/YY)"\r\n
+!F T S 920 920 L 10 0 23 "SKU-LOT-No"\r\n
+!F B S 810 1310 L 147 385 0\r\n
+!F T S 1420 1580 L 10 0 23 "PRODUCT NAME"\r\n
+!F T S 1700 1580 L 30 0 23 "<%=ItemLoad/@ItemLoadId%>"\r\n
+!F T S 1890 1580 L 20 0 23 "<%=ItemLoad/@ClientName%>"\r\n
+!F T S 840 1120 C 35 0 23 60 "<%=LastConsumingDate1%>"\r\n
+!F T S 840 920 L 15 0 23 "<%=ItemLoad/@ManufacturingLot%>"\r\n
+!F T S 1070 1580 L 40 0 23 75 "<%=ItemLoad/@ProductNumber%>"\r\n
+!F T S 1340 1580 L 20 0 23 "<%=ItemLoad/@ProductDescription%>"\r\n
+!F T S 1540 1580 L 20 0 23 "<%=EanDunDisp%>"\r\n
+!F T S 480 950 C 15 0 23 60 "<%=LastConsumingDateAndLotText%>"\r\n
+!Y42 0\r\n
+!F C S 530 930 C 200 2 43 "<%=LastConsumingDateAndLotBar%>"\r\n
+<%=BarcodeArea%>
+!F T S 130 940 C 15 0 23 60 "<%=SSCCEanQuantityText%>"\r\n
+!R\r\n
+!r\r\n
+!P <%=@numberOfCopies%>\r\n
+!C!C\r\n

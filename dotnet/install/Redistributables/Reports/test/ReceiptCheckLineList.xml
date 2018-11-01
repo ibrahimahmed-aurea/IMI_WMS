@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReceiptCheckLineListReport>
+  <MetaData documentType="DLVRYCHKROW" documentSubType=" " applicationIdentity="Warehouse" terminalIdentity="IMIPC1295" printerIdentity=" " userIdentity="togr" numberOfCopies="1" isCopy="false" />
+  <Data>
+    <ReceiptCheckLineList>
+      <ReceiptLine ClientName="IMI Warehouse Std" OwnerName="910 - Central Warehouse" ArrivalTime="2008-04-17T13:04:00" CheckPerformedByUser="Johnnie Walker" ProductNumber="721809" ProductDescription="Coca Cola" ProductDescription2="Desc 2" ItemLoadIdentity="111189770020041954" Quantity="20" ManufacturingLot="0417_2" MarketingLot=" " ReceiptIdentity="4150" UnitOfMeasure="BTL" />
+      <ReceiptLine ClientName="IMI Warehouse Std" OwnerName="910 - Central Warehouse" ArrivalTime="2008-04-17T13:04:00" CheckPerformedByUser="Johnnie Walker" ProductNumber="721809" ProductDescription="Coca Cola" ProductDescription2="Desc 2" ItemLoadIdentity="111189770020041954" Quantity="20" ManufacturingLot="0417_2" MarketingLot=" " ReceiptIdentity="4150" UnitOfMeasure="BTL" />
+      <ReceiptLine ClientName="IMI Warehouse Std" OwnerName="910 - Central Warehouse" ArrivalTime="2008-04-17T13:04:00" CheckPerformedByUser="Johnnie Walker" ProductNumber="721809" ProductDescription="Coca Cola" ProductDescription2="Desc 2" ItemLoadIdentity="111189770020041985" Quantity="10" ManufacturingLot="0417_1" MarketingLot=" " ReceiptIdentity="4150" UnitOfMeasure="Can" />
+      <ReceiptLine ClientName="IMI Warehouse Std" OwnerName="910 - Central Warehouse" ArrivalTime="2008-04-17T13:04:00" CheckPerformedByUser="Johnnie Walker" ProductNumber="721809" ProductDescription="Coca Cola" ProductDescription2="Desc 2" ItemLoadIdentity="111189770020041985" Quantity="10" ManufacturingLot="0417_1" MarketingLot=" " ReceiptIdentity="4150" UnitOfMeasure="Can" />
+    </ReceiptCheckLineList>
+  </Data>
+</ReceiptCheckLineListReport>

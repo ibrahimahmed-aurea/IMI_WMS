@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreprintedLabelReport>
+  <MetaData documentType="CARLBLPRE" documentSubType=" " applicationIdentity="Warehouse" terminalIdentity=" " printerIdentity=" " userIdentity=" " numberOfCopies="1" isCopy="false" />
+  <Data>
+    <PreprintedLabel>
+      <LoadCarrier LoadCarrierOnLoadCarrierId=" " LoadCarrierId="111189020055739" />
+    </PreprintedLabel>
+  </Data>
+</PreprintedLabelReport>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GuaranteeCertificateReport>
+  <MetaData documentType="WN" documentSubType=" " applicationIdentity="Warehouse" terminalIdentity=" " printerIdentity=" " userIdentity=" " numberOfCopies="1" isCopy="false" />
+  <Data>
+    <GuaranteeCertificate>
+      <Product ProductNumber="721004" ProductDescription="Zoéga's Medium Roasted 250 gr" SerialNumber="122221" Instructions=" " />
+    </GuaranteeCertificate>
+  </Data>
+</GuaranteeCertificateReport>

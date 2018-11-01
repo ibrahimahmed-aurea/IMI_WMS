@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ConsignmentPackageLabelReport>
+  <MetaData documentType="CPL" documentSubType=" " applicationIdentity="Warehouse" terminalIdentity=" " printerIdentity=" " userIdentity=" " numberOfCopies="1" isCopy="false" />
+  <Data>
+    <ConsignmentPackageLabel>
+      <LoadCarrier LoadCarrierId="111189770020056088" ClientId="IMISTD" ClientName="IMI Warehouse Std" CustomerOrderNumberSingle="IB_CO080930_02" ShipToCustomerId="50050" WarehouseId="910" ConsignmentId=" " TotalWeight="18.25" PickLoadCarrierCode="1" DepartureId="4646" ShipToPartyId="50050" ShipToSubAddressId="ShiptoCusSudAdr" CustomerOrderNumber="IB_CO080930_02" Name="Customer 50050" Name2=" " Address="Way 50" ZipCode="500 50" City="Best Town" Country=" " SenderName="910 - Central Warehouse" SenderAddress="Central way 1" SenderZipCode="111 11" SenderCity="Center" SenderCountry=" " SenderPhone=" " PlannedDepartureTime="2008-09-30T08:15:28" ForwarderName="Over The Counter Forwarder" MethodOfShipment="OTC" />
+    </ConsignmentPackageLabel>
+  </Data>
+</ConsignmentPackageLabelReport>

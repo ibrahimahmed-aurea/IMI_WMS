@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PickLoadCarrierSpecReport>
+    <MetaData documentType="PLCS" documentSubType=" " applicationIdentity="Warehouse" terminalIdentity="SE0120D" printerIdentity=" " userIdentity="jopl" numberOfCopies="1" isCopy="false"/>
+    <Data>
+        <PickLoadCarrierSpec>
+            <LoadCarrier LoadCarrierId="123456780020029779" ProductDescription="Slow Spring" WarehouseName="910 - Central Warehouse" CustomerOrderNumber="IB_150413_07" CustomerOrderSequenceNumber="1" ProductNumber="721532" PickedQuantity="50" Weight="120" Volume=".48" ClientName="IMI Standard" PackageDescription=" " DepartureId="454" ShipToPartyId="50050" PickType="P"/>
+        </PickLoadCarrierSpec>
+    </Data>
+</PickLoadCarrierSpecReport>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LoadingListReport>
+  <MetaData documentType="LS" documentSubType=" " applicationIdentity="Warehouse" terminalIdentity="IMIPC1295" printerIdentity=" " userIdentity="togr" numberOfCopies="1" isCopy="false" />
+  <Data>
+    <LoadingList>
+      <Departure DepartureId="1026" PlannedDepartureTime="2006-04-03T12:00:00" RouteId="CC" RouteDescription="CC Route" WarehouseName="MIIVs WH">
+        <LoadCarrier StopSequence="1" PartyIdentity="CC33" LoadCarrierIdentity="MI040201" LoadCarrierTypeDescription="Euro Pallet" TotalWeight="1" TotalVolume=".2" ShipAreaIdentity=" " ShipLocationAddress=" " AreaIdentity="SP1" LocationAddress="M1000" ProductTransportTypeText="Normal" ParentLoadCarrierIdentity=" " Name="Name1" Address="Address " Address2="Address2" ZipCode="Zip01" City="City" Phone="0451-15910" EstimatedArrivalTime="1902-03-04T12:00:00.0Z" />
+        <LoadCarrier StopSequence="1" PartyIdentity="CC33"  LoadCarrierIdentity="MI040202" LoadCarrierTypeDescription="Euro Pallet" TotalWeight="1" TotalVolume=".2" ShipAreaIdentity="S1" ShipLocationAddress="Ship 1" AreaIdentity="SP1" LocationAddress="M1000" ProductTransportTypeText="Normal" ParentLoadCarrierIdentity=" " Name="Name1" Address="Address " Address2="Address2" ZipCode="Zip01" City="City" Phone="0451-15910"  EstimatedArrivalTime="1902-03-04T12:00:00.0Z"/>
+        <LoadCarrier StopSequence="1" PartyIdentity="CC33" LoadCarrierIdentity="MI040203" LoadCarrierTypeDescription="Euro Pallet" TotalWeight="1" TotalVolume=".2" ShipAreaIdentity=" " ShipLocationAddress=" " AreaIdentity="SP1" LocationAddress="M1000" ProductTransportTypeText="Normal" ParentLoadCarrierIdentity=" " Name="Name1" Address="Address " Address2="Address2" ZipCode="Zip01" City="City" Phone="0451-15910" EstimatedArrivalTime="1902-03-04T12:00:00.0Z" />
+        <ShipToParty DepartureIdentity="1026" ShipToPartyIdentity="CC33" />
+        <ProductTransportType ProductTransportTypeIdentity="00" ParentLoadCarrierIdentity=" " ProductTransportTypeText="Normal" ShipAreaIdentity="S1" ShipLocationAddress="Ship 1" TotalVolume=".2" TotalWeight="1" />
+        <ProductTransportType ProductTransportTypeIdentity="01" ParentLoadCarrierIdentity=" " ProductTransportTypeText="Frozen" ShipAreaIdentity="S2" ShipLocationAddress="Ship 2"  TotalVolume=".65" TotalWeight="3.24" />
+        <ProductTransportType ProductTransportTypeIdentity="00" ParentLoadCarrierIdentity=" " ProductTransportTypeText="Normal" ShipAreaIdentity="S1" ShipLocationAddress="Ship 1" TotalVolume=".2" TotalWeight="1" />
+      </Departure>
+    </LoadingList>
+  </Data>
+</LoadingListReport>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ItemLoadLicensePlateReport>
+  <MetaData documentType="ITELBL" documentSubType=" " applicationIdentity="Warehouse" terminalIdentity=" " printerIdentity=" " userIdentity=" " numberOfCopies="1" isCopy="false" />
+  <Data>
+    <ItemLoadLicensePlate>
+      <ItemLoad ItemLoadId="111189770020000494" Quantity="10" ProductDateType="0" ExpiryDate="1900-01-01T00:00:00" ManufacturingLot=" " LoadCarrierOnLoadCarrierId=" " ClientName="IMI Warehouse Std" ProductNumber="721409" ProductDescription="Hard Disc 80 GB" BarCodeNumber=" " />
+    </ItemLoadLicensePlate>
+  </Data>
+</ItemLoadLicensePlateReport>

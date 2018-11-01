@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BillOfLadingShipToPartyReport>
+  <MetaData documentType="CNPARTY" documentSubType=" " applicationIdentity="Warehouse" terminalIdentity="IMIPC1295" printerIdentity=" " userIdentity="togr" numberOfCopies="1" isCopy="false" />
+  <Data>
+    <BillOfLadingShipToParty>
+      <Departure ShipperName="910 - Central Warehouse" ShipperAddress="Central way 1" ShipperAddress2=" " ShipperZipCode="111 11" ShipperCity="Center" ShipperPhone=" " ShipToName="Customer 50050" ShipToAddress="Way 50" ShipToAddress2=" " ShipToPhone=" " ShipToZipCode="500 50" ShipToCity="Best Town" RouteId="910-&gt;50050" ForwarderName="BTL" ShipToPartyId="50050" BillOfLading="4028" DepartureId="2688" TransportConditionId="00" ShipToPartyType="CU" ClientId="IMISTD" ShipToName2=" " TransportConditionText="Normal" DocumentSet="1" />
+      <Departure ShipperName="910 - Central Warehouse" ShipperAddress="Central way 1" ShipperAddress2=" " ShipperZipCode="111 11" ShipperCity="Center" ShipperPhone=" " ShipToName="Customer 50050" ShipToAddress="Way 50" ShipToAddress2=" " ShipToPhone=" " ShipToZipCode="500 50" ShipToCity="Best Town" RouteId="910-&gt;50050" ForwarderName="BTL" ShipToPartyId="50050" BillOfLading="4028" DepartureId="2688" TransportConditionId="00" ShipToPartyType="CU" ClientId="IMISTD" ShipToName2=" " TransportConditionText="Normal" DocumentSet="2" />
+      <Departure ShipperName="910 - Central Warehouse" ShipperAddress="Central way 1" ShipperAddress2=" " ShipperZipCode="111 11" ShipperCity="Center" ShipperPhone=" " ShipToName="Customer 50050" ShipToAddress="Way 50" ShipToAddress2=" " ShipToPhone=" " ShipToZipCode="500 50" ShipToCity="Best Town" RouteId="910-&gt;50050" ForwarderName="BTL" ShipToPartyId="50050" BillOfLading="4028" DepartureId="2688" TransportConditionId="00" ShipToPartyType="CU" ClientId="IMISTD" ShipToName2=" " TransportConditionText="Normal" DocumentSet="3" />
+      <Departure ShipperName="910 - Central Warehouse" ShipperAddress="Central way 1" ShipperAddress2=" " ShipperZipCode="111 11" ShipperCity="Center" ShipperPhone=" " ShipToName="Customer 50050" ShipToAddress="Way 50" ShipToAddress2=" " ShipToPhone=" " ShipToZipCode="500 50" ShipToCity="Best Town" RouteId="910-&gt;50050" ForwarderName="BTL" ShipToPartyId="50050" BillOfLading="4028" DepartureId="2688" TransportConditionId="00" ShipToPartyType="CU" ClientId="IMISTD" ShipToName2=" " TransportConditionText="Normal" DocumentSet="4" />
+      <LoadCarrier LoadCarrierId="LC070215_022" ParentLoadCarrierId="LCC070215_02" TotalWeight="289" TotalVolume="4032.2" LoadCarrierTypeId="Eur" />
+      <LoadCarrier LoadCarrierId="LC070215_023" ParentLoadCarrierId="LCC070215_02" TotalWeight="401" TotalVolume="5600.2" LoadCarrierTypeId="Eur" />
+      <LoadCarrier LoadCarrierId="LC070214_024" ParentLoadCarrierId=" " TotalWeight="697.25" TotalVolume="9744.202" LoadCarrierTypeId="Eur" />
+      <LoadCarrier LoadCarrierId="LC070215_025" ParentLoadCarrierId="LCC070215_02" TotalWeight="9" TotalVolume="112.2" LoadCarrierTypeId="Eur" />
+      <LoadCarrier LoadCarrierId="LC070215_026" ParentLoadCarrierId="LCC070215_02" TotalWeight="20.2" TotalVolume=".2288" LoadCarrierTypeId="Eur" />
+      <LoadCarrier LoadCarrierId="LC070215_024" ParentLoadCarrierId="LCC070215_02" TotalWeight="1.25" TotalVolume=".202" LoadCarrierTypeId="Eur" />
+    </BillOfLadingShipToParty>
+  </Data>
+</BillOfLadingShipToPartyReport>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PackLabelPalletPickReport>
+  <MetaData documentType="PLPP" documentSubType=" " applicationIdentity="Warehouse" terminalIdentity="IMIPC1295" printerIdentity=" " userIdentity="togr" numberOfCopies="1" isCopy="false" />
+  <Data>
+    <PackLabelPalletPick>
+      <LoadCarrier LoadCarrierId="111189770020032099" TotalWeight="20.2" ClientName="IMI Warehouse Std" CustomerOrderNumber="IB_090122_08" PlannedDepartureTime="2009-01-22T23:00:00" Name="Customer 50050" Name2="Customer Name 2" Address="Way 50" ZipCode="500 50" City="Best Town" Country="USA" SenderName="910 - Central Warehouse" SenderAddress="Central way 1" SenderZipCode="111 11" SenderCity="Center" SenderPhone="121-1212221" PickLoadCarrierCode="P" ShipToSubAddressId="ShiptoCusSubAdr" />
+    </PackLabelPalletPick>
+  </Data>
+</PackLabelPalletPickReport>

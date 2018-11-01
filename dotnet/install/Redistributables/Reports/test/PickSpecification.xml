@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PickSpecificationReport>
+  <MetaData documentType="PCS" documentSubType=" " applicationIdentity="Warehouse" terminalIdentity="IMIPC1295" printerIdentity=" " userIdentity="togr" numberOfCopies="1" isCopy="false" />
+  <Data>
+    <PickSpecification>
+      <LoadCarrier LoadCarrierId="111189770020025138" ProductDescription="Chinese Mushrooms 250 gr" WarehouseName="910 - Central Warehouse" ShipToSubAddressId="ShiptoCusSubAdr" CustomerOrderNumber="IB_CO071005_01" CustomerOrderSequenceNumber="1" ProductNumber="721302" PickedQuantity="90" Weight=".02" Volume=".28" ClientName="IMI Warehouse Std" PackageDescription="EH" />
+      <LoadCarrier LoadCarrierId="111189770020025138" ProductDescription="Chinese Mushrooms 250 gr" WarehouseName="910 - Central Warehouse" ShipToSubAddressId="ShiptoCusSubAdr" CustomerOrderNumber="IB_CO071005_01" CustomerOrderSequenceNumber="1" ProductNumber="721302" PickedQuantity="90" Weight=".02" Volume=".28" ClientName="IMI Warehouse Std" PackageDescription="EH" />
+      <LoadCarrier LoadCarrierId="111189770020025138" ProductDescription="Chinese Mushrooms 250 gr" WarehouseName="910 - Central Warehouse" ShipToSubAddressId="ShiptoCusSubAdr" CustomerOrderNumber="IB_CO071005_18" CustomerOrderSequenceNumber="1" ProductNumber="721302" PickedQuantity="60" Weight=".02" Volume=".28" ClientName="IMI Warehouse Std" PackageDescription="EH" />
+      <LoadCarrier LoadCarrierId="111189770020025138" ProductDescription="Chinese Mushrooms 250 gr" WarehouseName="910 - Central Warehouse" ShipToSubAddressId="ShiptoCusSubAdr" CustomerOrderNumber="IB_CO071005_18" CustomerOrderSequenceNumber="1" ProductNumber="721302" PickedQuantity="90" Weight=".02" Volume=".28" ClientName="IMI Warehouse Std" PackageDescription="EH" />
+      <LoadCarrier LoadCarrierId="111189770020025138" ProductDescription="Chinese Mushrooms 250 gr" WarehouseName="910 - Central Warehouse" ShipToSubAddressId="ShiptoCusSubAdr" CustomerOrderNumber="IB_CO071005_18" CustomerOrderSequenceNumber="1" ProductNumber="721302" PickedQuantity="30" Weight=".02" Volume=".28" ClientName="IMI Warehouse Std" PackageDescription="EH" />
+      <LoadCarrier LoadCarrierId="111189770020025138" ProductDescription="Chinese Mushrooms 250 gr" WarehouseName="910 - Central Warehouse" ShipToSubAddressId="ShiptoCusSubAdr" CustomerOrderNumber="IB_CO071005_19" CustomerOrderSequenceNumber="1" ProductNumber="721302" PickedQuantity="49" Weight=".02" Volume=".28" ClientName="IMI Warehouse Std" PackageDescription="EH" />
+      <LoadCarrier LoadCarrierId="111189770020025138" ProductDescription="Chinese Mushrooms 250 gr" WarehouseName="910 - Central Warehouse" ShipToSubAddressId="ShiptoCusSubAdr" CustomerOrderNumber="IB_CO071005_19" CustomerOrderSequenceNumber="1" ProductNumber="721302" PickedQuantity="90" Weight=".02" Volume=".28" ClientName="IMI Warehouse Std" PackageDescription="EH" />
+      <LoadCarrier LoadCarrierId="111189770020025138" ProductDescription="Chinese Mushrooms 250 gr" WarehouseName="910 - Central Warehouse" ShipToSubAddressId="ShiptoCusSubAdr" CustomerOrderNumber="IB_CO071005_19" CustomerOrderSequenceNumber="1" ProductNumber="721302" PickedQuantity="1" Weight=".02" Volume=".28" ClientName="IMI Warehouse Std" PackageDescription="EH" />
+    </PickSpecification>
+  </Data>
+</PickSpecificationReport>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<KitConsignPackageLabelReport>
+  <MetaData documentType="KCPL" documentSubType=" " applicationIdentity="Warehouse" terminalIdentity="IMIPC1295" printerIdentity=" " userIdentity="togr" numberOfCopies="1" isCopy="false" />
+  <Data>
+    <KitConsignPackageLabel>
+      <LoadCarrier LoadCarrierId="2021194" TotalWeight="109.00" ClientName="IMI Warehouse Std" CustomerOrderNumber="IB_CO080725_01" PlannedDepartureTime="2008-07-25T21:00:00" Name="Customer 50050" Name2=" " Address="Way 50" ZipCode="500 50" City="Best Town" Country=" " SenderName="910 - Central Warehouse" SenderAddress="Central way 1" SenderCity="Center" SenderPhone="15910" SenderSubAddressId="ShiptoCusSubAdr" PickLoadCarrierCode="1" />
+    </KitConsignPackageLabel>
+  </Data>
+</KitConsignPackageLabelReport>

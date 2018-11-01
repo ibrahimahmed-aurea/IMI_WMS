@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ASNLicensePlateReport>
+  <MetaData documentType="CARLBLASN" documentSubType=" " applicationIdentity="Warehouse" terminalIdentity=" " printerIdentity=" " userIdentity=" " numberOfCopies="1" isCopy="false" />
+  <Data>
+    <ASNLicensePlate>
+      <LoadCarrier LoadCarrierId="1111020037438" />
+    </ASNLicensePlate>
+  </Data>
+</ASNLicensePlateReport>

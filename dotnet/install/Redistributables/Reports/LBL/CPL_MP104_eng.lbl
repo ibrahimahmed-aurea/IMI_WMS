@@ -1,0 +1,74 @@
+<%
+  string customerOrderNumber = Data(@"LoadCarrier/@CustomerOrderNumber") ?? Data(@"LoadCarrier/@CustomerOrderNumberSingle");
+
+  string barCode1      = "420" + Data(@"LoadCarrier/@ZipCode").Trim();
+  string barCode1Text  = "Postal Code: (420)" + Data(@"LoadCarrier/@ZipCode").Trim();
+  string barCode2      = "00" + Data(@"LoadCarrier/@LoadCarrierId");
+  string barCode2Text  = "Unique ID: (00)" + Data(@"LoadCarrier/@LoadCarrierId");
+  string departureDate = Data(@"LoadCarrier/@PlannedDepartureTime").Substring(0,10);
+
+  string weight = (Data(@"LoadCarrier/@TotalWeight") == "0") ? "-" : Data(@"LoadCarrier/@TotalWeight");
+
+  SetVariable("Barcode1", barCode1);
+  SetVariable("Barcode2", barCode2);
+  SetVariable("Barcode1Text", barCode1Text);
+  SetVariable("Barcode2Text", barCode2Text);
+  SetVariable("CustomerOrderNumber", customerOrderNumber );
+  SetVariable("Weight", weight );
+  SetVariable("DepartureDate", departureDate );
+%>
+!C!C\r\n
+!Y45 1\r\n
+!Y100 0\r\n
+!Y24 40\r\n
+!Y35 10\r\n
+!Y9 0\r\n
+!F B S 30 1050 L 10 1390 0\r\n
+!F B S 780 1050 L 10 1390 0\r\n
+!F B S 1270 1050 L 10 50 0\r\n
+!F B S 1610 1050 L 10 50 0\r\n
+!F B S 1270 80 L 10 50 0\r\n
+!F B S 1610 80 L 10 50 0\r\n
+!F B S 1280 40 L 40 10 0\r\n
+!F B S 1570 40 L 40 10 0\r\n
+!F B S 1280 1040 L 40 10 0\r\n
+!F B S 1570 1040 L 40 10 0\r\n
+!F T S 820 210 L 8 0 21 "Weight:"\r\n
+!F T S 820 1020 L 8 0 21 "Consignment ID:"\r\n
+!F T S 1230 1020 L 12 0 21 "Instructions:"\r\n
+!F T S 1300 970 L 12 0 21 "Order No:"\r\n
+!F T S 1560 1020 L 12 0 21 "To"\r\n
+!F T S 1680 970 L 12 1 21 "Phone: "\r\n
+!F T S 1630 530 L 12 0 21 "Desp. Date:"\r\n
+!F T S 1930 1020 L 12 0 21 "From"\r\n
+!F T S 5 1020 L 8 0 23 "%y-%N-%D %H:%M"\r\n
+!F T S 5 660 L 8 0 23 "www.aptean.com"\r\n
+!F T S 5 100 L 8 0 23 "CPL"\r\n
+!Y42 0\r\n
+!F T S 1880 970 L 12 1 21 "<%=LoadCarrier/@SenderName%>"\r\n
+!F T S 1830 970 L 12 1 21 "<%=LoadCarrier/@SenderAddress%>"\r\n
+!F T S 1780 970 L 12 1 21 "<%=LoadCarrier/@SenderZipCode%>  <%=LoadCarrier/@SenderCity%>"\r\n
+!F T S 1730 970 L 12 1 21 "<%=LoadCarrier/@SenderCountry%>"\r\n
+!F T S 1680 820 L 12 1 21 "<%=LoadCarrier/@SenderPhone%>"\r\n
+!F T S 1510 970 L 12 1 21 "<%=LoadCarrier/@Name%>"\r\n
+!F T S 1460 970 L 12 1 21 "<%=LoadCarrier/@Address%>"\r\n
+!F T S 1400 970 L 14 1 23 "<%=LoadCarrier/@ZipCode%>  <%=LoadCarrier/@City%>"\r\n
+!F T S 1350 970 L 12 1 21 "<%=LoadCarrier/@Country%>"\r\n
+!F T S 1300 770 L 12 1 21 "<%=CustomerOrderNumber %>"\r\n
+!F T S 1630 300 L 12 1 21 "<%=DepartureDate%>"\r\n
+!F T S 910 105 L 22 1 23 "<%=LoadCarrier/@PickLoadCarrierCode%>"\r\n
+!F T S 820 790 L 12 1 23 "<%=LoadCarrier/@ConsignmentId%>"\r\n
+!F T S 870 1020 L 12 1 21 "<%=LoadCarrier/@ForwarderName%>    <%=LoadCarrier/@MethodOfShipment%>"\r\n
+!F T S 820 80 L 12 1 23 "<%=Weight%>"\r\n
+!F C S 1110 475 C 100 3 43 "<%=LoadCarrier/@ConsignmentId%>"\r\n
+!F T S 1070 475 C 12 1 23 "Consignment ID: <%=LoadCarrier/@ConsignmentId%>"\r\n
+!F C S 950 475 C 100 3 43 "<%=LoadCarrier/@ShipToPartyId%>"\r\n
+!F T S 910 475 C 12 1 23 "Customer: <%=LoadCarrier/@ShipToPartyId%>"\r\n
+!F C S 490 475 C 270 3 43 "<%=Barcode1%>"\r\n
+!F T S 440 475 C 12 1 23 "<%=Barcode1Text%>"\r\n
+!F C S 150 475 C 270 3 43 "<%=Barcode2%>"\r\n
+!F T S 90 475 C 12 1 23 "<%=Barcode2Text%>"\r\n
+!R\r\n
+!r\r\n
+!P <%=@numberOfCopies%>\r\n
+!C!C\r\n

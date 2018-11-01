@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PackingSlipReturnsReport>
+  <MetaData documentType="PSR" documentSubType=" " applicationIdentity="Warehouse" terminalIdentity="IMIPC1295" printerIdentity=" " userIdentity="togr" numberOfCopies="1" isCopy="false" />
+  <Data>
+    <PackingSlipReturns>
+      <VendorReturnOrder OrderNumber="RB_080821_01" OrderSequence="1" OrderSubSequence="0" ClientId="IMISTD" ClientName="IMI Warehouse Std" ShipperName="Vendor 900123" ShipperAddress="Way 123" ShipperZipCode="123 00" ShipperCity="This Town" ShipperPhone="08-6743993" ShipToName="Vendor 900123" ShipToAddress="Way 123" ShipToZipCode="123 00" ShipToCity="This Town" ShipToPartyId="900123" ShipToCustomerId="900123">
+        <Company Name="IMI Warehouse Std" Address="Standard way 1" ZipCode="123 45" City="Standard Town" Phone="08-1737735" Fax="08-37377333" VatRegistrationNumber="VAT-0011" PostalGiro="PG-0103773" BankGiro="BG-873733" EMail="comp@ny.se" Country="Denmark" CountryCode="DK" CompanyRegistrationNumber="COMP01011" PartyType="CL" />
+        <OrderLine ProductNumber="721809" ProductDescription="Coca Cola" OrderedQuantity="10" PickedQuantity="2" OrderLineNumber="1" />
+        <OrderLine ProductNumber="721809" ProductDescription="Coca Cola" OrderedQuantity="11" PickedQuantity="11" OrderLineNumber="2" />
+        <OrderLine ProductNumber="721809" ProductDescription="Coca Cola" OrderedQuantity="12" PickedQuantity="10" OrderLineNumber="3" />
+        <OrderLine ProductNumber="721809" ProductDescription="Coca Cola" OrderedQuantity="13" PickedQuantity="9" OrderLineNumber="4" />
+        <OrderLine ProductNumber="721819" ProductDescription="Pepsi Cola" OrderedQuantity="14" PickedQuantity="8" OrderLineNumber="5" />
+        <OrderLine ProductNumber="721819" ProductDescription="Pepsi Cola" OrderedQuantity="15" PickedQuantity="7" OrderLineNumber="6" />
+        <OrderLine ProductNumber="721819" ProductDescription="Pepsi Cola" OrderedQuantity="16" PickedQuantity="6" OrderLineNumber="7" />
+        <OrderLine ProductNumber="721819" ProductDescription="Pepsi Cola" OrderedQuantity="17" PickedQuantity="5" OrderLineNumber="8" />
+        <OrderLine ProductNumber="721829" ProductDescription="Cuba Cola" OrderedQuantity="18" PickedQuantity="4" OrderLineNumber="9" />
+        <OrderLine ProductNumber="721829" ProductDescription="Cuba Cola" OrderedQuantity="19" PickedQuantity="3" OrderLineNumber="10" />
+        <OrderLine ProductNumber="721829" ProductDescription="Cuba Cola" OrderedQuantity="20" PickedQuantity="2" OrderLineNumber="11" />
+        <OrderLine ProductNumber="721829" ProductDescription="Cuba Cola" OrderedQuantity="21" PickedQuantity="1" OrderLineNumber="12" />
+      </VendorReturnOrder>
+    </PackingSlipReturns>
+  </Data>
+</PackingSlipReturnsReport>

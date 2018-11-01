@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<InventoryAuditListReport>
+  <MetaData documentType="STROUND" documentSubType=" " applicationIdentity="Warehouse" terminalIdentity=" " printerIdentity=" " userIdentity=" " numberOfCopies="1" isCopy="false" />
+  <Data>
+    <InventoryAuditList>
+      <StockTakingBatch BatchOrderNumber="1171" BatchSequence="3" AreaId="SP1" AreaDescription="Storage &amp; Pick Area 1 (Freezer)" UserName="Anders Persson" NumberOfLines="5" BatchLineNumber="1" LocationAddress="A11" PackageDescription="EH" ItemLoadId="0" ProductNumber="721608" ProductDescription="Kronfågel Chicken kg" ProductDescription2=" " ShowPickLocationBalance="true" Quantity="0" ClientName="IMI Warehouse Std" ShowStorageLocationBalance="true" PickLocationId="26" />
+      <StockTakingBatch BatchOrderNumber="1171" BatchSequence="3" AreaId="SP1" AreaDescription="Storage &amp; Pick Area 1 (Freezer)" UserName="Anders Persson" NumberOfLines="5" BatchLineNumber="2" LocationAddress="A21" PackageDescription="EH" ItemLoadId="0" ProductNumber="721609" ProductDescription="GB BigPack Icecream" ProductDescription2=" " ShowPickLocationBalance="true" Quantity="0" ClientName="IMI Warehouse Std" ShowStorageLocationBalance="true" PickLocationId="27" />
+      <StockTakingBatch BatchOrderNumber="1171" BatchSequence="3" AreaId="SP1" AreaDescription="Storage &amp; Pick Area 1 (Freezer)" UserName="Anders Persson" NumberOfLines="5" BatchLineNumber="3" LocationAddress="A31" PackageDescription="EH" ItemLoadId="0" ProductNumber="721709" ProductDescription="Felix Pzza 500 gr" ProductDescription2=" " ShowPickLocationBalance="true" Quantity="257" ClientName="IMI Warehouse Std" ShowStorageLocationBalance="true" PickLocationId="28" />
+      <StockTakingBatch BatchOrderNumber="1171" BatchSequence="3" AreaId="SP1" AreaDescription="Storage &amp; Pick Area 1 (Freezer)" UserName="Anders Persson" NumberOfLines="5" BatchLineNumber="4" LocationAddress="A41" PackageDescription="EH" ItemLoadId="0" ProductNumber="721516" ProductDescription="Ice Cream, Vanilla Cream" ProductDescription2=" " ShowPickLocationBalance="true" Quantity="0" ClientName="IMI Warehouse Std" ShowStorageLocationBalance="true" PickLocationId="902" />
+      <StockTakingBatch BatchOrderNumber="1171" BatchSequence="3" AreaId="SP1" AreaDescription="Storage &amp; Pick Area 1 (Freezer)" UserName="Anders Persson" NumberOfLines="5" BatchLineNumber="5" LocationAddress="B071" PackageDescription="Can, 0,5 l with label" ItemLoadId="0" ProductNumber="888888E" ProductDescription="Zingo" ProductDescription2=" " ShowPickLocationBalance="true" Quantity="0" ClientName="IMI Warehouse Std" ShowStorageLocationBalance="true" PickLocationId="2544" />
+    </InventoryAuditList>
+  </Data>
+</InventoryAuditListReport>

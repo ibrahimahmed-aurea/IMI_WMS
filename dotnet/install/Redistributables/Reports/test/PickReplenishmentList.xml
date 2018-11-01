@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PickReplenishmentListReport>
+  <MetaData documentType="REPLROUND" documentSubType=" " applicationIdentity="Warehouse" terminalIdentity=" " printerIdentity=" " userIdentity=" " numberOfCopies="1" isCopy="false" />
+  <Data>
+    <PickReplenishmentList>
+      <LoadCarrier UserName="Ulf Andersson" PickZoneName=" " LoadCarrierId="2007957" AreaId="SP4" LocationAddress="M1" ForcedPickZone=" " NumberOfItemLoads="1" PickLocationArea="1" PickLocationAddress="2" ItemLoadId="2007957" ProductNumber="721516" ProductDescription="Ice Cream, Vanilla Cream" Quantity="100" PackageDescription="Each" ClientId="HLM" />
+      <LoadCarrier UserName="Ulf Andersson" PickZoneName=" " LoadCarrierId="2007957" AreaId="SP4" LocationAddress="M1" ForcedPickZone=" " NumberOfItemLoads="1" PickLocationArea="1" PickLocationAddress="2" ItemLoadId="2007957" ProductNumber="721516" ProductDescription="Ice Cream, Vanilla Cream" Quantity="100" PackageDescription="Each" ClientId="HLM" />
+      <LoadCarrier UserName="Ulf Andersson" PickZoneName=" " LoadCarrierId="2007957" AreaId="SP4" LocationAddress="M1" ForcedPickZone=" " NumberOfItemLoads="1" PickLocationArea="1" PickLocationAddress="2" ItemLoadId="2007957" ProductNumber="721516" ProductDescription="Ice Cream, Vanilla Cream" Quantity="100" PackageDescription="Each" ClientId="HLM" />
+      <LoadCarrier UserName="Ulf Andersson" PickZoneName=" " LoadCarrierId="2007957" AreaId="SP4" LocationAddress="M1" ForcedPickZone=" " NumberOfItemLoads="1" PickLocationArea="1" PickLocationAddress="2" ItemLoadId="2007957" ProductNumber="721516" ProductDescription="Ice Cream, Vanilla Cream" Quantity="100" PackageDescription="Each" ClientId="HLM" />
+      <LoadCarrier UserName="Ulf Andersson" PickZoneName=" " LoadCarrierId="2007957" AreaId="SP4" LocationAddress="M1" ForcedPickZone=" " NumberOfItemLoads="1" PickLocationArea="1" PickLocationAddress="2" ItemLoadId="2007957" ProductNumber="721516" ProductDescription="Ice Cream, Vanilla Cream" Quantity="100" PackageDescription="Each" ClientId="HLM" />
+      <LoadCarrier UserName="Ulf Andersson" PickZoneName=" " LoadCarrierId="2007957" AreaId="SP4" LocationAddress="M1" ForcedPickZone=" " NumberOfItemLoads="1" PickLocationArea="1" PickLocationAddress="2" ItemLoadId="2007957" ProductNumber="721516" ProductDescription="Ice Cream, Vanilla Cream" Quantity="100" PackageDescription="Each" ClientId="HLM" />
+      <LoadCarrier UserName="Ulf Andersson" PickZoneName=" " LoadCarrierId="2007957" AreaId="SP4" LocationAddress="M1" ForcedPickZone=" " NumberOfItemLoads="1" PickLocationArea="1" PickLocationAddress="2" ItemLoadId="2007957" ProductNumber="721516" ProductDescription="Ice Cream, Vanilla Cream" Quantity="100" PackageDescription="Each" ClientId="HLM" />
+    </PickReplenishmentList>
+  </Data>
+</PickReplenishmentListReport>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PickLoadCarrierSpecReport>
+    <MetaData documentType="PLCS" documentSubType=" " applicationIdentity="Warehouse" terminalIdentity="SE0120D" printerIdentity=" " userIdentity="jopl" numberOfCopies="1" isCopy="false"/>
+    <Data>
+        <PickLoadCarrierSpec>
+            <LoadCarrier LoadCarrierId="123456780020095408" ProductDescription="Stone Post Seeds" WarehouseName="910 - Central Warehouse" CustomerOrderNumber="IB_150522_08" CustomerOrderSequenceNumber="1" ProductNumber="721540" PickedQuantity="3" Weight="2" Volume=".1" ClientName="IMI Standard" PackageDescription="Each" DepartureId="481" ShipToPartyId="50050" PickType="C"/>
+            <LoadCarrier LoadCarrierId="123456780020095408" ProductDescription="Stone Post Seeds" WarehouseName="910 - Central Warehouse" CustomerOrderNumber="IB_150522_08" CustomerOrderSequenceNumber="1" ProductNumber="721540" PickedQuantity="1" Weight="2" Volume=".1" ClientName="IMI Standard" PackageDescription="Each" DepartureId="481" ShipToPartyId="50050" PickType="C"/>
+            <LoadCarrier LoadCarrierId="123456780020095408" ProductDescription="Windy" WarehouseName="910 - Central Warehouse" CustomerOrderNumber="IB_150522_08" CustomerOrderSequenceNumber="1" ProductNumber="721530" PickedQuantity="15" Weight=".1" Volume=".08" ClientName="IMI Standard" PackageDescription="Each" DepartureId="481" ShipToPartyId="50050" PickType="C"/>
+        </PickLoadCarrierSpec>
+    </Data>
+</PickLoadCarrierSpecReport>

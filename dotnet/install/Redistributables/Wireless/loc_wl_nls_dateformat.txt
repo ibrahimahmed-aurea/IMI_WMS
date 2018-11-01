@@ -1,0 +1,25 @@
+
+This registry file contain optional settings regarding the date and time format.
+
+In some situations there is a problem on the RF-server with its Regional Settings
+continously changing. To make the RF-clients use a specific date format install
+this reg-file on the RF-server by doubleclicking it. You may alter the settings in
+the file before you install it or you may open the Registry Editor, locate the key
+[HKEY_LOCAL_MACHINE\SOFTWARE\Aptean\IMI Warehouse\7.1\NLS]
+and change the values. The values are
+
+- DecimalSeparator,  this is either , or .
+- DateSeparator, this is usually / or -
+- ShortDateFormat, the format (order of day, month and year), for example yyyy-mm-dd or d/m/yyyy.
+- TimeSeparator, this is either : or .
+- TimeAMString, nothing or am
+- TimePMString, nothing or pm
+- ShortTimeFormat, the format without seconds, for example hh:mm
+- LongTimeFormat, the format with seconds, for example hh:mm:ss
+
+Note that the DateSeparator is the separator that is used, the ShortDateFormat only describes the
+order of the day, month and year NOT the separator, the same is for the time formats.
+
+If these settings are missing in the registry, Windows settings are used instead.
+
+To unistall this, simply remove these entire NLS-key from the registry.

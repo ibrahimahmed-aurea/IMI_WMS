@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PickLoadCarrierCheckReport>
+  <MetaData documentType="PLCC" documentSubType=" " applicationIdentity="Warehouse" terminalIdentity="IMIPC1295" printerIdentity=" " userIdentity="togr" numberOfCopies="1" isCopy="false" />
+  <Data>
+    <PickLoadCarrierCheck>
+      <LoadCarrier WarehouseName="910 - Central Warehouse" LoadCarrierId="123456780020155782" DepartureId="2859" ProductDescription="Coca Cola Light, 33cl" OrderedQuantity="30" PickedQuantity="30" PackingMaterialDescription=" " CheckQuantity="3" PackageDescription="EH" LatestTimeOnShippingLocation="2007-04-06T17:30:00" DepartureTime="2007-04-06T18:00:00" ShipToPartyId="50050" ShipToPartyName="Customer 50050" StartTime="1900-01-01T00:00:00" UserPerformingCheck="Hata Moto" AreaDescription="Storage &amp; Pick Area 4 (Normal)" LocationAddress="M1" />
+      <LoadCarrier WarehouseName="910 - Central Warehouse" LoadCarrierId="123456780020155782" DepartureId="2859" ProductDescription="Chinese Mushrooms 125 gr" OrderedQuantity="13" PickedQuantity="13" PackingMaterialDescription=" " CheckQuantity="2" PackageDescription="EH package" LatestTimeOnShippingLocation="2007-04-06T17:30:00" DepartureTime="2007-04-06T18:00:00" ShipToPartyId="50050" ShipToPartyName="Customer 50050" StartTime="1900-01-01T00:00:00" UserPerformingCheck="Hata Moto" AreaDescription="Storage &amp; Pick Area 4 (Normal)" LocationAddress="M1" />
+      <LoadCarrier WarehouseName="910 - Central Warehouse" LoadCarrierId="123456780020155782" DepartureId="2859" ProductDescription=" " OrderedQuantity="4" PickedQuantity="13" PackingMaterialDescription="Gift Box" CheckQuantity="4" PackageDescription="EH package" LatestTimeOnShippingLocation="2007-04-06T17:30:00" DepartureTime="2007-04-06T18:00:00" ShipToPartyId="50050" ShipToPartyName="Customer 50050" StartTime="1900-01-01T00:00:00" UserPerformingCheck="Hata Moto" AreaDescription="Storage &amp; Pick Area 4 (Normal)" LocationAddress="M1" />
+    </PickLoadCarrierCheck>
+  </Data>
+</PickLoadCarrierCheckReport>

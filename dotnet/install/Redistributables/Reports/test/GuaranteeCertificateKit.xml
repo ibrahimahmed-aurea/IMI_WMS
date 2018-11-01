@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GuaranteeCertificateKitReport>
+  <MetaData documentType="KWN" documentSubType=" " applicationIdentity="Warehouse" terminalIdentity="IMIPC1295" printerIdentity=" " userIdentity="togr" numberOfCopies="1" isCopy="false" />
+  <Data>
+    <GuaranteeCertificateKit>
+      <Product ProductNumber="721495" ProductDescription="Computer PS" Instructions=" " CustomerOrderLineKitPosition="0" />
+    </GuaranteeCertificateKit>
+  </Data>
+</GuaranteeCertificateKitReport>

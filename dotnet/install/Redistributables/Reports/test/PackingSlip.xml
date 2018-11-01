@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PackingSlipReport>
+  <MetaData documentType="PS" documentSubType=" " applicationIdentity="Warehouse" terminalIdentity="IMIPC1295" printerIdentity=" " userIdentity="togr" numberOfCopies="1" isCopy="false" />
+  <Data>
+    <PackingSlip>
+      <CustomerOrder OrderNumber="SO_3PL_100002" OrderSequenceNumber="0" OrderSubSequenceNumber="0" BillToName="920 - Distr Warehouse" BillToAddress="Second Street 2" BillToZipCode="222 22" BillToCity="Second Town" SellerIdentity="920" SellerName="920 - Distr Warehouse" SellerAddress="Second Street 2" SellerZipCode="222 22" SellerCity="Second Town" SellerPhone=" " ShipperName="920 - Distr Warehouse" ShipperAddress="Second Street 2" ShipperZipCode="222 22" ShipperCity="Second Town" ShipToPartyId="920" ShipToCustomerId="920" ClientId="IMISTD" ClientName="IMI Warehouse Std" WarehouseId="910">
+        <Warehouse Name="910 - Central Warehouse" Address="Central way 1" ZipCode="111 11" City="Hässleholm" Phone="0451-383325" Fax="0451-383310" VatRegistrationNumber="VAT001" PostalGiro="P122-1221-21" BankGiro="B112-11" EMail="someplacewh@warehouse.com" Country="Sweden" CountryCode="SE" CompanyRegistrationNumber="SE-001" PartyType="WH" />
+        <Company Name="IMI Warehouse Std" Address="Standard way 1" ZipCode="123 45" City="Standard Town" Phone="0451-383304" Fax="0451-383311" VatRegistrationNumber="VAT002" PostalGiro="P002-2121" BankGiro="B-1221-111" EMail="company@plant.com" Country="USA" CountryCode="US" CompanyRegistrationNumber="US-0101" PartyType="CL" />
+        <CustomerOrderLines ProductNumber="721402" ProductDescription="Speakers (maxi)" CustomerOrderLineNumber="0" OrderedQuantity="1" PickedQuantity="0" DiscrepancyQuantity="0" Instructions=" " FreeTextSubjectType=" " />
+        <CustomerOrderLines ProductNumber="721405" ProductDescription="Screen 19&quot;" CustomerOrderLineNumber="1" OrderedQuantity="20" PickedQuantity="0" DiscrepancyQuantity="0" Instructions=" " FreeTextSubjectType=" " />
+        <CustomerOrderLines ProductNumber="721004" ProductDescription="Zoéga's Medium Roasted 250 gr" CustomerOrderLineNumber="2" OrderedQuantity="2" PickedQuantity="0" DiscrepancyQuantity="0" Instructions=" " FreeTextSubjectType=" " />
+        <CustomerOrderLines ProductNumber="721005" ProductDescription="Zoéga's Colombia 500 gr" CustomerOrderLineNumber="3" OrderedQuantity="3" PickedQuantity="0" DiscrepancyQuantity="0" Instructions=" " FreeTextSubjectType=" " />
+        <CustomerOrderLines ProductNumber="721401" ProductDescription="Speakers (mini)" CustomerOrderLineNumber="4" OrderedQuantity="10" PickedQuantity="0" DiscrepancyQuantity="0" Instructions=" " FreeTextSubjectType=" " />
+        <CustomerOrderLines ProductNumber="721402" ProductDescription="Speakers (maxi)" CustomerOrderLineNumber="5" OrderedQuantity="1" PickedQuantity="0" DiscrepancyQuantity="0" Instructions=" " FreeTextSubjectType=" " />
+        <CustomerOrderLines ProductNumber="721405" ProductDescription="Screen 19&quot;" CustomerOrderLineNumber="6" OrderedQuantity="20" PickedQuantity="0" DiscrepancyQuantity="0" Instructions=" " FreeTextSubjectType=" " />
+        <CustomerOrderLines ProductNumber="721004" ProductDescription="Zoéga's Medium Roasted 250 gr" CustomerOrderLineNumber="7" OrderedQuantity="2" PickedQuantity="0" DiscrepancyQuantity="0" Instructions=" " FreeTextSubjectType=" " />
+        <CustomerOrderLines ProductNumber="721005" ProductDescription="Zoéga's Colombia 500 gr" CustomerOrderLineNumber="8" OrderedQuantity="3" PickedQuantity="0" DiscrepancyQuantity="0" Instructions=" " FreeTextSubjectType=" " />
+        <CustomerOrderLines ProductNumber="721518" ProductDescription="Best Cat, kattsand" CustomerOrderLineNumber="9" OrderedQuantity="1" PickedQuantity="0" DiscrepancyQuantity="0" Instructions=" " FreeTextSubjectType=" " />
+        <CustomerOrderLines ProductNumber="721507" ProductDescription="Felix Sandwich Cucumber 850 gr" CustomerOrderLineNumber="10" OrderedQuantity="2" PickedQuantity="0" DiscrepancyQuantity="0" Instructions=" " FreeTextSubjectType=" " />
+        <CustomerOrderLines ProductNumber="721506" ProductDescription="Felix Potatoe Sallad 2,5 kg" CustomerOrderLineNumber="11" OrderedQuantity="8" PickedQuantity="0" DiscrepancyQuantity="0" Instructions=" " FreeTextSubjectType=" " />
+        <CustomerOrderLines ProductNumber="721504" ProductDescription="Felix Boston Cucumber 350 gr" CustomerOrderLineNumber="12" OrderedQuantity="20" PickedQuantity="0" DiscrepancyQuantity="0" Instructions=" " FreeTextSubjectType=" " />
+        <CustomerOrderLines ProductNumber="721203" ProductDescription="Grundig - 32&quot;" CustomerOrderLineNumber="13" OrderedQuantity="3" PickedQuantity="0" DiscrepancyQuantity="0" Instructions=" " FreeTextSubjectType=" " />
+        <CustomerOrderLines ProductNumber="721302" ProductDescription="Chinese Mushrooms 250 gr" CustomerOrderLineNumber="14" OrderedQuantity="5" PickedQuantity="0" DiscrepancyQuantity="0" Instructions=" " FreeTextSubjectType=" " />
+        <CustomerOrderLines ProductNumber="721517" ProductDescription="Friskies, kattmat" CustomerOrderLineNumber="15" OrderedQuantity="12" PickedQuantity="0" DiscrepancyQuantity="0" Instructions=" " FreeTextSubjectType=" " />
+        <CustomerOrderLines ProductNumber="721519" ProductDescription="Dog schampoo" CustomerOrderLineNumber="16" OrderedQuantity="2" PickedQuantity="0" DiscrepancyQuantity="0" Instructions=" " FreeTextSubjectType=" " />
+        <CustomerOrderLines ProductNumber="721507" ProductDescription="Felix Sandwich Cucumber 850 gr" CustomerOrderLineNumber="17" OrderedQuantity="2" PickedQuantity="0" DiscrepancyQuantity="0" Instructions=" " FreeTextSubjectType=" " />
+        <CustomerOrderLines ProductNumber="721506" ProductDescription="Felix Potatoe Sallad 2,5 kg" CustomerOrderLineNumber="18" OrderedQuantity="8" PickedQuantity="0" DiscrepancyQuantity="0" Instructions=" " FreeTextSubjectType=" " />
+        <CustomerOrderLines ProductNumber="721504" ProductDescription="Felix Boston Cucumber 350 gr" CustomerOrderLineNumber="19" OrderedQuantity="20" PickedQuantity="0" DiscrepancyQuantity="0" Instructions=" " FreeTextSubjectType=" " />
+        <CustomerOrderLines ProductNumber="721203" ProductDescription="Grundig - 32&quot;" CustomerOrderLineNumber="20" OrderedQuantity="3" PickedQuantity="0" DiscrepancyQuantity="0" Instructions=" " FreeTextSubjectType=" " />
+        <CustomerOrderLines ProductNumber="721302" ProductDescription="Chinese Mushrooms 250 gr" CustomerOrderLineNumber="21" OrderedQuantity="5" PickedQuantity="0" DiscrepancyQuantity="0" Instructions=" " FreeTextSubjectType=" " />
+        <CustomerOrderLines ProductNumber="721517" ProductDescription="Friskies, kattmat" CustomerOrderLineNumber="22" OrderedQuantity="12" PickedQuantity="0" DiscrepancyQuantity="0" Instructions=" " FreeTextSubjectType=" " />
+        <CustomerOrderLines ProductNumber="721519" ProductDescription="Dog schampoo" CustomerOrderLineNumber="23" OrderedQuantity="2" PickedQuantity="0" DiscrepancyQuantity="0" Instructions=" " FreeTextSubjectType=" " />
+      </CustomerOrder>
+    </PackingSlip>
+  </Data>
+</PackingSlipReport>

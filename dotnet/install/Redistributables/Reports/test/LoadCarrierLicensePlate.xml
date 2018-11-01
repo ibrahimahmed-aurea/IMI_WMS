@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LoadCarrierLicensePlateReport>
+  <MetaData documentType="CARLBL" documentSubType="Wee" applicationIdentity="Warehouse" terminalIdentity="Dude" printerIdentity="Wang" userIdentity="togr" numberOfCopies="1" isCopy="false" />
+  <Data>
+    <LoadCarrierLicensePlate>
+      <LoadCarrier LoadCarrierId="111189770020055739" LoadCarrierOnLoadCarrierId="1212" ClientName="IMI Warehouse Std" />
+    </LoadCarrierLicensePlate>
+  </Data>
+</LoadCarrierLicensePlateReport>

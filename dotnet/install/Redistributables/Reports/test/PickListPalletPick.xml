@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PickListPalletPickReport>
+  <MetaData documentType="PALTICKET" documentSubType=" " applicationIdentity="Warehouse" terminalIdentity="IMIPC1295" printerIdentity=" " userIdentity="togr" numberOfCopies="1" isCopy="false" />
+  <Data>
+    <PickListPalletPick>
+      <LoadCarrier ProductDescription="Best Cat, kattsand" ProductNumber="721518" FromArea="SP4" FromAddress="M5" PackageDescription="Pallet Package" Name="Customer 50050" Address="Way 50" Country="Poland" TotalWeight="2" Instructions=" " ZipCode="500 50" City="Best Town" ClientName="IMI Warehouse Std" OrderedQuantity="1" PickingTicket="1834" CustomerOrderNumber="IB_080908_01" ToArea="SH" ToLocationAddress="1" Weight="1" LoadCarrierId="111189770020054664" />
+      <LoadCarrier ProductDescription="Best Dog, dogsand" ProductNumber="721519" FromArea="SP4" FromAddress="M6" PackageDescription="Pallet Package" Name="Customer 50050" Address="Way 50" Country="Poland" TotalWeight="4" Instructions="Bend your legs" ZipCode="500 50" City="Best Town" ClientName="IMI Warehouse Std" OrderedQuantity="4" PickingTicket="1835" CustomerOrderNumber="IB_080908_01" ToArea="SH" ToLocationAddress="1" Weight="1" LoadCarrierId="111189770020054664" />
+    </PickListPalletPick>
+  </Data>
+</PickListPalletPickReport>

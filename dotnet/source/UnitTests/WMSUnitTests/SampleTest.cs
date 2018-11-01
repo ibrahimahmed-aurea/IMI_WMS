@@ -15,7 +15,7 @@ namespace HelloWorldTest
         public void PickOrder_InsufficientAmount_Reject()
         {
             int x = 5 + 4;
-            Assert.AreEqual(x, 9);
+            Assert.AreEqual(x, 20);
         }
         [Test]
         public void Print_NoPrinter_ErrorMessage()

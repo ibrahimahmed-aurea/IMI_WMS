@@ -43,7 +43,7 @@ namespace BuildDeploymentKit
 
 
             string revision = "0";
-            string lastRevision = string.Empty;
+            string lastRevision = "0";
 
             if (File.Exists("setversion.bat"))
             {

@@ -23,6 +23,6 @@ node {
    
    stage('Publish Unit Tests Report'){
 	 echo 'Displaying the unit tests result'
-     nunit testResultsPattern: 'TestResult.xml'
+    // nunit testResultsPattern: 'TestResult.xml'
      }
 }

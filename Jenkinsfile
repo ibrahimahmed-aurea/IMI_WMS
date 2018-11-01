@@ -20,7 +20,7 @@ node {
    
    stage('Automation Testing'){
         echo 'Testing...'
-		bat returnStatus: true, script: 'call test.bat'
+		bat returnStatus: true, script: 'call dotnet/test.bat'
         echo 'Tests passed!'
    }
 }

@@ -21,7 +21,8 @@ node {
         echo 'Tests passed!'
    }
    
-   stage("Publish Unit Tests Report"){
+   stage('Publish Unit Tests Report'){
+	 echo 'Displaying the unit tests result'
      nunit testResultsPattern: 'TestResult.xml'
      }
 }

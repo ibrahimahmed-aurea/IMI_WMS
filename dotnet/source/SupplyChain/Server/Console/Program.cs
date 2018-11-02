@@ -16,7 +16,7 @@ namespace Imi.SupplyChain.Server.Console
     public class Program
     {
         public static void Main(string[] args)
-        {
+        {XXXXXX
             System.Console.WriteLine("IMI Supply Chain Application Server");
             System.Console.WriteLine(string.Format("Version {0}", Assembly.GetExecutingAssembly().GetName().Version));
             System.Console.WriteLine("Copyright (c) Aptean\n");

@@ -48,6 +48,7 @@ if "%succeeded%" == "true" (
 else (
 	set errorlevel = 1
 	Echo 'Failed to build one or more solutions'
+	exit /b 1
 )
 
 

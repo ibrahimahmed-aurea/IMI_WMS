@@ -1,7 +1,7 @@
 
 set MsBuild=C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe
 set TrackDrive=N:
-call "setn.bat"
+call %0\..\setn.bat 
 
 
 rem Disable smart client build untill we get a license for ActiPro as it blocks the build

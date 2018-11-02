@@ -10,4 +10,3 @@ Echo Build the unit tests solution
 
 Echo Start testing..
 "C:\Program Files (x86)\NUnit.org\nunit-console\nunit3-console.exe" "dotnet/source/UnitTests/WMSUnitTests/bin/Release/WMSUnitTests.dll"
-

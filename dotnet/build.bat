@@ -9,46 +9,35 @@ rem Echo Building the smart client front end
 rem %MsBuild% /p:Configuration=Release /p:Platform=x86 /v:m %TrackDrive%\source\SupplyChain\SmartClient_Frontend.sln
 
 Echo Building the smart client backend end
-%MsBuild% /p:Configuration=Release /p:Platform="Mixed Platforms" /v:m %TrackDrive%\source\SupplyChain\Server\SupplyChain.Server.sln || succeeded = "false"
+%MsBuild% /p:Configuration=Release /p:Platform="Mixed Platforms" /v:m %TrackDrive%\source\SupplyChain\Server\SupplyChain.Server.sln || exit 1
 
 Echo Building the Deployment Manager
-%MsBuild% /p:Configuration=Release /p:Platform="Mixed Platforms" /v:m %TrackDrive%\source\SupplyChain\Deployment\SupplyChain.Deployment.sln  || succeeded = "false"
+%MsBuild% /p:Configuration=Release /p:Platform="Mixed Platforms" /v:m %TrackDrive%\source\SupplyChain\Deployment\SupplyChain.Deployment.sln  || exit 1
 
 Echo Building the voice server
-%MsBuild% /p:Configuration=Release /p:Platform="Any CPU" /v:m %TrackDrive%\source\Wms\Voice\Vocollect\Wms.Voice.Vocollect.sln  || succeeded = "false"
+%MsBuild% /p:Configuration=Release /p:Platform="Any CPU" /v:m %TrackDrive%\source\Wms\Voice\Vocollect\Wms.Voice.Vocollect.sln  || exit 1
 
 Echo Building the Thin Client Server
-%MsBuild% /p:Configuration=Release /p:Platform="Any CPU" /v:m "%TrackDrive%\source\Wms\Mobile\Server\Wms.Mobile.Server.sln"  || succeeded = "false"
+%MsBuild% /p:Configuration=Release /p:Platform="Any CPU" /v:m "%TrackDrive%\source\Wms\Mobile\Server\Wms.Mobile.Server.sln"  || exit 1
 
 Echo Building the Thin Client Desktop App
-%MsBuild% /p:Configuration=Release /p:Platform="Any CPU" /v:m "%TrackDrive%\source\Wms\Mobile\UI\WindowsDesktop\WindowsDesktopClient.sln"  || succeeded = "false"
+%MsBuild% /p:Configuration=Release /p:Platform="Any CPU" /v:m "%TrackDrive%\source\Wms\Mobile\UI\WindowsDesktop\WindowsDesktopClient.sln"  || exit 1
 
 Echo Building the Thin Client Windows 6 Mobile App
-%MsBuild% /p:Configuration=Release /p:Platform="Any CPU" /v:m "%TrackDrive%\source\Wms\Mobile\UI\WindowsMobile\ThinClient.sln"  || succeeded = "false"
+%MsBuild% /p:Configuration=Release /p:Platform="Any CPU" /v:m "%TrackDrive%\source\Wms\Mobile\UI\WindowsMobile\ThinClient.sln"  || exit 1
 
 Echo Building the Meta Manager
-%MsBuild% /p:Configuration=Release /p:Platform="Any CPU" /v:m "%TrackDrive%\source\CodeGenerators\MetaManager\MetaManager.sln"  || succeeded = "false"
+%MsBuild% /p:Configuration=Release /p:Platform="Any CPU" /v:m "%TrackDrive%\source\CodeGenerators\MetaManager\MetaManager.sln"  || exit 1
 
 Echo Building the web services code generator
-%MsBuild% /p:Configuration=Release /p:Platform="Any CPU" /v:m "%TrackDrive%\source\CodeGenerators\WebServices\CodeGenerators.WebServices.sln"  || succeeded = "false"
+%MsBuild% /p:Configuration=Release /p:Platform="Any CPU" /v:m "%TrackDrive%\source\CodeGenerators\WebServices\CodeGenerators.WebServices.sln"  || exit 1
 
 Echo Building the Authorization Manager 
-%MsBuild% /p:Configuration=Release /p:Platform="Any CPU" /v:m "%TrackDrive%\source\Utils\AzmanTool\AuthorizationManagerTool.sln"
+%MsBuild% /p:Configuration=Release /p:Platform="Any CPU" /v:m "%TrackDrive%\source\Utils\AzmanTool\AuthorizationManagerTool.sln" || exit 1
 
 Echo Building the Generated WebServices
-%MsBuild% /p:Configuration=Release /p:Platform="Any CPU" /v:m "%TrackDrive%\source\Wms\WebServices\Wms.WebServices.sln"  || succeeded = "false"
+%MsBuild% /p:Configuration=Release /p:Platform="Any CPU" /v:m "%TrackDrive%\source\Wms\WebServices\Wms.WebServices.sln"  || exit 1
 
 Echo Building the generated 3pl web services
-%MsBuild% /p:Configuration=Release /p:Platform=x86 /v:m %TrackDrive%\source\Wms\WebServices\SyncWS\Wms.WebServices.SyncWS.sln  || succeeded = "false"
-
-
-if "%succeeded%" == "true" (
-    Echo 'All solution were built successfully.'
-)
-else (
-	set errorlevel = 1
-	Echo 'Failed to build one or more solutions'
-	exit 1
-)
-
+%MsBuild% /p:Configuration=Release /p:Platform=x86 /v:m %TrackDrive%\source\Wms\WebServices\SyncWS\Wms.WebServices.SyncWS.sln  || exit 1
 

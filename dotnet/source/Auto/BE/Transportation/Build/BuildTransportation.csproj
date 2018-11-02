@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{422B1F7A-2A75-45CC-AEC2-9977F2CFBAC5}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BuildWarehouse</RootNamespace>
+    <AssemblyName>BuildWarehouse</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\BuildWarehouse.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\BuildWarehouse.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\BuildWarehouse.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\BuildWarehouse.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\references\EntLib4\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\references\EntLib4\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.WCF, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\references\EntLib4\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.WCF.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.PolicyInjection, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\references\EntLib4\Microsoft.Practices.EnterpriseLibrary.PolicyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ObjectBuilder2, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\references\EntLib4\Microsoft.Practices.ObjectBuilder2.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\references\EntLib4\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\references\EntLib4\Microsoft.Practices.Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.DataAccess, Version=4.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\references\Oracle\Oracle.DataAccess.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Framework\DataAccess\Framework.DataAccess.csproj">
+      <Project>{D37C75E5-91E1-4531-B87D-CF874878917D}</Project>
+      <Name>Framework.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\Services\Framework.Services.csproj">
+      <Project>{095B36E1-AF0A-4ADB-AEFD-DDD0C677896F}</Project>
+      <Name>Framework.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\SupplyChain\Services\Transportation\Alarm\BusinessEntities\SupplyChain.Transportation.Alarm.BusinessEntities.csproj">
+      <Project>{6B09C184-78CB-42B7-B31E-6304E64BEC89}</Project>
+      <Name>SupplyChain.Transportation.Alarm.BusinessEntities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\SupplyChain\Services\Transportation\Alarm\BusinessLogic\SupplyChain.Transportation.Alarm.BusinessLogic.csproj">
+      <Project>{B63D345E-5ABF-4E59-9AC3-20086135D814}</Project>
+      <Name>SupplyChain.Transportation.Alarm.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\SupplyChain\Services\Transportation\Alarm\DataAccess\SupplyChain.Transportation.Alarm.DataAccess.csproj">
+      <Project>{913656B2-D63F-4C8E-AADE-80D9F6CB7D41}</Project>
+      <Name>SupplyChain.Transportation.Alarm.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\SupplyChain\Services\Transportation\Alarm\DataContracts\SupplyChain.Transportation.Services.Alarm.DataContracts.csproj">
+      <Project>{7187D253-914A-4B77-8A5C-DDB09F94751E}</Project>
+      <Name>SupplyChain.Transportation.Services.Alarm.DataContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\SupplyChain\Services\Transportation\Alarm\ServiceContracts\SupplyChain.Transportation.Services.Alarm.ServiceContracts.csproj">
+      <Project>{F4C3E5E9-E67E-4DB2-A841-AC2724F9F0D4}</Project>
+      <Name>SupplyChain.Transportation.Services.Alarm.ServiceContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\SupplyChain\Services\Transportation\Alarm\ServiceImplementation\SupplyChain.Transportation.Services.Alarm.ServiceImplementation.csproj">
+      <Project>{D3D00886-5AFA-4EBE-94F9-1692D8226F88}</Project>
+      <Name>SupplyChain.Transportation.Services.Alarm.ServiceImplementation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\SupplyChain\Services\Transportation\Authentication\BusinessEntities\SupplyChain.Transportation.Authentication.BusinessEntities.csproj">
+      <Project>{B3156AAD-3ED3-4373-8234-11C502226BDD}</Project>
+      <Name>SupplyChain.Transportation.Authentication.BusinessEntities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\SupplyChain\Services\Transportation\Authentication\BusinessLogic\SupplyChain.Transportation.Authentication.BusinessLogic.csproj">
+      <Project>{6D807B74-50BF-4A13-AC51-8813BF757A9B}</Project>
+      <Name>SupplyChain.Transportation.Authentication.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\SupplyChain\Services\Transportation\Authentication\DataAccess\SupplyChain.Transportation.Authentication.DataAccess.csproj">
+      <Project>{C7782D7F-4909-4B61-8BC7-BE9E4B38A742}</Project>
+      <Name>SupplyChain.Transportation.Authentication.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\SupplyChain\Services\Transportation\Authentication\DataContracts\SupplyChain.Transportation.Services.Authentication.DataContracts.csproj">
+      <Project>{E57980F1-9EF1-44D2-AC03-C12F3C185C18}</Project>
+      <Name>SupplyChain.Transportation.Services.Authentication.DataContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\SupplyChain\Services\Transportation\Authentication\ServiceContracts\SupplyChain.Transportation.Services.Authentication.ServiceContracts.csproj">
+      <Project>{4BC48970-1C6F-4328-B546-F04A44A54557}</Project>
+      <Name>SupplyChain.Transportation.Services.Authentication.ServiceContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\SupplyChain\Services\Transportation\Authentication\ServiceImplementation\SupplyChain.Transportation.Services.Authentication.ServiceImplementation.csproj">
+      <Project>{C54C3048-F331-40F0-9218-31CCA68E475B}</Project>
+      <Name>SupplyChain.Transportation.Services.Authentication.ServiceImplementation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\SupplyChain\Services\Transportation\MessageHandler\BusinessEntities\SupplyChain.Transportation.MessageHandler.BusinessEntities.csproj">
+      <Project>{053F756C-9B61-443A-BB3F-291857D01198}</Project>
+      <Name>SupplyChain.Transportation.MessageHandler.BusinessEntities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\SupplyChain\Services\Transportation\MessageHandler\DataAccess\SupplyChain.Transportation.MessageHandler.DataAccess.csproj">
+      <Project>{0ABAFFF6-F01B-4C51-B571-A9AFA161B713}</Project>
+      <Name>SupplyChain.Transportation.MessageHandler.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\SupplyChain\Services\Transportation\RowTracker\BusinessEntities\SupplyChain.Transportation.RowTracker.BusinessEntities.csproj">
+      <Project>{F10407A6-0098-4AF6-87C8-D71599DF69FF}</Project>
+      <Name>SupplyChain.Transportation.RowTracker.BusinessEntities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\SupplyChain\Services\Transportation\RowTracker\DataAccess\SupplyChain.Transportation.RowTracker.DataAccess.csproj">
+      <Project>{26C377C0-D7A4-4C7C-B37F-F7C5EE85E465}</Project>
+      <Name>SupplyChain.Transportation.RowTracker.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\SupplyChain\Services\Transportation\Tracing\BusinessEntities\SupplyChain.Transportation.Tracing.BusinessEntities.csproj">
+      <Project>{C7008BB8-707C-4B7F-A3EA-F0D8C4BD374D}</Project>
+      <Name>SupplyChain.Transportation.Tracing.BusinessEntities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\SupplyChain\Services\Transportation\Tracing\BusinessLogic\SupplyChain.Transportation.Tracing.BusinessLogic.csproj">
+      <Project>{295D6292-989E-4B27-A2F5-CE59A118C77A}</Project>
+      <Name>SupplyChain.Transportation.Tracing.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\SupplyChain\Services\Transportation\Tracing\DataAccess\SupplyChain.Transportation.Tracing.DataAccess.csproj">
+      <Project>{9142F336-1B7B-4B41-882A-7009829B9709}</Project>
+      <Name>SupplyChain.Transportation.Tracing.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\SupplyChain\Services\Transportation\Tracing\DataContracts\SupplyChain.Transportation.Services.Tracing.DataContracts.csproj">
+      <Project>{4931F209-D926-4472-9091-E177C7E3E9F3}</Project>
+      <Name>SupplyChain.Transportation.Services.Tracing.DataContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\SupplyChain\Services\Transportation\Tracing\ServiceContracts\SupplyChain.Transportation.Services.Tracing.ServiceContracts.csproj">
+      <Project>{D0E19E63-AEFA-4B2A-86C6-3D654FF2EAED}</Project>
+      <Name>SupplyChain.Transportation.Services.Tracing.ServiceContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\SupplyChain\Services\Transportation\Tracing\ServiceImplementation\SupplyChain.Transportation.Services.Tracing.ServiceImplementation.csproj">
+      <Project>{4C7D614D-0A83-46C8-A1DF-8BDE383E400E}</Project>
+      <Name>SupplyChain.Transportation.Services.Tracing.ServiceImplementation</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>set MsBuild=c:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\msbuild.exe /verbosity:normal /nologo
+set AutoDir=$(ProjectDir)..\
+set RuntimeDir=$(ProjectDir)..\..\..\..\SupplyChain\Server\Console\$(OutDir)
+set Zip=$(SolutionDir)..\..\..\install\utility\zipit.exe
+if not exist %25AutoDir%25auto.sln goto End
+xcopy $(TargetDir)*.dll %25AutoDir%25temp /d /y
+if errorlevel 1 goto End
+%25MsBuild%25 %25AutoDir%25auto.sln /p:Configuration=$(ConfigurationName) /p:OutDir=%25AutoDir%25$(OutDir) /m
+if errorlevel 1 goto End
+xcopy %25AutoDir%25$(OutDir)*.* %25RuntimeDir%25 /d /y
+if errorlevel 1 goto End
+xcopy %25AutoDir%25temp\*.* %25RuntimeDir%25 /d /y
+if $(ConfigurationName) == Debug goto End
+attrib -r $(ProjectDir)TransportationBinaries.zip
+del $(ProjectDir)TransportationBinaries.zip /q
+%25Zip%25 $(ProjectDir)TransportationBinaries.zip %25AutoDir%25$(OutDir) %25AutoDir%25temp
+:End
+</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

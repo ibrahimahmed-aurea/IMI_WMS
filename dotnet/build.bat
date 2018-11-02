@@ -12,7 +12,7 @@ Echo Building the smart client backend end
 %MsBuild% /p:Configuration=Release /p:Platform="Mixed Platforms" /v:m %TrackDrive%\source\SupplyChain\Server\SupplyChain.Server.sln || succeeded = "false"
 
 Echo Building the Deployment Manager
-%MsBuild% /p:Configuration=Release /p:Platform="Mixed Platforms" /v:m %TrackDrive%\source\SupplyChain\Deployment\SupplyChain.Deployment.sln"  || succeeded = "false"
+%MsBuild% /p:Configuration=Release /p:Platform="Mixed Platforms" /v:m %TrackDrive%\source\SupplyChain\Deployment\SupplyChain.Deployment.sln  || succeeded = "false"
 
 Echo Building the voice server
 %MsBuild% /p:Configuration=Release /p:Platform="Any CPU" /v:m %TrackDrive%\source\Wms\Voice\Vocollect\Wms.Voice.Vocollect.sln  || succeeded = "false"
@@ -48,7 +48,7 @@ if "%succeeded%" == "true" (
 else (
 	set errorlevel = 1
 	Echo 'Failed to build one or more solutions'
-	exit /b 1
+	exit 1
 )
 
 

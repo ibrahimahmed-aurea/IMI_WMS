@@ -5,8 +5,8 @@ call %0\..\setn.bat
 
 
 rem Disable smart client build untill we get a license for ActiPro as it blocks the build
-Echo Building the smart client front end
-%MsBuild% /p:Configuration=Release /p:Platform=x86 /v:m %TrackDrive%\source\SupplyChain\SmartClient_Frontend.sln
+rem Echo Building the smart client front end
+rem %MsBuild% /p:Configuration=Release /p:Platform=x86 /v:m %TrackDrive%\source\SupplyChain\SmartClient_Frontend.sln
 
 Echo Building the smart client backend end
 %MsBuild% /p:Configuration=Release /p:Platform="Mixed Platforms" /v:m %TrackDrive%\source\SupplyChain\Server\SupplyChain.Server.sln

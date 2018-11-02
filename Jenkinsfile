@@ -7,12 +7,8 @@ node {
    
    stage('Build') {
     echo 'Start building all projects...'
-    bat returnStatus: true, script: 'call buil.bat'
+    bat returnStatus: true, script: 'call dotnet/buil.bat'
 	echo 'Build finished...'
-   }
-   
-   stage('Deployment') {
-                echo 'Running the application...'
    }
    
    stage('Unit Tests'){

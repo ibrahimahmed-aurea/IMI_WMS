@@ -9,14 +9,6 @@ pipeline {
 			  }
 		   }
 		   
-		   stage('Build') {
-				steps {
-					echo 'Start building all projects...'
-					bat 'call dotnet/build.bat > build-result.txt'
-					echo 'Build finished...'
-				}
-		   }
-		   
 		   stage('Unit Tests'){
 				steps {
 					echo 'Testing...'
@@ -32,13 +24,4 @@ pipeline {
 				}
 		   }
 	}
-	post {
-        always { 
-            echo 'I will always say Hello again!'
-            	emailext attachmentsPattern: '**/build-result.txt',
-				recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
-				body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}",
-				subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}"
-        }
-    }	
 }
